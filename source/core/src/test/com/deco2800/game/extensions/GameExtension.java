@@ -13,8 +13,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.mockito.Mockito;
 
 /**
- * A JUnit extension which provides libGDX mocking and clears global variables between tests. Use
- * this extension when testing game-related classes.
+ * A JUnit extension which provides libGDX mocking and clears global variables between tests.
+ * Use this extension when testing game-related classes.
  */
 public class GameExtension implements AfterEachCallback, BeforeAllCallback {
   private Application game;

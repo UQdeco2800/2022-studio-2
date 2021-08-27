@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-        mavenLocal()
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
@@ -24,6 +23,7 @@ sonarqube {
 
 allprojects {
     apply plugin: "eclipse"
+    apply plugin: "idea"
     apply plugin: 'jacoco'
 
     version = '1.0'
@@ -35,14 +35,14 @@ allprojects {
         ashleyVersion = '1.7.3'
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.1.0'
-        junitVersion = '5.7.1'
+        junit5Version = '5.7.2'
+        junit4Version = '4.13.2'
         mockitoVersion = '3.8.0'
         gdxUtilsVersion = '0.13.4'
         slf4jVersion = '1.7.30'
     }
 
     repositories {
-        mavenLocal()
         mavenCentral()
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
@@ -52,6 +52,13 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java-library"
+
+    // Enforce use of JDK 11. Will download if it isn't in default OS location.
+//    java {
+//        toolchain {
+//            languageVersion.set(JavaLanguageVersion.of(11))
+//        }
+//    }
 
     dependencies {
         implementation project(":core")
@@ -66,6 +73,13 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java-library"
 
+    // Enforce use of JDK 11. Will download if it isn't in default OS location.
+//    java {
+//        toolchain {
+//            languageVersion.set(JavaLanguageVersion.of(11))
+//        }
+//    }
+
     dependencies {
         // libGDX
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -75,12 +89,20 @@ project(":core") {
         api "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion"
 
         // Logging
-        api  "org.slf4j:slf4j-api:$slf4jVersion"
-        api  "org.slf4j:slf4j-jdk14:$slf4jVersion"
+        api "org.slf4j:slf4j-api:$slf4jVersion"
+        api "org.slf4j:slf4j-jdk14:$slf4jVersion"
 
-        // Unit testing
-        testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+        // Unit Testing
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+
+        testImplementation("junit:junit:$junit4Version")
+        testRuntimeOnly("org.junit.vintage:junit-vintage-engine") {
+            because 'Allows JUnit 3 and JUnit 4 tests to run'
+        }
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
+            because 'Allows tests to run from IDEs that bundle older version of launcher'
+        }
 
         testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
         testImplementation "org.mockito:mockito-inline:$mockitoVersion"
@@ -88,5 +110,15 @@ project(":core") {
         testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         testImplementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+    }
+
+    test {
+        useJUnitPlatform {}
+
+        testLogging {
+            events 'passed', 'skipped', 'failed'
+        }
+
+        finalizedBy(jacocoTestReport)
     }
 }

@@ -10,13 +10,13 @@ public class TextureRenderComponent extends RenderComponent {
   private final Texture texture;
 
   /**
-   * @param texturePath internal path of static teture to render. Will be scaled to the entity's
-   *     scale.
+   * @param texturePath Internal path of static texture to render.
+   *                    Will be scaled to the entity's scale.
    */
   public TextureRenderComponent(String texturePath) {
     this(ServiceLocator.getResourceService().getAsset(texturePath, Texture.class));
   }
-
+//...
   /** @param texture Static texture to render. Will be scaled to the entity's scale. */
   public TextureRenderComponent(Texture texture) {
     this.texture = texture;
@@ -28,7 +28,7 @@ public class TextureRenderComponent extends RenderComponent {
   }
 
   @Override
-  public void draw(SpriteBatch batch) {
+  protected void draw(SpriteBatch batch) {
     Vector2 position = entity.getPosition();
     Vector2 scale = entity.getScale();
     batch.draw(texture, position.x, position.y, scale.x, scale.y);
