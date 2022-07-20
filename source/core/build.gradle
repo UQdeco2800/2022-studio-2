@@ -25,6 +25,6 @@ jacocoTestReport {
 
 javadoc {
     options {
-        links 'https://libgdx.badlogicgames.com/ci/nightlies/docs/api/'
+        links 'https://javadoc.io/doc/com.badlogicgames.gdx/gdx/latest/com/badlogic/gdx/package-summary.html'
     }
 }
