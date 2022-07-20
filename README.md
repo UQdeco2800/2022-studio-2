@@ -1,4 +1,4 @@
-# UQ Game Engine
+# DECO2800 Studio 1 Game Engine
 
 ## Sonarcloud
 
