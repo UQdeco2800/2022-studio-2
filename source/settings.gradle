@@ -1,2 +1,2 @@
-rootProject.name = 'UQ DECO2800 Game Engine'
+rootProject.name = '2022 Studio 2'
 include 'desktop', 'core'
