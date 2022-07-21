@@ -1,5 +1,6 @@
 package com.deco2800.game.ai.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,6 +12,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(GameExtension.class)
 class AITaskComponentTest {
+  @Test
+  void shouldFail() {
+    assertEquals(0, 1);
+  }
+
   @Test
   void shouldRunNothingWithNoTask() {
     AITaskComponent taskComponent = new AITaskComponent();
