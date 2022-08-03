@@ -5,4 +5,4 @@ This is a place to hold raw assets that are not directly loaded by the game. Thi
 - Anything else that isn't loaded into the game directly.
 
 Warning: These proprietry formats are not designed to be git-friendly, so be careful of
-making simultaneous changes!
+making simultaneous changes!!!
