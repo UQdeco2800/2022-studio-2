@@ -23,6 +23,11 @@ public class InventoryComponent extends Component {
    *
    * @return entity's health
    */
+
+  public String getToilet() {
+    return "Toilet";
+  }
+
   public int getGold() {
     return this.gold;
   }
