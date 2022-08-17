@@ -1,10 +1,14 @@
 package com.deco2800.game.crafting;
 
+import com.deco2800.game.crafting.craftingDisplay.CraftingDisplay;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftingSystem {
+public class CraftingSystem implements Runnable{
     private List<String> builtItems;
+    private List<Object> possibleBuilds;
+    private List<Materials> inventoryContents;
 
     public void CraftingSystem(){
          builtItems = new ArrayList<String>();
@@ -14,13 +18,15 @@ public class CraftingSystem {
         CraftLogic.setPossibleBuilds(weapons);
 
          //List<Materials> inventoryContents = getInventoryContents(Inventory inventory);
-        List<Materials> inventoryContents = new ArrayList<Materials>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
-        List<Object> possibleBuilds = CraftLogic.canBuild(inventoryContents);
+        inventoryContents = new ArrayList<Materials>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
 
-        /**
-         * The Display Calling Goes Here
-         **/
+        CraftingDisplay UI = new CraftingDisplay();
 
+        Thread background = new Thread(this);
+        Thread display = new Thread(UI);
+
+        background.start();
+        display.start();
     }
 
     /*
@@ -31,10 +37,14 @@ public class CraftingSystem {
     */
 
     public void buildItem(Object Item){
-        if ((Item instanceof Buildable) && CraftLogic.getPossibleBuilds().contains(Item)){
+        if ((Item instanceof Buildable) && this.possibleBuilds.contains(Item)){
             builtItems.add("Sword");
         }
     }
 
 
+    @Override
+    public void run() {
+        possibleBuilds = CraftLogic.canBuild(inventoryContents);
+    }
 }
