@@ -5,14 +5,17 @@ import java.util.List;
 
 public class CraftingSystem {
     private List<String> builtItems;
-    private List<String> possibleBuilds;
 
     public void CraftingSystem(){
          builtItems = new ArrayList<String>();
+         //Set Possible Builds by finding all weapons that implement Buildable\
+        List<Object> weapons = new ArrayList<Object>();
+        weapons.add("Sword");
+        CraftLogic.setPossibleBuilds(weapons);
 
-         //List<String> inventoryContents = getInventoryContents(Inventory inventory);
+         //List<Materials> inventoryContents = getInventoryContents(Inventory inventory);
         List<Materials> inventoryContents = new ArrayList<Materials>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
-        possibleBuilds = CraftLogic.canBuild(inventoryContents);
+        List<Object> possibleBuilds = CraftLogic.canBuild(inventoryContents);
 
         /**
          * The Display Calling Goes Here
@@ -20,11 +23,18 @@ public class CraftingSystem {
 
     }
 
-    /* public List<String> getInventoryContents(Inventory inventory){} */
+    /*
+    public List<Materials> getInventoryContents(Inventory inventory){
 
-    public void buildItem(String Item){
-        if (Item.equals("Sword") && possibleBuilds.contains("Sword")){
+
+    }
+    */
+
+    public void buildItem(Object Item){
+        if ((Item instanceof Buildable) && CraftLogic.getPossibleBuilds().contains(Item)){
             builtItems.add("Sword");
         }
     }
+
+
 }
