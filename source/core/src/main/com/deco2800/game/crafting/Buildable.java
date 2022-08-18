@@ -1,16 +1,19 @@
 package com.deco2800.game.crafting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface Buildable {
 
-    List<Materials> requiredMaterials= new ArrayList <Materials>();
+    Map<Materials,Integer> craftingRecipe= new HashMap<Materials,Integer>() {
+    };
 
     public void setCraftingRecipe();
 
-    default List<Materials> getRequiredMaterials(){
-        return requiredMaterials;
+    default Map<Materials,Integer> getRequiredMaterials(){
+        return craftingRecipe;
     }
 
 }

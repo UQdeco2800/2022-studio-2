@@ -2,7 +2,7 @@ package com.deco2800.game.crafting;
 
 import java.util.*;
 
-public class CraftingLogic {
+public class CraftLogic {
 
         private static List<Object> possibleBuilds =  new ArrayList<Object>();
 
