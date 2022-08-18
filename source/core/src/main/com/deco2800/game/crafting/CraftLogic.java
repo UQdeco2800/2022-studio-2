@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CraftLogic {
 
-        private static List<Object> possibleBuilds;
+        private static List<Object> possibleBuilds =  new ArrayList<Object>();
 
 
         public static List<Object> getPossibleBuilds(){

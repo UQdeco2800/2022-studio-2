@@ -7,13 +7,13 @@ import java.util.List;
 
 public class CraftingSystem implements Runnable{
     private List<String> builtItems;
-    private List<Object> possibleBuilds;
-    private List<Materials> inventoryContents;
+    private  List<Materials>  inventoryContents;
 
-    public void CraftingSystem(){
+    public void CraftingSystem() {
+
          builtItems = new ArrayList<String>();
-         //Set Possible Builds by finding all weapons that implement Buildable\
-        List<Object> weapons = new ArrayList<Object>();
+         //Set Possible Builds by finding all weapons that implement Buildable
+        List<Object>weapons = new ArrayList<Object>();
         weapons.add("Sword");
         CraftLogic.setPossibleBuilds(weapons);
 
@@ -25,26 +25,30 @@ public class CraftingSystem implements Runnable{
         Thread background = new Thread(this);
         Thread display = new Thread(UI);
 
+        background.setDaemon(true);
         background.start();
         display.start();
-    }
-
-    /*
-    public List<Materials> getInventoryContents(Inventory inventory){
-
 
     }
-    */
 
     public void buildItem(Object Item){
-        if ((Item instanceof Buildable) && this.possibleBuilds.contains(Item)){
+        if ((Item instanceof Buildable) && CraftLogic.getPossibleBuilds().contains(Item)){
             builtItems.add("Sword");
         }
     }
 
+    public synchronized List<Materials> getInventoryContents(){
+        return inventoryContents;
+    }
+
+    public synchronized void setInventoryContents(List<Materials> materials){
+        inventoryContents = materials;
+    }
 
     @Override
     public void run() {
-        possibleBuilds = CraftLogic.canBuild(inventoryContents);
+        while (true) {
+            CraftLogic.setPossibleBuilds(CraftLogic.canBuild(getInventoryContents()));
+        }
     }
 }
