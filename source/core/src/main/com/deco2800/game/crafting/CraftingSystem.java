@@ -15,7 +15,7 @@ public class CraftingSystem implements Runnable{
          //Set Possible Builds by finding all weapons that implement Buildable
         List<Object>weapons = new ArrayList<Object>();
         weapons.add("Sword");
-        CraftLogic.setPossibleBuilds(weapons);
+        CraftingLogic.setPossibleBuilds(weapons);
 
          //List<Materials> inventoryContents = getInventoryContents(Inventory inventory);
         inventoryContents = new ArrayList<Materials>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
@@ -32,7 +32,7 @@ public class CraftingSystem implements Runnable{
     }
 
     public void buildItem(Object Item){
-        if ((Item instanceof Buildable) && CraftLogic.getPossibleBuilds().contains(Item)){
+        if ((Item instanceof Buildable) && CraftingLogic.getPossibleBuilds().contains(Item)){
             builtItems.add("Sword");
         }
     }
@@ -48,7 +48,7 @@ public class CraftingSystem implements Runnable{
     @Override
     public void run() {
         while (true) {
-            CraftLogic.setPossibleBuilds(CraftLogic.canBuild(getInventoryContents()));
+            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(getInventoryContents()));
         }
     }
 }

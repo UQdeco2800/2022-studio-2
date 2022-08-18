@@ -6,7 +6,6 @@ import java.util.List;
 public interface Buildable {
 
     List<Materials> requiredMaterials= new ArrayList <Materials>();
-    public void setRequiredMaterials();
 
     public void setCraftingRecipe();
 
