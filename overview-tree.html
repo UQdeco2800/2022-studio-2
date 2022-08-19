@@ -64,6 +64,8 @@ loadScripts(document, 'script');</script>
 <li><a href="com/deco2800/game/components/settingsmenu/package-tree.html">com.deco2800.game.components.settingsmenu</a>, </li>
 <li><a href="com/deco2800/game/components/tasks/package-tree.html">com.deco2800.game.components.tasks</a>, </li>
 <li><a href="com/deco2800/game/concurrency/package-tree.html">com.deco2800.game.concurrency</a>, </li>
+<li><a href="com/deco2800/game/crafting/package-tree.html">com.deco2800.game.crafting</a>, </li>
+<li><a href="com/deco2800/game/crafting/craftingDisplay/package-tree.html">com.deco2800.game.crafting.craftingDisplay</a>, </li>
 <li><a href="com/deco2800/game/entities/package-tree.html">com.deco2800.game.entities</a>, </li>
 <li><a href="com/deco2800/game/entities/configs/package-tree.html">com.deco2800.game.entities.configs</a>, </li>
 <li><a href="com/deco2800/game/entities/factories/package-tree.html">com.deco2800.game.entities.factories</a>, </li>
@@ -146,6 +148,10 @@ loadScripts(document, 'script');</script>
 </ul>
 </li>
 <li class="circle">com.deco2800.game.components.<a href="com/deco2800/game/components/ComponentType.html" class="type-name-link" title="class in com.deco2800.game.components">ComponentType</a></li>
+<li class="circle">com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingAnimations.html" class="type-name-link" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingAnimations</a></li>
+<li class="circle">com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" class="type-name-link" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a> (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>)</li>
+<li class="circle">com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" class="type-name-link" title="class in com.deco2800.game.crafting">CraftingSystem</a> (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>)</li>
+<li class="circle">com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftLogic.html" class="type-name-link" title="class in com.deco2800.game.crafting">CraftLogic</a></li>
 <li class="circle">com.deco2800.game.ui.terminal.commands.<a href="com/deco2800/game/ui/terminal/commands/DebugCommand.html" class="type-name-link" title="class in com.deco2800.game.ui.terminal.commands">DebugCommand</a> (implements com.deco2800.game.ui.terminal.commands.<a href="com/deco2800/game/ui/terminal/commands/Command.html" title="interface in com.deco2800.game.ui.terminal.commands">Command</a>)</li>
 <li class="circle">com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/DebugRenderer.html" class="type-name-link" title="class in com.deco2800.game.rendering">DebugRenderer</a></li>
 <li class="circle">com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/DefaultTask.html" class="type-name-link" title="class in com.deco2800.game.ai.tasks">DefaultTask</a> (implements com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/Task.html" title="interface in com.deco2800.game.ai.tasks">Task</a>)
@@ -219,6 +225,7 @@ loadScripts(document, 'script');</script>
 <section class="hierarchy">
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
+<li class="circle">com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Buildable.html" class="type-name-link" title="interface in com.deco2800.game.crafting">Buildable</a></li>
 <li class="circle">com.deco2800.game.ui.terminal.commands.<a href="com/deco2800/game/ui/terminal/commands/Command.html" class="type-name-link" title="interface in com.deco2800.game.ui.terminal.commands">Command</a></li>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" class="type-name-link external-link" title="class or interface in java.lang">Comparable</a>&lt;T&gt;
 <ul>
@@ -252,6 +259,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" class="type-name-link" title="enum class in com.deco2800.game.files">FileLoader.Location</a></li>
 <li class="circle">com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" class="type-name-link" title="enum class in com.deco2800.game">GdxGame.ScreenType</a></li>
 <li class="circle">com.deco2800.game.input.<a href="com/deco2800/game/input/InputFactory.InputType.html" class="type-name-link" title="enum class in com.deco2800.game.input">InputFactory.InputType</a></li>
+<li class="circle">com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Materials.html" class="type-name-link" title="enum class in com.deco2800.game.crafting">Materials</a></li>
 <li class="circle">com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignX.html" class="type-name-link" title="enum class in com.deco2800.game.physics.components">PhysicsComponent.AlignX</a></li>
 <li class="circle">com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html" class="type-name-link" title="enum class in com.deco2800.game.physics.components">PhysicsComponent.AlignY</a></li>
 <li class="circle">com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/Task.Status.html" class="type-name-link" title="enum class in com.deco2800.game.ai.tasks">Task.Status</a></li>
