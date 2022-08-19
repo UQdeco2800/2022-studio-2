@@ -49,6 +49,10 @@ public class NPCFactory {
     Entity ghost = createBaseNPC(target);
     BaseEntityConfig config = configs.ghost;
 
+    ghost.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
+
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
@@ -75,6 +79,10 @@ public class NPCFactory {
     Entity ghostKing = createBaseNPC(target);
     GhostKingConfig config = configs.ghostKing;
 
+    ghostKing.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
+
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService()
@@ -91,17 +99,21 @@ public class NPCFactory {
     return ghostKing;
   }
 
+  /**
+   * Creates an atlantis citizen entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
   public static Entity createAtlantisCitizen(Entity target) {
     Entity atlantisCitizen = createBaseNPC(target);
     AtlantisCitizenConfig config = configs.atlantisCitizen;
-    /*
-    AITaskComponent aiComponent =
-            new AITaskComponent()
-                    .addTask(new ChaseTask(target, 10, 3f, 5f));
 
-     */
+    atlantisCitizen.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
+
     atlantisCitizen
-            //.addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"));
     atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -115,10 +127,7 @@ public class NPCFactory {
    * @return entity
    */
   private static Entity createBaseNPC(Entity target) {
-    AITaskComponent aiComponent =
-        new AITaskComponent()
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
+    AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()
             .addComponent(new PhysicsComponent())
