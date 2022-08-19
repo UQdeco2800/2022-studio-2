@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
+import com.badlogic.gdx.utils.Timer;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -13,10 +14,15 @@ import com.deco2800.game.services.ServiceLocator;
  */
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
+  private static final Vector2 DASH_SPEED = new Vector2(4f, 4f); // Metres per second
 
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
+  private Vector2 dashDirection = Vector2.Zero.cpy();
   private boolean moving = false;
+  private boolean dashing = false;
+  private long dashStart;
+  private long dashEnd;
 
   @Override
   public void create() {
@@ -24,6 +30,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+    entity.getEvents().addListener("dash", this::dash);
   }
 
   @Override
@@ -36,7 +43,18 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    Vector2 walkVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    Vector2 dashVelocity;
+    Vector2 desiredVelocity;
+
+    if (this.dashing && System.currentTimeMillis() < this.dashEnd) {
+      dashVelocity = dashDirection.cpy().scl(DASH_SPEED);
+      desiredVelocity = new Vector2(walkVelocity.x * 0.8f + dashVelocity.x,
+              walkVelocity.y * 0.8f + dashVelocity.y);
+    } else {
+      desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    }
+
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
@@ -57,7 +75,8 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
-    updateSpeed();
+    this.dashing = false;
+    updateSpeed(); // consider calling update speed always
     moving = false;
   }
 
@@ -67,5 +86,17 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+  }
+
+  /**
+   * Makes the player dash.
+   */
+  void dash() {
+    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
+    attackSound.play();
+    this.dashDirection = this.walkDirection.cpy();
+    this.dashing = true;
+    this.dashStart = System.currentTimeMillis();
+    this.dashEnd = this.dashStart + 500;
   }
 }
