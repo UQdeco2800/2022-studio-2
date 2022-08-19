@@ -6,17 +6,29 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
 
+  private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
+  private static Vector2 maxSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
+
+  /**
+   * Init function of the class that sets player movement speed.
+   *
+   * @param moveSpeed of the player character
+   */
+  public PlayerActions(float moveSpeed) {
+    maxSpeed = new Vector2(moveSpeed, moveSpeed);
+  }
 
   @Override
   public void create() {
@@ -36,7 +48,7 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    Vector2 desiredVelocity = walkDirection.cpy().scl(maxSpeed);
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
@@ -68,4 +80,18 @@ public class PlayerActions extends Component {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
   }
+
+  /**
+   * Public function to set new max speed.
+   *
+   * @param newSpeed of the player character
+   */
+  public void updateMaxSpeed(float newSpeed) {
+    maxSpeed = new Vector2(newSpeed, newSpeed);
+  }
+
+  /**
+   * Return the max speed of the player actions.
+   */
+  public Vector2 getMaxSpeed() { return this.getMaxSpeed(); }
 }
