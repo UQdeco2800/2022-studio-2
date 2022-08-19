@@ -94,8 +94,14 @@ public class NPCFactory {
   public static Entity createAtlantisCitizen(Entity target) {
     Entity atlantisCitizen = createBaseNPC(target);
     AtlantisCitizenConfig config = configs.atlantisCitizen;
+    /*
+    AITaskComponent aiComponent =
+            new AITaskComponent()
+                    .addTask(new ChaseTask(target, 10, 3f, 5f));
 
+     */
     atlantisCitizen
+            //.addComponent(aiComponent)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"));
     atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
@@ -112,7 +118,7 @@ public class NPCFactory {
     AITaskComponent aiComponent =
         new AITaskComponent()
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 3f, 4f));
+            .addTask(new ChaseTask(target, 10, 3f, 4f, 0.1f));
     Entity npc =
         new Entity()
             .addComponent(new PhysicsComponent())

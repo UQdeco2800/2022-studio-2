@@ -9,8 +9,8 @@
     "spookyFactor": 7
   },
   "atlantisCitizen": {
-    "health": 40,
-    "baseAttack": 10
+    "health": 70,
+    "baseAttack": 20
   }
 }
 
