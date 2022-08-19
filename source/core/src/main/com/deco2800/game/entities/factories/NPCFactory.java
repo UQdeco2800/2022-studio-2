@@ -10,6 +10,7 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.configs.AtlantisCitizenConfig;
 import com.deco2800.game.entities.configs.BaseEntityConfig;
 import com.deco2800.game.entities.configs.GhostKingConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
@@ -21,6 +22,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -87,6 +89,18 @@ public class NPCFactory {
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
+  }
+
+  public static Entity createAtlantisCitizen(Entity target) {
+    Entity atlantisCitizen = createBaseNPC(target);
+    AtlantisCitizenConfig config = configs.atlantisCitizen;
+
+    atlantisCitizen
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"));
+    atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
+    return atlantisCitizen;
+
   }
 
   /**
