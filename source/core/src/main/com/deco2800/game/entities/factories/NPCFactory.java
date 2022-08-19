@@ -118,7 +118,7 @@ public class NPCFactory {
     AITaskComponent aiComponent =
         new AITaskComponent()
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 3f, 4f, 0.1f));
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
     Entity npc =
         new Entity()
             .addComponent(new PhysicsComponent())

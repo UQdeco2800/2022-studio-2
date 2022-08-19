@@ -77,7 +77,8 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     // impulse force = (desired velocity - current velocity) * mass
     Vector2 velocity = body.getLinearVelocity();
     Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass()).scl(speed);
-    body.applyLinearImpulse(impulse, body.getWorldCenter(),true);
+    //body.applyLinearImpulse(impulse, body.getWorldCenter(),true);
+    body.applyForce(impulse, body.getWorldCenter(), true);
   }
 
   public void setSpeed(float speed) {
