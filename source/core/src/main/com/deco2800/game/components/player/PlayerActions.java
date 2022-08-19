@@ -14,7 +14,9 @@ import com.badlogic.gdx.utils.Timer;
  */
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
-  private static final Vector2 DASH_SPEED = new Vector2(4f, 4f); // Metres per second
+  private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
+  private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
+  private static final float DASH_MOVEMENT_RESTRICTION = 0.8f;
 
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
@@ -47,12 +49,15 @@ public class PlayerActions extends Component {
     Vector2 dashVelocity;
     Vector2 desiredVelocity;
 
+    // If the character is dashing, and dash length isn't over
     if (this.dashing && System.currentTimeMillis() < this.dashEnd) {
-      dashVelocity = dashDirection.cpy().scl(DASH_SPEED);
-      desiredVelocity = new Vector2(walkVelocity.x * 0.8f + dashVelocity.x,
-              walkVelocity.y * 0.8f + dashVelocity.y);
+
+      dashVelocity = dashDirection.cpy().scl(DASH_SPEED); // Dash in direction of movement at start of dash
+      // Allow players to move side-to-side during dash
+      desiredVelocity = new Vector2(walkVelocity.x * DASH_MOVEMENT_RESTRICTION + dashVelocity.x,
+              walkVelocity.y * DASH_MOVEMENT_RESTRICTION + dashVelocity.y);
     } else {
-      desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
+      desiredVelocity = walkDirection.cpy().scl(MAX_SPEED); // Regular walk
     }
 
     // impulse = (desiredVel - currentVel) * mass
@@ -75,8 +80,8 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
-    this.dashing = false;
-    updateSpeed(); // consider calling update speed always
+    this.dashing = false; // Stop dashing when stop walking
+    updateSpeed();
     moving = false;
   }
 
@@ -89,7 +94,7 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Makes the player dash.
+   * Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
    */
   void dash() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
@@ -97,6 +102,6 @@ public class PlayerActions extends Component {
     this.dashDirection = this.walkDirection.cpy();
     this.dashing = true;
     this.dashStart = System.currentTimeMillis();
-    this.dashEnd = this.dashStart + 500;
+    this.dashEnd = this.dashStart + DASH_LENGTH;
   }
 }
