@@ -1,4 +1,4 @@
-# DECO2800 Studio 2 Game
+# DECO2800 Studio 2 Game :)
 
 ## Description
 
