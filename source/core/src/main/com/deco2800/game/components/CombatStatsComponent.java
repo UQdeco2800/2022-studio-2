@@ -15,6 +15,11 @@ public class CombatStatsComponent extends Component {
   private int stamina;
   private int baseAttack;
 
+  @Override
+  public void create(){
+    entity.getEvents().addListener("decreaseStamina",this::dashFatigue);
+  }
+
   public CombatStatsComponent(int health, int baseAttack, int stamina) {
     setHealth(health);
     setBaseAttack(baseAttack);
@@ -123,5 +128,11 @@ public class CombatStatsComponent extends Component {
    */
   public void addStamina(int stamina) {
     setStamina(this.stamina + stamina);
+  }
+
+  public void dashFatigue(int stamina){
+
+    int newStamina= getStamina() - stamina;
+    setStamina(newStamina);
   }
 }
