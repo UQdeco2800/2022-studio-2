@@ -19,7 +19,7 @@ public class CraftingSystem implements Runnable{
     private List<String> builtItems;
 
     /**
-     *
+     *List containing the users' inventory
      */
     private  List<Materials>  inventoryContents;
 
@@ -32,12 +32,13 @@ public class CraftingSystem implements Runnable{
 
          builtItems = new ArrayList<String>();
          //Set Possible Builds by finding all weapons that implement Buildable
-        List<Object>weapons = new ArrayList<Object>();
-        weapons.add("Sword");
-        CraftingLogic.setPossibleBuilds(weapons);
+        HashSet<Object> possibleWeapons = new HashSet<Object>();
+        possibleWeapons.add("Sword");
+        CraftingLogic.setPossibleWeapons(possibleWeapons);
 
-         //HashSet<Materials> inventoryContents = getInventoryContents(Inventory inventory);
+         //List<Materials> inventoryContents = getInventoryContents();
         inventoryContents = new ArrayList<>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
+        CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
 
         CraftingDisplay UI = new CraftingDisplay();
 
