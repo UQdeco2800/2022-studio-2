@@ -53,6 +53,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         // TODO I am here for some basic debugging code!
         entity.getEvents().trigger("movespeed_down");
         return true;
+      case Keys.SHIFT_LEFT:
+        entity.getEvents().trigger("dash");
       default:
         return false;
     }
