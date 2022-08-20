@@ -45,6 +45,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
+      case Keys.P:
+        // TODO I am here for some basic debugging code!
+        entity.getEvents().trigger("movespeed_up");
+        return true;
+      case Keys.O :
+        // TODO I am here for some basic debugging code!
+        entity.getEvents().trigger("movespeed_down");
+        return true;
       default:
         return false;
     }

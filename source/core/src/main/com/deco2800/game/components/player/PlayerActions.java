@@ -18,6 +18,7 @@ public class PlayerActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
   private static Vector2 maxSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
+  private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
 
@@ -33,9 +34,12 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
+    playerModifier = entity.getComponent(PlayerModifier.class); // TODO remove this
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+    entity.getEvents().addListener("movespeed_up", this::movespeed_up); // TODO remove these
+    entity.getEvents().addListener("movespeed_down", this::movespeed_down);
   }
 
   @Override
@@ -82,6 +86,22 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Increases player movement speed.
+   */
+  void movespeed_up() {
+    System.out.print(String.format("Time to speed up!"));
+    playerModifier.createModifier("movespeed", 0.5f, true, 0);
+  }
+
+  /**
+   * Decreases player movement speed.
+   */
+  void movespeed_down() {
+    System.out.print(String.format("Time to slow down"));
+    playerModifier.createModifier("movespeed", -0.9f, true, 3000);
+  }
+
+  /**
    * Public function to set new max speed.
    *
    * @param newSpeed of the player character
@@ -93,5 +113,5 @@ public class PlayerActions extends Component {
   /**
    * Return the max speed of the player actions.
    */
-  public Vector2 getMaxSpeed() { return this.getMaxSpeed(); }
+  public float getSpeedFloat() { return maxSpeed.x; }
 }
