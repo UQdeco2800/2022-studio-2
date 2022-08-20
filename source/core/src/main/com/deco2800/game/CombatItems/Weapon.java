@@ -35,16 +35,4 @@ public abstract class Weapon implements Buildable {
     public void revertAuraEffect(Aura auraToRevert) {
         this.auraEffect(auraToRevert.inverseEffect());
     }
-
-    public static void main(String[] args) {
-        Melee sword = new Melee(10, 3, 10, 1);
-        System.out.println(sword.getDamage());
-        Aura buff = new Aura(5000,2,2,0.5);
-        System.out.println(buff.getAuraDuration());
-
-
-        sword.auraEffect(buff);
-        System.out.println(sword.getDamage());
-
-    }
 }
