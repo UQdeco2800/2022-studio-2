@@ -12,11 +12,13 @@ public class CombatStatsComponent extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
   private int health;
+  private int stamina;
   private int baseAttack;
 
-  public CombatStatsComponent(int health, int baseAttack) {
+  public CombatStatsComponent(int health, int baseAttack, int stamina) {
     setHealth(health);
     setBaseAttack(baseAttack);
+    setStamina(stamina);
   }
 
   /**
@@ -87,5 +89,39 @@ public class CombatStatsComponent extends Component {
   public void hit(CombatStatsComponent attacker) {
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
+  }
+
+  /**
+   * Returns the entity's health.
+   *
+   * @return entity's health
+   */
+  public int getStamina() {
+    return stamina;
+  }
+
+  /**
+   * Sets the entity's health. Health has a minimum bound of 0.
+   *
+   * @param health health
+   */
+  public void setStamina(int stamina) {
+    if (stamina >= 0) {
+      this.stamina= stamina;
+    } else {
+      this.stamina = 0;
+    }
+    if (entity != null) {
+      entity.getEvents().trigger("updateStamina", this.stamina);
+    }
+  }
+
+  /**
+   * Adds to the player's health. The amount added can be negative.
+   *
+   * @param health health to add
+   */
+  public void addStamina(int stamina) {
+    setStamina(this.stamina + stamina);
   }
 }
