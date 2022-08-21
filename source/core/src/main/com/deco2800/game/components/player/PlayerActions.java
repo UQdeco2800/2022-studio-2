@@ -119,22 +119,23 @@ public class PlayerActions extends Component {
       this.dashing=false;
     }
   }
-  void checkrest(){
-    if(System.currentTimeMillis()> this.restEnd){
+
+  void checkrest() {
+    if (System.currentTimeMillis() > this.restEnd) {
       rest();
-      this.restStart=0;
+      this.restStart = 0;
     }
-    if(this.restStart==0) {
+    if (this.restStart == 0) {
       this.restStart = System.currentTimeMillis();
-      this.restEnd = this.restStart +500 ;
+      this.restEnd = this.restStart + 500;
 
     }
-    }
+  }
 
 
-  void rest(){
-    if (stamina<100){
-      entity.getEvents().trigger("increaseStamina",1);
+  void rest() {
+    if (stamina < 100) {
+      entity.getEvents().trigger("increaseStamina", 1);
     }
 
   }
