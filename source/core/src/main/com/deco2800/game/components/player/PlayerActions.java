@@ -55,9 +55,8 @@ public class PlayerActions extends Component {
 
   @Override
   public void update() {
-    if (moving) {
-      updateSpeed();
-    }
+
+    updateSpeed();
   }
 
   private void updateSpeed() {
@@ -99,7 +98,6 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
-    this.dashing = false; // Stop dashing when stop walking
     updateSpeed();
     moving = false;
   }
