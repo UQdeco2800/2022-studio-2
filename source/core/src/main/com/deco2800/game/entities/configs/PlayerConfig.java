@@ -7,4 +7,6 @@ public class PlayerConfig extends BaseEntityConfig  {
   public int gold = 100;
   public String favouriteColour = "none";
   public float moveSpeed = 5f;
+  public float stamina = 0f;
+  public float mana = 0f;
 }

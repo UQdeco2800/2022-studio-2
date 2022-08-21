@@ -64,7 +64,7 @@ public class PlayerActions extends Component {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
 
-    Vector2 walkVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    Vector2 walkVelocity = walkDirection.cpy().scl(maxSpeed);
     Vector2 dashVelocity;
     Vector2 desiredVelocity;
 
@@ -76,7 +76,7 @@ public class PlayerActions extends Component {
       desiredVelocity = new Vector2(walkVelocity.x * DASH_MOVEMENT_RESTRICTION + dashVelocity.x,
               walkVelocity.y * DASH_MOVEMENT_RESTRICTION + dashVelocity.y);
     } else {
-      desiredVelocity = walkDirection.cpy().scl(MAX_SPEED); // Regular walk
+      desiredVelocity = walkDirection.cpy().scl(maxSpeed); // Regular walk
     }
 
     // impulse = (desiredVel - currentVel) * mass
@@ -117,7 +117,7 @@ public class PlayerActions extends Component {
    */
   void movespeed_up() {
     System.out.print(String.format("Time to speed up!"));
-    playerModifier.createModifier("movespeed", 0.5f, true, 0);
+    playerModifier.createModifier("movespeed", 10f, true, 0);
   }
 
   /**
