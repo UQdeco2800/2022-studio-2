@@ -62,7 +62,6 @@ public class PlayerModifier extends Component{
         for (Modifier mod : modifiers) {
             if (mod.used) { // Found modifier that's been used, do we need to get rid of it?
                 if (mod.expiry <= System.currentTimeMillis()) {
-                    System.out.print(String.format("Im removing\n\r"));
                     applyModifier(mod, true);
                     mod.expired = true;
                 }
@@ -71,7 +70,6 @@ public class PlayerModifier extends Component{
                     applyModifierPerm(mod);
                     mod.expired = true;
                 } else {
-                    System.out.print(String.format("Im applying\n\r"));
                     applyModifier(mod, false);
                     mod.used = true;
                 }
@@ -89,21 +87,16 @@ public class PlayerModifier extends Component{
 
     private void applyModifier (Modifier mod, boolean remove) {
 
-        float difference = 0; // Used to return to original value if modifier is negative
+        float difference; // Used to return to original value if modifier is negative
 
         switch (mod.target) {
             case "movespeed" :
                 difference = modSpeed;
-                System.out.print(String.format("Beginning mod is %f\n\r", mod.value));
-                System.out.print(String.format("Beginning move speed is %f\n\r", modSpeed));
                 modSpeed = remove ? modSpeed - mod.value : modSpeed + mod.value;
                 modSpeed = (modSpeed < 0) ? 0.3f : modSpeed; // Precaution for negative values
                 difference -= modSpeed;
                 mod.value = -1 * difference;
                 playerActions.updateMaxSpeed(modSpeed);
-                System.out.print(String.format("Difference was %f\n\r", difference));
-                System.out.print(String.format("Mod value is now %f\n\r", difference));
-                System.out.print(String.format("New move speed %f\n\r\n", modSpeed));
                 break;
             default :
                 // Do nothing
@@ -116,8 +109,6 @@ public class PlayerModifier extends Component{
                 modSpeed += mod.value;
                 refSpeed += mod.value;
                 playerActions.updateMaxSpeed(modSpeed);
-                System.out.print(String.format("New base speed %f\n\r", refSpeed));
-                System.out.print(String.format("New move speed %f\n\r", modSpeed));
                 break;
             case "gold":
                 // Do nothing
@@ -148,9 +139,6 @@ public class PlayerModifier extends Component{
             default:
                 // Do nothing
         }
-
-        System.out.print(String.format("Ref speed for change is %f\n\r", refSpeed));
-        System.out.print(String.format("I'm changing by %f\n\r", valChange));
 
         Modifier mod = new Modifier(target, valChange, expiry);
         modifiers.add(mod);
