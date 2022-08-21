@@ -102,6 +102,6 @@ public class PlayerActions extends Component {
     this.dashing = true;
     this.dashStart = System.currentTimeMillis();
     this.dashEnd = this.dashStart + DASH_LENGTH;
-    entity.getEvents().trigger("decreaseStamina",20);
+    entity.getEvents().trigger("decreaseStamina",-20);
   }
 }

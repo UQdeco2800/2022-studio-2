@@ -18,7 +18,7 @@ public class CombatStatsComponent extends Component {
   @Override
   public void create(){
     entity.getEvents().addListener("increaseStamina",this::addStamina);
-    entity.getEvents().addListener("decreaseStamina",this::fatigue);
+    entity.getEvents().addListener("decreaseStamina",this::addStamina);
   }
 
   public CombatStatsComponent(int health, int baseAttack, int stamina) {
@@ -98,16 +98,16 @@ public class CombatStatsComponent extends Component {
   }
 
   /**
-   * Returns the entity's health.
+   * Returns the entity's stamina.
    *
-   * @return entity's health
+   * @return entity's stamina
    */
   public int getStamina() {
     return stamina;
   }
 
   /**
-   * Sets the entity's health. Health has a minimum bound of 0.
+   * Sets the entity's stamina. Stamina has a minimum bound of 0.
    *
    * @param health health
    */
@@ -123,17 +123,12 @@ public class CombatStatsComponent extends Component {
   }
 
   /**
-   * Adds to the player's health. The amount added can be negative.
+   * Adds to the player's stamina. The amount added can be negative.
    *
-   * @param health health to add
+   * @param stamina stamina to add
    */
   public void addStamina(int stamina) {
     setStamina(this.stamina + stamina);
   }
 
-  public void fatigue(int stamina){
-
-    int newStamina= getStamina() - stamina;
-    setStamina(newStamina);
-  }
 }
