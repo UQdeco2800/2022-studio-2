@@ -60,7 +60,8 @@ public class Aura {
             return new Aura(-1, 1/getDmgMultiplier(), 1/getAreaMultiplier(),
                     1/getDurationMultiplier(), 1/getCdMultiplier());
         } else{
-            return new Aura(-1, 1/getDmgMultiplier(), 1/getCdMultiplier(), 1/getWeightMultiplier());
+            return new Aura(-1, 1/getDmgMultiplier(), 1/getCdMultiplier(),
+                    1/getWeightMultiplier());
         }
     }
 }

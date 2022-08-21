@@ -25,6 +25,10 @@ public abstract class Weapon implements Buildable {
         return this.damage;
     }
 
+    public double getCoolDown() {
+        return this.coolDown;
+    }
+
     public int getLevel() {
         return this.level;
     }
@@ -35,4 +39,5 @@ public abstract class Weapon implements Buildable {
     public void revertAuraEffect(Aura auraToRevert) {
         this.auraEffect(auraToRevert.inverseEffect());
     }
+
 }

@@ -26,12 +26,13 @@ public class AreaOfEffect extends Weapon { //for future sprints
         this.duration = this.duration * auraToApply.getDurationMultiplier();
         this.coolDown = this.coolDown * auraToApply.getCdMultiplier();
 
-        if (auraToApply.getDurationMultiplier() != -1) {
+        if (auraToApply.getAuraDuration() != -1) {
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                                @Override
                                public void run() {
                                    revertAuraEffect(auraToApply);
+                                   timer.cancel();
                                }
                            }
                     , auraToApply.getAuraDuration());
