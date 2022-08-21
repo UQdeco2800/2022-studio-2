@@ -81,6 +81,7 @@ public class PlayerActions extends Component {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
     moving = false;
+    entity.getEvents().trigger("increaseStamina",1);
   }
 
   /**
