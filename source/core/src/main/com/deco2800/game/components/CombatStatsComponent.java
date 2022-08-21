@@ -58,6 +58,7 @@ public class CombatStatsComponent extends Component {
     }
     if (entity != null) {
       entity.getEvents().trigger("updateHealth", this.health);
+
     }
   }
 
@@ -112,13 +113,14 @@ public class CombatStatsComponent extends Component {
    * @param health health
    */
   public void setStamina(int stamina) {
-    if (stamina >= 0) {
+    if (stamina >= 0 && stamina <= 100) {
       this.stamina= stamina;
     } else {
       this.stamina = 0;
     }
     if (entity != null) {
       entity.getEvents().trigger("updateStamina", this.stamina);
+      entity.getEvents().trigger("getStamina",this.stamina);
     }
   }
 
