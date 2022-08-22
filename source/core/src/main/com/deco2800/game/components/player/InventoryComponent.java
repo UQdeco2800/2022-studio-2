@@ -4,6 +4,8 @@ import com.deco2800.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+
 /**
  * A component intended to be used by the player to track their inventory.
  *
@@ -13,6 +15,11 @@ import org.slf4j.LoggerFactory;
 public class InventoryComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
   private int gold;
+
+  /**
+   * Currently defined as String array because I forgot how to do a generic list. TO BE IMPLEMENTED
+   */
+  private String[] inventory = new String[16];
 
   public InventoryComponent(int gold) {
     setGold(gold);
@@ -26,6 +33,15 @@ public class InventoryComponent extends Component {
 
   public String getToilet() {
     return "Toilet";
+  }
+
+  /**
+   * Returns the current inventory
+   *
+   * @return inventory items
+   * */
+  public String[] getItems() {
+    return Arrays.copyOf(inventory, 16);
   }
 
   public int getGold() {

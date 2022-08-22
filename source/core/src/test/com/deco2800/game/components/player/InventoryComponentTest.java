@@ -38,4 +38,10 @@ class InventoryComponentTest {
     inventory.addGold(-20);
     assertEquals(80, inventory.getGold());
   }
+
+  @Test
+  void shouldHaveNoItem() {
+    InventoryComponent inventory = new InventoryComponent(100);
+    assertEquals(inventory.getItems(), new String[16]);
+  }
 }
