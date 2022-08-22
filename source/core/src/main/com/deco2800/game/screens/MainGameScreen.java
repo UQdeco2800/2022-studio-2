@@ -37,6 +37,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+  private final Entity player;
 
   private final GdxGame game;
   private final Renderer renderer;
@@ -59,20 +60,23 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerRenderService(new RenderService());
 
     renderer = RenderFactory.createRenderer();
-    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+//    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    GameArea map = loadLevelOneMap();
+    ForestGameArea map = loadLevelOneMap();
+    player = map.getPlayer();
+
   }
 
   @Override
   public void render(float delta) {
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
+    cameraTracePlayer();
     renderer.render();
   }
 
@@ -107,10 +111,10 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   /**
-   * Load the first map.
+   * Load the first map. - Team 5 1map4all @LYB
    * @return The game instance.
    */
-  private GameArea loadLevelOneMap() {
+  private ForestGameArea loadLevelOneMap() {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
     forestGameArea.create();
@@ -150,5 +154,12 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new TerminalDisplay());
 
     ServiceLocator.getEntityService().register(ui);
+  }
+
+  /**
+   * The function that make the camera moves along with the player. - Team 5 1map4all @LYB
+   */
+  private void cameraTracePlayer() {
+    renderer.getCamera().getEntity().setPosition(player.getPosition());
   }
 }
