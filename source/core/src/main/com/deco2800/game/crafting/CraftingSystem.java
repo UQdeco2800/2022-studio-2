@@ -40,14 +40,14 @@ public class CraftingSystem implements Runnable{
         inventoryContents = new ArrayList<>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
         CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
 
-        CraftingDisplay UI = new CraftingDisplay();
+        //CraftingDisplay UI = new CraftingDisplay();
 
         Thread background = new Thread(this);
-        Thread display = new Thread(UI);
+        //Thread display = new Thread(UI);
 
         background.setDaemon(true);
         background.start();
-        display.start();
+        //display.start();
 
     }
 

@@ -51,6 +51,8 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
 
+  private static GridPoint2 craftingTablePos;
+
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
@@ -121,12 +123,17 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnCraftingTable() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 minPos = new GridPoint2(2, 2);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
+  }
+
+  public static GridPoint2 getCraftingTablePos() {
+    return craftingTablePos;
   }
 
   private Entity spawnPlayer() {

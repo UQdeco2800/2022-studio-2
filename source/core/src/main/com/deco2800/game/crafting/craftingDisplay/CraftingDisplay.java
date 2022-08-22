@@ -1,24 +1,54 @@
 package com.deco2800.game.crafting.craftingDisplay;
 
-/**
- * Public class that will contain the main elements required to get a working display for the crafting system. This
- * includes event handlers that take in user inputs and methods that set up the main display elements. Implements
- * runnable for multi thread abilities.
- */
-public class CraftingDisplay implements Runnable{
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.deco2800.game.GdxGame;
+import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.ui.UIComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class CraftingDisplay extends UIComponent {
+
+    private static final Logger logger = LoggerFactory.getLogger(CraftingDisplay.class);
+    private final GdxGame game;
+    private Table rootTable;
 
     /**
      * Constructor that will make an instance of the crafting display
      */
-    public CraftingDisplay(){
-
+    public CraftingDisplay(GdxGame game) {
+        super();
+        this.game = game;
     }
 
-    /**
-     * Overridden run method that will determine what occurs when a new thread of the class is started.
-     */
     @Override
-    public void run() {
+    public void create() {
+        super.create();
+        addActors();
+    }
+
+    private void addActors() {
+
+        Label title = new Label("Crafting", skin, "title");
 
     }
+
+    @Override
+    protected void draw(SpriteBatch batch) {
+        // draw is handled by the stage
+    }
+
+    @Override
+    public void update() {
+        stage.act(ServiceLocator.getTimeSource().getDeltaTime());
+    }
+
+    @Override
+    public void dispose() {
+        rootTable.clear();
+        super.dispose();
+    }
+
 }
