@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Self-sufficient player modifier handler for temporarily or permanently modifying player
+ * statistics.
+ * Takes in the
+ */
 public class PlayerModifier extends Component{
 
     static private class Modifier {
@@ -41,6 +46,13 @@ public class PlayerModifier extends Component{
     private static float refSpeed;
     private static float modSpeed;
 
+    /**
+     * Creation function to gather all necessary components for PlayerModified component
+     * to function.
+     *
+     * Creates the modifier array.
+     * Gathers all parent components and necessary stat variables within them.
+     */
     @Override
     public void create() {
         // Get the required components
@@ -50,19 +62,24 @@ public class PlayerModifier extends Component{
 
         refSpeed = playerActions.getSpeedFloat();
         modSpeed = playerActions.getSpeedFloat();
-        logger.info(String.format("I have been created with speed %f", refSpeed));
     }
 
+    /**
+     * Triggers on frame update.
+     *
+     * Searches through all modifiers present in ArrayList, and handles based on
+     * current system time and expiry time.
+     */
     @Override
     public void update() {
-        // Create an iterator for removal later
+        // Create an iterator for removal later, we cant remove when iterating
         Iterator<Modifier> iterator = modifiers.iterator();
 
         // Iterate through modifiers to apply/remove their affects
         for (Modifier mod : modifiers) {
             if (mod.used) { // Found modifier that's been used, do we need to get rid of it?
                 if (mod.expiry <= System.currentTimeMillis()) {
-                    applyModifier(mod, true);
+                    modifierHandler(mod, true); // Modifier time expired, remove
                     mod.expired = true;
                 }
             } else {
@@ -70,7 +87,7 @@ public class PlayerModifier extends Component{
                     applyModifierPerm(mod);
                     mod.expired = true;
                 } else {
-                    applyModifier(mod, false);
+                    modifierHandler(mod, false);
                     mod.used = true;
                 }
             }
@@ -85,7 +102,15 @@ public class PlayerModifier extends Component{
         }
     }
 
-    private void applyModifier (Modifier mod, boolean remove) {
+    /**
+     * Internal function to apply and remove temporary modifications. Sets the modifier value equal
+     * to the increase/decrease in the reference statistic such that when this function is called for
+     * modifier removal, the value is properly restored.
+     *
+     * @param mod       Target statistic
+     * @param remove    Boolean to determine if a modifier is being removed
+     */
+    private void modifierHandler (Modifier mod, boolean remove) {
 
         float difference; // Used to return to original value if modifier is negative
 
@@ -103,6 +128,12 @@ public class PlayerModifier extends Component{
         }
     }
 
+    /**
+     * Permanently apply a modification to the player entity. Increase the base and
+     * modified player statistics.
+     *
+     * @param mod   Target statistic
+     */
     private void applyModifierPerm (Modifier mod) {
         switch (mod.target) {
             case "movespeed" :
@@ -126,7 +157,8 @@ public class PlayerModifier extends Component{
      *
      * @param target    Desired player statistic.
      * @param value     The value of the increase
-     *
+     * @param scaling   Boolean flag to indicate if the increase value is multiplicative or additive
+     * @param expiry    Expiry time (milliseconds) of modifier, 0 if permanent
      */
     public void createModifier (String target, float value, boolean scaling, int expiry) {
 
