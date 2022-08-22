@@ -1,81 +1,51 @@
 package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
+import com.deco2800.game.crafting.Buildable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A component intended to be used by the player to track their inventory.
  *
- * Currently only stores the gold amount but can be extended for more advanced functionality such as storing items.
+ * Currently only stores the items that implement the Buildable interface. IN_PROGRESS
  * Can also be used as a more generic component for other entities.
  */
-public class InventoryComponent extends Component {
+public class InventoryComponent <T extends Buildable> extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
-  private int gold;
 
   /**
-   * Currently defined as String array because I forgot how to do a generic list. TO BE IMPLEMENTED
+   * Currently only takes items that implement the Buildable interface. TO BE IMPLEMENTED
    */
-  private String[] inventory = new String[16];
+  private List<T> inventory = new ArrayList<>(16);
 
-  public InventoryComponent(int gold) {
-    setGold(gold);
-  }
-
-  /**
-   * Returns the player's gold.
-   *
-   * @return entity's health
-   */
-
-  public String getToilet() {
-    return "Toilet";
-  }
 
   /**
    * Returns the current inventory
    *
    * @return inventory items
    * */
-  public String[] getItems() {
-    return Arrays.copyOf(inventory, 16);
-  }
-
-  public int getGold() {
-    return this.gold;
+  public List<T> getItems() {
+    return List.copyOf(inventory);
   }
 
   /**
-   * Returns if the player has a certain amount of gold.
-   * @param gold required amount of gold
-   * @return player has greater than or equal to the required amount of gold
+   * Adds an item to player's inventory.
+   * @param item item to add
    */
-  public Boolean hasGold(int gold) {
-    return this.gold >= gold;
+  public void addItem(T item) {
+    inventory.add(item);
   }
 
   /**
-   * Sets the player's gold. Gold has a minimum bound of 0.
-   *
-   * @param gold gold
+   * Removes an item to player's inventory.
+   * @param item item to remove
    */
-  public void setGold(int gold) {
-    if (gold >= 0) {
-      this.gold = gold;
-    } else {
-      this.gold = 0;
-    }
-    logger.debug("Setting gold to {}", this.gold);
-  }
+  public void removeItem(T item) {}
 
-  /**
-   * Adds to the player's gold. The amount added can be negative.
-   * @param gold gold to add
-   */
-  public void addGold(int gold) {
-    setGold(this.gold + gold);
-  }
+
 }
