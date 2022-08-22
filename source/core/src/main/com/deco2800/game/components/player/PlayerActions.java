@@ -25,6 +25,7 @@ public class PlayerActions extends Component {
   private boolean dashing = false;
   private long dashStart;
   private long dashEnd;
+  private boolean inventoryIsOpened = false;
 
   @Override
   public void create() {
@@ -33,12 +34,28 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("dash", this::dash);
+    entity.getEvents().addListener("toggleInventory", this::toggleInventory);
   }
 
   @Override
   public void update() {
 
     updateSpeed();
+  }
+
+  private void toggleInventory(){
+    if(inventoryIsOpened) {
+      inventoryIsOpened = false;
+      System.out.println("Opening inventory");
+
+      // Open code
+
+    } else {
+      inventoryIsOpened = true;
+      System.out.println("Closing inventory");
+
+      // Close code
+    }
   }
 
   private void updateSpeed() {
