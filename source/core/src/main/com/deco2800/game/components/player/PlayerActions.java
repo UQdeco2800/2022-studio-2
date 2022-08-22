@@ -44,16 +44,13 @@ public class PlayerActions extends Component {
   }
 
   private void toggleInventory(){
+    inventoryIsOpened = !inventoryIsOpened;
+    //Code for debugging
     if(inventoryIsOpened) {
-      inventoryIsOpened = false;
       System.out.println("Opening inventory");
-
       // Open code
-
     } else {
-      inventoryIsOpened = true;
       System.out.println("Closing inventory");
-
       // Close code
     }
   }
