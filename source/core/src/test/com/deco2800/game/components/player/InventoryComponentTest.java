@@ -6,6 +6,7 @@ import com.deco2800.game.CombatItems.Weapon;
 import com.deco2800.game.crafting.Buildable;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventoryComponentTest {
 
   @Test
-  public void shouldHaveNoItem() {
+  void createEmptyInventory() {
     InventoryComponent testInventory1 = new InventoryComponent();
     assertEquals(testInventory1.getItems(), new ArrayList<>(16));
   }
@@ -27,13 +28,29 @@ class InventoryComponentTest {
   /**
    * I need help on this. This does not work now.
    */
-//  @Test
-//  void addItemTest() {
-//    InventoryComponent testInventory2 = new InventoryComponent();
-//    testInventory2.addItem(new Ranged(1,1,1,1));
-//    List<Weapon> testList = new ArrayList<>(16);
-//    testList.add(new Ranged(1,1, 1,1));
-//    assertEquals(testInventory2.getItems(), testList);
-//  }
+  @Test
+  void addItem() {
+    InventoryComponent testInventory2 = new InventoryComponent();
+    Weapon testRanged = new Ranged(1,1,1,1);
+    testInventory2.addItem(testRanged);
+    List<Weapon> expectedList = new ArrayList<>(16);
+    expectedList.add(testRanged);
+    assertEquals(testInventory2.getItems(), expectedList);
+  }
+
+  @Test
+  void removeItem() {
+    InventoryComponent testInventory3 = new InventoryComponent();
+    Weapon testRanged = new Ranged(1,1,1,1);
+    List<Weapon> expectedList = new ArrayList<>(16);
+
+    testInventory3.addItem(testRanged);
+    expectedList.add(testRanged);
+
+    expectedList.remove(testRanged);
+    testInventory3.removeItem(testRanged);
+    assertEquals(testInventory3.getItems(), expectedList);
+  }
+
 
 }

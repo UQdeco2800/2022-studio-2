@@ -45,7 +45,10 @@ public class InventoryComponent <T extends Buildable> extends Component {
    * Removes an item to player's inventory.
    * @param item item to remove
    */
-  public void removeItem(T item) {}
+  public void removeItem(T item) {
+    //Currently taking item as parameter, may take in index in the future
+    inventory.remove(item);
+  }
 
 
 }
