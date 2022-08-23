@@ -19,9 +19,9 @@ import com.deco2800.game.services.ServiceLocator;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
-  private static final GridPoint2 MAP_SIZE = new GridPoint2(30, 30);
-  private static final int TUFT_TILE_COUNT = 30;
-  private static final int ROCK_TILE_COUNT = 30;
+  private static final GridPoint2 MAP_SIZE = new GridPoint2(50, 50);
+  private static final int TUFT_TILE_COUNT = 5;
+  private static final int ROCK_TILE_COUNT = 5;
 
   private final OrthographicCamera camera;
   private final TerrainOrientation orientation;
@@ -80,6 +80,14 @@ public class TerrainFactory {
         TextureRegion hexRocks =
             new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
         return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
+      case LevelOne:
+        TextureRegion orthoCobble =
+                new TextureRegion(resourceService.getAsset("images/gold_cobble.png", Texture.class));
+        TextureRegion orthoDrain =
+                new TextureRegion(resourceService.getAsset("images/gold_drain.png", Texture.class));
+        TextureRegion orthoRubble =
+                new TextureRegion(resourceService.getAsset("images/grass_3.png", Texture.class));
+        return createForestDemoTerrain(0.5f, orthoCobble, orthoDrain, orthoRubble);
       default:
         return null;
     }
@@ -155,6 +163,7 @@ public class TerrainFactory {
   public enum TerrainType {
     FOREST_DEMO,
     FOREST_DEMO_ISO,
-    FOREST_DEMO_HEX
+    FOREST_DEMO_HEX,
+    LevelOne
   }
 }
