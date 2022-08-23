@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -56,6 +57,14 @@ public class TerrainFactory {
   public TerrainComponent createTerrain(TerrainType terrainType) {
     ResourceService resourceService = ServiceLocator.getResourceService();
     switch (terrainType) {
+      case LEVEL_ONE:
+        TextureRegion orthoCobble =
+                new TextureRegion(resourceService.getAsset("images/gold_cobble.png", Texture.class));
+        TextureRegion orthoCobbleWet =
+                new TextureRegion(resourceService.getAsset("images/gold_cobble_wet.png", Texture.class));
+        TextureRegion orthoDrain =
+                new TextureRegion(resourceService.getAsset("images/gold_drain.png", Texture.class));
+        return createForestDemoTerrain(0.5f, orthoCobble, orthoDrain, orthoCobbleWet);
       case FOREST_DEMO:
         TextureRegion orthoGrass =
             new TextureRegion(resourceService.getAsset("images/grass_1.png", Texture.class));
@@ -89,6 +98,8 @@ public class TerrainFactory {
       float tileWorldSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
     GridPoint2 tilePixelSize = new GridPoint2(grass.getRegionWidth(), grass.getRegionHeight());
     TiledMap tiledMap = createForestDemoTiles(tilePixelSize, grass, grassTuft, rocks);
+    // Using Tiled to create tiled map.
+    // TiledMap tiledMap = loadTiledMap("images/tileMaps/level_1/level_1.tmx");
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
@@ -153,8 +164,14 @@ public class TerrainFactory {
    * different orientations.
    */
   public enum TerrainType {
+    LEVEL_ONE,
     FOREST_DEMO,
     FOREST_DEMO_ISO,
     FOREST_DEMO_HEX
   }
+
+  // Function to load TileMap file from assets
+  /** private static TiledMap loadTiledMap(String tiledMap) {
+    return new TmxMapLoader().load(tiledMap);
+  } */
 }
