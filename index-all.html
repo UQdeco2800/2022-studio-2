@@ -80,13 +80,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Add a component to the entity.</div>
 </dd>
-<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#addGold(int)" class="member-name-link">addGold(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
-<dd>
-<div class="block">Adds to the player's gold.</div>
-</dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#addHealth(int)" class="member-name-link">addHealth(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Adds to the player's health.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#addItem(T)" class="member-name-link">addItem(T)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Adds an item to player's inventory.</div>
 </dd>
 <dt><a href="com/deco2800/game/events/EventHandler.html#addListener(java.lang.String,com.deco2800.game.events.listeners.EventListener0)" class="member-name-link">addListener(String, EventListener0)</a> - Method in class com.deco2800.game.events.<a href="com/deco2800/game/events/EventHandler.html" title="class in com.deco2800.game.events">EventHandler</a></dt>
 <dd>
@@ -868,10 +868,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/ComponentType.html#getFrom(java.lang.Class)" class="member-name-link">getFrom(Class&lt;? extends Component&gt;)</a> - Static method in class com.deco2800.game.components.<a href="com/deco2800/game/components/ComponentType.html" title="class in com.deco2800.game.components">ComponentType</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getGold()" class="member-name-link">getGold()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
-<dd>
-<div class="block">Returns the player's gold.</div>
-</dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getHealth()" class="member-name-link">getHealth()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns the entity's health.</div>
@@ -894,6 +890,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#getInventoryContents()" class="member-name-link">getInventoryContents()</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getItems()" class="member-name-link">getItems()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the current inventory</div>
+</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getLayer()" class="member-name-link">getLayer()</a> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/components/ColliderComponent.html#getLayer()" class="member-name-link">getLayer()</a> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
@@ -1062,10 +1062,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Whether the animator has added the given animation.</div>
 </dd>
-<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#hasGold(int)" class="member-name-link">hasGold(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
-<dd>
-<div class="block">Returns if the player has a certain amount of gold.</div>
-</dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/BaseEntityConfig.html#health" class="member-name-link">health</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/BaseEntityConfig.html" title="class in com.deco2800.game.entities.configs">BaseEntityConfig</a></dt>
@@ -1127,11 +1123,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/files/FileLoader.Location.html#INTERNAL" class="member-name-link">INTERNAL</a> - Enum constant in enum class com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum class in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/player/InventoryComponent.html" class="type-name-link" title="class in com.deco2800.game.components.player">InventoryComponent</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html" class="type-name-link" title="class in com.deco2800.game.components.player">InventoryComponent</a>&lt;<a href="com/deco2800/game/components/player/InventoryComponent.html" title="type parameter in InventoryComponent">T</a> extends <a href="com/deco2800/game/crafting/Buildable.html" title="interface in com.deco2800.game.crafting">Buildable</a>&gt; - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
 <dd>
 <div class="block">A component intended to be used by the player to track their inventory.</div>
 </dd>
-<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#%3Cinit%3E(int)" class="member-name-link">InventoryComponent(int)</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#%3Cinit%3E()" class="member-name-link">InventoryComponent()</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/CombatItems/Aura.html#inverseEffect()" class="member-name-link">inverseEffect()</a> - Method in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Aura.html" title="class in com.deco2800.game.CombatItems">Aura</a></dt>
 <dd>&nbsp;</dd>
@@ -1642,6 +1638,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Remove an animation from this animator.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeItem(T)" class="member-name-link">removeItem(T)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Removes an item to player's inventory.</div>
+</dd>
 <dt><a href="com/deco2800/game/rendering/Renderer.html#render()" class="member-name-link">render()</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/Renderer.html" title="class in com.deco2800.game.rendering">Renderer</a></dt>
 <dd>
 <div class="block">Render everything to the render service.</div>
@@ -1836,10 +1836,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/physics/components/ColliderComponent.html#setFriction(float)" class="member-name-link">setFriction(float)</a> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
 <dd>
 <div class="block">Set friction.</div>
-</dd>
-<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#setGold(int)" class="member-name-link">setGold(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
-<dd>
-<div class="block">Sets the player's gold.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setHealth(int)" class="member-name-link">setHealth(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
