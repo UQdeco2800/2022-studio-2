@@ -52,6 +52,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
+        return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
