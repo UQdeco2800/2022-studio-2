@@ -8,6 +8,35 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+class quickBar<Potions> {
+
+  /**
+   * TO BE IMPLEMENTED
+   */
+  private List<Potions> quickBarItems = new ArrayList<>();
+
+  /**
+   * TO BE IMPLEMENTED
+   */
+  int[] itemQuantity = new int[6];
+
+  /**
+   * Adding potion to the quickbar.
+   * TO BE IMPLEMENTED
+   */
+  public void setQuickBarItems(Potions potion) {
+
+    if (quickBarItems.contains(potion)) {
+      ++ itemQuantity[quickBarItems.indexOf(potion)];
+    } else if (quickBarItems.size() == 6) {
+      //Error code here
+      System.out.println("Quickbar is full.");
+    } else {
+      quickBarItems.add(potion);
+      ++ itemQuantity[quickBarItems.indexOf(potion)];
+    }
+  }
+}
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -15,7 +44,7 @@ import java.util.List;
  * Currently only stores the items that implement the Buildable interface. IN_PROGRESS
  * Can also be used as a more generic component for other entities.
  */
-public class InventoryComponent <T extends Buildable> extends Component {
+public class InventoryComponent <T extends Buildable, P> extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
   /**
@@ -23,12 +52,10 @@ public class InventoryComponent <T extends Buildable> extends Component {
    */
   private List<T> inventory = new ArrayList<>(16);
 
-
   /**
    * Returns the current inventory
-   *
    * @return inventory items
-   * */
+   */
   public List<T> getItems() {
     return List.copyOf(inventory);
   }
@@ -50,5 +77,19 @@ public class InventoryComponent <T extends Buildable> extends Component {
     inventory.remove(item);
   }
 
+  /**
+   *
+   */
+  void displayInventory() {}
+
+  /**
+   * Implemented by potion team or player team.
+   */
+  void consumeItem() {}
+
+  /**
+   * Implemented by weapon team or player team.
+   */
+  void equipWeapon() {}
 
 }
