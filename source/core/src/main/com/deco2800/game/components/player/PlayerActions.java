@@ -23,9 +23,10 @@ public class PlayerActions extends Component {
   private Vector2 dashDirection = Vector2.Zero.cpy();
   private boolean moving = false;
   private boolean dashing = false;
+  private boolean inventoryIsOpened = false;
   private long dashStart;
   private long dashEnd;
-  private boolean inventoryIsOpened = false;
+
 
   @Override
   public void create() {
@@ -39,7 +40,6 @@ public class PlayerActions extends Component {
 
   @Override
   public void update() {
-
     updateSpeed();
   }
 

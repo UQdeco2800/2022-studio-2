@@ -1,12 +1,8 @@
 package com.deco2800.game.components.player;
 
-import com.deco2800.game.CombatItems.Melee;
 import com.deco2800.game.CombatItems.Ranged;
 import com.deco2800.game.CombatItems.Weapon;
-import com.deco2800.game.crafting.Buildable;
 import com.deco2800.game.extensions.GameExtension;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -24,10 +20,6 @@ class InventoryComponentTest {
     assertEquals(testInventory1.getItems(), new ArrayList<>(16));
   }
 
-
-  /**
-   * I need help on this. This does not work now.
-   */
   @Test
   void addItem() {
     InventoryComponent testInventory2 = new InventoryComponent();
