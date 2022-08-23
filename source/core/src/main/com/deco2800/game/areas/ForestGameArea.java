@@ -28,6 +28,7 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
+    "images/atlantis_citizen_gym_bro.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/ghost_king.png",
@@ -61,6 +62,14 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
   }
 
+  /**
+   * Get the player entity from the map. - Team 5 1map4all @LYB
+   * @return player entity.
+   */
+  public Entity getPlayer() {
+    return player;
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
@@ -75,6 +84,8 @@ public class ForestGameArea extends GameArea {
     spawnGhosts();
     spawnGhostKing();
     spawnEffectBlobs();
+    spawnAtlantisCitizen();
+
     playMusic();
 
   }
@@ -182,6 +193,17 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
+  }
+
+  private void spawnAtlantisCitizen() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    for (int i = 0; i < NUM_GHOSTS; i++) {
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity atlantisCitizen = NPCFactory.createAtlantisCitizen(player);
+      spawnEntityAt(atlantisCitizen, randomPos, true, true);
+    }
   }
 
   private void playMusic() {
