@@ -55,6 +55,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
+      case Keys.F: //also by eugene, experiment
+        entity.getEvents().trigger("pickAndEquipWeapon");
+        return true;
       default:
         return false;
     }

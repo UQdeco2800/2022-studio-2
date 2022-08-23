@@ -1,11 +1,12 @@
 package com.deco2800.game.CombatItems;
 
 import com.deco2800.game.crafting.Buildable;
+import com.deco2800.game.entities.Entity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class Weapon implements Buildable {
+public abstract class Weapon extends Entity implements Buildable {
     protected int level; //level 1, 2, 3
     protected double damage;
     protected double coolDown;

@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -38,12 +39,22 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("dash", this::dash);
     entity.getEvents().addListener("teleport", this::teleport);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+    //entity.getEvents().addListener("pickup", this::pickAndEquipWeapon);
   }
 
   @Override
   public void update() {
     updateSpeed();
   }
+
+  /*private void pickAndEquipWeapon() {
+    this.daggerXCoord = (float) ForestGameArea.getDagger().getCenterPosition().x;
+    this.daggerYCoord = (float)ForestGameArea.getDagger().getCenterPosition().y;
+    if (entity.getCenterPosition().dst(daggerXCoord, daggerYCoord) < 10) {
+      System.out.println("pickEquipDagger");
+      entity.getEvents().trigger("open_crafting");
+    }
+  }*/
 
   private void toggleInventory(){
     inventoryIsOpened = !inventoryIsOpened;

@@ -9,6 +9,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -44,7 +45,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png",
     "images/CombatWeapons-assets-sprint1/pixelart-sword_1.png",
     "images/CombatWeapons-assets-sprint1/attack_speed_buff.gif",
-    "images/Crafting-assets-sprint1/crafting table/craftingTable.png"
+    "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+    "images/CombatWeapons-assets-sprint1/attack_speed_buff.gif"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -56,6 +58,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
+  private Entity dagger; //by eugene, experiment
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -85,7 +88,7 @@ public class ForestGameArea extends GameArea {
     spawnGhostKing();
     spawnEffectBlobs();
     spawnAtlantisCitizen();
-
+  spawnDagger();
     playMusic();
 
   }
@@ -150,7 +153,7 @@ public class ForestGameArea extends GameArea {
       timer.schedule(new TimerTask() {
                        @Override
                        public void run() {
-                         System.out.println("penis");
+                         System.out.println("EffectBlobs disappear");
                          effect.dispose();
                          ServiceLocator.getEntityService().update();
                          timer.cancel();
@@ -167,6 +170,15 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
+  }
+
+  private void spawnDagger() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    dagger = WeaponFactory.createDagger();
+    spawnEntityAt(dagger, randomPos, true, false);
   }
 
   private Entity spawnPlayer() {
