@@ -33,6 +33,18 @@ public class ObstacleFactory {
     return tree;
   }
 
+  public static Entity createEffectBlob() {
+    Entity effect =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/attack_speed_buff.gif"))
+                    .addComponent(new PhysicsComponent());
+
+    effect.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    effect.getComponent(TextureRenderComponent.class).scaleEntity();
+    effect.scaleHeight(1f);
+    return effect;
+  }
+
   public static Entity createCraftingTable() {
     Entity craftingTable =
             new Entity()

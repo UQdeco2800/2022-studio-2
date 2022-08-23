@@ -17,6 +17,9 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
@@ -38,7 +41,9 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+    "images/CombatWeapons-assets-sprint1/pixelart-sword_1.png",
+    "images/CombatWeapons-assets-sprint1/attack_speed_buff.gif",
+    "images/Crafting-assets-sprint1/crafting table/craftingTable.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -69,8 +74,9 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
-
+    spawnEffectBlobs();
     playMusic();
+
   }
 
   private void displayUI() {
@@ -117,6 +123,29 @@ public class ForestGameArea extends GameArea {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity tree = ObstacleFactory.createTree();
       spawnEntityAt(tree, randomPos, true, false);
+    }
+  }
+
+  private void spawnEffectBlobs() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    for (int i = 0; i < 5; i++) { //number of effect
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity effect = ObstacleFactory.createEffectBlob();
+      spawnEntityAt(effect, randomPos, true, false);
+
+      Timer timer = new Timer();
+      timer.schedule(new TimerTask() {
+                       @Override
+                       public void run() {
+                         System.out.println("penis");
+                         effect.dispose();
+                         ServiceLocator.getEntityService().update();
+                         timer.cancel();
+                       }
+                     }
+              , 7000, 5000);
     }
   }
 
