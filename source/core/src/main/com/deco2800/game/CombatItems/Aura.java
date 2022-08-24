@@ -1,6 +1,8 @@
 package com.deco2800.game.CombatItems;
 
-public class Aura {
+import com.deco2800.game.entities.Entity;
+
+public class Aura extends Entity {
 
     private double weightMultiplier;
     private double durationMultiplier;

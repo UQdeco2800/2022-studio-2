@@ -3,14 +3,13 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.CombatItems.Aura;
+import com.deco2800.game.CombatItems.Weapon;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.NPCFactory;
-import com.deco2800.game.entities.factories.ObstacleFactory;
-import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -65,7 +64,8 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity dagger; //by eugene, experiment
+  private Weapon dagger; //by eugene, experiment
+  private Aura speedBuff;
 
 
   public ForestGameArea(TerrainFactory terrainFactory) {
@@ -157,15 +157,15 @@ public class ForestGameArea extends GameArea {
 
     for (int i = 0; i < 5; i++) { //number of effect
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity effect = ObstacleFactory.createEffectBlob();
-      spawnEntityAt(effect, randomPos, true, false);
+      speedBuff = AuraFactory.getAura(0);
+      spawnEntityAt(speedBuff, randomPos, true, false);
 
       Timer timer = new Timer();
       timer.schedule(new TimerTask() {
                        @Override
                        public void run() {
                          System.out.println("EffectBlobs disappear");
-                         effect.dispose();
+                         speedBuff.dispose();
                          ServiceLocator.getEntityService().update();
                          timer.cancel();
                        }
@@ -259,7 +259,7 @@ public class ForestGameArea extends GameArea {
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.0f);
     music.play();
   }
 
