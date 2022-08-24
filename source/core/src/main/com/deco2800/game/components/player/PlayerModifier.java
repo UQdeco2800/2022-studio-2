@@ -2,8 +2,6 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,7 +14,6 @@ import java.util.Iterator;
 public class PlayerModifier extends Component{
 
     static private class Modifier {
-
         public boolean used; // Flag to determine if the modifier has been used
         public boolean expired; // Flag to determine if the modifier has been used
         public long expiry; // Millisecond timestamp for when the modifier will expire
@@ -28,15 +25,12 @@ public class PlayerModifier extends Component{
         public Modifier(String target, float value, int expiry) {
             this.used = false;
             this.expired = false;
-            this.expiry = (expiry == 0) ? 0 : System.currentTimeMillis() + expiry;
-            this.lifetime = expiry;
-            this.value = value;
             this.target = target;
-
+            this.value = value;
+            this.lifetime = expiry;
+            this.expiry = (expiry == 0) ? 0 : System.currentTimeMillis() + expiry;
         }
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(PlayerModifier.class);
 
     // List of all components present in the parent entity
     private PlayerActions playerActions;
@@ -45,31 +39,47 @@ public class PlayerModifier extends Component{
     // Variables for modifier management
     private ArrayList<Modifier> modifiers;
 
-
     // List of all modifiable stats and their associated string for the modifier to work
     // "moveSpeed"
     private static float refSpeed;
     private static float modSpeed;
-    private static int refBaseAttack;
-    private static int modBaseAttack;
+    // "damageReduction"
+    private static float refDamageReduction;
+    private static float modDamageReduction;
 
+    /**
+     * Initial define function for the modifier class.
+     *
+     * Creates the modifier array.
+     * Initialises all modifiable variables to zero.
+     */
+    public PlayerModifier() {
+
+        modifiers = new ArrayList<>();
+
+        refSpeed = 0;
+        modSpeed = 0;
+        refDamageReduction = 0;
+        modDamageReduction = 0;
+    }
 
     /**
      * Creation function to gather all necessary components for PlayerModified component
      * to function.
      *
-     * Creates the modifier array.
      * Gathers all parent components and necessary stat variables within them.
      */
     @Override
     public void create() {
         // Get the required components
         playerActions = entity.getComponent(PlayerActions.class);
-        //combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
-        modifiers = new ArrayList<>();
+        combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
 
-        refSpeed = playerActions.getSpeedFloat();
-        modSpeed = playerActions.getSpeedFloat();
+        refSpeed = playerActions.getMaxSpeed();
+        modSpeed = playerActions.getMaxSpeed();
+
+        refDamageReduction = combatStatsComponent.getDamageReduction();
+        modDamageReduction = combatStatsComponent.getDamageReduction();
     }
 
     /**
@@ -131,6 +141,14 @@ public class PlayerModifier extends Component{
                 mod.value = -1 * difference;
                 playerActions.updateMaxSpeed(modSpeed);
                 break;
+            case "damageReduction" :
+                difference = modDamageReduction;
+                modDamageReduction = remove ? modDamageReduction - mod.value : modDamageReduction + mod.value;
+                modDamageReduction = (modDamageReduction < 0) ? 0.1f : modDamageReduction; // Precaution for negative values
+                difference -= modDamageReduction;
+                mod.value = -1 * difference;
+                combatStatsComponent.setDamageReduction(modDamageReduction);
+                break;
             default :
                 // Do nothing
         }
@@ -150,8 +168,11 @@ public class PlayerModifier extends Component{
                 refSpeed += mod.value;
                 playerActions.updateMaxSpeed(modSpeed);
                 break;
-            case "gold":
-                // Do nothing
+            case "damageReduction":
+                modDamageReduction += mod.value;
+                refDamageReduction += mod.value;
+                combatStatsComponent.setDamageReduction(modDamageReduction);
+                break;
             default :
                 // Do nothing
         }
@@ -176,6 +197,9 @@ public class PlayerModifier extends Component{
         switch (target) {
             case "moveSpeed":
                 valChange = (scaling) ? refSpeed * value : value;
+                break;
+            case "damageReduction":
+                valChange = (scaling) ? refDamageReduction * value : value;
                 break;
             default:
                 // Do nothing
@@ -202,18 +226,57 @@ public class PlayerModifier extends Component{
             case "moveSpeed":
                 valChange = (scaling) ? refSpeed * value : value;
                 break;
+            case "damageReduction":
+                valChange = (scaling) ? refDamageReduction * value : value;
+                break;
             default:
                 // Do nothing
         }
 
         while(iterator.hasNext()) {
             Modifier mod = iterator.next();
-            if (mod.target == target && mod.value == valChange && mod.lifetime == expiry) {
+            if (mod.target.equals(target) && mod.value == valChange && mod.lifetime == expiry) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Public function to return current reference value of a desired target.
+     *
+     * @param target    Desired player statistic.
+     * @return Float value of the desired reference target statistic, else -1 on fail.
+     */
+    public float getReference (String target) {
+
+        switch (target) {
+            case "moveSpeed":
+                return modSpeed;
+            case "damageReduction":
+                return modDamageReduction;
+            default:
+                return -1;
+        }
+    }
+
+    /**
+     * Public function to return current modified value of a desired target.
+     *
+     * @param target    Desired player statistic.
+     * @return Float value of the desired modified target statistic, else -1 on fail.
+     */
+    public float getModified (String target) {
+
+        switch (target) {
+            case "moveSpeed":
+                return refSpeed;
+            case "damageReduction":
+                return refDamageReduction;
+            default:
+                return -1;
+        }
     }
 }
 

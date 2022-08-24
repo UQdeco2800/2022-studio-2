@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
   private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
   private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
   private static final float DASH_MOVEMENT_RESTRICTION = 0.8f;
+  private static final int TELEPORT_LENGTH = 4;
 
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
   private static Vector2 maxSpeed = new Vector2(3f, 3f); // Metres per second
@@ -29,6 +29,7 @@ public class PlayerActions extends Component {
   private Vector2 dashDirection = Vector2.Zero.cpy();
   private boolean moving = false;
   private boolean dashing = false;
+  private boolean inventoryIsOpened = false;
   private long dashStart;
   private long dashEnd;
 
@@ -44,19 +45,29 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
-    playerModifier = entity.getComponent(PlayerModifier.class); // TODO remove this
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
-    entity.getEvents().addListener("movespeed_up", this::movespeed_up); // TODO remove these
-    entity.getEvents().addListener("movespeed_down", this::movespeed_down); // TODO remove these
     entity.getEvents().addListener("dash", this::dash);
+    entity.getEvents().addListener("teleport", this::teleport);
+    entity.getEvents().addListener("toggleInventory", this::toggleInventory);
   }
 
   @Override
   public void update() {
-
     updateSpeed();
+  }
+
+  private void toggleInventory(){
+    inventoryIsOpened = !inventoryIsOpened;
+    //Code for debugging
+    if(inventoryIsOpened) {
+      System.out.println("Opening inventory");
+      // Open code
+    } else {
+      System.out.println("Closing inventory");
+      // Close code
+    }
   }
 
   private void updateSpeed() {
@@ -111,22 +122,6 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Increases player movement speed.
-   */
-  void movespeed_up() {
-    System.out.print(String.format("Time to speed up!"));
-    playerModifier.createModifier("movespeed", 10f, true, 0);
-  }
-
-  /**
-   * Decreases player movement speed.
-   */
-  void movespeed_down() {
-    System.out.print(String.format("Time to slow down"));
-    playerModifier.createModifier("movespeed", -0.9f, true, 3000);
-  }
-
-  /**
    * Public function to set new max speed.
    *
    * @param newSpeed of the player character
@@ -138,7 +133,7 @@ public class PlayerActions extends Component {
   /**
    * Return the max speed of the player actions.
    */
-  public float getSpeedFloat() { return maxSpeed.x; }
+  public float getMaxSpeed() { return maxSpeed.x; }
 
    /** Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
    */
@@ -149,5 +144,25 @@ public class PlayerActions extends Component {
     this.dashing = true;
     this.dashStart = System.currentTimeMillis();
     this.dashEnd = this.dashStart + DASH_LENGTH;
+  }
+
+  /**
+   * Teleports the player a set distance in the currently facing direction.
+   */
+  void teleport() {
+    float teleportPositionX = entity.getPosition().x + walkDirection.x * TELEPORT_LENGTH;
+    float teleportPositionY = entity.getPosition().y + walkDirection.y * TELEPORT_LENGTH;
+
+    // Check if teleport is out of map bounds
+    if (teleportPositionX < -0.08)
+      teleportPositionX = -0.08f;
+    if (teleportPositionY < 0.11)
+      teleportPositionY = 0.11f;
+    if (teleportPositionX > 14.18)
+      teleportPositionX = 14.18f;
+    if (teleportPositionY > 14.68)
+      teleportPositionY = 14.68f;
+
+    entity.setPosition(teleportPositionX, teleportPositionY);
   }
 }

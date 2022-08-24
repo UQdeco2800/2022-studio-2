@@ -22,7 +22,7 @@ public class ObstacleFactory {
   public static Entity createTree() {
     Entity tree =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/tree.png"))
+            .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/tree-1_1.png"))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -32,6 +32,26 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
     return tree;
   }
+
+  /**
+   * Creates a small tree entity. - Team 5 1map4all @LYB
+   * @return small tree entity
+   */
+  public static Entity createSmallTree() {
+    Entity smallTree =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/tree-2_2" +
+                            ".png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    smallTree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    smallTree.getComponent(TextureRenderComponent.class).scaleEntity();
+    smallTree.scaleHeight(2.5f);
+    PhysicsUtils.setScaledCollider(smallTree, 0.5f, 0.2f);
+    return smallTree;
+  }
+
 
   public static Entity createCraftingTable() {
     Entity craftingTable =
@@ -60,6 +80,24 @@ public class ObstacleFactory {
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     wall.setScale(width, height);
     return wall;
+  }
+
+  /**
+   * Creates a column entity on the map. - Team 5 1map4all @LYB
+   * @return Column entity.
+   */
+  public static Entity createColumn() {
+    Entity column =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/column.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    column.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    column.getComponent(TextureRenderComponent.class).scaleEntity();
+    column.scaleHeight(2.5f);
+    PhysicsUtils.setScaledCollider(column, 0.9f, 0.9f);
+    return column;
   }
 
   private ObstacleFactory() {
