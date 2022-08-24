@@ -17,6 +17,7 @@ class quickBar<Potions> {
 
   /**
    * TO BE IMPLEMENTED
+   * By default every element in the array is 0.
    */
   int[] itemQuantity = new int[6];
 
@@ -27,15 +28,46 @@ class quickBar<Potions> {
   public void setQuickBarItems(Potions potion) {
 
     if (quickBarItems.contains(potion)) {
-      ++ itemQuantity[quickBarItems.indexOf(potion)];
+      ++itemQuantity[quickBarItems.indexOf(potion)];
     } else if (quickBarItems.size() == 6) {
       //Error code here
       System.out.println("Quickbar is full.");
     } else {
       quickBarItems.add(potion);
-      ++ itemQuantity[quickBarItems.indexOf(potion)];
+      ++itemQuantity[quickBarItems.indexOf(potion)];
     }
   }
+
+  /**
+   * Removes the potion from the quickbar based on the input index
+   *
+   * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+   */
+  public void removePotion(int inputIndex) {
+    quickBarItems.remove(inputIndex);
+    itemQuantity[inputIndex] = 0;
+  }
+
+  /**
+   * Consume the potion rom quickbar based on the input index
+   *
+   * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+   *                   <p>
+   *                   ****To be implemented by potion team or player team.****
+   */
+  public void consumePotion(int inputIndex) {
+    if (quickBarItems.get(inputIndex) != null
+            && itemQuantity[inputIndex] == 1) {
+      //Potion consumption effect code here
+      removePotion(inputIndex);
+    } else if (quickBarItems.get(inputIndex) != null
+            && itemQuantity[inputIndex] > 1) {
+      //Potion consumption effect code here
+      --itemQuantity[quickBarItems.indexOf(inputIndex)];
+    }
+    //Do nothing if there is no potion on the selected slot or the quantity ! >= 1
+  }
+
 }
 
 /**
