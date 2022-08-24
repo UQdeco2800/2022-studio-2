@@ -19,6 +19,7 @@ public class CombatStatsComponent extends Component {
   public CombatStatsComponent(int health, int baseAttack) {
     setHealth(health);
     setBaseAttack(baseAttack);
+    setDamageReduction(0); // Damage reduction is always 0 unless specified otherwise
   }
 
   /**
@@ -87,7 +88,7 @@ public class CombatStatsComponent extends Component {
   }
 
   public void hit(CombatStatsComponent attacker) {
-    int newHealth = getHealth() - attacker.getBaseAttack();
+    int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
     setHealth(newHealth);
   }
 
@@ -112,4 +113,11 @@ public class CombatStatsComponent extends Component {
       logger.error("Can not set damage reduction to a negative value");
     }
   }
+
+  /**
+   * Returns the current damageReduction stat.
+   *
+   * @return The float value of damageReduction.
+   */
+  public float getDamageReduction() { return damageReduction; }
 }
