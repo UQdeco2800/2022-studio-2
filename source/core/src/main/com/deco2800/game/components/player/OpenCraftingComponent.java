@@ -1,12 +1,6 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.BodyUserData;
-import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.HitboxComponent;
 import org.slf4j.Logger;
 import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.LoggerFactory;
@@ -30,7 +24,7 @@ public class OpenCraftingComponent extends Component {
 
     private void openCrafting() {
 
-        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 10) {
+        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 15) {
             System.out.println("3");
             entity.getEvents().trigger("open_crafting");
         }

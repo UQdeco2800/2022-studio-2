@@ -38,7 +38,7 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/Crafting-assets-sprint1/crafting table/craftingTable.png"
+    "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -56,6 +56,14 @@ public class ForestGameArea extends GameArea {
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
+  }
+
+  /**
+   * Get the player entity from the map. - Team 5 1map4all @LYB
+   * @return player entity.
+   */
+  public Entity getPlayer() {
+    return player;
   }
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */

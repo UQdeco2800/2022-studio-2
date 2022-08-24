@@ -36,8 +36,8 @@ public class ObstacleFactory {
   public static Entity createCraftingTable() {
     Entity craftingTable =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/crafting " +
-                            "table/craftingTable.png"))
+                    .addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1" +
+                            "/crafting table/craftingTable.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
