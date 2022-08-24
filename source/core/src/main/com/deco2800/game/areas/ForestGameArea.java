@@ -44,10 +44,9 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/CombatWeapons-assets-sprint1/pixelart-sword_1.png",
-    "images/CombatWeapons-assets-sprint1/attack_speed_buff.gif",
+    "images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png",
+    "images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
-    "images/CombatWeapons-assets-sprint1/attack_speed_buff.gif",
     "images/gold_cobble.png",
     "images/gold_drain.png",
     "images/Map_assets/sprint_1/column.png",
@@ -164,7 +163,7 @@ public class ForestGameArea extends GameArea {
       timer.schedule(new TimerTask() {
                        @Override
                        public void run() {
-                         System.out.println("EffectBlobs disappear");
+                         logger.info("EffectBlobs disappear");
                          speedBuff.dispose();
                          ServiceLocator.getEntityService().update();
                          timer.cancel();

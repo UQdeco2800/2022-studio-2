@@ -34,12 +34,22 @@ public class WeaponFactory {
 
     public static Entity createDagger() {
         Melee dagger = new Melee(10, 2, 1, 1);
-        dagger.addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/pixelart-sword_1.png"))
+        dagger.addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"))
                 .addComponent(new PhysicsComponent());
         dagger.getComponent(TextureRenderComponent.class).scaleEntity();
-        dagger.scaleHeight(20f);
+        dagger.scaleHeight(2f);
         return dagger;
     }
+
+     public static Entity createTrdient() {
+        Melee trident = new Melee(10, 2, 1, 1);
+        dagger.addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"))
+                .addComponent(new PhysicsComponent());
+        dagger.getComponent(TextureRenderComponent.class).scaleEntity();
+        dagger.scaleHeight(2f);
+        return dagger;
+    }
+
 
 
 }

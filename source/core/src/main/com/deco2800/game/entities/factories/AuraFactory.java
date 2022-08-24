@@ -22,10 +22,10 @@ public class AuraFactory {
 
     public static Entity createWeaponSpeedBuff() {
         Aura speedBuff = new Aura(10, 1, 0.5, 1);
-        speedBuff.addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/attack_speed_buff.gif"))
+        speedBuff.addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"))
                 .addComponent(new PhysicsComponent());
         speedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
-        speedBuff.scaleHeight(20f);
+        speedBuff.scaleHeight(2f);
         return speedBuff;
     }
 }
