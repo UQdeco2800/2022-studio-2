@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
-import com.badlogic.gdx.utils.Timer;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
