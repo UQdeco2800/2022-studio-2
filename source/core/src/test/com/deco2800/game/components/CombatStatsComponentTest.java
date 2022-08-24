@@ -52,4 +52,16 @@ class CombatStatsComponentTest {
     combat.setBaseAttack(-50);
     assertEquals(150, combat.getBaseAttack());
   }
+
+  @Test
+  void shouldSetGetStamina() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
+    assertEquals(100, combat.getStamina());
+
+    combat.setStamina(80);
+    assertEquals(80, combat.getStamina());
+
+    combat.setStamina(-50);
+    assertEquals(0, combat.getStamina());
+  }
 }
