@@ -1,41 +1,48 @@
 package com.deco2800.game.components.player;
 
+import com.deco2800.game.CombatItems.Ranged;
+import com.deco2800.game.CombatItems.Weapon;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
 class InventoryComponentTest {
+
   @Test
-  void shouldSetGetGold() {
-    InventoryComponent inventory = new InventoryComponent(100);
-    assertEquals(100, inventory.getGold());
-
-    inventory.setGold(150);
-    assertEquals(150, inventory.getGold());
-
-    inventory.setGold(-50);
-    assertEquals(0, inventory.getGold());
+  void createEmptyInventory() {
+    InventoryComponent testInventory1 = new InventoryComponent();
+    assertEquals(testInventory1.getItems(), new ArrayList<>(16));
   }
 
   @Test
-  void shouldCheckHasGold() {
-    InventoryComponent inventory = new InventoryComponent(150);
-    assertTrue(inventory.hasGold(100));
-    assertFalse(inventory.hasGold(200));
+  void addItem() {
+    InventoryComponent testInventory2 = new InventoryComponent();
+    Weapon testRanged = new Ranged(1,1,1,1);
+    testInventory2.addItem(testRanged);
+    List<Weapon> expectedList = new ArrayList<>(16);
+    expectedList.add(testRanged);
+    assertEquals(testInventory2.getItems(), expectedList);
   }
 
   @Test
-  void shouldAddGold() {
-    InventoryComponent inventory = new InventoryComponent(100);
-    inventory.addGold(-500);
-    assertEquals(0, inventory.getGold());
+  void removeItem() {
+    InventoryComponent testInventory3 = new InventoryComponent();
+    Weapon testRanged = new Ranged(1,1,1,1);
+    List<Weapon> expectedList = new ArrayList<>(16);
 
-    inventory.addGold(100);
-    inventory.addGold(-20);
-    assertEquals(80, inventory.getGold());
+    testInventory3.addItem(testRanged);
+    expectedList.add(testRanged);
+
+    expectedList.remove(testRanged);
+    testInventory3.removeItem(testRanged);
+    assertEquals(testInventory3.getItems(), expectedList);
   }
+
+
 }

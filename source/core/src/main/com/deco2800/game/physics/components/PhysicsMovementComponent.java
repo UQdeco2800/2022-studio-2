@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 public class PhysicsMovementComponent extends Component implements MovementController {
   private static final Logger logger = LoggerFactory.getLogger(PhysicsMovementComponent.class);
   private static final Vector2 maxSpeed = Vector2Utils.ONE;
+  private float speed = 1;
 
   private PhysicsComponent physicsComponent;
   private Vector2 targetPosition;
@@ -75,8 +76,13 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   private void setToVelocity(Body body, Vector2 desiredVelocity) {
     // impulse force = (desired velocity - current velocity) * mass
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass());
-    body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
+    Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass()).scl(speed);
+    //body.applyLinearImpulse(impulse, body.getWorldCenter(),true);
+    body.applyForce(impulse, body.getWorldCenter(), true);
+  }
+
+  public void setSpeed(float speed) {
+    this.speed = speed;
   }
 
   private Vector2 getDirection() {
