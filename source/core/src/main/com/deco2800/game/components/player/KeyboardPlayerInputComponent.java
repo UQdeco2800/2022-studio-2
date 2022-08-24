@@ -46,11 +46,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attack");
         return true;
       case Keys.P:
-        // TODO I am here for some basic debugging code!
+        // TODO Remove before main merge
         entity.getEvents().trigger("movespeed_up");
         return true;
       case Keys.O :
-        // TODO I am here for some basic debugging code!
+        // TODO Remove before main merge
         entity.getEvents().trigger("movespeed_down");
         return true;
       case Keys.SHIFT_LEFT:

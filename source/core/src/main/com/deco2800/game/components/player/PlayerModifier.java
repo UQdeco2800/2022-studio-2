@@ -2,8 +2,6 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +17,8 @@ public class PlayerModifier extends Component{
         public boolean used; // Flag to determine if the modifier has been used
         public boolean expired; // Flag to determine if the modifier has been used
         public long expiry; // Millisecond timestamp for when the modifier will expire
+
+        public long lifetime;
         public float value; // The value difference after modification
 
         public String target; // The player stat we wish to modify
@@ -26,13 +26,12 @@ public class PlayerModifier extends Component{
         public Modifier(String target, float value, int expiry) {
             this.used = false;
             this.expired = false;
-            this.value = value;
             this.target = target;
+            this.value = value;
+            this.lifetime = expiry;
             this.expiry = (expiry == 0) ? 0 : System.currentTimeMillis() + expiry;
         }
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(PlayerModifier.class);
 
     // List of all components present in the parent entity
     private PlayerActions playerActions;
@@ -42,7 +41,7 @@ public class PlayerModifier extends Component{
     private ArrayList<Modifier> modifiers;
 
     // List of all modifiable stats and their associated string for the modifier to work
-    // "movespeed"
+    // "moveSpeed"
     private static float refSpeed;
     private static float modSpeed;
 
@@ -60,8 +59,8 @@ public class PlayerModifier extends Component{
         //combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
         modifiers = new ArrayList<>();
 
-        refSpeed = playerActions.getSpeedFloat();
-        modSpeed = playerActions.getSpeedFloat();
+        refSpeed = playerActions.getMaxSpeed();
+        modSpeed = playerActions.getMaxSpeed();
     }
 
     /**
@@ -112,10 +111,10 @@ public class PlayerModifier extends Component{
      */
     private void modifierHandler (Modifier mod, boolean remove) {
 
-        float difference = 0; // Used to return to original value if modifier is negative
+        float difference; // Used to return to original value if modifier is negative
 
         switch (mod.target) {
-            case "movespeed" :
+            case "moveSpeed" :
                 difference = modSpeed;
                 modSpeed = remove ? modSpeed - mod.value : modSpeed + mod.value;
                 modSpeed = (modSpeed < 0) ? 0.3f : modSpeed; // Precaution for negative values
@@ -136,13 +135,14 @@ public class PlayerModifier extends Component{
      */
     private void applyModifierPerm (Modifier mod) {
         switch (mod.target) {
-            case "movespeed" :
+            case "moveSpeed" :
                 modSpeed += mod.value;
                 refSpeed += mod.value;
                 playerActions.updateMaxSpeed(modSpeed);
                 break;
             case "gold":
                 // Do nothing
+                break;
             default :
                 // Do nothing
         }
@@ -165,7 +165,7 @@ public class PlayerModifier extends Component{
         float valChange = 0f;
 
         switch (target) {
-            case "movespeed":
+            case "moveSpeed":
                 valChange = (scaling) ? refSpeed * value : value;
                 break;
             default:

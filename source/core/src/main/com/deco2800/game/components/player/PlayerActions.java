@@ -44,12 +44,9 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
-    playerModifier = entity.getComponent(PlayerModifier.class); // TODO remove this
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
-    entity.getEvents().addListener("movespeed_up", this::movespeed_up); // TODO remove these
-    entity.getEvents().addListener("movespeed_down", this::movespeed_down); // TODO remove these
     entity.getEvents().addListener("dash", this::dash);
   }
 
@@ -64,7 +61,7 @@ public class PlayerActions extends Component {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
 
-    Vector2 walkVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    Vector2 walkVelocity = walkDirection.cpy().scl(maxSpeed);
     Vector2 dashVelocity;
     Vector2 desiredVelocity;
 
@@ -76,7 +73,7 @@ public class PlayerActions extends Component {
       desiredVelocity = new Vector2(walkVelocity.x * DASH_MOVEMENT_RESTRICTION + dashVelocity.x,
               walkVelocity.y * DASH_MOVEMENT_RESTRICTION + dashVelocity.y);
     } else {
-      desiredVelocity = walkDirection.cpy().scl(MAX_SPEED); // Regular walk
+      desiredVelocity = walkDirection.cpy().scl(maxSpeed); // Regular walk
     }
 
     // impulse = (desiredVel - currentVel) * mass
@@ -113,22 +110,6 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Increases player movement speed.
-   */
-  void movespeed_up() {
-    System.out.print(String.format("Time to speed up!"));
-    playerModifier.createModifier("movespeed", 0.5f, true, 0);
-  }
-
-  /**
-   * Decreases player movement speed.
-   */
-  void movespeed_down() {
-    System.out.print(String.format("Time to slow down"));
-    playerModifier.createModifier("movespeed", -0.9f, true, 3000);
-  }
-
-  /**
    * Public function to set new max speed.
    *
    * @param newSpeed of the player character
@@ -140,7 +121,7 @@ public class PlayerActions extends Component {
   /**
    * Return the max speed of the player actions.
    */
-  public float getSpeedFloat() { return maxSpeed.x; }
+  public float getMaxSpeed() { return maxSpeed.x; }
 
    /** Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
    */
