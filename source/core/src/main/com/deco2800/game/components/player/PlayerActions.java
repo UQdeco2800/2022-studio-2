@@ -130,10 +130,10 @@ public class PlayerActions extends Component {
       teleportPositionX = -0.08f;
     if (teleportPositionY < 0.11)
       teleportPositionY = 0.11f;
-    if (teleportPositionX > 14.18)
-      teleportPositionX = 14.18f;
-    if (teleportPositionY > 14.68)
-      teleportPositionY = 14.68f;
+    if (teleportPositionX > 24.18)
+      teleportPositionX = 24.18f;
+    if (teleportPositionY > 24.68)
+      teleportPositionY = 24.68f;
 
     entity.setPosition(teleportPositionX, teleportPositionY);
   }
