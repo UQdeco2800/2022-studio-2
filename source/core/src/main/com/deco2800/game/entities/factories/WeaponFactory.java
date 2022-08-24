@@ -40,5 +40,9 @@ public class WeaponFactory {
         return dagger;
     }
 
+    private WeaponsFactory() {
+        throw new IllegalStateException("Instantiating static util class");
+    }
+
 
 }
