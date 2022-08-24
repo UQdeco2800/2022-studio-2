@@ -10,9 +10,7 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.BaseEntityConfig;
-import com.deco2800.game.entities.configs.GhostKingConfig;
-import com.deco2800.game.entities.configs.NPCConfigs;
+import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -21,6 +19,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -46,6 +45,10 @@ public class NPCFactory {
   public static Entity createGhost(Entity target) {
     Entity ghost = createBaseNPC(target);
     BaseEntityConfig config = configs.ghost;
+
+    ghost.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
 
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
@@ -73,6 +76,10 @@ public class NPCFactory {
     Entity ghostKing = createBaseNPC(target);
     GhostKingConfig config = configs.ghostKing;
 
+    ghostKing.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
+
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService()
@@ -88,6 +95,48 @@ public class NPCFactory {
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
   }
+  public static Entity createOneLegGirl (Entity target) {
+    Entity oneLegGirl = createBaseNPC(target);
+    OneLegGirlConfig config = configs.oneLegGirl;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/ghostKing.atlas", TextureAtlas.class)
+            );
+
+    oneLegGirl
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new GhostAnimationController())
+            .addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
+
+    oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return oneLegGirl;
+  }
+  /**
+   * Creates an atlantis citizen entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createAtlantisCitizen(Entity target) {
+    Entity atlantisCitizen = createBaseNPC(target);
+    AtlantisCitizenConfig config = configs.atlantisCitizen;
+
+    atlantisCitizen.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 120f));
+
+    //Once we have animation, can change from using Texture Component to Animation Component
+    atlantisCitizen
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
+    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
+    atlantisCitizen.setScale(2f, 2f);
+    return atlantisCitizen;
+
+  }
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
@@ -95,10 +144,7 @@ public class NPCFactory {
    * @return entity
    */
   private static Entity createBaseNPC(Entity target) {
-    AITaskComponent aiComponent =
-        new AITaskComponent()
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 3f, 4f));
+    AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()
             .addComponent(new PhysicsComponent())

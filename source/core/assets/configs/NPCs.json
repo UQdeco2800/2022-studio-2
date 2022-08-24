@@ -7,6 +7,14 @@
     "health": 100,
     "baseAttack": 25,
     "spookyFactor": 7
+  },
+  "atlantisCitizen": {
+    "health": 70,
+    "baseAttack": 20
+  },
+  "oneLegGirl": {
+    "health": 1,
+    "baseAttack": 0
   }
 }
 
