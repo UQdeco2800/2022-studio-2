@@ -1,8 +1,10 @@
 package com.deco2800.game.CombatItems;
 
 import com.deco2800.game.crafting.Buildable;
+import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,6 +22,10 @@ public abstract class Weapon extends Entity implements Buildable {
 
     //from buildable interface of team 09
     public void setCraftingRecipe() {
+        HashMap<Materials,Integer> recipe;
+        recipe = new HashMap<>();
+        recipe.put(Materials.Wood, 2);
+        recipe.put(Materials.Steel,1);
     }
 
     public double getDamage() {

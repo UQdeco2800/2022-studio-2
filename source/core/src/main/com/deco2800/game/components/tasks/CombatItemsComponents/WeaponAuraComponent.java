@@ -1,9 +1,9 @@
-package com.deco2800.game.CombatItems;
+package com.deco2800.game.components.tasks.CombatItemsComponents;
 
-import com.deco2800.game.entities.Entity;
+import com.deco2800.game.CombatItems.Aura;
+import com.deco2800.game.components.Component;
 
-public class Aura extends Entity {
-
+public class WeaponAuraComponent extends Component {
     private double weightMultiplier;
     private double durationMultiplier;
     private double dmgMultiplier;
@@ -11,23 +11,46 @@ public class Aura extends Entity {
     private double areaMultiplier;
     private int auraDuration; //in milliseconds preferably
 
-    //for melee and ranged weapons
-    public Aura(int auraDuration, double dmgMultiplier, double cdMultiplier,
+    public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double cdMultiplier,
                 double weightMultiplier) {
-        this.dmgMultiplier = dmgMultiplier;
-        this.auraDuration = auraDuration; //how long the aura lasts
-        this.cdMultiplier = cdMultiplier;
-        this.weightMultiplier = weightMultiplier;
+        setAuraDuration(auraDuration);
+        setDmgMultiplier(dmgMultiplier);
+        setCdMultiplier(cdMultiplier);
+        setWeightMultiplier(weightMultiplier);
     }
 
     //for aoe weapons
-    public Aura(int auraDuration, double dmgMultiplier, double areaMultiplier,
+    public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double areaMultiplier,
                 double durationMultiplier, double cdMultiplier) {
-        this.dmgMultiplier = dmgMultiplier;
-        this.areaMultiplier = areaMultiplier;
+        setAuraDuration(auraDuration);
+        setDmgMultiplier(dmgMultiplier);
+        setCdMultiplier(cdMultiplier);
+        setDurationMultiplier(durationMultiplier);
+        setAreaMultiplier(areaMultiplier);
+    }
+
+    public void setAuraDuration(int auraDuration) {
         this.auraDuration = auraDuration;
-        this.durationMultiplier = durationMultiplier;
+    }
+
+    public void setDmgMultiplier(double dmgMultiplier) {
+        this.dmgMultiplier = dmgMultiplier;
+    }
+
+    public void setCdMultiplier(double cdMultiplier) {
         this.cdMultiplier = cdMultiplier;
+    }
+
+    public void setWeightMultiplier(double weightMultiplier) {
+        this.weightMultiplier = weightMultiplier;
+    }
+
+    public void setDurationMultiplier(double durationMultiplier) {
+        this.durationMultiplier = durationMultiplier;
+    }
+
+    public void setAreaMultiplier(double areaMultiplier) {
+        this.areaMultiplier = areaMultiplier;
     }
 
     public double getDmgMultiplier() {

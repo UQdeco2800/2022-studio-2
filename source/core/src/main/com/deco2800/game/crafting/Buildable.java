@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface Buildable {
 
-    Map<Materials,Integer> craftingRecipe= new HashMap<Materials,Integer>() {
+    Map<Materials,Integer> craftingRecipe = new HashMap<Materials,Integer>() {
     };
 
     public void setCraftingRecipe();

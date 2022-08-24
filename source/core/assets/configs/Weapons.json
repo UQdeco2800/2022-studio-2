@@ -1,0 +1,9 @@
+{
+  "dagger": {
+    "damage": 20,
+    "coolDown": 10,
+    "weight" : 1,
+    "materials": {"wood": 2, "steel": 1}
+  }
+}
+

@@ -33,18 +33,6 @@ public class ObstacleFactory {
     return tree;
   }
 
-  public static Entity createEffectBlob() {
-    Entity effect =
-            new Entity()
-                    .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/attack_speed_buff.gif"))
-                    .addComponent(new PhysicsComponent());
-
-    effect.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    effect.getComponent(TextureRenderComponent.class).scaleEntity();
-    effect.scaleHeight(1f);
-    return effect;
-  }
-
   /**
    * Creates a small tree entity. - Team 5 1map4all @LYB
    * @return small tree entity

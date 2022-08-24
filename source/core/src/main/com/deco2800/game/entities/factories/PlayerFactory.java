@@ -26,6 +26,7 @@ public class PlayerFactory {
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
+
   /**
    * Create a player entity.
    * @return entity
