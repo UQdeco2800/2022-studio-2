@@ -35,13 +35,11 @@ public class WeaponFactory {
         Entity dagger = createBaseWeapon();
         MeleeConfig config = configs.dagger;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
-        
+
         dagger
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"));
     //apply rohan's crafting component
-
         return dagger;
     }
-
 }

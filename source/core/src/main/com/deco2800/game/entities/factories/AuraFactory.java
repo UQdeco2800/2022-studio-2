@@ -5,6 +5,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
 import com.deco2800.game.files.FileLoader;
+
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AuraFactory {
+
     private static final BaseAuraConfig configs =
             FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
     private static final List<Entity> availableAuras = Arrays.asList(createWeaponSpeedBuff());
