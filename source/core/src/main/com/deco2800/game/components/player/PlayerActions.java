@@ -24,8 +24,10 @@ public class PlayerActions extends Component {
   private Vector2 dashDirection = Vector2.Zero.cpy();
   private boolean moving = false;
   private boolean dashing = false;
+  private boolean inventoryIsOpened = false;
   private long dashStart;
   private long dashEnd;
+
 
   @Override
   public void create() {
@@ -35,12 +37,24 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("dash", this::dash);
     entity.getEvents().addListener("teleport", this::teleport);
+    entity.getEvents().addListener("toggleInventory", this::toggleInventory);
   }
 
   @Override
   public void update() {
-
     updateSpeed();
+  }
+
+  private void toggleInventory(){
+    inventoryIsOpened = !inventoryIsOpened;
+    //Code for debugging
+    if(inventoryIsOpened) {
+      System.out.println("Opening inventory");
+      // Open code
+    } else {
+      System.out.println("Closing inventory");
+      // Close code
+    }
   }
 
   private void updateSpeed() {
