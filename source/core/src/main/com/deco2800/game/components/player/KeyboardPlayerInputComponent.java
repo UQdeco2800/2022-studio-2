@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
-public class KeyboardPlayerInputComponent extends InputComponent {
+public class    KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
 
   public KeyboardPlayerInputComponent() {
