@@ -74,11 +74,11 @@ public class PlayerActions extends Component {
     JFrame j = new JFrame();
     j.setUndecorated(true);
     j.setLocationRelativeTo(null);
-    j.setSize(400, 300);
+    j.setSize(400, 400);
     j.setResizable(false);
     j.getContentPane().setLayout(null);
     JPanel panel = new ImagePanel();
-    panel.setBounds(0, 0, 400, 300);
+    panel.setBounds(0, 0, 400, 400);
     j.getContentPane().add(panel);
     j.setVisible(true);
   }
@@ -86,8 +86,8 @@ public class PlayerActions extends Component {
   class ImagePanel extends JPanel {
     public void paint(Graphics g) {
       super.paint(g);
-      ImageIcon icon = new ImageIcon("images/quickbar/quickbar.png");
-      g.drawImage(icon.getImage(), 0, 0, 400, 300, this);
+      ImageIcon icon = new ImageIcon("images/Inventory/pixil-frame (x10).png");
+      g.drawImage(icon.getImage(), 0, 0, 400, 400, this);
     }
   }
 
