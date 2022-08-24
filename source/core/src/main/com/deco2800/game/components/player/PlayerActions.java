@@ -20,6 +20,7 @@ public class PlayerActions extends Component {
   private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
   private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
   private static final float DASH_MOVEMENT_RESTRICTION = 0.8f;
+  private static final int TELEPORT_LENGTH = 4;
 
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
   private static Vector2 maxSpeed = new Vector2(3f, 3f); // Metres per second
@@ -29,6 +30,7 @@ public class PlayerActions extends Component {
   private Vector2 dashDirection = Vector2.Zero.cpy();
   private boolean moving = false;
   private boolean dashing = false;
+  private boolean inventoryIsOpened = false;
   private long dashStart;
   private long dashEnd;
 
@@ -48,12 +50,24 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("dash", this::dash);
+    entity.getEvents().addListener("teleport", this::teleport);
+    entity.getEvents().addListener("toggleInventory", this::toggleInventory);
   }
 
   @Override
   public void update() {
-    if (moving) {
-      updateSpeed();
+    updateSpeed();
+  }
+
+  private void toggleInventory(){
+    inventoryIsOpened = !inventoryIsOpened;
+    //Code for debugging
+    if(inventoryIsOpened) {
+      System.out.println("Opening inventory");
+      // Open code
+    } else {
+      System.out.println("Closing inventory");
+      // Close code
     }
   }
 
@@ -96,7 +110,6 @@ public class PlayerActions extends Component {
    */
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
-    this.dashing = false; // Stop dashing when stop walking
     updateSpeed();
     moving = false;
   }
@@ -132,5 +145,25 @@ public class PlayerActions extends Component {
     this.dashing = true;
     this.dashStart = System.currentTimeMillis();
     this.dashEnd = this.dashStart + DASH_LENGTH;
+  }
+
+  /**
+   * Teleports the player a set distance in the currently facing direction.
+   */
+  void teleport() {
+    float teleportPositionX = entity.getPosition().x + walkDirection.x * TELEPORT_LENGTH;
+    float teleportPositionY = entity.getPosition().y + walkDirection.y * TELEPORT_LENGTH;
+
+    // Check if teleport is out of map bounds
+    if (teleportPositionX < -0.08)
+      teleportPositionX = -0.08f;
+    if (teleportPositionY < 0.11)
+      teleportPositionY = 0.11f;
+    if (teleportPositionX > 14.18)
+      teleportPositionX = 14.18f;
+    if (teleportPositionY > 14.68)
+      teleportPositionY = 14.68f;
+
+    entity.setPosition(teleportPositionX, teleportPositionY);
   }
 }

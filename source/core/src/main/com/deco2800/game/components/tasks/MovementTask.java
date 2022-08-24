@@ -21,9 +21,17 @@ public class MovementTask extends DefaultTask {
   private long lastTimeMoved;
   private Vector2 lastPos;
   private PhysicsMovementComponent movementComponent;
+  private float speed = 1;
+
 
   public MovementTask(Vector2 target) {
     this.target = target;
+    this.gameTime = ServiceLocator.getTimeSource();
+  }
+
+  public MovementTask(Vector2 target, float stopDistance, float speed) {
+    this.target = target;
+    this.speed = speed;
     this.gameTime = ServiceLocator.getTimeSource();
   }
 
@@ -37,6 +45,7 @@ public class MovementTask extends DefaultTask {
     super.start();
     this.movementComponent = owner.getEntity().getComponent(PhysicsMovementComponent.class);
     movementComponent.setTarget(target);
+    movementComponent.setSpeed(this.speed);
     movementComponent.setMoving(true);
     logger.debug("Starting movement towards {}", target);
     lastTimeMoved = gameTime.getTime();

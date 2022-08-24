@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -19,9 +20,9 @@ import com.deco2800.game.services.ServiceLocator;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
-  private static final GridPoint2 MAP_SIZE = new GridPoint2(30, 30);
-  private static final int TUFT_TILE_COUNT = 30;
-  private static final int ROCK_TILE_COUNT = 30;
+  private static final GridPoint2 MAP_SIZE = new GridPoint2(50, 50);
+  private static final int TUFT_TILE_COUNT = 5;
+  private static final int ROCK_TILE_COUNT = 5;
 
   private final OrthographicCamera camera;
   private final TerrainOrientation orientation;
@@ -80,6 +81,43 @@ public class TerrainFactory {
         TextureRegion hexRocks =
             new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
         return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
+      case LevelOne:
+        TextureRegion orthoCobble =
+                new TextureRegion(resourceService.getAsset("images/gold_cobble.png", Texture.class));
+        TextureRegion orthoDrain =
+                new TextureRegion(resourceService.getAsset("images/gold_drain.png", Texture.class));
+        TextureRegion orthoRubble =
+                new TextureRegion(resourceService.getAsset("images/grass_3.png", Texture.class));
+        return createForestDemoTerrain(0.5f, orthoCobble, orthoDrain, orthoRubble);
+      case LevelOneFlat:
+        TextureRegion gold_cobble =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/gold_cobble.png", Texture.class));
+        TextureRegion grass =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/grass" +
+                        ".png", Texture.class));
+        TextureRegion gold_drain =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/gold_drain.png",
+                        Texture.class));
+        TextureRegion water_tile =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/water_tile.png",
+                        Texture.class));
+        TextureRegion wall_tile =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/wall_tile.png",
+                        Texture.class));
+        TextureRegion tile_wet =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/tile_wet.png",
+                        Texture.class));
+        TextureRegion stairs =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/stairs.png",
+                        Texture.class));
+        TextureRegion tree =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/tree.png",
+                        Texture.class));
+        TextureRegion column =
+                new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/column.png",
+                        Texture.class));
+        return createLevelOne(1.2f, gold_cobble, grass, gold_drain, water_tile,
+                wall_tile, tile_wet, stairs, tree, column);
       default:
         return null;
     }
@@ -89,6 +127,17 @@ public class TerrainFactory {
       float tileWorldSize, TextureRegion grass, TextureRegion grassTuft, TextureRegion rocks) {
     GridPoint2 tilePixelSize = new GridPoint2(grass.getRegionWidth(), grass.getRegionHeight());
     TiledMap tiledMap = createForestDemoTiles(tilePixelSize, grass, grassTuft, rocks);
+    TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
+  }
+
+  private TerrainComponent createLevelOne(
+    float tileWorldSize, TextureRegion gold_cobble, TextureRegion grass, TextureRegion gold_drain
+          , TextureRegion water_tile, TextureRegion wall_tile, TextureRegion tile_wet,
+    TextureRegion stairs, TextureRegion tree, TextureRegion column
+    ) {
+    GridPoint2 tilePixelSize = new GridPoint2(gold_cobble.getRegionWidth(), gold_cobble.getRegionHeight());
+    TiledMap tiledMap =   new TmxMapLoader().load("images/level_1_tiledmap/level_1.tmx");
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
@@ -155,6 +204,8 @@ public class TerrainFactory {
   public enum TerrainType {
     FOREST_DEMO,
     FOREST_DEMO_ISO,
-    FOREST_DEMO_HEX
+    FOREST_DEMO_HEX,
+    LevelOne,
+    LevelOneFlat
   }
 }
