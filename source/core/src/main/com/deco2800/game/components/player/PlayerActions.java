@@ -43,21 +43,13 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("dash", this::dash);
-<<<<<<< HEAD
-
-
-=======
     entity.getEvents().addListener("teleport", this::teleport);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
->>>>>>> main
   }
 
   @Override
   public void update() {
-<<<<<<< HEAD
     checkrest();
-=======
->>>>>>> main
     updateSpeed();
 
   }
