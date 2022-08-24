@@ -215,7 +215,7 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    dagger = WeaponFactory.createDagger();
+    dagger = WeaponFactory.getWeapon(0);
     spawnEntityAt(dagger, randomPos, true, false);
   }
 
