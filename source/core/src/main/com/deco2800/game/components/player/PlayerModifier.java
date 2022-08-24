@@ -16,9 +16,11 @@ import java.util.Iterator;
 public class PlayerModifier extends Component{
 
     static private class Modifier {
+
         public boolean used; // Flag to determine if the modifier has been used
         public boolean expired; // Flag to determine if the modifier has been used
         public long expiry; // Millisecond timestamp for when the modifier will expire
+        public long lifetime;
         public float value; // The value difference after modification
 
         public String target; // The player stat we wish to modify
@@ -26,9 +28,11 @@ public class PlayerModifier extends Component{
         public Modifier(String target, float value, int expiry) {
             this.used = false;
             this.expired = false;
+            this.expiry = (expiry == 0) ? 0 : System.currentTimeMillis() + expiry;
+            this.lifetime = expiry;
             this.value = value;
             this.target = target;
-            this.expiry = (expiry == 0) ? 0 : System.currentTimeMillis() + expiry;
+
         }
     }
 
@@ -36,15 +40,19 @@ public class PlayerModifier extends Component{
 
     // List of all components present in the parent entity
     private PlayerActions playerActions;
-    //private CombatStatsComponent combatStatsComponent;
+    private CombatStatsComponent combatStatsComponent;
 
-    // Will need to implement a cleanup method for these - otherwise its mem leak city
+    // Variables for modifier management
     private ArrayList<Modifier> modifiers;
 
+
     // List of all modifiable stats and their associated string for the modifier to work
-    // "movespeed"
+    // "moveSpeed"
     private static float refSpeed;
     private static float modSpeed;
+    private static int refBaseAttack;
+    private static int modBaseAttack;
+
 
     /**
      * Creation function to gather all necessary components for PlayerModified component
@@ -115,10 +123,10 @@ public class PlayerModifier extends Component{
         float difference; // Used to return to original value if modifier is negative
 
         switch (mod.target) {
-            case "movespeed" :
+            case "moveSpeed" :
                 difference = modSpeed;
                 modSpeed = remove ? modSpeed - mod.value : modSpeed + mod.value;
-                modSpeed = (modSpeed < 0) ? 0.3f : modSpeed; // Precaution for negative values
+                modSpeed = (modSpeed < 0) ? 0.1f : modSpeed; // Precaution for negative values
                 difference -= modSpeed;
                 mod.value = -1 * difference;
                 playerActions.updateMaxSpeed(modSpeed);
@@ -135,8 +143,9 @@ public class PlayerModifier extends Component{
      * @param mod   Target statistic
      */
     private void applyModifierPerm (Modifier mod) {
+
         switch (mod.target) {
-            case "movespeed" :
+            case "moveSpeed" :
                 modSpeed += mod.value;
                 refSpeed += mod.value;
                 playerActions.updateMaxSpeed(modSpeed);
@@ -165,7 +174,7 @@ public class PlayerModifier extends Component{
         float valChange = 0f;
 
         switch (target) {
-            case "movespeed":
+            case "moveSpeed":
                 valChange = (scaling) ? refSpeed * value : value;
                 break;
             default:
@@ -174,6 +183,37 @@ public class PlayerModifier extends Component{
 
         Modifier mod = new Modifier(target, valChange, expiry);
         modifiers.add(mod);
+    }
+
+    /**
+     * Public function to check if there is an already existing modifier with matching parameters
+     *
+     * @param target    Desired player statistic.
+     * @param value     The value of the increase
+     * @param scaling   Boolean flag to indicate if the increase value is multiplicative or additive
+     * @param expiry    Expiry time (milliseconds) of modifier, 0 if permanent
+     */
+    public boolean checkModifier (String target, float value, boolean scaling, int expiry) {
+
+        float valChange = 0f;
+        Iterator<Modifier> iterator = modifiers.iterator();
+
+        switch (target) {
+            case "moveSpeed":
+                valChange = (scaling) ? refSpeed * value : value;
+                break;
+            default:
+                // Do nothing
+        }
+
+        while(iterator.hasNext()) {
+            Modifier mod = iterator.next();
+            if (mod.target == target && mod.value == valChange && mod.lifetime == expiry) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

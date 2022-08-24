@@ -1,5 +1,6 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.utils.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ public class CombatStatsComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
   private int health;
   private int baseAttack;
+  private float damageReduction;
 
   public CombatStatsComponent(int health, int baseAttack) {
     setHealth(health);
@@ -87,5 +89,27 @@ public class CombatStatsComponent extends Component {
   public void hit(CombatStatsComponent attacker) {
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
+  }
+
+  /**
+   * Returns the entity's base attack damage.
+   *
+   * @return base attack damage
+   */
+  public float damageReduction() {
+    return damageReduction;
+  }
+
+  /**
+   * Sets the entity's damage reduction. Damage reduction damage has a minimum bound of 0.
+   *
+   * @param damageReduction Attack damage
+   */
+  public void setDamageReduction(float damageReduction) {
+    if (damageReduction >= 0) {
+      this.damageReduction = damageReduction;
+    } else {
+      logger.error("Can not set damage reduction to a negative value");
+    }
   }
 }
