@@ -25,6 +25,7 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
+    "images/atlantis_citizen_gym_bro.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/ghost_king.png",
@@ -37,7 +38,8 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
-    "images/iso_grass_3.png"
+    "images/iso_grass_3.png",
+    "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -55,6 +57,14 @@ public class ForestGameArea extends GameArea {
     this.terrainFactory = terrainFactory;
   }
 
+  /**
+   * Get the player entity from the map. - Team 5 1map4all @LYB
+   * @return player entity.
+   */
+  public Entity getPlayer() {
+    return player;
+  }
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
@@ -64,6 +74,7 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     spawnTrees();
+    spawnCraftingTable();
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
@@ -117,6 +128,15 @@ public class ForestGameArea extends GameArea {
       Entity tree = ObstacleFactory.createTree();
       spawnEntityAt(tree, randomPos, true, false);
     }
+  }
+
+  private void spawnCraftingTable() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity craftingTable = ObstacleFactory.createCraftingTable();
+    spawnEntityAt(craftingTable, randomPos, true, false);
   }
 
   private Entity spawnPlayer() {

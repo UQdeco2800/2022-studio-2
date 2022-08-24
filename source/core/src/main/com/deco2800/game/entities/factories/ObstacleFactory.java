@@ -33,6 +33,21 @@ public class ObstacleFactory {
     return tree;
   }
 
+  public static Entity createCraftingTable() {
+    Entity craftingTable =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1" +
+                            "/crafting table/craftingTable.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    craftingTable.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    craftingTable.getComponent(TextureRenderComponent.class).scaleEntity();
+    craftingTable.scaleHeight(1.5f);
+    PhysicsUtils.setScaledCollider(craftingTable, 0.8f, 0.7f);
+    return craftingTable;
+  }
+
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units

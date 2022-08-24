@@ -45,6 +45,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
+      case Keys.E:
+        entity.getEvents().trigger("teleport");
+        return true;
+      case Keys.SHIFT_LEFT:
+        entity.getEvents().trigger("dash");
       default:
         return false;
     }
