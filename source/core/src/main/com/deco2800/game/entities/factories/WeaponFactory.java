@@ -41,15 +41,4 @@ public class WeaponFactory {
         return dagger;
     }
 
-     public static Entity createTrdient() {
-        Melee trident = new Melee(10, 2, 1, 1);
-        dagger.addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"))
-                .addComponent(new PhysicsComponent());
-        dagger.getComponent(TextureRenderComponent.class).scaleEntity();
-        dagger.scaleHeight(2f);
-        return dagger;
-    }
-
-
-
 }
