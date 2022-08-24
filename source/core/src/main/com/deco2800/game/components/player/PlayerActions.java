@@ -119,6 +119,7 @@ public class PlayerActions extends Component {
 
   /**
    * Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
+   * After dashing 20 stamina would lost.
    */
 
 
@@ -137,6 +138,10 @@ public class PlayerActions extends Component {
     }
   }
 
+  /**
+   * It is as a timer that check whether has passed 1 second. After each second, rest() would be
+   * called to regenerate stamina
+   */
   void checkrest() {
     if (System.currentTimeMillis() > this.restEnd) {
       rest();
@@ -149,7 +154,9 @@ public class PlayerActions extends Component {
     }
   }
 
-
+  /**
+   * The player's stamina would regerenate as the rate of staminaRegenerationRate.
+   */
   void rest() {
     if (stamina < 100) {
       entity.getEvents().trigger("increaseStamina", staminaRegenerationRate);
@@ -157,10 +164,20 @@ public class PlayerActions extends Component {
 
   }
 
+  /**
+   * This function would store the current stamina in the local class in order to check the
+   * avaliablity of the action
+   * @param stamina entity's stamina
+   */
   void getStamina(int stamina){
     this.stamina=stamina;
   }
 
+  /**
+   * This function would store the current stamina regeneration rate in the local class.
+   *
+   * @param staminaRegenerationRate entity's stamina regeneration rate
+   */
   void getStaminaRegenerationRate(int staminaRegenerationRate){
       this.staminaRegenerationRate=staminaRegenerationRate;
   }

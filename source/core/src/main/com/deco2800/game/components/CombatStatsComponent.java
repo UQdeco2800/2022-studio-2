@@ -112,7 +112,7 @@ public class CombatStatsComponent extends Component {
   }
 
   /**
-   * Sets the entity's stamina. Stamina has a minimum bound of 0.
+   * Sets the entity's stamina. Stamina has a minimum bound of 0 and a maximum bound of the max stamina.
    *
    * @param stamina stamina
    */
@@ -138,10 +138,18 @@ public class CombatStatsComponent extends Component {
     setStamina(this.stamina + stamina);
   }
 
+  /**
+   * Gets the player's maximum stamina.
+   * @return maxStamina player's maximum stamina.
+   */
   public int getMaxStamina(){
     return this.maxStamina;
   }
 
+  /**
+   * Sets the entity's maximum stamina. Max stamina has a minimum bound of 0.
+   * @param maxStamina player's maximum stamina.
+   */
   public void setMaxStamina(int maxStamina){
     if(maxStamina>=0) {
       this.maxStamina = maxStamina;
@@ -152,8 +160,10 @@ public class CombatStatsComponent extends Component {
   }
 
 
-
-
+  /**
+   * Sets the entity's stamina regeneration rate.
+   * @param staminaRegenerationRate entity's stamina regeneration rate
+   */
   public void setStaminaRegenerationRate(int staminaRegenerationRate){
     this.staminaRegenerationRate=staminaRegenerationRate;
     if (entity != null) {
@@ -161,6 +171,10 @@ public class CombatStatsComponent extends Component {
     }
   }
 
+  /**
+   * Gets the entity's stamina regeneration rate.
+   * @return staminaRegenerationRate entity's stamina regeneration rate
+   */
   public int getStaminaRegenerationRate(){
     return staminaRegenerationRate;
   }
