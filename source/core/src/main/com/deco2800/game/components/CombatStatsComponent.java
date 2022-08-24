@@ -12,7 +12,9 @@ public class CombatStatsComponent extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
   private int health;
+  private int maxStamina;
   private int stamina;
+  private int staminaRegenerationRate=1;
   private int baseAttack;
 
   @Override
@@ -24,7 +26,9 @@ public class CombatStatsComponent extends Component {
   public CombatStatsComponent(int health, int baseAttack, int stamina) {
     setHealth(health);
     setBaseAttack(baseAttack);
+    setMaxStamina(stamina);
     setStamina(stamina);
+
   }
 
   /**
@@ -110,10 +114,10 @@ public class CombatStatsComponent extends Component {
   /**
    * Sets the entity's stamina. Stamina has a minimum bound of 0.
    *
-   * @param health health
+   * @param stamina stamina
    */
   public void setStamina(int stamina) {
-    if (stamina >= 0 && stamina <= 100) {
+    if (stamina >= 0 && stamina <= maxStamina) {
       this.stamina= stamina;
     } else {
       this.stamina = 0;
@@ -121,6 +125,7 @@ public class CombatStatsComponent extends Component {
     if (entity != null) {
       entity.getEvents().trigger("updateStamina", this.stamina);
       entity.getEvents().trigger("getStamina",this.stamina);
+      entity.getEvents().trigger("getStaminaRegenerationRate",this.staminaRegenerationRate);
     }
   }
 
@@ -132,5 +137,33 @@ public class CombatStatsComponent extends Component {
   public void addStamina(int stamina) {
     setStamina(this.stamina + stamina);
   }
+
+  public int getMaxStamina(){
+    return this.maxStamina;
+  }
+
+  public void setMaxStamina(int maxStamina){
+    if(maxStamina>=0) {
+      this.maxStamina = maxStamina;
+    }
+    else{
+      this.maxStamina = 0;
+    }
+  }
+
+
+
+
+  public void setStaminaRegenerationRate(int staminaRegenerationRate){
+    this.staminaRegenerationRate=staminaRegenerationRate;
+    if (entity != null) {
+      entity.getEvents().trigger("getStaminaRegenerationRate", this.staminaRegenerationRate);
+    }
+  }
+
+  public int getStaminaRegenerationRate(){
+    return staminaRegenerationRate;
+  }
+
 
 }

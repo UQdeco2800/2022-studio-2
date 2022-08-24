@@ -26,6 +26,7 @@ public class PlayerActions extends Component {
   private long dashStart;
   private long dashEnd;
   private int stamina=100;
+  private int staminaRegenerationRate=1;
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
@@ -34,6 +35,7 @@ public class PlayerActions extends Component {
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
     entity.getEvents().addListener("getStamina", this::getStamina);
+    entity.getEvents().addListener("getStaminaRegenerationRate", this::getStaminaRegenerationRate);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
@@ -127,7 +129,7 @@ public class PlayerActions extends Component {
     }
     if (this.restStart == 0) {
       this.restStart = System.currentTimeMillis();
-      this.restEnd = this.restStart + 500;
+      this.restEnd = this.restStart + 1000;
 
     }
   }
@@ -135,7 +137,7 @@ public class PlayerActions extends Component {
 
   void rest() {
     if (stamina < 100) {
-      entity.getEvents().trigger("increaseStamina", 1);
+      entity.getEvents().trigger("increaseStamina", staminaRegenerationRate);
     }
 
   }
@@ -143,5 +145,10 @@ public class PlayerActions extends Component {
   void getStamina(int stamina){
     this.stamina=stamina;
   }
+
+  void getStaminaRegenerationRate(int staminaRegenerationRate){
+      this.staminaRegenerationRate=staminaRegenerationRate;
+  }
+
 
 }

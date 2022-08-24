@@ -64,4 +64,28 @@ class CombatStatsComponentTest {
     combat.setStamina(-50);
     assertEquals(0, combat.getStamina());
   }
+
+  @Test
+  void shouldSetGetStaminaRegenerationRate(){
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
+    assertEquals(1, combat.getStaminaRegenerationRate());
+    combat.setStaminaRegenerationRate(2);
+    assertEquals(2, combat.getStaminaRegenerationRate());
+  }
+
+  @Test
+  void shouldSetGetMaxStamina() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
+    assertEquals(100, combat.getMaxStamina());
+
+    combat.setStamina(80);
+    assertEquals(100, combat.getMaxStamina());
+
+    combat.setMaxStamina(80);
+    assertEquals(80, combat.getMaxStamina());
+
+    combat.setMaxStamina(-50);
+    assertEquals(0, combat.getMaxStamina());
+  }
+
 }
