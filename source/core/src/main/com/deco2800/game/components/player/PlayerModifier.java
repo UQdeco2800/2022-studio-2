@@ -189,8 +189,9 @@ public class PlayerModifier extends Component{
      * @param value     The value of the increase
      * @param scaling   Boolean flag to indicate if the increase value is multiplicative or additive
      * @param expiry    Expiry time (milliseconds) of modifier, 0 if permanent
+     * @return          True on success, false otherwise
      */
-    public void createModifier (String target, float value, boolean scaling, int expiry) {
+    public boolean createModifier (String target, float value, boolean scaling, int expiry) {
 
         float valChange = 0f;
 
@@ -202,11 +203,13 @@ public class PlayerModifier extends Component{
                 valChange = (scaling) ? refDamageReduction * value : value;
                 break;
             default:
+                return false;
                 // Do nothing
         }
 
         Modifier mod = new Modifier(target, valChange, expiry);
         modifiers.add(mod);
+        return true;
     }
 
     /**
@@ -249,7 +252,7 @@ public class PlayerModifier extends Component{
      * @param target    Desired player statistic.
      * @return Float value of the desired reference target statistic, else -1 on fail.
      */
-    public float getReference (String target) {
+    public float getModified (String target) {
 
         switch (target) {
             case "moveSpeed":
@@ -267,7 +270,7 @@ public class PlayerModifier extends Component{
      * @param target    Desired player statistic.
      * @return Float value of the desired modified target statistic, else -1 on fail.
      */
-    public float getModified (String target) {
+    public float getReference (String target) {
 
         switch (target) {
             case "moveSpeed":
@@ -277,6 +280,23 @@ public class PlayerModifier extends Component{
             default:
                 return -1;
         }
+    }
+
+    /**
+     * Temporary test functions for JUnit Testing until "mocking"
+     * is covered in the course.
+     */
+
+    public void jUnitAddPlayerActions (PlayerActions actions) {
+        playerActions = actions;
+        refSpeed = playerActions.getMaxSpeed();
+        modSpeed = playerActions.getMaxSpeed();
+    }
+
+    public void jUnitAddCombatStats (CombatStatsComponent combat) {
+        combatStatsComponent = combat;
+        refDamageReduction = combatStatsComponent.getDamageReduction();
+        modDamageReduction = combatStatsComponent.getDamageReduction();
     }
 }
 

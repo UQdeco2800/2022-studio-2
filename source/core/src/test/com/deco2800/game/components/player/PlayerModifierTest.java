@@ -3,23 +3,11 @@ package com.deco2800.game.components.player;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.services.ServiceLocator;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.components.Component;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.input.InputService;
-import com.deco2800.game.rendering.RenderService;
-import com.deco2800.game.rendering.Renderable;
-import com.deco2800.game.services.ResourceService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,19 +16,100 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class PlayerModifierTest {
 
     @Test
-    void shouldHaveIdenticalMoveSpeed() {
-
-
-
+    void shouldNotCreateModifier () {
         PlayerActions actions = new PlayerActions(2);
         PlayerModifier modifier = new PlayerModifier();
+        modifier.jUnitAddPlayerActions(actions);
 
-        modifier.createModifier("moveSpeed", 2, false, 20);
-
-        
-//        PlayerModifier playerModifier = newPlayer.getComponent(PlayerModifier.class);
-//        assertEquals(playerActions.getMaxSpeed(), playerModifier.getModified("moveSpeed"));
+        assertFalse(modifier.createModifier("thisShouldntWork", 2, false, 20));
     }
 
+    @Test
+    void shouldCreateModifier () {
+        PlayerActions actions = new PlayerActions(2);
+        PlayerModifier modifier = new PlayerModifier();
+        modifier.jUnitAddPlayerActions(actions);
 
+        assertTrue(modifier.createModifier("moveSpeed", 2, false, 20));
+    }
+
+    @Test
+    void shouldHaveModifier () throws InterruptedException {
+        PlayerActions actions = new PlayerActions(2);
+        PlayerModifier modifier = new PlayerModifier();
+        modifier.jUnitAddPlayerActions(actions);
+
+        modifier.createModifier("moveSpeed", 2, false, 50);
+
+        Thread.sleep(10);
+
+        assertTrue(modifier.checkModifier("moveSpeed", 2, false, 50));
+    }
+
+    @Test
+    void shouldHaveAcceptedModifier () {
+        PlayerActions actions = new PlayerActions(2);
+        PlayerModifier modifier = new PlayerModifier();
+        modifier.jUnitAddPlayerActions(actions);
+
+        modifier.createModifier("moveSpeed", 2, false, 0);
+        modifier.update();
+
+        assertFalse(modifier.checkModifier("moveSpeed", 2, false, 0));
+        assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
+    }
+
+    @Test
+    void shouldHaveExpiredModification () throws InterruptedException {
+        PlayerActions actions = new PlayerActions(2);
+        PlayerModifier modifier = new PlayerModifier();
+        modifier.jUnitAddPlayerActions(actions);
+
+        modifier.createModifier("moveSpeed", 2, false, 5);
+        modifier.update();
+
+        // Should be equal to 4
+        assertEquals(actions.getMaxSpeed(), 4);
+        assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
+
+        Thread.sleep(10);
+        modifier.update();
+
+        // Modified should have expired, now equal to 2
+        assertEquals(actions.getMaxSpeed(), 2);
+        assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
+    }
+
+    @Test
+    void shouldHaveIdenticalMoveSpeed () {
+        PlayerActions actions = new PlayerActions(2);
+        PlayerModifier modifier = new PlayerModifier();
+        modifier.jUnitAddPlayerActions(actions);
+
+        modifier.createModifier("moveSpeed", 2, false, 20);
+        modifier.update();
+
+        assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
+    }
+
+    @Test
+    void shouldHaveIdenticalReduction () {
+        CombatStatsComponent combat = new CombatStatsComponent(100, 1);
+        PlayerModifier modifier = new PlayerModifier();
+        modifier.jUnitAddCombatStats(combat);
+
+        // Scalar should keep the value as 0
+        modifier.createModifier("damageReduction", 2, true, 0);
+        modifier.update();
+
+        assertEquals(combat.getDamageReduction(), modifier.getModified("damageReduction"));
+        assertEquals(combat.getDamageReduction(), modifier.getReference("damageReduction"));
+
+        // Additive should make the value become 2
+        modifier.createModifier("damageReduction", 2, false, 0);
+        modifier.update();
+
+        assertEquals(combat.getDamageReduction(), modifier.getModified("damageReduction"));
+        assertEquals(combat.getDamageReduction(), modifier.getReference("damageReduction"));
+    }
 }
