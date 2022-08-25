@@ -1,5 +1,6 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.utils.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ public class CombatStatsComponent extends Component {
   private int stamina;
   private int staminaRegenerationRate=1;
   private int baseAttack;
+  private float damageReduction;
 
   @Override
   public void create(){
@@ -28,7 +30,7 @@ public class CombatStatsComponent extends Component {
     setBaseAttack(baseAttack);
     setMaxStamina(stamina);
     setStamina(stamina);
-
+    setDamageReduction(0); // Damage reduction is always 0 unless specified otherwise
   }
 
   /**
@@ -98,7 +100,7 @@ public class CombatStatsComponent extends Component {
   }
 
   public void hit(CombatStatsComponent attacker) {
-    int newHealth = getHealth() - attacker.getBaseAttack();
+    int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
     setHealth(newHealth);
   }
 
@@ -118,14 +120,35 @@ public class CombatStatsComponent extends Component {
    */
   public void setStamina(int stamina) {
     if (stamina >= 0 && stamina <= maxStamina) {
-      this.stamina= stamina;
+      this.stamina = stamina;
     } else {
       this.stamina = 0;
     }
     if (entity != null) {
       entity.getEvents().trigger("updateStamina", this.stamina);
-      entity.getEvents().trigger("getStamina",this.stamina);
-      entity.getEvents().trigger("getStaminaRegenerationRate",this.staminaRegenerationRate);
+      entity.getEvents().trigger("getStamina", this.stamina);
+      entity.getEvents().trigger("getStaminaRegenerationRate", this.staminaRegenerationRate);
+    }
+  }
+   /**
+   * Returns the entity's base attack damage.
+   *
+   * @return base attack damage
+   */
+  public float damageReduction() {
+    return damageReduction;
+  }
+
+  /**
+   * Sets the entity's damage reduction. Damage reduction damage has a minimum bound of 0.
+   *
+   * @param damageReduction Attack damage
+   */
+  public void setDamageReduction(float damageReduction) {
+    if (damageReduction >= 0) {
+      this.damageReduction = damageReduction;
+    } else {
+      logger.error("Can not set damage reduction to a negative value");
     }
   }
 
@@ -179,5 +202,12 @@ public class CombatStatsComponent extends Component {
     return staminaRegenerationRate;
   }
 
+
+  /**
+   * Returns the current damageReduction stat.
+   *
+   * @return The float value of damageReduction.
+   */
+  public float getDamageReduction() { return damageReduction; }
 
 }
