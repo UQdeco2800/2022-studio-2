@@ -22,7 +22,7 @@ public class PlayerActions extends Component {
   private static final int TELEPORT_LENGTH = 4;
 
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
-  private static Vector2  = new Vector2(3f, 3f); // Metres per second
+  private static Vector2 maxSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
