@@ -7,6 +7,7 @@ public class BaseEntityConfig {
     public int health = 30;
     public int stamina = 1;
     public int baseAttack = 5;
+    public int mana= 20;
     public String enemyType = "Minion";
     public void setBoss() {
         enemyType = "Boss";

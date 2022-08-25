@@ -57,7 +57,7 @@ public class NPCFactory {
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
 
     ghost
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -88,7 +88,7 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     ghostKing
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -106,7 +106,7 @@ public class NPCFactory {
             );
 
     oneLegGirl
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new GhostAnimationController());
             //.addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
@@ -130,7 +130,7 @@ public class NPCFactory {
 
     //Once we have animation, can change from using Texture Component to Animation Component
     atlantisCitizen
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
     //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     atlantisCitizen.setScale(2f, 2f);

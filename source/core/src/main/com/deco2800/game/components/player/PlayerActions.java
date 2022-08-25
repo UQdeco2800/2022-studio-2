@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 import org.slf4j.Logger;
@@ -32,8 +33,12 @@ public class PlayerActions extends Component {
   private boolean inventoryIsOpened = false;
   private long dashStart;
   private long dashEnd;
-  private int stamina=100;
+  private int stamina= 100;
+  private int maxStamina =100;
   private int staminaRegenerationRate=1;
+  private int maxMana=100;
+  private int mana=100;
+  private int manaRegenerationRate=1;
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
@@ -50,8 +55,11 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
-    entity.getEvents().addListener("getStamina", this::getStamina);
-    entity.getEvents().addListener("getStaminaRegenerationRate", this::getStaminaRegenerationRate);
+    this.maxStamina=entity.getComponent(CombatStatsComponent.class).getMaxStamina();
+    this.stamina= entity.getComponent(CombatStatsComponent.class).getStamina();
+    this.maxMana=entity.getComponent(CombatStatsComponent.class).getMaxMana();
+    this.mana= entity.getComponent(CombatStatsComponent.class).getMana();
+
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
@@ -63,6 +71,11 @@ public class PlayerActions extends Component {
 
   @Override
   public void update() {
+    this.maxStamina=entity.getComponent(CombatStatsComponent.class).getMaxStamina();
+    this.stamina= entity.getComponent(CombatStatsComponent.class).getStamina();
+    this.maxMana=entity.getComponent(CombatStatsComponent.class).getMaxMana();
+    this.mana= entity.getComponent(CombatStatsComponent.class).getMana();
+
     checkrest();
     updateSpeed();
 
@@ -183,33 +196,19 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * The player's stamina would regerenate as the rate of staminaRegenerationRate.
+   * The player's stamina would regerenate as the rate of staminaRegenerationRate same as mana.
    */
   void rest() {
-    if (stamina < 100) {
+    if (stamina < maxStamina) {
       entity.getEvents().trigger("increaseStamina", staminaRegenerationRate);
+
+    }
+    if (mana< maxMana) {
+      entity.getEvents().trigger("increaseMana", manaRegenerationRate);
+
     }
 
   }
-
-  /**
-   * This function would store the current stamina in the local class in order to check the
-   * avaliablity of the action
-   * @param stamina entity's stamina
-   */
-  void getStamina(int stamina){
-    this.stamina=stamina;
-  }
-
-  /**
-   * This function would store the current stamina regeneration rate in the local class.
-   *
-   * @param staminaRegenerationRate entity's stamina regeneration rate
-   */
-  void getStaminaRegenerationRate(int staminaRegenerationRate){
-      this.staminaRegenerationRate=staminaRegenerationRate;
-  }
-
 
 
   /**
@@ -228,8 +227,9 @@ public class PlayerActions extends Component {
       teleportPositionX = 14.18f;
     if (teleportPositionY > 14.68)
       teleportPositionY = 14.68f;
-
+    entity.getEvents().trigger("decreaseMana", -20);
     entity.setPosition(teleportPositionX, teleportPositionY);
+
   }
 
 }

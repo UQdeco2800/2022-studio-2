@@ -17,6 +17,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Image heartImage;
   private Label healthLabel;
   private Label staminaLabel;
+  private Label manaLabel;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -28,6 +29,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
     entity.getEvents().addListener("updateStamina", this::updatePlayerStaminaUI);
+    entity.getEvents().addListener("updateMana", this::updatePlayerManaUI);
 
   }
 
@@ -52,9 +54,13 @@ public class PlayerStatsDisplay extends UIComponent {
 
     // Stamina text
     int stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
-    ;
     CharSequence staminaText = String.format("Stamina: %d", stamina);
     staminaLabel = new Label(staminaText, skin, "large");
+
+    // Mana text
+    int mana = entity.getComponent(CombatStatsComponent.class).getMana();
+    CharSequence manaText = String.format("Mana: %d", mana);
+    manaLabel = new Label(manaText, skin, "large");
     table.add(heartImage).size(heartSideLength).pad(5);
     table.add(healthLabel);
 
@@ -65,6 +71,12 @@ public class PlayerStatsDisplay extends UIComponent {
     table.setFillParent(true);
     table.padTop(90f).padLeft(5f);
     table.add(staminaLabel);
+    stage.addActor(table);
+    table = new Table();
+    table.top().left();
+    table.setFillParent(true);
+    table.padTop(120f).padLeft(5f);
+    table.add(manaLabel);
     stage.addActor(table);
 
   }
@@ -85,11 +97,20 @@ public class PlayerStatsDisplay extends UIComponent {
 
   /**
    * Updates the player's stamina on the ui.
-   * @param health player stamina
+   * @param stamina player stamina
    */
   public void updatePlayerStaminaUI(int stamina) {
     CharSequence text = String.format("Stamina: %d", stamina);
     staminaLabel.setText(text);
+  }
+
+  /**
+   * Updates the player's mana on the ui.
+   * @param mana player mana
+   */
+  public void updatePlayerManaUI(int mana) {
+    CharSequence text = String.format("Mana: %d", mana);
+    manaLabel.setText(text);
   }
 
   @Override
@@ -98,5 +119,6 @@ public class PlayerStatsDisplay extends UIComponent {
     heartImage.remove();
     healthLabel.remove();
     staminaLabel.remove();
+    manaLabel.remove();
   }
 }

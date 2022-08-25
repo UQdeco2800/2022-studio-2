@@ -10,5 +10,5 @@ public class PlayerConfig extends BaseEntityConfig  {
   public String favouriteColour = "none";
   public float moveSpeed = 5f;
   public int stamina = 100;
-  public int mana = 0;
+  public int mana = 100;
 }
