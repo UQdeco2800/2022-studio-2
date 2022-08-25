@@ -13,24 +13,16 @@ import com.deco2800.game.services.ServiceLocator;
  */
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
-  private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
-  private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
-  private static final float DASH_MOVEMENT_RESTRICTION = 0.8f;
-  private static final int TELEPORT_LENGTH = 4;
-
   private PhysicsComponent physicsComponent;
+  private PlayerSkillComponent skillManager;
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private Vector2 dashDirection = Vector2.Zero.cpy();
-  private boolean moving = false;
-  private boolean dashing = false;
   private boolean inventoryIsOpened = false;
-  private long dashStart;
-  private long dashEnd;
 
 
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
+    skillManager = new PlayerSkillComponent();
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
@@ -42,6 +34,7 @@ public class PlayerActions extends Component {
   @Override
   public void update() {
     updateSpeed();
+    this.skillManager.update();
   }
 
   private void toggleInventory(){
@@ -60,18 +53,14 @@ public class PlayerActions extends Component {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
     Vector2 walkVelocity = walkDirection.cpy().scl(MAX_SPEED);
-    Vector2 dashVelocity;
     Vector2 desiredVelocity;
 
-    // If the character is dashing, and dash length isn't over
-    if (this.dashing && System.currentTimeMillis() < this.dashEnd) {
 
-      dashVelocity = dashDirection.cpy().scl(DASH_SPEED); // Dash in direction of movement at start of dash
-      // Allow players to move side-to-side during dash
-      desiredVelocity = new Vector2(walkVelocity.x * DASH_MOVEMENT_RESTRICTION + dashVelocity.x,
-              walkVelocity.y * DASH_MOVEMENT_RESTRICTION + dashVelocity.y);
+    if (skillManager.movementIsModified()) {
+      // If the character's movement is modified by a skill
+      desiredVelocity = skillManager.getModifiedMovement(walkVelocity);
     } else {
-      desiredVelocity = walkDirection.cpy().scl(MAX_SPEED); // Regular walk
+      desiredVelocity = walkVelocity; // Regular walk
     }
 
     // impulse = (desiredVel - currentVel) * mass
@@ -86,7 +75,6 @@ public class PlayerActions extends Component {
    */
   void walk(Vector2 direction) {
     this.walkDirection = direction;
-    moving = true;
   }
 
   /**
@@ -95,7 +83,6 @@ public class PlayerActions extends Component {
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
-    moving = false;
   }
 
   /**
@@ -110,31 +97,13 @@ public class PlayerActions extends Component {
    * Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
    */
   void dash() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
-    this.dashDirection = this.walkDirection.cpy();
-    this.dashing = true;
-    this.dashStart = System.currentTimeMillis();
-    this.dashEnd = this.dashStart + DASH_LENGTH;
+    skillManager.startDash(this.walkDirection.cpy());
   }
 
   /**
    * Teleports the player a set distance in the currently facing direction.
    */
   void teleport() {
-    float teleportPositionX = entity.getPosition().x + walkDirection.x * TELEPORT_LENGTH;
-    float teleportPositionY = entity.getPosition().y + walkDirection.y * TELEPORT_LENGTH;
-
-    // Check if teleport is out of map bounds
-    if (teleportPositionX < -0.08)
-      teleportPositionX = -0.08f;
-    if (teleportPositionY < 0.11)
-      teleportPositionY = 0.11f;
-    if (teleportPositionX > 24.18)
-      teleportPositionX = 24.18f;
-    if (teleportPositionY > 24.68)
-      teleportPositionY = 24.68f;
-
-    entity.setPosition(teleportPositionX, teleportPositionY);
+    skillManager.startTeleport(this.walkDirection.cpy(), entity);
   }
 }
