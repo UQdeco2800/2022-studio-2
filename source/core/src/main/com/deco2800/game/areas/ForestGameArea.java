@@ -47,6 +47,16 @@ public class ForestGameArea extends GameArea {
     "images/Map_assets/sprint_1/column.png",
     "images/Map_assets/sprint_1/tree-1_1.png",
     "images/Map_assets/sprint_1/tree-2_2.png",
+    "images/level_1_tiledmap/32x32/gold_cobble.png",
+    "images/level_1_tiledmap/32x32/grass.png",
+    "images/level_1_tiledmap/32x32/gold_drain.png",
+    "images/level_1_tiledmap/32x32/water_tile.png",
+    "images/level_1_tiledmap/32x32/wall_tile.png",
+    "images/level_1_tiledmap/32x32/tile_wet.png",
+    "images/level_1_tiledmap/32x32/stairs.png",
+    "images/level_1_tiledmap/32x32/tree.png",
+    "images/level_1_tiledmap/32x32/column.png",
+    "images/NPC/male_citizen/male_citizen.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -88,8 +98,9 @@ public class ForestGameArea extends GameArea {
     spawnGhosts();
     spawnGhostKing();
     spawnAtlantisCitizen();
-    spawnColumn(20, 20);
-    spawnColumn(30, 20);
+    spawnOneLegGirl();
+//    spawnColumn(20, 20);
+//    spawnColumn(30, 20);
     playMusic();
   }
 
@@ -101,7 +112,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Background terrain
-    terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
+    terrain = terrainFactory.createTerrain(TerrainType.LevelOneFlat);
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
@@ -193,6 +204,14 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  private void spawnOneLegGirl() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
+    spawnEntityAt(oneLegGirl, randomPos, true, true);
+  }
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);

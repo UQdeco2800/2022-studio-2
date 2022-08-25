@@ -11,6 +11,10 @@
   "atlantisCitizen": {
     "health": 70,
     "baseAttack": 20
+  },
+  "oneLegGirl": {
+    "health": 1,
+    "baseAttack": 0
   }
 }
 
