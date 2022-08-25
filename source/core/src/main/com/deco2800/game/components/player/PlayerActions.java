@@ -22,13 +22,15 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
-    skillManager = new PlayerSkillComponent();
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
-    entity.getEvents().addListener("dash", this::dash);
-    entity.getEvents().addListener("teleport", this::teleport);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+
+    // Skills and Dash initialisation
+    skillManager = new PlayerSkillComponent();
+    skillManager.setSkill("teleport", entity, this);
+    entity.getEvents().addListener("dash", this::dash);
   }
 
   @Override
