@@ -4,8 +4,4 @@ import com.deco2800.game.entities.Entity;
 /**
  * Parent class for all consumable buffs
  */
-public abstract class ConsumableBuff extends Entity {
-    public String ConsumableBuff(){
-        return null;
-    }
-}
+public abstract class ConsumableBuff extends Entity { }
