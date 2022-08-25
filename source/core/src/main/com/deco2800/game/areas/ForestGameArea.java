@@ -55,8 +55,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/tile_wet.png",
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
-    "images/level_1_tiledmap/32x32/column.png"
-
+    "images/level_1_tiledmap/32x32/column.png",
+    "images/NPC/male_citizen/male_citizen.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -98,6 +98,7 @@ public class ForestGameArea extends GameArea {
     spawnGhosts();
     spawnGhostKing();
     spawnAtlantisCitizen();
+    spawnOneLegGirl();
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
     playMusic();
@@ -203,6 +204,14 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  private void spawnOneLegGirl() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
+    spawnEntityAt(oneLegGirl, randomPos, true, true);
+  }
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
