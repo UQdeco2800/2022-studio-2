@@ -41,7 +41,9 @@ public class PlayerModifierTest {
 
         modifier.createModifier("moveSpeed", 2, false, 50);
 
+        modifier.update();
         Thread.sleep(10);
+        modifier.update();
 
         assertTrue(modifier.checkModifier("moveSpeed", 2, false, 50));
     }
