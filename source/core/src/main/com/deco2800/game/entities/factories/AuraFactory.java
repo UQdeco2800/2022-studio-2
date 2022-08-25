@@ -26,7 +26,7 @@ public class AuraFactory {
         return getAvailableAuras().get(auraIndex);
     }
 
-    public static Entity createBaseEntity() {
+    public static Entity createBaseAura() {
         Entity aura = new Entity()
                 .addComponent(new PhysicsComponent());
         aura.scaleHeight(1.5f);
@@ -35,14 +35,13 @@ public class AuraFactory {
     }
 
     public static Entity createWeaponSpeedBuff() {
-        Entity weaponSpeedBuff = createBaseEntity();
+        Entity weaponSpeedBuff = createBaseAura();
         AuraConfig config = configs.speedBuff;
         weaponSpeedBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
                         config.coolDownMultiplier, config.weightMultiplier))
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"));
         weaponSpeedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
-
         return weaponSpeedBuff;
     }
 }

@@ -1,7 +1,7 @@
 package com.deco2800.game.components.tasks.CombatItemsComponents;
 
-import com.deco2800.game.CombatItems.Aura;
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
 
 import java.awt.geom.Area;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class AreaOfEffectStatsComponent extends WeaponStatsComponent {
 
     private double areaRange;
     private double duration;
-    private Aura auraToApply;
+    private Entity auraToApply;
 
     public AreaOfEffectStatsComponent(double damage,
                                       double areaRange,
@@ -41,23 +41,26 @@ public class AreaOfEffectStatsComponent extends WeaponStatsComponent {
     }
 
     @Override
-    public void auraEffect(Aura auraToApply) {
+    public void auraEffect(Entity auraToApply) {
         this.auraToApply = auraToApply;
-        setDamage(this.getDamage() * auraToApply.getDmgMultiplier());
-        setCoolDown(this.getCoolDown() * auraToApply.getCdMultiplier());
-        setDuration(this.getDuration() * auraToApply.getDurationMultiplier());
-        setAreaRange(this.getAreaRange() * auraToApply.getAreaMultiplier());
+        setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
+        setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+        setDuration(this.getDuration() * auraToApply.getComponent(WeaponAuraComponent.class).getDurationMultiplier());
+        setAreaRange(this.getAreaRange() * auraToApply.getComponent(WeaponAuraComponent.class).getAreaMultiplier());
 
-        if (auraToApply.getAuraDuration() != -1) {
+        if (this.getAreaRange() * auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration() != -1) {
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                                @Override
                                public void run() {
-                                   revertAuraEffect(auraToApply);
+                                   setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
+                                   setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+                                   setDuration(getDuration() / auraToApply.getComponent(WeaponAuraComponent.class).getDurationMultiplier());
+                                   setAreaRange(getAreaRange() / auraToApply.getComponent(WeaponAuraComponent.class).getAreaMultiplier());
                                    timer.cancel();
                                }
                            }
-                    , auraToApply.getAuraDuration());
+                    , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
         }
     }
 }

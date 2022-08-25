@@ -1,8 +1,8 @@
 package com.deco2800.game.components.tasks.CombatItemsComponents;
 
-import com.deco2800.game.CombatItems.Aura;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,9 +51,11 @@ public abstract class WeaponStatsComponent extends Component {
 
   }*/
 
-  public abstract void auraEffect(Aura auraToApply);
+  public abstract void auraEffect(Entity auraToApply);
 
-  public void revertAuraEffect(Aura auraToRevert) {
-    this.auraEffect(auraToRevert.inverseEffect());
+  /*public void revertAuraEffect(Entity auraToRevert) { //dont need this
+    this.auraEffect(auraToRevert);
   }
+
+   */
 }

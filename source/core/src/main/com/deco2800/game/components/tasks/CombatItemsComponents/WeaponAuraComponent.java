@@ -1,7 +1,7 @@
 package com.deco2800.game.components.tasks.CombatItemsComponents;
 
-import com.deco2800.game.CombatItems.Aura;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.Entity;
 
 public class WeaponAuraComponent extends Component {
     private double weightMultiplier;
@@ -79,14 +79,15 @@ public class WeaponAuraComponent extends Component {
         return weightMultiplier;
     }
 
-    //reverts the stats to pre-buff
-    public Aura inverseEffect() {
+    /*//reverts the stats to pre-buff
+    public WeaponAuraComponent inverseEffect() {
         if (this.getDurationMultiplier() != 0) { //if the aura is for aoe weapons
-            return new Aura(-1, 1/getDmgMultiplier(), 1/getAreaMultiplier(),
+            return new WeaponAuraComponent(-1, 1/getDmgMultiplier(), 1/getAreaMultiplier(),
                     1/getDurationMultiplier(), 1/getCdMultiplier());
         } else{
-            return new Aura(-1, 1/getDmgMultiplier(), 1/getCdMultiplier(),
+            return new WeaponAuraComponent(-1, 1/getDmgMultiplier(), 1/getCdMultiplier(),
                     1/getWeightMultiplier());
         }
-    }
+
+     */
 }

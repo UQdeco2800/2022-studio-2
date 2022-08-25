@@ -1,6 +1,7 @@
 package com.deco2800.game.entities.factories;
 
 import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.crafting.Buildable;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
@@ -11,7 +12,7 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 import java.util.Arrays;
 import java.util.List;
 
-public class WeaponFactory {
+public class WeaponFactory implements Buildable {
     private static final WeaponConfig configs =
             FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
 
@@ -41,5 +42,10 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"));
     //apply rohan's crafting component
         return dagger;
+    }
+
+    @Override //this requires attention with latest crafting push
+    public void setCraftingRecipe() {
+
     }
 }

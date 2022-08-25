@@ -1,7 +1,7 @@
 package com.deco2800.game.components.tasks.CombatItemsComponents;
 
-import com.deco2800.game.CombatItems.Aura;
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -11,7 +11,7 @@ public class RangedStatsComponent extends WeaponStatsComponent {
 
     protected double weight;
     protected boolean arrowState;
-    protected Aura auraToApply;
+    protected Entity auraToApply;
 
     public RangedStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight) {
         super(damage, coolDown, materials);
@@ -27,25 +27,24 @@ public class RangedStatsComponent extends WeaponStatsComponent {
     }
 
     @Override
-    public void auraEffect(Aura auraToApply) {
+    public void auraEffect(Entity auraToApply) {
         this.auraToApply = auraToApply;
-        setDamage(this.getDamage() * auraToApply.getDmgMultiplier());
-        setCoolDown(this.getCoolDown() * auraToApply.getCdMultiplier());
-        setWeight(this.getWeight() * auraToApply.getWeightMultiplier());
+        setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
+        setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+        setWeight(this.getWeight() * auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
 
-        if (auraToApply.getAuraDuration() != -1) {
+        if (auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration() != -1) {
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                                @Override
                                public void run() {
-                                   revertAuraEffect(auraToApply);
+                                   setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
+                                   setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+                                   setWeight(getWeight() / auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
                                    timer.cancel();
                                }
                            }
-                    , auraToApply.getAuraDuration());
+                    , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
         }
     }
-
-
-
 }

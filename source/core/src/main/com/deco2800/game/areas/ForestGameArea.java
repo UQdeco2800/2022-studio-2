@@ -3,11 +3,11 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.CombatItems.Aura;
-import com.deco2800.game.CombatItems.Weapon;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.tasks.CombatItemsComponents.WeaponAuraComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.utils.math.GridPoint2Utils;
@@ -154,10 +154,27 @@ public class ForestGameArea extends GameArea {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    for (int i = 0; i < 5; i++) { //number of effect
+    for (int i = 0; i < 1; i++) { //number of effect
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       speedBuff = AuraFactory.getAura(0);
       spawnEntityAt(speedBuff, randomPos, true, false);
+
+      /*
+      Entity spdbf = AuraFactory.getAura(0);
+      Entity dagger = WeaponFactory.getWeapon(0);
+      System.out.println(dagger.getComponent(MeleeStatsComponent.class).getDamage());
+      dagger.getComponent(MeleeStatsComponent.class).auraEffect(spdbf);
+      System.out.println(dagger.getComponent(MeleeStatsComponent.class).getDamage());
+      Timer timer1 = new Timer();
+      timer1.schedule(new TimerTask() {
+                       @Override
+                       public void run() {
+                         System.out.println(dagger.getComponent(MeleeStatsComponent.class).getDamage());
+                       }
+                     }
+              , spdbf.getComponent(WeaponAuraComponent.class).getAuraDuration());
+
+       */
 
       Timer timer = new Timer();
       timer.schedule(new TimerTask() {
