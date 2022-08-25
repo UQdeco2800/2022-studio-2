@@ -53,6 +53,21 @@ public class ObstacleFactory {
   }
 
 
+  public static Entity createCraftingMenu() {
+    Entity craftingTable =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1" +
+                            "/crafting table/craftingUI-2-Sprint1.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE));
+
+    craftingTable.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    craftingTable.getComponent(TextureRenderComponent.class).scaleEntity();
+    craftingTable.scaleHeight(10f);
+
+    return craftingTable;
+  }
+
   public static Entity createCraftingTable() {
     Entity craftingTable =
             new Entity()

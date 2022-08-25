@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.crafting.craftingDisplay.CraftingMenuActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
@@ -41,7 +42,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+    "images/Crafting-assets-sprint1/crafting table/craftingUI-2-Sprint1.png",
+          "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
     "images/gold_cobble.png",
     "images/gold_drain.png",
     "images/Map_assets/sprint_1/column.png",
@@ -69,11 +71,16 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
 
+  private static GridPoint2 craftingMenuPos;
+
   private static GridPoint2 craftingTablePos;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
+
+    ServiceLocator.registerGameArea(this);
+
   }
 
   /**
@@ -94,6 +101,7 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     spawnTrees();
     spawnSmallTrees();
+    //spawnCraftingMenu();
     spawnCraftingTable();
     player = spawnPlayer();
     spawnGhosts();
@@ -102,6 +110,7 @@ public class ForestGameArea extends GameArea {
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
     playMusic();
+
   }
 
   private void displayUI() {
@@ -178,7 +187,22 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(column, new GridPoint2(x, y), true, false);
     }
 
-  private void spawnCraftingTable() {
+  public void spawnCraftingMenu() {
+    GridPoint2 minPos = new GridPoint2(10, 6);
+    GridPoint2 randomPos = (minPos);
+    craftingMenuPos = randomPos;
+    Entity craftingTable = ObstacleFactory.createCraftingMenu();
+    spawnEntityAt(craftingTable, randomPos, true, false);
+  }
+
+  public void checkKeyPress(){
+    if (CraftingMenuActions.getMenuReady()){
+      spawnCraftingMenu();
+    }
+  }
+
+
+  public void spawnCraftingTable() {
     GridPoint2 minPos = new GridPoint2(2, 2);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
 
@@ -186,6 +210,10 @@ public class ForestGameArea extends GameArea {
     craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
+  }
+
+  public static GridPoint2 getCraftingMenuPos() {
+    return craftingMenuPos;
   }
 
   public static GridPoint2 getCraftingTablePos() {
@@ -232,7 +260,7 @@ public class ForestGameArea extends GameArea {
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0f);
     music.play();
   }
 

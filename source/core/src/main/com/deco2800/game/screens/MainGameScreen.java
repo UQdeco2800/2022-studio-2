@@ -44,7 +44,10 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
 
+  private static ForestGameArea map;
+
   public MainGameScreen(GdxGame game) {
+
     this.game = game;
 
     logger.debug("Initialising main game screen services");
@@ -69,8 +72,15 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     ForestGameArea map = loadLevelOneMap();
+    this.map = map;
     player = map.getPlayer();
 
+
+
+  }
+
+  public ForestGameArea getMap(){
+    return map;
   }
 
   @Override

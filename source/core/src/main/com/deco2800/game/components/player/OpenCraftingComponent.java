@@ -7,6 +7,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ public class OpenCraftingComponent extends Component {
 
         if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 10) {
             System.out.println("3");
+            ServiceLocator.getGameArea().spawnCraftingMenu();
             entity.getEvents().trigger("open_crafting");
         }
 
