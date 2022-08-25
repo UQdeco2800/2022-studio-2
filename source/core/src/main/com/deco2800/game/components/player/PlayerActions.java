@@ -22,7 +22,7 @@ public class PlayerActions extends Component {
   private static final int TELEPORT_LENGTH = 4;
 
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
-  private static Vector2 maxSpeed = new Vector2(3f, 3f); // Metres per second
+  private static Vector2  = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
@@ -45,6 +45,7 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
+    playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
@@ -119,6 +120,7 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+    playerModifier.createModifier("moveSpeed", 2, true, 350);
   }
 
   /**
