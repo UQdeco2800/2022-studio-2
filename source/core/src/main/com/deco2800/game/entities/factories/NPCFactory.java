@@ -10,10 +10,7 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.AtlantisCitizenConfig;
-import com.deco2800.game.entities.configs.BaseEntityConfig;
-import com.deco2800.game.entities.configs.GhostKingConfig;
-import com.deco2800.game.entities.configs.NPCConfigs;
+import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -98,7 +95,25 @@ public class NPCFactory {
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
   }
+  public static Entity createOneLegGirl (Entity target) {
+    Entity oneLegGirl = createBaseNPC(target);
+    OneLegGirlConfig config = configs.oneLegGirl;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/ghostKing.atlas", TextureAtlas.class)
+            );
+
+    oneLegGirl
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(animator)
+            .addComponent(new GhostAnimationController());
+            //.addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
+
+    oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return oneLegGirl;
+  }
   /**
    * Creates an atlantis citizen entity.
    *
