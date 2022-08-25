@@ -88,4 +88,38 @@ class CombatStatsComponentTest {
     assertEquals(0, combat.getMaxStamina());
   }
 
+  @Test
+  void shouldSetGetMana() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
+    assertEquals(100, combat.getMana());
+
+    combat.setMana(80);
+    assertEquals(80, combat.getMana());
+
+    combat.setMana(-50);
+    assertEquals(0, combat.getMana());
+  }
+
+  @Test
+  void shouldSetGetManaRegenerationRate(){
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
+    assertEquals(1, combat.getManaRegenerationRate());
+    combat.setManaRegenerationRate(2);
+    assertEquals(2, combat.getManaRegenerationRate());
+  }
+
+  @Test
+  void shouldSetGetMaxMana() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
+    assertEquals(100, combat.getMaxMana());
+
+    combat.setMana(80);
+    assertEquals(100, combat.getMaxMana());
+
+    combat.setMaxMana(80);
+    assertEquals(80, combat.getMaxMana());
+
+    combat.setMaxMana(-50);
+    assertEquals(0, combat.getMaxMana());
+  }
 }
