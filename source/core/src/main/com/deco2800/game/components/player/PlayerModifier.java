@@ -206,7 +206,6 @@ public class PlayerModifier extends Component{
                 modStaminaRegen = remove ? modStaminaRegen - mod.value : modStaminaRegen + mod.value;
                 difference -= modStaminaRegen;
                 combatStatsComponent.setStaminaRegenerationRate((int)modStaminaRegen);
-                System.out.print(String.format("Setting regen to %d\n", (int)modStaminaRegen));
                 break;
             case STAMINAMAX :
                 difference = modStaminaMax;
