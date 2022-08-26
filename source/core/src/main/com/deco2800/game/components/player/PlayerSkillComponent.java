@@ -13,7 +13,7 @@ import com.deco2800.game.entities.Entity;
  */
 public class PlayerSkillComponent extends Component {
 
-    private Entity entity;
+    private Entity playerEntity;
 
     private static final int TELEPORT_LENGTH = 4;
     private long teleportEnd;
@@ -33,7 +33,7 @@ public class PlayerSkillComponent extends Component {
 
 
     public PlayerSkillComponent(Entity entity) {
-        this.entity = entity;
+        this.playerEntity = entity;
     }
     /**
      * Update should update the cooldowns/state of skills within the skill manager
@@ -83,11 +83,8 @@ public class PlayerSkillComponent extends Component {
      * @return true - if the movement of the player should be modified based on skill state
      */
     public boolean movementIsModified() {
-        if (isDashing() || isTeleporting()) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return (isDashing() || isTeleporting());
     }
 
     /**
@@ -180,9 +177,9 @@ public class PlayerSkillComponent extends Component {
     }
 
     public void teleportPlayer() {
-        PlayerActions actions = entity.getComponent(PlayerActions.class);
-        float teleportPositionX = entity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
-        float teleportPositionY = entity.getPosition().y + actions.getWalkDirection().y * TELEPORT_LENGTH;
+        PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
+        float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
+        float teleportPositionY = playerEntity.getPosition().y + actions.getWalkDirection().y * TELEPORT_LENGTH;
 
         // Check if teleport is out of map bounds
         if (teleportPositionX < -0.08)
@@ -193,7 +190,7 @@ public class PlayerSkillComponent extends Component {
             teleportPositionX = 24.18f;
         if (teleportPositionY > 24.68)
             teleportPositionY = 24.68f;
-        entity.setPosition(teleportPositionX, teleportPositionY);
+        playerEntity.setPosition(teleportPositionX, teleportPositionY);
 
     }
 
