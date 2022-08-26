@@ -93,15 +93,6 @@ public class CombatStatsComponent extends Component {
   }
 
   /**
-   * Returns the entity's base attack damage.
-   *
-   * @return base attack damage
-   */
-  public float damageReduction() {
-    return damageReduction;
-  }
-
-  /**
    * Sets the entity's damage reduction. Damage reduction damage has a minimum bound of 0.
    *
    * @param damageReduction Attack damage

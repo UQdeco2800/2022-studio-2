@@ -13,14 +13,14 @@ import java.util.Iterator;
  */
 public class PlayerModifier extends Component{
 
-    static private class Modifier {
-        public boolean used; // Flag to determine if the modifier has been used
-        public boolean expired; // Flag to determine if the modifier has been used
-        public long expiry; // Millisecond timestamp for when the modifier will expire
-        public long lifetime;
-        public float value; // The value difference after modification
+    private static class Modifier {
+        static public boolean used; // Flag to determine if the modifier has been used
+        static public boolean expired; // Flag to determine if the modifier has been used
+        static public long expiry; // Millisecond timestamp for when the modifier will expire
+        static public long lifetime;
+        static public float value; // The value difference after modification
 
-        public String target; // The player stat we wish to modify
+        static public String target; // The player stat we wish to modify
 
         public Modifier(String target, float value, int expiry) {
             this.used = false;
@@ -32,18 +32,21 @@ public class PlayerModifier extends Component{
         }
     }
 
+    public static final String MOVESPEED = "moveSpeed";
+    public static final String DMGREDUCTION = "damageReduction";
+
     // List of all components present in the parent entity
-    private PlayerActions playerActions;
-    private CombatStatsComponent combatStatsComponent;
+    private static PlayerActions playerActions;
+    private static CombatStatsComponent combatStatsComponent;
 
     // Variables for modifier management
-    private ArrayList<Modifier> modifiers;
+    private static ArrayList<Modifier> modifiers;
 
     // List of all modifiable stats and their associated string for the modifier to work
-    // "moveSpeed"
+    // MOVESPEED
     private static float refSpeed;
     private static float modSpeed;
-    // "damageReduction"
+    // DMGREDUCTION
     private static float refDamageReduction;
     private static float modDamageReduction;
 
@@ -57,6 +60,7 @@ public class PlayerModifier extends Component{
 
         modifiers = new ArrayList<>();
 
+        // Temporarily exists for jUnit testing
         refSpeed = 0;
         modSpeed = 0;
         refDamageReduction = 0;
@@ -133,7 +137,7 @@ public class PlayerModifier extends Component{
         float difference; // Used to return to original value if modifier is negative
 
         switch (mod.target) {
-            case "moveSpeed" :
+            case MOVESPEED :
                 difference = modSpeed;
                 modSpeed = remove ? modSpeed - mod.value : modSpeed + mod.value;
                 modSpeed = (modSpeed < 0) ? 0.1f : modSpeed; // Precaution for negative values
@@ -141,7 +145,7 @@ public class PlayerModifier extends Component{
                 mod.value = -1 * difference;
                 playerActions.updateMaxSpeed(modSpeed);
                 break;
-            case "damageReduction" :
+            case DMGREDUCTION :
                 difference = modDamageReduction;
                 modDamageReduction = remove ? modDamageReduction - mod.value : modDamageReduction + mod.value;
                 modDamageReduction = (modDamageReduction < 0) ? 0.1f : modDamageReduction; // Precaution for negative values
@@ -163,12 +167,12 @@ public class PlayerModifier extends Component{
     private void applyModifierPerm (Modifier mod) {
 
         switch (mod.target) {
-            case "moveSpeed" :
+            case MOVESPEED :
                 modSpeed += mod.value;
                 refSpeed += mod.value;
                 playerActions.updateMaxSpeed(modSpeed);
                 break;
-            case "damageReduction":
+            case DMGREDUCTION:
                 modDamageReduction += mod.value;
                 refDamageReduction += mod.value;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
@@ -196,10 +200,10 @@ public class PlayerModifier extends Component{
         float valChange = 0f;
 
         switch (target) {
-            case "moveSpeed":
+            case MOVESPEED:
                 valChange = (scaling) ? refSpeed * value : value;
                 break;
-            case "damageReduction":
+            case DMGREDUCTION:
                 valChange = (scaling) ? refDamageReduction * value : value;
                 break;
             default:
@@ -226,10 +230,10 @@ public class PlayerModifier extends Component{
         Iterator<Modifier> iterator = modifiers.iterator();
 
         switch (target) {
-            case "moveSpeed":
+            case MOVESPEED:
                 valChange = (scaling) ? refSpeed * value : value;
                 break;
-            case "damageReduction":
+            case DMGREDUCTION:
                 valChange = (scaling) ? refDamageReduction * value : value;
                 break;
             default:
@@ -255,9 +259,9 @@ public class PlayerModifier extends Component{
     public float getModified (String target) {
 
         switch (target) {
-            case "moveSpeed":
+            case MOVESPEED:
                 return modSpeed;
-            case "damageReduction":
+            case DMGREDUCTION:
                 return modDamageReduction;
             default:
                 return -1;
@@ -273,9 +277,9 @@ public class PlayerModifier extends Component{
     public float getReference (String target) {
 
         switch (target) {
-            case "moveSpeed":
+            case MOVESPEED:
                 return refSpeed;
-            case "damageReduction":
+            case DMGREDUCTION:
                 return refDamageReduction;
             default:
                 return -1;
