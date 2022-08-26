@@ -228,6 +228,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Public function to check if there is an already existing modifier with matching parameters</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#checkSkillEnd(java.lang.String)" class="member-name-link">checkSkillEnd(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Checks for the end of a skill, should be polled continuously in update.</div>
+</dd>
 <dt><a href="com/deco2800/game/files/FileLoader.Location.html#CLASSPATH" class="member-name-link">CLASSPATH</a> - Enum constant in enum class com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum class in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#clear()" class="member-name-link">clear()</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
@@ -947,16 +951,25 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#getMaxSpeed()" class="member-name-link">getMaxSpeed()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>
-<div class="block">Return the max speed of the player actions.</div>
+<div class="block">Return the scalar max speed of the player.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#getModified(java.lang.String)" class="member-name-link">getModified(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>
 <div class="block">Public function to return current reference value of a desired target.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#getModifiedMovement(com.badlogic.gdx.math.Vector2)" class="member-name-link">getModifiedMovement(Vector2)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Returns the modified movement vector based on base movement speed and the alterations
+ of the skill state on the player movement.</div>
+</dd>
 <dt><a href="com/deco2800/game/ai/movement/MovementController.html#getMoving()" class="member-name-link">getMoving()</a> - Method in interface com.deco2800.game.ai.movement.<a href="com/deco2800/game/ai/movement/MovementController.html" title="interface in com.deco2800.game.ai.movement">MovementController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html#getMoving()" class="member-name-link">getMoving()</a> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html" title="class in com.deco2800.game.physics.components">PhysicsMovementComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/events/EventHandler.html#getNumberOfListeners(java.lang.String)" class="member-name-link">getNumberOfListeners(String)</a> - Method in class com.deco2800.game.events.<a href="com/deco2800/game/events/EventHandler.html" title="class in com.deco2800.game.events">EventHandler</a></dt>
+<dd>
+<div class="block">Gets the number of listeners for an eventname.</div>
+</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainTile.html#getObjects()" class="member-name-link">getObjects()</a> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainTile.html" title="class in com.deco2800.game.areas.terrain">TerrainTile</a></dt>
 <dd>
 <div class="block">Not required for game, unimplemented</div>
@@ -1178,6 +1191,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/CombatItems/Ranged.html#invertArrowState()" class="member-name-link">invertArrowState()</a> - Method in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Ranged.html" title="class in com.deco2800.game.CombatItems">Ranged</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#isDashing()" class="member-name-link">isDashing()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Checks if the player is in the dash skill state</div>
+</dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#isDead()" class="member-name-link">isDead()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns true if the entity's has 0 health, otherwise false.</div>
@@ -1426,6 +1443,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">A movement controller moves something to a given a target.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#movementIsModified()" class="member-name-link">movementIsModified()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Checks if the movement of the player entity should be altered based on skill state.</div>
+</dd>
 <dt><a href="com/deco2800/game/entities/configs/AtlantisCitizenConfig.html#movementSpeed" class="member-name-link">movementSpeed</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/AtlantisCitizenConfig.html" title="class in com.deco2800.game.entities.configs">AtlantisCitizenConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/MovementTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">MovementTask</a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
@@ -1583,10 +1604,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Action component for interacting with the player.</div>
 </dd>
-<dt><a href="com/deco2800/game/components/player/PlayerActions.html#%3Cinit%3E(float)" class="member-name-link">PlayerActions(float)</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
-<dd>
-<div class="block">Init function of the class that sets player movement speed.</div>
-</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerActions.html#%3Cinit%3E()" class="member-name-link">PlayerActions()</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs">PlayerConfig</a> - Class in <a href="com/deco2800/game/entities/configs/package-summary.html">com.deco2800.game.entities.configs</a></dt>
 <dd>
 <div class="block">Defines the properties stored in player config files to be loaded by the Player Factory.</div>
@@ -1606,6 +1625,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Initial define function for the modifier class.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html" class="type-name-link" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
+<dd>
+<div class="block">Skill component for managing player skills and the player state as a result of those skills.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#%3Cinit%3E()" class="member-name-link">PlayerSkillComponent()</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" class="type-name-link" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
 <dd>
 <div class="block">A ui component for displaying player stats, e.g.</div>
@@ -1711,6 +1736,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerTimeSource(com.deco2800.game.services.GameTime)" class="member-name-link">registerTimeSource(GameTime)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/events/EventHandler.html#removeAllListeners(java.lang.String)" class="member-name-link">removeAllListeners(String)</a> - Method in class com.deco2800.game.events.<a href="com/deco2800/game/events/EventHandler.html" title="class in com.deco2800.game.events">EventHandler</a></dt>
+<dd>
+<div class="block">Removes all listeners from an event.</div>
+</dd>
 <dt><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#removeAnimation(java.lang.String)" class="member-name-link">removeAnimation(String)</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Remove an animation from this animator.</div>
@@ -1777,6 +1806,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/raycast/SingleHitCallback.html#reportRayFixture(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,float)" class="member-name-link">reportRayFixture(Fixture, Vector2, Vector2, float)</a> - Method in class com.deco2800.game.physics.raycast.<a href="com/deco2800/game/physics/raycast/SingleHitCallback.html" title="class in com.deco2800.game.physics.raycast">SingleHitCallback</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#resetSkills(com.deco2800.game.entities.Entity)" class="member-name-link">resetSkills(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Resets all skills for the skill event of player entity</div>
+</dd>
 <dt><a href="com/deco2800/game/rendering/Renderer.html#resize(int,int)" class="member-name-link">resize(int, int)</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/Renderer.html" title="class in com.deco2800.game.rendering">Renderer</a></dt>
 <dd>
 <div class="block">Resize the renderer to a new screen size.</div>
@@ -1986,6 +2019,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Set shape</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#setSkill(java.lang.String,com.deco2800.game.entities.Entity,com.deco2800.game.components.player.PlayerActions)" class="member-name-link">setSkill(String, Entity, PlayerActions)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Sets a listener to the skill event</div>
+</dd>
 <dt><a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html#setSpeed(float)" class="member-name-link">setSpeed(float)</a> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html" title="class in com.deco2800.game.physics.components">PhysicsMovementComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/rendering/RenderService.html#setStage(com.badlogic.gdx.scenes.scene2d.Stage)" class="member-name-link">setStage(Stage)</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/RenderService.html" title="class in com.deco2800.game.rendering">RenderService</a></dt>
@@ -2071,6 +2108,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#startAnimation(java.lang.String)" class="member-name-link">startAnimation(String)</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Start playback of an animation.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startDash(com.badlogic.gdx.math.Vector2)" class="member-name-link">startDash(Vector2)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">The functional start of the dash.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startTeleport(com.badlogic.gdx.math.Vector2,com.deco2800.game.entities.Entity)" class="member-name-link">startTeleport(Vector2, Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">The functional start of the teleport skill.</div>
 </dd>
 <dt><a href="com/deco2800/game/ai/tasks/DefaultTask.html#status" class="member-name-link">status</a> - Variable in class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/DefaultTask.html" title="class in com.deco2800.game.ai.tasks">DefaultTask</a></dt>
 <dd>&nbsp;</dd>
@@ -2331,6 +2376,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>
 <div class="block">Triggers on frame update.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Update should update the cooldowns/state of skills within the skill manager</div>
 </dd>
 <dt><a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.settingsmenu.<a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html" title="class in com.deco2800.game.components.settingsmenu">SettingsMenuDisplay</a></dt>
 <dd>&nbsp;</dd>

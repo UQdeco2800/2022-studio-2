@@ -140,6 +140,16 @@ T2&gt;&nbsp;void</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Add a listener to an event with three arguments</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNumberOfListeners(java.lang.String)" class="member-name-link">getNumberOfListeners</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;eventName)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the number of listeners for an eventname.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeAllListeners(java.lang.String)" class="member-name-link">removeAllListeners</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;eventName)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Removes all listeners from an event.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#trigger(java.lang.String)" class="member-name-link">trigger</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;eventName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -329,6 +339,30 @@ T2&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="eleme
 <dd><code>arg0</code> - arg 0 to pass to event</dd>
 <dd><code>arg1</code> - arg 1 to pass to event</dd>
 <dd><code>arg2</code> - arg 2 to pass to event</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="removeAllListeners(java.lang.String)">
+<h3>removeAllListeners</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeAllListeners</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;eventName)</span></div>
+<div class="block">Removes all listeners from an event.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>eventName</code> - Name of the event from which to remove listeners</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getNumberOfListeners(java.lang.String)">
+<h3>getNumberOfListeners</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getNumberOfListeners</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;eventName)</span></div>
+<div class="block">Gets the number of listeners for an eventname.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>eventName</code> - name of an event</dd>
+<dt>Returns:</dt>
+<dd>integer number of listeners on an event or -1 if no event registered</dd>
 </dl>
 </section>
 </li>
