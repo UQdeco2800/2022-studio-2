@@ -110,6 +110,7 @@ public class NPCFactory {
             .addComponent(animator)
             .addComponent(new GhostAnimationController());
 
+
     oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
     return oneLegGirl;
   }

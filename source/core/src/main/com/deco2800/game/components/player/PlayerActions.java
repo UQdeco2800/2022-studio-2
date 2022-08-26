@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -15,13 +18,22 @@ public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
   private PlayerSkillComponent skillManager;
+
+  private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
+
+  /**
+   * Changes the player's base movement speed. Can be updated with modifiers.
+   */
+  private float baseSpeedModifier = 1.0f;
+
+  private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean inventoryIsOpened = false;
-
 
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
+    playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
@@ -54,7 +66,9 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 walkVelocity = walkDirection.cpy().scl(MAX_SPEED);
+    Vector2 walkVelocity = walkDirection.cpy().scl(new Vector2(
+            MAX_SPEED.x * baseSpeedModifier,
+            MAX_SPEED.y * baseSpeedModifier));
     Vector2 desiredVelocity;
 
 
@@ -93,10 +107,27 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+    playerModifier.createModifier("moveSpeed", 2, true, 350);
   }
 
   /**
-   * Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
+   * Public function to set new max speed.
+   *
+   * @param newSpeed of the player character
+   */
+  public void updateMaxSpeed(float newSpeed) {
+    baseSpeedModifier = newSpeed;
+  }
+
+  /**
+   * Return the scalar max speed of the player.
+   */
+  public float getMaxSpeed() {
+    return baseSpeedModifier * MAX_SPEED.x;
+  }
+
+  /**
+   *  Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
    */
   void dash() {
     skillManager.startDash(this.walkDirection.cpy());
