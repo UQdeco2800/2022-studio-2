@@ -104,6 +104,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Add a listener to an event with three arguments</div>
 </dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#addMana(int)" class="member-name-link">addMana(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Adds to the player's mana.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#addStamina(int)" class="member-name-link">addStamina(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Adds to the player's stamina.</div>
+</dd>
 <dt><a href="com/deco2800/game/ai/tasks/AITaskComponent.html#addTask(com.deco2800.game.ai.tasks.PriorityTask)" class="member-name-link">addTask(PriorityTask)</a> - Method in class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/AITaskComponent.html" title="class in com.deco2800.game.ai.tasks">AITaskComponent</a></dt>
 <dd>
 <div class="block">Add a priority task to the list of tasks.</div>
@@ -324,7 +332,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Component used to store information related to combat such as health, attack, etc.</div>
 </dd>
-<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#%3Cinit%3E(int,int)" class="member-name-link">CombatStatsComponent(int, int)</a> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#%3Cinit%3E(int,int,int,int)" class="member-name-link">CombatStatsComponent(int, int, int, int)</a> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ui/terminal/commands/Command.html" class="type-name-link" title="interface in com.deco2800.game.ui.terminal.commands">Command</a> - Interface in <a href="com/deco2800/game/ui/terminal/commands/package-summary.html">com.deco2800.game.ui.terminal.commands</a></dt>
 <dd>
@@ -382,6 +390,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Create the game area in the world.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/Component.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/Component.html" title="class in com.deco2800.game.components">Component</a></dt>
 <dd>
 <div class="block">Called when the entity is created and registered.</div>
@@ -945,13 +955,29 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/CombatItems/Weapon.html#getLevel()" class="member-name-link">getLevel()</a> - Method in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Weapon.html" title="class in com.deco2800.game.CombatItems">Weapon</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getMana()" class="member-name-link">getMana()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Returns the entity's mana.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getManaRegenerationRate()" class="member-name-link">getManaRegenerationRate()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Gets the entity's mana regeneration rate.</div>
+</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getMap()" class="member-name-link">getMap()</a> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getMapBounds(int)" class="member-name-link">getMapBounds(int)</a> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getMaxMana()" class="member-name-link">getMaxMana()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Gets the player's maximum mana</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#getMaxSpeed()" class="member-name-link">getMaxSpeed()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>
 <div class="block">Return the scalar max speed of the player.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getMaxStamina()" class="member-name-link">getMaxStamina()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Gets the player's maximum stamina.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#getModified(java.lang.String)" class="member-name-link">getModified(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>
@@ -1030,6 +1056,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/rendering/RenderService.html#getStage()" class="member-name-link">getStage()</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/RenderService.html" title="class in com.deco2800.game.rendering">RenderService</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getStamina()" class="member-name-link">getStamina()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Returns the entity's stamina.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getStaminaRegenerationRate()" class="member-name-link">getStaminaRegenerationRate()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Gets the entity's stamina regeneration rate.</div>
+</dd>
 <dt><a href="com/deco2800/game/CombatItems/Ranged.html#getStateOfArrow()" class="member-name-link">getStateOfArrow()</a> - Method in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Ranged.html" title="class in com.deco2800.game.CombatItems">Ranged</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ai/tasks/DefaultTask.html#getStatus()" class="member-name-link">getStatus()</a> - Method in class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/DefaultTask.html" title="class in com.deco2800.game.ai.tasks">DefaultTask</a></dt>
@@ -1417,6 +1451,8 @@ loadScripts(document, 'script');</script>
 <div class="block">The game screen containing the main menu.</div>
 </dd>
 <dt><a href="com/deco2800/game/screens/MainMenuScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">MainMenuScreen(GdxGame)</a> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainMenuScreen.html" title="class in com.deco2800.game.screens">MainMenuScreen</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/entities/configs/BaseEntityConfig.html#mana" class="member-name-link">mana</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/BaseEntityConfig.html" title="class in com.deco2800.game.entities.configs">BaseEntityConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html#mana" class="member-name-link">mana</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></dt>
 <dd>&nbsp;</dd>
@@ -1963,6 +1999,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Set the collider layer, used in collision logic</div>
 </dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setMana(int)" class="member-name-link">setMana(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Sets the entity's mana.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setManaRegenerationRate(int)" class="member-name-link">setManaRegenerationRate(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Sets the entity's RegenerationRate regeneration rate.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setMaxMana(int)" class="member-name-link">setMaxMana(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Sets the entity's maximum mana.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setMaxStamina(int)" class="member-name-link">setMaxStamina(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Sets the entity's maximum stamina.</div>
+</dd>
 <dt><a href="com/deco2800/game/ai/movement/MovementController.html#setMoving(boolean)" class="member-name-link">setMoving(boolean)</a> - Method in interface com.deco2800.game.ai.movement.<a href="com/deco2800/game/ai/movement/MovementController.html" title="interface in com.deco2800.game.ai.movement">MovementController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html#setMoving(boolean)" class="member-name-link">setMoving(boolean)</a> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html" title="class in com.deco2800.game.physics.components">PhysicsMovementComponent</a></dt>
@@ -2027,6 +2079,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/rendering/RenderService.html#setStage(com.badlogic.gdx.scenes.scene2d.Stage)" class="member-name-link">setStage(Stage)</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/RenderService.html" title="class in com.deco2800.game.rendering">RenderService</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setStamina(int)" class="member-name-link">setStamina(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Sets the entity's stamina.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setStaminaRegenerationRate(int)" class="member-name-link">setStaminaRegenerationRate(int)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
+<dd>
+<div class="block">Sets the entity's stamina regeneration rate.</div>
+</dd>
 <dt><a href="com/deco2800/game/ai/movement/MovementController.html#setTarget(com.badlogic.gdx.math.Vector2)" class="member-name-link">setTarget(Vector2)</a> - Method in interface com.deco2800.game.ai.movement.<a href="com/deco2800/game/ai/movement/MovementController.html" title="interface in com.deco2800.game.ai.movement">MovementController</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/MovementTask.html#setTarget(com.badlogic.gdx.math.Vector2)" class="member-name-link">setTarget(Vector2)</a> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/MovementTask.html" title="class in com.deco2800.game.components.tasks">MovementTask</a></dt>
@@ -2087,7 +2147,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ui/UIComponent.html#stage" class="member-name-link">stage</a> - Variable in class com.deco2800.game.ui.<a href="com/deco2800/game/ui/UIComponent.html" title="class in com.deco2800.game.ui">UIComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/entities/configs/BaseEntityConfig.html#stamina" class="member-name-link">stamina</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/BaseEntityConfig.html" title="class in com.deco2800.game.entities.configs">BaseEntityConfig</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html#stamina" class="member-name-link">stamina</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html#staminaRegenerationRate" class="member-name-link">staminaRegenerationRate</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ai/tasks/DefaultTask.html#start()" class="member-name-link">start()</a> - Method in class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/DefaultTask.html" title="class in com.deco2800.game.ai.tasks">DefaultTask</a></dt>
 <dd>&nbsp;</dd>
@@ -2410,6 +2474,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#updatePlayerHealthUI(int)" class="member-name-link">updatePlayerHealthUI(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>
 <div class="block">Updates the player's health on the ui.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#updatePlayerManaUI(int)" class="member-name-link">updatePlayerManaUI(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
+<dd>
+<div class="block">Updates the player's mana on the ui.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#updatePlayerStaminaUI(int)" class="member-name-link">updatePlayerStaminaUI(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
+<dd>
+<div class="block">Updates the player's stamina on the ui.</div>
 </dd>
 <dt><a href="com/deco2800/game/files/UserSettings.html" class="type-name-link" title="class in com.deco2800.game.files">UserSettings</a> - Class in <a href="com/deco2800/game/files/package-summary.html">com.deco2800.game.files</a></dt>
 <dd>
