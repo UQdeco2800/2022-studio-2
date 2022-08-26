@@ -22,13 +22,9 @@ public class PlayerActions extends Component {
 
   private CombatStatsComponent combatStatsComponent;
 
-  private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
-
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean inventoryIsOpened = false;
-  private long dashStart;
-  private long dashEnd;
   private int stamina= 100;
   private int maxStamina =100;
   private int maxMana=100;
@@ -148,11 +144,11 @@ public class PlayerActions extends Component {
   }
 
   /**
-   *  Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
+   *  Makes the player dash. Registers call of the dash function to the skill manager component.
    */
   void dash() {
     if(stamina >=20){
-    skillManager.startDash(this.walkDirection.cpy());
+      skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
     }
     playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
@@ -191,7 +187,7 @@ public class PlayerActions extends Component {
 
 
   /**
-   * Teleports the player a set distance in the currently facing direction.
+   * Makes the player teleport. Registers call of the teleport function to the skill manager component.
    */
   void teleport() {
     if (mana>=40) {
