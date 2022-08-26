@@ -14,13 +14,13 @@ import java.util.Iterator;
 public class PlayerModifier extends Component{
 
     private static class Modifier {
-        static public boolean used; // Flag to determine if the modifier has been used
-        static public boolean expired; // Flag to determine if the modifier has been used
-        static public long expiry; // Millisecond timestamp for when the modifier will expire
-        static public long lifetime;
-        static public float value; // The value difference after modification
+        static boolean used; // Flag to determine if the modifier has been used
+        static boolean expired; // Flag to determine if the modifier has been used
+        static long expiry; // Millisecond timestamp for when the modifier will expire
+        static long lifetime;
+        static float value; // The value difference after modification
 
-        static public String target; // The player stat we wish to modify
+        static String target; // The player stat we wish to modify
 
         public Modifier(String target, float value, int expiry) {
             this.used = false;
@@ -98,6 +98,8 @@ public class PlayerModifier extends Component{
      * to function.
      *
      * Gathers all parent components and necessary stat variables within them.
+     *
+     * This function cannot yet be covered by Junit tests
      */
     @Override
     public void create() {
@@ -206,7 +208,6 @@ public class PlayerModifier extends Component{
                 modStaminaRegen = remove ? modStaminaRegen - mod.value : modStaminaRegen + mod.value;
                 difference -= modStaminaRegen;
                 combatStatsComponent.setStaminaRegenerationRate((int)modStaminaRegen);
-                System.out.print(String.format("Setting regen to %d\n", (int)modStaminaRegen));
                 break;
             case STAMINAMAX :
                 difference = modStaminaMax;
