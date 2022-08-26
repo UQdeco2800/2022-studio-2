@@ -111,7 +111,7 @@ public class NPCFactory {
 
     atlantisCitizen.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, 120f));
+            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
 
     //Once we have animation, can change from using Texture Component to Animation Component
     atlantisCitizen
@@ -119,6 +119,8 @@ public class NPCFactory {
             .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
     //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     atlantisCitizen.setScale(2f, 2f);
+    atlantisCitizen.setEntityType(EntityTypes.ENEMY);
+    atlantisCitizen.setEntityType(EntityTypes.MELEE);
     return atlantisCitizen;
 
   }
