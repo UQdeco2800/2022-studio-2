@@ -12,14 +12,18 @@ import com.deco2800.game.entities.Entity;
  * the player action manager into this class's skill functionality.
  */
 public class PlayerSkillComponent extends Component {
+
+    private static final int TELEPORT_LENGTH = 4;
+
+    // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
     private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
     private static final float DASH_MOVEMENT_RESTRICTION = 0.8f; // As a proportion of regular move (0.8 = 80%)
-    private static final int TELEPORT_LENGTH = 4;
     private Vector2 dashDirection = Vector2.Zero.cpy();
     private boolean dashing = false;
-    private long dashStart;
     private long dashEnd;
+    private boolean dashEndEvent = false;
+    private boolean teleportEndEvent = false;
 
     /**
      * Update should update the cooldowns/state of skills within the skill manager
@@ -28,6 +32,7 @@ public class PlayerSkillComponent extends Component {
     public void update() {
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
             this.dashing = false;
+            this.dashEndEvent = true;
         }
     }
 
@@ -83,6 +88,32 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Checks for the end of a skill, should be polled continuously in update.
+     * Note: if not polled continuously cannot guarantee correct behaviour.
+     * @param skillName - the name of the skill to check end condition
+     * @return true if the skill has ended and the flag has not been polled
+     *          false if the skill end has been read
+     */
+    public boolean checkSkillEnd(String skillName) {
+        switch(skillName) {
+            case "dash":
+                if (this.dashEndEvent) {
+                    this.dashEndEvent = false;
+                    return true;
+                }
+                return false;
+            case "teleport":
+                if (this.teleportEndEvent) {
+                    this.teleportEndEvent = false;
+                    return true;
+                }
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    /**
      * Checks if the player is in the dash skill state
      * @return true - if the player is dashing
      *         false - otherwise
@@ -99,8 +130,8 @@ public class PlayerSkillComponent extends Component {
     public void startDash(Vector2 moveDirection) {
         this.dashDirection = moveDirection;
         this.dashing = true;
-        this.dashStart = System.currentTimeMillis();
-        this.dashEnd = this.dashStart + DASH_LENGTH;
+        long dashStart = System.currentTimeMillis();
+        this.dashEnd = dashStart + DASH_LENGTH;
     }
 
     /**
