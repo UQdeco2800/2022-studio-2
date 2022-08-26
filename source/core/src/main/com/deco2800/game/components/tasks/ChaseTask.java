@@ -59,6 +59,29 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
 
   @Override
   public void update() {
+   // Entity enemy = owner.getEntity();
+    //Vector2 enemy_pos = enemy.getCenterPosition();
+    //Vector2 player_pos = target.getCenterPosition();
+//
+//    if (physics.raycast(enemy_pos, player_pos, PhysicsLayer.OBSTACLE, hit)) {
+//
+//      Vector2 new_target = hit.point.add(100, 0);
+////      if (enemy_pos.x > hit.point.x) {
+////        new_target = new_target.add(-enemy.getScale().x * 3, 0f);
+////      } else {
+////        new_target = new_target.add(enemy.getScale().x * 3,0f);
+////      }
+////      if (enemy_pos.y < hit.point.y) {
+////        new_target = new_target.add(0f, enemy.getScale().y * 3);
+////      } else {
+////        new_target = new_target.add(0f, -enemy.getScale().y * 3);
+////      }
+//
+//
+//      movementTask.setTarget(new_target);
+//    }
+//    else {
+    //    }
     movementTask.setTarget(target.getPosition());
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {
@@ -100,6 +123,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     }
     return -1;
   }
+
 
   private boolean isTargetVisible() {
     Vector2 from = owner.getEntity().getCenterPosition();
