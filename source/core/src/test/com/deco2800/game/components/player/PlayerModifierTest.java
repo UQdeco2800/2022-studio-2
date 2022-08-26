@@ -89,7 +89,7 @@ public class PlayerModifierTest {
 
     @Test
     void shouldHaveIdenticalReduction () {
-        CombatStatsComponent combat = new CombatStatsComponent(100, 1);
+        CombatStatsComponent combat = new CombatStatsComponent(100, 1, 100, 20);
         PlayerModifier modifier = new PlayerModifier();
         modifier.jUnitAddCombatStats(combat);
 
