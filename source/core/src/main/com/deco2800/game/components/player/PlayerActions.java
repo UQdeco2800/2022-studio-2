@@ -191,10 +191,10 @@ public class PlayerActions extends Component {
    * Teleports the player a set distance in the currently facing direction.
    */
   void teleport() {
-    if (mana>=40)
-    entity.getEvents().trigger("decreaseMana", -40);
-    skillManager.startTeleport(this.walkDirection.cpy(), entity);
-
+    if (mana>=40) {
+      entity.getEvents().trigger("decreaseMana", -40);
+      skillManager.startTeleport(this.walkDirection.cpy(), entity);
+    }
   }
 
 }
