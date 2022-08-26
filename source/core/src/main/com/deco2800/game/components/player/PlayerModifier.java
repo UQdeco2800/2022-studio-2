@@ -34,6 +34,10 @@ public class PlayerModifier extends Component{
 
     public static final String MOVESPEED = "moveSpeed";
     public static final String DMGREDUCTION = "damageReduction";
+    public static final String MANAREGEN = "manaRegen";
+    public static final String MANAMAX = "manaMax";
+    public static final String STAMINAREGEN = "staminaRegen";
+    public static final String STAMINAMAX = "staminaMax";
 
     // List of all components present in the parent entity
     private static PlayerActions playerActions;
@@ -49,6 +53,20 @@ public class PlayerModifier extends Component{
     // DMGREDUCTION
     private static float refDamageReduction;
     private static float modDamageReduction;
+    // MANAREGEN
+    private static float refManaRegen;
+    private static float modManaRegen;
+    // MANAMAX
+    private static float refManaMax;
+    private static float modManaMax;
+    // STAMINAREGEN
+    private static float refStaminaRegen;
+    private static float modStaminaRegen;
+    // STAMINAMAX
+    private static float refStaminaMax;
+    private static float modStaminaMax;
+
+
 
     /**
      * Initial define function for the modifier class.
@@ -65,6 +83,14 @@ public class PlayerModifier extends Component{
         modSpeed = 0;
         refDamageReduction = 0;
         modDamageReduction = 0;
+        refStaminaMax = 0;
+        modStaminaMax = 0;
+        refStaminaRegen = 0;
+        modStaminaRegen = 0;
+        refManaMax = 0;
+        modManaMax = 0;
+        refManaRegen = 0;
+        modManaRegen = 0;
     }
 
     /**
@@ -84,6 +110,18 @@ public class PlayerModifier extends Component{
 
         refDamageReduction = combatStatsComponent.getDamageReduction();
         modDamageReduction = combatStatsComponent.getDamageReduction();
+
+        refManaRegen = combatStatsComponent.getManaRegenerationRate();
+        modManaRegen = combatStatsComponent.getManaRegenerationRate();
+
+        refManaMax = combatStatsComponent.getMaxMana();
+        modManaMax = combatStatsComponent.getMaxMana();;
+
+        refStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
+        modStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
+
+        refStaminaMax = combatStatsComponent.getMaxStamina();
+        modStaminaMax = combatStatsComponent.getMaxStamina();
     }
 
     /**
@@ -148,10 +186,33 @@ public class PlayerModifier extends Component{
             case DMGREDUCTION :
                 difference = modDamageReduction;
                 modDamageReduction = remove ? modDamageReduction - mod.value : modDamageReduction + mod.value;
-                modDamageReduction = (modDamageReduction < 0) ? 0.1f : modDamageReduction; // Precaution for negative values
                 difference -= modDamageReduction;
-                mod.value = -1 * difference;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
+                break;
+            case MANAREGEN :
+                difference = modManaRegen;
+                modManaRegen = remove ? modManaRegen - mod.value : modManaRegen + mod.value;
+                difference -= modManaRegen;
+                combatStatsComponent.setManaRegenerationRate((int)modManaRegen);
+                break;
+            case MANAMAX :
+                difference = modManaMax;
+                modManaMax = remove ? modManaMax - mod.value : modManaMax + mod.value;
+                difference -= modManaMax;
+                combatStatsComponent.setMaxMana((int)modManaMax);
+                break;
+            case STAMINAREGEN :
+                difference = modStaminaRegen;
+                modStaminaRegen = remove ? modStaminaRegen - mod.value : modStaminaRegen + mod.value;
+                difference -= modStaminaRegen;
+                combatStatsComponent.setStaminaRegenerationRate((int)modStaminaRegen);
+                System.out.print(String.format("Setting regen to %d\n", (int)modStaminaRegen));
+                break;
+            case STAMINAMAX :
+                difference = modStaminaMax;
+                modStaminaMax = remove ? modStaminaMax - mod.value : modStaminaMax + mod.value;
+                difference -= modStaminaMax;
+                combatStatsComponent.setMaxStamina((int)modStaminaMax);
                 break;
             default :
                 // Do nothing
@@ -176,6 +237,26 @@ public class PlayerModifier extends Component{
                 modDamageReduction += mod.value;
                 refDamageReduction += mod.value;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
+                break;
+            case MANAREGEN :
+                modManaRegen += mod.value;
+                refManaRegen += mod.value;
+                combatStatsComponent.setManaRegenerationRate((int)modManaRegen);
+                break;
+            case MANAMAX :
+                modManaMax += mod.value;
+                refManaMax += mod.value;
+                combatStatsComponent.setMaxMana((int)modManaMax);
+                break;
+            case STAMINAREGEN :
+                modStaminaRegen += mod.value;
+                refStaminaRegen += mod.value;
+                combatStatsComponent.setStaminaRegenerationRate((int)modStaminaRegen);
+                break;
+            case STAMINAMAX :
+                modStaminaMax += mod.value;
+                refStaminaMax += mod.value;
+                combatStatsComponent.setMaxStamina((int)modStaminaMax);
                 break;
             default :
                 // Do nothing
@@ -205,6 +286,18 @@ public class PlayerModifier extends Component{
                 break;
             case DMGREDUCTION:
                 valChange = (scaling) ? refDamageReduction * value : value;
+                break;
+            case MANAREGEN :
+                valChange = (scaling) ? (int)(refManaRegen * value) : value;
+                break;
+            case MANAMAX :
+                valChange = (scaling) ? (int)(refManaMax * value) : value;
+                break;
+            case STAMINAREGEN :
+                valChange = (scaling) ? (int)(refStaminaRegen * value) : value;
+                break;
+            case STAMINAMAX :
+                valChange = (scaling) ? (int)(refStaminaMax * value) : value;
                 break;
             default:
                 return false;
@@ -236,6 +329,18 @@ public class PlayerModifier extends Component{
             case DMGREDUCTION:
                 valChange = (scaling) ? refDamageReduction * value : value;
                 break;
+            case MANAREGEN :
+                valChange = (scaling) ? refManaRegen * value : value;
+                break;
+            case MANAMAX :
+                valChange = (scaling) ? refManaMax * value : value;
+                break;
+            case STAMINAREGEN :
+                valChange = (scaling) ? refStaminaRegen * value : value;
+                break;
+            case STAMINAMAX :
+                valChange = (scaling) ? refStaminaMax * value : value;
+                break;
             default:
                 // Do nothing
         }
@@ -259,11 +364,19 @@ public class PlayerModifier extends Component{
     public float getModified (String target) {
 
         switch (target) {
-            case MOVESPEED:
+            case MOVESPEED :
                 return modSpeed;
-            case DMGREDUCTION:
+            case DMGREDUCTION :
                 return modDamageReduction;
-            default:
+            case MANAREGEN :
+                return modManaRegen;
+            case MANAMAX :
+                return modManaMax;
+            case STAMINAREGEN :
+                return modStaminaRegen;
+            case STAMINAMAX :
+                return modStaminaMax;
+            default :
                 return -1;
         }
     }
@@ -281,6 +394,14 @@ public class PlayerModifier extends Component{
                 return refSpeed;
             case DMGREDUCTION:
                 return refDamageReduction;
+            case MANAREGEN :
+                return refManaRegen;
+            case MANAMAX :
+                return refManaMax;
+            case STAMINAREGEN :
+                return refStaminaRegen;
+            case STAMINAMAX :
+                return refStaminaMax;
             default:
                 return -1;
         }
@@ -301,6 +422,18 @@ public class PlayerModifier extends Component{
         combatStatsComponent = combat;
         refDamageReduction = combatStatsComponent.getDamageReduction();
         modDamageReduction = combatStatsComponent.getDamageReduction();
+
+        refManaRegen = combatStatsComponent.getManaRegenerationRate();
+        modManaRegen = combatStatsComponent.getManaRegenerationRate();
+
+        refManaMax = combatStatsComponent.getMaxMana();
+        modManaMax = combatStatsComponent.getMaxMana();;
+
+        refStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
+        modStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
+
+        refStaminaMax = combatStatsComponent.getMaxStamina();
+        modStaminaMax = combatStatsComponent.getMaxStamina();
     }
 }
 

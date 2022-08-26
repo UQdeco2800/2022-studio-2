@@ -133,6 +133,8 @@ public class CombatStatsComponent extends Component {
   public void setStamina(int stamina) {
     if (stamina >= 0 && stamina <= maxStamina) {
       this.stamina = stamina;
+    } else if (stamina > maxStamina) {
+      this.stamina = maxStamina;
     } else {
       this.stamina = 0;
     }
@@ -206,8 +208,10 @@ public class CombatStatsComponent extends Component {
    * @param mana mana
    */
   public void setMana(int mana) {
-    if (mana >= 0 && mana <= mana) {
+    if (mana >= 0 && mana <= maxMana) {
       this.mana = mana;
+    } else if (mana > maxMana) {
+      this.mana = maxMana;
     } else {
       this.mana = 0;
     }
