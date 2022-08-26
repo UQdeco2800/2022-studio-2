@@ -35,7 +35,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
 
     // Skills and Dash initialisation
-    skillManager = new PlayerSkillComponent();
+    skillManager = new PlayerSkillComponent(entity);
     skillManager.setSkill("teleport", entity, this);
     entity.getEvents().addListener("dash", this::dash);
   }
@@ -131,6 +131,10 @@ public class PlayerActions extends Component {
    * Teleports the player a set distance in the currently facing direction.
    */
   void teleport() {
-    skillManager.startTeleport(this.walkDirection.cpy(), entity);
+    skillManager.startTeleport();
+  }
+
+  Vector2 getWalkDirection() {
+    return this.walkDirection;
   }
 }
