@@ -13,7 +13,13 @@ import com.deco2800.game.entities.Entity;
  */
 public class PlayerSkillComponent extends Component {
 
+    private Entity playerEntity;
+
     private static final int TELEPORT_LENGTH = 4;
+    private long teleportEnd;
+    private boolean teleporting;
+    private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millsec = 1sec)
+    private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f;
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
@@ -25,14 +31,28 @@ public class PlayerSkillComponent extends Component {
     private boolean dashEndEvent = false;
     private boolean teleportEndEvent = false;
 
+
+    public PlayerSkillComponent(Entity entity) {
+        this.playerEntity = entity;
+    }
     /**
      * Update should update the cooldowns/state of skills within the skill manager
      */
     @Override
     public void update() {
+
+        // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
             this.dashing = false;
             this.dashEndEvent = true;
+        }
+
+        // Check if the player is waiting to teleport from charging
+        // if true teleport the player and finish charging
+        if (this.teleporting && System.currentTimeMillis() > this.teleportEnd) {
+            this.teleporting = false;
+            this.teleportEndEvent = true;
+            teleportPlayer();
         }
     }
 
@@ -63,11 +83,8 @@ public class PlayerSkillComponent extends Component {
      * @return true - if the movement of the player should be modified based on skill state
      */
     public boolean movementIsModified() {
-        if (isDashing()) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return (isDashing() || isTeleporting());
     }
 
     /**
@@ -83,6 +100,12 @@ public class PlayerSkillComponent extends Component {
             Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * DASH_MOVEMENT_RESTRICTION,
                     modifiedMovementVector.y * DASH_MOVEMENT_RESTRICTION);
             modifiedMovementVector = addVectors(reducedMovement, dashVelocity);
+        }
+
+        if (isTeleporting()) {
+            Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * TELEPORT_MOVEMENT_RESTRICTION,
+                    modifiedMovementVector.y * TELEPORT_MOVEMENT_RESTRICTION);
+            modifiedMovementVector = reducedMovement;
         }
         return modifiedMovementVector;
     }
@@ -123,6 +146,15 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Checks if the player is in the teleport skill state
+     * @return true - if the player is charging a teleport
+     *         false - otherwise
+     */
+    public boolean isTeleporting() {
+        return this.teleporting;
+    }
+
+    /**
      * The functional start of the dash.
      * Should be called when player actions component registers dash event.
      * @param moveDirection the direction of the players movement at the start of the dash event.
@@ -137,12 +169,17 @@ public class PlayerSkillComponent extends Component {
     /**
      * The functional start of the teleport skill.
      * Should be called when player actions component registers teleport event.
-     * @param walkDirection the walking direction of the player at teleport event
-     * @param entity the player entity
      */
-    public void startTeleport(Vector2 walkDirection, Entity entity) {
-        float teleportPositionX = entity.getPosition().x + walkDirection.x * TELEPORT_LENGTH;
-        float teleportPositionY = entity.getPosition().y + walkDirection.y * TELEPORT_LENGTH;
+    public void startTeleport() {
+        this.teleporting = true;
+        long teleportStart = System.currentTimeMillis();
+        this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
+    }
+
+    public void teleportPlayer() {
+        PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
+        float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
+        float teleportPositionY = playerEntity.getPosition().y + actions.getWalkDirection().y * TELEPORT_LENGTH;
 
         // Check if teleport is out of map bounds
         if (teleportPositionX < -0.08)
@@ -153,7 +190,7 @@ public class PlayerSkillComponent extends Component {
             teleportPositionX = 24.18f;
         if (teleportPositionY > 24.68)
             teleportPositionY = 24.68f;
-        entity.setPosition(teleportPositionX, teleportPositionY);
+        playerEntity.setPosition(teleportPositionX, teleportPositionY);
 
     }
 

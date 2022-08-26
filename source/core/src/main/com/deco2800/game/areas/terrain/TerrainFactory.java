@@ -20,7 +20,7 @@ import com.deco2800.game.services.ServiceLocator;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
-  private static final GridPoint2 MAP_SIZE = new GridPoint2(50, 50);
+  private static final GridPoint2 MAP_SIZE = new GridPoint2(30, 30);
   private static final int TUFT_TILE_COUNT = 5;
   private static final int ROCK_TILE_COUNT = 5;
 
@@ -116,7 +116,7 @@ public class TerrainFactory {
         TextureRegion column =
                 new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/column.png",
                         Texture.class));
-        return createLevelOne(1.2f, gold_cobble, grass, gold_drain, water_tile,
+        return createLevelOne(1f, gold_cobble, grass, gold_drain, water_tile,
                 wall_tile, tile_wet, stairs, tree, column);
       default:
         return null;

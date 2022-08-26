@@ -28,7 +28,6 @@ public class PlayerSkillComponentTest {
 
     @BeforeEach
     void initialisation() {
-        skillManager = new PlayerSkillComponent();
 
         player = new Entity()
                         .addComponent(new PhysicsComponent(new PhysicsEngine(
@@ -38,6 +37,8 @@ public class PlayerSkillComponentTest {
                         .addComponent(new CombatStatsComponent(100, 5, 100, 100))
                         .addComponent(new KeyboardPlayerInputComponent())
                         .addComponent(new PlayerStatsDisplay());
+
+        skillManager = new PlayerSkillComponent(player);
     }
 
     @Test
