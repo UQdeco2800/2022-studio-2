@@ -56,7 +56,10 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
-    "images/NPC/male_citizen/male_citizen.png"
+    "images/NPC/female npc/npcfemale_1.png",
+    "images/NPC/child npc/npcchild_1.png",
+    "images/NPC/guard npc/atlantisguardnpc_1.png",
+    "images/NPC/male npc/male_citizen_1.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -99,6 +102,9 @@ public class ForestGameArea extends GameArea {
     spawnGhostKing();
     spawnAtlantisCitizen();
     spawnOneLegGirl();
+    spawnChild();
+    spawnGuard();
+    spawnMaleCitizen();
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
     playMusic();
@@ -210,6 +216,30 @@ public class ForestGameArea extends GameArea {
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
+    spawnEntityAt(oneLegGirl, randomPos, true, true);
+  }
+  private void spawnChild() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity oneLegGirl = NPCFactory.createChild(player);
+    spawnEntityAt(oneLegGirl, randomPos, true, true);
+  }
+  private void spawnGuard() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity oneLegGirl = NPCFactory.createGuard(player);
+    spawnEntityAt(oneLegGirl, randomPos, true, true);
+  }
+  private void spawnMaleCitizen() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity oneLegGirl = NPCFactory.createMale_citizen(player);
     spawnEntityAt(oneLegGirl, randomPos, true, true);
   }
   private void spawnGhostKing() {

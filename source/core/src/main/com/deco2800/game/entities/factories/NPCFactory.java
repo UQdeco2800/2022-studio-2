@@ -99,21 +99,58 @@ public class NPCFactory {
     Entity oneLegGirl = createBaseNPC(target);
     OneLegGirlConfig config = configs.oneLegGirl;
 
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/ghostKing.atlas", TextureAtlas.class)
-            );
 
     oneLegGirl
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(animator)
-            .addComponent(new GhostAnimationController())
-            .addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
+            .addComponent(new TextureRenderComponent("images/NPC/female npc/npcfemale_1.png"));
 
-    oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
+    oneLegGirl.getComponent(AITaskComponent.class);
+    oneLegGirl.setScale(1, 1);
     return oneLegGirl;
   }
+
+  public static Entity createChild (Entity target) {
+    Entity child = createBaseNPC(target);
+    ChildConfig config = configs.child;
+
+
+    child
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
+
+    child.getComponent(AITaskComponent.class);
+    child.setScale(1, 1);
+    return child;
+  }
+
+  public static Entity createGuard (Entity target) {
+    Entity guard = createBaseNPC(target);
+    GuardConfig config = configs.guard;
+
+
+    guard
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new TextureRenderComponent("images/NPC/guard npc/atlantisguardnpc_1.png"));
+
+    guard.getComponent(AITaskComponent.class);
+    guard.setScale(1, 1);
+    return guard;
+  }
+
+  public static Entity createMale_citizen (Entity target) {
+    Entity male_citizen = createBaseNPC(target);
+    Male_citizenConfig config = configs.male_citizen;
+
+
+    male_citizen
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new TextureRenderComponent("images/NPC/male npc/male_citizen_1.png"));
+
+    male_citizen.getComponent(AITaskComponent.class);
+    male_citizen.setScale(1, 1);
+    return male_citizen;
+  }
+
   /**
    * Creates an atlantis citizen entity.
    *
