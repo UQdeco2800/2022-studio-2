@@ -15,16 +15,11 @@ import org.slf4j.LoggerFactory;
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
+  private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
   private PlayerSkillComponent skillManager;
 
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
-
-  /**
-   * Changes the player's base movement speed. Can be updated with modifiers.
-   */
-  private float baseSpeedModifier = 1.0f;
 
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
@@ -49,6 +44,7 @@ public class PlayerActions extends Component {
   public void update() {
     updateSpeed();
     this.skillManager.update();
+    this.playerModifier.update();
   }
 
   private void toggleInventory(){
@@ -66,17 +62,14 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 walkVelocity = walkDirection.cpy().scl(new Vector2(
-            MAX_SPEED.x * baseSpeedModifier,
-            MAX_SPEED.y * baseSpeedModifier));
     Vector2 desiredVelocity;
 
 
     if (skillManager.movementIsModified()) {
       // If the character's movement is modified by a skill
-      desiredVelocity = skillManager.getModifiedMovement(walkVelocity);
+      desiredVelocity = skillManager.getModifiedMovement(maxWalkSpeed);
     } else {
-      desiredVelocity = walkVelocity; // Regular walk
+      desiredVelocity = maxWalkSpeed; // Regular walk
     }
 
     // impulse = (desiredVel - currentVel) * mass
@@ -116,14 +109,14 @@ public class PlayerActions extends Component {
    * @param newSpeed of the player character
    */
   public void updateMaxSpeed(float newSpeed) {
-    baseSpeedModifier = newSpeed;
+    maxWalkSpeed = new Vector2(newSpeed, newSpeed);
   }
 
   /**
    * Return the scalar max speed of the player.
    */
   public float getMaxSpeed() {
-    return baseSpeedModifier * MAX_SPEED.x;
+    return maxWalkSpeed.x;
   }
 
   /**

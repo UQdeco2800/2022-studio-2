@@ -9,35 +9,37 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.extensions.GameExtension;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(GameExtension.class)
 public class PlayerModifierTest {
 
+    PlayerActions actions;
+    PlayerModifier modifier;
+    @BeforeEach
+    void init() {
+        actions = new PlayerActions();
+        actions.updateMaxSpeed(2);
+        modifier = new PlayerModifier();
+        modifier.jUnitAddPlayerActions(actions);
+    }
+
     @Test
     void shouldNotCreateModifier () {
-        PlayerActions actions = new PlayerActions(2);
-        PlayerModifier modifier = new PlayerModifier();
-        modifier.jUnitAddPlayerActions(actions);
 
         assertFalse(modifier.createModifier("thisShouldntWork", 2, false, 20));
     }
 
     @Test
     void shouldCreateModifier () {
-        PlayerActions actions = new PlayerActions(2);
-        PlayerModifier modifier = new PlayerModifier();
-        modifier.jUnitAddPlayerActions(actions);
 
         assertTrue(modifier.createModifier("moveSpeed", 2, false, 20));
     }
 
     @Test
     void shouldHaveModifier () throws InterruptedException {
-        PlayerActions actions = new PlayerActions(2);
-        PlayerModifier modifier = new PlayerModifier();
-        modifier.jUnitAddPlayerActions(actions);
 
         modifier.createModifier("moveSpeed", 2, false, 50);
 
@@ -50,9 +52,6 @@ public class PlayerModifierTest {
 
     @Test
     void shouldHaveAcceptedModifier () {
-        PlayerActions actions = new PlayerActions(2);
-        PlayerModifier modifier = new PlayerModifier();
-        modifier.jUnitAddPlayerActions(actions);
 
         modifier.createModifier("moveSpeed", 2, false, 0);
         modifier.update();
@@ -62,10 +61,7 @@ public class PlayerModifierTest {
     }
 
     @Test
-    void shouldHaveExpiredModification () throws InterruptedException {
-        PlayerActions actions = new PlayerActions(2);
-        PlayerModifier modifier = new PlayerModifier();
-        modifier.jUnitAddPlayerActions(actions);
+    void shouldHaveExpiredModification() throws InterruptedException {
 
         modifier.createModifier("moveSpeed", 2, false, 5);
         modifier.update();
@@ -84,9 +80,6 @@ public class PlayerModifierTest {
 
     @Test
     void shouldHaveIdenticalMoveSpeed () {
-        PlayerActions actions = new PlayerActions(2);
-        PlayerModifier modifier = new PlayerModifier();
-        modifier.jUnitAddPlayerActions(actions);
 
         modifier.createModifier("moveSpeed", 2, false, 20);
         modifier.update();
