@@ -20,6 +20,8 @@ public class PlayerActions extends Component {
   private PhysicsComponent physicsComponent;
   private PlayerSkillComponent skillManager;
 
+  private CombatStatsComponent combatStatsComponent;
+
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
 
   private PlayerModifier playerModifier;
@@ -29,10 +31,9 @@ public class PlayerActions extends Component {
   private long dashEnd;
   private int stamina= 100;
   private int maxStamina =100;
-  private int staminaRegenerationRate=1;
   private int maxMana=100;
   private int mana=100;
-  private int manaRegenerationRate=1;
+
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
@@ -41,10 +42,12 @@ public class PlayerActions extends Component {
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
-    this.maxStamina=entity.getComponent(CombatStatsComponent.class).getMaxStamina();
-    this.stamina= entity.getComponent(CombatStatsComponent.class).getStamina();
-    this.maxMana=entity.getComponent(CombatStatsComponent.class).getMaxMana();
-    this.mana= entity.getComponent(CombatStatsComponent.class).getMana();
+
+    combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
+    this.maxStamina = combatStatsComponent.getMaxStamina();
+    this.stamina = combatStatsComponent.getStamina();
+    this.maxMana = combatStatsComponent.getMaxMana();
+    this.mana = combatStatsComponent.getMana();
 
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
@@ -60,10 +63,10 @@ public class PlayerActions extends Component {
 
   @Override
   public void update() {
-    this.maxStamina=entity.getComponent(CombatStatsComponent.class).getMaxStamina();
-    this.stamina= entity.getComponent(CombatStatsComponent.class).getStamina();
-    this.maxMana=entity.getComponent(CombatStatsComponent.class).getMaxMana();
-    this.mana= entity.getComponent(CombatStatsComponent.class).getMana();
+    this.maxStamina = combatStatsComponent.getMaxStamina();
+    this.stamina = combatStatsComponent.getStamina();
+    this.maxMana = combatStatsComponent.getMaxMana();
+    this.mana = combatStatsComponent.getMana();
 
     checkrest();
     updateSpeed();
@@ -152,7 +155,7 @@ public class PlayerActions extends Component {
     skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
     }
-
+    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
 
   /**
@@ -172,15 +175,15 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * The player's stamina would regerenate as the rate of staminaRegenerationRate same as mana.
+   * The player's stamina would regenerate as the rate of staminaRegenerationRate same as mana.
    */
   void rest() {
     if (stamina < maxStamina) {
-      entity.getEvents().trigger("increaseStamina", staminaRegenerationRate);
+      entity.getEvents().trigger("increaseStamina", combatStatsComponent.getStaminaRegenerationRate());
 
     }
     if (mana< maxMana) {
-      entity.getEvents().trigger("increaseMana", manaRegenerationRate);
+      entity.getEvents().trigger("increaseMana", combatStatsComponent.getManaRegenerationRate());
 
     }
 
@@ -191,9 +194,10 @@ public class PlayerActions extends Component {
    * Teleports the player a set distance in the currently facing direction.
    */
   void teleport() {
-    if (mana>=40)
-    entity.getEvents().trigger("decreaseMana", -40);
-    skillManager.startTeleport(this.walkDirection.cpy(), entity);
+    if (mana>=40) {
+      entity.getEvents().trigger("decreaseMana", -40);
+      skillManager.startTeleport(this.walkDirection.cpy(), entity);
+    }
 
   }
 
