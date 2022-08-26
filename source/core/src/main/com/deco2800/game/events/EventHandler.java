@@ -146,6 +146,36 @@ public class EventHandler {
     eventListeners.add(listener);
   }
 
+  /**
+   * Removes all listeners from an event.
+   * @param eventName Name of the event from which to remove listeners
+   */
+  public void removeAllListeners(String eventName) {
+    logger.debug("Removing listener from event {}", eventName);
+    Array<EventListener> eventListeners = listeners.getOrDefault(eventName, null);
+    if (eventListeners == null) {
+      logger.debug("Cannot remove listener: No {} event found", eventName);
+    } else {
+      while (eventListeners.size != 0) {
+        eventListeners.removeIndex(0);
+      }
+    }
+  }
+
+  /**
+   * Gets the number of listeners for an eventname.
+   * @param eventName name of an event
+   * @return integer number of listeners on an event or -1 if no event registered
+   */
+  public int getNumberOfListeners(String eventName) {
+    Array<EventListener> eventListeners = listeners.getOrDefault(eventName, null);
+    if (eventListeners == null) {
+      return -1;
+    } else {
+      return eventListeners.size;
+    }
+  }
+
   private void forEachListener(String eventName, Consumer<EventListener> func) {
     Array<EventListener> eventListeners = listeners.getOrDefault(eventName, null);
     if (eventListeners != null) {

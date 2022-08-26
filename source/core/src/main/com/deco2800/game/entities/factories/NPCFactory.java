@@ -109,7 +109,7 @@ public class NPCFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new GhostAnimationController());
-            //.addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
+
 
     oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
     return oneLegGirl;
