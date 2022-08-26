@@ -62,14 +62,15 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
+    Vector2 walkVelocity = walkDirection.cpy().scl(maxWalkSpeed);
     Vector2 desiredVelocity;
 
 
     if (skillManager.movementIsModified()) {
       // If the character's movement is modified by a skill
-      desiredVelocity = skillManager.getModifiedMovement(maxWalkSpeed);
+      desiredVelocity = skillManager.getModifiedMovement(walkVelocity);
     } else {
-      desiredVelocity = maxWalkSpeed; // Regular walk
+      desiredVelocity = walkVelocity; // Regular walk
     }
 
     // impulse = (desiredVel - currentVel) * mass
