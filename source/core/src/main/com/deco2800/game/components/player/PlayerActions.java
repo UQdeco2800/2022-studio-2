@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,15 +20,35 @@ public class PlayerActions extends Component {
   private PhysicsComponent physicsComponent;
   private PlayerSkillComponent skillManager;
 
+  private CombatStatsComponent combatStatsComponent;
+
   private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
 
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean inventoryIsOpened = false;
+  private long dashStart;
+  private long dashEnd;
+  private int stamina= 100;
+  private int maxStamina =100;
+  private int maxMana=100;
+  private int mana=100;
+
+  private boolean resting = false;
+  private long restStart=0;
+  private long restEnd;
+
 
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
+
+    combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
+    this.maxStamina = combatStatsComponent.getMaxStamina();
+    this.stamina = combatStatsComponent.getStamina();
+    this.maxMana = combatStatsComponent.getMaxMana();
+    this.mana = combatStatsComponent.getMana();
+
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
@@ -42,6 +63,12 @@ public class PlayerActions extends Component {
 
   @Override
   public void update() {
+    this.maxStamina = combatStatsComponent.getMaxStamina();
+    this.stamina = combatStatsComponent.getStamina();
+    this.maxMana = combatStatsComponent.getMaxMana();
+    this.mana = combatStatsComponent.getMana();
+
+    checkrest();
     updateSpeed();
     this.skillManager.update();
     this.playerModifier.update();
@@ -93,6 +120,7 @@ public class PlayerActions extends Component {
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
+
   }
 
   /**
@@ -106,7 +134,6 @@ public class PlayerActions extends Component {
 
   /**
    * Public function to set new max speed.
-   *
    * @param newSpeed of the player character
    */
   public void updateMaxSpeed(float newSpeed) {
@@ -124,17 +151,57 @@ public class PlayerActions extends Component {
    *  Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
    */
   void dash() {
+    if(stamina >=20){
     skillManager.startDash(this.walkDirection.cpy());
+      entity.getEvents().trigger("decreaseStamina", -20);
+    }
+    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
+
+  /**
+   * It is as a timer that check whether has passed 1 second. After each second, rest() would be
+   * called to regenerate stamina
+   */
+  void checkrest() {
+    if (System.currentTimeMillis() > this.restEnd) {
+      rest();
+      this.restStart = 0;
+    }
+    if (this.restStart == 0) {
+      this.restStart = System.currentTimeMillis();
+      this.restEnd = this.restStart + 1000;
+
+    }
+  }
+
+  /**
+   * The player's stamina would regenerate as the rate of staminaRegenerationRate same as mana.
+   */
+  void rest() {
+    if (stamina < maxStamina) {
+      entity.getEvents().trigger("increaseStamina", combatStatsComponent.getStaminaRegenerationRate());
+
+    }
+    if (mana< maxMana) {
+      entity.getEvents().trigger("increaseMana", combatStatsComponent.getManaRegenerationRate());
+
+    }
+
+  }
+
 
   /**
    * Teleports the player a set distance in the currently facing direction.
    */
   void teleport() {
-    skillManager.startTeleport();
+    if (mana>=40) {
+      entity.getEvents().trigger("decreaseMana", -40);
+      skillManager.startTeleport();
+    }
   }
 
   Vector2 getWalkDirection() {
     return this.walkDirection;
   }
+
 }

@@ -193,8 +193,8 @@ public class PlayerSkillComponent extends Component {
             teleportPositionX = 24.18f;
         if (teleportPositionY > 24.68)
             teleportPositionY = 24.68f;
-
         entity.setPosition(teleportPositionX, teleportPositionY);
+
     }
 
     /**

@@ -34,7 +34,7 @@ public class PlayerSkillComponentTest {
                                 new World(Vector2.Zero, true),
                                 new GameTime())))
                         .addComponent(new PlayerActions())
-                        .addComponent(new CombatStatsComponent(100, 5))
+                        .addComponent(new CombatStatsComponent(100, 5, 100, 100))
                         .addComponent(new KeyboardPlayerInputComponent())
                         .addComponent(new PlayerStatsDisplay());
 

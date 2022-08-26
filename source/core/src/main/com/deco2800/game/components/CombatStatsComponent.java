@@ -13,12 +13,30 @@ public class CombatStatsComponent extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
   private int health;
+  private int mana;
+  private int maxMana;
+  private int manaRegenerationRate=1;
+  private int maxStamina;
+  private int stamina;
+  private int staminaRegenerationRate=1;
   private int baseAttack;
   private float damageReduction;
 
-  public CombatStatsComponent(int health, int baseAttack) {
+  @Override
+  public void create(){
+    entity.getEvents().addListener("increaseStamina",this::addStamina);
+    entity.getEvents().addListener("decreaseStamina",this::addStamina);
+    entity.getEvents().addListener("increaseMana",this::addMana);
+    entity.getEvents().addListener("decreaseMana",this::addMana);
+  }
+
+  public CombatStatsComponent(int health, int baseAttack, int stamina, int mana) {
     setHealth(health);
     setBaseAttack(baseAttack);
+    setMaxStamina(stamina);
+    setStamina(stamina);
+    setMaxMana(mana);
+    setMana(mana);
     setDamageReduction(0); // Damage reduction is always 0 unless specified otherwise
   }
 
@@ -53,6 +71,7 @@ public class CombatStatsComponent extends Component {
     }
     if (entity != null) {
       entity.getEvents().trigger("updateHealth", this.health);
+
     }
   }
 
@@ -87,18 +106,168 @@ public class CombatStatsComponent extends Component {
     }
   }
 
+  /**
+   * Reduce entity health due to an attack. Decreases by the damage reduction multiplier.
+   *
+   * @param attacker  Attacking entity combatstats component
+   */
   public void hit(CombatStatsComponent attacker) {
     int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
     setHealth(newHealth);
   }
 
   /**
-   * Returns the entity's base attack damage.
+   * Returns the entity's stamina.
    *
-   * @return base attack damage
+   * @return entity's stamina
    */
-  public float damageReduction() {
-    return damageReduction;
+  public int getStamina() {
+    return stamina;
+  }
+
+  /**
+   * Sets the entity's stamina. Stamina has a minimum bound of 0 and a maximum bound of the max stamina.
+   *
+   * @param stamina stamina
+   */
+  public void setStamina(int stamina) {
+    if (stamina >= 0 && stamina <= maxStamina) {
+      this.stamina = stamina;
+    } else if (stamina > maxStamina) {
+      this.stamina = maxStamina;
+    } else {
+      this.stamina = 0;
+    }
+    if (entity != null) {
+      entity.getEvents().trigger("updateStamina", this.stamina);
+    }
+  }
+
+  /**
+   * Adds to the player's stamina. The amount added can be negative.
+   *
+   * @param stamina stamina to add
+   */
+  public void addStamina(int stamina) {
+    setStamina(this.stamina + stamina);
+  }
+
+  /**
+   * Gets the player's maximum stamina.
+   * @return maxStamina player's maximum stamina.
+   */
+  public int getMaxStamina(){
+    return this.maxStamina;
+  }
+
+  /**
+   * Sets the entity's maximum stamina. Max stamina has a minimum bound of 0.
+   * @param maxStamina player's maximum stamina.
+   */
+  public void setMaxStamina(int maxStamina){
+    if(maxStamina>=0) {
+      this.maxStamina = maxStamina;
+    }
+    else{
+      this.maxStamina = 0;
+    }
+  }
+
+
+  /**
+   * Sets the entity's stamina regeneration rate.
+   * @param staminaRegenerationRate entity's stamina regeneration rate
+   */
+  public void setStaminaRegenerationRate(int staminaRegenerationRate){
+    this.staminaRegenerationRate=staminaRegenerationRate;
+    if (entity != null) {
+      entity.getEvents().trigger("getStaminaRegenerationRate", this.staminaRegenerationRate);
+    }
+  }
+
+  /**
+   * Gets the entity's stamina regeneration rate.
+   * @return staminaRegenerationRate entity's stamina regeneration rate
+   */
+  public int getStaminaRegenerationRate(){
+    return staminaRegenerationRate;
+  }
+
+  /**
+   * Returns the entity's mana.
+   *
+   * @return entity's mana
+   */
+  public int getMana() {
+    return mana;
+  }
+
+  /**
+   * Sets the entity's mana. Stamina has a minimum bound of 0 and a maximum bound of the max mana.
+   *
+   * @param mana mana
+   */
+  public void setMana(int mana) {
+    if (mana >= 0 && mana <= maxMana) {
+      this.mana = mana;
+    } else if (mana > maxMana) {
+      this.mana = maxMana;
+    } else {
+      this.mana = 0;
+    }
+    if (entity != null) {
+      entity.getEvents().trigger("updateMana", this.mana);
+    }
+  }
+
+  /**
+   * Adds to the player's mana. The amount added can be negative.
+   *
+   * @param mana mana to add
+   */
+  public void addMana(int mana) {
+    setMana(this.mana + mana);
+  }
+
+  /**
+   * Gets the player's maximum mana
+   * @return maxMana player's maximum mana.
+   */
+  public int getMaxMana(){
+    return this.maxMana;
+  }
+
+  /**
+   * Sets the entity's maximum mana. Max mana has a minimum bound of 0.
+   * @param maxMana player's maximum mana.
+   */
+  public void setMaxMana(int maxMana){
+    if(maxMana>=0) {
+      this.maxMana = maxMana;
+    }
+    else{
+      this.maxMana = 0;
+    }
+  }
+
+
+  /**
+   * Sets the entity's RegenerationRate regeneration rate.
+   * @param manaRegenerationRate entity's stamina regeneration rate
+   */
+  public void setManaRegenerationRate(int manaRegenerationRate){
+    this.manaRegenerationRate=manaRegenerationRate;
+    if (entity != null) {
+      entity.getEvents().trigger("getManaRegenerationRate", this.manaRegenerationRate);
+    }
+  }
+
+  /**
+   * Gets the entity's mana regeneration rate.
+   * @return manaRegenerationRate entity's mana regeneration rate
+   */
+  public int getManaRegenerationRate(){
+    return manaRegenerationRate;
   }
 
   /**
@@ -120,4 +289,5 @@ public class CombatStatsComponent extends Component {
    * @return The float value of damageReduction.
    */
   public float getDamageReduction() { return damageReduction; }
+
 }
