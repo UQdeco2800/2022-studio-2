@@ -1,4 +1,4 @@
-gitpackage com.deco2800.game.entities.factories;
+package com.deco2800.game.entities.factories;
 
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.entities.Entity;
