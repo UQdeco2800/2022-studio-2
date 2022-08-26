@@ -540,10 +540,6 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="com/deco2800/game/CombatItems/Weapon.html#damage" class="member-name-link">damage</a> - Variable in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Weapon.html" title="class in com.deco2800.game.CombatItems">Weapon</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/CombatStatsComponent.html#damageReduction()" class="member-name-link">damageReduction()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
-<dd>
-<div class="block">Returns the entity's base attack damage.</div>
-</dd>
 <dt><a href="com/deco2800/game/ui/terminal/commands/DebugCommand.html" class="type-name-link" title="class in com.deco2800.game.ui.terminal.commands">DebugCommand</a> - Class in <a href="com/deco2800/game/ui/terminal/commands/package-summary.html">com.deco2800.game.ui.terminal.commands</a></dt>
 <dd>
 <div class="block">A command for toggling debug mode on and off.</div>
@@ -640,6 +636,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/services/ResourceService.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ui/terminal/TerminalDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/TerminalDisplay.html" title="class in com.deco2800.game.ui.terminal">TerminalDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerModifier.html#DMGREDUCTION" class="member-name-link">DMGREDUCTION</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/math/Vector2Utils.html#DOWN" class="member-name-link">DOWN</a> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
@@ -1165,7 +1163,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/physics/raycast/SingleHitCallback.html#hit" class="member-name-link">hit</a> - Variable in class com.deco2800.game.physics.raycast.<a href="com/deco2800/game/physics/raycast/SingleHitCallback.html" title="class in com.deco2800.game.physics.raycast">SingleHitCallback</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#hit(com.deco2800.game.components.CombatStatsComponent)" class="member-name-link">hit(CombatStatsComponent)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Reduce entity health due to an attack.</div>
+</dd>
 <dt><a href="com/deco2800/game/physics/components/HitboxComponent.html" class="type-name-link" title="class in com.deco2800.game.physics.components">HitboxComponent</a> - Class in <a href="com/deco2800/game/physics/components/package-summary.html">com.deco2800.game.physics.components</a></dt>
 <dd>
 <div class="block">Physics comp</div>
@@ -1456,6 +1456,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html#mana" class="member-name-link">mana</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerModifier.html#MANAMAX" class="member-name-link">MANAMAX</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerModifier.html#MANAREGEN" class="member-name-link">MANAREGEN</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Materials.html" class="type-name-link" title="enum class in com.deco2800.game.crafting">Materials</a> - Enum Class in <a href="com/deco2800/game/crafting/package-summary.html">com.deco2800.game.crafting</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/math/Vector2Utils.html#MAX" class="member-name-link">MAX</a> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
@@ -1496,6 +1500,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/tasks/MovementTask.html#%3Cinit%3E(com.badlogic.gdx.math.Vector2,float,float)" class="member-name-link">MovementTask(Vector2, float, float)</a> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/MovementTask.html" title="class in com.deco2800.game.components.tasks">MovementTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html#moveSpeed" class="member-name-link">moveSpeed</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerModifier.html#MOVESPEED" class="member-name-link">MOVESPEED</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
@@ -2150,6 +2156,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/entities/configs/BaseEntityConfig.html#stamina" class="member-name-link">stamina</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/BaseEntityConfig.html" title="class in com.deco2800.game.entities.configs">BaseEntityConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html#stamina" class="member-name-link">stamina</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerModifier.html#STAMINAMAX" class="member-name-link">STAMINAMAX</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerModifier.html#STAMINAREGEN" class="member-name-link">STAMINAREGEN</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html#staminaRegenerationRate" class="member-name-link">staminaRegenerationRate</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></dt>
 <dd>&nbsp;</dd>
