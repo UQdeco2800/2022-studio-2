@@ -25,6 +25,8 @@ public class PlayerActions extends Component {
   private boolean moving = false;
   private boolean dashing = false;
   private boolean inventoryIsOpened = false;
+
+  private boolean miniMapOpen = false;
   private long dashStart;
   private long dashEnd;
 
@@ -38,6 +40,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("dash", this::dash);
     entity.getEvents().addListener("teleport", this::teleport);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+    entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
   }
 
   @Override
@@ -78,6 +81,16 @@ public class PlayerActions extends Component {
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
+  }
+
+  /**
+   * Pressing the I button toggles the Minimap window being open. 
+   */
+  private void toggleMinimap(){
+    miniMapOpen = !miniMapOpen;
+
+    //logger.debug();
+    return;
   }
 
   /**
