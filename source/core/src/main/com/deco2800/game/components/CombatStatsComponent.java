@@ -106,6 +106,11 @@ public class CombatStatsComponent extends Component {
     }
   }
 
+  /**
+   * Reduce entity health due to an attack. Decreases by the damage reduction multiplier.
+   *
+   * @param attacker  Attacking entity combatstats component
+   */
   public void hit(CombatStatsComponent attacker) {
     int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
     setHealth(newHealth);
@@ -128,6 +133,8 @@ public class CombatStatsComponent extends Component {
   public void setStamina(int stamina) {
     if (stamina >= 0 && stamina <= maxStamina) {
       this.stamina = stamina;
+    } else if (stamina > maxStamina) {
+      this.stamina = maxStamina;
     } else {
       this.stamina = 0;
     }
@@ -201,8 +208,10 @@ public class CombatStatsComponent extends Component {
    * @param mana mana
    */
   public void setMana(int mana) {
-    if (mana >= 0 && mana <= mana) {
+    if (mana >= 0 && mana <= maxMana) {
       this.mana = mana;
+    } else if (mana > maxMana) {
+      this.mana = maxMana;
     } else {
       this.mana = 0;
     }
@@ -259,15 +268,6 @@ public class CombatStatsComponent extends Component {
    */
   public int getManaRegenerationRate(){
     return manaRegenerationRate;
-  }
-
-  /**
-   * Returns the entity's base attack damage.
-   *
-   * @return base attack damage
-   */
-  public float damageReduction() {
-    return damageReduction;
   }
 
   /**
