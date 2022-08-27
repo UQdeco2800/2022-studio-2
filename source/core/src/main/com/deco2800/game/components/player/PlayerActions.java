@@ -5,44 +5,69 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
-import com.badlogic.gdx.utils.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
-  private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
-  private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
-  private static final float DASH_MOVEMENT_RESTRICTION = 0.8f;
-  private static final int TELEPORT_LENGTH = 4;
-
+  private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
+  private PlayerSkillComponent skillManager;
+
+  private CombatStatsComponent combatStatsComponent;
+
+  private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private Vector2 dashDirection = Vector2.Zero.cpy();
-  private boolean moving = false;
-  private boolean dashing = false;
   private boolean inventoryIsOpened = false;
-  private long dashStart;
-  private long dashEnd;
+  private int stamina= 100;
+  private int maxStamina =100;
+  private int maxMana=100;
+  private int mana=100;
+
+  private boolean resting = false;
+  private long restStart=0;
+  private long restEnd;
 
 
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
+
+    combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
+    this.maxStamina = combatStatsComponent.getMaxStamina();
+    this.stamina = combatStatsComponent.getStamina();
+    this.maxMana = combatStatsComponent.getMaxMana();
+    this.mana = combatStatsComponent.getMana();
+
+    playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
-    entity.getEvents().addListener("dash", this::dash);
-    entity.getEvents().addListener("teleport", this::teleport);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+
+    // Skills and Dash initialisation
+    skillManager = new PlayerSkillComponent(entity);
+    skillManager.setSkill("teleport", entity, this);
+    entity.getEvents().addListener("dash", this::dash);
   }
 
   @Override
   public void update() {
+    this.maxStamina = combatStatsComponent.getMaxStamina();
+    this.stamina = combatStatsComponent.getStamina();
+    this.maxMana = combatStatsComponent.getMaxMana();
+    this.mana = combatStatsComponent.getMana();
+
+    checkrest();
     updateSpeed();
+    this.skillManager.update();
+    this.playerModifier.update();
   }
 
   private void toggleInventory(){
@@ -60,19 +85,15 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 walkVelocity = walkDirection.cpy().scl(MAX_SPEED);
-    Vector2 dashVelocity;
+    Vector2 walkVelocity = walkDirection.cpy().scl(maxWalkSpeed);
     Vector2 desiredVelocity;
 
-    // If the character is dashing, and dash length isn't over
-    if (this.dashing && System.currentTimeMillis() < this.dashEnd) {
 
-      dashVelocity = dashDirection.cpy().scl(DASH_SPEED); // Dash in direction of movement at start of dash
-      // Allow players to move side-to-side during dash
-      desiredVelocity = new Vector2(walkVelocity.x * DASH_MOVEMENT_RESTRICTION + dashVelocity.x,
-              walkVelocity.y * DASH_MOVEMENT_RESTRICTION + dashVelocity.y);
+    if (skillManager.movementIsModified()) {
+      // If the character's movement is modified by a skill
+      desiredVelocity = skillManager.getModifiedMovement(walkVelocity);
     } else {
-      desiredVelocity = walkDirection.cpy().scl(MAX_SPEED); // Regular walk
+      desiredVelocity = walkVelocity; // Regular walk
     }
 
     // impulse = (desiredVel - currentVel) * mass
@@ -87,7 +108,6 @@ public class PlayerActions extends Component {
    */
   void walk(Vector2 direction) {
     this.walkDirection = direction;
-    moving = true;
   }
 
   /**
@@ -96,7 +116,7 @@ public class PlayerActions extends Component {
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
-    moving = false;
+
   }
 
   /**
@@ -105,37 +125,79 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+    playerModifier.createModifier("moveSpeed", 2, true, 350);
   }
 
   /**
-   * Makes the player dash. Logs the start dash time and registers movement increase to updateSpeed().
+   * Public function to set new max speed.
+   * @param newSpeed of the player character
+   */
+  public void updateMaxSpeed(float newSpeed) {
+    maxWalkSpeed = new Vector2(newSpeed, newSpeed);
+  }
+
+  /**
+   * Return the scalar max speed of the player.
+   */
+  public float getMaxSpeed() {
+    return maxWalkSpeed.x;
+  }
+
+  /**
+   *  Makes the player dash. Registers call of the dash function to the skill manager component.
    */
   void dash() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
-    this.dashDirection = this.walkDirection.cpy();
-    this.dashing = true;
-    this.dashStart = System.currentTimeMillis();
-    this.dashEnd = this.dashStart + DASH_LENGTH;
+    if(stamina >=20){
+      skillManager.startDash(this.walkDirection.cpy());
+      entity.getEvents().trigger("decreaseStamina", -20);
+    }
+    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
 
   /**
-   * Teleports the player a set distance in the currently facing direction.
+   * It is as a timer that check whether has passed 1 second. After each second, rest() would be
+   * called to regenerate stamina
+   */
+  void checkrest() {
+    if (System.currentTimeMillis() > this.restEnd) {
+      rest();
+      this.restStart = 0;
+    }
+    if (this.restStart == 0) {
+      this.restStart = System.currentTimeMillis();
+      this.restEnd = this.restStart + 1000;
+
+    }
+  }
+
+  /**
+   * The player's stamina would regenerate as the rate of staminaRegenerationRate same as mana.
+   */
+  void rest() {
+    if (stamina < maxStamina) {
+      entity.getEvents().trigger("increaseStamina", combatStatsComponent.getStaminaRegenerationRate());
+
+    }
+    if (mana< maxMana) {
+      entity.getEvents().trigger("increaseMana", combatStatsComponent.getManaRegenerationRate());
+
+    }
+
+  }
+
+
+  /**
+   * Makes the player teleport. Registers call of the teleport function to the skill manager component.
    */
   void teleport() {
-    float teleportPositionX = entity.getPosition().x + walkDirection.x * TELEPORT_LENGTH;
-    float teleportPositionY = entity.getPosition().y + walkDirection.y * TELEPORT_LENGTH;
-
-    // Check if teleport is out of map bounds
-    if (teleportPositionX < -0.08)
-      teleportPositionX = -0.08f;
-    if (teleportPositionY < 0.11)
-      teleportPositionY = 0.11f;
-    if (teleportPositionX > 14.18)
-      teleportPositionX = 14.18f;
-    if (teleportPositionY > 14.68)
-      teleportPositionY = 14.68f;
-
-    entity.setPosition(teleportPositionX, teleportPositionY);
+    if (mana>=40) {
+      entity.getEvents().trigger("decreaseMana", -40);
+      skillManager.startTeleport();
+    }
   }
+
+  Vector2 getWalkDirection() {
+    return this.walkDirection;
+  }
+
 }

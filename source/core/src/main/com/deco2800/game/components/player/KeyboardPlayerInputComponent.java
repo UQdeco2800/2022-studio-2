@@ -5,9 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
@@ -55,10 +52,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("can_close");
         return true;
       case Keys.E:
-        entity.getEvents().trigger("teleport");
+        entity.getEvents().trigger("skill");
         return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
+        return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;

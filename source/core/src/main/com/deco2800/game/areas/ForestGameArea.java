@@ -26,9 +26,8 @@ import java.util.ArrayList;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  private static final int NUM_TREES = 3;
+//  private static final int NUM_TREES = 3;
   private static final int NUM_GHOSTS = 2;
-  private static final int NUM_SMALL_TREES = 5;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
@@ -54,6 +53,7 @@ public class ForestGameArea extends GameArea {
     "images/Map_assets/sprint_1/column.png",
     "images/Map_assets/sprint_1/tree-1_1.png",
     "images/Map_assets/sprint_1/tree-2_2.png",
+    "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/gold_cobble.png",
     "images/level_1_tiledmap/32x32/grass.png",
     "images/level_1_tiledmap/32x32/gold_drain.png",
@@ -62,8 +62,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/tile_wet.png",
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
-    "images/level_1_tiledmap/32x32/column.png"
-
+    "images/level_1_tiledmap/32x32/column.png",
+    "images/NPC/male_citizen/male_citizen.png"
   };
 
   public static String[] newTextures;
@@ -91,7 +91,7 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Get the player entity from the map. - Team 5 1map4all @LYB
+   * Get the player entity from the map.
    * @return player entity.
    */
   public Entity getPlayer() {
@@ -106,15 +106,12 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
-    spawnSmallTrees();
     spawnCraftingTable();
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
     spawnAtlantisCitizen();
-//    spawnColumn(20, 20);
-//    spawnColumn(30, 20);
+    spawnOneLegGirl();
     playMusic();
 
   }
@@ -129,6 +126,16 @@ public class ForestGameArea extends GameArea {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.LevelOneFlat);
     spawnEntity(new Entity().addComponent(terrain));
+
+    //Place the columns
+    spawnColumn(8, 3);
+    spawnColumn(15, 3);
+
+    //Place the trees
+    spawnTrees(2,15);
+    spawnTrees(22,15);
+    spawnSmallTrees(1,6);
+    spawnSmallTrees(22,6);
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
@@ -155,29 +162,17 @@ public class ForestGameArea extends GameArea {
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
   }
 
-  private void spawnTrees() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < NUM_TREES; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+  private void spawnTrees(int x, int y) {
       Entity tree = ObstacleFactory.createTree();
-      spawnEntityAt(tree, randomPos, true, false);
-    }
+      spawnEntityAt(tree, new GridPoint2(x, y), true, false);
   }
 
   /**
-   * Spawn small tress in random position. - Team 5 1map4all @LYB
+   * Spawn small tress in a certain position. - Team 5 1map4all @LYB
    */
-  private void spawnSmallTrees() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < NUM_SMALL_TREES; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity tree = ObstacleFactory.createSmallTree();
-      spawnEntityAt(tree, randomPos, true, false);
-    }
+  private void spawnSmallTrees(int x, int y) {
+    Entity tree = ObstacleFactory.createSmallTree();
+    spawnEntityAt(tree, new GridPoint2(x, y), false, false);
   }
 
   /**
@@ -186,11 +181,8 @@ public class ForestGameArea extends GameArea {
    * @param y y-axis for the position (vertical).
    */
   private void spawnColumn(int x, int y) {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
     Entity column = ObstacleFactory.createColumn();
-    spawnEntityAt(column, new GridPoint2(x, y), true, false);
+    spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
 
   public void spawnCraftingMenu() {
@@ -247,6 +239,14 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  private void spawnOneLegGirl() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
+    spawnEntityAt(oneLegGirl, randomPos, true, true);
+  }
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
