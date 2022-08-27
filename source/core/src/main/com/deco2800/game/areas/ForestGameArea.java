@@ -6,10 +6,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.MenuComponent;
+import com.deco2800.game.crafting.craftingDisplay.CraftingMenuActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -17,6 +20,8 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -34,6 +39,14 @@ public class ForestGameArea extends GameArea {
     "images/grass_1.png",
     "images/grass_2.png",
     "images/grass_3.png",
+    "images/hex_grass_1.png",
+    "images/hex_grass_2.png",
+    "images/hex_grass_3.png",
+    "images/iso_grass_1.png",
+    "images/iso_grass_2.png",
+    "images/iso_grass_3.png",
+    "images/Crafting-assets-sprint1/widgets/craftButton.png",
+    "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
     "images/gold_cobble.png",
     "images/gold_drain.png",
@@ -52,6 +65,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png"
   };
+
+  public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
   };
@@ -63,10 +78,16 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
 
+  private static GridPoint2 craftingMenuPos;
+
+  private static GridPoint2 craftingTablePos;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
+
+    ServiceLocator.registerGameArea(this);
+
   }
 
   /**
@@ -92,6 +113,7 @@ public class ForestGameArea extends GameArea {
     spawnAtlantisCitizen();
     spawnOneLegGirl();
     playMusic();
+
   }
 
   private void displayUI() {
@@ -138,6 +160,14 @@ public class ForestGameArea extends GameArea {
     // Bottom
     spawnEntityAt(
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+
+    // Castle Wall
+    spawnEntityAt(ObstacleFactory.createWall(1f, 18f), new GridPoint2(3, 6), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 18f), new GridPoint2(21, 6), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(18f, 1f), new GridPoint2(4, 23), false,
+            false);
   }
 
   private void spawnTrees(int x, int y) {
@@ -163,13 +193,41 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
 
-  private void spawnCraftingTable() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+  public void spawnCraftingMenu() {
+    GridPoint2 menuPos = new GridPoint2(10, 6);
+    GridPoint2 craftButtonPos = new GridPoint2(13, 6);
+    Entity craftingMenu = ObstacleFactory.createCraftingMenu();
+    Entity craftButton = ObstacleFactory.createCraftButton();
+    spawnEntityAt(craftingMenu, menuPos, true, false);
+    spawnEntityAt(craftButton, craftButtonPos, true, false);
+  }
+
+  public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY){
+        spawnEntityAt(entity,position,centreX,centreY);
+  }
+
+
+  public void disposeCraftingMenu() {
+    for (int i = 0; i < areaEntities.size();i++) {
+      if (areaEntities.get(i).getComponent(MenuComponent.class) != null){
+        areaEntities.get(i).dispose();
+      }
+    }
+  }
+
+
+  public void spawnCraftingTable() {
+    GridPoint2 minPos = new GridPoint2(2, 2);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
+  }
+
+  public static GridPoint2 getCraftingTablePos() {
+    return craftingTablePos;
   }
 
   private Entity spawnPlayer() {
@@ -220,7 +278,7 @@ public class ForestGameArea extends GameArea {
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0f);
     music.play();
   }
 

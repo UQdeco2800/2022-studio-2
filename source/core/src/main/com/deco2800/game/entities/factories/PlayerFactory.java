@@ -2,6 +2,7 @@ package com.deco2800.game.entities.factories;
 
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
+import com.deco2800.game.components.player.OpenCraftingComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerModifier;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
@@ -46,7 +47,8 @@ public class PlayerFactory {
             .addComponent(new InventoryComponent())
             .addComponent(new PlayerModifier())
             .addComponent(inputComponent)
-            .addComponent(new PlayerStatsDisplay());
+            .addComponent(new PlayerStatsDisplay())
+            .addComponent(new OpenCraftingComponent());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
