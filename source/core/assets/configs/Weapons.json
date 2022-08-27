@@ -2,8 +2,16 @@
   "dagger": {
     "damage": 20,
     "coolDown": 10,
-    "weight" : 1,
+    "weight": 1,
     "materials": {"wood": 2, "steel": 1}
+  },
+
+  "daggerTwo": {
+    "damage": 30,
+    "coolDown": 10,
+    "weight": 1,
+    "materials": {"gold": 2, "iron": 2}
   }
+
 }
 

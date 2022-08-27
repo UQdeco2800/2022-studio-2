@@ -47,10 +47,6 @@ public abstract class WeaponStatsComponent extends Component {
   }
 
 
-  /*public void setCraftingRecipe() {
-
-  }*/
-
   public abstract void auraEffect(Entity auraToApply);
 
   /*public void revertAuraEffect(Entity auraToRevert) { //dont need this
