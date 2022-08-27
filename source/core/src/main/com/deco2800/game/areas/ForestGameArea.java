@@ -21,6 +21,8 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
@@ -62,6 +64,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png"
 
   };
+
+  public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
   };
@@ -191,11 +195,15 @@ public class ForestGameArea extends GameArea {
 
   public void spawnCraftingMenu() {
     GridPoint2 minPos = new GridPoint2(10, 6);
-    GridPoint2 randomPos = (minPos);
-    craftingMenuPos = randomPos;
-    Entity craftingTable = ObstacleFactory.createCraftingMenu();
-    spawnEntityAt(craftingTable, randomPos, true, false);
+    Entity craftingMenu = ObstacleFactory.createCraftingMenu();
+    spawnEntityAt(craftingMenu, minPos, true, false);
+
   }
+
+  public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY){
+        spawnEntityAt(entity,position,centreX,centreY);
+  }
+
 
   public void disposeCraftingMenu() {
     for (int i = 0; i < areaEntities.size();i++) {
