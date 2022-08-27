@@ -21,32 +21,7 @@ class InventoryComponentTest {
     InventoryComponent testInventory1 = new InventoryComponent();
     assertEquals(testInventory1.getItems(), new ArrayList<>(16));
   }
-/*
-  @Test
-  void addItem() {
-    InventoryComponent testInventory2 = new InventoryComponent();
-    Entity testMelee = WeaponFactory.getWeapon(0);
-    testInventory2.addItem((Buildable) testMelee);
-    List<Entity> expectedList = new ArrayList<>(16);
-    expectedList.add(testMelee);
-    assertEquals(testInventory2.getItems(), expectedList);
-  }
 
-  @Test
-  void removeItem() {
-    InventoryComponent testInventory3 = new InventoryComponent();
-    Entity testMelee = WeaponFactory.getWeapon(0);
-    List<Entity> expectedList = new ArrayList<>(16);
-
-    testInventory3.addItem((Buildable) testMelee);
-    expectedList.add(testMelee);
-
-    expectedList.remove(testMelee);
-    testInventory3.removeItem((Buildable) testMelee);
-    assertEquals(testInventory3.getItems(), expectedList);
-  }
-
- */
 
   /*
   @Test
@@ -77,6 +52,4 @@ class InventoryComponentTest {
   }
 
    */
-
-
 }
