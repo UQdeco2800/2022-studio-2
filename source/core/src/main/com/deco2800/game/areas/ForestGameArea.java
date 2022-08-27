@@ -21,6 +21,8 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
@@ -63,6 +65,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png"
 
   };
+
+  public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
   };
@@ -192,11 +196,16 @@ public class ForestGameArea extends GameArea {
   public void spawnCraftingMenu() {
     GridPoint2 menuPos = new GridPoint2(10, 6);
     GridPoint2 craftButtonPos = new GridPoint2(13, 6);
-    Entity craftingTable = ObstacleFactory.createCraftingMenu();
+    Entity craftingMenu = ObstacleFactory.createCraftingMenu();
     Entity craftButton = ObstacleFactory.createCraftButton();
-    spawnEntityAt(craftingTable, menuPos, true, false);
+    spawnEntityAt(craftingMenu, menuPos, true, false);
     spawnEntityAt(craftButton, craftButtonPos, true, false);
   }
+
+  public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY){
+        spawnEntityAt(entity,position,centreX,centreY);
+  }
+
 
   public void disposeCraftingMenu() {
     for (int i = 0; i < areaEntities.size();i++) {
