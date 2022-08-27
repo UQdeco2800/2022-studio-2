@@ -1,5 +1,9 @@
 package com.deco2800.game.entities.configs.CombatItemsConfig;
 
+
+/**
+ * Defines a basic set of properties stored in aura config files to be loaded by Aura Factory.
+ */
 public class AuraConfig {
 
     public String auraName = "pen15";

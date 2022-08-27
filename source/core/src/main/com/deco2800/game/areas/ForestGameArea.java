@@ -45,6 +45,7 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
     "images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png",
+    "images/CombatWeapons-assets-sprint1/Level 2 Dagger 2png.png",
     "images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
     "images/gold_cobble.png",
@@ -75,6 +76,7 @@ public class ForestGameArea extends GameArea {
   private Entity player;
   private Entity dagger; //by eugene, experiment
   private Entity speedBuff;
+  private Entity daggerTwo;
 
 
   public ForestGameArea(TerrainFactory terrainFactory) {
@@ -107,6 +109,7 @@ public class ForestGameArea extends GameArea {
     spawnEffectBlobs();
     spawnAtlantisCitizen();
     spawnDagger();
+    spawnDaggerTwo();
     spawnColumn(20, 20);
     spawnColumn(30, 20);
     spawnOneLegGirl();
@@ -172,23 +175,6 @@ public class ForestGameArea extends GameArea {
       speedBuff = AuraFactory.getAura(0);
       spawnEntityAt(speedBuff, randomPos, true, false);
 
-      /*
-      Entity spdbf = AuraFactory.getAura(0);
-      Entity dagger = WeaponFactory.getWeapon(0);
-      System.out.println(dagger.getComponent(MeleeStatsComponent.class).getDamage());
-      dagger.getComponent(MeleeStatsComponent.class).auraEffect(spdbf);
-      System.out.println(dagger.getComponent(MeleeStatsComponent.class).getDamage());
-      Timer timer1 = new Timer();
-      timer1.schedule(new TimerTask() {
-                       @Override
-                       public void run() {
-                         System.out.println(dagger.getComponent(MeleeStatsComponent.class).getDamage());
-                       }
-                     }
-              , spdbf.getComponent(WeaponAuraComponent.class).getAuraDuration());
-
-       */
-
       Timer timer = new Timer();
       timer.schedule(new TimerTask() {
                        @Override
@@ -248,6 +234,16 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(dagger, randomPos, true, false);
   }
 
+
+  private void spawnDaggerTwo() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    daggerTwo = WeaponFactory.getWeapon(1);
+    spawnEntityAt(daggerTwo, randomPos, true, false);
+  }
+
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
@@ -273,6 +269,7 @@ public class ForestGameArea extends GameArea {
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, randomPos, true, true);
   }
+
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);

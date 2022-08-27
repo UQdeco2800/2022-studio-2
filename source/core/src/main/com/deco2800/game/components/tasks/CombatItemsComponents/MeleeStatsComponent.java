@@ -10,20 +10,38 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Component used to store information and methods related to combat for melee weapons.
+ */
 public class MeleeStatsComponent extends WeaponStatsComponent {
 
     private double weight;
     private Entity auraToApply;
 
+    /**
+     *
+     * @param damage damage of the melee weapon
+     * @param coolDown duration before the next attack instance can be called
+     * @param materials materials needed to craft the weapon
+     * @param weight weight of the weapon (affects player's movement speed)
+     */
     public MeleeStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight) {
        super(damage, coolDown, materials);
         setWeight(weight);
     }
 
+    /**
+     * Returns the weight of the weapon
+     * @return weight of the weapon
+     */
     public double getWeight() {
         return weight;
     }
 
+    /**
+     * Sets the weight of the weapon
+     * @param weight set the weight of the weapon
+     */
     public void setWeight(double weight) {
         this.weight = weight;
     }
@@ -43,23 +61,9 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
                                setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
                                setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
                                setWeight(getWeight() / auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
-                               //revertAuraEffect(auraToApply);
                                timer.cancel();
                            }
                        }
                 , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
-       /* if (auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration() != -1) {
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                               @Override
-                               public void run() {
-                                   setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-                                   setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-                                   setWeight(getWeight() / auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
-                                   //revertAuraEffect(auraToApply);
-                                   timer.cancel();
-                               }
-                           }
-                    , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());*/
         }
 }
