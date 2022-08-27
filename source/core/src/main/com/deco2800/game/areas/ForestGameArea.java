@@ -44,8 +44,9 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/Crafting-assets-sprint1/crafting table/craftingUI-2-Sprint1.png",
-          "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+    "images/Crafting-assets-sprint1/widgets/craftButton.png",
+    "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
+    "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
     "images/gold_cobble.png",
     "images/gold_drain.png",
     "images/Map_assets/sprint_1/column.png",
@@ -103,7 +104,6 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     spawnTrees();
     spawnSmallTrees();
-    //spawnCraftingMenu();
     spawnCraftingTable();
     player = spawnPlayer();
     spawnGhosts();
@@ -190,11 +190,12 @@ public class ForestGameArea extends GameArea {
     }
 
   public void spawnCraftingMenu() {
-    GridPoint2 minPos = new GridPoint2(10, 6);
-    GridPoint2 randomPos = (minPos);
-    craftingMenuPos = randomPos;
+    GridPoint2 menuPos = new GridPoint2(10, 6);
+    GridPoint2 craftButtonPos = new GridPoint2(13, 6);
     Entity craftingTable = ObstacleFactory.createCraftingMenu();
-    spawnEntityAt(craftingTable, randomPos, true, false);
+    Entity craftButton = ObstacleFactory.createCraftButton();
+    spawnEntityAt(craftingTable, menuPos, true, false);
+    spawnEntityAt(craftButton, craftButtonPos, true, false);
   }
 
   public void disposeCraftingMenu() {
@@ -214,10 +215,6 @@ public class ForestGameArea extends GameArea {
     craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
-  }
-
-  public static GridPoint2 getCraftingMenuPos() {
-    return craftingMenuPos;
   }
 
   public static GridPoint2 getCraftingTablePos() {
