@@ -4,6 +4,12 @@
     "damageMultiplier": 2,
     "coolDownMultiplier": 1,
     "weightMultiplier" : 1
+  },
+  "speedDebuff": {
+    "auraDuration": 10000,
+    "damageMultiplier": 1,
+    "coolDownMultiplier": 2,
+    "weightMultiplier": 2
   }
 }
 

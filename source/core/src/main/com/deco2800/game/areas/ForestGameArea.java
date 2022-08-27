@@ -70,7 +70,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
-    "images/NPC/male_citizen/male_citizen.png"
+    "images/NPC/male_citizen/male_citizen.png",
+          "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"
   };
 
   public static String[] newTextures;
@@ -127,6 +128,8 @@ public class ForestGameArea extends GameArea {
     spawnColumn(30, 20);
     spawnOneLegGirl();
     playMusic();
+
+    spawnSpeedDebuff();
 
   }
 
@@ -213,6 +216,12 @@ public class ForestGameArea extends GameArea {
                      }
               , 7000, 5000);
     }
+  }
+
+  private void spawnSpeedDebuff() {
+    Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
+    weaponOnMap.add(speedDebuff);
+    spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
   }
 
   /**

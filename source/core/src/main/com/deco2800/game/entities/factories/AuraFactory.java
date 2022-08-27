@@ -67,4 +67,16 @@ public class AuraFactory {
         weaponSpeedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponSpeedBuff;
     }
+
+
+    public static Entity createWeaponSpeedDeBuff() {
+        Entity weaponSpeedDeBuff = createBaseAura();
+        AuraConfig config = configs.speedDebuff;
+        weaponSpeedDeBuff
+                .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                        config.coolDownMultiplier, config.weightMultiplier))
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"));
+        weaponSpeedDeBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        return weaponSpeedDeBuff;
+    }
 }
