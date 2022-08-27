@@ -17,24 +17,17 @@ public class OpenCraftingComponent extends Component {
     public void create() {
 
         logger = LoggerFactory.getLogger(OpenCraftingComponent.class);
-
         this.craftingTableXCoord = (float)ForestGameArea.getCraftingTablePos().x;
         this.craftingTableYCoord = (float)ForestGameArea.getCraftingTablePos().y;
 
-
-            entity.getEvents().addListener("can_open", this::openCrafting);
-
-            entity.getEvents().addListener("can_close", this::closeCrafting);
-
-
-
+        entity.getEvents().addListener("can_open", this::openCrafting);
+        entity.getEvents().addListener("can_close", this::closeCrafting);
 
     }
 
     private void openCrafting() {
         if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 10 && isOpen == false) {
-            ServiceLocator.getGameArea().spawnCraftingMenu();
-            entity.getEvents().trigger("open_crafting");
+            ServiceLocator.getCraftArea().openCraftingMenu();
             isOpen = true;
         }
 
@@ -42,12 +35,11 @@ public class OpenCraftingComponent extends Component {
 
     private void closeCrafting() {
         if (isOpen == true) {
-            ServiceLocator.getGameArea().disposeCraftingMenu();
-            entity.getEvents().trigger("close_crafting");
+            ServiceLocator.getCraftArea().disposeCraftingMenu();
             isOpen = false;
         }
 
-        }
-
     }
+
+}
 

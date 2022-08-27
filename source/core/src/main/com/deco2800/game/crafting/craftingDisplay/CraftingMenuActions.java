@@ -1,4 +1,4 @@
-package com.deco2800.game.crafting.craftingDisplay;
+/*package com.deco2800.game.crafting.craftingDisplay;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
@@ -32,3 +32,4 @@ public class CraftingMenuActions extends Component {
     }
 
 }
+*/

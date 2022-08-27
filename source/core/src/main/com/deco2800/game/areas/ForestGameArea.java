@@ -7,7 +7,7 @@ import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.MenuComponent;
-import com.deco2800.game.crafting.craftingDisplay.CraftingMenuActions;
+//import com.deco2800.game.crafting.craftingDisplay.CraftingMenuActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
@@ -77,9 +77,6 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-
-  private static GridPoint2 craftingMenuPos;
-
   private static GridPoint2 craftingTablePos;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
@@ -184,15 +181,6 @@ public class ForestGameArea extends GameArea {
     Entity column = ObstacleFactory.createColumn();
     spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
-
-  public void spawnCraftingMenu() {
-    GridPoint2 menuPos = new GridPoint2(10, 6);
-    GridPoint2 craftButtonPos = new GridPoint2(13, 6);
-    Entity craftingMenu = ObstacleFactory.createCraftingMenu();
-    Entity craftButton = ObstacleFactory.createCraftButton();
-    spawnEntityAt(craftingMenu, menuPos, true, false);
-    spawnEntityAt(craftButton, craftButtonPos, true, false);
-  }
 
   public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY){
         spawnEntityAt(entity,position,centreX,centreY);
