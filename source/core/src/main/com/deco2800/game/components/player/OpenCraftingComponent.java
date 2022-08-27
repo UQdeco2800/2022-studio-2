@@ -1,6 +1,7 @@
 package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.LoggerFactory;
@@ -11,23 +12,42 @@ public class OpenCraftingComponent extends Component {
     float craftingTableYCoord;
     private static Logger logger;
 
+    private static Boolean isOpen = false;
+
     public void create() {
 
         logger = LoggerFactory.getLogger(OpenCraftingComponent.class);
 
         this.craftingTableXCoord = (float)ForestGameArea.getCraftingTablePos().x;
         this.craftingTableYCoord = (float)ForestGameArea.getCraftingTablePos().y;
-        entity.getEvents().addListener("can_open", this::openCrafting);
-        System.out.println("4");
+
+
+            entity.getEvents().addListener("can_open", this::openCrafting);
+
+            entity.getEvents().addListener("can_close", this::closeCrafting);
+
+
+
 
     }
 
     private void openCrafting() {
-
-        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 15) {
-            System.out.println("3");
+        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 10 && isOpen == false) {
+            ServiceLocator.getGameArea().spawnCraftingMenu();
             entity.getEvents().trigger("open_crafting");
+            isOpen = true;
         }
 
     }
-}
+
+    private void closeCrafting() {
+        if (isOpen == true) {
+            ServiceLocator.getGameArea().disposeCraftingMenu();
+            entity.getEvents().trigger("close_crafting");
+            isOpen = false;
+        }
+
+        }
+
+    }
+

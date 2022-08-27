@@ -66,8 +66,11 @@ public  class CraftingLogic {
 
         for (int i = 0 ; i < weapons.size(); i++){
 
-            if (weapons.get(i) instanceof Buildable){
-                Map<Materials,Integer> materialValues = ((Buildable) weapons.get(i)).getRequiredMaterials();
+            if (/*weapons.get(i) instanceof Buildable*/ true){
+                Map<Materials,Integer> materialValues =
+                /*((Buildable) weapons.get(i)).getRequiredMaterials();*/
+                new HashMap<>();
+
                 for (Map.Entry<Materials, Integer> entry : materialValues.entrySet()){
 
                     if (!inventoryContents.contains(entry.getKey())){

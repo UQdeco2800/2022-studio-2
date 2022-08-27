@@ -21,6 +21,8 @@ import static com.badlogic.gdx.Gdx.app;
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
 
+  private static MainGameScreen currentGameScreen;
+
   @Override
   public void create() {
     logger.info("Creating game");
@@ -70,7 +72,9 @@ public class GdxGame extends Game {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen(this);
+        MainGameScreen mainGame = new MainGameScreen(this);
+        currentGameScreen = new MainGameScreen(this);
+        return currentGameScreen;
       case SETTINGS:
         return new SettingsScreen(this);
       case CRAFTING_MENU:

@@ -1,6 +1,7 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.deco2800.game.components.MenuComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -52,6 +53,22 @@ public class ObstacleFactory {
     return smallTree;
   }
 
+
+  public static Entity createCraftingMenu() {
+    Entity craftingTable =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1" +
+                            "/crafting table/craftingUI-2-Sprint1.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                    .addComponent(new MenuComponent());
+
+    craftingTable.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    craftingTable.getComponent(TextureRenderComponent.class).scaleEntity();
+    craftingTable.scaleHeight(10f);
+
+    return craftingTable;
+  }
 
   public static Entity createCraftingTable() {
     Entity craftingTable =
