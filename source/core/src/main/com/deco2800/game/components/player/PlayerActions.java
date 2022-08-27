@@ -155,7 +155,7 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * It is as a timer that check whether has passed 1 second. After each second, rest() would be
+   * It is as a timer that check whether it has passed 1 second. After each second, rest() would be
    * called to regenerate stamina
    */
   void checkrest() {
