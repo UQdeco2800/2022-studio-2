@@ -206,9 +206,17 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html#BOTTOM" class="member-name-link">BOTTOM</a> - Enum constant in enum class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html" title="enum class in com.deco2800.game.physics.components">PhysicsComponent.AlignY</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Buildable.html" class="type-name-link" title="interface in com.deco2800.game.crafting">Buildable</a> - Interface in <a href="com/deco2800/game/crafting/package-summary.html">com.deco2800.game.crafting</a></dt>
+<dd>
+<div class="block">Public Interface that indicates what items are buildable and not in a game.</div>
+</dd>
+<dt><a href="com/deco2800/game/crafting/BuildableComponent.html" class="type-name-link" title="class in com.deco2800.game.crafting">BuildableComponent</a> - Class in <a href="com/deco2800/game/crafting/package-summary.html">com.deco2800.game.crafting</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/BuildableComponent.html#%3Cinit%3E()" class="member-name-link">BuildableComponent()</a> - Constructor for class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/BuildableComponent.html" title="class in com.deco2800.game.crafting">BuildableComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#buildItem(java.lang.Object)" class="member-name-link">buildItem(Object)</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Checks if an item can be build and adds it to the list of built items if possible.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
@@ -218,8 +226,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CameraComponent.html#%3Cinit%3E(com.badlogic.gdx.graphics.Camera)" class="member-name-link">CameraComponent(Camera)</a> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/CameraComponent.html" title="class in com.deco2800.game.components">CameraComponent</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/crafting/CraftLogic.html#canBuild(java.util.List)" class="member-name-link">canBuild(List&lt;Materials&gt;)</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftLogic.html" title="class in com.deco2800.game.crafting">CraftLogic</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/CraftingLogic.html#canBuild(java.util.List)" class="member-name-link">canBuild(List&lt;Materials&gt;)</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingLogic.html" title="class in com.deco2800.game.crafting">CraftingLogic</a></dt>
+<dd>
+<div class="block">Method that determines what items can be built based on items present in users' inventory.</div>
+</dd>
 <dt><a href="com/deco2800/game/physics/components/PhysicsComponent.AlignX.html#CENTER" class="member-name-link">CENTER</a> - Enum constant in enum class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignX.html" title="enum class in com.deco2800.game.physics.components">PhysicsComponent.AlignX</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html#CENTER" class="member-name-link">CENTER</a> - Enum constant in enum class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.AlignY.html" title="enum class in com.deco2800.game.physics.components">PhysicsComponent.AlignY</a></dt>
@@ -363,25 +373,43 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/CombatItems/Weapon.html#coolDown" class="member-name-link">coolDown</a> - Variable in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Weapon.html" title="class in com.deco2800.game.CombatItems">Weapon</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingAnimations.html" class="type-name-link" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingAnimations</a> - Class in <a href="com/deco2800/game/crafting/craftingDisplay/package-summary.html">com.deco2800.game.crafting.craftingDisplay</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Public class that will contain the event handlers responsible for animations for the crafting system.</div>
+</dd>
 <dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingAnimations.html#%3Cinit%3E()" class="member-name-link">CraftingAnimations()</a> - Constructor for class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingAnimations.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingAnimations</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" class="type-name-link" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a> - Class in <a href="com/deco2800/game/crafting/craftingDisplay/package-summary.html">com.deco2800.game.crafting.craftingDisplay</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html#%3Cinit%3E()" class="member-name-link">CraftingDisplay()</a> - Constructor for class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a></dt>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">CraftingDisplay(GdxGame)</a> - Constructor for class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a></dt>
+<dd>
+<div class="block">Constructor that will make an instance of the crafting display</div>
+</dd>
+<dt><a href="com/deco2800/game/crafting/CraftingLogic.html" class="type-name-link" title="class in com.deco2800.game.crafting">CraftingLogic</a> - Class in <a href="com/deco2800/game/crafting/package-summary.html">com.deco2800.game.crafting</a></dt>
+<dd>
+<div class="block">Supporting class containing static methods that can be used to support other classes in using the crafting system.</div>
+</dd>
+<dt><a href="com/deco2800/game/crafting/CraftingLogic.html#%3Cinit%3E()" class="member-name-link">CraftingLogic()</a> - Constructor for class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingLogic.html" title="class in com.deco2800.game.crafting">CraftingLogic</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingMenuActions.html" class="type-name-link" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingMenuActions</a> - Class in <a href="com/deco2800/game/crafting/craftingDisplay/package-summary.html">com.deco2800.game.crafting.craftingDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingMenuActions.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">CraftingMenuActions(GdxGame)</a> - Constructor for class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingMenuActions.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingMenuActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Buildable.html#craftingRecipe" class="member-name-link">craftingRecipe</a> - Static variable in interface com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Buildable.html" title="interface in com.deco2800.game.crafting">Buildable</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Hashmap that contains the crafting recipe of the item.</div>
+</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html" class="type-name-link" title="class in com.deco2800.game.crafting">CraftingSystem</a> - Class in <a href="com/deco2800/game/crafting/package-summary.html">com.deco2800.game.crafting</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Public class that creates a new crafting system which allows users to combine materials in their inventory to make
+ new items.</div>
+</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#%3Cinit%3E()" class="member-name-link">CraftingSystem()</a> - Constructor for class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#CraftingSystem()" class="member-name-link">CraftingSystem()</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/crafting/CraftLogic.html" class="type-name-link" title="class in com.deco2800.game.crafting">CraftLogic</a> - Class in <a href="com/deco2800/game/crafting/package-summary.html">com.deco2800.game.crafting</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/crafting/CraftLogic.html#%3Cinit%3E()" class="member-name-link">CraftLogic()</a> - Constructor for class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftLogic.html" title="class in com.deco2800.game.crafting">CraftLogic</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Constructor that creates an instance of the crafting system class which creates a set of the users inventory and
+ determines what items the users can build with it.</div>
+</dd>
 <dt><a href="com/deco2800/game/areas/ForestGameArea.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>
 <div class="block">Create the game area, including terrain, static entities (trees), dynamic entities (player)</div>
@@ -410,6 +438,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/npc/GhostAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/GhostAnimationController.html" title="class in com.deco2800.game.components.npc">GhostAnimationController</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/OpenCraftingComponent.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/OpenCraftingComponent.html" title="class in com.deco2800.game.components.player">OpenCraftingComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
@@ -424,6 +454,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.settingsmenu.<a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html" title="class in com.deco2800.game.components.settingsmenu">SettingsMenuDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/TouchAttackComponent.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/TouchAttackComponent.html" title="class in com.deco2800.game.components">TouchAttackComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingMenuActions.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingMenuActions.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingMenuActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
@@ -469,6 +503,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates a column entity on the map.</div>
 </dd>
+<dt><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCraftButton()" class="member-name-link">createCraftButton()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCraftingMenu()" class="member-name-link">createCraftingMenu()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCraftingTable()" class="member-name-link">createCraftingTable()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/input/InputFactory.html#createForPlayer()" class="member-name-link">createForPlayer()</a> - Method in class com.deco2800.game.input.<a href="com/deco2800/game/input/InputFactory.html" title="class in com.deco2800.game.input">InputFactory</a></dt>
@@ -601,6 +639,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.components.settingsmenu.<a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html" title="class in com.deco2800.game.components.settingsmenu">SettingsMenuDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
 <div class="block">Dispose of the entity.</div>
@@ -637,6 +677,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ui/terminal/TerminalDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/TerminalDisplay.html" title="class in com.deco2800.game.ui.terminal">TerminalDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/areas/ForestGameArea.html#disposeCraftingMenu()" class="member-name-link">disposeCraftingMenu()</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#DMGREDUCTION" class="member-name-link">DMGREDUCTION</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/math/Vector2Utils.html#DOWN" class="member-name-link">DOWN</a> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
@@ -654,6 +696,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.components.settingsmenu.<a href="com/deco2800/game/components/settingsmenu/SettingsMenuDisplay.html" title="class in com.deco2800.game.components.settingsmenu">SettingsMenuDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -875,6 +919,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/CombatItems/Weapon.html#getCoolDown()" class="member-name-link">getCoolDown()</a> - Method in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Weapon.html" title="class in com.deco2800.game.CombatItems">Weapon</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/areas/ForestGameArea.html#getCraftingTablePos()" class="member-name-link">getCraftingTablePos()</a> - Static method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#getCurrentAnimation()" class="member-name-link">getCurrentAnimation()</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Get the name of the animation currently being played.</div>
@@ -913,6 +959,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/ComponentType.html#getFrom(java.lang.Class)" class="member-name-link">getFrom(Class&lt;? extends Component&gt;)</a> - Static method in class com.deco2800.game.components.<a href="com/deco2800/game/components/ComponentType.html" title="class in com.deco2800.game.components">ComponentType</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/services/ServiceLocator.html#getGameArea()" class="member-name-link">getGameArea()</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getHealth()" class="member-name-link">getHealth()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns the entity's health.</div>
@@ -934,7 +982,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#getInputService()" class="member-name-link">getInputService()</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#getInventoryContents()" class="member-name-link">getInventoryContents()</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the instance of inventory contents made and used by the class.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getItems()" class="member-name-link">getItems()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
 <div class="block">Returns the current inventory</div>
@@ -963,6 +1013,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getMap()" class="member-name-link">getMap()</a> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/MainGameScreen.html#getMap()" class="member-name-link">getMap()</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getMapBounds(int)" class="member-name-link">getMapBounds(int)</a> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#getMaxMana()" class="member-name-link">getMaxMana()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
@@ -977,6 +1029,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Gets the player's maximum stamina.</div>
 </dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingMenuActions.html#getMenuReady()" class="member-name-link">getMenuReady()</a> - Static method in class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingMenuActions.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingMenuActions</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#getModified(java.lang.String)" class="member-name-link">getModified(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>
 <div class="block">Public function to return current reference value of a desired target.</div>
@@ -1014,8 +1068,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get the entity's game position.</div>
 </dd>
-<dt><a href="com/deco2800/game/crafting/CraftLogic.html#getPossibleBuilds()" class="member-name-link">getPossibleBuilds()</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftLogic.html" title="class in com.deco2800.game.crafting">CraftLogic</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/CraftingLogic.html#getPossibleBuilds()" class="member-name-link">getPossibleBuilds()</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingLogic.html" title="class in com.deco2800.game.crafting">CraftingLogic</a></dt>
+<dd>
+<div class="block">Returns the list of all possible builds the user can make with their given inventory.</div>
+</dd>
+<dt><a href="com/deco2800/game/crafting/CraftingLogic.html#getPossibleWeapons()" class="member-name-link">getPossibleWeapons()</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingLogic.html" title="class in com.deco2800.game.crafting">CraftingLogic</a></dt>
+<dd>
+<div class="block">Returns the list of all possible builds the user can make with their given inventory.</div>
+</dd>
 <dt><a href="com/deco2800/game/ai/tasks/PriorityTask.html#getPriority()" class="member-name-link">getPriority()</a> - Method in interface com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/ChaseTask.html#getPriority()" class="member-name-link">getPriority()</a> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ChaseTask.html" title="class in com.deco2800.game.components.tasks">ChaseTask</a></dt>
@@ -1043,7 +1103,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#getRenderService()" class="member-name-link">getRenderService()</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Buildable.html#getRequiredMaterials()" class="member-name-link">getRequiredMaterials()</a> - Method in interface com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Buildable.html" title="interface in com.deco2800.game.crafting">Buildable</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Default setter method that returns the crafting recipe for the class.</div>
+</dd>
+<dt><a href="com/deco2800/game/crafting/BuildableComponent.html#getRequiredMaterials()" class="member-name-link">getRequiredMaterials()</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/BuildableComponent.html" title="class in com.deco2800.game.crafting">BuildableComponent</a></dt>
+<dd>
+<div class="block">Default setter method that returns the crafting recipe for the class.</div>
+</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#getResourceService()" class="member-name-link">getResourceService()</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#getScale()" class="member-name-link">getScale()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
@@ -1465,12 +1531,18 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#MANAREGEN" class="member-name-link">MANAREGEN</a> - Static variable in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Materials.html" class="type-name-link" title="enum class in com.deco2800.game.crafting">Materials</a> - Enum Class in <a href="com/deco2800/game/crafting/package-summary.html">com.deco2800.game.crafting</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Public enum that contains all the possible base materials that could be used for crafting items.</div>
+</dd>
 <dt><a href="com/deco2800/game/utils/math/Vector2Utils.html#MAX" class="member-name-link">MAX</a> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/CombatItems/Melee.html" class="type-name-link" title="class in com.deco2800.game.CombatItems">Melee</a> - Class in <a href="com/deco2800/game/CombatItems/package-summary.html">com.deco2800.game.CombatItems</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/CombatItems/Melee.html#%3Cinit%3E(double,double,double,int)" class="member-name-link">Melee(double, double, double, int)</a> - Constructor for class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Melee.html" title="class in com.deco2800.game.CombatItems">Melee</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/MenuComponent.html" class="type-name-link" title="class in com.deco2800.game.components">MenuComponent</a> - Class in <a href="com/deco2800/game/components/package-summary.html">com.deco2800.game.components</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/MenuComponent.html#%3Cinit%3E()" class="member-name-link">MenuComponent()</a> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/MenuComponent.html" title="class in com.deco2800.game.components">MenuComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/math/Vector2Utils.html#MIN" class="member-name-link">MIN</a> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
@@ -1510,6 +1582,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
+<dt><a href="com/deco2800/game/areas/ForestGameArea.html#newTextures" class="member-name-link">newTextures</a> - Static variable in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/PhysicsLayer.html#NONE" class="member-name-link">NONE</a> - Static variable in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsLayer.html" title="class in com.deco2800.game.physics">PhysicsLayer</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/raycast/RaycastHit.html#normal" class="member-name-link">normal</a> - Variable in class com.deco2800.game.physics.raycast.<a href="com/deco2800/game/physics/raycast/RaycastHit.html" title="class in com.deco2800.game.physics.raycast">RaycastHit</a></dt>
@@ -1546,6 +1620,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/entities/configs/OneLegGirlConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs">OneLegGirlConfig</a> - Class in <a href="com/deco2800/game/entities/configs/package-summary.html">com.deco2800.game.entities.configs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/OneLegGirlConfig.html#%3Cinit%3E()" class="member-name-link">OneLegGirlConfig()</a> - Constructor for class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/OneLegGirlConfig.html" title="class in com.deco2800.game.entities.configs">OneLegGirlConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/OpenCraftingComponent.html" class="type-name-link" title="class in com.deco2800.game.components.player">OpenCraftingComponent</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/OpenCraftingComponent.html#%3Cinit%3E()" class="member-name-link">OpenCraftingComponent()</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/OpenCraftingComponent.html" title="class in com.deco2800.game.components.player">OpenCraftingComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainComponent.TerrainOrientation.html#ORTHOGONAL" class="member-name-link">ORTHOGONAL</a> - Enum constant in enum class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.TerrainOrientation.html" title="enum class in com.deco2800.game.areas.terrain">TerrainComponent.TerrainOrientation</a></dt>
 <dd>&nbsp;</dd>
@@ -1772,6 +1850,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerEntityService(com.deco2800.game.entities.EntityService)" class="member-name-link">registerEntityService(EntityService)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/services/ServiceLocator.html#registerGameArea(com.deco2800.game.areas.ForestGameArea)" class="member-name-link">registerGameArea(ForestGameArea)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerInputService(com.deco2800.game.input.InputService)" class="member-name-link">registerInputService(InputService)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerPhysicsService(com.deco2800.game.physics.PhysicsService)" class="member-name-link">registerPhysicsService(PhysicsService)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
@@ -1886,10 +1966,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/math/Vector2Utils.html#RIGHT" class="member-name-link">RIGHT</a> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html#run()" class="member-name-link">run()</a> - Method in class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#run()" class="member-name-link">run()</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Run method that creates a daemon to update the users possible builds.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
@@ -1964,7 +2044,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/CombatItems/Weapon.html#setCraftingRecipe()" class="member-name-link">setCraftingRecipe()</a> - Method in class com.deco2800.game.CombatItems.<a href="com/deco2800/game/CombatItems/Weapon.html" title="class in com.deco2800.game.CombatItems">Weapon</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Buildable.html#setCraftingRecipe()" class="member-name-link">setCraftingRecipe()</a> - Method in interface com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Buildable.html" title="interface in com.deco2800.game.crafting">Buildable</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The method that will set the required recipe to craft the item.</div>
+</dd>
+<dt><a href="com/deco2800/game/crafting/BuildableComponent.html#setCraftingRecipe(java.util.Map)" class="member-name-link">setCraftingRecipe(Map&lt;Materials, Integer&gt;)</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/BuildableComponent.html" title="class in com.deco2800.game.crafting">BuildableComponent</a></dt>
+<dd>
+<div class="block">The method that will set the required recipe to craft the item.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#setDamageReduction(float)" class="member-name-link">setDamageReduction(float)</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Sets the entity's damage reduction.</div>
@@ -2004,7 +2090,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainTile.html#setId(int)" class="member-name-link">setId(int)</a> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainTile.html" title="class in com.deco2800.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#setInventoryContents(java.util.List)" class="member-name-link">setInventoryContents(List&lt;Materials&gt;)</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Sets the users inventory contents to be used by the crafting classes.</div>
+</dd>
 <dt><a href="com/deco2800/game/physics/components/ColliderComponent.html#setLayer(short)" class="member-name-link">setLayer(short)</a> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
 <dd>
 <div class="block">Set the collider layer, used in collision logic</div>
@@ -2051,8 +2139,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Set the entity's game position and optionally notifies listeners.</div>
 </dd>
-<dt><a href="com/deco2800/game/crafting/CraftLogic.html#setPossibleBuilds(java.util.List)" class="member-name-link">setPossibleBuilds(List&lt;Object&gt;)</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftLogic.html" title="class in com.deco2800.game.crafting">CraftLogic</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/CraftingLogic.html#setPossibleBuilds(java.util.List)" class="member-name-link">setPossibleBuilds(List&lt;Object&gt;)</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingLogic.html" title="class in com.deco2800.game.crafting">CraftingLogic</a></dt>
+<dd>
+<div class="block">Sets a list of all the possible builds the user can make with the items contained in their inventory</div>
+</dd>
+<dt><a href="com/deco2800/game/crafting/CraftingLogic.html#setPossibleWeapons(java.util.Set)" class="member-name-link">setPossibleWeapons(Set&lt;Object&gt;)</a> - Static method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingLogic.html" title="class in com.deco2800.game.crafting">CraftingLogic</a></dt>
+<dd>
+<div class="block">Sets a list of all the possible builds the user can make with the items contained in their inventory</div>
+</dd>
 <dt><a href="com/deco2800/game/input/InputComponent.html#setPriority(int)" class="member-name-link">setPriority(int)</a> - Method in class com.deco2800.game.input.<a href="com/deco2800/game/input/InputComponent.html" title="class in com.deco2800.game.input">InputComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/components/ColliderComponent.html#setRestitution(float)" class="member-name-link">setRestitution(float)</a> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
@@ -2143,6 +2237,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Create a sorted intmap with the specified capacity</div>
 </dd>
+<dt><a href="com/deco2800/game/areas/ForestGameArea.html#spawnCraftingMenu()" class="member-name-link">spawnCraftingMenu()</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/areas/ForestGameArea.html#spawnCraftingTable()" class="member-name-link">spawnCraftingTable()</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)" class="member-name-link">spawnEntity(Entity)</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/GameArea.html" title="class in com.deco2800.game.areas">GameArea</a></dt>
 <dd>
 <div class="block">Spawn entity at its current position</div>
@@ -2151,6 +2249,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Spawn entity on a given tile.</div>
 </dd>
+<dt><a href="com/deco2800/game/areas/ForestGameArea.html#spawnEntityOnMap(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,java.lang.Boolean,java.lang.Boolean)" class="member-name-link">spawnEntityOnMap(Entity, GridPoint2, Boolean, Boolean)</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/SortedIntMap.html#spliterator()" class="member-name-link">spliterator()</a> - Method in class com.deco2800.game.utils.<a href="com/deco2800/game/utils/SortedIntMap.html" title="class in com.deco2800.game.utils">SortedIntMap</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/GhostKingConfig.html#spookyFactor" class="member-name-link">spookyFactor</a> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/GhostKingConfig.html" title="class in com.deco2800.game.entities.configs">GhostKingConfig</a></dt>
@@ -2470,6 +2570,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/tasks/WaitTask.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/WaitTask.html" title="class in com.deco2800.game.components.tasks">WaitTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/tasks/WanderTask.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/WanderTask.html" title="class in com.deco2800.game.components.tasks">WanderTask</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.crafting.craftingDisplay.<a href="com/deco2800/game/crafting/craftingDisplay/CraftingDisplay.html" title="class in com.deco2800.game.crafting.craftingDisplay">CraftingDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>

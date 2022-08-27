@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Buildable</span></div>
+<div class="block">Public Interface that indicates what items are buildable and not in a game. To make an item buildable, implement the
+ interface and override its base method.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -91,7 +93,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#craftingRecipe" class="member-name-link">craftingRecipe</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Hashmap that contains the crafting recipe of the item.</div>
+</div>
 </div>
 </section>
 </li>
@@ -108,10 +112,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getRequiredMaterials()" class="member-name-link">getRequiredMaterials</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block">Default setter method that returns the crafting recipe for the class.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#setCraftingRecipe()" class="member-name-link">setCraftingRecipe</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">The method that will set the required recipe to craft the item.</div>
+</div>
 </div>
 </div>
 </div>
@@ -130,6 +138,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="craftingRecipe">
 <h3>craftingRecipe</h3>
 <div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">craftingRecipe</span></div>
+<div class="block">Hashmap that contains the crafting recipe of the item. The key will contain the enum class material and
+     the values will contain teh amount of the material required.</div>
 </section>
 </li>
 </ul>
@@ -144,12 +154,20 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="setCraftingRecipe()">
 <h3>setCraftingRecipe</h3>
 <div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">setCraftingRecipe</span>()</div>
+<div class="block">The method that will set the required recipe to craft the item. Enum class materials were chosen as the key
+ as they would not be duplicated. The keys will store an integer stating the amount of the material required for
+ crafting.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getRequiredMaterials()">
 <h3>getRequiredMaterials</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">getRequiredMaterials</span>()</div>
+<div class="block">Default setter method that returns the crafting recipe for the class.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>a map containing the crafting recipe</dd>
+</dl>
 </section>
 </li>
 </ul>

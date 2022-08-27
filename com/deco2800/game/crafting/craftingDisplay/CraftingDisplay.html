@@ -44,7 +44,7 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
@@ -71,20 +71,37 @@ loadScripts(document, 'script');</script>
 <h1 title="Class CraftingDisplay" class="title">Class CraftingDisplay</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance"><a href="../../components/Component.html" title="class in com.deco2800.game.components">com.deco2800.game.components.Component</a>
+<div class="inheritance"><a href="../../rendering/RenderComponent.html" title="class in com.deco2800.game.rendering">com.deco2800.game.rendering.RenderComponent</a>
+<div class="inheritance"><a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui">com.deco2800.game.ui.UIComponent</a>
 <div class="inheritance">com.deco2800.game.crafting.craftingDisplay.CraftingDisplay</div>
+</div>
+</div>
+</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a></code></dd>
+<dd><code>com.badlogic.gdx.utils.Disposable</code>, <code><a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" title="class or interface in java.lang" class="external-link">Comparable</a>&lt;<a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">CraftingDisplay</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a></span></div>
+<span class="extends-implements">extends <a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui">UIComponent</a></span></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-com.deco2800.game.ui.UIComponent">Fields inherited from class&nbsp;com.deco2800.game.ui.<a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui">UIComponent</a></h3>
+<code><a href="../../ui/UIComponent.html#skin">skin</a>, <a href="../../ui/UIComponent.html#stage">stage</a></code></div>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-com.deco2800.game.components.Component">Fields inherited from class&nbsp;com.deco2800.game.components.<a href="../../components/Component.html" title="class in com.deco2800.game.components">Component</a></h3>
+<code><a href="../../components/Component.html#enabled">enabled</a>, <a href="../../components/Component.html#entity">entity</a></code></div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor-summary">
@@ -93,8 +110,10 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">CraftingDisplay</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">CraftingDisplay</a><wbr>(<a href="../../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Constructor that will make an instance of the crafting display</div>
+</div>
 </div>
 </section>
 </li>
@@ -110,14 +129,46 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#run()" class="member-name-link">run</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called when the entity is created and registered.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#dispose()" class="member-name-link">dispose</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called when the component is disposed.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw</a><wbr>(com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;batch)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Draw the renderable.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called once per frame of the game, and should be used for most component logic.</div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
+<h3 id="methods-inherited-from-class-com.deco2800.game.ui.UIComponent">Methods inherited from class&nbsp;com.deco2800.game.ui.<a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui">UIComponent</a></h3>
+<code><a href="../../ui/UIComponent.html#getLayer()">getLayer</a>, <a href="../../ui/UIComponent.html#getZIndex()">getZIndex</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-com.deco2800.game.rendering.RenderComponent">Methods inherited from class&nbsp;com.deco2800.game.rendering.<a href="../../rendering/RenderComponent.html" title="class in com.deco2800.game.rendering">RenderComponent</a></h3>
+<code><a href="../../rendering/RenderComponent.html#compareTo(com.deco2800.game.rendering.Renderable)">compareTo</a>, <a href="../../rendering/RenderComponent.html#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)">render</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-com.deco2800.game.components.Component">Methods inherited from class&nbsp;com.deco2800.game.components.<a href="../../components/Component.html" title="class in com.deco2800.game.components">Component</a></h3>
+<code><a href="../../components/Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../../components/Component.html#getEntity()">getEntity</a>, <a href="../../components/Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../../components/Component.html#setEntity(com.deco2800.game.entities.Entity)">setEntity</a>, <a href="../../components/Component.html#toString()">toString</a>, <a href="../../components/Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../../components/Component.html#triggerUpdate()">triggerUpdate</a></code></div>
+<div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-java.lang.Comparable">Methods inherited from interface&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" title="class or interface in java.lang" class="external-link">Comparable</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html#compareTo(T)" title="class or interface in java.lang" class="external-link">compareTo</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-com.deco2800.game.rendering.Renderable">Methods inherited from interface&nbsp;com.deco2800.game.rendering.<a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></h3>
+<code><a href="../../rendering/Renderable.html#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)">render</a></code></div>
 </section>
 </li>
 </ul>
@@ -130,9 +181,10 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;()">
+<section class="detail" id="&lt;init&gt;(com.deco2800.game.GdxGame)">
 <h3>CraftingDisplay</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CraftingDisplay</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CraftingDisplay</span><wbr><span class="parameters">(<a href="../../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;game)</span></div>
+<div class="block">Constructor that will make an instance of the crafting display</div>
 </section>
 </li>
 </ul>
@@ -144,12 +196,56 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="run()">
-<h3>run</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">run</span>()</div>
+<section class="detail" id="create()">
+<h3>create</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">create</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../../components/Component.html#create()">Component</a></code></span></div>
+<div class="block">Called when the entity is created and registered. Initial logic such as calls to GetComponent
+ should be made here, not in the constructor which is called before an entity is finished.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../../ui/UIComponent.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui">UIComponent</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">
+<h3>draw</h3>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">draw</span><wbr><span class="parameters">(com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;batch)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../../rendering/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">RenderComponent</a></code></span></div>
+<div class="block">Draw the renderable. Should be called only by the renderer, not manually.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html#run()" title="class or interface in java.lang" class="external-link">run</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a></code></dd>
+<dd><code><a href="../../rendering/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/RenderComponent.html" title="class in com.deco2800.game.rendering">RenderComponent</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>batch</code> - Batch to render to.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="update()">
+<h3>update</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">update</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../../components/Component.html#update()">Component</a></code></span></div>
+<div class="block">Called once per frame of the game, and should be used for most component logic. Not called if
+ component is disabled.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../../components/Component.html#update()">update</a></code>&nbsp;in class&nbsp;<code><a href="../../components/Component.html" title="class in com.deco2800.game.components">Component</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="dispose()">
+<h3>dispose</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">dispose</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../../components/Component.html#dispose()">Component</a></code></span></div>
+<div class="block">Called when the component is disposed. Dispose of any internal resources here.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code>dispose</code>&nbsp;in interface&nbsp;<code>com.badlogic.gdx.utils.Disposable</code></dd>
+<dt>Overrides:</dt>
+<dd><code><a href="../../rendering/RenderComponent.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/RenderComponent.html" title="class in com.deco2800.game.rendering">RenderComponent</a></code></dd>
 </dl>
 </section>
 </li>

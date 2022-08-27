@@ -82,6 +82,8 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">CraftingSystem</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a></span></div>
+<div class="block">Public class that creates a new crafting system which allows users to combine materials in their inventory to make
+ new items. Implements runnable in order to create multiple threads for concurrent processing.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -111,19 +113,30 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buildItem(java.lang.Object)" class="member-name-link">buildItem</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;Item)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if an item can be build and adds it to the list of built items if possible.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#CraftingSystem()" class="member-name-link">CraftingSystem</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Constructor that creates an instance of the crafting system class which creates a set of the users inventory and
+ determines what items the users can build with it.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getInventoryContents()" class="member-name-link">getInventoryContents</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the instance of inventory contents made and used by the class.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#run()" class="member-name-link">run</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Run method that creates a daemon to update the users possible builds.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setInventoryContents(java.util.List)" class="member-name-link">setInventoryContents</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>&gt;&nbsp;materials)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the users inventory contents to be used by the crafting classes.</div>
+</div>
 </div>
 </div>
 </div>
@@ -159,30 +172,46 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="CraftingSystem()">
 <h3>CraftingSystem</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">CraftingSystem</span>()</div>
+<div class="block">Constructor that creates an instance of the crafting system class which creates a set of the users inventory and
+ determines what items the users can build with it. Class then calls an instance of the display to be made and
+ creates a daemon that checks the users inventory.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="buildItem(java.lang.Object)">
 <h3>buildItem</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">buildItem</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;Item)</span></div>
+<div class="block">Checks if an item can be build and adds it to the list of built items if possible.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>Item</code> - </dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getInventoryContents()">
 <h3>getInventoryContents</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>&gt;</span>&nbsp;<span class="element-name">getInventoryContents</span>()</div>
+<div class="block">Returns the instance of inventory contents made and used by the class. Synchronised to prevent thread write
+ conflicts.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="setInventoryContents(java.util.List)">
 <h3>setInventoryContents</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setInventoryContents</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>&gt;&nbsp;materials)</span></div>
+<div class="block">Sets the users inventory contents to be used by the crafting classes. Synchronised to prevent write conflicts.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>materials</code> - </dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="run()">
 <h3>run</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">run</span>()</div>
+<div class="block">Run method that creates a daemon to update the users possible builds.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html#run()" title="class or interface in java.lang" class="external-link">run</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a></code></dd>
