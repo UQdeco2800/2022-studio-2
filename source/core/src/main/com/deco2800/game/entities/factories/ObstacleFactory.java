@@ -116,6 +116,21 @@ public class ObstacleFactory {
   }
 
   /**
+   * Creates a visible physics wall. Use for measure the entities' range on the map.(Like ruler)
+   * @param width Wall width in world units
+   * @param height Wall height in world units
+   * @return Wall entity of given width and height
+   */
+  public static Entity drawWall(float width, float height) {
+    Entity wall_tile = new Entity()
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/wall_tile.png"))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+    wall_tile.setScale(width, height);
+    return wall_tile;
+  }
+
+  /**
    * Creates a column entity on the map. - Team 5 1map4all @LYB
    * @return Column entity.
    */
