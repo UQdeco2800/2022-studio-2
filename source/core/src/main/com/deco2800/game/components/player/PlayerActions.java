@@ -8,8 +8,6 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -158,6 +156,18 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Gets a reference to the skill subcomponent of playeractions.
+   * This reference should be used sparingly as a way for external functionality to directly
+   * interact with skill states, and should avoid directly inducing any skill start fuctions
+   * using this reference. In future sprints
+   * skill start functions will not be able to called externally.
+   * @return the player skill component of player actions.
+   */
+  public PlayerSkillComponent getSkillComponent() {
+    return this.skillManager;
+  }
+
+  /**
    * It is as a timer that check whether has passed 1 second. After each second, rest() would be
    * called to regenerate stamina
    */
@@ -178,16 +188,16 @@ public class PlayerActions extends Component {
    */
   void rest() {
     if (stamina < maxStamina) {
-      entity.getEvents().trigger("increaseStamina", combatStatsComponent.getStaminaRegenerationRate());
+      entity.getEvents().trigger("increaseStamina",
+              combatStatsComponent.getStaminaRegenerationRate());
 
     }
-    if (mana< maxMana) {
-      entity.getEvents().trigger("increaseMana", combatStatsComponent.getManaRegenerationRate());
+    if (mana < maxMana) {
+      entity.getEvents().trigger("increaseMana",
+              combatStatsComponent.getManaRegenerationRate());
 
     }
-
   }
-
 
   /**
    * Makes the player teleport. Registers call of the teleport function to the skill manager component.
