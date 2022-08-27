@@ -21,24 +21,25 @@ public class AuraFactory {
 
     private static final BaseAuraConfig configs =
             FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
-    private static final List<Entity> availableAuras = Arrays.asList(createWeaponSpeedBuff());
 
-    /**
+    /*private static final List<Entity> availableAuras = Arrays.asList(createWeaponSpeedBuff());
+
+    *//**
      * Return the list containing all aura entities that are available to be implemented in game
      * @return the list containing aura entities
-     */
+     *//*
     public static List<Entity> getAvailableAuras() {
         return availableAuras;
     }
 
-    /**
+    *//**
      * Return the aura entity from the list of aura entities at the given index
      * @param auraIndex index of the aura in the list of aura entities
      * @return aura entity from the list of aura entities at the given index
-     */
+     *//*
     public static Entity getAura(int auraIndex) {
         return getAvailableAuras().get(auraIndex);
-    }
+    }*/
 
     /**
      * Creates a generic Aura to be used as a base Aura entity by more specific aura creation methods.
@@ -47,7 +48,7 @@ public class AuraFactory {
     public static Entity createBaseAura() {
         Entity aura = new Entity()
                 .addComponent(new PhysicsComponent());
-        aura.scaleHeight(1.5f);
+        aura.scaleHeight(5f);
 
         return aura;
     }
@@ -64,7 +65,6 @@ public class AuraFactory {
                         config.coolDownMultiplier, config.weightMultiplier))
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"));
         weaponSpeedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
-        weaponSpeedBuff.scaleHeight(20);
         return weaponSpeedBuff;
     }
 }

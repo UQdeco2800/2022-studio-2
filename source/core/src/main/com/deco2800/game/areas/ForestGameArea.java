@@ -13,9 +13,6 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.components.MenuComponent;
 import com.deco2800.game.crafting.craftingDisplay.CraftingMenuActions;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.NPCFactory;
-import com.deco2800.game.entities.factories.ObstacleFactory;
-import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
@@ -25,6 +22,7 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
@@ -86,9 +84,8 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity dagger; //by eugene, experiment
-  private Entity speedBuff;
-  private Entity daggerTwo;
+  private List<Entity> weaponOnMap = new ArrayList<>();
+  private List<Entity> auraOnMap = new ArrayList<>();
 
   private static GridPoint2 craftingMenuPos;
 
@@ -118,14 +115,14 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
+    spawnDagger();
+    spawnDaggerTwo();
     spawnCraftingTable();
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
     spawnEffectBlobs();
     spawnAtlantisCitizen();
-    spawnDagger();
-    spawnDaggerTwo();
     spawnColumn(20, 20);
     spawnColumn(30, 20);
     spawnOneLegGirl();
@@ -193,21 +190,24 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnEffectBlobs() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    for (int i = 0; i < 1; i++) { //number of effect
+    GridPoint2 minPos = new GridPoint2(2, 2);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
+
+
+    for (int i = 0; i < 10; i++) {
+      Entity speedBuff1 = AuraFactory.createWeaponSpeedBuff();
+      auraOnMap.add(speedBuff1);
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      speedBuff = AuraFactory.getAura(0);
-      spawnEntityAt(speedBuff, randomPos, true, false);
+      spawnEntityAt(speedBuff1, randomPos, true, false);
 
       Timer timer = new Timer();
       timer.schedule(new TimerTask() {
                        @Override
                        public void run() {
                          logger.info("EffectBlobs disappear");
-                         speedBuff.dispose();
-                         ServiceLocator.getEntityService().update();
+                         speedBuff1.dispose();
+                         auraOnMap.remove(speedBuff1);
                          timer.cancel();
                        }
                      }
@@ -242,11 +242,6 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(craftButton, craftButtonPos, true, false);
   }
 
-  public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY){
-        spawnEntityAt(entity,position,centreX,centreY);
-  }
-
-
   public void disposeCraftingMenu() {
     for (int i = 0; i < areaEntities.size();i++) {
       if (areaEntities.get(i).getComponent(MenuComponent.class) != null){
@@ -254,7 +249,6 @@ public class ForestGameArea extends GameArea {
       }
     }
   }
-
 
   public void spawnCraftingTable() {
     GridPoint2 minPos = new GridPoint2(2, 2);
@@ -267,27 +261,19 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnDagger() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    dagger = WeaponFactory.getWeapon(0);
-    spawnEntityAt(dagger, randomPos, true, false);
+    Entity dagger = WeaponFactory.createDagger();
+    weaponOnMap.add(dagger);
+    spawnEntityAt(dagger, new GridPoint2(10, 10), true, false);
   }
 
-
   private void spawnDaggerTwo() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    daggerTwo = WeaponFactory.getWeapon(1);
-    spawnEntityAt(daggerTwo, randomPos, true, false);
+    Entity daggerTwo = WeaponFactory.createDaggerTwo();
+    weaponOnMap.add(daggerTwo);
+    spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
   }
 
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
-
   }
 
   private Entity spawnPlayer() {

@@ -20,23 +20,33 @@ public class WeaponFactory {
     private static final WeaponConfig configs =
             FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
 
-    private static final List<Entity> availableWeapons = Arrays.asList(createDagger(), createDaggerTwo());
+/*
+    private static Entity dagger = createDagger();
+    private static Entity daggerTwo = createDaggerTwo();
 
-    /**
+    private static final List<Entity> availableWeapons = Arrays.asList(dagger, daggerTwo);
+
+
+
+
+    *//**
      * Return the list containing all weapon entities that are available to be implemented in game
      * @return the list containing weapons entities
-     */
+     *//*
     public static List<Entity> getAvailableWeapons() {
         return availableWeapons;
     }
 
-    /**
+    *//**
      * Return the weapon entity from the list of weapon entities at the given index
      * @param weaponIndex index of the weapon entity in the list of weapon entities
      * @return weapon entity from the list of weapon entities at the given index
-     */
+     *//*
     public static Entity getWeapon(int weaponIndex) {return getAvailableWeapons().get(weaponIndex);
-    }
+    }*/
+
+
+
 
     /**
      * Creates a generic Weapon to be used as a base Weapon entity by more specific aura creation methods.
@@ -57,10 +67,11 @@ public class WeaponFactory {
         MeleeConfig config = configs.dagger;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 
-        dagger
+       dagger
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"));
-        dagger.scaleHeight(20f);
+        dagger.getComponent(TextureRenderComponent.class).scaleEntity();
+        dagger.scaleHeight(5f);
         return dagger;
     }
 
@@ -76,7 +87,8 @@ public class WeaponFactory {
         daggerTwo
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 2png.png"));
-        daggerTwo.scaleHeight(20f);
+        daggerTwo.getComponent(TextureRenderComponent.class).scaleEntity();
+        daggerTwo.scaleHeight(5f);
         return daggerTwo;
     }
 
