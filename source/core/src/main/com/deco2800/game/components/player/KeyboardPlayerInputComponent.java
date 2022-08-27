@@ -44,16 +44,21 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
+      case Keys.Q:
+        entity.getEvents().trigger("can_open");
+        return true;
+      case Keys.L:
+        System.out.println("9");
+        entity.getEvents().trigger("can_close");
+        return true;
       case Keys.E:
-        entity.getEvents().trigger("teleport");
+        entity.getEvents().trigger("skill");
         return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
+        return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
-        return true;
-      case Keys.F: //also by eugene, experiment
-        entity.getEvents().trigger("pickAndEquipWeapon");
         return true;
       default:
         return false;

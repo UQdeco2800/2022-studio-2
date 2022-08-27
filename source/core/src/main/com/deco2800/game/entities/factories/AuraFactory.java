@@ -64,6 +64,7 @@ public class AuraFactory {
                         config.coolDownMultiplier, config.weightMultiplier))
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"));
         weaponSpeedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        weaponSpeedBuff.scaleHeight(20);
         return weaponSpeedBuff;
     }
 }
