@@ -31,24 +31,19 @@ public class CraftingSystem implements Runnable{
     public void CraftingSystem() {
 
          builtItems = new ArrayList<String>();
-         //Set Possible Builds by finding all weapons that implement Buildable
+
+         //Set Possible Builds by finding all weapons that implement Buildable component
         HashSet<Object> possibleWeapons = new HashSet<Object>();
         possibleWeapons.add("Sword");
         CraftingLogic.setPossibleWeapons(possibleWeapons);
 
          //List<Materials> inventoryContents = getInventoryContents();
         inventoryContents = new ArrayList<>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
+
         CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
 
-        //CraftingDisplay UI = new CraftingDisplay();
-
         Thread background = new Thread(this);
-        //Thread display = new Thread(UI);
-
         background.setDaemon(true);
-        background.start();
-        //display.start();
-
     }
 
     /**
@@ -56,8 +51,14 @@ public class CraftingSystem implements Runnable{
      * @param Item
      */
     public void buildItem(Object Item){
-        if ((Item instanceof Buildable) && CraftingLogic.getPossibleBuilds().contains(Item)){
+        if (CraftingLogic.getPossibleBuilds().contains(Item)){
             builtItems.add("Sword");
+            inventoryContents.remove(Materials.Steel);
+            inventoryContents.remove(Materials.Steel);
+            inventoryContents.remove(Materials.Wood);
+
+            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
+
         }
     }
 
@@ -82,8 +83,6 @@ public class CraftingSystem implements Runnable{
      */
     @Override
     public void run() {
-        while (true) {
             CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(getInventoryContents()));
-        }
     }
 }
