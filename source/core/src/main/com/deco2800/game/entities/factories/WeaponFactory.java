@@ -109,4 +109,17 @@ public class WeaponFactory {
         return dumbbell;
     }
 
+    public static Entity createSwordLvl2() {
+        Entity SwordLvl2 = createBaseWeapon();
+        MeleeConfig config = configs.SwordLvl2;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        SwordLvl2
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png"));
+        SwordLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
+        SwordLvl2.scaleHeight(3f);
+        return SwordLvl2;
+    }
+
 }

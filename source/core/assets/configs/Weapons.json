@@ -13,6 +13,13 @@
     "materials": {"gold": 2, "iron": 2}
   },
 
+  "SwordLvl2": {
+    "damage": 40,
+    "coolDown": 15,
+    "weight": 2,
+    "materials": {"gold": 3, "iron": 3}
+  },
+
   "dumbbell": {
     "damage": 20,
     "coolDown": 10,
