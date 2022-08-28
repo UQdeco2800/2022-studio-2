@@ -43,7 +43,7 @@ public class CraftingSystem implements Runnable{
     }
 
     /**
-     * Checks if an item can be build and adds it to the list of built items if possible.
+     * Checks if an item can be build, then adds it to the list of built items if possible.
      * @param Item
      */
     public void buildItem(Object Item){
@@ -52,8 +52,7 @@ public class CraftingSystem implements Runnable{
             inventoryContents.remove(Materials.Steel);
             inventoryContents.remove(Materials.Wood);
 
-            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
-
+            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents)); // For sprint one only a sword can be built.
         }
     }
 
