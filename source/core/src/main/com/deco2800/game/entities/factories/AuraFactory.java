@@ -75,7 +75,7 @@ public class AuraFactory {
         weaponSpeedDeBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
                         config.coolDownMultiplier, config.weightMultiplier))
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"));
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"));
         weaponSpeedDeBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponSpeedDeBuff;
     }

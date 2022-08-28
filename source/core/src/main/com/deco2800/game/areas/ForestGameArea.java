@@ -71,7 +71,7 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png",
-          "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"
+    "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"
   };
 
   public static String[] newTextures;
@@ -128,7 +128,7 @@ public class ForestGameArea extends GameArea {
     spawnColumn(30, 20);
     spawnOneLegGirl();
     playMusic();
-
+    spawnDumbbell();
     spawnSpeedDebuff();
 
   }
@@ -279,6 +279,12 @@ public class ForestGameArea extends GameArea {
     Entity daggerTwo = WeaponFactory.createDaggerTwo();
     weaponOnMap.add(daggerTwo);
     spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
+  }
+
+  private void spawnDumbbell() {
+    Entity dumbbell = WeaponFactory.createDumbbell();
+    weaponOnMap.add(dumbbell);
+    spawnEntityAt(dumbbell, new GridPoint2(5,10), true, false);
   }
 
   public static GridPoint2 getCraftingTablePos() {
