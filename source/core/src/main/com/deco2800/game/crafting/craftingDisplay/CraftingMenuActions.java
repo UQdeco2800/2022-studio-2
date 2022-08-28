@@ -1,6 +1,6 @@
 /*package com.deco2800.game.crafting.craftingDisplay;
 
-import com.deco2800.game.GdxGame;
+import scom.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;

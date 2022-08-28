@@ -1,2 +1,4 @@
-package com.deco2800.game.crafting;public class craftingSystemTest {
+package com.deco2800.game.crafting;
+
+public class CraftingSystemTest {
 }
