@@ -13,7 +13,7 @@
     "materials": {"gold": 2, "iron": 2}
   },
 
-  "enemyDumbbell": {
+  "dumbbell": {
     "damage": 20,
     "coolDown": 10,
     "weight": 10,

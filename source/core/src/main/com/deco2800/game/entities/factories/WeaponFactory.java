@@ -98,7 +98,7 @@ public class WeaponFactory {
      */
     public static Entity createEnemyDumbbell() {
         Entity dumbbell = createBaseWeapon();
-        MeleeConfig config = configs.enemyDumbbell;
+        MeleeConfig config = configs.dumbbell;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 
         dumbbell
