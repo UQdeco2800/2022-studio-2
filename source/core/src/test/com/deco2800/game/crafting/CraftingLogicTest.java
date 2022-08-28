@@ -1,8 +1,6 @@
 package com.deco2800.game.crafting;
 
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.crafting.Materials;
-import com.deco2800.game.crafting.CraftingLogic;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,41 +17,29 @@ public class CraftingLogicTest {
 
     @Test
     void getPossibleBuildsTest() {
-        CraftingLogic testCraftingLogic = new CraftingLogic();
-        List<Object> expectedList = new ArrayList<>(16);
-        assertEquals(testCraftingLogic.getPossibleBuilds(), expectedList);
+        assertEquals(CraftingLogic.getPossibleBuilds().get(0), "Sword");
     }
 
     @Test
     void setPossibleBuildsTest() {
-        CraftingLogic testCraftingLogic = new CraftingLogic();
-        List<Object> expectedList = new ArrayList<>(16);
-        testCraftingLogic.setPossibleBuilds(expectedList);
-        assertEquals(testCraftingLogic.getPossibleBuilds(), expectedList);
+        List<Object> inputList = new ArrayList<>();
+        CraftingLogic.setPossibleBuilds(inputList);
+        assertEquals(inputList, CraftingLogic.getPossibleBuilds());
     }
 
     @Test
     void getPossibleWeaponsTest() {
-        CraftingLogic testCraftingLogic = new CraftingLogic();
-        List<Object> expectedList = new ArrayList<>(16);
-        assertEquals(testCraftingLogic.getPossibleWeapons(), expectedList);
-    }
-
-    @Test
-    void setPossibleWeaponsTest() {
-        CraftingLogic testCraftingLogic = new CraftingLogic();
-        Set<Object> expectedList = new HashSet<>(16);
-        testCraftingLogic.setPossibleWeapons(expectedList);
-        assertEquals(testCraftingLogic.getPossibleWeapons(), expectedList);
+        Set<Object> inputList = new HashSet<>();
+        inputList.add("Sword");
+        CraftingLogic.setPossibleWeapons(inputList);
+        assertEquals(CraftingLogic.getPossibleWeapons(), inputList);
     }
 
     @Test
     void canBuildTest() {
-        CraftingLogic testCraftingLogic = new CraftingLogic();
-        List<Object> expectedList = new ArrayList<>();
-        List<Materials> materials = new ArrayList<>();
-        materials.add(Materials.Wood);
-        assertEquals(testCraftingLogic.canBuild(materials), expectedList);
+        List<Materials> inputInventory = new ArrayList<>();
+        inputInventory.add(Materials.Wood);
+        inputInventory.add(Materials.Steel);
+        assertEquals(CraftingLogic.canBuild(inputInventory).get(0), "Sword");
     }
-
 }

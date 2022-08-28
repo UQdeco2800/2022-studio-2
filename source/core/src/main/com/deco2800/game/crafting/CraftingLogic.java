@@ -59,7 +59,7 @@ public  class CraftingLogic {
      * @param inventoryContents, the contents of the users' inventory
      * @return List of the buildable items
      */
-    public static boolean canBuild(List<Materials> inventoryContents){
+    public static List<Object> canBuild(List<Materials> inventoryContents){
         List<Object >buildables = new ArrayList<Object>();
         List<Object> weapons = new ArrayList<>();
 
