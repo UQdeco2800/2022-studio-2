@@ -19,6 +19,7 @@ import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,9 @@ public class GameAreaDisplay extends UIComponent {
   private Texture steelTexture;
   private TextureRegion steelTextureRegion;
   private TextureRegionDrawable steelDrawable;
+  private Image weapon;
   private Group craftingGroup = new Group();
+  private int count;
   List<Materials> inventory;
 
   public GameAreaDisplay(String gameAreaName) {
@@ -74,17 +77,22 @@ public class GameAreaDisplay extends UIComponent {
     craftButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        //Craft stuff
-        System.out.println("I was clicked");
+        if (weapon != null) {
+          weapon.setPosition(craftMenu.getX() + 30, (craftMenu.getTop() - 210));
+          wood.remove();
+          steel.remove();
+        }
       }
     });
     craftingGroup.addActor(craftButton);
     getInventory();
+    entity.getEvents().addListener("check", this::displayWeapon);
     stage.addActor(craftingGroup);
     stage.draw();
   }
 
   private void getInventory() {
+    count = 0;
     CraftingSystem craftingSystem = new CraftingSystem();
     inventory = craftingSystem.getInventoryContents();
     try {
@@ -103,6 +111,8 @@ public class GameAreaDisplay extends UIComponent {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
                 wood.setPosition(craftMenu.getX() + 485, craftMenu.getY() + 270);
+                count++;
+                entity.getEvents().trigger("check");
               }
             });
             craftingGroup.addActor(wood);
@@ -119,7 +129,9 @@ public class GameAreaDisplay extends UIComponent {
             steel.addListener(new ChangeListener() {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
-                steel.setPosition(craftMenu.getX() + 500, craftMenu.getY() + 270);
+                steel.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 270);
+                count++;
+                entity.getEvents().trigger("check");
               }
             });
             craftingGroup.addActor(steel);
@@ -131,6 +143,15 @@ public class GameAreaDisplay extends UIComponent {
 
   public void disposeCraftingMenu() {
     craftingGroup.remove();
+  }
+
+  private void displayWeapon() {
+    if (count == 2) {
+      weapon = new Image(new Texture(Gdx.files.internal
+              ("images/CombatWeapons-assets-sprint1/swordPlaceholder.png")));
+      weapon.setPosition(craftMenu.getX() + 870, craftMenu.getY() + 270);
+      craftingGroup.addActor(weapon);
+    }
   }
 
   @Override
