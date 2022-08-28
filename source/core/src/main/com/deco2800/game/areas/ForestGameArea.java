@@ -14,6 +14,10 @@ import com.deco2800.game.components.MenuComponent;
 import com.deco2800.game.crafting.craftingDisplay.CraftingMenuActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.entities.factories.NPCFactory;
+import com.deco2800.game.entities.factories.ObstacleFactory;
+import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.PotionFactory;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -76,7 +80,8 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/Sword_Lvl2.png",
     "images/CombatWeapons-assets-sprint1/AttackDamageDebuff.png",
     "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
-    "images/CombatWeapons-assets-sprint1/poisonBuff.png"
+    "images/CombatWeapons-assets-sprint1/poisonBuff.png",
+    "images/Potions/defence_potion.png"
   };
 
   public static String[] newTextures;
@@ -123,6 +128,7 @@ public class ForestGameArea extends GameArea {
     spawnDaggerTwo();
     spawnSwordLvl2();
     spawnCraftingTable();
+    spawnPotion();
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
@@ -209,7 +215,7 @@ public class ForestGameArea extends GameArea {
       Entity speedBuff1 = AuraFactory.createWeaponSpeedBuff();
       auraOnMap.add(speedBuff1);
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      spawnEntityAt(speedBuff1, randomPos, true, false);
+      this.spawnEntityAt(speedBuff1, randomPos, true, false);
 
       Timer timer = new Timer();
       timer.schedule(new TimerTask() {
@@ -323,6 +329,15 @@ public class ForestGameArea extends GameArea {
 
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
+  }
+
+  private void spawnPotion() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity potion = PotionFactory.createPotion();
+    this.spawnEntityAt(potion, randomPos, true, false);
   }
 
   private Entity spawnPlayer() {
