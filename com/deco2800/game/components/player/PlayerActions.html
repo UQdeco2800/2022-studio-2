@@ -127,14 +127,19 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Return the scalar max speed of the player.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSkillComponent()" class="member-name-link">getSkillComponent</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Called once per frame of the game, and should be used for most component logic.</div>
+<div class="block">Gets a reference to the skill subcomponent of playeractions.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMaxSpeed(float)" class="member-name-link">updateMaxSpeed</a><wbr>(float&nbsp;newSpeed)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called once per frame of the game, and should be used for most component logic.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMaxSpeed(float)" class="member-name-link">updateMaxSpeed</a><wbr>(float&nbsp;newSpeed)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Public function to set new max speed.</div>
 </div>
 </div>
@@ -213,6 +218,21 @@ loadScripts(document, 'script');</script>
 <h3>getMaxSpeed</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">float</span>&nbsp;<span class="element-name">getMaxSpeed</span>()</div>
 <div class="block">Return the scalar max speed of the player.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getSkillComponent()">
+<h3>getSkillComponent</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></span>&nbsp;<span class="element-name">getSkillComponent</span>()</div>
+<div class="block">Gets a reference to the skill subcomponent of playeractions.
+ This reference should be used sparingly as a way for external functionality to directly
+ interact with skill states, and should avoid directly inducing any skill start fuctions
+ using this reference. In future sprints
+ skill start functions will not be able to called externally.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the player skill component of player actions.</dd>
+</dl>
 </section>
 </li>
 </ul>
