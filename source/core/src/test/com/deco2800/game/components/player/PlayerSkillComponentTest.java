@@ -36,11 +36,13 @@ public class PlayerSkillComponentTest {
 
     @Test
     void testSkillCheck() {
+        skillManager.update();
         skillManager.startDash(new Vector2(1,1));
+        skillManager.update();
         skillManager.startTeleport();
+        skillManager.update();
         Assert.assertTrue(skillManager.isTeleporting());
         Assert.assertTrue(skillManager.isDashing());
-        skillManager.update();
         skillManager.update();
         skillManager.update();
         skillManager.update();
@@ -52,10 +54,35 @@ public class PlayerSkillComponentTest {
     void testSkillEnd() throws InterruptedException {
         skillManager.startDash(new Vector2(1,1));
         skillManager.startTeleport();
-        Thread.sleep(1001);
+
+        Assert.assertFalse(skillManager.checkSkillEnd("dash"));
+        Assert.assertFalse(skillManager.checkSkillEnd("teleport"));
+
         skillManager.update();
+
+        Assert.assertFalse(skillManager.checkSkillEnd("dash"));
+        Assert.assertFalse(skillManager.checkSkillEnd("teleport"));
+
+        Thread.sleep(1001);
+
+        skillManager.update();
+
         Assert.assertFalse(skillManager.isTeleporting());
         Assert.assertFalse(skillManager.isDashing());
+
+        // First poll on skill end should be true
+        Assert.assertTrue(skillManager.checkSkillEnd("dash"));
+        Assert.assertTrue(skillManager.checkSkillEnd("teleport"));
+
+        // Second poll on skill end should be false
+        Assert.assertFalse(skillManager.checkSkillEnd("dash"));
+        Assert.assertFalse(skillManager.checkSkillEnd("teleport"));
+    }
+
+    @Test
+    void testSkillEndWrongArguments() {
+        Assert.assertFalse(skillManager.checkSkillEnd(
+                "Greater good?' I am your wife! I'm the greatest good you're ever gonna get!"));
     }
 
     @Test
@@ -92,6 +119,15 @@ public class PlayerSkillComponentTest {
         skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
         skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 3);
+    }
+
+    @Test
+    void testInvulnerable() {
+        assertFalse(skillManager.isInvulnerable());
+        skillManager.startDash(new Vector2(1,1));
+        assertTrue(skillManager.isInvulnerable());
+        skillManager.update();
+        assertTrue(skillManager.isInvulnerable());
     }
 
     @Test
