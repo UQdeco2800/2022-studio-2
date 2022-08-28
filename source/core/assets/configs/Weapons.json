@@ -11,6 +11,13 @@
     "coolDown": 10,
     "weight": 1,
     "materials": {"gold": 2, "iron": 2}
+  },
+
+  "enemyDumbbell": {
+    "damage": 20,
+    "coolDown": 10,
+    "weight": 10,
+    "materials": {"steel": 2}
   }
 
 }

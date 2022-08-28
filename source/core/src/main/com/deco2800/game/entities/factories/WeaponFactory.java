@@ -92,4 +92,21 @@ public class WeaponFactory {
         return daggerTwo;
     }
 
+    /**
+     * Creates basic weapon for enemy character
+     * @return basic enemy dumbbell
+     */
+    public static Entity createEnemyDumbbell() {
+        Entity dumbbell = createBaseWeapon();
+        MeleeConfig config = configs.enemyDumbbell;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        dumbbell
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"));
+        dumbbell.getComponent(TextureRenderComponent.class).scaleEntity();
+        dumbbell.scaleHeight(5f);
+        return dumbbell;
+    }
+
 }
