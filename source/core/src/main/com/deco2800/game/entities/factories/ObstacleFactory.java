@@ -2,7 +2,11 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.components.MenuComponent;
+import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -15,6 +19,7 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  * <p>Each obstacle entity type should have a creation method that returns a corresponding entity.
  */
 public class ObstacleFactory {
+
 
   /**
    * Creates a tree entity.
@@ -53,22 +58,6 @@ public class ObstacleFactory {
     return smallTree;
   }
 
-  public static Entity createCraftButton() {
-    Entity craftButton =
-            new Entity()
-                    .addComponent(new TextureRenderComponent
-                            ("images/Crafting-assets-sprint1/widgets/craftButton.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                    .addComponent(new MenuComponent());
-
-    craftButton.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    craftButton.getComponent(TextureRenderComponent.class).scaleEntity();
-    craftButton.scaleHeight(1.1f);
-
-    return craftButton;
-  }
-
   public static Entity createCraftingTable() {
     Entity craftingTable =
             new Entity()
@@ -96,6 +85,21 @@ public class ObstacleFactory {
         .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     wall.setScale(width, height);
     return wall;
+  }
+
+  /**
+   * Creates a visible physics wall. Use for measure the entities' range on the map.(Like ruler)
+   * @param width Wall width in world units
+   * @param height Wall height in world units
+   * @return Wall entity of given width and height
+   */
+  public static Entity drawWall(float width, float height) {
+    Entity wall_tile = new Entity()
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/wall_tile.png"))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+    wall_tile.setScale(width, height);
+    return wall_tile;
   }
 
   /**

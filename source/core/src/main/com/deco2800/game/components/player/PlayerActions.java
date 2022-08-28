@@ -3,13 +3,24 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+
+//import javax.imageio.ImageIO;
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.image.BufferedImage;
+//import java.io.File;
+//import java.io.IOException;
+
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -51,6 +62,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
 
+
     // Skills and Dash initialisation
     skillManager = new PlayerSkillComponent(entity);
     skillManager.setSkill("teleport", entity, this);
@@ -70,15 +82,38 @@ public class PlayerActions extends Component {
     this.playerModifier.update();
   }
 
+
   private void toggleInventory(){
     inventoryIsOpened = !inventoryIsOpened;
     //Code for debugging
     if(inventoryIsOpened) {
       System.out.println("Opening inventory");
       // Open code
+      showInventory();
     } else {
       System.out.println("Closing inventory");
       // Close code
+    }
+  }
+
+  private void showInventory() {
+    JFrame j = new JFrame();
+    j.setUndecorated(true);
+    j.setLocationRelativeTo(null);
+    j.setSize(400, 400);
+    j.setResizable(false);
+    j.getContentPane().setLayout(null);
+    JPanel panel = new ImagePanel();
+    panel.setBounds(0, 0, 400, 400);
+    j.getContentPane().add(panel);
+    j.setVisible(true);
+  }
+
+  class ImagePanel extends JPanel {
+    public void paint(Graphics g) {
+      super.paint(g);
+      ImageIcon icon = new ImageIcon("images/Inventory/pixil-frame (x10).png");
+      g.drawImage(icon.getImage(), 0, 0, 400, 400, this);
     }
   }
 
@@ -155,7 +190,19 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * It is as a timer that check whether has passed 1 second. After each second, rest() would be
+   * Gets a reference to the skill subcomponent of playeractions.
+   * This reference should be used sparingly as a way for external functionality to directly
+   * interact with skill states, and should avoid directly inducing any skill start fuctions
+   * using this reference. In future sprints
+   * skill start functions will not be able to called externally.
+   * @return the player skill component of player actions.
+   */
+  public PlayerSkillComponent getSkillComponent() {
+    return this.skillManager;
+  }
+
+  /**
+   * It is as a timer that check whether it has passed 1 second. After each second, rest() would be
    * called to regenerate stamina
    */
   void checkrest() {
@@ -175,16 +222,16 @@ public class PlayerActions extends Component {
    */
   void rest() {
     if (stamina < maxStamina) {
-      entity.getEvents().trigger("increaseStamina", combatStatsComponent.getStaminaRegenerationRate());
+      entity.getEvents().trigger("increaseStamina",
+              combatStatsComponent.getStaminaRegenerationRate());
 
     }
-    if (mana< maxMana) {
-      entity.getEvents().trigger("increaseMana", combatStatsComponent.getManaRegenerationRate());
+    if (mana < maxMana) {
+      entity.getEvents().trigger("increaseMana",
+              combatStatsComponent.getManaRegenerationRate());
 
     }
-
   }
-
 
   /**
    * Makes the player teleport. Registers call of the teleport function to the skill manager component.

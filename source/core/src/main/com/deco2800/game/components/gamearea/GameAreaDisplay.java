@@ -148,8 +148,8 @@ public class GameAreaDisplay extends UIComponent {
   private void displayWeapon() {
     if (count == 2) {
       weapon = new Image(new Texture(Gdx.files.internal
-              ("images/CombatWeapons-assets-sprint1/swordPlaceholder.png")));
-      weapon.setPosition(craftMenu.getX() + 870, craftMenu.getY() + 270);
+              ("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png")));
+      weapon.setPosition(craftMenu.getX() + 880, craftMenu.getY() + 270);
       craftingGroup.addActor(weapon);
     }
   }
