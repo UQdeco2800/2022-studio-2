@@ -4,7 +4,9 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Self-sufficient player modifier handler for temporarily or permanently modifying player
@@ -14,19 +16,23 @@ import java.util.Iterator;
 public class PlayerModifier extends Component{
 
     private static class Modifier {
-        static public boolean used; // Flag to determine if the modifier has been used
-        static public boolean expired; // Flag to determine if the modifier has been used
-        static public long expiry; // Millisecond timestamp for when the modifier will expire
-        static public long lifetime;
-        static public float value; // The value difference after modification
+        boolean used; // Flag to determine if the modifier has been used
+        boolean expired; // Flag to determine if the modifier has been used
+        boolean scalar; // Determine if modifier was originally a scalar function
+        long expiry; // Millisecond timestamp for when the modifier will expire
+        long lifetime;
+        float value; // The value difference after modification
+        float ogValue; // The value before modification
 
-        static public String target; // The player stat we wish to modify
+        String target; // The player stat we wish to modify
 
-        public Modifier(String target, float value, int expiry) {
+        public Modifier(String target, float ogValue, float value, boolean scalar, int expiry) {
             this.used = false;
             this.expired = false;
+            this.scalar = scalar;
             this.target = target;
             this.value = value;
+            this.ogValue = ogValue;
             this.lifetime = expiry;
             this.expiry = (expiry == 0) ? 0 : System.currentTimeMillis() + expiry;
         }
@@ -70,9 +76,9 @@ public class PlayerModifier extends Component{
 
     /**
      * Initial define function for the modifier class.
-     *
      * Creates the modifier array.
      * Initialises all modifiable variables to zero.
+     * Used purely for Junit functionality.
      */
     public PlayerModifier() {
 
@@ -96,11 +102,14 @@ public class PlayerModifier extends Component{
     /**
      * Creation function to gather all necessary components for PlayerModified component
      * to function.
-     *
      * Gathers all parent components and necessary stat variables within them.
+     * This function cannot yet be covered by Junit tests.
      */
     @Override
     public void create() {
+        // Create our soon to exist modifiers
+        modifiers = new ArrayList<>();
+
         // Get the required components
         playerActions = entity.getComponent(PlayerActions.class);
         combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
@@ -115,7 +124,7 @@ public class PlayerModifier extends Component{
         modManaRegen = combatStatsComponent.getManaRegenerationRate();
 
         refManaMax = combatStatsComponent.getMaxMana();
-        modManaMax = combatStatsComponent.getMaxMana();;
+        modManaMax = combatStatsComponent.getMaxMana();
 
         refStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
         modStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
@@ -126,7 +135,6 @@ public class PlayerModifier extends Component{
 
     /**
      * Triggers on frame update.
-     *
      * Searches through all modifiers present in ArrayList, and handles based on
      * current system time and expiry time.
      */
@@ -170,51 +178,42 @@ public class PlayerModifier extends Component{
      * @param mod       Target statistic
      * @param remove    Boolean to determine if a modifier is being removed
      */
-    private void modifierHandler (Modifier mod, boolean remove) {
+    private static void modifierHandler (Modifier mod, boolean remove) {
 
         float difference; // Used to return to original value if modifier is negative
 
         switch (mod.target) {
-            case MOVESPEED :
+            case MOVESPEED -> {
                 difference = modSpeed;
                 modSpeed = remove ? modSpeed - mod.value : modSpeed + mod.value;
                 modSpeed = (modSpeed < 0) ? 0.1f : modSpeed; // Precaution for negative values
                 difference -= modSpeed;
                 mod.value = -1 * difference;
                 playerActions.updateMaxSpeed(modSpeed);
-                break;
-            case DMGREDUCTION :
-                difference = modDamageReduction;
+            }
+            case DMGREDUCTION -> {
                 modDamageReduction = remove ? modDamageReduction - mod.value : modDamageReduction + mod.value;
-                difference -= modDamageReduction;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
-                break;
-            case MANAREGEN :
-                difference = modManaRegen;
+            }
+            case MANAREGEN -> {
                 modManaRegen = remove ? modManaRegen - mod.value : modManaRegen + mod.value;
-                difference -= modManaRegen;
-                combatStatsComponent.setManaRegenerationRate((int)modManaRegen);
-                break;
-            case MANAMAX :
-                difference = modManaMax;
+                combatStatsComponent.setManaRegenerationRate((int) modManaRegen);
+            }
+            case MANAMAX -> {
                 modManaMax = remove ? modManaMax - mod.value : modManaMax + mod.value;
-                difference -= modManaMax;
-                combatStatsComponent.setMaxMana((int)modManaMax);
-                break;
-            case STAMINAREGEN :
-                difference = modStaminaRegen;
+                combatStatsComponent.setMaxMana((int) modManaMax);
+            }
+            case STAMINAREGEN -> {
                 modStaminaRegen = remove ? modStaminaRegen - mod.value : modStaminaRegen + mod.value;
-                difference -= modStaminaRegen;
-                combatStatsComponent.setStaminaRegenerationRate((int)modStaminaRegen);
-                break;
-            case STAMINAMAX :
-                difference = modStaminaMax;
+                combatStatsComponent.setStaminaRegenerationRate((int) modStaminaRegen);
+            }
+            case STAMINAMAX -> {
                 modStaminaMax = remove ? modStaminaMax - mod.value : modStaminaMax + mod.value;
-                difference -= modStaminaMax;
-                combatStatsComponent.setMaxStamina((int)modStaminaMax);
-                break;
-            default :
+                combatStatsComponent.setMaxStamina((int) modStaminaMax);
+            }
+            default -> {
                 // Do nothing
+            }
         }
     }
 
@@ -227,38 +226,39 @@ public class PlayerModifier extends Component{
     private void applyModifierPerm (Modifier mod) {
 
         switch (mod.target) {
-            case MOVESPEED :
+            case MOVESPEED -> {
                 modSpeed += mod.value;
                 refSpeed += mod.value;
                 playerActions.updateMaxSpeed(modSpeed);
-                break;
-            case DMGREDUCTION:
+            }
+            case DMGREDUCTION -> {
                 modDamageReduction += mod.value;
                 refDamageReduction += mod.value;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
-                break;
-            case MANAREGEN :
+            }
+            case MANAREGEN -> {
                 modManaRegen += mod.value;
                 refManaRegen += mod.value;
-                combatStatsComponent.setManaRegenerationRate((int)modManaRegen);
-                break;
-            case MANAMAX :
+                combatStatsComponent.setManaRegenerationRate((int) modManaRegen);
+            }
+            case MANAMAX -> {
                 modManaMax += mod.value;
                 refManaMax += mod.value;
-                combatStatsComponent.setMaxMana((int)modManaMax);
-                break;
-            case STAMINAREGEN :
+                combatStatsComponent.setMaxMana((int) modManaMax);
+            }
+            case STAMINAREGEN -> {
                 modStaminaRegen += mod.value;
                 refStaminaRegen += mod.value;
-                combatStatsComponent.setStaminaRegenerationRate((int)modStaminaRegen);
-                break;
-            case STAMINAMAX :
+                combatStatsComponent.setStaminaRegenerationRate((int) modStaminaRegen);
+            }
+            case STAMINAMAX -> {
                 modStaminaMax += mod.value;
                 refStaminaMax += mod.value;
-                combatStatsComponent.setMaxStamina((int)modStaminaMax);
-                break;
-            default :
+                combatStatsComponent.setMaxStamina((int) modStaminaMax);
+            }
+            default -> {
                 // Do nothing
+            }
         }
     }
 
@@ -277,7 +277,7 @@ public class PlayerModifier extends Component{
      */
     public boolean createModifier (String target, float value, boolean scaling, int expiry) {
 
-        float valChange = 0f;
+        float valChange;
 
         switch (target) {
             case MOVESPEED:
@@ -287,23 +287,22 @@ public class PlayerModifier extends Component{
                 valChange = (scaling) ? refDamageReduction * value : value;
                 break;
             case MANAREGEN :
-                valChange = (scaling) ? (int)(refManaRegen * value) : value;
+                valChange = (scaling) ? (int)(refManaRegen * value) : (int)value;
                 break;
             case MANAMAX :
-                valChange = (scaling) ? (int)(refManaMax * value) : value;
+                valChange = (scaling) ? (int)(refManaMax * value) : (int)value;
                 break;
             case STAMINAREGEN :
-                valChange = (scaling) ? (int)(refStaminaRegen * value) : value;
+                valChange = (scaling) ? (int)(refStaminaRegen * value) : (int)value;
                 break;
             case STAMINAMAX :
-                valChange = (scaling) ? (int)(refStaminaMax * value) : value;
+                valChange = (scaling) ? (int)(refStaminaMax * value) : (int)value;
                 break;
             default:
                 return false;
-                // Do nothing
         }
 
-        Modifier mod = new Modifier(target, valChange, expiry);
+        Modifier mod = new Modifier(target, value, valChange, scaling, expiry);
         modifiers.add(mod);
         return true;
     }
@@ -315,38 +314,15 @@ public class PlayerModifier extends Component{
      * @param value     The value of the increase
      * @param scaling   Boolean flag to indicate if the increase value is multiplicative or additive
      * @param expiry    Expiry time (milliseconds) of modifier, 0 if permanent
+     * @return          True if modifier exists, false otherwise
      */
     public boolean checkModifier (String target, float value, boolean scaling, int expiry) {
 
-        float valChange = 0f;
         Iterator<Modifier> iterator = modifiers.iterator();
-
-        switch (target) {
-            case MOVESPEED:
-                valChange = (scaling) ? refSpeed * value : value;
-                break;
-            case DMGREDUCTION:
-                valChange = (scaling) ? refDamageReduction * value : value;
-                break;
-            case MANAREGEN :
-                valChange = (scaling) ? refManaRegen * value : value;
-                break;
-            case MANAMAX :
-                valChange = (scaling) ? refManaMax * value : value;
-                break;
-            case STAMINAREGEN :
-                valChange = (scaling) ? refStaminaRegen * value : value;
-                break;
-            case STAMINAMAX :
-                valChange = (scaling) ? refStaminaMax * value : value;
-                break;
-            default:
-                // Do nothing
-        }
 
         while(iterator.hasNext()) {
             Modifier mod = iterator.next();
-            if (mod.target.equals(target) && mod.value == valChange && mod.lifetime == expiry) {
+            if (mod.target.equals(target) && mod.ogValue == value && mod.lifetime == expiry && mod.scalar == scaling) {
                 return true;
             }
         }
@@ -362,22 +338,15 @@ public class PlayerModifier extends Component{
      */
     public float getModified (String target) {
 
-        switch (target) {
-            case MOVESPEED :
-                return modSpeed;
-            case DMGREDUCTION :
-                return modDamageReduction;
-            case MANAREGEN :
-                return modManaRegen;
-            case MANAMAX :
-                return modManaMax;
-            case STAMINAREGEN :
-                return modStaminaRegen;
-            case STAMINAMAX :
-                return modStaminaMax;
-            default :
-                return -1;
-        }
+        return switch (target) {
+            case MOVESPEED -> modSpeed;
+            case DMGREDUCTION -> modDamageReduction;
+            case MANAREGEN -> modManaRegen;
+            case MANAMAX -> modManaMax;
+            case STAMINAREGEN -> modStaminaRegen;
+            case STAMINAMAX -> modStaminaMax;
+            default -> -1;
+        };
     }
 
     /**
@@ -388,22 +357,15 @@ public class PlayerModifier extends Component{
      */
     public float getReference (String target) {
 
-        switch (target) {
-            case MOVESPEED:
-                return refSpeed;
-            case DMGREDUCTION:
-                return refDamageReduction;
-            case MANAREGEN :
-                return refManaRegen;
-            case MANAMAX :
-                return refManaMax;
-            case STAMINAREGEN :
-                return refStaminaRegen;
-            case STAMINAMAX :
-                return refStaminaMax;
-            default:
-                return -1;
-        }
+        return switch (target) {
+            case MOVESPEED -> refSpeed;
+            case DMGREDUCTION -> refDamageReduction;
+            case MANAREGEN -> refManaRegen;
+            case MANAMAX -> refManaMax;
+            case STAMINAREGEN -> refStaminaRegen;
+            case STAMINAMAX -> refStaminaMax;
+            default -> -1;
+        };
     }
 
     /**
@@ -411,13 +373,13 @@ public class PlayerModifier extends Component{
      * is covered in the course.
      */
 
-    public void jUnitAddPlayerActions (PlayerActions actions) {
+    public static void jUnitAddPlayerActions (PlayerActions actions) {
         playerActions = actions;
         refSpeed = playerActions.getMaxSpeed();
         modSpeed = playerActions.getMaxSpeed();
     }
 
-    public void jUnitAddCombatStats (CombatStatsComponent combat) {
+    public static void jUnitAddCombatStats (CombatStatsComponent combat) {
         combatStatsComponent = combat;
         refDamageReduction = combatStatsComponent.getDamageReduction();
         modDamageReduction = combatStatsComponent.getDamageReduction();
@@ -426,7 +388,7 @@ public class PlayerModifier extends Component{
         modManaRegen = combatStatsComponent.getManaRegenerationRate();
 
         refManaMax = combatStatsComponent.getMaxMana();
-        modManaMax = combatStatsComponent.getMaxMana();;
+        modManaMax = combatStatsComponent.getMaxMana();
 
         refStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
         modStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
