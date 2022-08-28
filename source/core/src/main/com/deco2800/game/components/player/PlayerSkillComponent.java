@@ -20,10 +20,11 @@ public class PlayerSkillComponent extends Component {
 
     // Teleport variables
     private static final int TELEPORT_LENGTH = 4;
-    private long teleportEnd;
+    private long teleportEnd; // Teleport charge end system time
     private boolean teleporting;
     private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millsec = 1sec)
     private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
+    private boolean teleportEndEvent = false;
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
@@ -31,9 +32,9 @@ public class PlayerSkillComponent extends Component {
     private static final float DASH_MOVEMENT_RESTRICTION = 0.8f; // As a proportion of regular move (0.8 = 80%)
     private Vector2 dashDirection = Vector2.Zero.cpy();
     private boolean dashing = false;
-    private long dashEnd;
+    private long dashEnd; // Dash end system time
     private boolean dashEndEvent = false;
-    private boolean teleportEndEvent = false;
+
 
 
     public PlayerSkillComponent(Entity entity) {
@@ -195,6 +196,10 @@ public class PlayerSkillComponent extends Component {
         this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
     }
 
+    /**
+     * Teleports the player a set distance from their current position in
+     * the walk direction.
+     */
     public void teleportPlayer() {
         PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
         float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
