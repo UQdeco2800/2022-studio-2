@@ -2,6 +2,7 @@ package com.deco2800.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.screens.MainGameScreen;
@@ -26,6 +27,7 @@ public class GdxGame extends Game {
   public void create() {
     logger.info("Creating game");
     loadSettings();
+    Gdx.input.setInputProcessor(new InputMultiplexer());
 
     // Sets background to light yellow
     Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);

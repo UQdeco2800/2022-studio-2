@@ -1,7 +1,5 @@
 package com.deco2800.game.crafting;
 
-import com.deco2800.game.crafting.craftingDisplay.CraftingDisplay;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +19,7 @@ public class CraftingSystem implements Runnable{
     /**
      *List containing the users' inventory
      */
-    private  List<Materials>  inventoryContents;
+    private static List<Materials>  inventoryContents;
 
     /**
      * Constructor that creates an instance of the crafting system class which creates a set of the users inventory and
@@ -66,7 +64,7 @@ public class CraftingSystem implements Runnable{
      * Returns the instance of inventory contents made and used by the class. Synchronised to prevent thread write
      * conflicts.
      */
-    public synchronized List<Materials> getInventoryContents(){
+    public static synchronized List<Materials> getInventoryContents(){
         return inventoryContents;
     }
 
