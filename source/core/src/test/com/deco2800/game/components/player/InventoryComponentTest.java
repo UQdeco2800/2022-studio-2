@@ -1,10 +1,12 @@
 package com.deco2800.game.components.player;
 
-
-import com.deco2800.game.crafting.Buildable;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.services.ServiceLocator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -13,8 +15,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @ExtendWith(GameExtension.class)
 class InventoryComponentTest {
+
+  @BeforeEach
+  void beforeEach() {
+    ServiceLocator.registerEntityService(new EntityService());
+    ServiceLocator.registerPhysicsService(new PhysicsService());
+  }
 
   @Test
   void createEmptyInventory() {
@@ -24,31 +33,33 @@ class InventoryComponentTest {
 
 
 
-//  @Test
-//  void addItem() {
-//    InventoryComponent testInventory2 = new InventoryComponent();
-//    Entity testMelee = WeaponFactory.createDagger();
-//    testInventory2.addItem(testMelee);
-//    List<Entity> expectedList = new ArrayList<>(16);
-//    expectedList.add(testMelee);
-//    assertEquals(testInventory2.getItems(), expectedList);
-//  }
+  @Test
+  void addItem() {
+    InventoryComponent testInventory2 = new InventoryComponent();
+    List<Entity> expectedList = new ArrayList<>(16);
 
+    Entity testWeapon = WeaponFactory.createBaseWeapon();
 
-  /*
+    testInventory2.addItem(testWeapon);
+    expectedList.add(testWeapon);
+
+    assertEquals(testInventory2.getItems(), expectedList);
+  }
+
   @Test
   void removeItem() {
     InventoryComponent testInventory3 = new InventoryComponent();
-    Weapon testRanged = new Ranged(1,1,1,1);
-    List<Weapon> expectedList = new ArrayList<>(16);
+    List<Entity> expectedList = new ArrayList<>(16);
 
-    testInventory3.addItem(testRanged);
-    expectedList.add(testRanged);
+    Entity testWeapon = WeaponFactory.createBaseWeapon();
 
-    expectedList.remove(testRanged);
-    testInventory3.removeItem(testRanged);
+    expectedList.add(testWeapon);
+    testInventory3.addItem(testWeapon);
+
+    expectedList.remove(testWeapon);
+    testInventory3.removeItem(testWeapon);
+
     assertEquals(testInventory3.getItems(), expectedList);
   }
 
-   */
 }
