@@ -282,12 +282,15 @@ public class ForestGameArea extends GameArea {
     return craftingTablePos;
   }
 
+  /**
+   * Spawn a potion in a random position.
+   */
   private void spawnPotion() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity potion = PotionFactory.createPotion();
+    Entity potion = PotionFactory.createSpeedPotion();
     this.spawnEntityAt(potion, randomPos, true, false);
   }
 
