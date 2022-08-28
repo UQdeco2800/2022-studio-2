@@ -10,10 +10,7 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.AtlantisCitizenConfig;
-import com.deco2800.game.entities.configs.BaseEntityConfig;
-import com.deco2800.game.entities.configs.GhostKingConfig;
-import com.deco2800.game.entities.configs.NPCConfigs;
+import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -60,7 +57,7 @@ public class NPCFactory {
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
 
     ghost
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -91,14 +88,32 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     ghostKing
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
   }
+  public static Entity createOneLegGirl (Entity target) {
+    Entity oneLegGirl = createBaseNPC(target);
+    OneLegGirlConfig config = configs.oneLegGirl;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/ghostKing.atlas", TextureAtlas.class)
+            );
+
+    oneLegGirl
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new GhostAnimationController());
+
+
+    oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return oneLegGirl;
+  }
   /**
    * Creates an atlantis citizen entity.
    *
@@ -115,7 +130,7 @@ public class NPCFactory {
 
     //Once we have animation, can change from using Texture Component to Animation Component
     atlantisCitizen
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
     //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     atlantisCitizen.setScale(2f, 2f);

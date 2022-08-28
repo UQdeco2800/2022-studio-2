@@ -158,7 +158,7 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   /**
-   * The function that make the camera moves along with the player. - Team 5 1map4all @LYB
+   * The function that make the camera moves along with the player.
    */
   private void cameraTracePlayer() {
     renderer.getCamera().getEntity().setPosition(player.getPosition());
