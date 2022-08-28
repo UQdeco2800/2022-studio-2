@@ -7,6 +7,8 @@ public class BaseAuraConfig {
     public AuraConfig speedBuff = new AuraConfig();
     public AuraConfig speedDebuff = new AuraConfig();
     public AuraConfig dmgBuff = new AuraConfig();
-
+    public AuraConfig dmgDebuff = new AuraConfig();
+    public AuraConfig fireBuff = new AuraConfig();
+    public AuraConfig poisonBuff = new AuraConfig();
 
 }
