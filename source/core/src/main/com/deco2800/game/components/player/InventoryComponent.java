@@ -80,7 +80,7 @@ public class InventoryComponent <T extends Buildable, P> extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
   /**
-   * Currently only takes items that implement the Buildable interface. TO BE IMPLEMENTED
+   * Currently only takes ite  ms that implement the Buildable interface. TO BE IMPLEMENTED
    */
   private List<T> inventory = new ArrayList<>(16);
 
