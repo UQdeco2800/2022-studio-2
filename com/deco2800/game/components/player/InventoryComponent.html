@@ -68,16 +68,16 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.deco2800.game.components.player</a></div>
-<h1 title="Class InventoryComponent" class="title">Class InventoryComponent&lt;T extends <a href="../../crafting/Buildable.html" title="interface in com.deco2800.game.crafting">Buildable</a>&gt;</h1>
+<h1 title="Class InventoryComponent" class="title">Class InventoryComponent</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="../Component.html" title="class in com.deco2800.game.components">com.deco2800.game.components.Component</a>
-<div class="inheritance">com.deco2800.game.components.player.InventoryComponent&lt;T&gt;</div>
+<div class="inheritance">com.deco2800.game.components.player.InventoryComponent</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">InventoryComponent&lt;T extends <a href="../../crafting/Buildable.html" title="interface in com.deco2800.game.crafting">Buildable</a>&gt;</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">InventoryComponent</span>
 <span class="extends-implements">extends <a href="../Component.html" title="class in com.deco2800.game.components">Component</a></span></div>
 <div class="block">A component intended to be used by the player to track their inventory.
 
@@ -120,17 +120,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addItem(T)" class="member-name-link">addItem</a><wbr>(<a href="InventoryComponent.html" title="type parameter in InventoryComponent">T</a>&nbsp;item)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addItem(com.deco2800.game.entities.Entity)" class="member-name-link">addItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Adds an item to player's inventory.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="InventoryComponent.html" title="type parameter in InventoryComponent">T</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItems()" class="member-name-link">getItems</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the current inventory</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeItem(T)" class="member-name-link">removeItem</a><wbr>(<a href="InventoryComponent.html" title="type parameter in InventoryComponent">T</a>&nbsp;item)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeItem(com.deco2800.game.entities.Entity)" class="member-name-link">removeItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Removes an item to player's inventory.</div>
 </div>
@@ -171,7 +171,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getItems()">
 <h3>getItems</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="InventoryComponent.html" title="type parameter in InventoryComponent">T</a>&gt;</span>&nbsp;<span class="element-name">getItems</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</span>&nbsp;<span class="element-name">getItems</span>()</div>
 <div class="block">Returns the current inventory</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -180,9 +180,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="addItem(T)">
-<h3 id="addItem(com.deco2800.game.crafting.Buildable)">addItem</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addItem</span><wbr><span class="parameters">(<a href="InventoryComponent.html" title="type parameter in InventoryComponent">T</a>&nbsp;item)</span></div>
+<section class="detail" id="addItem(com.deco2800.game.entities.Entity)">
+<h3>addItem</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</span></div>
 <div class="block">Adds an item to player's inventory.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -191,9 +191,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="removeItem(T)">
-<h3 id="removeItem(com.deco2800.game.crafting.Buildable)">removeItem</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeItem</span><wbr><span class="parameters">(<a href="InventoryComponent.html" title="type parameter in InventoryComponent">T</a>&nbsp;item)</span></div>
+<section class="detail" id="removeItem(com.deco2800.game.entities.Entity)">
+<h3>removeItem</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</span></div>
 <div class="block">Removes an item to player's inventory.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
