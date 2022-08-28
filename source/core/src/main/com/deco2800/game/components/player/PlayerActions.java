@@ -4,15 +4,20 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.badlogic.gdx.utils.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
+
+  private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
   private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
   private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
@@ -84,11 +89,16 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Pressing the I button toggles the Minimap window being open. 
+   * Pressing the 'I' button toggles the Minimap window being open.
    */
   private void toggleMinimap(){
     miniMapOpen = !miniMapOpen;
 
+    if (miniMapOpen) {
+      logger.trace("minimap open");
+    } else {
+      logger.trace("minimap closed");
+    }
     //logger.debug();
     return;
   }
