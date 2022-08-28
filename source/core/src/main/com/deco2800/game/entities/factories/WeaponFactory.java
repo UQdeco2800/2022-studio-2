@@ -96,7 +96,7 @@ public class WeaponFactory {
      * Creates basic weapon for enemy character
      * @return basic enemy dumbbell
      */
-    public static Entity createEnemyDumbbell() {
+    /*public static Entity createEnemyDumbbell() {
         Entity dumbbell = createBaseWeapon();
         MeleeConfig config = configs.dumbbell;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
@@ -107,6 +107,6 @@ public class WeaponFactory {
         dumbbell.getComponent(TextureRenderComponent.class).scaleEntity();
         dumbbell.scaleHeight(5f);
         return dumbbell;
-    }
+    } */
 
 }
