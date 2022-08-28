@@ -1,9 +1,6 @@
 package com.deco2800.game.crafting;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Public class that creates a new crafting system which allows users to combine materials in their inventory to make
@@ -19,7 +16,7 @@ public class CraftingSystem implements Runnable{
     /**
      *List containing the users' inventory
      */
-    private static List<Materials>  inventoryContents;
+    private static List<Materials> inventoryContents;
 
     /**
      * Constructor that creates an instance of the crafting system class which creates a set of the users inventory and
@@ -36,7 +33,8 @@ public class CraftingSystem implements Runnable{
         CraftingLogic.setPossibleWeapons(possibleWeapons);
 
          //List<Materials> inventoryContents = getInventoryContents();
-        inventoryContents = new ArrayList<>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
+        inventoryContents = new ArrayList<>();
+        inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel);
 
         CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
 
@@ -52,7 +50,6 @@ public class CraftingSystem implements Runnable{
         if (CraftingLogic.getPossibleBuilds().contains(Item)){
             builtItems.add("Sword");
             inventoryContents.remove(Materials.Steel);
-            inventoryContents.remove(Materials.Steel);
             inventoryContents.remove(Materials.Wood);
 
             CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
@@ -64,7 +61,8 @@ public class CraftingSystem implements Runnable{
      * Returns the instance of inventory contents made and used by the class. Synchronised to prevent thread write
      * conflicts.
      */
-    public static synchronized List<Materials> getInventoryContents(){
+    public synchronized List<Materials> getInventoryContents(){
+        inventoryContents = new ArrayList<Materials>(Arrays.asList(Materials.values()));
         return inventoryContents;
     }
 
