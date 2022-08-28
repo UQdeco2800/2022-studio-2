@@ -32,11 +32,16 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
-  private Image wood;
-  private Image steel;
+  private ImageButton wood;
+  private Texture woodTexture;
+  private TextureRegion woodTextureRegion;
+  private TextureRegionDrawable woodDrawable;
+  private ImageButton steel;
+  private Texture steelTexture;
+  private TextureRegion steelTextureRegion;
+  private TextureRegionDrawable steelDrawable;
   private Group craftingGroup = new Group();
   List<Materials> inventory;
-  //InputMultiplexer inputMultiplexer;
 
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
@@ -80,28 +85,48 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void getInventory() {
-    inventory = CraftingSystem.getInventoryContents();
+    CraftingSystem craftingSystem = new CraftingSystem();
+    inventory = craftingSystem.getInventoryContents();
     try {
       for (int i = 0; i < inventory.size(); i++) {
         switch (inventory.get(i)) {
           case Wood:
-            wood = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/materials/wood.png")));
-            wood.setPosition(craftMenu.getX() + 100 + (i * 100),
-                    (float) (craftMenu.getY() + craftMenu.getHeight() - (Math.floor(i / 4) * 100)));
+            woodTexture = new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/materials/wood.png"));
+            woodTextureRegion = new TextureRegion(woodTexture);
+            woodDrawable = new TextureRegionDrawable(woodTextureRegion);
+            wood = new ImageButton(woodDrawable);
+            wood.setSize(50, 50);
+            wood.setPosition(craftMenu.getX() + 30 + (i * 95),
+                    (float) (craftMenu.getTop() - ((Math.floor(i / 4) * 100) + 210)));
+            wood.addListener(new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent event, Actor actor) {
+                wood.setPosition(craftMenu.getX() + 485, craftMenu.getY() + 270);
+              }
+            });
             craftingGroup.addActor(wood);
             break;
           case Steel:
-            steel = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/materials/steel.png")));
-            steel.setPosition(craftMenu.getX() + 100 + (i * 100),
-                    (float) (craftMenu.getY() + craftMenu.getHeight() - (Math.floor(i / 4) * 100)));
+            steelTexture = new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/materials/steel.png"));
+            steelTextureRegion = new TextureRegion(steelTexture);
+            steelDrawable = new TextureRegionDrawable(steelTextureRegion);
+            steel = new ImageButton(steelDrawable);
+            steel.setSize(50, 50);
+            steel.setPosition(craftMenu.getX() + 30 + (i * 95),
+                    (float) (craftMenu.getTop() - ((Math.floor(i / 4) * 100) + 210)));
+            steel.addListener(new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent event, Actor actor) {
+                steel.setPosition(craftMenu.getX() + 500, craftMenu.getY() + 270);
+              }
+            });
             craftingGroup.addActor(steel);
             break;
         }
       }
     } catch (Exception e) {}
-    System.out.println(inventory);
   }
 
   public void disposeCraftingMenu() {
