@@ -11,7 +11,6 @@ import com.deco2800.game.components.tasks.CombatItemsComponents.WeaponAuraCompon
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.components.MenuComponent;
-import com.deco2800.game.crafting.craftingDisplay.CraftingMenuActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-//  private static final int NUM_TREES = 3;
+  private static final int NUM_TREES = 3;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
@@ -97,9 +96,6 @@ public class ForestGameArea extends GameArea {
   private Entity player;
   private List<Entity> weaponOnMap = new ArrayList<>();
   private List<Entity> auraOnMap = new ArrayList<>();
-
-  private static GridPoint2 craftingMenuPos;
-
   private static GridPoint2 craftingTablePos;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
@@ -174,22 +170,22 @@ public class ForestGameArea extends GameArea {
 
     // Left
     spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
     // Right
     spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-        new GridPoint2(tileBounds.x, 0),
-        false,
-        false);
+            ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+            new GridPoint2(tileBounds.x, 0),
+            false,
+            false);
     // Top
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-        new GridPoint2(0, tileBounds.y),
-        false,
-        false);
+            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+            new GridPoint2(0, tileBounds.y),
+            false,
+            false);
     // Bottom
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+            ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
 
     // Castle Wall
     spawnEntityAt(ObstacleFactory.createWall(1f, 18f), new GridPoint2(3, 6), false,
@@ -271,25 +267,15 @@ public class ForestGameArea extends GameArea {
    * @param y y-axis for the position (vertical).
    */
   private void spawnColumn(int x, int y) {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
     Entity column = ObstacleFactory.createColumn();
-    spawnEntityAt(column, new GridPoint2(x, y), false, false);
+    spawnEntityAt(column, new GridPoint2(x, y), true, false);
     }
 
-  public void spawnCraftingMenu() {
-    GridPoint2 menuPos = new GridPoint2(10, 6);
-    GridPoint2 craftButtonPos = new GridPoint2(13, 6);
-    Entity craftingMenu = ObstacleFactory.createCraftingMenu();
-    Entity craftButton = ObstacleFactory.createCraftButton();
-    spawnEntityAt(craftingMenu, menuPos, true, false);
-    spawnEntityAt(craftButton, craftButtonPos, true, false);
-  }
-
-  public void disposeCraftingMenu() {
-    for (int i = 0; i < areaEntities.size();i++) {
-      if (areaEntities.get(i).getComponent(MenuComponent.class) != null){
-        areaEntities.get(i).dispose();
-      }
-    }
+  public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
+    spawnEntityAt(entity, position, centreX, centreY);
   }
 
   public void spawnCraftingTable() {
