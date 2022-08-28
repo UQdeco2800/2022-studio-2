@@ -15,8 +15,10 @@ import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.entities.factories.DialogueFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -59,7 +61,9 @@ public class ForestGameArea extends GameArea {
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
     "images/NPC/guard npc/atlantisguardnpc_1.png",
-    "images/NPC/male npc/male_citizen_1.png"
+    "images/NPC/male npc/male_citizen_1.png",
+    "images/NPC/Dialogue/dialogues2.png"
+
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -105,9 +109,11 @@ public class ForestGameArea extends GameArea {
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
+//    spawnDialogue();
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
     playMusic();
+
   }
 
   private void displayUI() {
@@ -193,6 +199,8 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(craftingTable, randomPos, true, false);
   }
 
+
+
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
@@ -217,30 +225,60 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
+  }
+
+  private GridPoint2 randomPositon() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    return RandomUtils.random(minPos, maxPos);
   }
   private void spawnChild() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity oneLegGirl = NPCFactory.createChild(player);
-    spawnEntityAt(oneLegGirl, randomPos, true, true);
+
+    Entity child = NPCFactory.createChild(player);
+    spawnEntityAt(child, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
   }
+//  private void spawnDialogue() {
+//
+//    Entity dialogue = DialogueFactory.createDialogue();
+//
+//    spawnEntityAt(dialogue, randomPositon(), true, true);
+//    System.out.print(randomPositon());
+//  }
+
+
   private void spawnGuard() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity oneLegGirl = NPCFactory.createGuard(player);
-    spawnEntityAt(oneLegGirl, randomPos, true, true);
+
+    Entity guard = NPCFactory.createGuard(player);
+    spawnEntityAt(guard, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
   }
   private void spawnMaleCitizen() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity oneLegGirl = NPCFactory.createMale_citizen(player);
-    spawnEntityAt(oneLegGirl, randomPos, true, true);
+    Entity male_citizen = NPCFactory.createMale_citizen(player);
+    spawnEntityAt(male_citizen, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
   }
   private void spawnGhostKing() {
     GridPoint2 minPos = new GridPoint2(0, 0);
