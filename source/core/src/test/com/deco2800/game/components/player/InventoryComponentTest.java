@@ -23,18 +23,17 @@ class InventoryComponentTest {
   }
 
 
-  /*
-  @Test
-  void addItem() {
-    InventoryComponent testInventory2 = new InventoryComponent();
-    Weapon testRanged = new Ranged(1,1,1,1);
-    testInventory2.addItem(testRanged);
-    List<Weapon> expectedList = new ArrayList<>(16);
-    expectedList.add(testRanged);
-    assertEquals(testInventory2.getItems(), expectedList);
-  }
 
-   */
+//  @Test
+//  void addItem() {
+//    InventoryComponent testInventory2 = new InventoryComponent();
+//    Entity testMelee = WeaponFactory.createDagger();
+//    testInventory2.addItem(testMelee);
+//    List<Entity> expectedList = new ArrayList<>(16);
+//    expectedList.add(testMelee);
+//    assertEquals(testInventory2.getItems(), expectedList);
+//  }
+
 
   /*
   @Test

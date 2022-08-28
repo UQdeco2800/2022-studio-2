@@ -1,12 +1,12 @@
 package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
-import com.deco2800.game.crafting.Buildable;
+import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 class quickBar<Potions> {
 
@@ -76,19 +76,27 @@ class quickBar<Potions> {
  * Currently only stores the items that implement the Buildable interface. IN_PROGRESS
  * Can also be used as a more generic component for other entities.
  */
-public class InventoryComponent <T extends Buildable, P> extends Component {
+public class InventoryComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
+
+  private final int inventorySize = 16;
 
   /**
    * Currently only takes ite  ms that implement the Buildable interface. TO BE IMPLEMENTED
    */
-  private List<T> inventory = new ArrayList<>(16);
+  private List<Entity> inventory = new ArrayList<>(inventorySize);
+
+  /**
+   * TO BE IMPLEMENTED
+   * By default every inventory item in the array has a quantity of 0.
+   */
+  int[] itemQuantity = new int[16];
 
   /**
    * Returns the current inventory
    * @return inventory items
    */
-  public List<T> getItems() {
+  public List<Entity> getItems() {
     return List.copyOf(inventory);
   }
 
@@ -96,7 +104,7 @@ public class InventoryComponent <T extends Buildable, P> extends Component {
    * Adds an item to player's inventory.
    * @param item item to add
    */
-  public void addItem(T item) {
+  public void addItem(Entity item) {
     inventory.add(item);
   }
 
@@ -104,7 +112,7 @@ public class InventoryComponent <T extends Buildable, P> extends Component {
    * Removes an item to player's inventory.
    * @param item item to remove
    */
-  public void removeItem(T item) {
+  public void removeItem(Entity item) {
     //Currently taking item as parameter, may take in index in the future
     inventory.remove(item);
   }
