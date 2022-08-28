@@ -5,6 +5,8 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.AuraFactory;
 import com.deco2800.game.extensions.GameExtension;
 
 import java.util.HashMap;
@@ -99,6 +101,14 @@ class MeleeStatsComponentTest {
         weapons1.setMaterials(materialsTest);
         assertTrue(materialsTest2.equals(weapons1.getMaterials()));
     }
+
+    @Test
+    public void testAuraInEffect() {
+        Entity auraSpeedBuff = AuraFactory.createWeaponSpeedBuff();
+        weapons1.auraEffect(auraSpeedBuff);
+        assertEquals(5.0, weapons1.getCoolDown(), "Incorrect value was returned.");
+    }
+
 
 
 

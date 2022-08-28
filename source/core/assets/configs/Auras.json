@@ -2,7 +2,7 @@
   "speedBuff": {
     "auraDuration": 10000,
     "damageMultiplier": 1,
-    "coolDownMultiplier": 1,
+    "coolDownMultiplier": 0.5,
     "weightMultiplier" : 1
   },
   "speedDebuff": {
