@@ -52,7 +52,7 @@ public class CraftingSystem implements Runnable{
             inventoryContents.remove(Materials.Steel);
             inventoryContents.remove(Materials.Wood);
 
-            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
+            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents)); // For sprint one only a sword can be built.
         }
     }
 

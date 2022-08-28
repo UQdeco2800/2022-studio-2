@@ -1,5 +1,6 @@
 package com.deco2800.game.crafting;
 
+import com.deco2800.game.CombatItems.Weapon;
 import com.deco2800.game.extensions.GameExtension;
 
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CraftingLogicTest {
 
     @Test
-    void getPossibleBuildsTest() {
-        assertEquals(CraftingLogic.getPossibleBuilds().get(0), "Sword");
+    void basicGetPossibleBuildsTest() {
+        List<Object> imaginaryWeapons = new ArrayList<>();
+        CraftingLogic.setPossibleBuilds(imaginaryWeapons);
+        assertEquals(imaginaryWeapons, CraftingLogic.getPossibleBuilds());
     }
 
     @Test
-    void setPossibleBuildsTest() {
+    void basicSetPossibleBuildsTest() {
         List<Object> inputList = new ArrayList<>();
         CraftingLogic.setPossibleBuilds(inputList);
         assertEquals(inputList, CraftingLogic.getPossibleBuilds());

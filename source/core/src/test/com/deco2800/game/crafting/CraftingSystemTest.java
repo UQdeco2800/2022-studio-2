@@ -29,7 +29,7 @@ public class CraftingSystemTest {
     void buildItemTest() {
         CraftingSystem testCraftingSystem = new CraftingSystem();
         testCraftingSystem.buildItem("Sword");
-        assertEquals(CraftingLogic.getPossibleBuilds().get(0), "Sword");
+        assertEquals(testCraftingSystem.getInventoryContents().size(), 0); // Inventory is empty after building a sword.
     }
 
     @Test
@@ -51,8 +51,18 @@ public class CraftingSystemTest {
     @Test
     void basicTestSynchronizedInventoryContents() throws InterruptedException {
         CraftingSystem testCraftingSystem = new CraftingSystem();
-        Thread thread = new Thread(testCraftingSystem::getInventoryContents); // create a new thread to call getInventoryContents
-        Thread thread2 = new Thread(testCraftingSystem::getInventoryContents);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                testCraftingSystem.getInventoryContents();
+            }
+        }); // create a new thread to call getInventoryContents
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                testCraftingSystem.getInventoryContents();
+            }
+        });
 
         thread.start(); // start the thread
         thread2.start();
