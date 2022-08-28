@@ -221,7 +221,7 @@ public class PlayerModifier extends Component{
      *
      * @param mod   Target statistic
      */
-    private void applyModifierPerm (Modifier mod) {
+    private static void applyModifierPerm (Modifier mod) {
 
         switch (mod.target) {
             case MOVESPEED -> {
