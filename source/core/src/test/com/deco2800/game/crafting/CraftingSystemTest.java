@@ -5,9 +5,7 @@ import com.deco2800.game.extensions.GameExtension;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static sun.nio.cs.Surrogate.is;
 
 import java.util.*;
 
@@ -61,7 +59,7 @@ public class CraftingSystemTest {
         thread.join(); // wait for the thread to finish
         thread2.join();
 
-        assertThat(String.valueOf(testCraftingSystem.getInventoryContents().size()),
-                is(Materials.values().length * 2)); // check that the size of the inventory is twice the number of materials
+        assertEquals(testCraftingSystem.getInventoryContents().size(), Materials.values().length * 2);
+        // check that the size of the inventory is twice the number of materials
     }
 }
