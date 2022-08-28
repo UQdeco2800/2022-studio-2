@@ -71,7 +71,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png",
-    "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"
+    "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
+    "images/CombatWeapons-assets-sprint1/Damage Increase Buff.png"
   };
 
   public static String[] newTextures;
@@ -130,7 +131,7 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnDumbbell();
     spawnSpeedDebuff();
-
+    spawnDmgBuff();
   }
 
   private void displayUI() {
@@ -223,6 +224,12 @@ public class ForestGameArea extends GameArea {
     weaponOnMap.add(speedDebuff);
     spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
   }
+  private void spawnDmgBuff() {
+    Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
+    weaponOnMap.add(dmgBuff);
+    spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
+  }
+
 
   /**
    * Spawn small tress in a certain position. - Team 5 1map4all @LYB
@@ -341,7 +348,6 @@ public class ForestGameArea extends GameArea {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
     music.setVolume(0.0f);
-
     music.play();
   }
 

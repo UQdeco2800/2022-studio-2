@@ -79,4 +79,14 @@ public class AuraFactory {
         weaponSpeedDeBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponSpeedDeBuff;
     }
+    public static Entity createWeaponDmgBuff() {
+        Entity weaponDmgBuff = createBaseAura();
+        AuraConfig config = configs.dmgBuff;
+        weaponDmgBuff
+                .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                        config.coolDownMultiplier, config.weightMultiplier))
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Damage Increase Buff.png"));
+        weaponDmgBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        return weaponDmgBuff;
+    }
 }
