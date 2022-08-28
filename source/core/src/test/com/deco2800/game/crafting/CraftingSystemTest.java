@@ -29,8 +29,8 @@ public class CraftingSystemTest {
     void buildItemTest() {
         CraftingSystem testCraftingSystem = new CraftingSystem();
         testCraftingSystem.buildItem("Sword");
-        assertFalse(testCraftingSystem.getInventoryContents().contains(Materials.Wood)); // Wood is removed from the inventory after building a sword.
-        assertFalse(testCraftingSystem.getInventoryContents().contains(Materials.Steel)); // Steel is removed from the inventory after building a sword.
+        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Wood)); // Wood is removed from the inventory after building a sword.
+        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Steel)); // Steel is removed from the inventory after building a sword.
     }
 
 
