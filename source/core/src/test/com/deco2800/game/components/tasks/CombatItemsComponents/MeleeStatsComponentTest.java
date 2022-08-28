@@ -1,15 +1,30 @@
 
 package com.deco2800.game.components.tasks.CombatItemsComponents;
 
+import static com.deco2800.game.entities.factories.AuraFactory.createBaseAura;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
 import com.deco2800.game.entities.factories.AuraFactory;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
-
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +44,8 @@ class MeleeStatsComponentTest {
 
     @BeforeEach
     public void setUp() throws Exception {
+
+
         HashMap<Materials, Integer> materials1 = new HashMap<>();
         materials1.put(Materials.Steel, 10);
 
@@ -101,15 +118,36 @@ class MeleeStatsComponentTest {
         weapons1.setMaterials(materialsTest);
         assertTrue(materialsTest2.equals(weapons1.getMaterials()));
     }
-
+/*
     @Test
     public void testAuraInEffect() {
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ResourceService rs = new ResourceService();
+        String[] textureNames = {"source/core/assets/images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"};
+        rs.loadTextures(textureNames);
+        ServiceLocator.registerResourceService(rs);
+
         Entity auraSpeedBuff = AuraFactory.createWeaponSpeedBuff();
         weapons1.auraEffect(auraSpeedBuff);
         assertEquals(5.0, weapons1.getCoolDown(), "Incorrect value was returned.");
     }
 
+    @Test
+    public void testAuraAfterEffect() {
+        Entity auraSpeedBuff = AuraFactory.createWeaponSpeedBuff();
+        weapons2.auraEffect(auraSpeedBuff);
 
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+                           @Override
+                           public void run() {
+                               assertEquals(20, weapons2.getCoolDown(), "Incorrect value was returned.");
+                           }
+                       }
+                , auraSpeedBuff.getComponent(WeaponAuraComponent.class).getAuraDuration());
+    }
 
+ */
 
 }
