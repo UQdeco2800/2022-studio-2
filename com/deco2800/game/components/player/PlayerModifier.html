@@ -138,7 +138,7 @@ loadScripts(document, 'script');</script>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
@@ -176,12 +176,12 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Public function to return current modified value of a desired target.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#jUnitAddCombatStats(com.deco2800.game.components.CombatStatsComponent)" class="member-name-link">jUnitAddCombatStats</a><wbr>(<a href="../CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a>&nbsp;combat)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#jUnitAddPlayerActions(com.deco2800.game.components.player.PlayerActions)" class="member-name-link">jUnitAddPlayerActions</a><wbr>(<a href="PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a>&nbsp;actions)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#jUnitAddCombatStats(com.deco2800.game.components.CombatStatsComponent)" class="member-name-link">jUnitAddCombatStats</a><wbr>(<a href="../CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a>&nbsp;combat)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#jUnitAddPlayerActions(com.deco2800.game.components.player.PlayerActions)" class="member-name-link">jUnitAddPlayerActions</a><wbr>(<a href="PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a>&nbsp;actions)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Temporary test functions for JUnit Testing until "mocking"
  is covered in the course.</div>
 </div>
@@ -307,9 +307,9 @@ loadScripts(document, 'script');</script>
 <h3>PlayerModifier</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PlayerModifier</span>()</div>
 <div class="block">Initial define function for the modifier class.
-
  Creates the modifier array.
- Initialises all modifiable variables to zero.</div>
+ Initialises all modifiable variables to zero.
+ Used purely for Junit functionality.</div>
 </section>
 </li>
 </ul>
@@ -326,8 +326,8 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">create</span>()</div>
 <div class="block">Creation function to gather all necessary components for PlayerModified component
  to function.
-
- Gathers all parent components and necessary stat variables within them.</div>
+ Gathers all parent components and necessary stat variables within them.
+ This function cannot yet be covered by Junit tests.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../Component.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../Component.html" title="class in com.deco2800.game.components">Component</a></code></dd>
@@ -339,7 +339,6 @@ loadScripts(document, 'script');</script>
 <h3>update</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">update</span>()</div>
 <div class="block">Triggers on frame update.
-
  Searches through all modifiers present in ArrayList, and handles based on
  current system time and expiry time.</div>
 <dl class="notes">
@@ -385,6 +384,8 @@ loadScripts(document, 'script');</script>
 <dd><code>value</code> - The value of the increase</dd>
 <dd><code>scaling</code> - Boolean flag to indicate if the increase value is multiplicative or additive</dd>
 <dd><code>expiry</code> - Expiry time (milliseconds) of modifier, 0 if permanent</dd>
+<dt>Returns:</dt>
+<dd>True if modifier exists, false otherwise</dd>
 </dl>
 </section>
 </li>
@@ -417,7 +418,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="jUnitAddPlayerActions(com.deco2800.game.components.player.PlayerActions)">
 <h3>jUnitAddPlayerActions</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">jUnitAddPlayerActions</span><wbr><span class="parameters">(<a href="PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a>&nbsp;actions)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">jUnitAddPlayerActions</span><wbr><span class="parameters">(<a href="PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a>&nbsp;actions)</span></div>
 <div class="block">Temporary test functions for JUnit Testing until "mocking"
  is covered in the course.</div>
 </section>
@@ -425,7 +426,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="jUnitAddCombatStats(com.deco2800.game.components.CombatStatsComponent)">
 <h3>jUnitAddCombatStats</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">jUnitAddCombatStats</span><wbr><span class="parameters">(<a href="../CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a>&nbsp;combat)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">jUnitAddCombatStats</span><wbr><span class="parameters">(<a href="../CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a>&nbsp;combat)</span></div>
 </section>
 </li>
 </ul>
