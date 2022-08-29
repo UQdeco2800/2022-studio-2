@@ -1,7 +1,6 @@
 package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.components.Component;
-import com.deco2800.game.entities.Entity;
 
 /**
  * Component used to store information and methods related to weapon buffs, debuffs and curses.
