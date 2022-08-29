@@ -4,6 +4,7 @@ com.deco2800.game.ai.tasks
 com.deco2800.game.areas
 com.deco2800.game.areas.terrain
 com.deco2800.game.components
+com.deco2800.game.components.CombatItemsComponents
 com.deco2800.game.components.gamearea
 com.deco2800.game.components.maingame
 com.deco2800.game.components.mainmenu
@@ -11,7 +12,6 @@ com.deco2800.game.components.npc
 com.deco2800.game.components.player
 com.deco2800.game.components.settingsmenu
 com.deco2800.game.components.tasks
-com.deco2800.game.components.tasks.CombatItemsComponents
 com.deco2800.game.concurrency
 com.deco2800.game.crafting
 com.deco2800.game.crafting.craftingDisplay
