@@ -7,5 +7,10 @@ public class NPCConfigs {
   public BaseEntityConfig ghost = new BaseEntityConfig();
   public GhostKingConfig ghostKing = new GhostKingConfig();
   public AtlantisCitizenConfig atlantisCitizen = new AtlantisCitizenConfig();
-  public OneLegGirlConfig oneLegGirl = new OneLegGirlConfig();
+  public FemaleCitizenConfig oneLegGirl = new FemaleCitizenConfig();
+  public ChildConfig child = new ChildConfig();
+  public GuardConfig guard = new GuardConfig();
+  public Male_citizenConfig male_citizen = new Male_citizenConfig();
+
+
 }

@@ -1,17 +1,16 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
+
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
-public class    KeyboardPlayerInputComponent extends InputComponent {
+public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
 
   public KeyboardPlayerInputComponent() {
@@ -54,13 +53,19 @@ public class    KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("can_close");
         return true;
       case Keys.E:
-        entity.getEvents().trigger("skill");
+        entity.getEvents().trigger("teleport");
         return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
         return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
+        return true;
+      case Keys.K:
+        entity.getEvents().trigger("kill switch");
+        return true;
+      case Keys.M:
+        entity.getEvents().trigger("toggleMinimap");
         return true;
       default:
         return false;

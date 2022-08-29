@@ -26,6 +26,7 @@ public class MainMenuDisplay extends UIComponent {
     addActors();
   }
 
+
   private void addActors() {
     table = new Table();
     table.setFillParent(true);
