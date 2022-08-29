@@ -17,11 +17,16 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 
-/*
-* Factory to create dialogue
-* */
+/**
+* Factory to create non-playable dialogue box entities. Team 7 all-mid-npc
+*/
 public class DialogueFactory {
 
+    /**
+     * Create a dialogue box entity
+     *
+     * @return entity
+     */
     public static Entity createDialogue() {
         Entity dialogue = new Entity()
                 .addComponent((new TextureRenderComponent("images/NPC/Dialogue/dialogues2.png")));

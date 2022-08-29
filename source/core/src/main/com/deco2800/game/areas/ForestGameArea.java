@@ -190,6 +190,7 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(column, new GridPoint2(x, y), true, false);
     }
 
+
   private void spawnCraftingTable() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -218,6 +219,9 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawn female NPC in random position. - Team 7 all-mid-npc
+   */
   private void spawnOneLegGirl() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -236,6 +240,10 @@ public class ForestGameArea extends GameArea {
 
     return RandomUtils.random(minPos, maxPos);
   }
+
+  /**
+   * Spawn child NPC in random position. - Team 7 all-mid-npc
+   */
   private void spawnChild() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -257,6 +265,9 @@ public class ForestGameArea extends GameArea {
 //  }
 
 
+  /**
+   * Spawn guard NPC in random position. - Team 7 all-mid-npc
+   */
   private void spawnGuard() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -269,6 +280,10 @@ public class ForestGameArea extends GameArea {
 
     spawnEntityAt(dialogue, randomPos, true, true);
   }
+
+  /**
+   * Spawn male NPC in random position. - Team 7 all-mid-npc
+   */
   private void spawnMaleCitizen() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);

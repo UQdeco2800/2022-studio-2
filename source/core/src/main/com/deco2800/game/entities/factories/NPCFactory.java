@@ -95,6 +95,13 @@ public class NPCFactory {
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
   }
+
+  /**
+   * Creates an atlantis male NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
   public static Entity createOneLegGirl (Entity target) {
     Entity oneLegGirl = createBaseNPC(target);
     OneLegGirlConfig config = configs.oneLegGirl;
@@ -109,6 +116,12 @@ public class NPCFactory {
     return oneLegGirl;
   }
 
+  /**
+   * Creates an atlantis child NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
   public static Entity createChild (Entity target) {
     Entity child = createBaseNPC(target);
     ChildConfig config = configs.child;
@@ -123,6 +136,12 @@ public class NPCFactory {
     return child;
   }
 
+  /**
+   * Creates an atlantis guard NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
   public static Entity createGuard (Entity target) {
     Entity guard = createBaseNPC(target);
     GuardConfig config = configs.guard;
@@ -137,6 +156,12 @@ public class NPCFactory {
     return guard;
   }
 
+  /**
+   * Creates an atlantis male NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
   public static Entity createMale_citizen (Entity target) {
     Entity male_citizen = createBaseNPC(target);
     Male_citizenConfig config = configs.male_citizen;

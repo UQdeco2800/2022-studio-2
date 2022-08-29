@@ -13,7 +13,10 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DialogueDisplay extends  UIComponent {
+/**
+ * Displays a dialog box that allows the Player to interact with NPCs - Team 7 all-mid-npc
+ */
+public class DialogueDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(DialogueDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
