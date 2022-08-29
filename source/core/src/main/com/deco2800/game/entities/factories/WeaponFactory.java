@@ -119,4 +119,17 @@ public class WeaponFactory {
         return SwordLvl2;
     }
 
+    public static Entity createTridentLvl2() {
+        Entity TridentLvl2 = createBaseWeapon();
+        MeleeConfig config = configs.tridentLvl2;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        TridentLvl2
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/trident_Lvl2.png"));
+        TridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
+        TridentLvl2.scaleHeight(2f);
+        return TridentLvl2;
+    }
+
 }

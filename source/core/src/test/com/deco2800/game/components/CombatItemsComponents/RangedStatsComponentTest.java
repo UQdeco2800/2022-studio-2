@@ -114,7 +114,7 @@ class RangedStatsComponentTest {
         assertEquals(5.0, rangedweapon1.getCoolDown(), "Incorrect value was returned.");
     }
 
-    @Test
+ /*   @Test
     public void testAuraAfterEffect() throws InterruptedException {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
@@ -138,7 +138,7 @@ class RangedStatsComponentTest {
                 , auraSpeedBuff.getComponent(WeaponAuraComponent.class).getAuraDuration());
         latch.await();
         assertEquals(20, rangedweapon2.getCoolDown(), "Incorrect value was returned.");
-    }
+    }*/
 }
 
 

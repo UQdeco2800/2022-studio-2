@@ -74,7 +74,8 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/AttackDamageDebuff.png",
     "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
     "images/CombatWeapons-assets-sprint1/poisonBuff.png",
-    "images/Potions/defence_potion.png"
+    "images/Potions/defence_potion.png",
+    "images/CombatWeapons-assets-sprint1/trident_Lvl2.png"
   };
 
   public static String[] newTextures;
@@ -117,6 +118,7 @@ public class ForestGameArea extends GameArea {
     spawnDagger();
     spawnDaggerTwo();
     spawnSwordLvl2();
+    spawnTridentLvl2();
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
@@ -304,6 +306,12 @@ public class ForestGameArea extends GameArea {
     Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
     weaponOnMap.add(SwordLvl2);
     spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
+  }
+
+  private void spawnTridentLvl2() {
+    Entity tridentLvl2 = WeaponFactory.createTridentLvl2();
+    weaponOnMap.add(tridentLvl2);
+    spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
   }
 
 
