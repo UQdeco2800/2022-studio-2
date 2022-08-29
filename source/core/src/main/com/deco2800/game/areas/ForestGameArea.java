@@ -10,6 +10,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.PotionFactory;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -42,6 +43,7 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+<<<<<<< HEAD
     "images/gold_cobble.png",
     "images/gold_drain.png",
     "images/Map_assets/sprint_1/column.png",
@@ -56,6 +58,10 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png"
+=======
+    "images/Potions/defence_potion.png"
+
+>>>>>>> 394c340e77cd58a8f7a13bce2278f732b7602d85
 
   };
   private static final String[] forestTextureAtlases = {
@@ -94,6 +100,7 @@ public class ForestGameArea extends GameArea {
     spawnTrees();
     spawnSmallTrees();
     spawnCraftingTable();
+    spawnPotion();
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
@@ -184,6 +191,15 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
+  }
+
+  private void spawnPotion() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity potion = PotionFactory.createPotion();
+    spawnEntityAt(potion, randomPos, true, false);
   }
 
   private Entity spawnPlayer() {
