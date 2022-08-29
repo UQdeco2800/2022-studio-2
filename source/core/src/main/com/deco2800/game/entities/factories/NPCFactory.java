@@ -117,7 +117,6 @@ public class NPCFactory {
     atlantisCitizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
-    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     atlantisCitizen.setScale(2f, 2f);
     return atlantisCitizen;
 

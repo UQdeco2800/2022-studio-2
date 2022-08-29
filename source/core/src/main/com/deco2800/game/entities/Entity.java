@@ -270,16 +270,30 @@ public class Entity {
     return eventHandler;
   }
 
+  /**
+   * Check if this entity equals another object
+   * @param obj - the object to compare this entity to
+   *
+   * @return true if equal, false if not
+   */
   @Override
   public boolean equals(Object obj) {
     return (obj instanceof Entity && ((Entity) obj).getId() == this.getId());
   }
 
+  /**
+   * Get the hashcode of this entity.
+   * @return integer representing hashcode of this entity
+   */
   @Override
   public int hashCode() {
     return super.hashCode();
   }
 
+  /**
+   * Convert this entity into string format
+   * @return String representing the string format of this entity
+   */
   @Override
   public String toString() {
     return String.format("Entity{id=%d}", id);
