@@ -62,6 +62,9 @@ public class    KeyboardPlayerInputComponent extends InputComponent {
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
+      case Keys.M:
+        entity.getEvents().trigger("toggleMinimap");
+        return true;
       default:
         return false;
     }
