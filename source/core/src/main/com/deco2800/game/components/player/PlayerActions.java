@@ -27,11 +27,6 @@ import javax.swing.JPanel;
 public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
-  private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
-  private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
-  private static final float DASH_MOVEMENT_RESTRICTION = 0.8f;
-  private static final int TELEPORT_LENGTH = 4;
 
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
@@ -41,8 +36,6 @@ public class PlayerActions extends Component {
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean inventoryIsOpened = false;
   private boolean miniMapOpen = false;
-  private long dashStart;
-  private long dashEnd;
   private int stamina= 100;
   private int maxStamina =100;
   private int maxMana=100;

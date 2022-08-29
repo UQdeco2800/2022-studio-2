@@ -11,4 +11,5 @@ public class WeaponConfig {
 
     public MeleeConfig dumbbell = new MeleeConfig();
     public MeleeConfig SwordLvl2 = new MeleeConfig();
+    public MeleeConfig tridentLvl2 = new MeleeConfig();
 }
