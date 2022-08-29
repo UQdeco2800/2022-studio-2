@@ -28,14 +28,15 @@ public class PotionFactory {
      */
     public static Entity createSpeedPotion() {
         Entity speedPotion = new Entity()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"))
+                .addComponent(new TextureRenderComponent("images/Potions/agility_potion.png"
+                ))
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "speed"))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
         speedPotion.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
         speedPotion.getComponent(TextureRenderComponent.class).scaleEntity();
-        speedPotion.scaleHeight(1.5f);
+        speedPotion.scaleHeight(1.0f);
         PhysicsUtils.setScaledCollider(speedPotion, 0.5f, 0.2f);
         return speedPotion;
     }
@@ -54,9 +55,8 @@ public class PotionFactory {
 
     }
     private static final String[] potionPictures = {
-            "images/Potions/defence_potion.png"
+            "images/Potions/defence_potion.png",
+            "images/Potions/agility_potion.png"
     };
 }
-
-//hitbox component,
 

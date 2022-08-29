@@ -75,7 +75,7 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png",
-    "images/Potions/defence_potion.png"
+    "images/Potions/agility_potion.png"
   };
 
   public static String[] newTextures;
