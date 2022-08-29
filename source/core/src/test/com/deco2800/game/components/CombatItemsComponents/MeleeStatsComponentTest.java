@@ -1,30 +1,13 @@
 
-package com.deco2800.game.components.tasks.CombatItemsComponents;
+package com.deco2800.game.components.CombatItemsComponents;
 
-import static com.deco2800.game.entities.factories.AuraFactory.createBaseAura;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.crafting.Materials;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
-import com.deco2800.game.entities.factories.AuraFactory;
-import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.rendering.TextureRenderComponent;
-import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
