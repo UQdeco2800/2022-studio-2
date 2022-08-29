@@ -10,14 +10,14 @@
     "damage": 9,
     "coolDown": 10,
     "weight": 1,
-    "materials": {"steel": 2, "wood": 2}
+    "materials": {"wood": 2, "steel": 2}
   },
 
   "SwordLvl2": {
     "damage": 26,
     "coolDown": 15,
     "weight": 2,
-    "materials": {"steel": 3, "wood;": 3}
+    "materials": {"wood": 3, "steel": 3}
   },
 
   "dumbbell": {
@@ -25,7 +25,16 @@
     "coolDown": 10,
     "weight": 10,
     "materials": {"steel": 2}
+  },
+
+  "tridentLvl2": {
+    "damage": 25,
+    "coolDown": 1.5,
+    "weight": 10,
+    "materials": {"wood": 3,"steel": 1}
   }
 
 }
+
+
 

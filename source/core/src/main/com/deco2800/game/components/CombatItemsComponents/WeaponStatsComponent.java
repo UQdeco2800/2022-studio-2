@@ -1,4 +1,4 @@
-package com.deco2800.game.components.tasks.CombatItemsComponents;
+package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
@@ -70,6 +70,14 @@ public abstract class WeaponStatsComponent extends Component {
    */
   public void setMaterials(HashMap<Materials, Integer> materials) {
     this.materials = materials;
+  }
+
+  /**
+   * Returns the materials required to craft the weapon
+   * @return materials needed to craft the weapon
+   */
+  public HashMap<Materials, Integer> getMaterials() {
+    return materials;
   }
 
 

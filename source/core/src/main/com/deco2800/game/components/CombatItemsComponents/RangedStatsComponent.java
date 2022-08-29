@@ -1,4 +1,4 @@
-package com.deco2800.game.components.tasks.CombatItemsComponents;
+package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
@@ -15,7 +15,6 @@ public class RangedStatsComponent extends WeaponStatsComponent {
 
     protected double weight;
     protected boolean arrowState;
-    protected Entity auraToApply;
 
     /**
      *
@@ -47,12 +46,10 @@ public class RangedStatsComponent extends WeaponStatsComponent {
 
     @Override
     public void auraEffect(Entity auraToApply) {
-        this.auraToApply = auraToApply;
         setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
         setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
         setWeight(this.getWeight() * auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
 
-        if (auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration() != -1) {
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                                @Override
@@ -65,5 +62,4 @@ public class RangedStatsComponent extends WeaponStatsComponent {
                            }
                     , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
         }
-    }
 }

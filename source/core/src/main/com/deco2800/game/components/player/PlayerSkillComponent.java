@@ -15,11 +15,16 @@ public class PlayerSkillComponent extends Component {
 
     private Entity playerEntity;
 
+    private boolean isInvulnerable;
+    private long invulnerableEnd;
+
+    // Teleport variables
     private static final int TELEPORT_LENGTH = 4;
-    private long teleportEnd;
+    private long teleportEnd; // Teleport charge end system time
     private boolean teleporting;
     private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millsec = 1sec)
-    private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f;
+    private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
+    private boolean teleportEndEvent = false;
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
@@ -27,9 +32,9 @@ public class PlayerSkillComponent extends Component {
     private static final float DASH_MOVEMENT_RESTRICTION = 0.8f; // As a proportion of regular move (0.8 = 80%)
     private Vector2 dashDirection = Vector2.Zero.cpy();
     private boolean dashing = false;
-    private long dashEnd;
+    private long dashEnd; // Dash end system time
     private boolean dashEndEvent = false;
-    private boolean teleportEndEvent = false;
+
 
 
     public PlayerSkillComponent(Entity entity) {
@@ -40,6 +45,11 @@ public class PlayerSkillComponent extends Component {
      */
     @Override
     public void update() {
+
+        // Check if player should still be invulnerable
+        if (this.isInvulnerable && System.currentTimeMillis() > this.invulnerableEnd) {
+            this.isInvulnerable = false;
+        }
 
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
@@ -111,6 +121,15 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Checks the skill state for invulnerability as a result of a player skill.
+     * @return true if the player should be invulnerable
+     *         false if the player should be able to take damage
+     */
+    public boolean isInvulnerable() {
+        return this.isInvulnerable;
+    }
+
+    /**
      * Checks for the end of a skill, should be polled continuously in update.
      * Note: if not polled continuously cannot guarantee correct behaviour.
      * @param skillName - the name of the skill to check end condition
@@ -164,6 +183,7 @@ public class PlayerSkillComponent extends Component {
         this.dashing = true;
         long dashStart = System.currentTimeMillis();
         this.dashEnd = dashStart + DASH_LENGTH;
+        setInvulnerable(DASH_LENGTH);
     }
 
     /**
@@ -176,6 +196,10 @@ public class PlayerSkillComponent extends Component {
         this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
     }
 
+    /**
+     * Teleports the player a set distance from their current position in
+     * the walk direction.
+     */
     public void teleportPlayer() {
         PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
         float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
@@ -203,5 +227,15 @@ public class PlayerSkillComponent extends Component {
      */
     private Vector2 addVectors(Vector2 firstVector, Vector2 secondVector) {
         return new Vector2(firstVector.x + secondVector.x, firstVector.y + secondVector.y);
+    }
+
+    /**
+     * Sets player invulnerability as a result of a player skill.
+     * @param invulnerableLength length of time in ms for a skill to render player
+     *                           invulnerable
+     */
+    private void setInvulnerable(long invulnerableLength) {
+        this.isInvulnerable = true;
+        this.invulnerableEnd = System.currentTimeMillis() + invulnerableLength;
     }
 }

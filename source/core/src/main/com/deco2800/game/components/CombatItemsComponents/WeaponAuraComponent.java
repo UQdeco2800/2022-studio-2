@@ -1,4 +1,4 @@
-package com.deco2800.game.components.tasks.CombatItemsComponents;
+package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
@@ -38,7 +38,7 @@ public class WeaponAuraComponent extends Component {
      * @param durationMultiplier multiplier on the duration before the next attack instance can be called
      * @param cdMultiplier cooldown multiplier effect on the weapon
      */
-    //for aoe weapons
+    //for aoe weapons - not in use yet
     public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double areaMultiplier,
                 double durationMultiplier, double cdMultiplier) {
         setAuraDuration(auraDuration);
