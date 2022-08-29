@@ -9,6 +9,7 @@ import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -36,7 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String[] mainGameTextures = {"images/heart.png","images/Inventory/quickbar.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private final Entity player;
 
@@ -44,7 +45,10 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
 
+  private static ForestGameArea map;
+
   public MainGameScreen(GdxGame game) {
+
     this.game = game;
 
     logger.debug("Initialising main game screen services");
@@ -69,8 +73,15 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     ForestGameArea map = loadLevelOneMap();
+    this.map = map;
     player = map.getPlayer();
 
+
+
+  }
+
+  public ForestGameArea getMap(){
+    return map;
   }
 
   @Override
@@ -150,6 +161,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
+        .addComponent(new QuickBarDisplay())
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
         .addComponent(new MainGameExitDisplay())
@@ -163,7 +175,7 @@ public class MainGameScreen extends ScreenAdapter {
 
 
   /**
-   * The function that make the camera moves along with the player. - Team 5 1map4all @LYB
+   * The function that make the camera moves along with the player.
    */
   private void cameraTracePlayer() {
     renderer.getCamera().getEntity().setPosition(player.getPosition());

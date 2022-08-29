@@ -10,7 +10,8 @@
   },
   "atlantisCitizen": {
     "health": 70,
-    "baseAttack": 20
+    "baseAttack": 20,
+    "speed": 130.2
   },
   "oneLegGirl": {
     "health": 1,

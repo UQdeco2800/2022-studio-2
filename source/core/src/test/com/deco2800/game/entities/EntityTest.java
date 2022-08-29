@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -173,6 +174,43 @@ class EntityTest {
     verify(component, times(0)).earlyUpdate();
     verify(component, times(0)).update();
   }
+  @Test
+  void havePotions() {
+
+    Entity entity = new Entity();
+    Vector2 scale = new Vector2(2f, 3f);
+    entity.setScale(scale);
+    assertEquals(scale, entity.getScale());
+
+    entity.setScale(0.1f, 0.2f);
+    assertEquals(new Vector2(0.1f, 0.2f), entity.getScale());
+
+
+    if (entity.getScale() != null) {
+      System.out.println("pass");
+//      PhysicsUtils.setScaledCollider(entity, 0.5f, 0.2f);
+
+    } else {
+      System.out.println("fail");
+    }
+  }
+
+  @Test
+  void potionsHeights() {
+
+    Entity entity = new Entity();
+    Vector2 scale = new Vector2(2f, 3f);
+    entity.setScale(scale);
+    assertEquals(scale, entity.getScale());
+
+    entity.setScale(0.5f, 0.2f);
+    assertEquals(new Vector2(0.5f, 0.2f), entity.getScale());
+
+    System.out.println(entity.getScale().x);
+    System.out.println(entity.getScale().y);
+  }
+
+
 
   static class TestComponent1 extends Component {}
 

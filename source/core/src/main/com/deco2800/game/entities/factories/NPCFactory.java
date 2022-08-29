@@ -57,7 +57,7 @@ public class NPCFactory {
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
 
     ghost
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -88,7 +88,7 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     ghostKing
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -110,6 +110,9 @@ public class NPCFactory {
     oneLegGirl
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
             .addComponent(new TextureRenderComponent("images/NPC/female npc/npcfemale_1.png"));
+
+
+
 
     oneLegGirl.getComponent(AITaskComponent.class);
     oneLegGirl.setScale(1, 1);
@@ -188,14 +191,15 @@ public class NPCFactory {
 
     atlantisCitizen.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, 120f));
+            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
 
     //Once we have animation, can change from using Texture Component to Animation Component
     atlantisCitizen
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
-    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     atlantisCitizen.setScale(2f, 2f);
+    atlantisCitizen.setEntityType(EntityTypes.ENEMY);
+    atlantisCitizen.setEntityType(EntityTypes.MELEE);
     return atlantisCitizen;
 
   }
