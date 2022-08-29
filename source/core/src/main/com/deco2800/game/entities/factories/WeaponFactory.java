@@ -102,7 +102,7 @@ public class WeaponFactory {
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"));
         dumbbell.getComponent(TextureRenderComponent.class).scaleEntity();
-        dumbbell.scaleHeight(5f);
+        dumbbell.scaleHeight(1f);
         return dumbbell;
     }
 
@@ -115,7 +115,7 @@ public class WeaponFactory {
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png"));
         SwordLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
-        SwordLvl2.scaleHeight(3f);
+        SwordLvl2.scaleHeight(2f);
         return SwordLvl2;
     }
 

@@ -244,7 +244,7 @@ public class ForestGameArea extends GameArea {
   private void spawnPoisonBuff() {
     Entity fireBuff = AuraFactory.createPoisonBuff();
     weaponOnMap.add(fireBuff);
-    spawnEntityAt(fireBuff, new GridPoint2(18,12), true, false);
+    spawnEntityAt(fireBuff, new GridPoint2(18,14), true, false);
   }
 
   /**
@@ -297,13 +297,13 @@ public class ForestGameArea extends GameArea {
   private void spawnDumbbell() {
     Entity dumbbell = WeaponFactory.createDumbbell();
     weaponOnMap.add(dumbbell);
-    spawnEntityAt(dumbbell, new GridPoint2(5,10), true, false);
+    spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
 
   private void spawnSwordLvl2() {
     Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
     weaponOnMap.add(SwordLvl2);
-    spawnEntityAt(SwordLvl2, new GridPoint2(20,20), true, false);
+    spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
   }
 
 
