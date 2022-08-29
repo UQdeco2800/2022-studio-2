@@ -5,9 +5,21 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
+import com.deco2800.game.entities.factories.AuraFactory;
 import com.deco2800.game.extensions.GameExtension;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
 
+import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -101,36 +113,46 @@ class MeleeStatsComponentTest {
         weapons1.setMaterials(materialsTest);
         assertTrue(materialsTest2.equals(weapons1.getMaterials()));
     }
-/*
+
     @Test
     public void testAuraInEffect() {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
-        ResourceService rs = new ResourceService();
-        String[] textureNames = {"source/core/assets/images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"};
-        rs.loadTextures(textureNames);
-        ServiceLocator.registerResourceService(rs);
 
-        Entity auraSpeedBuff = AuraFactory.createWeaponSpeedBuff();
+        BaseAuraConfig configs = FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
+        AuraConfig config = configs.speedBuff;
+
+        Entity auraSpeedBuff = AuraFactory.createBaseAura();
+        auraSpeedBuff.addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                config.coolDownMultiplier, config.weightMultiplier));
+
         weapons1.auraEffect(auraSpeedBuff);
         assertEquals(5.0, weapons1.getCoolDown(), "Incorrect value was returned.");
     }
 
     @Test
-    public void testAuraAfterEffect() {
-        Entity auraSpeedBuff = AuraFactory.createWeaponSpeedBuff();
-        weapons2.auraEffect(auraSpeedBuff);
+    public void testAuraAfterEffect() throws InterruptedException {
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
 
+        BaseAuraConfig configs = FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
+        AuraConfig config = configs.speedBuff;
+        Entity auraSpeedBuff = AuraFactory.createBaseAura();
+        auraSpeedBuff.addComponent(new WeaponAuraComponent(5000, config.damageMultiplier,
+                config.coolDownMultiplier, config.weightMultiplier));
+
+        weapons2.auraEffect(auraSpeedBuff);
+        final CountDownLatch latch = new CountDownLatch(1);
         Timer timer = new Timer();
+
         timer.schedule(new TimerTask() {
                            @Override
                            public void run() {
-                               assertEquals(20, weapons2.getCoolDown(), "Incorrect value was returned.");
+                               latch.countDown();
                            }
                        }
                 , auraSpeedBuff.getComponent(WeaponAuraComponent.class).getAuraDuration());
+        latch.await();
+        assertEquals(20, weapons2.getCoolDown(), "Incorrect value was returned.");
     }
-
- */
-
 }
