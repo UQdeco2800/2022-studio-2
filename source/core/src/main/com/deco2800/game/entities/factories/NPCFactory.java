@@ -97,7 +97,7 @@ public class NPCFactory {
   }
 
   /**
-   * Creates an atlantis male NPC entity.
+   * Creates an atlantis female NPC entity.
    *
    * @param target entity to stand
    * @return entity
