@@ -1,5 +1,6 @@
 package com.deco2800.game.components.tasks.CombatItemsComponents;
 
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
@@ -70,6 +71,14 @@ public abstract class WeaponStatsComponent extends Component {
    */
   public void setMaterials(HashMap<Materials, Integer> materials) {
     this.materials = materials;
+  }
+
+  /**
+   * Returns the materials required to craft the weapon
+   * @return materials needed to craft the weapon
+   */
+  public HashMap<Materials, Integer> getMaterials() {
+    return materials;
   }
 
 

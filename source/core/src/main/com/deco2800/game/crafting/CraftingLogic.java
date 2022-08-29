@@ -24,7 +24,7 @@ public  class CraftingLogic {
      * @return list
      */
     public static List<Object> getPossibleBuilds(){
-            return new ArrayList<Object>(getPossibleBuilds());
+            return new ArrayList<Object>(possibleBuilds);
         }
 
     /**
@@ -55,6 +55,7 @@ public  class CraftingLogic {
      * Method that determines what items can be built based on items present in users' inventory. Checks if
      * object first implements buildable interface and then checks if user has required materials to build it.
      * For first sprint user will always have enough materials in their inventory.
+     *
      * @param inventoryContents, the contents of the users' inventory
      * @return List of the buildable items
      */

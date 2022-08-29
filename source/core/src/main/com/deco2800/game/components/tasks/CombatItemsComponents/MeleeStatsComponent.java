@@ -39,7 +39,7 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
     }
 
     /**
-     * Sets the weight of the weapon
+     * Sets the weight of the weaponS
      * @param weight set the weight of the weapon
      */
     public void setWeight(double weight) {
@@ -47,7 +47,7 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
     }
 
     @Override
-    public void auraEffect(Entity auraToApply) { //auraToApply would be smtg like AuraFactory.getAura(1)
+    public void auraEffect(Entity auraToApply) {
         this.auraToApply = auraToApply;
         setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
         setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());

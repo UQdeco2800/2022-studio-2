@@ -14,8 +14,11 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+import org.junit.Test;
+
 
 public class PotionFactory {
+
 
     public static Entity createPotion() {
         Entity potion = new Entity()
@@ -34,6 +37,8 @@ public class PotionFactory {
         //ServiceLocator.getResourceService().loadTextures(potionPictures);
 
     }
+
+
     private static final String[] potionPictures = {
             "images/Potions/defence_potion.png"
     };
