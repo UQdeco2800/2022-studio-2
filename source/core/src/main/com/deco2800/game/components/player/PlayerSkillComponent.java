@@ -1,8 +1,11 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Skill component for managing player skills and the player state as a result of those skills.
@@ -206,6 +209,7 @@ public class PlayerSkillComponent extends Component {
         float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
         float teleportPositionY = playerEntity.getPosition().y + actions.getWalkDirection().y * TELEPORT_LENGTH;
 
+        GridPoint2 mapDimensions = TerrainFactory.getMapSize();
         // Check if teleport is out of map bounds
         if (teleportPositionX < -0.08)
             teleportPositionX = -0.08f;
