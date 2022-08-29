@@ -269,6 +269,7 @@ public class PlayerActions extends Component {
   void teleport() {
     if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
+      entity.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
     }
   }

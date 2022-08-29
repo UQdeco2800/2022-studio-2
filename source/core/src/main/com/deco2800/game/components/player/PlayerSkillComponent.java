@@ -63,6 +63,7 @@ public class PlayerSkillComponent extends Component {
             this.teleporting = false;
             this.teleportEndEvent = true;
             teleportPlayer();
+            playerEntity.getEvents().trigger("regularAnimation");
         }
     }
 
