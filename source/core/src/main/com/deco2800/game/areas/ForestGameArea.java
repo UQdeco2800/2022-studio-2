@@ -80,11 +80,10 @@ public class ForestGameArea extends GameArea {
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
     "images/NPC/guard npc/atlantisguardnpc_1.png",
-    "images/NPC/male npc/male_citizen_1.png",
-    "images/NPC/Dialogue/dialogues2.png"
+    "images/NPC/Male_citizen/male_citizen.png",
+    "images/NPC/Dialogue/dialogues2.png",
     "images/Potions/defence_potion.png",
     "images/level_1_tiledmap/32x32/column.png",
-    "images/NPC/male_citizen/male_citizen.png",
     "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
     "images/CombatWeapons-assets-sprint1/Damage Increase Buff.png",
     "images/CombatWeapons-assets-sprint1/Sword_Lvl2.png",

@@ -108,7 +108,7 @@ public class NPCFactory {
 
 
     oneLegGirl
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/NPC/female npc/npcfemale_1.png"));
 
 
@@ -131,7 +131,7 @@ public class NPCFactory {
 
 
     child
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
 
     child.getComponent(AITaskComponent.class);
@@ -151,7 +151,7 @@ public class NPCFactory {
 
 
     guard
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/NPC/guard npc/atlantisguardnpc_1.png"));
 
     guard.getComponent(AITaskComponent.class);
@@ -171,8 +171,8 @@ public class NPCFactory {
 
 
     male_citizen
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
-            .addComponent(new TextureRenderComponent("images/NPC/male npc/male_citizen_1.png"));
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/NPC/Male_citizen/male_citizen.png"));
 
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.setScale(1, 1);
