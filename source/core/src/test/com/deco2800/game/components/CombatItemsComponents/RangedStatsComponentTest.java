@@ -114,31 +114,6 @@ class RangedStatsComponentTest {
         assertEquals(5.0, rangedweapon1.getCoolDown(), "Incorrect value was returned.");
     }
 
- /*   @Test
-    public void testAuraAfterEffect() throws InterruptedException {
-        ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
-
-        BaseAuraConfig configs = FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
-        AuraConfig config = configs.speedBuff;
-        Entity auraSpeedBuff = AuraFactory.createBaseAura();
-        auraSpeedBuff.addComponent(new WeaponAuraComponent(5000, config.damageMultiplier,
-                config.coolDownMultiplier, config.weightMultiplier));
-
-        rangedweapon2.auraEffect(auraSpeedBuff);
-        final CountDownLatch latch = new CountDownLatch(1);
-        Timer timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-                           @Override
-                           public void run() {
-                               latch.countDown();
-                           }
-                       }
-                , auraSpeedBuff.getComponent(WeaponAuraComponent.class).getAuraDuration());
-        latch.await();
-        assertEquals(20, rangedweapon2.getCoolDown(), "Incorrect value was returned.");
-    }*/
 }
 
 

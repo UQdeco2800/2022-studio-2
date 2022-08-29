@@ -119,30 +119,4 @@ class AreaOfEffectStatsComponentTest {
         assertEquals(5.0, areaEffectOne.getCoolDown(), "Incorrect value was returned.");
     }
 
- /*   @Test
-    public void testAuraAfterEffect() throws InterruptedException {
-        ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
-
-        BaseAuraConfig configs = FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
-        AuraConfig config = configs.speedBuff;
-        Entity auraSpeedBuff = AuraFactory.createBaseAura();
-        auraSpeedBuff.addComponent(new WeaponAuraComponent(5000, config.damageMultiplier,
-                config.coolDownMultiplier, config.weightMultiplier));
-
-        areaEffectTwo.auraEffect(auraSpeedBuff);
-        final CountDownLatch latch = new CountDownLatch(1);
-        Timer timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-                           @Override
-                           public void run() {
-                               latch.countDown();
-                           }
-                       }
-                , auraSpeedBuff.getComponent(WeaponAuraComponent.class).getAuraDuration());
-        latch.await();
-        assertEquals(7.0, areaEffectTwo.getCoolDown(), "Incorrect value was returned.");
-    }*/
-
 }
