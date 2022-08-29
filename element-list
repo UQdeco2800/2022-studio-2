@@ -18,7 +18,6 @@ com.deco2800.game.crafting.craftingDisplay
 com.deco2800.game.entities
 com.deco2800.game.entities.configs
 com.deco2800.game.entities.configs.CombatItemsConfig
-com.deco2800.game.entities.consumable_buffs
 com.deco2800.game.entities.factories
 com.deco2800.game.events
 com.deco2800.game.events.listeners

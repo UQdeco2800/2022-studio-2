@@ -352,8 +352,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/CombatItemsConfig/package-summary.html">com.deco2800.game.entities.configs.CombatItemsConfig</a> - package com.deco2800.game.entities.configs.CombatItemsConfig</dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/entities/consumable_buffs/package-summary.html">com.deco2800.game.entities.consumable_buffs</a> - package com.deco2800.game.entities.consumable_buffs</dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/package-summary.html">com.deco2800.game.entities.factories</a> - package com.deco2800.game.entities.factories</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/events/package-summary.html">com.deco2800.game.events</a> - package com.deco2800.game.events</dt>
@@ -494,6 +492,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>
 <div class="block">Creates reusable ui styles and adds actors to the stage.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PotionEffectComponent.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PotionEffectComponent.html" title="class in com.deco2800.game.components.player">PotionEffectComponent</a></dt>
+<dd>
+<div class="block">Creates component attached to potion entity</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/QuickBarDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/QuickBarDisplay.html" title="class in com.deco2800.game.components.player">QuickBarDisplay</a></dt>
 <dd>
@@ -644,6 +646,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createSmallTree()" class="member-name-link">createSmallTree()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>
 <div class="block">Creates a small tree entity.</div>
+</dd>
+<dt><a href="com/deco2800/game/entities/factories/PotionFactory.html#createSpeedPotion()" class="member-name-link">createSpeedPotion()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PotionFactory.html" title="class in com.deco2800.game.entities.factories">PotionFactory</a></dt>
+<dd>
+<div class="block">Creates speed potion</div>
 </dd>
 <dt><a href="com/deco2800/game/entities/factories/WeaponFactory.html#createSwordLvl2()" class="member-name-link">createSwordLvl2()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/WeaponFactory.html" title="class in com.deco2800.game.entities.factories">WeaponFactory</a></dt>
 <dd>&nbsp;</dd>
@@ -1993,12 +1999,16 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/PhysicsContactListener.html#postSolve(com.badlogic.gdx.physics.box2d.Contact,com.badlogic.gdx.physics.box2d.ContactImpulse)" class="member-name-link">postSolve(Contact, ContactImpulse)</a> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/entities/consumable_buffs/Potion.html" class="type-name-link" title="class in com.deco2800.game.entities.consumable_buffs">Potion</a> - Class in <a href="com/deco2800/game/entities/consumable_buffs/package-summary.html">com.deco2800.game.entities.consumable_buffs</a></dt>
+<dt><a href="com/deco2800/game/components/player/PotionEffectComponent.html" class="type-name-link" title="class in com.deco2800.game.components.player">PotionEffectComponent</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/entities/consumable_buffs/Potion.html#%3Cinit%3E()" class="member-name-link">Potion()</a> - Constructor for class com.deco2800.game.entities.consumable_buffs.<a href="com/deco2800/game/entities/consumable_buffs/Potion.html" title="class in com.deco2800.game.entities.consumable_buffs">Potion</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PotionEffectComponent.html#%3Cinit%3E(short,java.lang.String)" class="member-name-link">PotionEffectComponent(short, String)</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PotionEffectComponent.html" title="class in com.deco2800.game.components.player">PotionEffectComponent</a></dt>
+<dd>
+<div class="block">Component that affects entities on collision.</div>
+</dd>
 <dt><a href="com/deco2800/game/entities/factories/PotionFactory.html" class="type-name-link" title="class in com.deco2800.game.entities.factories">PotionFactory</a> - Class in <a href="com/deco2800/game/entities/factories/package-summary.html">com.deco2800.game.entities.factories</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Factory to create a potion entity.</div>
+</dd>
 <dt><a href="com/deco2800/game/entities/factories/PotionFactory.html#%3Cinit%3E()" class="member-name-link">PotionFactory()</a> - Constructor for class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PotionFactory.html" title="class in com.deco2800.game.entities.factories">PotionFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/PhysicsContactListener.html#preSolve(com.badlogic.gdx.physics.box2d.Contact,com.badlogic.gdx.physics.box2d.Manifold)" class="member-name-link">preSolve(Contact, Manifold)</a> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
