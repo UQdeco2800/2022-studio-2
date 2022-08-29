@@ -9,6 +9,9 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -33,6 +36,7 @@ public class PlayerActions extends Component {
   private long restStart=0;
   private long restEnd;
 
+  Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
   @Override
   public void create() {
@@ -55,6 +59,8 @@ public class PlayerActions extends Component {
     skillManager = new PlayerSkillComponent(entity);
     skillManager.setSkill("teleport", entity, this);
     entity.getEvents().addListener("dash", this::dash);
+
+    skillCooldowns.put("teleport", 0L);
   }
 
   @Override
@@ -203,7 +209,7 @@ public class PlayerActions extends Component {
    * Makes the player teleport. Registers call of the teleport function to the skill manager component.
    */
   void teleport() {
-    if (mana>=40) {
+    if (mana>=40 && cooldownFinished("teleport", 3000)) {
       entity.getEvents().trigger("decreaseMana", -40);
       skillManager.startTeleport();
     }
@@ -211,6 +217,22 @@ public class PlayerActions extends Component {
 
   Vector2 getWalkDirection() {
     return this.walkDirection;
+  }
+
+  /**
+   * Checks if the cooldown period is over for the given skill and updates cooldown map.
+   * @param skill the skill to check
+   * @param cooldown the cooldown period (in milliseconds)
+   *
+   * @return true if cooldown period is over, false otherwise
+   */
+  boolean cooldownFinished(String skill, long cooldown) {
+    if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
+      skillCooldowns.replace(skill, System.currentTimeMillis());
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
