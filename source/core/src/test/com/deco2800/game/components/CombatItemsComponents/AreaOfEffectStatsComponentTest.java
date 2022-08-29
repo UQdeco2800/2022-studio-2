@@ -142,7 +142,7 @@ class AreaOfEffectStatsComponentTest {
                        }
                 , auraSpeedBuff.getComponent(WeaponAuraComponent.class).getAuraDuration());
         latch.await();
-        assertEquals(7, areaEffectTwo.getCoolDown(), "Incorrect value was returned.");
+        assertEquals(7.0, areaEffectTwo.getCoolDown(), "Incorrect value was returned.");
     }
 
 }
