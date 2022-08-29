@@ -9,7 +9,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
-public class KeyboardPlayerInputComponent extends InputComponent {
+public class    KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
 
   public KeyboardPlayerInputComponent() {
@@ -43,6 +43,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
+        return true;
+      case Keys.Q:
+        entity.getEvents().trigger("can_open");
+        return true;
+      case Keys.L:
+        System.out.println("9");
+        entity.getEvents().trigger("can_close");
         return true;
       case Keys.E:
         entity.getEvents().trigger("skill");

@@ -1,0 +1,9 @@
+{
+  "speedBuff": {
+    "auraDuration": 10000,
+    "damageMultiplier": 2,
+    "coolDownMultiplier": 1,
+    "weightMultiplier" : 1
+  }
+}
+
