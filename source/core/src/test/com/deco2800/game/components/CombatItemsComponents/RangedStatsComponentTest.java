@@ -1,7 +1,19 @@
 package com.deco2800.game.components.CombatItemsComponents;
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
+import com.deco2800.game.entities.factories.AuraFactory;
 import com.deco2800.game.extensions.GameExtension;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
+
+import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -86,7 +98,47 @@ class RangedStatsComponentTest {
         rangedweapon1.setMaterials(materialsTest);
         assertTrue(materialsTest2.equals(rangedweapon1.getMaterials()));
     }
+    @Test
+    public void testAuraInEffect() {
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
 
+        BaseAuraConfig configs = FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
+        AuraConfig config = configs.speedBuff;
+
+        Entity auraSpeedBuff = AuraFactory.createBaseAura();
+        auraSpeedBuff.addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                config.coolDownMultiplier, config.weightMultiplier));
+
+        rangedweapon1.auraEffect(auraSpeedBuff);
+        assertEquals(5.0, rangedweapon1.getCoolDown(), "Incorrect value was returned.");
+    }
+
+    @Test
+    public void testAuraAfterEffect() throws InterruptedException {
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+
+        BaseAuraConfig configs = FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
+        AuraConfig config = configs.speedBuff;
+        Entity auraSpeedBuff = AuraFactory.createBaseAura();
+        auraSpeedBuff.addComponent(new WeaponAuraComponent(5000, config.damageMultiplier,
+                config.coolDownMultiplier, config.weightMultiplier));
+
+        rangedweapon2.auraEffect(auraSpeedBuff);
+        final CountDownLatch latch = new CountDownLatch(1);
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+                           @Override
+                           public void run() {
+                               latch.countDown();
+                           }
+                       }
+                , auraSpeedBuff.getComponent(WeaponAuraComponent.class).getAuraDuration());
+        latch.await();
+        assertEquals(20, rangedweapon2.getCoolDown(), "Incorrect value was returned.");
+    }
 }
 
 
