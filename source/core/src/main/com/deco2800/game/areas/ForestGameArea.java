@@ -77,6 +77,8 @@ public class ForestGameArea extends GameArea {
     "images/Potions/defence_potion.png",
     "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png",
+    "images/Potions/defence_potion.png",
+    "images/playerTeleport.png",
     "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
     "images/CombatWeapons-assets-sprint1/Damage Increase Buff.png",
     "images/CombatWeapons-assets-sprint1/Sword_Lvl2.png",
@@ -84,6 +86,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
     "images/CombatWeapons-assets-sprint1/poisonBuff.png",
     "images/playerTeleport.png"
+
   };
 
   public static String[] newTextures;
