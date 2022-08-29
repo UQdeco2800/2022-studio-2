@@ -199,6 +199,9 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(tree, new GridPoint2(x, y), true, false);
   }
 
+  /**
+   * Spawns attack speed buff for the first 5 seconds and removes these buffs after the given time
+   */
   private void spawnEffectBlobs() {
 
     GridPoint2 minPos = new GridPoint2(2, 2);
@@ -225,26 +228,51 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawns speed debuff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
   private void spawnSpeedDebuff() {
     Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
     weaponOnMap.add(speedDebuff);
     spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
   }
+  /**
+   * Spawns damage buff entity into the game
+   * Spawns x-pos 15
+   * Spawns y-pos 15
+   */
   private void spawnDmgBuff() {
     Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
     weaponOnMap.add(dmgBuff);
     spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
   }
+  /**
+   * Spawns damage debuff entity into the game
+   * Spawns x-pos 11
+   * Spawns y-pos 15
+   */
   private void spawnDmgDebuff() {
     Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
     weaponOnMap.add(dmgDebuff);
     spawnEntityAt(dmgDebuff, new GridPoint2(11,15), true, false);
   }
+  /**
+   * Spawns fire buff entity into the game
+   * Spawns x-pos 20
+   * Spawns y-pos 10
+   */
   private void spawnFireBuff() {
     Entity fireBuff = AuraFactory.createFireBuff();
     weaponOnMap.add(fireBuff);
     spawnEntityAt(fireBuff, new GridPoint2(20,10), true, false);
   }
+  /**
+   * Spawns poison buff entity into the game
+   * Spawns x-pos 18
+   * Spawns y-pos 12
+   */
   private void spawnPoisonBuff() {
     Entity fireBuff = AuraFactory.createPoisonBuff();
     weaponOnMap.add(fireBuff);
@@ -296,30 +324,46 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(craftingTable, randomPos, true, false);
   }
 
+  /**
+   * Spawns Level 2 dagger entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
   private void spawnDagger() {
     Entity dagger = WeaponFactory.createDagger();
     weaponOnMap.add(dagger);
     spawnEntityAt(dagger, new GridPoint2(10, 10), true, false);
   }
-
+  /**
+   * Spawns second Level 2 dagger entity into the game
+   * Spawns x-pos 18
+   * Spawns y-pos 10
+   */
   private void spawnDaggerTwo() {
     Entity daggerTwo = WeaponFactory.createDaggerTwo();
     weaponOnMap.add(daggerTwo);
     spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
   }
-
+  /**
+   * Spawns dumbbell entity into the game
+   * Spawns x-pos 5
+   * Spawns y-pos 10
+   */
   private void spawnDumbbell() {
     Entity dumbbell = WeaponFactory.createDumbbell();
     weaponOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(5,10), true, false);
   }
-
+  /**
+   * Spawns Level 2 Sword entity into the game
+   * Spawns x-pos 20
+   * Spawns y-pos 20
+   */
   private void spawnSwordLvl2() {
     Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
     weaponOnMap.add(SwordLvl2);
     spawnEntityAt(SwordLvl2, new GridPoint2(20,20), true, false);
   }
-
 
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
