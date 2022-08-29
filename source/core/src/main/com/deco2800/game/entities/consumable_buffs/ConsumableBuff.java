@@ -1,5 +1,7 @@
-package com.deco2800.game.entities.consumable_buffs;public class ConsumableBuff {
-}
+package com.deco2800.game.entities.consumable_buffs;
+import com.deco2800.game.entities.Entity;
 
-
-playerModifier.createModifier ("moveSpeed", 0.25, true, 60000);
+/**
+ * Parent class for all consumable buffs
+ */
+public abstract class ConsumableBuff extends Entity { }gi
