@@ -104,7 +104,7 @@ public class NPCFactory {
    */
   public static Entity createOneLegGirl (Entity target) {
     Entity oneLegGirl = createBaseNPC(target);
-    OneLegGirlConfig config = configs.oneLegGirl;
+    FemaleCitizenConfig config = configs.oneLegGirl;
 
 
     oneLegGirl
