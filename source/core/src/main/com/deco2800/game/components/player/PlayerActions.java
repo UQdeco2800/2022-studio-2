@@ -7,6 +7,8 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.badlogic.gdx.utils.Timer;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -38,6 +40,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("dash", this::dash);
     entity.getEvents().addListener("teleport", this::teleport);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+    entity.getEvents().addListener("kill switch", this::killEnemy);
   }
 
   @Override
@@ -56,6 +59,15 @@ public class PlayerActions extends Component {
       // Close code
     }
   }
+
+  public void killEnemy(){
+    for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
+      if (enemy.checkEntityType(EntityTypes.ENEMY)) {
+        enemy.flagDead();
+      }
+    }
+  }
+
 
   private void updateSpeed() {
     Body body = physicsComponent.getBody();

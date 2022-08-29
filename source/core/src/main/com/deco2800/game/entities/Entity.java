@@ -5,10 +5,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.ComponentType;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.events.EventHandler;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.*;
 
 /**
  * Core entity class. Entities exist in the game and are updated each frame. All entities have a
@@ -37,11 +39,12 @@ public class Entity {
   private Vector2 position = Vector2.Zero.cpy();
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
-
+  private boolean isDead = false;
+  public List<EntityTypes> entityType;
   public Entity() {
     id = nextId;
     nextId++;
-
+    entityType = new ArrayList<EntityTypes>();
     components = new IntMap<>(4);
     eventHandler = new EventHandler();
   }
@@ -199,6 +202,19 @@ public class Entity {
     return this;
   }
 
+  /**
+   * Set the entity to the specific type defined in EntityTypes class
+   * @param type
+   */
+  public void setEntityType(EntityTypes type) {
+    this.entityType.add(type);
+  }
+
+  public boolean checkEntityType(EntityTypes type) {
+    return entityType.contains(type);
+  }
+
+
   /** Dispose of the entity. This will dispose of all components on this entity. */
   public void dispose() {
     for (Component component : createdComponents) {
@@ -246,6 +262,11 @@ public class Entity {
     if (!enabled) {
       return;
     }
+
+    if (isDead) {
+      dispose();
+    }
+
     for (Component component : createdComponents) {
       component.triggerUpdate();
     }
@@ -266,6 +287,12 @@ public class Entity {
    *
    * @return entity's event handler
    */
+
+  public void flagDead(){
+    isDead = true;
+  }
+
+
   public EventHandler getEvents() {
     return eventHandler;
   }

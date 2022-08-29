@@ -5,6 +5,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +57,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
+      case Keys.K:
+        entity.getEvents().trigger("kill switch");
       default:
         return false;
     }
