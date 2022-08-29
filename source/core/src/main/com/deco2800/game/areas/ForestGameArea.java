@@ -130,8 +130,6 @@ public class ForestGameArea extends GameArea {
     spawnGhostKing();
     spawnEffectBlobs();
     spawnAtlantisCitizen();
-    spawnColumn(20, 20);
-    spawnColumn(30, 20);
     spawnOneLegGirl();
     playMusic();
     spawnDumbbell();
@@ -279,7 +277,7 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     Entity column = ObstacleFactory.createColumn();
-    spawnEntityAt(column, new GridPoint2(x, y), true, false);
+    spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
 
   public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
