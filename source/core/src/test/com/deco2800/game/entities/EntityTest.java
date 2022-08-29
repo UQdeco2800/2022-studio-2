@@ -182,8 +182,8 @@ class EntityTest {
     entity.setScale(scale);
     assertEquals(scale, entity.getScale());
 
-    entity.setScale(0.5f, 0.2f);
-    assertEquals(new Vector2(0.5f, 0.2f), entity.getScale());
+    entity.setScale(0.1f, 0.2f);
+    assertEquals(new Vector2(0.1f, 0.2f), entity.getScale());
 
 
     if (entity.getScale() != null) {
