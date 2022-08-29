@@ -8,8 +8,8 @@
   "speedDebuff": {
     "auraDuration": 10000,
     "damageMultiplier": 1,
-    "coolDownMultiplier": 2,
-    "weightMultiplier": 2
+    "coolDownMultiplier": 1.5,
+    "weightMultiplier": 1
   },
   "dmgBuff": {
     "auraDuration": 10000,
@@ -17,26 +17,22 @@
     "coolDownMultiplier": 1,
     "weightMultiplier": 1
   },
-
   "dmgDebuff": {
     "auraDuration": 10000,
     "damageMultiplier": 0.5,
     "coolDownMultiplier": 1,
     "weightMultiplier": 1
   },
-
   "fireBuff": {
     "auraDuration": 10000,
-    "damageMultiplier": 3,
+    "damageMultiplier": 2,
     "coolDownMultiplier": 1,
     "weightMultiplier": 1
   },
-
   "poisonBuff": {
     "auraDuration": 10000,
-    "damageMultiplier": 2,
-    "coolDownMultiplier": 0.85,
+    "damageMultiplier": 1.25,
+    "coolDownMultiplier": 1,
     "weightMultiplier": 1
   }
-
 }

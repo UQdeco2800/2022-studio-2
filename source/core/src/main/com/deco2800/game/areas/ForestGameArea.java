@@ -198,7 +198,7 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawns attack speed buff for the first 5 seconds and removes these buffs after the given time
+   * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
    */
   private void spawnEffectBlobs() {
 

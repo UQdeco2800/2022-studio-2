@@ -1,39 +1,38 @@
 {
   "dagger": {
     "damage": 7.5,
-    "coolDown": 10,
+    "coolDown": 500,
     "weight": 1,
     "materials": {"wood": 2, "steel": 1}
   },
 
   "daggerTwo": {
     "damage": 9,
-    "coolDown": 10,
+    "coolDown": 700,
     "weight": 1,
     "materials": {"wood": 2, "steel": 2}
   },
 
   "SwordLvl2": {
     "damage": 26,
-    "coolDown": 15,
+    "coolDown": 1200,
     "weight": 2,
     "materials": {"wood": 3, "steel": 3}
   },
 
   "dumbbell": {
     "damage": 5,
-    "coolDown": 10,
+    "coolDown": 1000,
     "weight": 10,
     "materials": {"steel": 2}
   },
 
   "tridentLvl2": {
     "damage": 25,
-    "coolDown": 1.5,
+    "coolDown": 1500,
     "weight": 10,
     "materials": {"wood": 3,"steel": 1}
   }
-
 }
 
 
