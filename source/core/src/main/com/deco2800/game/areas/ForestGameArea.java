@@ -77,6 +77,7 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
+
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
     "images/NPC/guard npc/atlantisguardnpc_1.png",
@@ -90,8 +91,10 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/AttackDamageDebuff.png",
     "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
     "images/CombatWeapons-assets-sprint1/poisonBuff.png",
-    "images/Potions/defence_potion.png"
+    "images/Potions/defence_potion.png",
 
+    "images/NPC/male_citizen/male_citizen.png",
+    "images/Potions/agility_potion.png"
 
   };
 
@@ -352,12 +355,15 @@ public class ForestGameArea extends GameArea {
     return craftingTablePos;
   }
 
+  /**
+   * Spawn a potion in a random position.
+   */
   private void spawnPotion() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity potion = PotionFactory.createPotion();
+    Entity potion = PotionFactory.createSpeedPotion();
     this.spawnEntityAt(potion, randomPos, true, false);
   }
 

@@ -1,24 +1,43 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.player.InventoryComponent;
-import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.PlayerModifier;
+import com.deco2800.game.components.player.PotionEffectComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
-import com.deco2800.game.services.ServiceLocator;
-import org.junit.Test;
 
 
+/**
+ * Factory to create a potion entity.
+ *
+ * <p>Each Potion entity type has a creation method returning the corresponding potion.
+ */
 public class PotionFactory {
 
+    /**
+     * Creates speed potion
+     * @return speed potion
+     */
+    public static Entity createSpeedPotion() {
+        Entity speedPotion = new Entity()
+                .addComponent(new TextureRenderComponent("images/Potions/agility_potion.png"
+                ))
+                .addComponent(new PhysicsComponent())
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "speed"))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
+        speedPotion.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+        speedPotion.getComponent(TextureRenderComponent.class).scaleEntity();
+        speedPotion.scaleHeight(1.0f);
+        PhysicsUtils.setScaledCollider(speedPotion, 0.5f, 0.2f);
+        return speedPotion;
+    }
 
     public static Entity createPotion() {
         Entity potion = new Entity()
@@ -32,16 +51,12 @@ public class PotionFactory {
         PhysicsUtils.setScaledCollider(potion, 0.5f, 0.2f);
         return potion;
 
-        //potion.create();
-        //ServiceLocator.getEntityService().register(potion);
-        //ServiceLocator.getResourceService().loadTextures(potionPictures);
-
     }
 
 
     private static final String[] potionPictures = {
-            "images/Potions/defence_potion.png"
+            "images/Potions/defence_potion.png",
+            "images/Potions/agility_potion.png"
     };
 }
-
 
