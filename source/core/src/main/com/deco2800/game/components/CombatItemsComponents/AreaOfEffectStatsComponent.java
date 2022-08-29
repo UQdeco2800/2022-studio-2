@@ -1,9 +1,8 @@
-package com.deco2800.game.components.tasks.CombatItemsComponents;
+package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 
-import java.awt.geom.Area;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
