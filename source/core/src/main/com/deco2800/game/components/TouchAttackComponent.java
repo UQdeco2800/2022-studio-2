@@ -3,6 +3,7 @@ package com.deco2800.game.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -60,8 +61,8 @@ public class TouchAttackComponent extends Component {
       return;
     }
 
-    // Try to attack target.
     Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
+    applyDamage(target);
     Entity Me = ((BodyUserData) me.getBody().getUserData()).entity;
     CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
     if (targetStats != null) {
@@ -83,6 +84,25 @@ public class TouchAttackComponent extends Component {
       Vector2 direction = target.getCenterPosition().sub(entity.getCenterPosition());
       Vector2 impulse = direction.setLength(knockbackForce);
       targetBody.applyLinearImpulse(impulse, targetBody.getWorldCenter(), true);
+    }
+  }
+
+  /**
+   * Applies damage to a given target. Checks for skill state invulnerability in the case
+   * of a player target.
+   * @param target the target entity to do domage to
+   */
+  private void applyDamage(Entity target) {
+    // Try to attack target.
+
+    CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
+    PlayerActions playerActions = target.getComponent(PlayerActions.class);
+    if (targetStats != null) {
+      if (playerActions != null && playerActions.getSkillComponent().isInvulnerable()) {
+        // Player is invulnerable
+        return;
+      }
+      targetStats.hit(combatStats);
     }
   }
 

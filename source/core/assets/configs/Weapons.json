@@ -1,0 +1,33 @@
+{
+  "dagger": {
+    "damage": 8,
+    "coolDown": 10,
+    "weight": 1,
+    "materials": {"wood": 2, "steel": 1}
+  },
+
+  "daggerTwo": {
+    "damage": 30,
+    "coolDown": 10,
+    "weight": 1,
+    "materials": {"gold": 2, "iron": 2}
+  },
+
+  "SwordLvl2": {
+    "damage": 26,
+    "coolDown": 15,
+    "weight": 2,
+    "materials": {"gold": 3, "iron": 3}
+  },
+
+  "dumbbell": {
+    "damage": 20,
+    "coolDown": 10,
+    "weight": 10,
+    "materials": {"steel": 2}
+  }
+
+}
+
+
+

@@ -1,7 +1,12 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.deco2800.game.components.MenuComponent;
+import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -14,6 +19,7 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  * <p>Each obstacle entity type should have a creation method that returns a corresponding entity.
  */
 public class ObstacleFactory {
+
 
   /**
    * Creates a tree entity.
@@ -28,7 +34,7 @@ public class ObstacleFactory {
 
     tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     tree.getComponent(TextureRenderComponent.class).scaleEntity();
-    tree.scaleHeight(2.5f);
+    tree.scaleHeight(2.2f);
     PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
     return tree;
   }
@@ -40,18 +46,17 @@ public class ObstacleFactory {
   public static Entity createSmallTree() {
     Entity smallTree =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/tree-2_2" +
-                            ".png"))
+                    .addComponent(new TextureRenderComponent(("images/level_1_tiledmap/32x32/tree" +
+                            ".png")))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     smallTree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     smallTree.getComponent(TextureRenderComponent.class).scaleEntity();
-    smallTree.scaleHeight(2.5f);
+    smallTree.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(smallTree, 0.5f, 0.2f);
     return smallTree;
   }
-
 
   public static Entity createCraftingTable() {
     Entity craftingTable =
@@ -83,6 +88,21 @@ public class ObstacleFactory {
   }
 
   /**
+   * Creates a visible physics wall. Use for measure the entities' range on the map.(Like ruler)
+   * @param width Wall width in world units
+   * @param height Wall height in world units
+   * @return Wall entity of given width and height
+   */
+  public static Entity drawWall(float width, float height) {
+    Entity wall_tile = new Entity()
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/wall_tile.png"))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+    wall_tile.setScale(width, height);
+    return wall_tile;
+  }
+
+  /**
    * Creates a column entity on the map. - Team 5 1map4all @LYB
    * @return Column entity.
    */
@@ -95,7 +115,7 @@ public class ObstacleFactory {
 
     column.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     column.getComponent(TextureRenderComponent.class).scaleEntity();
-    column.scaleHeight(2.5f);
+    column.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(column, 0.9f, 0.9f);
     return column;
   }
