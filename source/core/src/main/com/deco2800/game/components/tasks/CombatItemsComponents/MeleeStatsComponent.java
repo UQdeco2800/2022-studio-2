@@ -16,7 +16,6 @@ import java.util.TimerTask;
 public class MeleeStatsComponent extends WeaponStatsComponent {
 
     private double weight;
-    private Entity auraToApply;
 
     /**
      *
@@ -48,7 +47,6 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
 
     @Override
     public void auraEffect(Entity auraToApply) {
-        this.auraToApply = auraToApply;
         setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
         setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
         setWeight(this.getWeight() * auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
