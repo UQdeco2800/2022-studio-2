@@ -58,6 +58,7 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+
     "images/gold_cobble.png",
     "images/gold_drain.png",
     "images/Map_assets/sprint_1/column.png",
@@ -72,6 +73,12 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/tile_wet.png",
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
+
+    "images/level_1_tiledmap/32x32/column.png",
+
+    "images/Potions/defence_potion.png",
+
+
     "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
@@ -81,6 +88,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
     "images/CombatWeapons-assets-sprint1/poisonBuff.png",
     "images/Potions/defence_potion.png"
+
   };
 
   public static String[] newTextures;
