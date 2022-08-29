@@ -46,6 +46,7 @@ public class TouchAttackComponent extends Component {
     entity.getEvents().addListener("collisionStart", this::onCollisionStart);
     combatStats = entity.getComponent(CombatStatsComponent.class);
     hitboxComponent = entity.getComponent(HitboxComponent.class);
+    entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
   }
 
   private void onCollisionStart(Fixture me, Fixture other) {
@@ -61,9 +62,18 @@ public class TouchAttackComponent extends Component {
 
     // Try to attack target.
     Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
+    Entity Me = ((BodyUserData) me.getBody().getUserData()).entity;
     CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
     if (targetStats != null) {
-      targetStats.hit(combatStats);
+      if (target.getCenterPosition().sub(entity.getCenterPosition()).x >= 0) {
+        // Player occurs at right
+        targetStats.hit(combatStats);
+        Me.getEvents().trigger("meleeAttack");
+      } else {
+        // Player occurs at left
+        targetStats.hit(combatStats);
+        Me.getEvents().trigger("chaseStart");
+      }
     }
 
     // Apply knockback
@@ -74,5 +84,10 @@ public class TouchAttackComponent extends Component {
       Vector2 impulse = direction.setLength(knockbackForce);
       targetBody.applyLinearImpulse(impulse, targetBody.getWorldCenter(), true);
     }
+  }
+
+  private void onCollisionEnd(Fixture me, Fixture other) {
+    Entity attacker = ((BodyUserData) me.getBody().getUserData()).entity;
+    attacker.getEvents().trigger("chaseStart");
   }
 }
