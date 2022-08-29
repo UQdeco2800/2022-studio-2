@@ -98,7 +98,7 @@ public class WeaponFactory {
 
     /**
      * Creates the level 2 trident for the player
-     * @returns level 2 trident for players
+     * @return level 2 trident for players
      */
     public static Entity createTridentLvl2() {
         Entity TridentLvl2 = createBaseWeapon();

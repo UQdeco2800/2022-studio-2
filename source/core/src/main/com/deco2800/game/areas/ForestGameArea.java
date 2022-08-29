@@ -276,6 +276,7 @@ public class ForestGameArea extends GameArea {
     weaponOnMap.add(dmgBuff);
     spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
   }
+
   /**
    * Spawns damage debuff entity into the game
    * Spawns x-pos 11
@@ -286,6 +287,7 @@ public class ForestGameArea extends GameArea {
     weaponOnMap.add(dmgDebuff);
     spawnEntityAt(dmgDebuff, new GridPoint2(11,15), true, false);
   }
+
   /**
    * Spawns fire buff entity into the game
    * Spawns x-pos 20
@@ -296,6 +298,7 @@ public class ForestGameArea extends GameArea {
     weaponOnMap.add(fireBuff);
     spawnEntityAt(fireBuff, new GridPoint2(20,10), true, false);
   }
+
   /**
    * Spawns poison buff entity into the game
    * Spawns x-pos 18
