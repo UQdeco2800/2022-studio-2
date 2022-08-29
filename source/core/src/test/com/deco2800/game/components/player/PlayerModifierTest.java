@@ -1,8 +1,6 @@
 package com.deco2800.game.components.player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -132,7 +130,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("moveSpeed", 2, true, 0));
         assertTrue(modifier.checkModifier("moveSpeed", 1, true, 20));
-        assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
+        assertEquals(6, modifier.getReference("moveSpeed")); //2 + (2*2ref) = 6
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -155,7 +153,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("moveSpeed", 2, false, 0));
         assertTrue(modifier.checkModifier("moveSpeed", 1, false, 20));
-        assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
+        assertEquals(4, modifier.getReference("moveSpeed")); //2 + 2ref = 4
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -178,7 +176,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("damageReduction", 2, true, 0));
         assertTrue(modifier.checkModifier("damageReduction", 1, true, 20));
-        assertEquals(combat.getDamageReduction(), modifier.getModified("damageReduction"));
+        assertEquals(1.5, modifier.getReference("damageReduction"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -201,7 +199,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("damageReduction", 2, false, 0));
         assertTrue(modifier.checkModifier("damageReduction", 1, false, 20));
-        assertEquals(combat.getDamageReduction(), modifier.getModified("damageReduction"));
+        assertEquals(2.5, modifier.getReference("damageReduction"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -224,7 +222,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("manaRegen", 2, true, 0));
         assertTrue(modifier.checkModifier("manaRegen", 1, true, 20));
-        assertEquals(combat.getManaRegenerationRate(), modifier.getModified("manaRegen"));
+        assertEquals(3, modifier.getReference("manaRegen"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -247,7 +245,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("manaRegen", 2, false, 0));
         assertTrue(modifier.checkModifier("manaRegen", 1, false, 20));
-        assertEquals(combat.getManaRegenerationRate(), modifier.getModified("manaRegen"));
+        assertEquals(3, modifier.getReference("manaRegen"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -270,7 +268,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("manaMax", 2, true, 0));
         assertTrue(modifier.checkModifier("manaMax", 1, true, 20));
-        assertEquals(combat.getMaxMana(), modifier.getModified("manaMax"));
+        assertEquals(300, modifier.getReference("manaMax"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -293,7 +291,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("manaMax", 2, false, 0));
         assertTrue(modifier.checkModifier("manaMax", 1, false, 20));
-        assertEquals(combat.getMaxMana(), modifier.getModified("manaMax"));
+        assertEquals(102, modifier.getReference("manaMax"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -316,7 +314,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("staminaRegen", 2, true, 0));
         assertTrue(modifier.checkModifier("staminaRegen", 1, true, 20));
-        assertEquals(combat.getStaminaRegenerationRate(), modifier.getModified("staminaRegen"));
+        assertEquals(3, modifier.getReference("staminaRegen"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -339,7 +337,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("staminaRegen", 2, false, 0));
         assertTrue(modifier.checkModifier("staminaRegen", 1, false, 20));
-        assertEquals(combat.getStaminaRegenerationRate(), modifier.getModified("staminaRegen"));
+        assertEquals(3, modifier.getReference("staminaRegen"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -362,7 +360,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("staminaMax", 2, true, 0));
         assertTrue(modifier.checkModifier("staminaMax", 1, true, 20));
-        assertEquals(combat.getMaxStamina(), modifier.getModified("staminaMax"));
+        assertEquals(300, modifier.getReference("staminaMax"));
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -385,7 +383,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("staminaMax", 2, false, 0));
         assertTrue(modifier.checkModifier("staminaMax", 1, false, 20));
-        assertEquals(combat.getMaxStamina(), modifier.getModified("staminaMax"));
+        assertEquals(102, modifier.getReference("staminaMax"));
 
         // Check for temporary to be removed
         custom_wait(20);

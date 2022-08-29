@@ -58,38 +58,6 @@ public class ObstacleFactory {
     return smallTree;
   }
 
-  public static Entity createCraftingMenu() {
-    Entity craftingTable =
-            new Entity()
-                    .addComponent(new TextureRenderComponent
-                            ("images/Crafting-assets-sprint1/crafting table/craftingUI.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                    .addComponent(new MenuComponent());
-
-    craftingTable.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    craftingTable.getComponent(TextureRenderComponent.class).scaleEntity();
-    craftingTable.scaleHeight(10f);
-
-    return craftingTable;
-  }
-
-  public static Entity createCraftButton() {
-    Entity craftButton =
-            new Entity()
-                    .addComponent(new TextureRenderComponent
-                            ("images/Crafting-assets-sprint1/widgets/craftButton.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                    .addComponent(new MenuComponent());
-
-    craftButton.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    craftButton.getComponent(TextureRenderComponent.class).scaleEntity();
-    craftButton.scaleHeight(1.1f);
-
-    return craftButton;
-  }
-
   public static Entity createCraftingTable() {
     Entity craftingTable =
             new Entity()

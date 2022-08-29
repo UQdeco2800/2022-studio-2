@@ -67,4 +67,57 @@ public class AuraFactory {
         weaponSpeedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponSpeedBuff;
     }
+
+
+    public static Entity createWeaponSpeedDeBuff() {
+        Entity weaponSpeedDeBuff = createBaseAura();
+        AuraConfig config = configs.speedDebuff;
+        weaponSpeedDeBuff
+                .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                        config.coolDownMultiplier, config.weightMultiplier))
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png"));
+        weaponSpeedDeBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        return weaponSpeedDeBuff;
+    }
+    public static Entity createWeaponDmgBuff() {
+        Entity weaponDmgBuff = createBaseAura();
+        AuraConfig config = configs.dmgBuff;
+        weaponDmgBuff
+                .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                        config.coolDownMultiplier, config.weightMultiplier))
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Damage Increase Buff.png"));
+        weaponDmgBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        return weaponDmgBuff;
+    }
+    public static Entity createWeaponDmgDebuff() {
+        Entity weaponDmgDebuff = createBaseAura();
+        AuraConfig config = configs.dmgDebuff;
+        weaponDmgDebuff
+                .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                        config.coolDownMultiplier, config.weightMultiplier))
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/AttackDamageDebuff.png"));
+        weaponDmgDebuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        return weaponDmgDebuff;
+    }
+    public static Entity createFireBuff() {
+        Entity weaponFireBuff = createBaseAura();
+        AuraConfig config = configs.fireBuff;
+        weaponFireBuff
+                .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                        config.coolDownMultiplier, config.weightMultiplier))
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png"));
+        weaponFireBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        return weaponFireBuff;
+    }
+    public static Entity createPoisonBuff() {
+        Entity weaponPoisonBuff = createBaseAura();
+        AuraConfig config = configs.poisonBuff;
+        weaponPoisonBuff
+                .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                        config.coolDownMultiplier, config.weightMultiplier))
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/poisonBuff.png"));
+        weaponPoisonBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+        return weaponPoisonBuff;
+    }
+
 }
