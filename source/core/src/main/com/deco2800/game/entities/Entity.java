@@ -284,8 +284,6 @@ public class Entity {
   /**
    * Get the event handler attached to this entity. Can be used to trigger events from an attached
    * component, or listen to events from a component.
-   *
-   * @return entity's event handler
    */
 
   public void flagDead(){
