@@ -1,11 +1,8 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Skill component for managing player skills and the player state as a result of those skills.

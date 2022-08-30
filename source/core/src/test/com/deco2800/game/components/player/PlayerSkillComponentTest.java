@@ -215,8 +215,15 @@ public class PlayerSkillComponentTest {
         player.getComponent(PlayerActions.class).walk(new Vector2(1,0));
         Vector2 beforePos = player.getPosition();
         skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
         Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x + 4.0f, beforePos.y + 0.11f), afterPos);
+        assertEquals(new Vector2(beforePos.x + 24.18f, beforePos.y + 0.11f), afterPos);
     }
 
     @Test
@@ -285,6 +292,16 @@ public class PlayerSkillComponentTest {
         PlayerSkillComponent component = actions.getSkillComponent();
         actions.teleport();
         assertTrue(component.isTeleporting());
+
+    }
+
+    @Test
+    void skillCooldownTest() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        actions.setSkillCooldown("teleport", 100L);
+        assertFalse(actions.cooldownFinished("teleport", 100));
 
     }
 }

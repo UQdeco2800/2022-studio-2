@@ -256,12 +256,26 @@ public class PlayerActions extends Component {
    *
    * @return true if cooldown period is over, false otherwise
    */
-  boolean cooldownFinished(String skill, long cooldown) {
+  public boolean cooldownFinished(String skill, long cooldown) {
+    if (skillCooldowns.get(skill) == null) {
+      return false;
+    }
     if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
       skillCooldowns.replace(skill, System.currentTimeMillis());
       return true;
     } else {
       return false;
+    }
+  }
+  /**
+  * Sets an existing skill cooldown to a new cooldown.
+  * @param skill the skill to check
+  * @param cooldown the cooldown period (in milliseconds)
+  *
+  */
+  public void setSkillCooldown(String skill, long cooldown) {
+    if (skillCooldowns.get(skill) != null) {
+      skillCooldowns.replace(skill, System.currentTimeMillis());
     }
   }
 }
