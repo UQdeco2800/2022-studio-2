@@ -14,10 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 
 /**
@@ -92,33 +88,9 @@ public class PlayerActions extends Component {
     inventoryIsOpened = !inventoryIsOpened;
     //Code for debugging
     if(inventoryIsOpened) {
-      System.out.println("Opening inventory");
       // Open code
-      showInventory();
     } else {
-      System.out.println("Closing inventory");
       // Close code
-    }
-  }
-
-  private void showInventory() {
-    JFrame j = new JFrame();
-    j.setUndecorated(true);
-    j.setLocationRelativeTo(null);
-    j.setSize(400, 400);
-    j.setResizable(false);
-    j.getContentPane().setLayout(null);
-    JPanel panel = new ImagePanel();
-    panel.setBounds(0, 0, 400, 400);
-    j.getContentPane().add(panel);
-    j.setVisible(true);
-  }
-
-  class ImagePanel extends JPanel {
-    public void paint(Graphics g) {
-      super.paint(g);
-      ImageIcon icon = new ImageIcon("images/Inventory/pixil-frame (x10).png");
-      g.drawImage(icon.getImage(), 0, 0, 400, 400, this);
     }
   }
 
