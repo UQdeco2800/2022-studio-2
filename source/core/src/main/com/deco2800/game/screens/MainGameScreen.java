@@ -38,6 +38,11 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png","images/Inventory/quickbar.png"};
+  private static final String[] dashImg = {"images/Skills/dash.png"};
+  private static final String[] blockImg = {"images/Skills/block.png"};
+  private static final String[] dodgeImg = {"images/Skills/dodge.png"};
+  private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+  private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private final Entity player;
 
@@ -140,6 +145,11 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextures(dashImg);
+    resourceService.loadTextures(blockImg);
+    resourceService.loadTextures(dodgeImg);
+    resourceService.loadTextures(invulnerabilityImg);
+    resourceService.loadTextures(teleportImg);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -147,6 +157,11 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(dashImg);
+    resourceService.unloadAssets(blockImg);
+    resourceService.unloadAssets(dodgeImg);
+    resourceService.unloadAssets(invulnerabilityImg);
+    resourceService.unloadAssets(teleportImg);
   }
 
   /**

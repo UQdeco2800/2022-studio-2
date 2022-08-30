@@ -14,6 +14,11 @@ public class QuickBarDisplay extends UIComponent {
 
     private Table quickBar;
     private Image quickImage;
+    private Image image1;
+    private Image image2;
+    private Image image3;
+    private Image image4;
+    private Image image5;
 
     /**
      * Creates reusable ui styles and adds actors to the stage.
@@ -33,8 +38,24 @@ public class QuickBarDisplay extends UIComponent {
 
         quickImage = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/Inventory/quickbar.png", Texture.class));
+        image1 = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/dash.png", Texture.class));
+        image2 = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/block.png", Texture.class));
+        image3 = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/dodge.png", Texture.class));
+        image4 = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/invulnerability.png", Texture.class));
+        image5 = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/teleport.png", Texture.class));
 
+
+        quickBar.add(image1).size(100,100).pad(5);
+        quickBar.add(image2).size(100,100).pad(5);
+        quickBar.add(image3).size(100,100).pad(5);
         quickBar.add(quickImage).size(600,100).pad(5);
+        quickBar.add(image4).size(100,100).pad(5);
+        quickBar.add(image5).size(100,100).pad(5);
         stage.addActor(quickBar);
 
     }
