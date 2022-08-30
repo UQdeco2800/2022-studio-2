@@ -304,4 +304,13 @@ public class PlayerSkillComponentTest {
         assertFalse(actions.cooldownFinished("teleport", 100));
 
     }
+
+    @Test
+    void skillCooldownTestBadInput() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        actions.setSkillCooldown("jibberish", 0L);
+        actions.cooldownFinished("jibberish", 0L);
+    }
 }
