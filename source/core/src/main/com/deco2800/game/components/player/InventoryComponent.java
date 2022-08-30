@@ -15,11 +15,12 @@ class quickBar<Potions> {
    */
   private List<Potions> quickBarItems = new ArrayList<>();
 
+  private final int quickBarSize = 6;
   /**
    * TO BE IMPLEMENTED
    * By default every element in the array is 0.
    */
-  int[] itemQuantity = new int[6];
+  int[] itemQuantity = new int[quickBarSize];
 
   /**
    * Adding potion to the quickbar.
@@ -79,6 +80,9 @@ class quickBar<Potions> {
 public class InventoryComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
+  /**
+   * Initial inventory size
+   */
   private final int inventorySize = 16;
 
   /**
@@ -90,7 +94,7 @@ public class InventoryComponent extends Component {
    * TO BE IMPLEMENTED
    * By default every inventory item in the array has a quantity of 0.
    */
-  int[] itemQuantity = new int[16];
+  int[] itemQuantity = new int[inventorySize];
 
   /**
    * Returns the current inventory
