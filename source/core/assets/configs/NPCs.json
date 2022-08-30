@@ -10,9 +10,22 @@
   },
   "atlantisCitizen": {
     "health": 70,
-    "baseAttack": 20
+    "baseAttack": 20,
+    "speed": 120
   },
   "oneLegGirl": {
+    "health": 1,
+    "baseAttack": 0
+  },
+  "child": {
+    "health": 1,
+    "baseAttack": 0
+  },
+  "guard": {
+    "health": 1,
+    "baseAttack": 0
+  },
+  "male_citizen": {
     "health": 1,
     "baseAttack": 0
   }

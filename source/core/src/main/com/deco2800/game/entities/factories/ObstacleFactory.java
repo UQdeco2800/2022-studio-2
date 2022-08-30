@@ -1,12 +1,7 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.deco2800.game.components.MenuComponent;
-import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -56,38 +51,6 @@ public class ObstacleFactory {
     smallTree.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(smallTree, 0.5f, 0.2f);
     return smallTree;
-  }
-
-  public static Entity createCraftingMenu() {
-    Entity craftingTable =
-            new Entity()
-                    .addComponent(new TextureRenderComponent
-                            ("images/Crafting-assets-sprint1/crafting table/craftingUI.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                    .addComponent(new MenuComponent());
-
-    craftingTable.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    craftingTable.getComponent(TextureRenderComponent.class).scaleEntity();
-    craftingTable.scaleHeight(10f);
-
-    return craftingTable;
-  }
-
-  public static Entity createCraftButton() {
-    Entity craftButton =
-            new Entity()
-                    .addComponent(new TextureRenderComponent
-                            ("images/Crafting-assets-sprint1/widgets/craftButton.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                    .addComponent(new MenuComponent());
-
-    craftButton.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    craftButton.getComponent(TextureRenderComponent.class).scaleEntity();
-    craftButton.scaleHeight(1.1f);
-
-    return craftButton;
   }
 
   public static Entity createCraftingTable() {

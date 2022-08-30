@@ -134,9 +134,12 @@ public class MainGameScreen extends ScreenAdapter {
   private ForestGameArea loadLevelOneMap() {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+
     forestGameArea.create();
     return forestGameArea;
   }
+
+
 
   private void loadAssets() {
     logger.debug("Loading assets");
@@ -183,6 +186,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.getEntityService().register(ui);
   }
+
+
 
   /**
    * The function that make the camera moves along with the player.
