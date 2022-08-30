@@ -23,7 +23,7 @@ public class CraftingSystem implements Runnable{
      * determines what items the users can build with it. Class then calls an instance of the display to be made and
      * creates a daemon that checks the users inventory.
      */
-    public CraftingSystem() {
+    public void CraftingSystem() {
 
          builtItems = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class CraftingSystem implements Runnable{
      * conflicts.
      */
     public synchronized List<Materials> getInventoryContents(){
-        inventoryContents = new ArrayList<>(Arrays.asList(Materials.values()));
+        inventoryContents = new ArrayList<Materials>(Arrays.asList(Materials.values()));
         return inventoryContents;
     }
 
