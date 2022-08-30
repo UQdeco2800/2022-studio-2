@@ -23,12 +23,12 @@ public class CraftingSystem implements Runnable{
      * determines what items the users can build with it. Class then calls an instance of the display to be made and
      * creates a daemon that checks the users inventory.
      */
-    public void CraftingSystem() {
+    public CraftingSystem() {
 
-         builtItems = new ArrayList<String>();
+         builtItems = new ArrayList<>();
 
          //Set Possible Builds by finding all weapons that implement Buildable component
-        HashSet<Object> possibleWeapons = new HashSet<Object>();
+        HashSet<Object> possibleWeapons = new HashSet<>();
         possibleWeapons.add("Sword");
         CraftingLogic.setPossibleWeapons(possibleWeapons);
 
@@ -61,7 +61,7 @@ public class CraftingSystem implements Runnable{
      * conflicts.
      */
     public synchronized List<Materials> getInventoryContents(){
-        inventoryContents = new ArrayList<Materials>(Arrays.asList(Materials.values()));
+        inventoryContents = new ArrayList<>(Arrays.asList(Materials.values()));
         return inventoryContents;
     }
 
