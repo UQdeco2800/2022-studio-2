@@ -209,7 +209,6 @@ public class PlayerSkillComponent extends Component {
         float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
         float teleportPositionY = playerEntity.getPosition().y + actions.getWalkDirection().y * TELEPORT_LENGTH;
 
-        GridPoint2 mapDimensions = TerrainFactory.getMapSize();
         // Check if teleport is out of map bounds
         if (teleportPositionX < -0.08)
             teleportPositionX = -0.08f;

@@ -67,11 +67,12 @@ public class PlayerActions extends Component {
 
 
     // Skills and Dash initialisation
+    String startingSkill = "teleport";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill("teleport", entity, this);
+    skillManager.setSkill(startingSkill, entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
-    skillCooldowns.put("teleport", 0L);
+    skillCooldowns.put(startingSkill, 0L);
   }
 
   @Override

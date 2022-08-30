@@ -21,7 +21,6 @@ public class PlayerSkillComponentTest {
 
     @BeforeEach
     void initialisation() {
-
         player = new Entity()
                         .addComponent(new PhysicsComponent(new PhysicsEngine(
                                 new World(Vector2.Zero, true),
@@ -29,7 +28,8 @@ public class PlayerSkillComponentTest {
                         .addComponent(new PlayerActions())
                         .addComponent(new CombatStatsComponent(100, 5, 100, 100))
                         .addComponent(new KeyboardPlayerInputComponent())
-                        .addComponent(new PlayerStatsDisplay());
+                        .addComponent(new PlayerStatsDisplay())
+                        .addComponent(new PlayerModifier());
 
         skillManager = new PlayerSkillComponent(player);
     }
@@ -202,8 +202,89 @@ public class PlayerSkillComponentTest {
     }
 
     @Test
-    void testTeleportPlayer() {
-        // function needs editing
+    void testTeleportPlayer1() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(1,1));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x + 4.0f, beforePos.y + 4.0f), afterPos);
     }
 
+    @Test
+    void testTeleportPlayer2() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(1,0));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x + 4.0f, beforePos.y + 0.11f), afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer3() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(-1,0));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x - 0.08f, beforePos.y + 0.11f), afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer4() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(0,1));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x, beforePos.y + 24.68f), afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer5() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(0,-1));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x, beforePos.y + 0.11f), afterPos);
+    }
+
+    @Test
+    void getSkillComponent() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        assertEquals(component.getClass(), PlayerSkillComponent.class);
+    }
+
+    @Test
+    void dashActivation() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        actions.dash();
+        assertTrue(component.isDashing());
+
+    }
+
+    @Test
+    void teleportActivation() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        actions.teleport();
+        assertTrue(component.isTeleporting());
+
+    }
 }

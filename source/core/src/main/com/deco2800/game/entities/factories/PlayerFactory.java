@@ -45,7 +45,7 @@ public class PlayerFactory {
 
     Entity player =
         new Entity()
-            .addComponent(animator)//.addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
+            .addComponent(animator)
             .addComponent(new PlayerAnimationController())
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
