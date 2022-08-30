@@ -92,4 +92,9 @@ class EventHandlerTest {
       handler.trigger("stringEvent", true);
     });
   }
+
+  @Test
+  void shouldHandleNoListenersRemove() {
+    handler.removeAllListeners("jibberish");
+  }
 }

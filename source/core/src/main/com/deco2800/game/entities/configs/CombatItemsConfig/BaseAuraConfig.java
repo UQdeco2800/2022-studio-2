@@ -10,5 +10,6 @@ public class BaseAuraConfig {
     public AuraConfig dmgDebuff = new AuraConfig();
     public AuraConfig fireBuff = new AuraConfig();
     public AuraConfig poisonBuff = new AuraConfig();
-
 }
+
+
