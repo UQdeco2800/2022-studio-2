@@ -62,6 +62,10 @@ public class GameAreaDisplay extends UIComponent {
     stage.addActor(title);
   }
 
+  /**
+   * Code that opens an overlay crafting menu when the craft button is pressed. Creates assets based on users inventory
+   * and creates button event handlers to test for user clicks.
+   */
   public void openCraftingMenu() {
     craftMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/crafting table/craftingUI.png")));
