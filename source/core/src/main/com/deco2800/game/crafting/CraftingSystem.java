@@ -25,10 +25,10 @@ public class CraftingSystem implements Runnable{
      */
     public void CraftingSystem() {
 
-         builtItems = new ArrayList<String>();
+         builtItems = new ArrayList<>();
 
          //Set Possible Builds by finding all weapons that implement Buildable component
-        HashSet<Object> possibleWeapons = new HashSet<Object>();
+        HashSet<Object> possibleWeapons = new HashSet<>();
         possibleWeapons.add("Sword");
         CraftingLogic.setPossibleWeapons(possibleWeapons);
 

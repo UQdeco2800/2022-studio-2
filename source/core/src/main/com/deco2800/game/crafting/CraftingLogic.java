@@ -7,12 +7,12 @@ import java.util.*;
  * Contains information about possible builds and contains algorithms that determine what items can and can't be
  * build based on the users inventory contents
  */
-public  class CraftingLogic {
+public class CraftingLogic {
+
     /**
      * List containing the possible builds the user can make with their given inventory
      */
     private static List<Object> possibleBuilds =  new ArrayList<Object>();
-
 
     /**
      * List of all weapons that exist in the game

@@ -29,6 +29,8 @@ public class EventHandler {
     listeners = new HashMap<>(0);
   }
 
+  //code to compare two lists
+
   /**
    * Add a listener to an event with zero arguments
    *
