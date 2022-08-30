@@ -1,4 +1,4 @@
-package com.deco2800.game.Inventory;
+package com.deco2800.game.inventory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

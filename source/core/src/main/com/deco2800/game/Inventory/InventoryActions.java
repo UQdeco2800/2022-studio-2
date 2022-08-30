@@ -1,4 +1,4 @@
-package com.deco2800.game.Inventory;
+package com.deco2800.game.inventory;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
