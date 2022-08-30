@@ -40,11 +40,11 @@ public class Entity {
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
   private boolean isDead = false;
-  public List<EntityTypes> entityType;
+  private List<EntityTypes> entityType;
   public Entity() {
     id = nextId;
     nextId++;
-    entityType = new ArrayList<EntityTypes>();
+    entityType = new ArrayList<>();
     components = new IntMap<>(4);
     eventHandler = new EventHandler();
   }
@@ -303,7 +303,7 @@ public class Entity {
    */
   @Override
   public boolean equals(Object obj) {
-    return (obj instanceof Entity && ((Entity) obj).getId() == this.getId());
+    return (obj instanceof Entity entity && ((Entity) obj).getId() == this.getId());
   }
 
   /**

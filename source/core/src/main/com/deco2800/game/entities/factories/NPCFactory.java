@@ -43,7 +43,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC(target);
+    Entity ghost = createBaseNPC();
     BaseEntityConfig config = configs.ghost;
 
     ghost.getComponent(AITaskComponent.class)
@@ -73,7 +73,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhostKing(Entity target) {
-    Entity ghostKing = createBaseNPC(target);
+    Entity ghostKing = createBaseNPC();
     GhostKingConfig config = configs.ghostKing;
 
     ghostKing.getComponent(AITaskComponent.class)
@@ -96,7 +96,7 @@ public class NPCFactory {
     return ghostKing;
   }
   public static Entity createOneLegGirl (Entity target) {
-    Entity oneLegGirl = createBaseNPC(target);
+    Entity oneLegGirl = createBaseNPC();
     OneLegGirlConfig config = configs.oneLegGirl;
 
     AnimationRenderComponent animator =
@@ -121,7 +121,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createAtlantisCitizen(Entity target) {
-    Entity atlantisCitizen = createBaseNPC(target);
+    Entity atlantisCitizen = createBaseNPC();
     AtlantisCitizenConfig config = configs.atlantisCitizen;
 
     atlantisCitizen.getComponent(AITaskComponent.class)
@@ -144,7 +144,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC(Entity target) {
+  private static Entity createBaseNPC() {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()
