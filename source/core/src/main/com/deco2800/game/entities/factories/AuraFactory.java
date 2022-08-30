@@ -1,6 +1,6 @@
 package com.deco2800.game.entities.factories;
 
-import com.deco2800.game.components.tasks.CombatItemsComponents.WeaponAuraComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponAuraComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
@@ -8,9 +8,6 @@ import com.deco2800.game.files.FileLoader;
 
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Factory to create Aura entities.
@@ -21,25 +18,6 @@ public class AuraFactory {
 
     private static final BaseAuraConfig configs =
             FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
-
-    /*private static final List<Entity> availableAuras = Arrays.asList(createWeaponSpeedBuff());
-
-    *//**
-     * Return the list containing all aura entities that are available to be implemented in game
-     * @return the list containing aura entities
-     *//*
-    public static List<Entity> getAvailableAuras() {
-        return availableAuras;
-    }
-
-    *//**
-     * Return the aura entity from the list of aura entities at the given index
-     * @param auraIndex index of the aura in the list of aura entities
-     * @return aura entity from the list of aura entities at the given index
-     *//*
-    public static Entity getAura(int auraIndex) {
-        return getAvailableAuras().get(auraIndex);
-    }*/
 
     /**
      * Creates a generic Aura to be used as a base Aura entity by more specific aura creation methods.
@@ -54,8 +32,8 @@ public class AuraFactory {
     }
 
     /**
-     * Creates weapon speed buff aura
-     * @return weapon speed buff aura
+     * Creates weapon speed buff aura using BaseAuraConfig file that takes in the Aura stats
+     * @return entity weapon speed buff aura
      */
     public static Entity createWeaponSpeedBuff() {
         Entity weaponSpeedBuff = createBaseAura();
@@ -68,7 +46,10 @@ public class AuraFactory {
         return weaponSpeedBuff;
     }
 
-
+    /**
+     * Creating weapon Speed Debuff using BaseAuraConfig file that takes in the Aura stats
+     * @return entity weapon Speed Debuff
+     */
     public static Entity createWeaponSpeedDeBuff() {
         Entity weaponSpeedDeBuff = createBaseAura();
         AuraConfig config = configs.speedDebuff;
@@ -79,6 +60,11 @@ public class AuraFactory {
         weaponSpeedDeBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponSpeedDeBuff;
     }
+
+    /**
+     * Creating weapon Damage Buff using BaseAuraConfig file that takes in the Aura stats
+     * @return entity weapon Damage Buff
+     */
     public static Entity createWeaponDmgBuff() {
         Entity weaponDmgBuff = createBaseAura();
         AuraConfig config = configs.dmgBuff;
@@ -89,6 +75,11 @@ public class AuraFactory {
         weaponDmgBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponDmgBuff;
     }
+
+    /**
+     * Creating weapon Damage Debuff using BaseAuraConfig file that takes in the Aura stats
+     * @return entity weapon Damage Debuff
+     */
     public static Entity createWeaponDmgDebuff() {
         Entity weaponDmgDebuff = createBaseAura();
         AuraConfig config = configs.dmgDebuff;
@@ -99,6 +90,11 @@ public class AuraFactory {
         weaponDmgDebuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponDmgDebuff;
     }
+
+    /**
+     * Creating weapon Fire buff using BaseAuraConfig file that takes in the Aura stats
+     * @return entity weapon Fire buff
+     */
     public static Entity createFireBuff() {
         Entity weaponFireBuff = createBaseAura();
         AuraConfig config = configs.fireBuff;
@@ -109,6 +105,11 @@ public class AuraFactory {
         weaponFireBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponFireBuff;
     }
+
+    /**
+     * Creating weapon Poison buff using BaseAuraConfig file that takes in the Aura stats
+     * @return entity weapon Poison buff
+     */
     public static Entity createPoisonBuff() {
         Entity weaponPoisonBuff = createBaseAura();
         AuraConfig config = configs.poisonBuff;
