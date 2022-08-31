@@ -1,6 +1,6 @@
 package com.deco2800.game.entities.factories;
 
-import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
@@ -8,45 +8,15 @@ import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Factory to create Weapon entities.
  *
  * <p>Each Weapon entity type should have a creation method that returns a corresponding entity.
  */
 public class WeaponFactory {
+
     private static final WeaponConfig configs =
             FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
-
-/*
-    private static Entity dagger = createDagger();
-    private static Entity daggerTwo = createDaggerTwo();
-
-    private static final List<Entity> availableWeapons = Arrays.asList(dagger, daggerTwo);
-
-
-
-
-    *//**
-     * Return the list containing all weapon entities that are available to be implemented in game
-     * @return the list containing weapons entities
-     *//*
-    public static List<Entity> getAvailableWeapons() {
-        return availableWeapons;
-    }
-
-    *//**
-     * Return the weapon entity from the list of weapon entities at the given index
-     * @param weaponIndex index of the weapon entity in the list of weapon entities
-     * @return weapon entity from the list of weapon entities at the given index
-     *//*
-    public static Entity getWeapon(int weaponIndex) {return getAvailableWeapons().get(weaponIndex);
-    }*/
-
-
-
 
     /**
      * Creates a generic Weapon to be used as a base Weapon entity by more specific aura creation methods.
@@ -59,8 +29,8 @@ public class WeaponFactory {
     }
 
     /**
-     * Creates basic dagger
-     * @return basic dagger
+     * Creates Level 2 dagger - Athena's Dagger
+     * @return level 2 dagger - Athena's Dagger
      */
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
@@ -76,8 +46,8 @@ public class WeaponFactory {
     }
 
     /**
-     * Creates basic second dagger
-     * @return basic second dagger
+     * Creates Level 2 dagger 2 - Hera's Dagger
+     * @return Level 2 dagger 2 - Hera's Dagger
      */
     public static Entity createDaggerTwo() {
         Entity daggerTwo = createBaseWeapon();
@@ -90,6 +60,57 @@ public class WeaponFactory {
         daggerTwo.getComponent(TextureRenderComponent.class).scaleEntity();
         daggerTwo.scaleHeight(5f);
         return daggerTwo;
+    }
+
+    /**
+     * Creates basic weapon for enemy character
+     * @return basic enemy dumbbell
+     */
+    public static Entity createDumbbell() {
+        Entity dumbbell = createBaseWeapon();
+        MeleeConfig config = configs.dumbbell;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        dumbbell
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"));
+        dumbbell.getComponent(TextureRenderComponent.class).scaleEntity();
+        dumbbell.scaleHeight(1f);
+        return dumbbell;
+    }
+
+    /**
+     * Creates the level 2 swords for player
+     * @return level 2 sword for player
+     */
+    public static Entity createSwordLvl2() {
+        Entity SwordLvl2 = createBaseWeapon();
+        MeleeConfig config = configs.SwordLvl2;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        SwordLvl2
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png"));
+        SwordLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
+        SwordLvl2.scaleHeight(2f);
+        return SwordLvl2;
+    }
+
+    /**
+     * Creates the level 2 trident for the player
+     * @return level 2 trident for players
+     */
+    public static Entity createTridentLvl2() {
+        Entity TridentLvl2 = createBaseWeapon();
+        MeleeConfig config = configs.tridentLvl2;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        TridentLvl2
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/trident_Lvl2.png"));
+        TridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
+        TridentLvl2.scaleHeight(2f);
+        return TridentLvl2;
     }
 
 }

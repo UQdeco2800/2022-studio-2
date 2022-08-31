@@ -9,6 +9,7 @@ import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -36,7 +37,12 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String[] mainGameTextures = {"images/heart.png","images/Inventory/quickbar.png"};
+  private static final String[] dashImg = {"images/Skills/dash.png"};
+  private static final String[] blockImg = {"images/Skills/block.png"};
+  private static final String[] dodgeImg = {"images/Skills/dodge.png"};
+  private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+  private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private final Entity player;
 
@@ -128,14 +134,22 @@ public class MainGameScreen extends ScreenAdapter {
   private ForestGameArea loadLevelOneMap() {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+
     forestGameArea.create();
     return forestGameArea;
   }
+
+
 
   private void loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextures(dashImg);
+    resourceService.loadTextures(blockImg);
+    resourceService.loadTextures(dodgeImg);
+    resourceService.loadTextures(invulnerabilityImg);
+    resourceService.loadTextures(teleportImg);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -143,6 +157,11 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(dashImg);
+    resourceService.unloadAssets(blockImg);
+    resourceService.unloadAssets(dodgeImg);
+    resourceService.unloadAssets(invulnerabilityImg);
+    resourceService.unloadAssets(teleportImg);
   }
 
   /**
@@ -157,6 +176,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
+        .addComponent(new QuickBarDisplay())
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
         .addComponent(new MainGameExitDisplay())
@@ -166,6 +186,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.getEntityService().register(ui);
   }
+
+
 
   /**
    * The function that make the camera moves along with the player.

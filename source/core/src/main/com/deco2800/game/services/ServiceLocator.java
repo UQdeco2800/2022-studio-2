@@ -1,6 +1,7 @@
 package com.deco2800.game.services;
 
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
@@ -26,6 +27,8 @@ public class ServiceLocator {
   private static ResourceService resourceService;
 
   private static ForestGameArea gameArea;
+
+  private static GameAreaDisplay craftArea;
 
 
   public static EntityService getEntityService() {
@@ -99,7 +102,12 @@ public class ServiceLocator {
      gameArea = area;
   }
 
-  public static ForestGameArea getGameArea(){
-    return gameArea;
+  public static void registerCraftArea(GameAreaDisplay area){
+    craftArea = area;
+  }
+
+  public static GameAreaDisplay getCraftArea() {
+    return craftArea;
   }
 }
+

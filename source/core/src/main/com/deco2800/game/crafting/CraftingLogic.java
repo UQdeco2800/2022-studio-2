@@ -7,12 +7,12 @@ import java.util.*;
  * Contains information about possible builds and contains algorithms that determine what items can and can't be
  * build based on the users inventory contents
  */
-public  class CraftingLogic {
+public class CraftingLogic {
+
     /**
      * List containing the possible builds the user can make with their given inventory
      */
     private static List<Object> possibleBuilds =  new ArrayList<Object>();
-
 
     /**
      * List of all weapons that exist in the game
@@ -24,7 +24,7 @@ public  class CraftingLogic {
      * @return list
      */
     public static List<Object> getPossibleBuilds(){
-            return new ArrayList<Object>(getPossibleBuilds());
+            return new ArrayList<Object>(possibleBuilds);
         }
 
     /**
@@ -55,6 +55,7 @@ public  class CraftingLogic {
      * Method that determines what items can be built based on items present in users' inventory. Checks if
      * object first implements buildable interface and then checks if user has required materials to build it.
      * For first sprint user will always have enough materials in their inventory.
+     *
      * @param inventoryContents, the contents of the users' inventory
      * @return List of the buildable items
      */
