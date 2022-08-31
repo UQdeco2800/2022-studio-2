@@ -271,6 +271,30 @@ public class CombatStatsComponent extends Component {
   }
 
   /**
+   * check whether the mana is enough
+   * @param mana
+   * @return
+   */
+  public boolean checkMana(int mana){
+    if (this.getMana()>=mana){
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * check whether the stamina is enough
+   * @param stamina
+   * @return
+   */
+  public boolean checkStamina(int stamina){
+    if (this.getStamina()>=stamina){
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Sets the entity's damage reduction. Damage reduction damage has a minimum bound of 0.
    *
    * @param damageReduction Attack damage
