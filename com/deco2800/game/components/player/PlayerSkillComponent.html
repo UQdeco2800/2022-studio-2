@@ -104,8 +104,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.deco2800.game.entities.Entity)" class="member-name-link">PlayerSkillComponent</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.deco2800.game.entities.Entity)" class="member-name-link">PlayerSkillComponent</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;playerEntity)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Initialises the player skill component, taking a player entity as the parent component.</div>
+</div>
 </div>
 </section>
 </li>
@@ -164,24 +166,30 @@ loadScripts(document, 'script');</script>
 <div class="block">Sets a listener to the skill event</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startDash(com.badlogic.gdx.math.Vector2)" class="member-name-link">startDash</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;moveDirection)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSkillAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setSkillAnimator</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;skillAnimator)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">The functional start of the dash.</div>
+<div class="block">Sets the skill animator entity for this skill component, so this skill component
+ can interact with the corresponding animator.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startTeleport()" class="member-name-link">startTeleport</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startDash(com.badlogic.gdx.math.Vector2)" class="member-name-link">startDash</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;moveDirection)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">The functional start of the teleport skill.</div>
+<div class="block">The functional start of the dash.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#teleportPlayer()" class="member-name-link">teleportPlayer</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startTeleport()" class="member-name-link">startTeleport</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The functional start of the teleport skill.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#teleportPlayer()" class="member-name-link">teleportPlayer</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Teleports the player a set distance from their current position in
  the walk direction.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Update should update the cooldowns/state of skills within the skill manager</div>
 </div>
 </div>
@@ -207,7 +215,12 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="&lt;init&gt;(com.deco2800.game.entities.Entity)">
 <h3>PlayerSkillComponent</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PlayerSkillComponent</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PlayerSkillComponent</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;playerEntity)</span></div>
+<div class="block">Initialises the player skill component, taking a player entity as the parent component.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>playerEntity</code> - the player entity this skill component is a subcomponent of</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -218,6 +231,20 @@ loadScripts(document, 'script');</script>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="setSkillAnimator(com.deco2800.game.entities.Entity)">
+<h3>setSkillAnimator</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setSkillAnimator</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;skillAnimator)</span></div>
+<div class="block">Sets the skill animator entity for this skill component, so this skill component
+ can interact with the corresponding animator. This entity should have as components
+ at least a PlayerSkillAnimationController and an AnimationRenderComponent.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>skillAnimator</code> - skill animator entity with PlayerSkillAnimationController
+                      and an AnimationRenderComponent</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="update()">
 <h3>update</h3>

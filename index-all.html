@@ -479,6 +479,11 @@ loadScripts(document, 'script');</script>
 <div class="block">Creation function to gather all necessary components for PlayerModified component
  to function.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillAnimationController.html" title="class in com.deco2800.game.components.player">PlayerSkillAnimationController</a></dt>
+<dd>
+<div class="block">Initialises all the required animation listeners and triggers the regular (initial)
+ animation</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a></dt>
 <dd>
 <div class="block">Creates reusable ui styles and adds actors to the stage.</div>
@@ -640,6 +645,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/entities/factories/PotionFactory.html#createPotion()" class="member-name-link">createPotion()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PotionFactory.html" title="class in com.deco2800.game.entities.factories">PotionFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/RenderFactory.html#createRenderer()" class="member-name-link">createRenderer()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/RenderFactory.html" title="class in com.deco2800.game.entities.factories">RenderFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/entities/factories/PlayerFactory.html#createSkillAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">createSkillAnimator(Entity)</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PlayerFactory.html" title="class in com.deco2800.game.entities.factories">PlayerFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createSmallTree()" class="member-name-link">createSmallTree()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>
@@ -2024,12 +2031,23 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Initial define function for the modifier class.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillAnimationController.html" class="type-name-link" title="class in com.deco2800.game.components.player">PlayerSkillAnimationController</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
+<dd>
+<div class="block">The controller for the player skill animator.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillAnimationController.html#%3Cinit%3E(com.deco2800.game.entities.Entity)" class="member-name-link">PlayerSkillAnimationController(Entity)</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillAnimationController.html" title="class in com.deco2800.game.components.player">PlayerSkillAnimationController</a></dt>
+<dd>
+<div class="block">Creates a player skill animation controller with the joined player entity with
+ which the animation controller overlays.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html" class="type-name-link" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
 <dd>
 <div class="block">Skill component for managing player skills and the player state as a result of those skills.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#%3Cinit%3E(com.deco2800.game.entities.Entity)" class="member-name-link">PlayerSkillComponent(Entity)</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Initialises the player skill component, taking a player entity as the parent component.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" class="type-name-link" title="class in com.deco2800.game.components.player">PlayerStatsDisplay</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
 <dd>
 <div class="block">A ui component for displaying player stats, e.g.</div>
@@ -2524,6 +2542,16 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Sets a listener to the skill event</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerActions.html#setSkillAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setSkillAnimator(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
+<dd>
+<div class="block">Sets the skill animator for this actions component and passes it to the skill
+ component so the skill component can alter the skill animation state.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#setSkillAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setSkillAnimator(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Sets the skill animator entity for this skill component, so this skill component
+ can interact with the corresponding animator.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#setSkillCooldown(java.lang.String,long)" class="member-name-link">setSkillCooldown(String, long)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>
 <div class="block">Sets an existing skill cooldown to a new cooldown.</div>
@@ -2942,6 +2970,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>
 <div class="block">Triggers on frame update.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillAnimationController.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillAnimationController.html" title="class in com.deco2800.game.components.player">PlayerSkillAnimationController</a></dt>
+<dd>
+<div class="block">Updates the skill animator to always be overlaid the player entity</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
