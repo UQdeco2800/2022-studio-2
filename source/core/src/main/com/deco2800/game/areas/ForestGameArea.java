@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.components.player.PlayerSkillComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -420,10 +422,16 @@ public class ForestGameArea extends GameArea {
     this.spawnEntityAt(potion, randomPos, true, false);
   }
 
-
+  /**
+   * Spawns the player entity, with a skill animator overlaid above the player.
+   * @return the player entity
+   */
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
+    Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+    newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
     return newPlayer;
   }
 
