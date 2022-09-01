@@ -43,7 +43,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC(target);
+    Entity ghost = createBaseNPC();
     BaseEntityConfig config = configs.ghost;
 
     ghost.getComponent(AITaskComponent.class)
@@ -73,7 +73,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhostKing(Entity target) {
-    Entity ghostKing = createBaseNPC(target);
+    Entity ghostKing = createBaseNPC();
     GhostKingConfig config = configs.ghostKing;
 
     ghostKing.getComponent(AITaskComponent.class)
@@ -95,25 +95,89 @@ public class NPCFactory {
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
   }
-  public static Entity createOneLegGirl (Entity target) {
-    Entity oneLegGirl = createBaseNPC(target);
-    OneLegGirlConfig config = configs.oneLegGirl;
 
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/ghostKing.atlas", TextureAtlas.class)
-            );
+  /**
+   * Creates an atlantis female NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
+  public static Entity createOneLegGirl (Entity target) {
+    Entity oneLegGirl = createBaseNPC();
+    FemaleCitizenConfig config = configs.oneLegGirl;
 
     oneLegGirl
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(animator)
-            .addComponent(new GhostAnimationController());
+            .addComponent(new TextureRenderComponent("images/NPC/female npc/npcfemale_1.png"));
 
 
-    oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
+
+
+    oneLegGirl.getComponent(AITaskComponent.class);
+    oneLegGirl.setScale(1, 1);
     return oneLegGirl;
   }
+
+  /**
+   * Creates an atlantis child NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
+  public static Entity createChild (Entity target) {
+    Entity child = createBaseNPC();
+    ChildConfig config = configs.child;
+
+
+    child
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
+
+    child.getComponent(AITaskComponent.class);
+    child.setScale(1, 1);
+    return child;
+  }
+
+  /**
+   * Creates an atlantis guard NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
+  public static Entity createGuard (Entity target) {
+    Entity guard = createBaseNPC();
+    GuardConfig config = configs.guard;
+
+
+    guard
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/NPC/guard npc/atlantisguardnpc_1.png"));
+
+    guard.getComponent(AITaskComponent.class);
+    guard.setScale(1, 1);
+    return guard;
+  }
+
+  /**
+   * Creates an atlantis male NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
+  public static Entity createMale_citizen (Entity target) {
+    Entity male_citizen = createBaseNPC();
+    Male_citizenConfig config = configs.male_citizen;
+
+
+    male_citizen
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/NPC/Male_citizen/male_citizen.png"));
+
+    male_citizen.getComponent(AITaskComponent.class);
+    male_citizen.setScale(1, 1);
+    return male_citizen;
+  }
+
   /**
    * Creates an atlantis citizen entity.
    *
@@ -121,19 +185,20 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createAtlantisCitizen(Entity target) {
-    Entity atlantisCitizen = createBaseNPC(target);
+    Entity atlantisCitizen = createBaseNPC();
     AtlantisCitizenConfig config = configs.atlantisCitizen;
 
     atlantisCitizen.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, 120f));
+            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
 
     //Once we have animation, can change from using Texture Component to Animation Component
     atlantisCitizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
-    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     atlantisCitizen.setScale(2f, 2f);
+    atlantisCitizen.setEntityType(EntityTypes.ENEMY);
+    atlantisCitizen.setEntityType(EntityTypes.MELEE);
     return atlantisCitizen;
 
   }
@@ -143,7 +208,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC(Entity target) {
+  private static Entity createBaseNPC() {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()

@@ -3,16 +3,12 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
-import com.deco2800.game.components.tasks.CombatItemsComponents.WeaponAuraComponent;
+import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.components.player.PlayerSkillComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
-import com.deco2800.game.components.MenuComponent;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -22,13 +18,16 @@ import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.entities.factories.DialogueFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
+
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -58,6 +57,7 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+
     "images/gold_cobble.png",
     "images/gold_drain.png",
     "images/Map_assets/sprint_1/column.png",
@@ -73,13 +73,33 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
+    "images/Potions/defence_potion.png",
+    "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png",
-    "images/Potions/defence_potion.png"
+    "images/Potions/defence_potion.png",
+    "images/playerTeleport.png",
+    "images/NPC/female npc/npcfemale_1.png",
+    "images/NPC/child npc/npcchild_1.png",
+    "images/NPC/guard npc/atlantisguardnpc_1.png",
+    "images/NPC/Male_citizen/male_citizen.png",
+    "images/NPC/Dialogue/dialogues2.png",
+    "images/Potions/defence_potion.png",
+    "images/level_1_tiledmap/32x32/column.png",
+    "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
+    "images/CombatWeapons-assets-sprint1/Damage Increase Buff.png",
+    "images/CombatWeapons-assets-sprint1/Sword_Lvl2.png",
+    "images/CombatWeapons-assets-sprint1/AttackDamageDebuff.png",
+    "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
+    "images/CombatWeapons-assets-sprint1/poisonBuff.png",
+    "images/Potions/defence_potion.png",
+    "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
+    "images/NPC/Male_citizen/male_citizen.png",
+    "images/Potions/agility_potion.png"
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -112,12 +132,12 @@ public class ForestGameArea extends GameArea {
   @Override
   public void create() {
     loadAssets();
-
     displayUI();
-
     spawnTerrain();
     spawnDagger();
     spawnDaggerTwo();
+    spawnSwordLvl2();
+    spawnTridentLvl2();
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
@@ -125,10 +145,24 @@ public class ForestGameArea extends GameArea {
     spawnGhostKing();
     spawnEffectBlobs();
     spawnAtlantisCitizen();
-    spawnColumn(20, 20);
-    spawnColumn(30, 20);
     spawnOneLegGirl();
+
+    spawnChild();
+    spawnGuard();
+    spawnMaleCitizen();
+//    spawnDialogue();
+//    spawnColumn(20, 20);
+//    spawnColumn(30, 20);
     playMusic();
+
+
+
+    spawnDumbbell();
+    spawnSpeedDebuff();
+    spawnDmgBuff();
+    spawnDmgDebuff();
+    spawnFireBuff();
+    spawnPoisonBuff();
 
   }
 
@@ -140,7 +174,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Background terrain
-    terrain = terrainFactory.createTerrain(TerrainType.LevelOneFlat);
+    terrain = terrainFactory.createTerrain(TerrainType.LEVEL_ONE);
     spawnEntity(new Entity().addComponent(terrain));
 
     //Place the columns
@@ -177,12 +211,20 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(
             ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
 
-    // Castle Wall
-    spawnEntityAt(ObstacleFactory.createWall(1f, 18f), new GridPoint2(3, 6), false,
+    // Castle Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 17f), new GridPoint2(3, 7), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(1f, 18f), new GridPoint2(21, 6), false,
+    spawnEntityAt(ObstacleFactory.createWall(1f, 17f), new GridPoint2(21, 7), false,
             false);
     spawnEntityAt(ObstacleFactory.createWall(18f, 1f), new GridPoint2(4, 23), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(3, 7), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(17, 7), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 4f), new GridPoint2(7, 4), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 4f), new GridPoint2(17, 4), false,
             false);
   }
 
@@ -191,6 +233,9 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(tree, new GridPoint2(x, y), true, false);
   }
 
+  /**
+   * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
+   */
   private void spawnEffectBlobs() {
 
     GridPoint2 minPos = new GridPoint2(2, 2);
@@ -218,6 +263,60 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns speed debuff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
+  private void spawnSpeedDebuff() {
+    Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
+    weaponOnMap.add(speedDebuff);
+    spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
+  }
+  /**
+   * Spawns damage buff entity into the game
+   * Spawns x-pos 15
+   * Spawns y-pos 15
+   */
+  private void spawnDmgBuff() {
+    Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
+    weaponOnMap.add(dmgBuff);
+    spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
+  }
+
+  /**
+   * Spawns damage debuff entity into the game
+   * Spawns x-pos 11
+   * Spawns y-pos 15
+   */
+  private void spawnDmgDebuff() {
+    Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
+    weaponOnMap.add(dmgDebuff);
+    spawnEntityAt(dmgDebuff, new GridPoint2(11,15), true, false);
+  }
+
+  /**
+   * Spawns fire buff entity into the game
+   * Spawns x-pos 20
+   * Spawns y-pos 10
+   */
+  private void spawnFireBuff() {
+    Entity fireBuff = AuraFactory.createFireBuff();
+    weaponOnMap.add(fireBuff);
+    spawnEntityAt(fireBuff, new GridPoint2(20,10), true, false);
+  }
+
+  /**
+   * Spawns poison buff entity into the game
+   * Spawns x-pos 18
+   * Spawns y-pos 12
+   */
+  private void spawnPoisonBuff() {
+    Entity fireBuff = AuraFactory.createPoisonBuff();
+    weaponOnMap.add(fireBuff);
+    spawnEntityAt(fireBuff, new GridPoint2(18,14), true, false);
+  }
+
+  /**
    * Spawn small tress in a certain position. - Team 5 1map4all @LYB
    */
   private void spawnSmallTrees(int x, int y) {
@@ -235,8 +334,12 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     Entity column = ObstacleFactory.createColumn();
-    spawnEntityAt(column, new GridPoint2(x, y), true, false);
+    spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
+
+
+
+
 
   public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
     spawnEntityAt(entity, position, centreX, centreY);
@@ -246,40 +349,89 @@ public class ForestGameArea extends GameArea {
     GridPoint2 minPos = new GridPoint2(2, 2);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
 
+
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
   }
 
+  /**
+   * Spawns Level 2 dagger entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
   private void spawnDagger() {
     Entity dagger = WeaponFactory.createDagger();
     weaponOnMap.add(dagger);
     spawnEntityAt(dagger, new GridPoint2(10, 10), true, false);
   }
-
+  /**
+   * Spawns second Level 2 dagger entity into the game
+   * Spawns x-pos 18
+   * Spawns y-pos 10
+   */
   private void spawnDaggerTwo() {
     Entity daggerTwo = WeaponFactory.createDaggerTwo();
     weaponOnMap.add(daggerTwo);
     spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
+  }
+  /**
+   * Spawns dumbbell entity into the game
+   * Spawns x-pos 5
+   * Spawns y-pos 10
+   */
+  private void spawnDumbbell() {
+    Entity dumbbell = WeaponFactory.createDumbbell();
+    weaponOnMap.add(dumbbell);
+    spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
+  }
+  /**
+   * Spawns Level 2 Sword entity into the game
+   * Spawns x-pos 20
+   * Spawns y-pos 20
+   */
+  private void spawnSwordLvl2() {
+    Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
+    weaponOnMap.add(SwordLvl2);
+    spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
+  }
+
+  /**
+   * Spawns Level 2 Trident entity into the game
+   */
+  private void spawnTridentLvl2() {
+    Entity tridentLvl2 = WeaponFactory.createTridentLvl2();
+    weaponOnMap.add(tridentLvl2);
+    spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
   }
 
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
   }
 
+  /**
+   * Spawn a potion in a random position.
+   */
   private void spawnPotion() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity potion = PotionFactory.createPotion();
+    Entity potion = PotionFactory.createSpeedPotion();
     this.spawnEntityAt(potion, randomPos, true, false);
   }
 
+  /**
+   * Spawns the player entity, with a skill animator overlaid above the player.
+   * @return the player entity
+   */
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
+    Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+    newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
     return newPlayer;
   }
 
@@ -294,6 +446,9 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawn female NPC in random position. - Team 7 all-mid-npc
+   */
   private void spawnOneLegGirl() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -301,6 +456,71 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
+  }
+
+  private GridPoint2 randomPositon() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    return RandomUtils.random(minPos, maxPos);
+  }
+
+  /**
+   * Spawn child NPC in random position. - Team 7 all-mid-npc
+   */
+  private void spawnChild() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+
+    Entity child = NPCFactory.createChild(player);
+    spawnEntityAt(child, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
+  }
+//  private void spawnDialogue() {
+//
+//    Entity dialogue = DialogueFactory.createDialogue();
+//
+//    spawnEntityAt(dialogue, randomPositon(), true, true);
+//    System.out.print(randomPositon());
+//  }
+
+
+  /**
+   * Spawn guard NPC in random position. - Team 7 all-mid-npc
+   */
+  private void spawnGuard() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+
+    Entity guard = NPCFactory.createGuard(player);
+    spawnEntityAt(guard, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
+  }
+
+  /**
+   * Spawn male NPC in random position. - Team 7 all-mid-npc
+   */
+  private void spawnMaleCitizen() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity male_citizen = NPCFactory.createMale_citizen(player);
+    spawnEntityAt(male_citizen, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+
+    spawnEntityAt(dialogue, randomPos, true, true);
   }
 
   private void spawnGhostKing() {
@@ -311,6 +531,7 @@ public class ForestGameArea extends GameArea {
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
+
 
   private void spawnAtlantisCitizen() {
     GridPoint2 minPos = new GridPoint2(0, 0);
@@ -327,7 +548,6 @@ public class ForestGameArea extends GameArea {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
     music.setVolume(0.0f);
-
     music.play();
   }
 

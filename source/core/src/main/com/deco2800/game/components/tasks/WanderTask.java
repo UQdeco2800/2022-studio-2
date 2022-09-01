@@ -32,11 +32,18 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     this.waitTime = waitTime;
   }
 
+  /**
+   * Get the priority of this task.
+   * @return integer representing the priority of this task.
+   */
   @Override
   public int getPriority() {
     return 1; // Low priority task
   }
 
+  /**
+   * Start this task.
+   */
   @Override
   public void start() {
     super.start();
@@ -53,6 +60,9 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     this.owner.getEntity().getEvents().trigger("wanderStart");
   }
 
+  /**
+   * Update this task.
+   */
   @Override
   public void update() {
     if (currentTask.getStatus() != Status.ACTIVE) {
@@ -65,17 +75,26 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     currentTask.update();
   }
 
+  /**
+   * Start the waiting task.
+   */
   private void startWaiting() {
     logger.debug("Starting waiting");
     swapTask(waitTask);
   }
 
+  /**
+   * Start the movement task.
+   */
   private void startMoving() {
     logger.debug("Starting moving");
     movementTask.setTarget(getRandomPosInRange());
     swapTask(movementTask);
   }
 
+  /**
+   * Swap tasks.
+   */
   private void swapTask(Task newTask) {
     if (currentTask != null) {
       currentTask.stop();
@@ -84,6 +103,10 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     currentTask.start();
   }
 
+  /**
+   * Get a random position in range.
+   * @return Vector2 that represents a random position in range.
+   */
   private Vector2 getRandomPosInRange() {
     Vector2 halfRange = wanderRange.cpy().scl(0.5f);
     Vector2 min = startPos.cpy().sub(halfRange);

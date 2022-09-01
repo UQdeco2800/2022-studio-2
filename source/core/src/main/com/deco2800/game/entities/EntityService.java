@@ -28,6 +28,10 @@ public class EntityService {
     entity.create();
   }
 
+  public Array<Entity> getEntityList() {
+    return entities;
+  }
+
   /**
    * Unregister an entity with the entity service. The entity will be removed and stop updating.
    * @param entity entity to be removed.
