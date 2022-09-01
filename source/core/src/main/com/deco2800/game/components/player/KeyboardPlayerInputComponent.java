@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 /**
@@ -62,6 +63,8 @@ public class    KeyboardPlayerInputComponent extends InputComponent {
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
+      case Keys.ESCAPE:
+        EntityService.pauseGame();
       default:
         return false;
     }
