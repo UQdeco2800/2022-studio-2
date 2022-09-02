@@ -204,6 +204,21 @@ public class NPCFactory {
   }
 
   /**
+   * Creates Heracles, the boss of the first level.
+   *
+   * @return entity
+   */
+  private static Entity createHeracles()  {
+    Entity heracles = createBaseNPC();
+    HeraclesConfig config = configs.heracles;
+    //Will need to add movement/attacks and will need to add texture
+    heracles.setEntityType(EntityTypes.ENEMY);
+    heracles.setEntityType(EntityTypes.BOSS);
+    heracles.setScale(3f, 3f);
+    return heracles;
+  }
+
+  /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @return entity
