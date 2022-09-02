@@ -6,13 +6,14 @@ import org.slf4j.Logger;
 import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.LoggerFactory;
 
+
 public class OpenCraftingComponent extends Component {
 
     float craftingTableXCoord;
     float craftingTableYCoord;
     private static Logger logger;
-
     private static Boolean isOpen = false;
+
 
     public void create() {
 

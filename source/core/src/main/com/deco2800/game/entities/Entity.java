@@ -41,6 +41,7 @@ public class Entity {
   private Array<Component> createdComponents;
   private boolean isDead = false;
   private List<EntityTypes> entityType;
+  private boolean gamePaused = false;
   public Entity() {
     id = nextId;
     nextId++;
@@ -259,16 +260,16 @@ public class Entity {
    * called manually.
    */
   public void update() {
-    if (!enabled) {
+    if (!enabled && gamePaused) {
       return;
     }
 
-    if (isDead) {
+    if (isDead && gamePaused) {
       dispose();
-    }
-
-    for (Component component : createdComponents) {
-      component.triggerUpdate();
+    } else if (!gamePaused) {
+      for (Component component : createdComponents) {
+        component.triggerUpdate();
+      }
     }
   }
 

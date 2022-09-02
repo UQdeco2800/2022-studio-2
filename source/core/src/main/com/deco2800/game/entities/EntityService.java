@@ -53,8 +53,18 @@ public class EntityService {
     }
   }
 
-  public static void pauseGame() {
+  /**
+   * Pause and resume the game. Used for main pausing function.
+   */
+  public static void pauseAndResume() {
     paused = !paused;
+  }
+
+  /**
+   * Pause the game. Used for when the player is interacting with the inventory or UI.
+   */
+  public static void pauseGame() {
+    paused = true;
   }
 
   /**

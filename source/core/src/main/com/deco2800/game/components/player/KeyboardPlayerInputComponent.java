@@ -48,10 +48,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
+        EntityService.pauseGame();
         return true;
       case Keys.L:
         System.out.println("9");
         entity.getEvents().trigger("can_close");
+        EntityService.pauseAndResume();
         return true;
       case Keys.E:
         entity.getEvents().trigger("skill");
@@ -63,7 +65,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("toggleInventory");
         return true;
       case Keys.ESCAPE:
-        EntityService.pauseGame();
+        EntityService.pauseAndResume();
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;
@@ -112,4 +114,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       entity.getEvents().trigger("walk", walkDirection);
     }
   }
+
+
 }
