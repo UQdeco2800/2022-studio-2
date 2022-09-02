@@ -42,6 +42,7 @@ public class PlayerSkillAnimationController extends Component {
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         entity.getEvents().addListener("regularAnimation", this::animateRegular);
         entity.getEvents().addListener("teleportAnimation", this::animateTeleport);
+        entity.getEvents().addListener("blockAnimation", this::animateBlock);
         entity.getEvents().trigger("regularAnimation");
     }
 
@@ -49,7 +50,7 @@ public class PlayerSkillAnimationController extends Component {
      * Triggers the regular state animation of the skill animator.
      */
     void animateRegular() {
-        animator.startAnimation("walk");
+        animator.startAnimation("no_animation");
     }
 
     /**
@@ -57,5 +58,12 @@ public class PlayerSkillAnimationController extends Component {
      */
     void animateTeleport() {
         animator.startAnimation("teleport");
+    }
+
+    /**
+     * Triggers the block animation.
+     */
+    void animateBlock() {
+        animator.startAnimation("block");
     }
 }

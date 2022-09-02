@@ -68,9 +68,10 @@ public class PlayerFactory {
   public static Entity createSkillAnimator(Entity playerEntity) {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/playerTeleport.atlas", TextureAtlas.class));
-    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+                    ServiceLocator.getResourceService().getAsset("images/Skills/skillAnimations.atlas", TextureAtlas.class));
+    animator.addAnimation("no_animation", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("block", 0.1f, Animation.PlayMode.LOOP);
 
     Entity skillAnimator =
             new Entity().addComponent(animator)
