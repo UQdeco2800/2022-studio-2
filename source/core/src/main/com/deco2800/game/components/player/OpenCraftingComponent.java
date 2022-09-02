@@ -6,6 +6,10 @@ import org.slf4j.Logger;
 import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.LoggerFactory;
 
+import com.deco2800.game.entities.EntityService;
+
+import javax.swing.border.EmptyBorder;
+
 
 public class OpenCraftingComponent extends Component {
 
@@ -30,6 +34,7 @@ public class OpenCraftingComponent extends Component {
         if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 10 && isOpen == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();
             isOpen = true;
+            EntityService.pauseGame();
         }
 
     }
@@ -38,6 +43,7 @@ public class OpenCraftingComponent extends Component {
         if (isOpen == true) {
             ServiceLocator.getCraftArea().disposeCraftingMenu();
             isOpen = false;
+            EntityService.pauseAndResume();
         }
 
     }
