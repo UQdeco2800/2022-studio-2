@@ -35,9 +35,9 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
-    "images/atlantis_citizen_gym_bro.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
+    "images/Enemies/gym_bro.png",
     "images/ghost_king.png",
     "images/ghost_1.png",
     "images/grass_1.png",
@@ -142,7 +142,7 @@ public class ForestGameArea extends GameArea {
     spawnGhosts();
     spawnGhostKing();
     spawnEffectBlobs();
-    spawnAtlantisCitizen();
+    spawnGymBro();
     spawnOneLegGirl();
 
     spawnChild();
@@ -525,14 +525,14 @@ public class ForestGameArea extends GameArea {
   }
 
 
-  private void spawnAtlantisCitizen() {
+  private void spawnGymBro() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    for (int i = 0; i < NUM_GHOSTS; i++) {
+    for (int i = 0; i < 5; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity atlantisCitizen = NPCFactory.createAtlantisCitizen(player);
-      spawnEntityAt(atlantisCitizen, randomPos, true, true);
+      Entity gymBro = NPCFactory.createGymBro(player);
+      spawnEntityAt(gymBro, randomPos, true, true);
     }
   }
 

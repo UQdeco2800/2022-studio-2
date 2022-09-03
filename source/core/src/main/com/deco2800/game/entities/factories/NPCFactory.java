@@ -184,22 +184,29 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createAtlantisCitizen(Entity target) {
-    Entity atlantisCitizen = createBaseNPC();
+  public static Entity createGymBro(Entity target) {
+    Entity gymBro = createBaseNPC();
     AtlantisCitizenConfig config = configs.atlantisCitizen;
 
-    atlantisCitizen.getComponent(AITaskComponent.class)
+    gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
 
-    //Once we have animation, can change from using Texture Component to Animation Component
-    atlantisCitizen
+//    AnimationRenderComponent animator =
+//            new AnimationRenderComponent(
+//                    ServiceLocator.getResourceService()
+//                            .getAsset("images/Enemies/gym_bro_attack_left.atlas", TextureAtlas.class));
+//    animator.addAnimation("punch_left", 0.1f, Animation.PlayMode.LOOP);
+
+    gymBro
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
-    atlantisCitizen.setScale(2f, 2f);
-    atlantisCitizen.setEntityType(EntityTypes.ENEMY);
-    atlantisCitizen.setEntityType(EntityTypes.MELEE);
-    return atlantisCitizen;
+//            .addComponent(animator)
+//            .addComponent(new GymBroController());
+            .addComponent(new TextureRenderComponent("images/Enemies/gym_bro.png"));
+    gymBro.setScale(2f, 2f);
+    gymBro.setEntityType(EntityTypes.ENEMY);
+    gymBro.setEntityType(EntityTypes.MELEE);
+    return gymBro;
 
   }
 
