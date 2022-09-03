@@ -11,17 +11,33 @@ public class PlayerAnimationController extends Component {
     public void create() {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
-        entity.getEvents().addListener("regularAnimation", this::animateRegular);
-        entity.getEvents().addListener("teleportAnimation", this::animateTeleport);
-        entity.getEvents().trigger("regularAnimation");
+        entity.getEvents().addListener("movementIdle", this::movementIdle);
+        entity.getEvents().addListener("movementUp", this::movementUp);
+        entity.getEvents().addListener("movementDown", this::movementDown);
+        entity.getEvents().addListener("movementLeft", this::movementLeft);
+        entity.getEvents().addListener("movementRight", this::movementRight);
+
+        entity.getEvents().trigger("movementIdle"); // Start out default idle animation
     }
 
-    void animateRegular() {
-        animator.startAnimation("walk");
+    void movementIdle() {
+        animator.startAnimation("idle");
     }
 
-    void animateTeleport() {
-        animator.startAnimation("teleport");
+    void movementUp() {
+        animator.startAnimation("up");
+    }
+
+    void movementDown() {
+        animator.startAnimation("down");
+    }
+
+    void movementLeft() {
+        animator.startAnimation("left");
+    }
+
+    void movementRight() {
+        animator.startAnimation("right");
     }
 }
 

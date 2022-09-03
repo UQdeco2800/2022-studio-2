@@ -95,14 +95,16 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
-    "images/Skills/skillAnimations.png"
+    "images/Skills/skillAnimations.png",
 
+    // Player movement
+    "images/Movement/movement.png"
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Movement/movement.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
