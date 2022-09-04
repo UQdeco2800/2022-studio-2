@@ -7,6 +7,7 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -196,20 +197,20 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Enemies/gym_bro.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_forward", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_backward", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
 
-//    AnimationRenderComponent animator =
-//            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService()
-//                            .getAsset("images/Enemies/gym_bro_attack_left.atlas", TextureAtlas.class));
-//    animator.addAnimation("punch_left", 0.1f, Animation.PlayMode.LOOP);
 
     gymBro
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-//            .addComponent(animator)
-//            .addComponent(new GymBroController());
-            .addComponent(new TextureRenderComponent("images/Enemies/gym_bro.png"));
+            .addComponent(animator)
+            .addComponent(new GymBroAnimationController());
     gymBro.setScale(2f, 2f);
     gymBro.setEntityType(EntityTypes.ENEMY);
     gymBro.setEntityType(EntityTypes.MELEE);
