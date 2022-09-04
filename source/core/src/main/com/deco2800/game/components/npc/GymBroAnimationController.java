@@ -12,6 +12,7 @@ public class GymBroAnimationController extends Component {
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         entity.getEvents().addListener("wanderStart", this::animateWander);
         entity.getEvents().addListener("chaseStart", this::animateChase);
+        entity.getEvents().trigger("wanderStart");
     }
 
     void animateWander() {

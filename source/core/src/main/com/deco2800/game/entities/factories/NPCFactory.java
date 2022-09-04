@@ -197,14 +197,14 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Enemies/gym_bro.atlas", TextureAtlas.class));
-    animator.addAnimation("attack_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_forward", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_backward", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     gymBro
