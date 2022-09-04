@@ -1,10 +1,15 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
@@ -24,7 +29,9 @@ public class WeaponFactory {
      */
     public static Entity createBaseWeapon() {
         Entity weapon = new Entity()
-                .addComponent(new PhysicsComponent());
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
         return weapon;
     }
 
@@ -112,5 +119,6 @@ public class WeaponFactory {
         TridentLvl2.scaleHeight(2f);
         return TridentLvl2;
     }
+
 
 }
