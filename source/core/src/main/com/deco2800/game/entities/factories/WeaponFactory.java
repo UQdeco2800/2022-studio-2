@@ -41,7 +41,7 @@ public class WeaponFactory {
      */
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
-        MeleeConfig config = configs.dagger;
+        MeleeConfig config = configs.athenaDag;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 
        dagger
@@ -58,7 +58,7 @@ public class WeaponFactory {
      */
     public static Entity createDaggerTwo() {
         Entity daggerTwo = createBaseWeapon();
-        MeleeConfig config = configs.daggerTwo;
+        MeleeConfig config = configs.herraDag;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 
         daggerTwo
@@ -120,5 +120,38 @@ public class WeaponFactory {
         return TridentLvl2;
     }
 
+    /**
+     * Creates Herra and Athena's Dagger
+     * @return Herra and Athena's Dagger
+     */
+    public static Entity createHerraAthenaDag() {
+        Entity heraAthenaDag = createBaseWeapon();
+        MeleeConfig config = configs.herraAthenaDag;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        heraAthenaDag
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png"));
+        heraAthenaDag.getComponent(TextureRenderComponent.class).scaleEntity();
+        heraAthenaDag.scaleHeight(2f);
+        return heraAthenaDag;
+    }
+
+    /**
+     * Creates the plunger weapon
+     * @return plunger weapon
+     */
+    public static Entity createPlunger() {
+        Entity plunger = createBaseWeapon();
+        MeleeConfig config = configs.plunger;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        plunger
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png"));
+        plunger.getComponent(TextureRenderComponent.class).scaleEntity();
+        plunger.scaleHeight(2f);
+        return plunger;
+    }
 
 }

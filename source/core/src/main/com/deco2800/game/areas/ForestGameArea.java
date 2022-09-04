@@ -101,8 +101,9 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
+    "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
+    "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png"
-
   };
 
   public static String[] newTextures;
@@ -172,7 +173,8 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
-
+    spawnHerraAndAthena();
+    spawnPlunger();
   }
 
 
@@ -406,6 +408,29 @@ public class ForestGameArea extends GameArea {
     weaponOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
+
+  /**
+   * Spawns level 3 Herra and Athena entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 4
+   */
+  private void spawnHerraAndAthena() {
+    Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
+    weaponOnMap.add(herraAthenaDag);
+    spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
+  }
+
+  /**
+   * Spawns basic plunger into game
+   * Spawns x-pos 20
+   * Spawns y-pos 4
+   */
+  private void spawnPlunger() {
+    Entity plunger = WeaponFactory.createPlunger();
+    weaponOnMap.add(plunger);
+    spawnEntityAt(plunger, new GridPoint2(20,4), true, false);
+  }
+
   /**
    * Spawns Level 2 Sword entity into the game
    * Spawns x-pos 20
@@ -425,7 +450,6 @@ public class ForestGameArea extends GameArea {
     weaponOnMap.add(tridentLvl2);
     spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
   }
-
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
   }
