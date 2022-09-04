@@ -14,7 +14,7 @@ public class CraftingLogic {
     /**
      * List containing the possible builds the user can make with their given inventory
      */
-    private static List<MeleeConfig> possibleBuilds =  new ArrayList<MeleeConfig>();
+    private static List<MeleeConfig> possibleBuilds =  new ArrayList<>();
 
     /**
      * List of all weapons that exist in the game
@@ -70,13 +70,12 @@ public class CraftingLogic {
 
                 for (Map.Entry<Materials,Integer> entry : materialValues.entrySet()) {
 
+                    Boolean hasMaterial = true;
+
                     if (!inventoryContents.contains(entry.getKey())){
+                        hasMaterial = false;
                     }
-
-                    else if (Collections.frequency(inventoryContents, entry.getKey()) < entry.getValue()){
-                    }
-
-                    else {
+                    else if (hasMaterial){
                         buildables.add(possibleWeapons.get(i));
                     }
                 }
