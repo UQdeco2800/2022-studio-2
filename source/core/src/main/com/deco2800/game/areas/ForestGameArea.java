@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -92,12 +93,15 @@ public class ForestGameArea extends GameArea {
     "images/Potions/defence_potion.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
-    "images/Potions/agility_potion.png"
+    "images/Potions/agility_potion.png",
+    "images/Skills/skillAnimations.png"
+
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas", "images/Enemies/gym_bro.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas",
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -420,10 +424,16 @@ public class ForestGameArea extends GameArea {
     this.spawnEntityAt(potion, randomPos, true, false);
   }
 
-
+  /**
+   * Spawns the player entity, with a skill animator overlaid above the player.
+   * @return the player entity
+   */
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
+    Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+    newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
     return newPlayer;
   }
 
