@@ -41,12 +41,12 @@ public class PlayerFactory {
                     ServiceLocator.getResourceService().getAsset("images/playerTeleport.atlas", TextureAtlas.class));
 
     animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
 
     Entity player =
         new Entity()
-            .addComponent(animator)
-            .addComponent(new PlayerAnimationController())
+            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
+            //.addComponent(animator) For player animations if you want it
+            //.addComponent(new PlayerAnimationController())
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -60,9 +60,27 @@ public class PlayerFactory {
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    //player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.getComponent(TextureRenderComponent.class).scaleEntity();
     return player;
   }
+
+  public static Entity createSkillAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/Skills/skillAnimations.atlas", TextureAtlas.class));
+    animator.addAnimation("no_animation", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("block", 0.1f, Animation.PlayMode.LOOP);
+
+    Entity skillAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerSkillAnimationController(playerEntity));
+
+    skillAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return skillAnimator;
+  }
+
 
   private PlayerFactory() {
     throw new IllegalStateException("Instantiating static util class");
