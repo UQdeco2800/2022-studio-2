@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -35,9 +36,9 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
-    "images/atlantis_citizen_gym_bro.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
+    "images/Enemies/gym_bro.png",
     "images/ghost_king.png",
     "images/ghost_1.png",
     "images/grass_1.png",
@@ -71,7 +72,11 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
-
+    "images/Potions/defence_potion.png",
+    "images/level_1_tiledmap/32x32/column.png",
+    "images/NPC/male_citizen/male_citizen.png",
+    "images/Potions/defence_potion.png",
+    "images/playerTeleport.png",
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
     "images/NPC/guard npc/atlantisguardnpc_1.png",
@@ -90,12 +95,14 @@ public class ForestGameArea extends GameArea {
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
-    "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png"
+    "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
+    "images/Skills/skillAnimations.png"
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas",
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -140,7 +147,7 @@ public class ForestGameArea extends GameArea {
     spawnGhosts();
     spawnGhostKing();
     spawnEffectBlobs();
-    spawnAtlantisCitizen();
+    spawnGymBro();
     spawnOneLegGirl();
 
     spawnChild();
@@ -441,10 +448,16 @@ public class ForestGameArea extends GameArea {
     this.spawnEntityAt(potion, randomPos, true, false);
   }
 
-
+  /**
+   * Spawns the player entity, with a skill animator overlaid above the player.
+   * @return the player entity
+   */
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
+    Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
+    spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+    newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
     return newPlayer;
   }
 
@@ -546,14 +559,14 @@ public class ForestGameArea extends GameArea {
   }
 
 
-  private void spawnAtlantisCitizen() {
+  private void spawnGymBro() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    for (int i = 0; i < NUM_GHOSTS; i++) {
+    for (int i = 0; i < 5; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity atlantisCitizen = NPCFactory.createAtlantisCitizen(player);
-      spawnEntityAt(atlantisCitizen, randomPos, true, true);
+      Entity gymBro = NPCFactory.createGymBro(player);
+      spawnEntityAt(gymBro, randomPos, true, true);
     }
   }
 

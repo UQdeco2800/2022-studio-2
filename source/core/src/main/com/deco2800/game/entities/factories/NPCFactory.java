@@ -7,6 +7,7 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -43,7 +44,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC(target);
+    Entity ghost = createBaseNPC();
     BaseEntityConfig config = configs.ghost;
 
     ghost.getComponent(AITaskComponent.class)
@@ -73,7 +74,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGhostKing(Entity target) {
-    Entity ghostKing = createBaseNPC(target);
+    Entity ghostKing = createBaseNPC();
     GhostKingConfig config = configs.ghostKing;
 
     ghostKing.getComponent(AITaskComponent.class)
@@ -103,9 +104,8 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createOneLegGirl (Entity target) {
-    Entity oneLegGirl = createBaseNPC(target);
+    Entity oneLegGirl = createBaseNPC();
     FemaleCitizenConfig config = configs.oneLegGirl;
-
 
     oneLegGirl
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
@@ -126,7 +126,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createChild (Entity target) {
-    Entity child = createBaseNPC(target);
+    Entity child = createBaseNPC();
     ChildConfig config = configs.child;
 
 
@@ -146,7 +146,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createGuard (Entity target) {
-    Entity guard = createBaseNPC(target);
+    Entity guard = createBaseNPC();
     GuardConfig config = configs.guard;
 
 
@@ -166,7 +166,7 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createMale_citizen (Entity target) {
-    Entity male_citizen = createBaseNPC(target);
+    Entity male_citizen = createBaseNPC();
     Male_citizenConfig config = configs.male_citizen;
 
 
@@ -185,23 +185,52 @@ public class NPCFactory {
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createAtlantisCitizen(Entity target) {
-    Entity atlantisCitizen = createBaseNPC(target);
+  public static Entity createGymBro(Entity target) {
+    Entity gymBro = createBaseNPC();
     AtlantisCitizenConfig config = configs.atlantisCitizen;
 
-    atlantisCitizen.getComponent(AITaskComponent.class)
+    gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
 
-    //Once we have animation, can change from using Texture Component to Animation Component
-    atlantisCitizen
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/atlantis_citizen_gym_bro.png"));
-    atlantisCitizen.setScale(2f, 2f);
-    atlantisCitizen.setEntityType(EntityTypes.ENEMY);
-    atlantisCitizen.setEntityType(EntityTypes.MELEE);
-    return atlantisCitizen;
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Enemies/gym_bro.atlas", TextureAtlas.class));
+    animator.addAnimation("walk_forward", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_backward", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
 
+
+    gymBro
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new GymBroAnimationController());
+    gymBro.setScale(2f, 2f);
+    gymBro.setEntityType(EntityTypes.ENEMY);
+    gymBro.setEntityType(EntityTypes.MELEE);
+    return gymBro;
+
+  }
+
+  /**
+   * Creates Heracles, the boss of the first level.
+   *
+   * @return entity
+   */
+  private static Entity createHeracles()  {
+    Entity heracles = createBaseNPC();
+    HeraclesConfig config = configs.heracles;
+    //Will need to add movement/attacks and will need to add texture
+    heracles.setEntityType(EntityTypes.ENEMY);
+    heracles.setEntityType(EntityTypes.BOSS);
+    heracles.setScale(3f, 3f);
+    return heracles;
   }
 
   /**
@@ -209,7 +238,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC(Entity target) {
+  private static Entity createBaseNPC() {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()

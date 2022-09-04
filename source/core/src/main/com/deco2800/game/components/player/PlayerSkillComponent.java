@@ -13,6 +13,7 @@ import com.deco2800.game.entities.Entity;
  */
 public class PlayerSkillComponent extends Component {
 
+    private Entity skillAnimator;
     private Entity playerEntity;
 
     private boolean isInvulnerable;
@@ -36,10 +37,25 @@ public class PlayerSkillComponent extends Component {
     private boolean dashEndEvent = false;
 
 
-
-    public PlayerSkillComponent(Entity entity) {
-        this.playerEntity = entity;
+    /**
+     * Initialises the player skill component, taking a player entity as the parent component.
+     * @param playerEntity the player entity this skill component is a subcomponent of
+     */
+    public PlayerSkillComponent(Entity playerEntity) {
+        this.playerEntity = playerEntity;
     }
+
+    /**
+     * Sets the skill animator entity for this skill component, so this skill component
+     * can interact with the corresponding animator. This entity should have as components
+     * at least a PlayerSkillAnimationController and an AnimationRenderComponent.
+     * @param skillAnimator skill animator entity with PlayerSkillAnimationController
+     *                      and an AnimationRenderComponent
+     */
+    public void setSkillAnimator(Entity skillAnimator) {
+        this.skillAnimator = skillAnimator;
+    }
+
     /**
      * Update should update the cooldowns/state of skills within the skill manager
      */
@@ -63,6 +79,7 @@ public class PlayerSkillComponent extends Component {
             this.teleporting = false;
             this.teleportEndEvent = true;
             teleportPlayer();
+            skillAnimator.getEvents().trigger("regularAnimation");
         }
     }
 

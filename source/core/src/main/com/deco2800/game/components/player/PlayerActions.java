@@ -12,11 +12,9 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -25,11 +23,7 @@ import javax.swing.JPanel;
 public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
-  private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
-  private static final Vector2 DASH_SPEED = new Vector2(6f, 6f); // Metres per second
-  private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
-  private static final float DASH_MOVEMENT_RESTRICTION = 0.8f;
-  private static final int TELEPORT_LENGTH = 4;
+  private Entity skillAnimator;
 
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
@@ -39,8 +33,6 @@ public class PlayerActions extends Component {
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean inventoryIsOpened = false;
   private boolean miniMapOpen = false;
-  private long dashStart;
-  private long dashEnd;
   private int stamina= 100;
   private int maxStamina =100;
   private int maxMana=100;
@@ -50,6 +42,7 @@ public class PlayerActions extends Component {
   private long restStart=0;
   private long restEnd;
 
+  Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
   @Override
   public void create() {
@@ -71,9 +64,12 @@ public class PlayerActions extends Component {
 
 
     // Skills and Dash initialisation
+    String startingSkill = "teleport";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill("teleport", entity, this);
+    skillManager.setSkill(startingSkill, entity, this);
     entity.getEvents().addListener("dash", this::dash);
+
+    skillCooldowns.put(startingSkill, 0L);
   }
 
   @Override
@@ -93,33 +89,9 @@ public class PlayerActions extends Component {
     inventoryIsOpened = !inventoryIsOpened;
     //Code for debugging
     if(inventoryIsOpened) {
-      System.out.println("Opening inventory");
       // Open code
-      showInventory();
     } else {
-      System.out.println("Closing inventory");
       // Close code
-    }
-  }
-
-  private void showInventory() {
-    JFrame j = new JFrame();
-    j.setUndecorated(true);
-    j.setLocationRelativeTo(null);
-    j.setSize(400, 400);
-    j.setResizable(false);
-    j.getContentPane().setLayout(null);
-    JPanel panel = new ImagePanel();
-    panel.setBounds(0, 0, 400, 400);
-    j.getContentPane().add(panel);
-    j.setVisible(true);
-  }
-
-  class ImagePanel extends JPanel {
-    public void paint(Graphics g) {
-      super.paint(g);
-      ImageIcon icon = new ImageIcon("images/Inventory/pixil-frame (x10).png");
-      g.drawImage(icon.getImage(), 0, 0, 400, 400, this);
     }
   }
 
@@ -267,13 +239,55 @@ public class PlayerActions extends Component {
    * Makes the player teleport. Registers call of the teleport function to the skill manager component.
    */
   void teleport() {
-    if (mana>=40) {
+    if (mana>=40 && cooldownFinished("teleport", 3000)) {
       entity.getEvents().trigger("decreaseMana", -40);
+      skillAnimator.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
     }
   }
 
   Vector2 getWalkDirection() {
     return this.walkDirection;
+  }
+
+  /**
+   * Checks if the cooldown period is over for the given skill and updates cooldown map.
+   * @param skill the skill to check
+   * @param cooldown the cooldown period (in milliseconds)
+   *
+   * @return true if cooldown period is over, false otherwise
+   */
+  public boolean cooldownFinished(String skill, long cooldown) {
+    if (skillCooldowns.get(skill) == null) {
+      return false;
+    }
+    if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
+      skillCooldowns.replace(skill, System.currentTimeMillis());
+      return true;
+    } else {
+      return false;
+    }
+  }
+  /**
+  * Sets an existing skill cooldown to a new cooldown.
+  * @param skill the skill to check
+  * @param cooldown the cooldown period (in milliseconds)
+  *
+  */
+  public void setSkillCooldown(String skill, long cooldown) {
+    if (skillCooldowns.get(skill) != null) {
+      skillCooldowns.replace(skill, System.currentTimeMillis());
+    }
+  }
+
+  /**
+   * Sets the skill animator for this actions component and passes it to the skill
+   * component so the skill component can alter the skill animation state.
+   * @param skillAnimator the skill animator entity which has subcomponents
+   *                      PlayerSkillAnimationController and AnimationRenderer
+   */
+  public void setSkillAnimator(Entity skillAnimator) {
+    this.skillAnimator = skillAnimator;
+    this.skillManager.setSkillAnimator(skillAnimator);
   }
 }

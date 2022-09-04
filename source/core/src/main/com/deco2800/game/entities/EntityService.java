@@ -3,7 +3,6 @@ package com.deco2800.game.entities;
 import com.badlogic.gdx.utils.Array;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.*;
 
 /**
  * Provides a global access point for entities to register themselves. This allows for iterating
