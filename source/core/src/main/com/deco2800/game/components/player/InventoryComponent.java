@@ -8,25 +8,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class quickBar<Potions> {
+class quickBar {
 
+
+
+  private final int quickBarSize = 3;
   /**
    * TO BE IMPLEMENTED
    */
-  private List<Potions> quickBarItems = new ArrayList<>();
 
-  private final int quickBarSize = 6;
+  private List<Entity> quickBarItems = new ArrayList<>(quickBarSize);
+
   /**
    * TO BE IMPLEMENTED
    * By default every element in the array is 0.
    */
-  int[] itemQuantity = new int[quickBarSize];
+  private int[] itemQuantity = new int[quickBarSize];
 
   /**
    * Adding potion to the quickbar.
    * TO BE IMPLEMENTED
    */
-  public void setQuickBarItems(Potions potion) {
+  public void setQuickBarItems(Entity potion) {
 
     if (quickBarItems.contains(potion)) {
       ++itemQuantity[quickBarItems.indexOf(potion)];
