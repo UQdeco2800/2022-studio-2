@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class EntityService {
   private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
   private static final int INITIAL_CAPACITY = 16;
+  private static boolean paused = false;
 
   private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
@@ -45,9 +46,25 @@ public class EntityService {
    */
   public void update() {
     for (Entity entity : entities) {
-      entity.earlyUpdate();
-      entity.update();
+      if (!paused) {
+        entity.earlyUpdate();
+        entity.update();
+      }
     }
+  }
+
+  /**
+   * Pause and resume the game. Used for main pausing function.
+   */
+  public static void pauseAndResume() {
+    paused = !paused;
+  }
+
+  /**
+   * Pause the game. Used for when the player is interacting with the inventory or UI.
+   */
+  public static void pauseGame() {
+    paused = true;
   }
 
   /**

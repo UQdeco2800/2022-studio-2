@@ -35,4 +35,5 @@ public class MainGameActions extends Component {
     logger.info("Open inventory");
     game.setScreen(GdxGame.ScreenType.INVENTORY);
   }
+
 }
