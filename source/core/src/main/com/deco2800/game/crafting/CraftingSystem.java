@@ -33,15 +33,14 @@ public class CraftingSystem implements Runnable{
     public void CraftingSystem() {
 
          builtItems = new ArrayList<>();
-
-         //Set Possible Builds by finding all weapons that implement Buildable component
         ArrayList<MeleeConfig> possibleWeapons = new ArrayList<>();
-    //    possibleWeapons.add(configs.Sword);
-  //      possibleWeapons.add(configs.dagger);
-//        possibleWeapons.add(configs.daggerTwo);
-      //  possibleWeapons.add(configs.dumbbell);
-       // possibleWeapons.add(configs.SwordLvl2);
-        //possibleWeapons.add(configs.tridentLvl2);
+        possibleWeapons.add(configs.athenaDag);
+        possibleWeapons.add(configs.herraDag);
+        possibleWeapons.add(configs.SwordLvl2);
+        possibleWeapons.add(configs.dumbbell);
+        possibleWeapons.add(configs.tridentLvl2);
+        possibleWeapons.add(configs.herraAthenaDag);
+        possibleWeapons.add(configs.plunger);
         CraftingLogic.setPossibleWeapons(possibleWeapons);
 
          //List<Materials> inventoryContents = getInventoryContents();
@@ -77,11 +76,6 @@ public class CraftingSystem implements Runnable{
         return inventoryContents;
     }
 
-    //iterates through Weapons.json file and adds all weapons to the possible weapons list
-    public void getRecipes(){
-
-
-    }
 
     /**
      * Sets the users inventory contents to be used by the crafting classes. Synchronised to prevent write conflicts.
