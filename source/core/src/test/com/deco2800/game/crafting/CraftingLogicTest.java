@@ -33,14 +33,14 @@ public class CraftingLogicTest {
         assertEquals(inputList, CraftingLogic.getPossibleBuilds());
     }
 
-    @Test
-    void getPossibleWeaponsTest() {
-        ArrayList<MeleeConfig> inputList = new ArrayList<>();
-        WeaponConfig configs = FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
-        inputList.add(configs.Sword);
-        CraftingLogic.setPossibleWeapons(inputList);
-        assertEquals(CraftingLogic.getPossibleWeapons(), inputList);
-    }
+  //  @Test
+    //void getPossibleWeaponsTest() {
+      //  ArrayList<MeleeConfig> inputList = new ArrayList<>();
+        //WeaponConfig configs = FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
+       // inputList.add(configs.Sword);
+       // CraftingLogic.setPossibleWeapons(inputList);
+       // assertEquals(CraftingLogic.getPossibleWeapons(), inputList);
+   // }
 
     /*
     @Test

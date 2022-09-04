@@ -36,12 +36,12 @@ public class CraftingSystem implements Runnable{
 
          //Set Possible Builds by finding all weapons that implement Buildable component
         ArrayList<MeleeConfig> possibleWeapons = new ArrayList<>();
-        possibleWeapons.add(configs.Sword);
-        possibleWeapons.add(configs.dagger);
-        possibleWeapons.add(configs.daggerTwo);
-        possibleWeapons.add(configs.dumbbell);
-        possibleWeapons.add(configs.SwordLvl2);
-        possibleWeapons.add(configs.tridentLvl2);
+    //    possibleWeapons.add(configs.Sword);
+  //      possibleWeapons.add(configs.dagger);
+//        possibleWeapons.add(configs.daggerTwo);
+      //  possibleWeapons.add(configs.dumbbell);
+       // possibleWeapons.add(configs.SwordLvl2);
+        //possibleWeapons.add(configs.tridentLvl2);
         CraftingLogic.setPossibleWeapons(possibleWeapons);
 
          //List<Materials> inventoryContents = getInventoryContents();
