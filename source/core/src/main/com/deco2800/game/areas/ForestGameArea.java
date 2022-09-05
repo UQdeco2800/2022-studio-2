@@ -50,6 +50,8 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
+          "images/level_1_tiledmap/32x32/drain_empty.png",
+          "images/level_1_tiledmap/32x32/drain_plug.png",
     "images/NPC/male_citizen/male_citizen.png"
   };
   private static final String[] forestTextureAtlases = {

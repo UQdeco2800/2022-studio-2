@@ -117,7 +117,7 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Pressing the 'I' button toggles the Minimap window being open.
+   * Pressing the 'M' button toggles the Minimap window being open.
    */
   private void toggleMinimap(){
     miniMapOpen = !miniMapOpen;
