@@ -31,6 +31,7 @@ public class ServiceLocator {
   private static GameAreaDisplay craftArea;
 
 
+  public static ForestGameArea getGameArea() {return gameArea;}
   public static EntityService getEntityService() {
     return entityService;
   }
