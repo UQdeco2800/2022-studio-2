@@ -935,6 +935,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Check if this entity equals another object</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#equipItem(com.deco2800.game.entities.Entity)" class="member-name-link">equipItem(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Assuming weapon's max quantity is one
+ NOT FINISHED!!!!!</div>
+</dd>
 <dt><a href="com/deco2800/game/events/EventHandler.html" class="type-name-link" title="class in com.deco2800.game.events">EventHandler</a> - Class in <a href="com/deco2800/game/events/package-summary.html">com.deco2800.game.events</a></dt>
 <dd>
 <div class="block">Send and receive events between objects.</div>
@@ -1193,6 +1198,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/crafting/CraftingSystem.html#getInventoryContents()" class="member-name-link">getInventoryContents()</a> - Method in class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" title="class in com.deco2800.game.crafting">CraftingSystem</a></dt>
 <dd>
 <div class="block">Returns the instance of inventory contents made and used by the class.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getItemQuantity(int)" class="member-name-link">getItemQuantity(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the item's quantity</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getItemQuantity(com.deco2800.game.entities.Entity)" class="member-name-link">getItemQuantity(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the item's quantity</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getItems()" class="member-name-link">getItems()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
@@ -1564,6 +1577,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/CombatStatsComponent.html#isDead()" class="member-name-link">isDead()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/CombatStatsComponent.html" title="class in com.deco2800.game.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns true if the entity's has 0 health, otherwise false.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#isDodging()" class="member-name-link">isDodging()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Checks if the player is in the dodge skill state</div>
 </dd>
 <dt><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#isFinished()" class="member-name-link">isFinished()</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
@@ -2229,6 +2246,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Remove an animation from this animator.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeItem(int)" class="member-name-link">removeItem(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Removes an item to player's inventory.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeItem(com.deco2800.game.entities.Entity)" class="member-name-link">removeItem(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
 <div class="block">Removes an item to player's inventory.</div>
@@ -2737,6 +2758,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startDash(com.badlogic.gdx.math.Vector2)" class="member-name-link">startDash(Vector2)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
 <div class="block">The functional start of the dash.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startDodge(com.badlogic.gdx.math.Vector2)" class="member-name-link">startDodge(Vector2)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">The functional start of the dodge skill.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startTeleport()" class="member-name-link">startTeleport()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
