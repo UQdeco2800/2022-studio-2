@@ -63,7 +63,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask = new MovementTask(target.getPosition(), 0.01f, this.speed);
     movementTask.create(owner);
     movementTask.start();
-    
+
     this.owner.getEntity().getEvents().trigger("chaseStart");
   }
 
@@ -148,5 +148,18 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     }
     debugRenderer.drawLine(from, to);
     return true;
+  }
+
+  /**
+   * Animates enemy based on which direction they are facing
+   */
+  private void animate() {
+    Vector2 enemy = owner.getEntity().getCenterPosition();
+    Vector2 player = target.getCenterPosition();
+
+    if (enemy.y < player.y) {
+      this.owner.getEntity().getEvents().trigger("chaseStart");
+    }
+
   }
 }

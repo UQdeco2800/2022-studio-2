@@ -143,8 +143,6 @@ public class ForestGameArea extends GameArea {
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
-    spawnGhosts();
-    spawnGhostKing();
     spawnEffectBlobs();
     spawnGymBro();
     spawnOneLegGirl();
@@ -437,17 +435,6 @@ public class ForestGameArea extends GameArea {
     return newPlayer;
   }
 
-  private void spawnGhosts() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < NUM_GHOSTS; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity ghost = NPCFactory.createGhost(player);
-      spawnEntityAt(ghost, randomPos, true, true);
-    }
-  }
-
   /**
    * Spawn female NPC in random position. - Team 7 all-mid-npc
    */
@@ -523,15 +510,6 @@ public class ForestGameArea extends GameArea {
     Entity dialogue = DialogueFactory.createDialogue();
 
     spawnEntityAt(dialogue, randomPos, true, true);
-  }
-
-  private void spawnGhostKing() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity ghostKing = NPCFactory.createGhostKing(player);
-    spawnEntityAt(ghostKing, randomPos, true, true);
   }
 
 
