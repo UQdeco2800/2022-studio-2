@@ -76,7 +76,7 @@ public class InventoryComponent extends Component {
   /**
    * Removes an item to player's inventory.
    * @param item item to remove
-   * @requires getItemQuantity(item) >= 1
+   * requires getItemQuantity(item) >= 1
    */
   public void removeItem(Entity item) {
     --itemQuantity[inventory.indexOf(item)];
