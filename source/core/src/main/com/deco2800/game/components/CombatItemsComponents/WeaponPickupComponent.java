@@ -41,6 +41,7 @@ public class WeaponPickupComponent extends Component {
 
             //insert into inventory
             ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(entityOfComponent);
+            logger.info("Weapon picked up");
         }
     }
 }
