@@ -76,7 +76,6 @@ public class InventoryComponent extends Component {
   /**
    * Removes an item to player's inventory.
    * @param item item to remove
-   * @requires getItemQuantity(item) >= 1
    */
   public void removeItem(Entity item) {
     --itemQuantity[inventory.indexOf(item)];
@@ -88,7 +87,6 @@ public class InventoryComponent extends Component {
   /**
    * Removes an item to player's inventory.
    * @param index item's index stored in inventory
-   * @requires inventory.indexOf(index) != -1 && getItemQuantity(index) >= 1
    */
   public void removeItem(int index) {
     --itemQuantity[index];
@@ -101,7 +99,6 @@ public class InventoryComponent extends Component {
    * Returns the item's quantity
    * @param item item to be checked
    * @return item's quantity
-   * @require inventory.contains(item) == true
    */
   public int getItemQuantity (Entity item) {
     return itemQuantity[inventory.indexOf(item)];
@@ -111,7 +108,6 @@ public class InventoryComponent extends Component {
    * Returns the item's quantity
    * @param index item's index stored in inventory
    * @return item's quantity
-   * @require inventory.indexOf(index) != -1
    */
   public int getItemQuantity (int index) {
     return itemQuantity[index];
