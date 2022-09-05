@@ -6,13 +6,18 @@ import org.slf4j.Logger;
 import com.deco2800.game.areas.ForestGameArea;
 import org.slf4j.LoggerFactory;
 
+import com.deco2800.game.entities.EntityService;
+
+import javax.swing.border.EmptyBorder;
+
+
 public class OpenCraftingComponent extends Component {
 
     float craftingTableXCoord;
     float craftingTableYCoord;
     private static Logger logger;
-
     private static Boolean isOpen = false;
+
 
     public void create() {
 
@@ -25,10 +30,13 @@ public class OpenCraftingComponent extends Component {
 
     }
 
+    //Hi Ly, sry I touched ur method, cuz im trying to reduce the crafting range,
+    // I changed it from 10 to 3, i think this is a reasonable rang.
     private void openCrafting() {
-        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 10 && isOpen == false) {
+        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 3 && isOpen == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();
             isOpen = true;
+            EntityService.pauseGame();
         }
 
     }
@@ -37,6 +45,7 @@ public class OpenCraftingComponent extends Component {
         if (isOpen == true) {
             ServiceLocator.getCraftArea().disposeCraftingMenu();
             isOpen = false;
+            EntityService.pauseAndResume();
         }
 
     }

@@ -262,11 +262,9 @@ public class Entity {
     if (!enabled) {
       return;
     }
-
     if (isDead) {
       dispose();
     }
-
     for (Component component : createdComponents) {
       component.triggerUpdate();
     }
