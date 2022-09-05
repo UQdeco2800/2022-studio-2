@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.npc.DialogueAnimationController;
 import com.deco2800.game.components.npc.DialogueComponent;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -36,18 +37,18 @@ public class DialogueFactory {
     public static Entity createDialogue() {
 
         AnimationRenderComponent animator =
-                new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-        animator.addAnimation("Loop", 0.1f, Animation.PlayMode.LOOP);
+                new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/dialogue_indicator/dialogue.atlas", TextureAtlas.class));
+        animator.addAnimation("dialogueShake", 0.1f, Animation.PlayMode.LOOP);
 
         Entity dialogue = new Entity()
-                .addComponent((new TextureRenderComponent("images/NPC/dialogue_indicator/dialogue_1.png")));
-//                .addComponent(animator);
+                .addComponent(animator)
+                .addComponent(new DialogueAnimationController())
+                .addComponent(new DialogueDisplay())
+                .addComponent(new DialogueComponent());
 
-//                .addComponent(new DialogueDisplay())
-//                .addComponent(new DialogueComponent());
-
-        dialogue.getComponent(TextureRenderComponent.class).scaleEntity();
-        dialogue.setScale(5,5);
+        dialogue.getComponent(AnimationRenderComponent.class).scaleEntity();
+//        dialogue.getComponent(TextureRenderComponent.class).scaleEntity();
+        dialogue.setScale(2,2);
         return dialogue;
     }
 
