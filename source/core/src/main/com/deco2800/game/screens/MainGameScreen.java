@@ -10,6 +10,7 @@ import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -44,6 +45,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] blockImg = {"images/Skills/block.png"};
   private static final String[] dodgeImg = {"images/Skills/dodge.png"};
   private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+  private static final String[] dialogueImg = {"images/NPC/Dialogue/dialogues2.png"};
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private final Entity player;
@@ -153,6 +155,8 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(dodgeImg);
     resourceService.loadTextures(invulnerabilityImg);
     resourceService.loadTextures(teleportImg);
+    resourceService.loadTextures(dialogueImg);
+
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -165,6 +169,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(dodgeImg);
     resourceService.unloadAssets(invulnerabilityImg);
     resourceService.unloadAssets(teleportImg);
+    resourceService.loadTextures(dialogueImg);
   }
 
   /**
@@ -185,7 +190,8 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());
+        .addComponent(new TerminalDisplay())
+        .addComponent(new DialogueDisplay());
 
     ServiceLocator.getEntityService().register(ui);
   }
