@@ -63,8 +63,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask = new MovementTask(target.getPosition(), 0.01f, this.speed);
     movementTask.create(owner);
     movementTask.start();
-
-    this.owner.getEntity().getEvents().trigger("chaseStart");
+    animate();
   }
 
   /**
@@ -72,6 +71,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    */
   @Override
   public void update() {
+    animate();
     movementTask.setTarget(target.getPosition());
     movementTask.update();
     if (movementTask.getStatus() != Status.ACTIVE) {
@@ -157,9 +157,21 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     Vector2 enemy = owner.getEntity().getCenterPosition();
     Vector2 player = target.getCenterPosition();
 
-    if (enemy.y < player.y) {
-      this.owner.getEntity().getEvents().trigger("chaseStart");
-    }
+    float y = enemy.y - player.y;
+    float x = enemy.x - player.x;
 
+    if (Math.abs(y) > Math.abs(x)) {
+      if (y >= 0) {
+        this.owner.getEntity().getEvents().trigger("attackFront");
+      } else {
+        this.owner.getEntity().getEvents().trigger("attackBack");
+      }
+    } else {
+      if (x >= 0) {
+        this.owner.getEntity().getEvents().trigger("attackLeft");
+      } else {
+        this.owner.getEntity().getEvents().trigger("attackRight");
+      }
+    }
   }
 }

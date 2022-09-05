@@ -31,40 +31,72 @@ public class GymBroAnimationController extends Component {
     /**
      * Animates the gym bro walking when facing right
      */
-    private void animateWalkRight() { animator.startAnimation("walk_right"); }
+    private void animateWalkRight() {
+        if (animator.getCurrentAnimation() != "walk_right") {
+            animator.startAnimation("walk_right");
+        }
+    }
 
     /**
      * Animates the gym bro walking when facing left
      */
-    private void animateWalkLeft() { animator.startAnimation("walk_left"); }
+    private void animateWalkLeft() {
+        if (animator.getCurrentAnimation() != "walk_left") {
+            animator.startAnimation("walk_left");
+        }
+    }
 
     /**
      * Animates the gym bro walking when facing backwards
      */
-    private void animateWalkBack() { animator.startAnimation("walk_back"); }
+    private void animateWalkBack() {
+        if (animator.getCurrentAnimation() != "walk_back") {
+            animator.startAnimation("walk_back");
+        }
+    }
 
     /**
      * Animates the gym bro walking when facing forwards
      */
-    private void animateWalkFront() { animator.startAnimation("walk_front"); }
+    private void animateWalkFront() {
+        if (animator.getCurrentAnimation() != "walk_front") {
+            animator.startAnimation("walk_front");
+        }
+    }
 
     /**
      * Animates the gym bro attacking when facing right
      */
-    private void animateAttackRight() { animator.startAnimation("attack_right"); }
+    private void animateAttackRight() {
+        if (animator.getCurrentAnimation() != "attack_right") {
+            animator.startAnimation("attack_right");
+        }
+    }
 
     /**
      * Animates the gym bro attacking when facing left
      */
-    private void animateAttackLeft() { animator.startAnimation("attack_left"); }
+    private void animateAttackLeft() {
+        if (animator.getCurrentAnimation() != "attack_left") {
+            animator.startAnimation("attack_left");
+        }
+    }
 
     /**
      * Animates the gym bro attacking when facing forwards
      */
-    void animateAttackFront() { animator.startAnimation("attack_front"); }
+    private void animateAttackFront() {
+        if (animator.getCurrentAnimation() != "attack_front") {
+            animator.startAnimation("attack_front");
+        }
+    }
 
     /**
      * Animates the gym bro attacking when facing backwards
      */
-    void animateAttackBack() { animator.startAnimation("attack_back"); }
+    private void animateAttackBack() {
+        if (animator.getCurrentAnimation() != "attack_back") {
+            animator.startAnimation("attack_back");
+        }
+    }
 }
