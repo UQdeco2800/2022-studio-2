@@ -1,0 +1,12 @@
+dialogue_1.png
+size: 1024, 64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Loop
+  rotate: false
+  xy: 0, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

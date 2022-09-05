@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
@@ -21,6 +22,7 @@ import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -110,10 +112,8 @@ public class NPCFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/NPC/female npc/npcfemale_1.png"));
 
-
-
-
     oneLegGirl.getComponent(AITaskComponent.class);
+    oneLegGirl.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     oneLegGirl.setScale(1, 1);
     return oneLegGirl;
   }
@@ -134,6 +134,7 @@ public class NPCFactory {
             .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
 
     child.getComponent(AITaskComponent.class);
+    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     child.setScale(1, 1);
     return child;
   }
@@ -154,6 +155,7 @@ public class NPCFactory {
             .addComponent(new TextureRenderComponent("images/NPC/guard npc/atlantisguardnpc_1.png"));
 
     guard.getComponent(AITaskComponent.class);
+    guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     guard.setScale(1, 1);
     return guard;
   }
@@ -174,6 +176,7 @@ public class NPCFactory {
             .addComponent(new TextureRenderComponent("images/NPC/Male_citizen/male_citizen.png"));
 
     male_citizen.getComponent(AITaskComponent.class);
+    male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     male_citizen.setScale(1, 1);
     return male_citizen;
   }

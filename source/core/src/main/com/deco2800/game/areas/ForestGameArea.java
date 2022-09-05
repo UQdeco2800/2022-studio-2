@@ -92,7 +92,8 @@ public class ForestGameArea extends GameArea {
     "images/Potions/defence_potion.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
-    "images/Potions/agility_potion.png"
+    "images/Potions/agility_potion.png",
+    "images/NPC/dialogue_indicator/dialogue_1.png"
   };
 
   public static String[] newTextures;
@@ -448,16 +449,20 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, randomPos, true, true);
-    Entity dialogue = DialogueFactory.createDialogue();
 
-    spawnEntityAt(dialogue, randomPos, true, true);
+    if (player_positionToEntity(randomPos) < 3) {
+      Entity dialogue = DialogueFactory.createDialogue();
+      spawnEntityAt(dialogue, randomPos, true, true);
+    }
+
   }
 
-  private GridPoint2 randomPositon() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    return RandomUtils.random(minPos, maxPos);
+  private int player_positionToEntity(GridPoint2 position) {
+    player.update();
+    int playerX = (int) player.getPosition().x;
+    int playerY = (int) player.getPosition().y;
+    GridPoint2 player_position = new GridPoint2(playerX, playerY);
+    return (int) player_position.dst(position);
   }
 
   /**

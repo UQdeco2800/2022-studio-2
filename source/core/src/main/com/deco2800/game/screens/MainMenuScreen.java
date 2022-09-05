@@ -3,7 +3,7 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.maingame.DialogueDisplay;
+import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.entities.Entity;
@@ -100,7 +100,7 @@ public class MainMenuScreen extends ScreenAdapter {
     ui.addComponent(new MainMenuDisplay())
         .addComponent(new InputDecorator(stage, 10))
         .addComponent(new MainMenuActions(game));
-    ui.addComponent(new DialogueDisplay());
+
 
     ServiceLocator.getEntityService().register(ui);
   }
