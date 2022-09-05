@@ -23,6 +23,7 @@ import java.util.Map;
 public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
+  private Entity skillAnimator;
 
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
@@ -240,7 +241,7 @@ public class PlayerActions extends Component {
   void teleport() {
     if (mana>=40 && cooldownFinished("teleport", 3000)) {
       entity.getEvents().trigger("decreaseMana", -40);
-      entity.getEvents().trigger("teleportAnimation");
+      skillAnimator.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
     }
   }
@@ -277,5 +278,16 @@ public class PlayerActions extends Component {
     if (skillCooldowns.get(skill) != null) {
       skillCooldowns.replace(skill, System.currentTimeMillis());
     }
+  }
+
+  /**
+   * Sets the skill animator for this actions component and passes it to the skill
+   * component so the skill component can alter the skill animation state.
+   * @param skillAnimator the skill animator entity which has subcomponents
+   *                      PlayerSkillAnimationController and AnimationRenderer
+   */
+  public void setSkillAnimator(Entity skillAnimator) {
+    this.skillAnimator = skillAnimator;
+    this.skillManager.setSkillAnimator(skillAnimator);
   }
 }

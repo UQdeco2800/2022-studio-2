@@ -32,6 +32,7 @@ public class PlayerSkillComponentTest {
                         .addComponent(new PlayerModifier());
 
         skillManager = new PlayerSkillComponent(player);
+        skillManager.setSkillAnimator(new Entity());
     }
 
     @Test
@@ -289,6 +290,7 @@ public class PlayerSkillComponentTest {
     void teleportActivation() {
         PlayerActions actions = player.getComponent(PlayerActions.class);
         actions.create();
+        actions.setSkillAnimator(new Entity());
         PlayerSkillComponent component = actions.getSkillComponent();
         actions.teleport();
         assertTrue(component.isTeleporting());
