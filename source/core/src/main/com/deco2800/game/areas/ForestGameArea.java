@@ -153,7 +153,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
-    spawnEffectBlobs();
+    //spawnEffectBlobs();
     spawnGymBro();
     spawnOneLegGirl();
 
@@ -254,10 +254,9 @@ public class ForestGameArea extends GameArea {
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
 
-
-  /**
+ /* *//**
    * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
-   */
+   *//*
   private void spawnEffectBlobs() {
 
     GridPoint2 minPos = new GridPoint2(2, 2);
@@ -283,6 +282,7 @@ public class ForestGameArea extends GameArea {
               , 7000, 5000);
     }
   }
+  */
 
   /**
    * Spawns speed debuff entity into the game

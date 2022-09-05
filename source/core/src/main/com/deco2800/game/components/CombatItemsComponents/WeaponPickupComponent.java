@@ -4,7 +4,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Null;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -36,7 +38,9 @@ public class WeaponPickupComponent extends Component {
         if (other == f) {
             Entity entityOfComponent = getEntity();
             ForestGameArea.removeWeaponOnMap(entityOfComponent);
+
             //insert into inventory
+            ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(entityOfComponent);
         }
     }
 }
