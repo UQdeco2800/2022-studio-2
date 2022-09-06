@@ -72,7 +72,7 @@ public class UndergroundGameArea extends GameArea {
         super();
         this.terrainFactory = terrainFactory;
 
-//        ServiceLocator.registerGameArea(this);
+        ServiceLocator.registerGameArea(this);
 
     }
 

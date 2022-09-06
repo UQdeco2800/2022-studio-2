@@ -4,6 +4,7 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import org.slf4j.LoggerFactory;
 
 import com.deco2800.game.entities.EntityService;
@@ -22,8 +23,8 @@ public class OpenCraftingComponent extends Component {
     public void create() {
 
         logger = LoggerFactory.getLogger(OpenCraftingComponent.class);
-        this.craftingTableXCoord = (float)ForestGameArea.getCraftingTablePos().x;
-        this.craftingTableYCoord = (float)ForestGameArea.getCraftingTablePos().y;
+        this.craftingTableXCoord = (float)UndergroundGameArea.getCraftingTablePos().x;
+        this.craftingTableYCoord = (float)UndergroundGameArea.getCraftingTablePos().y;
 
         entity.getEvents().addListener("can_open", this::openCrafting);
         entity.getEvents().addListener("can_close", this::closeCrafting);

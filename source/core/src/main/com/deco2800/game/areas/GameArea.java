@@ -20,6 +20,7 @@ public abstract class GameArea implements Disposable {
   protected TerrainComponent terrain;
   protected List<Entity> areaEntities;
   private Entity player;
+  private static GridPoint2 craftingTablePos;
 
   protected GameArea() {
     areaEntities = new ArrayList<>();
@@ -71,5 +72,9 @@ public abstract class GameArea implements Disposable {
 
   public Entity getPlayer() {
     return player;
+  }
+
+  public static GridPoint2 getCraftingTablePos() {
+    return craftingTablePos;
   }
 }
