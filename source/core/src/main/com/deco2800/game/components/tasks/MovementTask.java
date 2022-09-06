@@ -23,23 +23,40 @@ public class MovementTask extends DefaultTask {
   private PhysicsMovementComponent movementComponent;
   private float speed = 1;
 
-
+  /**
+   * Create movement task
+   * @param target The target to move towards
+   */
   public MovementTask(Vector2 target) {
     this.target = target;
     this.gameTime = ServiceLocator.getTimeSource();
   }
 
+  /**
+   * Create movement task
+   * @param target The target to move towards
+   * @param stopDistance The distance to stop at.
+   * @param speed The speed to move at.
+   */
   public MovementTask(Vector2 target, float stopDistance, float speed) {
     this.target = target;
     this.speed = speed;
     this.gameTime = ServiceLocator.getTimeSource();
   }
 
+  /**
+   * Create movement task
+   * @param target The target to move towards
+   * @param stopDistance The distance to stop at.
+   */
   public MovementTask(Vector2 target, float stopDistance) {
     this(target);
     this.stopDistance = stopDistance;
   }
 
+  /**
+   * Start movement task.
+   */
   @Override
   public void start() {
     super.start();
@@ -52,6 +69,9 @@ public class MovementTask extends DefaultTask {
     lastPos = owner.getEntity().getPosition();
   }
 
+  /**
+   * Update movement task
+   */
   @Override
   public void update() {
     if (isAtTarget()) {
@@ -63,11 +83,18 @@ public class MovementTask extends DefaultTask {
     }
   }
 
+  /**
+   * Set a new target.
+   * @param target The target to move towards
+   */
   public void setTarget(Vector2 target) {
     this.target = target;
     movementComponent.setTarget(target);
   }
 
+  /**
+   * Stop this task.
+   */
   @Override
   public void stop() {
     super.stop();
@@ -75,10 +102,17 @@ public class MovementTask extends DefaultTask {
     logger.debug("Stopping movement");
   }
 
+  /**
+   * Check if entity at target
+   * @return true if entity is at target, else false.
+   */
   private boolean isAtTarget() {
     return owner.getEntity().getPosition().dst(target) <= stopDistance;
   }
 
+  /**
+   * Check if entity is stuck
+   */
   private void checkIfStuck() {
     if (didMove()) {
       lastTimeMoved = gameTime.getTime();
@@ -90,6 +124,10 @@ public class MovementTask extends DefaultTask {
     }
   }
 
+  /**
+   * Check if entity did move
+   * @return true if entity did move, false if not
+   */
   private boolean didMove() {
     return owner.getEntity().getPosition().dst2(lastPos) > 0.001f;
   }

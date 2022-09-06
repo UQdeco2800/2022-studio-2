@@ -7,6 +7,7 @@ import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.screens.SettingsScreen;
+import com.deco2800.game.screens.InventoryScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,8 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+
+  private static MainGameScreen currentGameScreen;
 
   @Override
   public void create() {
@@ -69,16 +72,20 @@ public class GdxGame extends Game {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen(this);
+        MainGameScreen mainGame = new MainGameScreen(this);
+        currentGameScreen = new MainGameScreen(this);
+        return currentGameScreen;
       case SETTINGS:
         return new SettingsScreen(this);
+      case INVENTORY:
+        return new InventoryScreen(this);
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS
+    MAIN_MENU, MAIN_GAME, SETTINGS, INVENTORY
   }
 
   /**

@@ -15,6 +15,7 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  */
 public class ObstacleFactory {
 
+
   /**
    * Creates a tree entity.
    * @return entity
@@ -51,7 +52,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(smallTree, 0.5f, 0.2f);
     return smallTree;
   }
-
 
   public static Entity createCraftingTable() {
     Entity craftingTable =
@@ -113,6 +113,24 @@ public class ObstacleFactory {
     column.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(column, 0.9f, 0.9f);
     return column;
+  }
+
+  /**
+   * Creates a rock entity on the map. - Team 5 1map4all @LYB
+   * @return Column entity.
+   */
+  public static Entity createRock() {
+    Entity rock =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/rock.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    rock.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    rock.getComponent(TextureRenderComponent.class).scaleEntity();
+    rock.scaleHeight(1f);
+    PhysicsUtils.setScaledCollider(rock, 0.9f, 0.9f);
+    return rock;
   }
 
   private ObstacleFactory() {
