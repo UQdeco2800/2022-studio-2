@@ -30,8 +30,6 @@ public class OpenCraftingComponent extends Component {
 
     }
 
-    //Hi Ly, sry I touched ur method, cuz im trying to reduce the crafting range,
-    // I changed it from 10 to 3, i think this is a reasonable rang.
     private void openCrafting() {
         if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 3 && isOpen == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();

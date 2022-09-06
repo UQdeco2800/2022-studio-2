@@ -33,6 +33,7 @@ public class GameAreaDisplay extends UIComponent {
   private ImageButton catOneButton;
   private ImageButton catTwoButton;
   private ImageButton inventoryButton;
+  private ImageButton exitButton;
   private Texture buttonTexture;
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
@@ -113,6 +114,20 @@ public class GameAreaDisplay extends UIComponent {
       }
     });
     craftingGroup.addActor(catalogueButton);
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/widgets/exit_button.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    exitButton = new ImageButton(buttonDrawable);
+    exitButton.setSize(60, 60);
+    exitButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 500);
+    exitButton.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        disposeCraftingMenu();
+      }
+    });
+    craftingGroup.addActor(exitButton);
     stage.addActor(craftingGroup);
     stage.draw();
   }
