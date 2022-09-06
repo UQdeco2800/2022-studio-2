@@ -3,7 +3,6 @@ package com.deco2800.game.components.player;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
-import com.deco2800.game.components.areas.ForestGameArea;
 import org.slf4j.LoggerFactory;
 
 import com.deco2800.game.entities.EntityService;
