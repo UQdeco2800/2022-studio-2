@@ -68,21 +68,23 @@ public class GameAreaDisplay extends UIComponent {
    */
   public void openCraftingMenu() {
     craftMenu = new Image(new Texture(Gdx.files.internal
-            ("images/Crafting-assets-sprint1/crafting table/craftingUI.png")));
+            ("images/Crafting-assets-sprint1/crafting table/crafting_inventory.png")));
+    craftMenu.setSize(883.26f, 500);
     craftMenu.setPosition(Gdx.graphics.getWidth()/2 - craftMenu.getWidth()/2,
             Gdx.graphics.getHeight()/2 - craftMenu.getHeight()/2);
     craftingGroup.addActor(craftMenu);
     buttonTexture = new Texture(Gdx.files.internal
-            ("images/Crafting-assets-sprint1/widgets/craftButton.png"));
+            ("images/Crafting-assets-sprint1/widgets/craft_button.png"));
     buttonTextureRegion = new TextureRegion(buttonTexture);
     buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
     craftButton = new ImageButton(buttonDrawable);
-    craftButton.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 130);
+    craftButton.setSize(146, 146);
+    craftButton.setPosition(craftMenu.getX() + 527, craftMenu.getY() + 110.5f);
     craftButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         if (weapon != null) {
-          weapon.setPosition(craftMenu.getX() + 30, (craftMenu.getTop() - 210));
+          weapon.setPosition(craftMenu.getX() + 180, craftMenu.getTop() - 200);
           wood.remove();
           steel.remove();
         }
@@ -109,12 +111,12 @@ public class GameAreaDisplay extends UIComponent {
             woodDrawable = new TextureRegionDrawable(woodTextureRegion);
             wood = new ImageButton(woodDrawable);
             wood.setSize(50, 50);
-            wood.setPosition(craftMenu.getX() + 30 + (i * 95),
-                    (float) (craftMenu.getTop() - ((Math.floor(i / 4) * 100) + 210)));
+            wood.setPosition(craftMenu.getX() + 170 + (i * 60),
+                    (float) (craftMenu.getTop() - ((Math.floor(i / 4) * 100) + 208)));
             wood.addListener(new ChangeListener() {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
-                wood.setPosition(craftMenu.getX() + 485, craftMenu.getY() + 270);
+                wood.setPosition(craftMenu.getX() + 480, craftMenu.getY() + 230);
                 count++;
                 entity.getEvents().trigger("check");
               }
@@ -128,12 +130,12 @@ public class GameAreaDisplay extends UIComponent {
             steelDrawable = new TextureRegionDrawable(steelTextureRegion);
             steel = new ImageButton(steelDrawable);
             steel.setSize(50, 50);
-            steel.setPosition(craftMenu.getX() + 30 + (i * 95),
-                    (float) (craftMenu.getTop() - ((Math.floor(i / 4) * 100) + 210)));
+            steel.setPosition(craftMenu.getX() + 170 + (i * 70),
+                    (float) (craftMenu.getTop() - ((Math.floor(i / 4) * 100) + 208)));
             steel.addListener(new ChangeListener() {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
-                steel.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 270);
+                steel.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
                 count++;
                 entity.getEvents().trigger("check");
               }
@@ -153,7 +155,8 @@ public class GameAreaDisplay extends UIComponent {
     if (count == 2) {
       weapon = new Image(new Texture(Gdx.files.internal
               ("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png")));
-      weapon.setPosition(craftMenu.getX() + 880, craftMenu.getY() + 270);
+      weapon.setSize(50, 50);
+      weapon.setPosition(craftMenu.getX() + 674, craftMenu.getY() + 237);
       craftingGroup.addActor(weapon);
     }
   }
