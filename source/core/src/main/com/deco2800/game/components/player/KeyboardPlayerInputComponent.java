@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 
@@ -47,10 +48,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
+//        EntityService.pauseGame();
         return true;
       case Keys.L:
         System.out.println("9");
         entity.getEvents().trigger("can_close");
+//        EntityService.pauseAndResume();
         return true;
       case Keys.E:
         entity.getEvents().trigger("skill");
@@ -61,6 +64,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
+      case Keys.ESCAPE:
+        EntityService.pauseAndResume();
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;
@@ -111,4 +116,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       entity.getEvents().trigger("movementHandle", walkDirection);
     }
   }
+
+
 }

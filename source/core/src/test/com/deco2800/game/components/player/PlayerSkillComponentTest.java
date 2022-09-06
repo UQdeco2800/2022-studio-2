@@ -292,6 +292,7 @@ public class PlayerSkillComponentTest {
         actions.create();
         actions.setSkillAnimator(new Entity());
         PlayerSkillComponent component = actions.getSkillComponent();
+        component.setSkill("teleport", player, actions);
         actions.teleport();
         assertTrue(component.isTeleporting());
 
