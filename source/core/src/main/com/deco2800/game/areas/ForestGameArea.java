@@ -386,7 +386,7 @@ public class ForestGameArea extends GameArea {
   private void spawnDagger() {
     Entity dagger = WeaponFactory.createDagger();
     weaponOnMap.add(dagger);
-    spawnEntityAt(dagger, new GridPoint2(10, 10), true, false);
+    spawnEntityAt(dagger, new GridPoint2(20, 20), true, false);
   }
   /**
    * Spawns second Level 2 dagger entity into the game

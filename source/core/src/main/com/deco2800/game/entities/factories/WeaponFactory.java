@@ -48,7 +48,7 @@ public class WeaponFactory {
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"));
         dagger.getComponent(TextureRenderComponent.class).scaleEntity();
-        dagger.scaleHeight(5f);
+        dagger.scaleHeight(1f);
         return dagger;
     }
 

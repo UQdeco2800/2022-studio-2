@@ -1,9 +1,14 @@
 package com.deco2800.game.components.player;
 
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +135,21 @@ public class InventoryComponent extends Component {
   /**
    * Implemented by weapon team or player team.
    */
-  void equipWeapon() {}
+  void equipWeapon(Entity weaponToEquip) {
+    Entity weapon = weaponToEquip;
+    WeaponStatsComponent weaponStats = weapon.getComponent(WeaponStatsComponent.class);
+
+    if (weaponStats instanceof MeleeStatsComponent){
+      MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
+      PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
+              .getComponent(PlayerModifier.class);
+
+      //Modifier dmgMod = pmComponent.createModifier(PlayerModifier.DMGREDUCTION,
+         //     );
+      pmComponent.createModifier(PlayerModifier.MOVESPEED,
+              (float)(1/meleeStats.getWeight()), true, 0);
+      //for duration
+    }
+  }
 
 }
