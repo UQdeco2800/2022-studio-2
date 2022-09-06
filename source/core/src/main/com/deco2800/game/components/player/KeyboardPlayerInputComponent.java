@@ -60,7 +60,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("toggleInventory");
         return true;
       case Keys.ESCAPE:
-        keyPressedCounter++;
+        if (!OpenCraftingComponent.getCraftingStatus()) {
+          keyPressedCounter++;
+        }
         if (keyPressedCounter % 2 == 0) {
         entity.getEvents().trigger("game paused");
         return true;

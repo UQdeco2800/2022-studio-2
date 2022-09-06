@@ -40,5 +40,9 @@ public class OpenCraftingComponent extends Component {
         craftingStatus = !craftingStatus;
     }
 
+    public static Boolean getCraftingStatus() {
+        return craftingStatus;
+    }
+
 }
 
