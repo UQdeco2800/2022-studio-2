@@ -1,6 +1,6 @@
 package com.deco2800.game.services;
 
-import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.areas.ForestGameArea;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
@@ -29,6 +29,8 @@ public class ServiceLocator {
   private static ForestGameArea gameArea;
 
   private static GameAreaDisplay craftArea;
+
+  private static GameAreaDisplay pauseMenuArea;
 
 
   public static EntityService getEntityService() {
@@ -106,8 +108,14 @@ public class ServiceLocator {
     craftArea = area;
   }
 
+  public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+
   public static GameAreaDisplay getCraftArea() {
     return craftArea;
+  }
+
+  public static GameAreaDisplay getPauseMenuArea() {
+    return pauseMenuArea;
   }
 }
 

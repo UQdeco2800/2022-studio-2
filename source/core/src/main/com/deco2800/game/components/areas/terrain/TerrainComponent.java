@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.terrain;
+package com.deco2800.game.components.areas.terrain;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

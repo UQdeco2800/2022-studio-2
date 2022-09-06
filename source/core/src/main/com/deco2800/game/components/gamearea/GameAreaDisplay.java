@@ -33,6 +33,8 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
+
+  private Image pauseMenu;
   private ImageButton wood;
   private Texture woodTexture;
   private TextureRegion woodTextureRegion;
@@ -43,12 +45,15 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegionDrawable steelDrawable;
   private Image weapon;
   private Group craftingGroup = new Group();
+
+  private Group pausingGroup = new Group();
   private int count;
   List<Materials> inventory;
 
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
     ServiceLocator.registerCraftArea(this);
+    ServiceLocator.registerPauseArea(this);
   }
 
   @Override
@@ -94,6 +99,17 @@ public class GameAreaDisplay extends UIComponent {
     stage.addActor(craftingGroup);
     stage.draw();
   }
+
+  public void setPauseMenu() {
+    pauseMenu = new Image(new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
+    pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
+            Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
+    pausingGroup.addActor(pauseMenu);
+    stage.addActor(pausingGroup);
+    stage.draw();
+  }
+
 
   private void getInventory() {
     count = 0;
@@ -147,6 +163,10 @@ public class GameAreaDisplay extends UIComponent {
 
   public void disposeCraftingMenu() {
     craftingGroup.remove();
+  }
+
+  public void disposePauseMenu() {
+    pausingGroup.remove();
   }
 
   private void displayWeapon() {

@@ -13,7 +13,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-
+  private int keyPressedCounter = 1;
   public KeyboardPlayerInputComponent() {
     super(5);
   }
@@ -48,7 +48,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
-//        EntityService.pauseGame();
         return true;
       case Keys.L:
         System.out.println("9");
@@ -65,7 +64,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("toggleInventory");
         return true;
       case Keys.ESCAPE:
-        EntityService.pauseAndResume();
+        keyPressedCounter++;
+        if (keyPressedCounter % 2 == 0) {
+        entity.getEvents().trigger("game paused");
+        return true;
+        }
+        entity.getEvents().trigger("game resumed");
+        return true;
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;
