@@ -50,9 +50,10 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
-          "images/level_1_tiledmap/32x32/drain_empty.png",
-          "images/level_1_tiledmap/32x32/drain_plug.png",
-    "images/NPC/male_citizen/male_citizen.png"
+    "images/level_1_tiledmap/32x32/drain_empty.png",
+    "images/level_1_tiledmap/32x32/drain_plug.png",
+    "images/NPC/male_citizen/male_citizen.png",
+    "images/level_1_tiledmap/32x32/rock.png",
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -116,6 +117,8 @@ public class ForestGameArea extends GameArea {
     spawnTrees(22,15);
     spawnSmallTrees(1,6);
     spawnSmallTrees(22,6);
+    spawnRock(2,9);
+    spawnRock(22, 8);
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
@@ -161,6 +164,14 @@ public class ForestGameArea extends GameArea {
   private void spawnTrees(int x, int y) {
       Entity tree = ObstacleFactory.createTree();
       spawnEntityAt(tree, new GridPoint2(x, y), true, false);
+  }
+
+  /**
+   * Spawn rock in a certain position. - Team 5 1map4all @LYB
+   */
+  private void spawnRock(int x, int y) {
+    Entity rock = ObstacleFactory.createRock();
+    spawnEntityAt(rock, new GridPoint2(x, y), false, false);
   }
 
   /**

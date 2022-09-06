@@ -115,6 +115,24 @@ public class ObstacleFactory {
     return column;
   }
 
+  /**
+   * Creates a rock entity on the map. - Team 5 1map4all @LYB
+   * @return Column entity.
+   */
+  public static Entity createRock() {
+    Entity rock =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/rock.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    rock.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    rock.getComponent(TextureRenderComponent.class).scaleEntity();
+    rock.scaleHeight(1f);
+    PhysicsUtils.setScaledCollider(rock, 0.9f, 0.9f);
+    return rock;
+  }
+
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }
