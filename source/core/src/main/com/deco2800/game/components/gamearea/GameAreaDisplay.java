@@ -127,8 +127,8 @@ public class GameAreaDisplay extends UIComponent {
     buttonTextureRegion = new TextureRegion(buttonTexture);
     buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
     exitButton = new ImageButton(buttonDrawable);
-    exitButton.setSize(60, 60);
-    exitButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 500);
+    exitButton.setSize(35, 35);
+    exitButton.setPosition(craftMenu.getX() + 720, craftMenu.getY() + 365);
     exitButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
@@ -210,6 +210,7 @@ public class GameAreaDisplay extends UIComponent {
     catOneMenu.setPosition(Gdx.graphics.getWidth()/2 - catOneMenu.getWidth()/2,
             Gdx.graphics.getHeight()/2 - catOneMenu.getHeight()/2);
     craftingGroup.addActor(catOneMenu);
+    exitButton.setZIndex(catOneMenu.getZIndex()+1);
     buttonTexture = new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/widgets/inventory_button.png"));
     buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -248,6 +249,7 @@ public class GameAreaDisplay extends UIComponent {
     catTwoMenu.setPosition(Gdx.graphics.getWidth()/2 - catTwoMenu.getWidth()/2,
             Gdx.graphics.getHeight()/2 - catTwoMenu.getHeight()/2);
     craftingGroup.addActor(catTwoMenu);
+    exitButton.setZIndex(catTwoMenu.getZIndex()+1);
     buttonTexture = new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/widgets/inventory_button.png"));
     buttonTextureRegion = new TextureRegion(buttonTexture);
