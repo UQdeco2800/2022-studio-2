@@ -93,6 +93,7 @@ public class ForestGameArea extends GameArea {
     spawnGhostKing();
     spawnAtlantisCitizen();
     spawnOneLegGirl();
+    spawnPlug();
     playMusic();
   }
 
@@ -205,6 +206,13 @@ public class ForestGameArea extends GameArea {
       Entity ghost = NPCFactory.createGhost(player);
       spawnEntityAt(ghost, randomPos, true, true);
     }
+  }
+
+  private void spawnPlug() {
+    GridPoint2 plugPosition = new GridPoint2(12, 17);
+    Entity plug = NPCFactory.createPlug(player);
+
+    spawnEntityAt(plug, plugPosition, true, true);
   }
 
   private void spawnOneLegGirl() {

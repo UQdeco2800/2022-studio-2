@@ -36,6 +36,7 @@ public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
+
   /**
    * Creates a ghost entity.
    *
@@ -143,19 +144,38 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC(Entity target) {
+  private static Entity createBaseNPC(Entity player) {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
-        new Entity()
-            .addComponent(new PhysicsComponent())
-            .addComponent(new PhysicsMovementComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
-            .addComponent(aiComponent);
+            new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new PhysicsMovementComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+                    .addComponent(aiComponent);
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
+  }
+
+  // Creates the plug as an NPC that can be pushed off the plughole by the player
+  public static Entity createPlug(Entity target) {
+    Entity plug = createBaseNPC(target);
+    PlugConfig config = configs.plug;
+
+    /**
+    /plug.getComponent(AITaskComponent.class)
+             // Create new task for the plug to either move off the plug or not
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 120f));
+*/
+    plug
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/drain_plug.png"));
+    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
+    plug.setScale(3f, 3f);
+    return plug;
   }
 
   private NPCFactory() {

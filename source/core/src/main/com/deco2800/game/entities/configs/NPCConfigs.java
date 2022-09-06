@@ -8,4 +8,6 @@ public class NPCConfigs {
   public GhostKingConfig ghostKing = new GhostKingConfig();
   public AtlantisCitizenConfig atlantisCitizen = new AtlantisCitizenConfig();
   public OneLegGirlConfig oneLegGirl = new OneLegGirlConfig();
+
+  public PlugConfig plug = new PlugConfig();
 }
