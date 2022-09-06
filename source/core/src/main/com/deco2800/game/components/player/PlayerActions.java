@@ -76,7 +76,7 @@ public class PlayerActions extends Component {
 
 
     // Skills and Dash initialisation
-    String startingSkill = "teleport";
+    String startingSkill = "dodge";
     skillManager = new PlayerSkillComponent(entity);
     skillManager.setSkill(startingSkill, entity, this);
     entity.getEvents().addListener("dash", this::dash);
@@ -136,7 +136,7 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Pressing the 'I' button toggles the Minimap window being open.
+   * Pressing the 'M' button toggles the Minimap window being open.
    */
   private void toggleMinimap(){
     miniMapOpen = !miniMapOpen;
@@ -292,11 +292,16 @@ public class PlayerActions extends Component {
    * Makes the player teleport. Registers call of the teleport function to the skill manager component.
    */
   void teleport() {
-    if (mana>=40 && cooldownFinished("teleport", 3000)) {
+    if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
       skillAnimator.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
     }
+  }
+
+  void dodge() {
+    skillAnimator.getEvents().trigger("dodgeAnimation");
+    skillManager.startDodge(this.walkDirection.cpy());
   }
 
   Vector2 getWalkDirection() {
