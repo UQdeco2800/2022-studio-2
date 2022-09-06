@@ -158,7 +158,7 @@ public class ForestGameArea extends GameArea {
     //spawnEffectBlobs();
     spawnGymBro();
     spawnOneLegGirl();
-
+    spawnPlug();
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
@@ -478,6 +478,16 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity potion = PotionFactory.createSpeedPotion();
     this.spawnEntityAt(potion, randomPos, true, false);
+  }
+
+  /**
+   * Spawns a plug Entity to assist with map transition. - Team 5 1map4all
+   */
+  private void spawnPlug() {
+    GridPoint2 plugPosition = new GridPoint2(12, 17);
+    Entity plug = NPCFactory.createPlug(player);
+
+    spawnEntityAt(plug, plugPosition, true, true);
   }
 
   /**

@@ -13,6 +13,11 @@
     "health": 1,
     "baseAttack": 0
   },
+  "plug": {
+    "health": 1,
+    "baseAttack": 0
+  },
+
   "child": {
     "health": 1,
     "baseAttack": 0
