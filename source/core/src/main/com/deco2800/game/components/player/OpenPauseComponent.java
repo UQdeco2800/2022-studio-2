@@ -19,6 +19,7 @@ public class OpenPauseComponent extends Component {
         entity.getEvents().addListener("game paused", this::openPauseMenu);
         entity.getEvents().addListener("game resumed", this::closePauseMenu);
         entity.getEvents().addListener("is_opening", this::setCraftingStatus);
+        entity.getEvents().addListener("is_closed", this::setCraftingStatus);
     }
 
     private void openPauseMenu() {
@@ -38,6 +39,6 @@ public class OpenPauseComponent extends Component {
     }
 
     private void setCraftingStatus() {
-        craftingStatus = true;
+        craftingStatus = !craftingStatus;
     }
 }
