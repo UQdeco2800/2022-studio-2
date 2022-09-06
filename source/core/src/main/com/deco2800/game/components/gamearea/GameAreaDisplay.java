@@ -29,10 +29,16 @@ public class GameAreaDisplay extends UIComponent {
   private String gameAreaName = "";
   private Label title;
   private ImageButton craftButton;
+  private ImageButton catalogueButton;
+  private ImageButton catOneButton;
+  private ImageButton catTwoButton;
+  private ImageButton inventoryButton;
   private Texture buttonTexture;
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
+  private Image catOneMenu;
+  private Image catTwoMenu;
   private ImageButton wood;
   private Texture woodTexture;
   private TextureRegion woodTextureRegion;
@@ -93,6 +99,20 @@ public class GameAreaDisplay extends UIComponent {
     craftingGroup.addActor(craftButton);
     getInventory();
     entity.getEvents().addListener("check", this::displayWeapon);
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/widgets/catalogue_button.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    catalogueButton = new ImageButton(buttonDrawable);
+    catalogueButton.setSize(146, 146);
+    catalogueButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 302);
+    catalogueButton.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        displayCatOne();
+      }
+    });
+    craftingGroup.addActor(catalogueButton);
     stage.addActor(craftingGroup);
     stage.draw();
   }
@@ -145,6 +165,94 @@ public class GameAreaDisplay extends UIComponent {
         }
       }
     } catch (Exception e) {}
+  }
+
+  private void displayCatOne() {
+    catOneMenu = new Image(new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_1.png")));
+    catOneMenu.setSize(883.26f, 500);
+    catOneMenu.setPosition(Gdx.graphics.getWidth()/2 - catOneMenu.getWidth()/2,
+            Gdx.graphics.getHeight()/2 - catOneMenu.getHeight()/2);
+    craftingGroup.addActor(catOneMenu);
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/widgets/inventory_button.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    inventoryButton = new ImageButton(buttonDrawable);
+    inventoryButton.setSize(146, 146);
+    inventoryButton.setPosition(craftMenu.getX() + 150, craftMenu.getY() + 301);
+    inventoryButton.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        disposeCatOne();
+      }
+    });
+    craftingGroup.addActor(inventoryButton);
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/widgets/catalogue_2_button.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    catTwoButton = new ImageButton(buttonDrawable);
+    catTwoButton.setSize(60, 60);
+    catTwoButton.setPosition(craftMenu.getX() + 110, craftMenu.getY() + 159);
+    catTwoButton.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        disposeCatOne();
+        displayCatTwo();
+      }
+    });
+    craftingGroup.addActor(catTwoButton);
+  }
+
+  private void displayCatTwo() {
+    catTwoMenu = new Image(new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_2.png")));
+    catTwoMenu.setSize(883.26f, 500);
+    catTwoMenu.setPosition(Gdx.graphics.getWidth()/2 - catTwoMenu.getWidth()/2,
+            Gdx.graphics.getHeight()/2 - catTwoMenu.getHeight()/2);
+    craftingGroup.addActor(catTwoMenu);
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/widgets/inventory_button.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    inventoryButton = new ImageButton(buttonDrawable);
+    inventoryButton.setSize(146, 146);
+    inventoryButton.setPosition(craftMenu.getX() + 150, craftMenu.getY() + 301);
+    inventoryButton.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        disposeCatTwo();
+      }
+    });
+    craftingGroup.addActor(inventoryButton);
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/Crafting-assets-sprint1/widgets/catalogue_1_button.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    catOneButton = new ImageButton(buttonDrawable);
+    catOneButton.setSize(60, 60);
+    catOneButton.setPosition(craftMenu.getX() + 110, craftMenu.getY() + 225);
+    catOneButton.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        disposeCatTwo();
+        displayCatOne();
+      }
+    });
+    craftingGroup.addActor(catOneButton);
+  }
+
+  private void disposeCatOne() {
+    catOneMenu.remove();
+    inventoryButton.remove();
+    catTwoButton.remove();
+  }
+
+  private void disposeCatTwo() {
+    catTwoMenu.remove();
+    inventoryButton.remove();
+    catOneButton.remove();
   }
 
   public void disposeCraftingMenu() {
