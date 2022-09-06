@@ -15,8 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.components.player.OpenCraftingComponent;
+import com.deco2800.game.components.player.OpenPauseComponent;
 import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -130,6 +133,8 @@ public class GameAreaDisplay extends UIComponent {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         disposeCraftingMenu();
+        EntityService.pauseAndResume();
+        OpenCraftingComponent.setCraftingStatus();
       }
     });
     craftingGroup.addActor(exitButton);

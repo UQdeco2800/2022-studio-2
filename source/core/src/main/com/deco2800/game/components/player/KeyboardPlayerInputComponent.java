@@ -48,13 +48,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
-        entity.getEvents().trigger("is_opening");
-        return true;
-      case Keys.L:
-        System.out.println("9");
-        entity.getEvents().trigger("can_close");
-        entity.getEvents().trigger("is_closed");
-//        EntityService.pauseAndResume();
+        //entity.getEvents().trigger("is_opening");
         return true;
       case Keys.E:
         entity.getEvents().trigger("skill");

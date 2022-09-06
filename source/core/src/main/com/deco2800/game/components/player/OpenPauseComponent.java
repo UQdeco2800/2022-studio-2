@@ -10,7 +10,7 @@ import com.deco2800.game.entities.EntityService;
 public class OpenPauseComponent extends Component {
     private static Logger logger;
     private static Boolean isOpen = false;
-    private static Boolean craftingStatus = false;
+    //private static Boolean craftingStatus = false;
 
     public void create() {
 
@@ -18,12 +18,12 @@ public class OpenPauseComponent extends Component {
 
         entity.getEvents().addListener("game paused", this::openPauseMenu);
         entity.getEvents().addListener("game resumed", this::closePauseMenu);
-        entity.getEvents().addListener("is_opening", this::setCraftingStatus);
-        entity.getEvents().addListener("is_closed", this::setCraftingStatus);
+        //entity.getEvents().addListener("is_opening", this::setCraftingStatus);
+        //entity.getEvents().addListener("is_closed", this::setCraftingStatus);
     }
 
     private void openPauseMenu() {
-        if (isOpen == false && craftingStatus == false) {
+        if (isOpen == false && OpenCraftingComponent.craftingStatus == false) {
             ServiceLocator.getPauseMenuArea().setPauseMenu();
             isOpen = true;
             EntityService.pauseGame();
@@ -38,7 +38,7 @@ public class OpenPauseComponent extends Component {
         }
     }
 
-    private void setCraftingStatus() {
+    /*private void setCraftingStatus() {
         craftingStatus = !craftingStatus;
-    }
+    }*/
 }

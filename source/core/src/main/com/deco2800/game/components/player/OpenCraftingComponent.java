@@ -14,7 +14,7 @@ public class OpenCraftingComponent extends Component {
     float craftingTableXCoord;
     float craftingTableYCoord;
     private static Logger logger;
-    private static Boolean isOpen = false;
+    public static Boolean craftingStatus = false;
 
 
     public void create() {
@@ -24,26 +24,20 @@ public class OpenCraftingComponent extends Component {
         this.craftingTableYCoord = (float)ForestGameArea.getCraftingTablePos().y;
 
         entity.getEvents().addListener("can_open", this::openCrafting);
-        entity.getEvents().addListener("can_close", this::closeCrafting);
 
     }
 
     private void openCrafting() {
-        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 3 && isOpen == false) {
+        if (entity.getCenterPosition().dst(craftingTableXCoord, craftingTableYCoord) < 3 && craftingStatus == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();
-            isOpen = true;
+            setCraftingStatus();
             EntityService.pauseGame();
         }
 
     }
 
-    private void closeCrafting() {
-        if (isOpen == true) {
-            ServiceLocator.getCraftArea().disposeCraftingMenu();
-            isOpen = false;
-            EntityService.pauseAndResume();
-        }
-
+    public static void setCraftingStatus() {
+        craftingStatus = !craftingStatus;
     }
 
 }
