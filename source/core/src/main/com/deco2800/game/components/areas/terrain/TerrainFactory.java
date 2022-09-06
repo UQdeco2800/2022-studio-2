@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.terrain;
+package com.deco2800.game.components.areas.terrain;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -25,7 +24,7 @@ public class TerrainFactory {
   private static final int ROCK_TILE_COUNT = 5;
 
   private final OrthographicCamera camera;
-  private final TerrainOrientation orientation;
+  private final TerrainComponent.TerrainOrientation orientation;
 
   /**
    * Create a terrain factory with Orthogonal orientation
@@ -33,7 +32,7 @@ public class TerrainFactory {
    * @param cameraComponent Camera to render terrains to. Must be ortographic.
    */
   public TerrainFactory(CameraComponent cameraComponent) {
-    this(cameraComponent, TerrainOrientation.ORTHOGONAL);
+    this(cameraComponent, TerrainComponent.TerrainOrientation.ORTHOGONAL);
   }
 
   /**
@@ -42,7 +41,7 @@ public class TerrainFactory {
    * @param cameraComponent Camera to render terrains to. Must be orthographic.
    * @param orientation orientation to render terrain at
    */
-  public TerrainFactory(CameraComponent cameraComponent, TerrainOrientation orientation) {
+  public TerrainFactory(CameraComponent cameraComponent, TerrainComponent.TerrainOrientation orientation) {
     this.camera = (OrthographicCamera) cameraComponent.getCamera();
     this.orientation = orientation;
   }

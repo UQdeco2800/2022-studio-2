@@ -1,10 +1,9 @@
-package com.deco2800.game.areas;
+package com.deco2800.game.components.areas;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
@@ -178,7 +177,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Background terrain
-    terrain = terrainFactory.createTerrain(TerrainType.LEVEL_ONE);
+    terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.LEVEL_ONE);
     spawnEntity(new Entity().addComponent(terrain));
 
     //Place the columns
@@ -435,6 +434,7 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
   }
+
 
   /**
    * Spawn a potion in a random position.

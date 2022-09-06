@@ -56,7 +56,8 @@ public class PlayerFactory {
             .addComponent(new PlayerModifier())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new OpenCraftingComponent());
+            .addComponent(new OpenCraftingComponent())
+            .addComponent(new OpenPauseComponent());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
