@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
@@ -52,7 +53,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
 
-  private static ForestGameArea map;
+  private static GameArea map;
 
 
 
@@ -81,14 +82,13 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
     ForestGameArea map = loadLevelOneMap();
+//    UndergroundGameArea map = loadLevelTwoMap();
     this.map = map;
     player = map.getPlayer();
 
-
-
   }
 
-  public ForestGameArea getMap(){
+  public GameArea getMap(){
     return map;
   }
 
@@ -142,7 +142,17 @@ public class MainGameScreen extends ScreenAdapter {
     return forestGameArea;
   }
 
+  /**
+   * Load the level two map. - Team 5 1map4all @LYB
+   * @return The game instance.
+   */
+  private UndergroundGameArea loadLevelTwoMap() {
+    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+    UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
 
+    undergroundGameArea.create();
+    return undergroundGameArea;
+  }
 
   private void loadAssets() {
     logger.debug("Loading assets");

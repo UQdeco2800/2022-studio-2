@@ -23,13 +23,13 @@ public class ObstacleFactory {
   public static Entity createTree() {
     Entity tree =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/tree-1_1.png"))
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/tree-2.png"))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     tree.getComponent(TextureRenderComponent.class).scaleEntity();
-    tree.scaleHeight(2.2f);
+    tree.scaleHeight(1.8f);
     PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
     return tree;
   }
@@ -104,7 +104,7 @@ public class ObstacleFactory {
   public static Entity createColumn() {
     Entity column =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/column.png"))
+                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/column.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 

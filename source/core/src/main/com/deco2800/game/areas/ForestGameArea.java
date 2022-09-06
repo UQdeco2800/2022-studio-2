@@ -80,6 +80,7 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png",
     "images/level_1_tiledmap/32x32/drain_empty.png",
     "images/level_1_tiledmap/32x32/drain_plug.png",
+    "images/level_1_tiledmap/32x32/tree-2.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/level_1_tiledmap/32x32/rock.png",
     "images/Potions/defence_potion.png",
