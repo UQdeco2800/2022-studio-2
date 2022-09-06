@@ -15,6 +15,7 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  */
 public class ObstacleFactory {
 
+
   /**
    * Creates a tree entity.
    * @return entity
@@ -51,7 +52,6 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(smallTree, 0.5f, 0.2f);
     return smallTree;
   }
-
 
   public static Entity createCraftingTable() {
     Entity craftingTable =

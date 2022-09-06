@@ -171,4 +171,12 @@ public class TerrainFactory {
     FOREST_DEMO_HEX,
     LEVEL_ONE,
   }
+
+  /**
+   * Gets the map dimensions for external functions.
+   * @return GridPoint2 object, with x and y components of the map size
+   */
+  public static GridPoint2 getMapSize() {
+    return MAP_SIZE;
+  }
 }

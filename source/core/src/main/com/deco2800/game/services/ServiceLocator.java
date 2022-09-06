@@ -1,5 +1,7 @@
 package com.deco2800.game.services;
 
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
@@ -24,7 +26,12 @@ public class ServiceLocator {
   private static InputService inputService;
   private static ResourceService resourceService;
 
+  private static ForestGameArea gameArea;
 
+  private static GameAreaDisplay craftArea;
+
+
+  public static ForestGameArea getGameArea() {return gameArea;}
   public static EntityService getEntityService() {
     return entityService;
   }
@@ -91,4 +98,17 @@ public class ServiceLocator {
   private ServiceLocator() {
     throw new IllegalStateException("Instantiating static util class");
   }
+
+  public static void registerGameArea(ForestGameArea area){
+     gameArea = area;
+  }
+
+  public static void registerCraftArea(GameAreaDisplay area){
+    craftArea = area;
+  }
+
+  public static GameAreaDisplay getCraftArea() {
+    return craftArea;
+  }
 }
+

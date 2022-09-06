@@ -20,6 +20,7 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
+    entity.getEvents().addListener("openInventory", this::onInventory);
   }
 
   /**
@@ -29,4 +30,10 @@ public class MainGameActions extends Component {
     logger.info("Exiting main game screen");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
+
+  private void onInventory() {
+    logger.info("Open inventory");
+    game.setScreen(GdxGame.ScreenType.INVENTORY);
+  }
+
 }

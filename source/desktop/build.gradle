@@ -1,5 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
-OperatingSystem os = OperatingSystem.current();
+OperatingSystem os = OperatingSystem.current()
 
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../core/assets"]
@@ -13,6 +13,7 @@ task run(dependsOn: classes, type: JavaExec) {
     standardInput = System.in
     workingDir = project.assetsDir
     ignoreExitValue = true
+
     jvmArgs = os.isMacOsX() ?
         ["-Djava.util.logging.config.file=../../logging.properties", "-XstartOnFirstThread"] :
         ["-Djava.util.logging.config.file=../../logging.properties"]
