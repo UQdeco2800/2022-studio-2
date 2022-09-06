@@ -491,10 +491,10 @@ public class ForestGameArea extends GameArea {
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, randomPos, true, true);
 
-    if (player_positionToEntity(randomPos) < 3) {
-      Entity dialogue = DialogueFactory.createDialogue();
-      spawnEntityAt(dialogue, randomPos, true, true);
-    }
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, randomPos, true, true);
+
 
   }
 

@@ -6,6 +6,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.DialogueAnimationController;
 import com.deco2800.game.components.npc.DialogueComponent;
 import com.deco2800.game.components.npc.DialogueDisplay;
+import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
@@ -42,12 +43,11 @@ public class DialogueFactory {
 
         Entity dialogue = new Entity()
                 .addComponent(animator)
-                .addComponent(new DialogueAnimationController())
-                .addComponent(new DialogueDisplay())
-                .addComponent(new DialogueComponent());
+                .addComponent(new DialogueAnimationController());
+//                .addComponent(new DialogueKeybordInputComponent())
+//                .addComponent(new DialogueDisplay());
 
         dialogue.getComponent(AnimationRenderComponent.class).scaleEntity();
-//        dialogue.getComponent(TextureRenderComponent.class).scaleEntity();
         dialogue.setScale(2,2);
         return dialogue;
     }

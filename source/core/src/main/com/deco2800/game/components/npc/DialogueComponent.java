@@ -5,6 +5,7 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 
 /**
  * Dialogue component for interacting with the player
@@ -16,21 +17,21 @@ public class DialogueComponent extends Component{
     // state true show the dialogue, false hide the dialogue
     private Boolean dialogueState;
     private short dialogueLayer;
+    private DialogueKeybordInputComponent dialogueKeybordInputComponent;
 
 
 
     public void create() {
-        entity.getEvents().addListener("showDialogue", this::nearNPCStart);
+//        entity.getEvents().addListener("showDialogue", this::nearNPCStart);
+        this.dialogueState = dialogueKeybordInputComponent.getDialogueState();
     }
 
-    public void dialogueShowComponent(short dialogueLayer, Boolean dialogueState) {
-        this.dialogueLayer = dialogueLayer;
-        this.dialogueState = dialogueState;
-        if (dialogueState) {
-            DialogueDisplay.displayDialogue();
-        } else {
-            DialogueDisplay.hideDialogue();
-        }
+//    public DialogueKeybordInputComponent cpy() {
+//        return new
+//    }
+    public void update() {
+        this.dialogueState = dialogueKeybordInputComponent.getDialogueState();
+
     }
 
     /**
@@ -40,10 +41,10 @@ public class DialogueComponent extends Component{
      * @param NPC
      * @return
      */
-    public Boolean nearNPCStart(GridPoint2 player, GridPoint2 NPC) {
-        dialogueState = player.dst(NPC) < 0.5;
-        return dialogueState;
-    }
+//    public Boolean nearNPCStart(GridPoint2 player, GridPoint2 NPC) {
+//        dialogueState = player.dst(NPC) < 0.5;
+//        return dialogueState;
+//    }
 
 
 }
