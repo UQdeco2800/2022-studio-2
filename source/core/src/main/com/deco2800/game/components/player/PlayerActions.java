@@ -3,8 +3,13 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -12,6 +17,8 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,10 +44,14 @@ public class PlayerActions extends Component {
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
+  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
+
+  private boolean enemyCollide = false;
+  private Entity enemyToKill;
 
   Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
@@ -58,6 +69,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+    entity.getEvents().addListener("collisionStart", this::collisionAttack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
@@ -156,13 +168,54 @@ public class PlayerActions extends Component {
 
   }
 
+  void collisionAttack(Fixture player, Fixture other) {
+
+    ArrayList<Entity> enemies = new ArrayList<>();
+
+    for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
+      if (enemy.checkEntityType(EntityTypes.ENEMY)) {
+        enemies.add(enemy);
+      }
+    }
+
+    for(Entity i : enemies) {
+      Fixture fix = i.getComponent(HitboxComponent.class).getFixture();
+
+      if (other == fix) {
+        enemyCollide = true;
+        enemyToKill = i;
+        break; // add a break here
+      } else {
+        enemyCollide = false;
+      }
+    }
+  }
+
   /**
    * Makes the player attack.
    */
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+    int damage = 100; // call the weapons damage, if equipped
     playerModifier.createModifier("moveSpeed", 2, true, 350);
+
+
+    if (enemyCollide == true) {
+
+      for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
+        //if (enemy.checkEntityType(EntityTypes.ENEMY)) {
+        if (enemy.equals(enemyToKill)) {
+
+          // whether we need to split which one has collided
+          enemy.flagDead();
+          enemyCollide = false;
+          enemyToKill = null;
+          break;
+        }
+      }
+    }
+
   }
 
   /**
