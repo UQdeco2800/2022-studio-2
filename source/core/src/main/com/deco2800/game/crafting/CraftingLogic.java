@@ -68,18 +68,17 @@ public class CraftingLogic {
 
                 Map<Materials,Integer> materialValues = possibleWeapons.get(i).materials;
 
+                Boolean buildable = true;
+
                 for (Map.Entry<Materials,Integer> entry : materialValues.entrySet()) {
 
                     if (!inventoryContents.contains(entry.getKey())){
+                        buildable = false;
                     }
 
-                    else if (Collections.frequency(inventoryContents, entry.getKey()) < entry.getValue()){
-                    }
-
-                    else {
-                        buildables.add(possibleWeapons.get(i));
-                    }
                 }
+                if (buildable)
+                    buildables.add(possibleWeapons.get(i));
         }
         return buildables;
     }

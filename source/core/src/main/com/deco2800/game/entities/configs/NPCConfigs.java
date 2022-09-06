@@ -11,6 +11,6 @@ public class NPCConfigs {
   public ChildConfig child = new ChildConfig();
   public GuardConfig guard = new GuardConfig();
   public Male_citizenConfig male_citizen = new Male_citizenConfig();
-
+  public HeraclesConfig heracles = new HeraclesConfig();
 
 }
