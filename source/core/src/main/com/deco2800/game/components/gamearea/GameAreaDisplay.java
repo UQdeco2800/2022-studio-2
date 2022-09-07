@@ -175,6 +175,19 @@ public class GameAreaDisplay extends UIComponent {
   private void getInventory() {
     count = 0;
     List<Materials> inventory = new ArrayList<>();
+    inventory.add(Materials.Wood);
+    inventory.add(Materials.Steel);
+    inventory.add(Materials.Gold);
+    inventory.add(Materials.Diamond);
+    inventory.add(Materials.Stone);
+    inventory.add(Materials.Copper);
+    inventory.add(Materials.dagger);
+    inventory.add(Materials.Silver);
+    inventory.add(Materials.Plastic);
+    inventory.add(Materials.Rubber);
+    inventory.add(Materials.Plat);
+    inventory.add(Materials.daggerTwo);
+
     possibleBuilds = CraftingLogic.canBuild(inventory);
     try {
       for (int i = 0; i < inventory.size(); i++) {

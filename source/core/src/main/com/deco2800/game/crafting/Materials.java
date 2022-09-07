@@ -23,6 +23,8 @@ public enum Materials {
 
     Plat,
 
+    Iron,
+
     dagger,
 
     daggerTwo,

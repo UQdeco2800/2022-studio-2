@@ -1,7 +1,9 @@
 package com.deco2800.game.crafting;
 
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.files.FileLoader;
 
 import java.util.*;
@@ -66,6 +68,11 @@ public class CraftingLogic {
     public static List<MeleeConfig> canBuild(List<Materials> inventoryContents){
         List<MeleeConfig> possibleWeapons = getPossibleWeapons();
         List<MeleeConfig> buildables = new ArrayList<>();
+        List<String> inventory = new ArrayList<>();
+
+        for (Materials materials: inventoryContents){
+            inventory.add(materials.toString());
+        }
 
         for (int i = 0 ; i < possibleWeapons.size(); i++){
 
@@ -75,7 +82,9 @@ public class CraftingLogic {
 
                 for (Map.Entry<Materials,Integer> entry : materialValues.entrySet()) {
 
-                    if (!inventoryContents.contains(entry.getKey())){
+                    String mapname = entry.toString().split("=")[0];
+
+                    if (!inventory.contains(mapname)) {
                         buildable = false;
                     }
 
@@ -86,4 +95,29 @@ public class CraftingLogic {
         return buildables;
     }
 
+    public static Entity damageToWeapon(MeleeConfig weapon){
+        double dam = weapon.damage;
+        switch ((int) Math.floor(dam)){
+            case 7:
+                return WeaponFactory.createDagger();
+
+            case 9:
+                return WeaponFactory.createDaggerTwo();
+
+            case 26:
+                return WeaponFactory.createSwordLvl2();
+
+            case 5:
+                return WeaponFactory.createDumbbell();
+
+            case 25:
+                return WeaponFactory.createTridentLvl2();
+
+            case 35:
+                return WeaponFactory.createHerraAthenaDag();
+
+            default:
+                return WeaponFactory.createPlunger();
+        }
+    }
 }
