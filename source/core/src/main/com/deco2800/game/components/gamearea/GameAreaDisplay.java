@@ -17,14 +17,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Null;
 import com.deco2800.game.components.player.OpenCraftingComponent;
 import com.deco2800.game.components.player.OpenPauseComponent;
+import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Displays the name of the current game area.
@@ -42,6 +45,8 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
+
+  private List<MeleeConfig> possibleBuilds;
   private Image catOneMenu;
   private Image catTwoMenu;
   private Image pauseMenu;
@@ -51,11 +56,13 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegionDrawable woodDrawable;
   private ImageButton steel;
   private Texture steelTexture;
+
   private TextureRegion steelTextureRegion;
   private TextureRegionDrawable steelDrawable;
   private Image weapon;
   private Group craftingGroup = new Group();
 
+  private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
   private int count;
   List<Materials> inventory;
@@ -107,7 +114,7 @@ public class GameAreaDisplay extends UIComponent {
     });
     craftingGroup.addActor(craftButton);
     getInventory();
-    entity.getEvents().addListener("check", this::displayWeapon);
+    entity.getEvents().addListener("check", this::checkBuildables);
     buttonTexture = new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/widgets/catalogue_button.png"));
     buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -142,6 +149,21 @@ public class GameAreaDisplay extends UIComponent {
     stage.draw();
   }
 
+  private void checkBuildables() {
+    for (MeleeConfig item: possibleBuilds){
+      int numItems = 0;
+      for (Map.Entry entry: item.materials.entrySet()){
+        if (boxes[0] == entry.getKey() || boxes[1] == entry.getKey()){
+          numItems += 1;
+        }
+      }
+      if (numItems == 2){
+        displayWeapon(item);
+        break;
+      }
+    }
+  }
+
   public void setPauseMenu() {
     pauseMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
@@ -157,12 +179,14 @@ public class GameAreaDisplay extends UIComponent {
     count = 0;
     CraftingSystem craftingSystem = new CraftingSystem();
     inventory = craftingSystem.getInventoryContents();
+    possibleBuilds = CraftingLogic.canBuild(inventory);
     try {
       for (int i = 0; i < inventory.size(); i++) {
         switch (inventory.get(i)) {
           case Wood:
             woodTexture = new Texture(Gdx.files.internal
                     ("images/Crafting-assets-sprint1/materials/wood.png"));
+
             woodTextureRegion = new TextureRegion(woodTexture);
             woodDrawable = new TextureRegionDrawable(woodTextureRegion);
             wood = new ImageButton(woodDrawable);
@@ -173,6 +197,7 @@ public class GameAreaDisplay extends UIComponent {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
                 wood.setPosition(craftMenu.getX() + 480, craftMenu.getY() + 230);
+                addToBoxes(Materials.Wood);
                 count++;
                 entity.getEvents().trigger("check");
               }
@@ -192,8 +217,10 @@ public class GameAreaDisplay extends UIComponent {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
                 steel.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
+
                 count++;
                 entity.getEvents().trigger("check");
+                addToBoxes(Materials.Steel);
               }
             });
             craftingGroup.addActor(steel);
@@ -201,6 +228,17 @@ public class GameAreaDisplay extends UIComponent {
         }
       }
     } catch (Exception e) {}
+  }
+
+  private void addToBoxes(Materials materials) {
+    if (this.boxes[0] == null)
+      boxes[0] = materials;
+    else if (this.boxes[1] == null)
+      boxes[1] = materials;
+    else {
+      boxes[1] = boxes[0];
+      boxes[0] = materials;
+    }
   }
 
   private void displayCatOne() {
@@ -301,7 +339,7 @@ public class GameAreaDisplay extends UIComponent {
     pausingGroup.remove();
   }
 
-  private void displayWeapon() {
+  private void displayWeapon(MeleeConfig item) {
     if (count == 2) {
       weapon = new Image(new Texture(Gdx.files.internal
               ("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png")));
