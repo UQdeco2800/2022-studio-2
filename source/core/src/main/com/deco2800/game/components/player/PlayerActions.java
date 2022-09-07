@@ -220,10 +220,9 @@ public class PlayerActions extends Component {
             ServiceLocator.getEntityService().unregister(enemy);
             //enemy.flagDead();
           }
-          // idk if this is needed? it seems to work without it
-          //enemyCollide = false;
-          //enemyToKill = null;
-
+          // anti-snipe
+          enemyCollide = false;
+          enemyToKill = null;
           break;
         }
       }
