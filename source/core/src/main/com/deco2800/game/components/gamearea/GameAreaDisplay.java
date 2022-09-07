@@ -57,6 +57,8 @@ public class GameAreaDisplay extends UIComponent {
   private ImageButton steel;
   private Texture steelTexture;
 
+  private int num;
+
   private TextureRegion steelTextureRegion;
   private TextureRegionDrawable steelDrawable;
   private Image weapon;
