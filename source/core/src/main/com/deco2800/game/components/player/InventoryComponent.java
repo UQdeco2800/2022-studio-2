@@ -65,17 +65,35 @@ public class InventoryComponent extends Component {
         inventory.add(item);
     } else if ((item.checkEntityType(EntityTypes.MELEE)
             || item.checkEntityType(EntityTypes.RANGED))
-            && inventory.contains(item)) {
-      //Does weapon have quantity?
+            && !inventory.contains(item)) {
+      inventory.add(item);
     }
+    //Do nothing if the weapon is already in the inventory.
+    //Consider adding a console message to player.
 
     //Item quantity undefined. TO BE IMPLEMENTED
     ++itemQuantity[inventory.indexOf(item)];
   }
 
   /**
+   * Adds item to player's inventory with the specified quantity.
+   * @param item item to add
+   * @param quantity item's quantity
+   */
+  public void addItem(Entity item, int quantity) {
+    if (inventory.size() == inventorySize) {
+      //Error code here.
+      //Error should end this block of code
+    } else if (!inventory.contains(item)) {
+      inventory.add(item);
+      itemQuantity[inventory.indexOf(item)] = quantity;
+    }
+  }
+
+  /**
    * Removes an item to player's inventory.
    * @param item item to remove
+   * requires getItemQuantity(item) >= 1
    */
   public void removeItem(Entity item) {
     --itemQuantity[inventory.indexOf(item)];
@@ -87,6 +105,7 @@ public class InventoryComponent extends Component {
   /**
    * Removes an item to player's inventory.
    * @param index item's index stored in inventory
+   * requires inventory.indexOf(index) != -1 and getItemQuantity(index) >= 1
    */
   public void removeItem(int index) {
     --itemQuantity[index];
@@ -99,6 +118,7 @@ public class InventoryComponent extends Component {
    * Returns the item's quantity
    * @param item item to be checked
    * @return item's quantity
+   * requires inventory.contains(item) == true
    */
   public int getItemQuantity (Entity item) {
     return itemQuantity[inventory.indexOf(item)];
@@ -108,6 +128,7 @@ public class InventoryComponent extends Component {
    * Returns the item's quantity
    * @param index item's index stored in inventory
    * @return item's quantity
+   * requires inventory.indexOf(index) != -1
    */
   public int getItemQuantity (int index) {
     return itemQuantity[index];
@@ -143,6 +164,15 @@ public class InventoryComponent extends Component {
      * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
      */
       private int[] itemQuantity = new int[quickBarSize];
+
+    /**
+     * Returns the current quick bar items
+     * @return quick bar items
+     */
+    public List<Entity> getQuickBarItems() {
+      return List.copyOf(quickBarItems);
+    }
+
 
       /**
        * Adding potion to the quickbar.
