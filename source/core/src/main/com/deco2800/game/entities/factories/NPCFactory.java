@@ -174,7 +174,7 @@ public class NPCFactory {
 
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/Male_citizen/male_citizen.png"));
+            .addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
 
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);

@@ -74,13 +74,11 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png",
     "images/Potions/defence_potion.png",
     "images/level_1_tiledmap/32x32/column.png",
-    "images/NPC/male_citizen/male_citizen.png",
     "images/Potions/defence_potion.png",
     "images/playerTeleport.png",
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
     "images/NPC/guard npc/atlantisguardnpc_1.png",
-    "images/NPC/Male_citizen/male_citizen.png",
     "images/NPC/Dialogue/dialogues2.png",
     "images/Potions/defence_potion.png",
     "images/level_1_tiledmap/32x32/column.png",
@@ -92,7 +90,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/poisonBuff.png",
     "images/Potions/defence_potion.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
-    "images/NPC/Male_citizen/male_citizen.png",
+    "images/NPC/male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
 
     "images/NPC/dialogue_indicator/dialogue.png",
@@ -122,6 +120,10 @@ public class ForestGameArea extends GameArea {
   private List<Entity> weaponOnMap = new ArrayList<>();
   private List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
+  private static GridPoint2 oneLegGirlPosition;
+  private static GridPoint2 GuardPosition;
+  private static GridPoint2 maleCitizenPosition;
+  private static GridPoint2 childPosition;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -494,8 +496,9 @@ public class ForestGameArea extends GameArea {
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, randomPos, true, true);
-
-
+  }
+  public static GridPoint2 getOneLegGirlPosition() {
+    return oneLegGirlPosition;
   }
 
   private int player_positionToEntity(GridPoint2 position) {
@@ -521,13 +524,10 @@ public class ForestGameArea extends GameArea {
 
     spawnEntityAt(dialogue, randomPos, true, true);
   }
-//  private void spawnDialogue() {
-//
-//    Entity dialogue = DialogueFactory.createDialogue();
-//
-//    spawnEntityAt(dialogue, randomPositon(), true, true);
-//    System.out.print(randomPositon());
-//  }
+
+  public static GridPoint2 getChildPosition() {
+    return childPosition;
+  }
 
 
   /**
@@ -546,6 +546,10 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(dialogue, randomPos, true, true);
   }
 
+  public static GridPoint2 getGuardPosition() {
+    return GuardPosition;
+  }
+
   /**
    * Spawn male NPC in random position. - Team 7 all-mid-npc
    */
@@ -554,11 +558,15 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    maleCitizenPosition = randomPos;
     Entity male_citizen = NPCFactory.createMale_citizen(player);
-    spawnEntityAt(male_citizen, randomPos, true, true);
-    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(male_citizen, maleCitizenPosition, true, true);
 
-    spawnEntityAt(dialogue, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, maleCitizenPosition, true, true);
+  }
+  public static GridPoint2 getMaleCitizenPosition() {
+    return maleCitizenPosition;
   }
 
   private void spawnGhostKing() {

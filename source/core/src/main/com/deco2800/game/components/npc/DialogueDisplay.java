@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
@@ -22,8 +23,8 @@ public class DialogueDisplay extends UIComponent {
 
     private String dialogueText;
 
-//    private static Boolean state = DiaDialogueKeybordInputComponentlogueKeybordInputComponent.dialogueState;
     public static Boolean state = false;
+
 
     @Override
     public void create() {
@@ -43,10 +44,8 @@ public class DialogueDisplay extends UIComponent {
                 .getAsset("images/NPC/Dialogue/dialogues2.png", Texture.class));
         // need add text function here
         dialogueTable.add(dialogueImage).size(100,100).pad(0);
-
+// && entity.getCenterPosition().dst()
         if (state) {
-
-
             stage.addActor(dialogueImage);
             state = false;
         }

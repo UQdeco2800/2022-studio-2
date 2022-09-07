@@ -27,6 +27,8 @@ import com.deco2800.game.services.ServiceLocator;
 
 /**
 * Factory to create non-playable dialogue box entities. Team 7 all-mid-npc
+ * All the dialogue created here should only have animation, but no interaction with player,
+ * the interaction function should be found in components->NPC->DialogueComponent.
 */
 public class DialogueFactory {
 
@@ -44,8 +46,7 @@ public class DialogueFactory {
         Entity dialogue = new Entity()
                 .addComponent(animator)
                 .addComponent(new DialogueAnimationController());
-//                .addComponent(new DialogueKeybordInputComponent())
-//                .addComponent(new DialogueDisplay());
+
 
         dialogue.getComponent(AnimationRenderComponent.class).scaleEntity();
         dialogue.setScale(2,2);

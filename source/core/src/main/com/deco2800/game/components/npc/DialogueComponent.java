@@ -21,18 +21,18 @@ public class DialogueComponent extends Component{
 
 
 
-    public void create() {
-//        entity.getEvents().addListener("showDialogue", this::nearNPCStart);
-        this.dialogueState = dialogueKeybordInputComponent.getDialogueState();
-    }
+//    public void create() {
+////        entity.getEvents().addListener("showDialogue", this::nearNPCStart);
+//        this.dialogueState = dialogueKeybordInputComponent.getDialogueState();
+//    }
 
 //    public DialogueKeybordInputComponent cpy() {
 //        return new
 //    }
-    public void update() {
-        this.dialogueState = dialogueKeybordInputComponent.getDialogueState();
-
-    }
+//    public void update() {
+//        this.dialogueState = dialogueKeybordInputComponent.getDialogueState();
+//
+//    }
 
     /**
      * dialogueState true if distence between NPC and player less 0.5
