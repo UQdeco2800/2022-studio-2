@@ -10,6 +10,7 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
@@ -183,7 +184,7 @@ public class PlayerActions extends Component {
     }
 
     for(Entity i : enemies) {
-      Fixture fix = i.getComponent(HitboxComponent.class).getFixture();
+      Fixture fix = i.getComponent(ColliderComponent.class).getFixture();
 
       if (other == fix) {
         enemyCollide = true;
@@ -201,7 +202,7 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
-    int damage = -35; // call the weapons damage, if equipped
+    int damage = -100; // call the weapons damage, if equipped
     //playerModifier.createModifier("moveSpeed", 2, true, 350);
 
 
