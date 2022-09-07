@@ -102,10 +102,14 @@ public class ForestGameArea extends GameArea {
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
 
+    "images/NPC/dialogue_indicator/dialogue.png",
     "images/NPC/dialogue_indicator/dialogue_1.png",
+    "images/NPC/dialogue_indicator/dialogue_2.png",
+    "images/NPC/dialogue_indicator/dialogue_3.png",
 
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
+    "images/NPC/dialogue_indicator/dialogue_indicator_sprite_sheet.png",
     "images/Skills/skillAnimations.png"
 
   };
@@ -113,7 +117,7 @@ public class ForestGameArea extends GameArea {
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -505,10 +509,10 @@ public class ForestGameArea extends GameArea {
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, randomPos, true, true);
 
-    if (player_positionToEntity(randomPos) < 3) {
-      Entity dialogue = DialogueFactory.createDialogue();
-      spawnEntityAt(dialogue, randomPos, true, true);
-    }
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, randomPos, true, true);
+
 
   }
 

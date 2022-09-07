@@ -7,6 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
+import com.badlogic.gdx.Input.Keys;
+
 
 
 /**
@@ -15,20 +18,22 @@ import com.deco2800.game.ui.UIComponent;
 public class DialogueDisplay extends UIComponent {
 
     private static Table dialogueTable;
-
     private static Image dialogueImage;
 
     private String dialogueText;
 
-
+//    private static Boolean state = DiaDialogueKeybordInputComponentlogueKeybordInputComponent.dialogueState;
+    public static Boolean state = false;
 
     @Override
     public void create() {
         super.create();
-        displayDialogue();
+        openDialogue();
+        entity.getEvents().addListener("openDialogue", this::openDialogue);
+        entity.getEvents().addListener("hideDialogue", this::hideDialogue);
     }
 
-    public static void displayDialogue() {
+    public void openDialogue() {
         dialogueTable = new Table();
         dialogueTable.bottom();
         dialogueTable.setFillParent(true);
@@ -38,11 +43,24 @@ public class DialogueDisplay extends UIComponent {
                 .getAsset("images/NPC/Dialogue/dialogues2.png", Texture.class));
         // need add text function here
         dialogueTable.add(dialogueImage).size(100,100).pad(0);
-        stage.addActor(dialogueImage);
+
+        if (state) {
+
+
+            stage.addActor(dialogueImage);
+            state = false;
+        }
+
+
+
     }
 
     //hide dialogue function
-    public static void hideDialogue() {
+    public void hideDialogue() {
+        if (!state) {
+            dialogueImage.remove();
+            state = true;
+        }
 
     }
     public static void loadText() {

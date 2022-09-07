@@ -3,6 +3,8 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.npc.DialogueDisplay;
+import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
@@ -56,7 +58,10 @@ public class PlayerFactory {
             .addComponent(new PlayerModifier())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new OpenCraftingComponent());
+            .addComponent(new OpenCraftingComponent())
+                .addComponent(new DialogueKeybordInputComponent())
+                .addComponent(new DialogueDisplay());
+
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
