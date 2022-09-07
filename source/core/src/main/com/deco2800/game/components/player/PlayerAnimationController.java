@@ -38,6 +38,11 @@ public class PlayerAnimationController extends Component {
         entity.getEvents().trigger("movementIdle"); // Start out default idle animation
     }
 
+    /**
+     * Basic function to get the current movement animation.
+     *
+     * @return String enum that represents the movement animation.
+     */
     public String getMovementAnimation() { return currentAnimation; }
 
     private void movementIdle() {
