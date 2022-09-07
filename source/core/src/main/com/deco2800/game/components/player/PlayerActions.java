@@ -64,9 +64,10 @@ public class PlayerActions extends Component {
 
 
     // Skills and Dash initialisation
-    String startingSkill = "dodge";
+    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(startingSkill, entity, this);
+    skillManager.setSkill(1, startingSkill, entity,this);
+    skillManager.setSkill(2, "dodge", entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
     skillCooldowns.put(startingSkill, 0L);
@@ -246,9 +247,20 @@ public class PlayerActions extends Component {
     }
   }
 
+  /**
+   * Makes the player dodge. Registers call of the dodge function to the skill manager component.
+   */
   void dodge() {
     skillAnimator.getEvents().trigger("dodgeAnimation");
     skillManager.startDodge(this.walkDirection.cpy());
+  }
+
+  /**
+   * Makes the player block. Registers call of the block function to the skill manager component.
+   */
+  void block() {
+    skillAnimator.getEvents().trigger("blockAnimation");
+    skillManager.startBlock();
   }
 
   Vector2 getWalkDirection() {
