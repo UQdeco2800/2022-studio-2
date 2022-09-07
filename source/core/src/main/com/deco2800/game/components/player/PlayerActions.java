@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -52,6 +53,7 @@ public class PlayerActions extends Component {
 
   private boolean enemyCollide = false;
   private Entity enemyToKill;
+  private int enemyHealth;
 
   Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
@@ -184,6 +186,7 @@ public class PlayerActions extends Component {
       if (other == fix) {
         enemyCollide = true;
         enemyToKill = i;
+        System.out.println("Collision:" + enemyToKill);
         break; // add a break here
       } else {
         enemyCollide = false;
@@ -197,8 +200,8 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
-    int damage = 100; // call the weapons damage, if equipped
-    playerModifier.createModifier("moveSpeed", 2, true, 350);
+    int damage = -35; // call the weapons damage, if equipped
+    //playerModifier.createModifier("moveSpeed", 2, true, 350);
 
 
     if (enemyCollide == true) {
@@ -206,11 +209,23 @@ public class PlayerActions extends Component {
       for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
         //if (enemy.checkEntityType(EntityTypes.ENEMY)) {
         if (enemy.equals(enemyToKill)) {
-
+          // load in current health
+          enemyHealth = enemy.getComponent(CombatStatsComponent.class).getHealth();
+          // to avoid changing weapon stats should probably just change to a negative value
+          enemy.getComponent(CombatStatsComponent.class).addHealth(damage);
+          System.out.println(enemyHealth);
           // whether we need to split which one has collided
-          enemy.flagDead();
+
+          if (enemyHealth == 0) {
+            enemyToKill.dispose();
+            //enemy.
+            //ServiceLocator.getGameAre
+            //ServiceLocator.getEntityService().unregister(enemy);
+          }
+          //enemy.flagDead();
           enemyCollide = false;
           enemyToKill = null;
+
           break;
         }
       }
