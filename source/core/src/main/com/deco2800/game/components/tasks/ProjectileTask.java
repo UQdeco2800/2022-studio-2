@@ -2,6 +2,7 @@ package com.deco2800.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
+import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -10,9 +11,12 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.entities.Entity;
 
-public class ProjectileTask extends DefaultTask {
+public class ProjectileTask extends DefaultTask implements PriorityTask {
 
     private final Entity target;
+
+    private final int priority;
+    
     private final float speed;
     private final PhysicsEngine physics;
     private final DebugRenderer debugRenderer;
@@ -24,11 +28,12 @@ public class ProjectileTask extends DefaultTask {
      * @param target The entity to chase.
      * @param speed The speed to chase at.
      */
-    public ProjectileTask(Entity target, float speed) {
+    public ProjectileTask(Entity target, float speed, int priority)  {
         this.target = target;
         this.speed = speed;
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
+        this.priority = priority;
     }
 
     /**
@@ -77,5 +82,10 @@ public class ProjectileTask extends DefaultTask {
         }
         debugRenderer.drawLine(currentPos, targetPos);
         return true;
+    }
+
+    @Override
+    public int getPriority() {
+        return 0;
     }
 }

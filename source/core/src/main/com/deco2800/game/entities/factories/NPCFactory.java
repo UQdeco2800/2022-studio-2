@@ -8,6 +8,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -190,6 +191,19 @@ public class NPCFactory {
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
+  }
+
+  /**
+   * Creates a projectile
+   *
+   * @return entity
+   */
+  private static Entity createPoopProjectile(Entity target) {
+    Entity poopProjectile = createBaseNPC();
+    poopProjectile.getComponent(AITaskComponent.class)
+            .addTask(new ProjectileTask(target, 2f, 10));
+
+    return poopProjectile;
   }
 
   private NPCFactory() {
