@@ -45,11 +45,23 @@ public class PlayerAnimationController extends Component {
      */
     public String getMovementAnimation() { return currentAnimation; }
 
+    /**
+     * Function for activating the idle movement animation
+     * and setting the current animation variable.
+     */
     private void movementIdle() {
         animator.startAnimation("idle");
         currentAnimation = MOVEIDLE;
     }
 
+    /**
+     * General movement handler to determine the animation to play
+     * given the player movement vector. Updates the current movement animation
+     * string variable appropriately. Movement input vector components should either
+     * be 0 or 1.
+     *
+     * @param move  Movement Vector2 that determines the direction of movement.
+     */
     private void handleMovement (Vector2 move) {
 
         // Cant do a switch for Vector2s UPSIDEDOWNSMILYFACE
