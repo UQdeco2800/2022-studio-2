@@ -2,8 +2,6 @@ package com.deco2800.game.components.gamearea;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,11 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Null;
 import com.deco2800.game.components.player.OpenCraftingComponent;
-import com.deco2800.game.components.player.OpenPauseComponent;
 import com.deco2800.game.crafting.CraftingLogic;
-import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
@@ -179,8 +174,7 @@ public class GameAreaDisplay extends UIComponent {
 
   private void getInventory() {
     count = 0;
-    CraftingSystem craftingSystem = new CraftingSystem();
-    inventory = craftingSystem.getInventoryContents();
+    List<Materials> inventory = new ArrayList<>();
     possibleBuilds = CraftingLogic.canBuild(inventory);
     try {
       for (int i = 0; i < inventory.size(); i++) {
