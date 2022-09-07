@@ -45,7 +45,6 @@ public class CraftingLogicTest {
         inventory = new ArrayList<>();
         inventory.add(Materials.Gold);
         inventory.add(Materials.Iron);
-        ArrayList<MeleeConfig> inputList = new ArrayList<>();
         WeaponConfig configs = FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
         assertEquals(CraftingLogic.canBuild(inventory).get(0).damage, configs.SwordLvl2.damage);
     }

@@ -15,8 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.player.OpenCraftingComponent;
 import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -147,17 +149,22 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void checkBuildables() {
+    if (boxes[0] != null && boxes[1] != null){
     for (MeleeConfig item: possibleBuilds){
       int numItems = 0;
       for (Map.Entry entry: item.materials.entrySet()){
-        if (boxes[0] == entry.getKey() || boxes[1] == entry.getKey()){
+        if (boxes[0].toString().equals(entry.toString().split("=")[0]) ||
+                boxes[1].toString().equals(entry.toString().split("=")[0])){
+          System.out.println("reached here");
           numItems += 1;
+
         }
       }
       if (numItems == 2){
         displayWeapon(item);
         break;
       }
+    }
     }
   }
 
@@ -185,10 +192,11 @@ public class GameAreaDisplay extends UIComponent {
     inventory.add(Materials.Silver);
     inventory.add(Materials.Plastic);
     inventory.add(Materials.Rubber);
-    inventory.add(Materials.Plat);
+    inventory.add(Materials.Platinum);
     inventory.add(Materials.daggerTwo);
 
     possibleBuilds = CraftingLogic.canBuild(inventory);
+
     try {
       for (int i = 0; i < inventory.size(); i++) {
         switch (inventory.get(i)) {
@@ -206,7 +214,7 @@ public class GameAreaDisplay extends UIComponent {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
                 wood.setPosition(craftMenu.getX() + 480, craftMenu.getY() + 230);
-                addToBoxes(Materials.Wood);
+                addToBoxes(Materials.Gold);
                 count++;
                 entity.getEvents().trigger("check");
               }
@@ -228,8 +236,9 @@ public class GameAreaDisplay extends UIComponent {
                 steel.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
 
                 count++;
+                addToBoxes(Materials.Silver);
                 entity.getEvents().trigger("check");
-                addToBoxes(Materials.Steel);
+
               }
             });
             craftingGroup.addActor(steel);
@@ -349,13 +358,12 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void displayWeapon(MeleeConfig item) {
-    if (count == 2) {
-      weapon = new Image(new Texture(Gdx.files.internal
-              ("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png")));
-      weapon.setSize(50, 50);
-      weapon.setPosition(craftMenu.getX() + 674, craftMenu.getY() + 237);
-      craftingGroup.addActor(weapon);
-    }
+    Entity newItem = CraftingLogic.damageToWeapon(item);
+    String image = newItem.getComponent(TextureRenderComponent.class).getTexture();
+    weapon = new Image(new Texture(Gdx.files.internal(image)));
+    weapon.setSize(50, 50);
+    weapon.setPosition(craftMenu.getX() + 674, craftMenu.getY() + 237);
+    craftingGroup.addActor(weapon);
   }
 
   @Override

@@ -21,7 +21,7 @@ public enum Materials {
 
     Rubber,
 
-    Plat,
+    Platinum,
 
     Iron,
 

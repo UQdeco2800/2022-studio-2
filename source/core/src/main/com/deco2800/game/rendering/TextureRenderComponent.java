@@ -9,17 +9,24 @@ import com.deco2800.game.services.ServiceLocator;
 public class TextureRenderComponent extends RenderComponent {
   private final Texture texture;
 
+  private String texturePath;
+
   /**
    * @param texturePath Internal path of static texture to render.
    *                    Will be scaled to the entity's scale.
    */
   public TextureRenderComponent(String texturePath) {
     this(ServiceLocator.getResourceService().getAsset(texturePath, Texture.class));
+    this.texturePath = texturePath;
   }
 //...
   /** @param texture Static texture to render. Will be scaled to the entity's scale. */
   public TextureRenderComponent(Texture texture) {
     this.texture = texture;
+  }
+
+  public String getTexture(){
+    return texturePath;
   }
 
   /** Scale the entity to a width of 1 and a height matching the texture's ratio */
