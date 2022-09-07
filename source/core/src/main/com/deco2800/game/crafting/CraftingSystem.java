@@ -1,5 +1,9 @@
 package com.deco2800.game.crafting;
 
+import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.files.FileLoader;
+
 import java.util.*;
 
 /**
@@ -7,6 +11,9 @@ import java.util.*;
  * new items. Implements runnable in order to create multiple threads for concurrent processing.
  */
 public class CraftingSystem implements Runnable{
+
+    public static final WeaponConfig configs =
+            FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
 
     /**
      * List of all the items the user has built
@@ -28,8 +35,13 @@ public class CraftingSystem implements Runnable{
          builtItems = new ArrayList<>();
 
          //Set Possible Builds by finding all weapons that implement Buildable component
-        HashSet<Object> possibleWeapons = new HashSet<>();
-        possibleWeapons.add("Sword");
+        ArrayList<MeleeConfig> possibleWeapons = new ArrayList<>();
+    //    possibleWeapons.add(configs.Sword);
+  //      possibleWeapons.add(configs.dagger);
+//        possibleWeapons.add(configs.daggerTwo);
+      //  possibleWeapons.add(configs.dumbbell);
+       // possibleWeapons.add(configs.SwordLvl2);
+        //possibleWeapons.add(configs.tridentLvl2);
         CraftingLogic.setPossibleWeapons(possibleWeapons);
 
          //List<Materials> inventoryContents = getInventoryContents();
@@ -63,6 +75,12 @@ public class CraftingSystem implements Runnable{
     public synchronized List<Materials> getInventoryContents(){
         inventoryContents = new ArrayList<Materials>(Arrays.asList(Materials.values()));
         return inventoryContents;
+    }
+
+    //iterates through Weapons.json file and adds all weapons to the possible weapons list
+    public void getRecipes(){
+
+
     }
 
     /**
