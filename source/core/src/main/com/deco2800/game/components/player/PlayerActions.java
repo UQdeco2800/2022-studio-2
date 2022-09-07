@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -54,6 +55,7 @@ public class PlayerActions extends Component {
   private boolean enemyCollide = false;
   private Entity enemyToKill;
   private int enemyHealth;
+  private int killID;
 
   Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
@@ -186,8 +188,7 @@ public class PlayerActions extends Component {
       if (other == fix) {
         enemyCollide = true;
         enemyToKill = i;
-        System.out.println("Collision:" + enemyToKill);
-        break; // add a break here
+        break;
       } else {
         enemyCollide = false;
       }
@@ -211,20 +212,17 @@ public class PlayerActions extends Component {
         if (enemy.equals(enemyToKill)) {
           // load in current health
           enemyHealth = enemy.getComponent(CombatStatsComponent.class).getHealth();
-          // to avoid changing weapon stats should probably just change to a negative value
+          // to avoid changing weapon stats should probably just create a removeHealth function
           enemy.getComponent(CombatStatsComponent.class).addHealth(damage);
-          System.out.println(enemyHealth);
-          // whether we need to split which one has collided
 
           if (enemyHealth == 0) {
-            enemyToKill.dispose();
-            //enemy.
-            //ServiceLocator.getGameAre
-            //ServiceLocator.getEntityService().unregister(enemy);
+            enemyToKill.setScale(0f,0f);
+            ServiceLocator.getEntityService().unregister(enemy);
+            //enemy.flagDead();
           }
-          //enemy.flagDead();
-          enemyCollide = false;
-          enemyToKill = null;
+          // idk if this is needed? it seems to work without it
+          //enemyCollide = false;
+          //enemyToKill = null;
 
           break;
         }
