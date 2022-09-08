@@ -214,7 +214,7 @@ public class GameAreaDisplay extends UIComponent {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
                 wood.setPosition(craftMenu.getX() + 480, craftMenu.getY() + 230);
-                addToBoxes(Materials.Gold);
+                addToBoxes(Materials.Plastic);
                 count++;
                 entity.getEvents().trigger("check");
               }
@@ -236,7 +236,7 @@ public class GameAreaDisplay extends UIComponent {
                 steel.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
 
                 count++;
-                addToBoxes(Materials.Silver);
+                addToBoxes(Materials.Rubber);
                 entity.getEvents().trigger("check");
 
               }
@@ -361,8 +361,8 @@ public class GameAreaDisplay extends UIComponent {
     Entity newItem = CraftingLogic.damageToWeapon(item);
     String image = newItem.getComponent(TextureRenderComponent.class).getTexture();
     weapon = new Image(new Texture(Gdx.files.internal(image)));
-    weapon.setSize(50, 50);
-    weapon.setPosition(craftMenu.getX() + 674, craftMenu.getY() + 237);
+    weapon.setSize(60, 60);
+    weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
     craftingGroup.addActor(weapon);
   }
 
