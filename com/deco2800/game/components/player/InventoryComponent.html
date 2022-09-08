@@ -125,10 +125,30 @@ loadScripts(document, 'script');</script>
 <div class="block">Adds an item to player's inventory.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equipItem(com.deco2800.game.entities.Entity)" class="member-name-link">equipItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addItem(com.deco2800.game.entities.Entity,int)" class="member-name-link">addItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ int&nbsp;quantity)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Assuming weapon's max quantity is one
- NOT FINISHED!!!!!</div>
+<div class="block">Adds item to player's inventory with the specified quantity.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addQuickBarItems(com.deco2800.game.entities.Entity)" class="member-name-link">addQuickBarItems</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Adding potion to the quickbar.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#consumePotion(int)" class="member-name-link">consumePotion</a><wbr>(int&nbsp;inputIndex)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Consume the potion rom quickbar based on the input index.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equipItem(com.deco2800.game.entities.Entity)" class="member-name-link">equipItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Assuming weapon's max quantity is one.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getInventory()" class="member-name-link">getInventory</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the current inventory</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemQuantity(int)" class="member-name-link">getItemQuantity</a><wbr>(int&nbsp;index)</code></div>
@@ -141,9 +161,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the item's quantity</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItems()" class="member-name-link">getItems</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getQuickBarItems()" class="member-name-link">getQuickBarItems</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the current inventory</div>
+<div class="block">Returns the current quick bar items</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeItem(int)" class="member-name-link">removeItem</a><wbr>(int&nbsp;index)</code></div>
@@ -154,6 +174,26 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeItem(com.deco2800.game.entities.Entity)" class="member-name-link">removeItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Removes an item to player's inventory.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeItem(com.deco2800.game.entities.factories.EntityTypes)" class="member-name-link">removeItem</a><wbr>(<a href="../../entities/factories/EntityTypes.html" title="enum class in com.deco2800.game.entities.factories">EntityTypes</a>&nbsp;type)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Removes an item to player's inventory.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removePotion(int)" class="member-name-link">removePotion</a><wbr>(int&nbsp;inputIndex)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Removes the potion from the quickbar based on the input index</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleInventoryDisplay()" class="member-name-link">toggleInventoryDisplay</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Displays the inventory menu if it is not opened.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#unequipItem(int)" class="member-name-link">unequipItem</a><wbr>(int&nbsp;itemSlot)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Unequips the item in the given item slot.</div>
 </div>
 </div>
 </div>
@@ -190,9 +230,9 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getItems()">
-<h3>getItems</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</span>&nbsp;<span class="element-name">getItems</span>()</div>
+<section class="detail" id="getInventory()">
+<h3>getInventory</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</span>&nbsp;<span class="element-name">getInventory</span>()</div>
 <div class="block">Returns the current inventory</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -212,14 +252,28 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="addItem(com.deco2800.game.entities.Entity,int)">
+<h3>addItem</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ int&nbsp;quantity)</span></div>
+<div class="block">Adds item to player's inventory with the specified quantity.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>item</code> - item to add</dd>
+<dd><code>quantity</code> - item's quantity</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="removeItem(com.deco2800.game.entities.Entity)">
 <h3>removeItem</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</span></div>
 <div class="block">Removes an item to player's inventory.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>item</code> - item to remove
- requires getItemQuantity(item) >= 1</dd>
+<dd><code>item</code> - item to remove</dd>
+<dt>Requires:</dt>
+<dd>getItemQuantity(item) >= 1</dd>
 </dl>
 </section>
 </li>
@@ -230,8 +284,21 @@ loadScripts(document, 'script');</script>
 <div class="block">Removes an item to player's inventory.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>index</code> - item's index stored in inventory
- requires inventory.indexOf(index) != -1 and getItemQuantity(index) >= 1</dd>
+<dd><code>index</code> - item's index stored in inventory</dd>
+<dt>Requires:</dt>
+<dd>inventory.indexOf(index) != -1 and getItemQuantity(index) >= 1</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="removeItem(com.deco2800.game.entities.factories.EntityTypes)">
+<h3>removeItem</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeItem</span><wbr><span class="parameters">(<a href="../../entities/factories/EntityTypes.html" title="enum class in com.deco2800.game.entities.factories">EntityTypes</a>&nbsp;type)</span></div>
+<div class="block">Removes an item to player's inventory.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>type</code> - type of the item that is to be removed
+             NOTE: Currently only work with crafting materials EntityTypes</dd>
 </dl>
 </section>
 </li>
@@ -244,8 +311,9 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>item</code> - item to be checked</dd>
 <dt>Returns:</dt>
-<dd>item's quantity
- requires inventory.contains(item) == true</dd>
+<dd>item's quantity</dd>
+<dt>Requires:</dt>
+<dd>inventory.contains(item) == true</dd>
 </dl>
 </section>
 </li>
@@ -258,8 +326,9 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>index</code> - item's index stored in inventory</dd>
 <dt>Returns:</dt>
-<dd>item's quantity
- requires inventory.indexOf(index) != -1</dd>
+<dd>item's quantity</dd>
+<dt>Requires:</dt>
+<dd>inventory.indexOf(index) != -1</dd>
 </dl>
 </section>
 </li>
@@ -267,8 +336,78 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="equipItem(com.deco2800.game.entities.Entity)">
 <h3>equipItem</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">equipItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</span></div>
-<div class="block">Assuming weapon's max quantity is one
- NOT FINISHED!!!!!</div>
+<div class="block">Assuming weapon's max quantity is one.
+ NOT FINISHED!!!!!
+ NOTE: This should check if the player has equipped a weapon or amour.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="unequipItem(int)">
+<h3>unequipItem</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">unequipItem</span><wbr><span class="parameters">(int&nbsp;itemSlot)</span></div>
+<div class="block">Unequips the item in the given item slot.
+ Does nothing if the inventory is full.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>itemSlot</code> - the index of the item slot</dd>
+<dt>Requires:</dt>
+<dd>itemSlot >= 0 and itemSlot less than or equal to 1
+ NOT FINISHED!!!!!</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toggleInventoryDisplay()">
+<h3>toggleInventoryDisplay</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">toggleInventoryDisplay</span>()</div>
+<div class="block">Displays the inventory menu if it is not opened. Closes it otherwise.</div>
+<dl class="notes">
+<dt>Requires:</dt>
+<dd>the player is created and has an InventoryComponent.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getQuickBarItems()">
+<h3>getQuickBarItems</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</span>&nbsp;<span class="element-name">getQuickBarItems</span>()</div>
+<div class="block">Returns the current quick bar items</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>quick bar items</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="addQuickBarItems(com.deco2800.game.entities.Entity)">
+<h3>addQuickBarItems</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addQuickBarItems</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
+<div class="block">Adding potion to the quickbar.
+ Is there a limit of potion quantities? To be discussed with team</div>
+</section>
+</li>
+<li>
+<section class="detail" id="removePotion(int)">
+<h3>removePotion</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removePotion</span><wbr><span class="parameters">(int&nbsp;inputIndex)</span></div>
+<div class="block">Removes the potion from the quickbar based on the input index</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>inputIndex</code> - the index that is returned from user actions(TO BE IMPLEMENTED)</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="consumePotion(int)">
+<h3>consumePotion</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">consumePotion</span><wbr><span class="parameters">(int&nbsp;inputIndex)</span></div>
+<div class="block">Consume the potion rom quickbar based on the input index.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>inputIndex</code> - the index that is returned from user actions(TO BE IMPLEMENTED)
+                   NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
+                   ****To be implemented by potion team.****</dd>
+</dl>
 </section>
 </li>
 </ul>
