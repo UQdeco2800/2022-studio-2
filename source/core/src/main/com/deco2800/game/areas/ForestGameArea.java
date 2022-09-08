@@ -103,12 +103,11 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
-
     "images/NPC/dialogue_indicator/dialogue.png",
     "images/NPC/dialogue_indicator/dialogue_1.png",
     "images/NPC/dialogue_indicator/dialogue_2.png",
     "images/NPC/dialogue_indicator/dialogue_3.png",
-
+    "images/Movement/movement.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
     "images/NPC/dialogue_indicator/dialogue_indicator_sprite_sheet.png",
@@ -120,8 +119,12 @@ public class ForestGameArea extends GameArea {
   private static final String[] forestTextureAtlases = {
 
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
+<<<<<<< HEAD
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
 
+=======
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas"
+>>>>>>> main
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
