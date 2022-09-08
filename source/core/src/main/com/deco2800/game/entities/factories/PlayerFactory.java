@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.player.*;
+import com.deco2800.game.components.tasks.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -57,7 +58,9 @@ public class PlayerFactory {
             .addComponent(new PlayerModifier())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new OpenCraftingComponent());
+            .addComponent(new OpenCraftingComponent())
+            .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)); //team4
+    ;
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

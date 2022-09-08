@@ -73,8 +73,8 @@ public class PlayerActions extends Component {
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
-    entity.getEvents().addListener("attack", this::attack);
-    entity.getEvents().addListener("collisionStart", this::collisionAttack);
+    //entity.getEvents().addListener("attack", this::attack);
+    //entity.getEvents().addListener("collisionStart", this::collisionInAttack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
@@ -173,7 +173,7 @@ public class PlayerActions extends Component {
 
   }
 
-  void collisionAttack(Fixture player, Fixture other) {
+  void collisionInAttack(Fixture player, Fixture other) {
 
     ArrayList<Entity> enemies = new ArrayList<>();
 
@@ -190,11 +190,10 @@ public class PlayerActions extends Component {
         enemyCollide = true;
         enemyToKill = i;
         break;
-      } else {
-        enemyCollide = false;
       }
     }
   }
+
 
   /**
    * Makes the player attack.
@@ -206,8 +205,7 @@ public class PlayerActions extends Component {
     //playerModifier.createModifier("moveSpeed", 2, true, 350);
 
 
-    if (enemyCollide == true) {
-
+    if (enemyCollide) {
       for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
         //if (enemy.checkEntityType(EntityTypes.ENEMY)) {
         if (enemy.equals(enemyToKill)) {
@@ -217,9 +215,7 @@ public class PlayerActions extends Component {
           enemy.getComponent(CombatStatsComponent.class).addHealth(damage);
 
           if (enemyHealth == 0) {
-            enemyToKill.setScale(0f,0f);
-            ServiceLocator.getEntityService().unregister(enemy);
-            //enemy.flagDead();
+            enemy.dispose();
           }
           // anti-snipe
           enemyCollide = false;
@@ -228,7 +224,6 @@ public class PlayerActions extends Component {
         }
       }
     }
-
   }
 
   /**
