@@ -58,6 +58,9 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+//    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
+//    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
+//    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
 
@@ -84,8 +87,32 @@ public class PlayerActions extends Component {
     this.playerModifier.update();
   }
 
-  private void toggleInventory(){
+  /**
+   * Pressing the 'I' button toggles the inventory menu UI opening/closing.
+   */
+  public void toggleInventory(){
     entity.getComponent(InventoryComponent.class).toggleInventoryDisplay();
+  }
+
+  /**
+   * Pressing the '1' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot1(){
+    entity.getComponent(InventoryComponent.class).consumePotion(1);
+  }
+
+  /**
+   * Pressing the '2' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot2(){
+    entity.getComponent(InventoryComponent.class).consumePotion(2);
+  }
+
+  /**
+   * Pressing the '3' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot3(){
+    entity.getComponent(InventoryComponent.class).consumePotion(3);
   }
 
   public void killEnemy(){

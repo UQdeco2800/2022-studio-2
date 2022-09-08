@@ -22,12 +22,20 @@ import java.util.List;
 public class InventoryComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
+  /**
+   * The status of inventory display.
+   */
   private boolean inventoryIsOpened = false;
 
   /**
    * Initial inventory size
    */
   private final int inventorySize = 16;
+
+  /**
+   * The initial size of quick bar.
+   */
+  private final int quickBarSize = 3;
 
   /**
    * Initial item equipment slot
@@ -40,6 +48,11 @@ public class InventoryComponent extends Component {
   private List<Entity> inventory = new ArrayList<>(inventorySize);
 
   /**
+   * Temporary storage for players to store their potions.
+   */
+  private List<Entity> quickBarItems = new ArrayList<>(quickBarSize);
+
+  /**
    * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
    */
   private Entity[] equippables = new Entity[equipSlots];
@@ -48,6 +61,11 @@ public class InventoryComponent extends Component {
    * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
    */
   private int[] itemQuantity = new int[inventorySize];
+
+  /**
+   * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
+   */
+  private int[] quickBarQuantity = new int[quickBarSize];
 
   /**
    * Returns the current inventory
@@ -168,78 +186,59 @@ public class InventoryComponent extends Component {
     inventoryIsOpened = !inventoryIsOpened;
   }
 
-  class quickBar {
+  /**
+   * Returns the current quick bar items
+   * @return quick bar items
+   */
+  public List<Entity> getQuickBarItems() {
+    return List.copyOf(quickBarItems);
+  }
 
-    /**
-     * The initial size of quick bar.
-     */
-      private final int quickBarSize = 3;
 
-    /**
-     * Temporary storage for players to store their potions.
-     */
-      private List<Entity> quickBarItems = new ArrayList<>(quickBarSize);
+  /**
+   * Adding potion to the quickbar.
+   * Is there a limit of potion quantities? To be discussed with team
+   */
+  public void addQuickBarItems(Entity potion) {
 
-    /**
-     * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
-     */
-      private int[] itemQuantity = new int[quickBarSize];
-
-    /**
-     * Returns the current quick bar items
-     * @return quick bar items
-     */
-    public List<Entity> getQuickBarItems() {
-      return List.copyOf(quickBarItems);
+    //Max quantity undefined. TO BE IMPLEMENTED
+    if (quickBarItems.contains(potion)) {
+      ++quickBarQuantity[quickBarItems.indexOf(potion)];
+    } else if (quickBarItems.size() == quickBarSize) {
+      //Error code here
+      System.out.println("Quickbar is full.");
+    } else {
+      quickBarItems.add(potion);
+      ++quickBarQuantity[quickBarItems.indexOf(potion)];
     }
+  }
 
+  /**
+   * Removes the potion from the quickbar based on the input index
+   * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+   */
+  public void removePotion(int inputIndex) {
+    quickBarItems.remove(inputIndex);
+    quickBarQuantity[inputIndex] = 0;
+  }
 
-      /**
-       * Adding potion to the quickbar.
-       * Is there a limit of potion quantities? To be discussed with team
-       */
-      public void addQuickBarItems(Entity potion) {
-
-        //Max quantity undefined. TO BE IMPLEMENTED
-        if (quickBarItems.contains(potion)) {
-          ++itemQuantity[quickBarItems.indexOf(potion)];
-        } else if (quickBarItems.size() == quickBarSize) {
-          //Error code here
-          System.out.println("Quickbar is full.");
-        } else {
-          quickBarItems.add(potion);
-          ++itemQuantity[quickBarItems.indexOf(potion)];
-        }
-      }
-
-      /**
-       * Removes the potion from the quickbar based on the input index
-       * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-       */
-      public void removePotion(int inputIndex) {
-        quickBarItems.remove(inputIndex);
-        itemQuantity[inputIndex] = 0;
-      }
-
-      /**
-       * Consume the potion rom quickbar based on the input index
-       *
-       * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-       *                   <p>
-       *                   ****To be implemented by potion team or player team.****
-       */
-      public void consumePotion(int inputIndex) {
-        if (quickBarItems.get(inputIndex) != null
-                && itemQuantity[inputIndex] == 1) {
-          //Potion consumption effect code here
-          removePotion(inputIndex);
-        } else if (quickBarItems.get(inputIndex) != null
-                && itemQuantity[inputIndex] > 1) {
-          //Potion consumption effect code here
-          --itemQuantity[quickBarItems.indexOf(inputIndex)];
-        }
-        //Do nothing if there is no potion on the selected slot or the quantity ! >= 1
+  /**
+   * Consume the potion rom quickbar based on the input index.
+   * Does nothing if there is no potion on the selected slot or the quantity < 1
+   *
+   * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+   *  NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
+   *                   ****To be implemented by potion team.****
+   */
+  public void consumePotion(int inputIndex) {
+    if (quickBarItems.get(inputIndex) != null) {
+      if (quickBarQuantity[inputIndex] == 1) {
+        quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
+        removePotion(inputIndex);
+      } else if (quickBarQuantity[inputIndex] > 1) {
+        quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
+        --quickBarQuantity[quickBarItems.indexOf(inputIndex)];
       }
     }
-
+  }
 }
