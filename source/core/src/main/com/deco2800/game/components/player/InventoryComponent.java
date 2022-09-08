@@ -2,7 +2,9 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import java.util.List;
  */
 public class InventoryComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
+
+  private boolean inventoryIsOpened = false;
 
   /**
    * Initial inventory size
@@ -146,6 +150,22 @@ public class InventoryComponent extends Component {
       equippables[0] = item;
       removeItem(item);
     }
+  }
+
+
+  /**
+   * Displays the inventory menu if it is not opened. Closes it otherwise.
+   * requires the player is created and has an InventoryComponent.
+   */
+  public void toggleInventoryDisplay() {
+    if (!inventoryIsOpened) {
+      ServiceLocator.getInventoryArea().displayInventoryMenu();
+      EntityService.pauseAndResume();
+    } else {
+      ServiceLocator.getInventoryArea().disposeInventoryMenu();
+      EntityService.pauseAndResume();
+    }
+    inventoryIsOpened = !inventoryIsOpened;
   }
 
   class quickBar {

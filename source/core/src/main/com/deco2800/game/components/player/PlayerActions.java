@@ -31,7 +31,6 @@ public class PlayerActions extends Component {
   private CombatStatsComponent combatStatsComponent;
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private boolean inventoryIsOpened = false;
   private boolean miniMapOpen = false;
   private int stamina= 100;
   private int maxStamina =100;
@@ -86,13 +85,7 @@ public class PlayerActions extends Component {
   }
 
   private void toggleInventory(){
-    inventoryIsOpened = !inventoryIsOpened;
-    //Code for debugging
-    if(inventoryIsOpened) {
-      // Open code
-    } else {
-      // Close code
-    }
+    entity.getComponent(InventoryComponent.class).toggleInventoryDisplay();
   }
 
   public void killEnemy(){

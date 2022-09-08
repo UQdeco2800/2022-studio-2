@@ -45,10 +45,14 @@ public class GameAreaDisplay extends UIComponent {
   private Group craftingGroup = new Group();
   private int count;
   List<Materials> inventory;
+  private Image inventoryMenu;
+  private Group inventoryGroup = new Group();
+
 
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
     ServiceLocator.registerCraftArea(this);
+    ServiceLocator.registerInventoryArea(this);
   }
 
   @Override
@@ -61,6 +65,28 @@ public class GameAreaDisplay extends UIComponent {
     title = new Label(this.gameAreaName, skin, "large");
     stage.addActor(title);
   }
+
+  /**
+   * Displays the inventory UI.
+   * INVENTORY_DISPLAY “Self-made tag for the ease of searching”
+   */
+  public void displayInventoryMenu() {
+      inventoryMenu = new Image(new Texture(Gdx.files.internal
+              ("images/Inventory/pixil-frame (x10).png")));
+      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
+              Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
+      inventoryGroup.addActor(inventoryMenu);
+      stage.addActor(inventoryGroup);
+      stage.draw();
+  }
+
+  /**
+   * Disposes the inventory display group.
+   */
+  public void disposeInventoryMenu() {
+    inventoryGroup.remove();
+  }
+
 
   /**
    * Code that opens an overlay crafting menu when the craft button is pressed. Creates assets based on users inventory
