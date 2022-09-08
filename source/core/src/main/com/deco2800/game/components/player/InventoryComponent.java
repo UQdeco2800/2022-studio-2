@@ -71,7 +71,7 @@ public class InventoryComponent extends Component {
    * Returns the current inventory
    * @return inventory items
    */
-  public List<Entity> getItems() {
+  public List<Entity> getInventory() {
     return List.copyOf(inventory);
   }
 

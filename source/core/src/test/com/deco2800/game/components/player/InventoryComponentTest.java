@@ -28,7 +28,7 @@ class InventoryComponentTest {
   @Test
   void createEmptyInventory() {
     InventoryComponent testInventory1 = new InventoryComponent();
-    assertEquals(testInventory1.getItems(), new ArrayList<>(16));
+    assertEquals(testInventory1.getInventory(), new ArrayList<>(16));
   }
 
 
@@ -43,7 +43,7 @@ class InventoryComponentTest {
     testInventory2.addItem(testWeapon);
     expectedList.add(testWeapon);
 
-    assertEquals(testInventory2.getItems(), expectedList);
+    assertEquals(testInventory2.getInventory(), expectedList);
   }
 
   @Test
@@ -59,7 +59,7 @@ class InventoryComponentTest {
     expectedList.remove(testWeapon);
     testInventory3.removeItem(testWeapon);
 
-    assertEquals(testInventory3.getItems(), expectedList);
+    assertEquals(testInventory3.getInventory(), expectedList);
   }
 
 }
