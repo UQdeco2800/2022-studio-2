@@ -41,17 +41,19 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
      * @param target The entity to chase.
      * @param speed The speed to chase at.
      */
+
     public ProjectileTask(Entity target, List<EntityTypes> types, int priority, float viewDistance,
                           float maxShootDistance, float speed, float waitTime) {
-        this.target = target;
-        this.priority = priority;
+
         this.speed = speed;
+        this.target = target;
         this.types = types;
         this.waitTime = waitTime;
         this.viewDistance = viewDistance;
         this.maxShootDistance = maxShootDistance;
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
+        this.priority = priority;
     }
 
     /**
@@ -191,6 +193,5 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         debugRenderer.drawLine(currentPos, targetPos);
         return true;
     }
-
-     */
+    */
 }

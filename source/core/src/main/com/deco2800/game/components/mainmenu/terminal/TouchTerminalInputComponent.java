@@ -1,4 +1,4 @@
-package com.deco2800.game.ui.terminal;
+package com.deco2800.game.components.mainmenu.terminal;
 
 import com.badlogic.gdx.InputProcessor;
 import com.deco2800.game.input.InputComponent;
