@@ -230,7 +230,7 @@ public class InventoryComponent extends Component {
    * Does nothing if the inventory is full.
    *
    * @param itemSlot the index of the item slot
-   * @requires item  0 <= slot <= 1
+   * @requires itemSlot >= 0 and itemSlot less than or equal to 1
    * NOT FINISHED!!!!!
    */
   public void unequipItem(int itemSlot) {
@@ -297,13 +297,13 @@ public class InventoryComponent extends Component {
 
   /**
    * Consume the potion rom quickbar based on the input index.
-   * Does nothing if there is no potion on the selected slot or the quantity < 1
    *
    * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
    *                   NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
    *                   ****To be implemented by potion team.****
    */
   public void consumePotion(int inputIndex) {
+    //Does nothing if there is no potion on the selected slot or the quantity < 1
     if (quickBarItems.get(inputIndex) != null) {
       quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
       if (quickBarQuantity[inputIndex] == 1) {

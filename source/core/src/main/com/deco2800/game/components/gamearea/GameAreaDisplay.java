@@ -68,7 +68,8 @@ public class GameAreaDisplay extends UIComponent {
 
   /**
    * Displays the inventory UI.
-   * INVENTORY_DISPLAY “Self-made tag for the ease of searching”
+   *
+   * INVENTORY_DISPLAY Self-made tag for the ease of searching
    */
   public void displayInventoryMenu() {
       inventoryMenu = new Image(new Texture(Gdx.files.internal
