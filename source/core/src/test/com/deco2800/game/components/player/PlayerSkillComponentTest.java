@@ -110,15 +110,15 @@ public class PlayerSkillComponentTest {
 
     @Test
     void testSkillSet() {
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 1);
     }
 
     @Test
     void testSkillSetMultiple(){
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 3);
     }
 
@@ -133,15 +133,15 @@ public class PlayerSkillComponentTest {
 
     @Test
     void testSkillSetWrong() {
-        skillManager.setSkill("mamma_jamma_bootsy_wiggle", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "mamma_jamma_bootsy_wiggle", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), -1);
     }
 
     @Test
     void testSkillRemoval() {
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         skillManager.resetSkills(player);
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 0);
     }
@@ -292,7 +292,7 @@ public class PlayerSkillComponentTest {
         actions.create();
         actions.setSkillAnimator(new Entity());
         PlayerSkillComponent component = actions.getSkillComponent();
-        component.setSkill("teleport", player, actions);
+        component.setSkill(1, "teleport", player, actions);
         actions.teleport();
         assertTrue(component.isTeleporting());
 

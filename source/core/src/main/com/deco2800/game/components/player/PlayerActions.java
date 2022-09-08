@@ -52,7 +52,7 @@ public class PlayerActions extends Component {
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
-  
+
   Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
   @Override
@@ -68,17 +68,16 @@ public class PlayerActions extends Component {
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
-    //entity.getEvents().addListener("attack", this::attack);
-    //entity.getEvents().addListener("collisionStart", this::collisionInAttack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
 
 
     // Skills and Dash initialisation
-    String startingSkill = "dodge";
+    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(startingSkill, entity, this);
+    skillManager.setSkill(1, startingSkill, entity,this);
+    skillManager.setSkill(2, "dodge", entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
     skillCooldowns.put(startingSkill, 0L);
@@ -249,9 +248,20 @@ public class PlayerActions extends Component {
     }
   }
 
+  /**
+   * Makes the player dodge. Registers call of the dodge function to the skill manager component.
+   */
   void dodge() {
     skillAnimator.getEvents().trigger("dodgeAnimation");
     skillManager.startDodge(this.walkDirection.cpy());
+  }
+
+  /**
+   * Makes the player block. Registers call of the block function to the skill manager component.
+   */
+  void block() {
+    skillAnimator.getEvents().trigger("blockAnimation");
+    skillManager.startBlock();
   }
 
   Vector2 getWalkDirection() {

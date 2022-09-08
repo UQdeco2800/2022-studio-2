@@ -80,6 +80,7 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png",
     "images/level_1_tiledmap/32x32/drain_empty.png",
     "images/level_1_tiledmap/32x32/drain_plug.png",
+    "images/level_1_tiledmap/32x32/tree-2.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/level_1_tiledmap/32x32/rock.png",
     "images/Potions/defence_potion.png",
@@ -104,15 +105,17 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
+    "images/Movement/movement.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png"
+
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -157,7 +160,7 @@ public class ForestGameArea extends GameArea {
     //spawnEffectBlobs();
     spawnGymBro();
     spawnOneLegGirl();
-
+    spawnPlug();
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
@@ -477,6 +480,16 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity potion = PotionFactory.createSpeedPotion();
     this.spawnEntityAt(potion, randomPos, true, false);
+  }
+
+  /**
+   * Spawns a plug Entity to assist with map transition. - Team 5 1map4all
+   */
+  private void spawnPlug() {
+    GridPoint2 plugPosition = new GridPoint2(12, 17);
+    Entity plug = NPCFactory.createPlug(player);
+
+    spawnEntityAt(plug, plugPosition, true, true);
   }
 
   /**

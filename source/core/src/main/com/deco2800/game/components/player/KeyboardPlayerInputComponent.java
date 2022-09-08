@@ -58,6 +58,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.E:
         entity.getEvents().trigger("skill");
         return true;
+      case Keys.J:
+        entity.getEvents().trigger("skill2");
+        return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
         return true;
@@ -110,8 +113,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private void triggerWalkEvent() {
     if (walkDirection.epsilonEquals(Vector2.Zero)) {
       entity.getEvents().trigger("walkStop");
+      entity.getEvents().trigger("movementIdle");
     } else {
       entity.getEvents().trigger("walk", walkDirection);
+      entity.getEvents().trigger("movementHandle", walkDirection);
     }
   }
 

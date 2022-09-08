@@ -10,7 +10,9 @@ import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 public class PlayerTouchAttackComponent extends TouchAttackComponent {
@@ -37,8 +39,8 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
 
 
     private void onCollisionStart(Fixture me, Fixture other) {
-        target = ((BodyUserData) other.getBody().getUserData()).entity;
-        if ((target.checkEntityType(EntityTypes.ENEMY))) {
+        if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
+            target = ((BodyUserData) other.getBody().getUserData()).entity;
             enemyCollide = true;
         }
     }
@@ -46,6 +48,8 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     void attack() {
         Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
         attackSound.play();
+        System.out.println(enemyCollide);
+        System.out.println(target);
         if (enemyCollide) {
             applyDamage(target);
             if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
