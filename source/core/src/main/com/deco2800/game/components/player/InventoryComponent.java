@@ -1,14 +1,15 @@
 package com.deco2800.game.components.player;
 
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -70,6 +71,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Returns the current inventory
+   *
    * @return inventory items
    */
   public List<Entity> getInventory() {
@@ -78,13 +80,14 @@ public class InventoryComponent extends Component {
 
   /**
    * Adds an item to player's inventory.
+   *
    * @param item item to add
    */
   public void addItem(Entity item) {
     if (inventory.size() == inventorySize) {
       logger.info("Inventory if full");
     } else if (!inventory.contains(item)) {
-        inventory.add(item);
+      inventory.add(item);
     } else if ((item.checkEntityType(EntityTypes.MELEE)
             || item.checkEntityType(EntityTypes.RANGED))
             && !inventory.contains(item)) {
@@ -99,7 +102,8 @@ public class InventoryComponent extends Component {
 
   /**
    * Adds item to player's inventory with the specified quantity.
-   * @param item item to add
+   *
+   * @param item     item to add
    * @param quantity item's quantity
    */
   public void addItem(Entity item, int quantity) {
@@ -114,6 +118,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Removes an item to player's inventory.
+   *
    * @param item item to remove
    * @requires getItemQuantity(item) >= 1
    */
@@ -126,6 +131,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Removes an item to player's inventory.
+   *
    * @param index item's index stored in inventory
    * @requires inventory.indexOf(index) != -1 and getItemQuantity(index) >= 1
    */
@@ -138,8 +144,9 @@ public class InventoryComponent extends Component {
 
   /**
    * Removes an item to player's inventory.
+   *
    * @param type type of the item that is to be removed
-   * NOTE: Currently only work with crafting materials EntityTypes
+   *             NOTE: Currently only work with crafting materials EntityTypes
    */
   public void removeItem(EntityTypes type) {
     for (int i = 0; i < inventory.size(); ++i) {
@@ -151,30 +158,50 @@ public class InventoryComponent extends Component {
 
   /**
    * Returns the item's quantity
+   *
    * @param item item to be checked
    * @return item's quantity
    * @requires inventory.contains(item) == true
    */
-  public int getItemQuantity (Entity item) {
+  public int getItemQuantity(Entity item) {
     return itemQuantity[inventory.indexOf(item)];
   }
 
   /**
    * Returns the item's quantity
+   *
    * @param index item's index stored in inventory
    * @return item's quantity
    * @requires inventory.indexOf(index) != -1
    */
-  public int getItemQuantity (int index) {
+  public int getItemQuantity(int index) {
     return itemQuantity[index];
   }
 
   /**
-   * Waiting for stat modification implementation of armour and weapons.
-   * @param item
+   * Modify the player's stat according to the weapon stat.
+   *
+   * @param weapon the weapon that is going to be equipped on
    */
-  private void applyEquippableEffect(Entity item) {
+  private void applyWeaponEffect(Entity weapon) {
+    WeaponStatsComponent weaponStats = weapon.getComponent(WeaponStatsComponent.class);
+    if (weaponStats instanceof MeleeStatsComponent) {
+      MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
+      PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
+              .getComponent(PlayerModifier.class);
 
+      //dk if requires dmg stat or not think about it
+      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (1 / meleeStats.getWeight()), true, 0);
+      //for duration
+    }
+  }
+
+  /**
+   * Waiting for stat modification implementation of armour
+   *
+   * @param armour
+   */
+  private void applyArmourEffect(Entity armour) {
   }
 
   /**
@@ -187,19 +214,21 @@ public class InventoryComponent extends Component {
       if (item.checkEntityType(EntityTypes.WEAPON)) {
         equipables[0] = item;
         //Slot 1 - Reserved for combat items
-        //Equipment
-      } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
-        equipables[1] = item;
-        //Slot 2 - Reserved for armour
-        //Equipment
+        applyWeaponEffect(item);
       }
-      removeItem(item);
+    } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
+      equipables[1] = item;
+      //Slot 2 - Reserved for armour
+      //Equipment
     }
+    removeItem(item);
   }
 
+
   /**
-   * Unequips the item in the given item slot. 
+   * Unequips the item in the given item slot.
    * Does nothing if the inventory is full.
+   *
    * @param itemSlot the index of the item slot
    * @requires item  0 <= slot <= 1
    * NOT FINISHED!!!!!
@@ -216,6 +245,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Displays the inventory menu if it is not opened. Closes it otherwise.
+   *
    * @requires the player is created and has an InventoryComponent.
    */
   public void toggleInventoryDisplay() {
@@ -230,6 +260,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Returns the current quick bar items
+   *
    * @return quick bar items
    */
   public List<Entity> getQuickBarItems() {
@@ -256,6 +287,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Removes the potion from the quickbar based on the input index
+   *
    * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
    */
   public void removePotion(int inputIndex) {
@@ -268,7 +300,7 @@ public class InventoryComponent extends Component {
    * Does nothing if there is no potion on the selected slot or the quantity < 1
    *
    * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-   *  NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
+   *                   NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
    *                   ****To be implemented by potion team.****
    */
   public void consumePotion(int inputIndex) {
@@ -281,4 +313,5 @@ public class InventoryComponent extends Component {
       }
     }
   }
+
 }
