@@ -25,7 +25,6 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -205,23 +204,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              gold = initMaterials(Materials.Gold);
+              gold.setSize(50, 50);
               gold.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(gold);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.GOLD)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              gold = initMaterials(Materials.Gold);
+              gold.setSize(50, 50);
               gold.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(gold);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.GOLD)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -238,23 +243,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              iron = initMaterials(Materials.Iron);
+              iron.setSize(50, 50);
               iron.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(iron);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.IRON)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              iron = initMaterials(Materials.Iron);
+              iron.setSize(50, 50);
               iron.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(iron);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.IRON)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -271,23 +282,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              steel = initMaterials(Materials.Steel);
+              steel.setSize(50, 50);
               steel.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(steel);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.STEEL)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              steel = initMaterials(Materials.Steel);
+              steel.setSize(50, 50);
               steel.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(steel);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.STEEL)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -304,23 +321,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              wood = initMaterials(Materials.Wood);
+              wood.setSize(50, 50);
               wood.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(wood);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.WOOD)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              wood = initMaterials(Materials.Wood);
+              wood.setSize(50, 50);
               wood.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(wood);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.WOOD)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -337,23 +360,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              plastic = initMaterials(Materials.Plastic);
+              plastic.setSize(50, 50);
               plastic.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(plastic);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.PLASTIC)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              plastic = initMaterials(Materials.Plastic);
+              plastic.setSize(50, 50);
               plastic.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(plastic);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.PLASTIC)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -370,23 +399,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              rubber = initMaterials(Materials.Rubber);
+              rubber.setSize(50, 50);
               rubber.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(rubber);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.RUBBER)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              rubber = initMaterials(Materials.Rubber);
+              rubber.setSize(50, 50);
               rubber.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(rubber);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.RUBBER)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -403,23 +438,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              platinum = initMaterials(Materials.Platinum);
+              platinum.setSize(50, 50);
               platinum.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(platinum);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.PLATINUM)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              platinum = initMaterials(Materials.Platinum);
+              platinum.setSize(50, 50);
               platinum.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(platinum);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.PLATINUM)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -436,23 +477,29 @@ public class GameAreaDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
             if (boxes[0] == null) {
+              clearMaterials();
+              silver = initMaterials(Materials.Silver);
+              silver.setSize(50, 50);
               silver.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+              materialsGroup.addActor(silver);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.SILVER)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             } else if (boxes[1] == null) {
+              clearMaterials();
+              silver = initMaterials(Materials.Silver);
+              silver.setSize(50, 50);
               silver.setPosition(craftMenu.getX() + 501, craftMenu.getY() + 230);
+              materialsGroup.addActor(silver);
               for (Entity item : inventory) {
                 if (item.checkEntityType(EntityTypes.SILVER)) {
                   inventoryComponent.removeItem(item);
                 }
               }
-              disposeMaterials();
               getInventory();
               stage.addActor(materialsGroup);
             }
@@ -568,6 +615,10 @@ public class GameAreaDisplay extends UIComponent {
     catTwoMenu.remove();
     inventoryButton.remove();
     catOneButton.remove();
+  }
+
+  private void clearMaterials() {
+    materialsGroup.clear();
   }
 
   private void disposeMaterials() {
