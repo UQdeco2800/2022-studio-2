@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.MaterialFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;

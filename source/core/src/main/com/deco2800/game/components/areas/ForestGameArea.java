@@ -95,7 +95,15 @@ public class ForestGameArea extends GameArea {
     "images/Potions/agility_potion.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
-    "images/Skills/skillAnimations.png"
+    "images/Skills/skillAnimations.png",
+          "images/Crafting-assets-sprint1/materials/gold.png",
+          "images/Crafting-assets-sprint1/materials/iron.png",
+          "images/Crafting-assets-sprint1/materials/plastic.png",
+          "images/Crafting-assets-sprint1/materials/platinum.png",
+          "images/Crafting-assets-sprint1/materials/rubber.png",
+          "images/Crafting-assets-sprint1/materials/silver.png",
+          "images/Crafting-assets-sprint1/materials/steel.png",
+          "images/Crafting-assets-sprint1/materials/wood.png"
   };
 
   public static String[] newTextures;
@@ -117,8 +125,6 @@ public class ForestGameArea extends GameArea {
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
-
-    ServiceLocator.registerGameArea(this);
 
   }
 
@@ -339,14 +345,6 @@ public class ForestGameArea extends GameArea {
     Entity column = ObstacleFactory.createColumn();
     spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
-
-
-
-
-
-  public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
-    spawnEntityAt(entity, position, centreX, centreY);
-  }
 
   public void spawnCraftingTable() {
     GridPoint2 minPos = new GridPoint2(2, 2);

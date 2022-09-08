@@ -26,8 +26,6 @@ public class ServiceLocator {
   private static InputService inputService;
   private static ResourceService resourceService;
 
-  private static ForestGameArea gameArea;
-
   private static GameAreaDisplay craftArea;
 
   private static GameAreaDisplay pauseMenuArea;
@@ -98,10 +96,6 @@ public class ServiceLocator {
 
   private ServiceLocator() {
     throw new IllegalStateException("Instantiating static util class");
-  }
-
-  public static void registerGameArea(ForestGameArea area){
-     gameArea = area;
   }
 
   public static void registerCraftArea(GameAreaDisplay area){
