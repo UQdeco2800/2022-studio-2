@@ -10,6 +10,7 @@ import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 public class PlayerTouchAttackComponent extends TouchAttackComponent {
@@ -50,6 +51,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             applyDamage(target);
             if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
                 target.dispose();
+                target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
             }
         }
     }
