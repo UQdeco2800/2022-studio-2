@@ -214,6 +214,10 @@ public class Entity {
     return entityType.contains(type);
   }
 
+  public List<EntityTypes> getEntityTypes() {
+    return this.entityType;
+  }
+
 
   /** Dispose of the entity. This will dispose of all components on this entity. */
   public void dispose() {

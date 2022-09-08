@@ -9,6 +9,7 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
+import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -21,6 +22,8 @@ import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+import java.util.*;
+
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -170,6 +173,29 @@ public class NPCFactory {
     heracles.setEntityType(EntityTypes.BOSS);
     heracles.setScale(3f, 3f);
     return heracles;
+  }
+
+  /**
+   * Creates Heracles, the boss of the first level.
+   *
+   * @return entity
+   */
+  public static Entity createPoops(Entity target)  {
+    Entity poops = createBaseNPC();
+    PoopsConfig config = configs.poops;
+    List<EntityTypes> types = poops.getEntityTypes();
+    poops.getComponent(AITaskComponent.class)
+            .addTask(new ProjectileTask(target, types, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+
+    poops
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/Enemies/poops.png"));
+    //Will need to add movement/attacks and will need to add texture
+    poops.setEntityType(EntityTypes.ENEMY);
+    poops.setEntityType(EntityTypes.RANGED);
+    poops.setScale(2f, 2f);
+    return poops;
   }
 
   /**
