@@ -32,6 +32,7 @@ public class WeaponFactory {
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
+        weapon.setEntityType(EntityTypes.WEAPON);
         return weapon;
     }
 
