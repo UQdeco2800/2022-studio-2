@@ -112,7 +112,6 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         if (bulletType.contains(EntityTypes.ENEMY)) {
             if (bulletType.contains(EntityTypes.RANGED)) {
                 poopSludge = ProjectileFactory.createPoopsSludge();
-                Body body = poopSludge.getComponent(PhysicsComponent.class).getBody();
                 ServiceLocator.getEntityService().register(poopSludge);
                 poopSludge.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
 
