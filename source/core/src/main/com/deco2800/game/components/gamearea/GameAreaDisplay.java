@@ -73,8 +73,8 @@ public class GameAreaDisplay extends UIComponent {
   public void displayInventoryMenu() {
       inventoryMenu = new Image(new Texture(Gdx.files.internal
               ("images/Inventory/pixil-frame (x10).png")));
-      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
-              Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
+      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() * (float) 1.5,
+              Gdx.graphics.getHeight() / 2);
       inventoryGroup.addActor(inventoryMenu);
       stage.addActor(inventoryGroup);
       stage.draw();
