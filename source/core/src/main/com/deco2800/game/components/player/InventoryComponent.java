@@ -55,7 +55,7 @@ public class InventoryComponent extends Component {
   /**
    * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
    */
-  private Entity[] equippables = new Entity[equipSlots];
+  private Entity[] equipables = new Entity[equipSlots];
 
   /**
    * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
@@ -81,8 +81,7 @@ public class InventoryComponent extends Component {
    */
   public void addItem(Entity item) {
     if (inventory.size() == inventorySize) {
-      //Error code here.
-      //Error should end this block of code
+      logger.info("Inventory if full");
     } else if (!inventory.contains(item)) {
         inventory.add(item);
     } else if ((item.checkEntityType(EntityTypes.MELEE)
@@ -104,7 +103,7 @@ public class InventoryComponent extends Component {
    */
   public void addItem(Entity item, int quantity) {
     if (inventory.size() == inventorySize) {
-      //Error code here.
+      logger.info("Inventory if full");
       //Error should end this block of code
     } else if (!inventory.contains(item)) {
       inventory.add(item);
@@ -115,7 +114,7 @@ public class InventoryComponent extends Component {
   /**
    * Removes an item to player's inventory.
    * @param item item to remove
-   * requires getItemQuantity(item) >= 1
+   * @requires getItemQuantity(item) >= 1
    */
   public void removeItem(Entity item) {
     --itemQuantity[inventory.indexOf(item)];
@@ -127,7 +126,7 @@ public class InventoryComponent extends Component {
   /**
    * Removes an item to player's inventory.
    * @param index item's index stored in inventory
-   * requires inventory.indexOf(index) != -1 and getItemQuantity(index) >= 1
+   * @requires inventory.indexOf(index) != -1 and getItemQuantity(index) >= 1
    */
   public void removeItem(int index) {
     --itemQuantity[index];
@@ -140,7 +139,7 @@ public class InventoryComponent extends Component {
    * Returns the item's quantity
    * @param item item to be checked
    * @return item's quantity
-   * requires inventory.contains(item) == true
+   * @requires inventory.contains(item) == true
    */
   public int getItemQuantity (Entity item) {
     return itemQuantity[inventory.indexOf(item)];
@@ -150,30 +149,61 @@ public class InventoryComponent extends Component {
    * Returns the item's quantity
    * @param index item's index stored in inventory
    * @return item's quantity
-   * requires inventory.indexOf(index) != -1
+   * @requires inventory.indexOf(index) != -1
    */
   public int getItemQuantity (int index) {
     return itemQuantity[index];
   }
 
   /**
-   * Assuming weapon's max quantity is one
+   * Waiting for stat modification implementation of armour and weapons.
+   * @param item
+   */
+  private void applyEquippableEffect(Entity item) {
+
+  }
+
+  /**
+   * Assuming weapon's max quantity is one.
    * NOT FINISHED!!!!!
    */
   public void equipItem(Entity item) {
     if ((item.checkEntityType(EntityTypes.MELEE)
             || item.checkEntityType(EntityTypes.RANGED))
             && inventory.contains(item)) {
+      //Slot 1 - Reserved for combat items
       //Equipment
-      equippables[0] = item;
+
+      equipables[0] = item;
       removeItem(item);
+    } else {
+      //Slot 2 - Reserved for the implementing armour item
+      equipables[1] = item;
+      removeItem(item);
+    }
+  }
+
+  /**
+   * Unequips the item in the given item slot. 
+   * Does nothing if the inventory is full.
+   * @param itemSlot the index of the item slot
+   * @requires item  0 <= slot <= 1
+   * NOT FINISHED!!!!!
+   */
+  public void unequipItem(int itemSlot) {
+    if (inventory.size() == inventorySize) {
+      logger.info("Inventory if full, cannot unequip");
+    } else {
+      inventory.add(equipables[itemSlot]);
+      equipables[itemSlot] = null;
+      //Modify player stat
     }
   }
 
 
   /**
    * Displays the inventory menu if it is not opened. Closes it otherwise.
-   * requires the player is created and has an InventoryComponent.
+   * @requires the player is created and has an InventoryComponent.
    */
   public void toggleInventoryDisplay() {
     if (!inventoryIsOpened) {
@@ -200,16 +230,15 @@ public class InventoryComponent extends Component {
    * Is there a limit of potion quantities? To be discussed with team
    */
   public void addQuickBarItems(Entity potion) {
-
+    int itemIndex = quickBarItems.indexOf(potion);
     //Max quantity undefined. TO BE IMPLEMENTED
-    if (quickBarItems.contains(potion)) {
-      ++quickBarQuantity[quickBarItems.indexOf(potion)];
+    if (quickBarItems.contains(potion) && quickBarQuantity[itemIndex] < 9) {
+      ++quickBarQuantity[itemIndex];
     } else if (quickBarItems.size() == quickBarSize) {
-      //Error code here
-      System.out.println("Quickbar is full.");
+      logger.info("Inventory if full");
     } else {
       quickBarItems.add(potion);
-      ++quickBarQuantity[quickBarItems.indexOf(potion)];
+      ++quickBarQuantity[itemIndex];
     }
   }
 
