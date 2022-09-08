@@ -1,4 +1,4 @@
-package com.deco2800.game.components.tasks;
+package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
@@ -39,7 +39,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private void onCollisionStart(Fixture me, Fixture other) {
         target = ((BodyUserData) other.getBody().getUserData()).entity;
         if ((target.checkEntityType(EntityTypes.ENEMY))) {
-            // Doesn't match our target layer, ignore
             enemyCollide = true;
         }
     }
@@ -61,7 +60,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      * @param target the target entity to do domage to
      */
     private void applyDamage(Entity target) {
-        // Try to attack target.
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
         targetStats.hit(combatStats);
     }

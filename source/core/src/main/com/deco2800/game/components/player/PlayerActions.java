@@ -52,12 +52,7 @@ public class PlayerActions extends Component {
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
-
-  private boolean enemyCollide = false;
-  private Entity enemyToKill;
-  private int enemyHealth;
-  private int killID;
-
+  
   Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
   @Override
@@ -171,59 +166,6 @@ public class PlayerActions extends Component {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
 
-  }
-
-  void collisionInAttack(Fixture player, Fixture other) {
-
-    ArrayList<Entity> enemies = new ArrayList<>();
-
-    for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
-      if (enemy.checkEntityType(EntityTypes.ENEMY)) {
-        enemies.add(enemy);
-      }
-    }
-
-    for(Entity i : enemies) {
-      Fixture fix = i.getComponent(ColliderComponent.class).getFixture();
-
-      if (other == fix) {
-        enemyCollide = true;
-        enemyToKill = i;
-        break;
-      }
-    }
-  }
-
-
-  /**
-   * Makes the player attack.
-   */
-  void attack() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
-    int damage = -100; // call the weapons damage, if equipped
-    //playerModifier.createModifier("moveSpeed", 2, true, 350);
-
-
-    if (enemyCollide) {
-      for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
-        //if (enemy.checkEntityType(EntityTypes.ENEMY)) {
-        if (enemy.equals(enemyToKill)) {
-          // load in current health
-          enemyHealth = enemy.getComponent(CombatStatsComponent.class).getHealth();
-          // to avoid changing weapon stats should probably just create a removeHealth function
-          enemy.getComponent(CombatStatsComponent.class).addHealth(damage);
-
-          if (enemyHealth == 0) {
-            enemy.dispose();
-          }
-          // anti-snipe
-          enemyCollide = false;
-          enemyToKill = null;
-          break;
-        }
-      }
-    }
   }
 
   /**

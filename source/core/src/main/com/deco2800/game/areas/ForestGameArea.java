@@ -296,7 +296,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnSpeedDebuff() {
     Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
-    weaponOnMap.add(speedDebuff);
+    auraOnMap.add(speedDebuff);
     spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
   }
   /**
@@ -306,7 +306,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnDmgBuff() {
     Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
-    weaponOnMap.add(dmgBuff);
+    auraOnMap.add(dmgBuff);
     spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
   }
 
@@ -317,7 +317,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnDmgDebuff() {
     Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
-    weaponOnMap.add(dmgDebuff);
+    auraOnMap.add(dmgDebuff);
     spawnEntityAt(dmgDebuff, new GridPoint2(11,15), true, false);
   }
 
@@ -328,7 +328,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnFireBuff() {
     Entity fireBuff = AuraFactory.createFireBuff();
-    weaponOnMap.add(fireBuff);
+    auraOnMap.add(fireBuff);
     spawnEntityAt(fireBuff, new GridPoint2(20,10), true, false);
   }
 
@@ -339,7 +339,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnPoisonBuff() {
     Entity fireBuff = AuraFactory.createPoisonBuff();
-    weaponOnMap.add(fireBuff);
+    auraOnMap.add(fireBuff);
     spawnEntityAt(fireBuff, new GridPoint2(18,14), true, false);
   }
 

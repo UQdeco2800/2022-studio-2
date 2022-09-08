@@ -149,8 +149,6 @@ public class NPCFactory {
     gymBro
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new HitboxComponent())
-            .addComponent(new ColliderComponent())
             .addComponent(new GymBroAnimationController());
     gymBro.setScale(2f, 2f);
     gymBro.setEntityType(EntityTypes.ENEMY);
