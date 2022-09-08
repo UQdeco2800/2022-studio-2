@@ -8,6 +8,7 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -136,6 +137,19 @@ public class InventoryComponent extends Component {
   }
 
   /**
+   * Removes an item to player's inventory.
+   * @param type type of the item that is to be removed
+   * NOTE: Currently only work with crafting materials EntityTypes
+   */
+  public void removeItem(EntityTypes type) {
+    for (int i = 0; i < inventory.size(); ++i) {
+      if (inventory.get(i).checkEntityType(type)) {
+        removeItem(i);
+      }
+    }
+  }
+
+  /**
    * Returns the item's quantity
    * @param item item to be checked
    * @return item's quantity
@@ -166,19 +180,19 @@ public class InventoryComponent extends Component {
   /**
    * Assuming weapon's max quantity is one.
    * NOT FINISHED!!!!!
+   * NOTE: This should check if the player has equipped a weapon or amour.
    */
   public void equipItem(Entity item) {
-    if ((item.checkEntityType(EntityTypes.MELEE)
-            || item.checkEntityType(EntityTypes.RANGED))
-            && inventory.contains(item)) {
-      //Slot 1 - Reserved for combat items
-      //Equipment
-
-      equipables[0] = item;
-      removeItem(item);
-    } else {
-      //Slot 2 - Reserved for the implementing armour item
-      equipables[1] = item;
+    if (inventory.contains(item)) {
+      if (item.checkEntityType(EntityTypes.WEAPON)) {
+        equipables[0] = item;
+        //Slot 1 - Reserved for combat items
+        //Equipment
+      } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
+        equipables[1] = item;
+        //Slot 2 - Reserved for armour
+        //Equipment
+      }
       removeItem(item);
     }
   }
@@ -200,7 +214,6 @@ public class InventoryComponent extends Component {
     }
   }
 
-
   /**
    * Displays the inventory menu if it is not opened. Closes it otherwise.
    * @requires the player is created and has an InventoryComponent.
@@ -208,11 +221,10 @@ public class InventoryComponent extends Component {
   public void toggleInventoryDisplay() {
     if (!inventoryIsOpened) {
       ServiceLocator.getInventoryArea().displayInventoryMenu();
-      EntityService.pauseAndResume();
     } else {
       ServiceLocator.getInventoryArea().disposeInventoryMenu();
-      EntityService.pauseAndResume();
     }
+    EntityService.pauseAndResume();
     inventoryIsOpened = !inventoryIsOpened;
   }
 
@@ -261,11 +273,10 @@ public class InventoryComponent extends Component {
    */
   public void consumePotion(int inputIndex) {
     if (quickBarItems.get(inputIndex) != null) {
+      quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
       if (quickBarQuantity[inputIndex] == 1) {
-        quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
         removePotion(inputIndex);
       } else if (quickBarQuantity[inputIndex] > 1) {
-        quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
         --quickBarQuantity[quickBarItems.indexOf(inputIndex)];
       }
     }
