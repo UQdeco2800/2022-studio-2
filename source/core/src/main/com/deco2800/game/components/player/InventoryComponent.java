@@ -1,6 +1,7 @@
 package com.deco2800.game.components.player;
 
 
+import DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
@@ -204,6 +205,13 @@ public class InventoryComponent extends Component {
    * @param armour
    */
   private void applyArmourEffect(Entity armour) {
+    ArmourStatsComponent armourStats = armour.getComponent(ArmourStatsComponent.class);
+    PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
+            .getComponent(PlayerModifier.class);
+    //Applying the weight of the armour to player
+    pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
+    //Applying the physical resistance of the armour to player
+    pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float)armourStats.getPhyResistance(), true, 0);
   }
 
   /**
@@ -221,7 +229,7 @@ public class InventoryComponent extends Component {
     } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
       equipables[1] = item;
       //Slot 2 - Reserved for armour
-      //Equipment
+      applyArmourEffect(item);
     }
     removeItem(item);
   }
