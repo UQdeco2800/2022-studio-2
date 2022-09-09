@@ -91,7 +91,7 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         //movementTask.setTarget(target.getPosition());
         //movementTask.update();
         if (currentTask.getStatus() != Status.ACTIVE) {
-            if (currentTask == taskWait && waitTime == 0) {
+            if (currentTask == taskWait) {
                 waiting();
             } else {
                 shoot(this.types);
@@ -120,6 +120,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
 
                 // SHOOOOOOOOOOOOOTTTTTT;
                 poopSludge.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(xVel, yVel);
+                if (hasCollided()) {
+                    poopSludge.flagD:wqq
+                :ead();
+                }
                 setTask(taskWait);
             }
         }
@@ -179,7 +183,6 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         return true;
     }
 
-    /*
     private boolean hasCollided() {
         Vector2 currentPos = owner.getEntity().getCenterPosition();
         Vector2 targetPos = target.getCenterPosition();
@@ -192,5 +195,4 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         debugRenderer.drawLine(currentPos, targetPos);
         return true;
     }
-    */
 }
