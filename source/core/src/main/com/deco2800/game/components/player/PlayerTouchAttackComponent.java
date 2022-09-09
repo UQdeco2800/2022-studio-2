@@ -48,8 +48,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     void attack() {
         Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
         attackSound.play();
-        System.out.println(enemyCollide);
-        System.out.println(target);
         if (enemyCollide) {
             applyDamage(target);
             if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
