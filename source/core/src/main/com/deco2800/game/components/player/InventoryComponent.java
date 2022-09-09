@@ -183,7 +183,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Modify the player's stat according to the weapon stat.
-   *
+   * Credit to Team 4
    * @param weapon the weapon that is going to be equipped on
    */
   private void applyWeaponEffect(Entity weapon) {
@@ -216,21 +216,25 @@ public class InventoryComponent extends Component {
 
   /**
    * Assuming weapon's max quantity is one.
-   * NOT FINISHED!!!!!
+   * PARTIALLY FINISHED
+   * @param item the item to be equipped
    * NOTE: This should check if the player has equipped a weapon or amour.
    */
   public void equipItem(Entity item) {
+    boolean equipped = false;
     if (inventory.contains(item)) {
       if (item.checkEntityType(EntityTypes.WEAPON) && equipables[0] == null) {
         equipables[0] = item;
         //Slot 1 - Reserved for combat items
         applyWeaponEffect(item);
+        equipped = true;
       } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
         equipables[1] = item;
         //Slot 2 - Reserved for armour
         applyArmourEffect(item);
+        equipped = true;
       }
-      removeItem(item);
+      if (equipped) removeItem(item);
     }
   }
 
