@@ -299,7 +299,7 @@ public class InventoryComponent extends Component {
    * Consume the potion rom quickbar based on the input index.
    *
    * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-   *                   NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
+   * NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
    *                   ****To be implemented by potion team.****
    */
   public void consumePotion(int inputIndex) {

@@ -18,14 +18,14 @@ public class ArmourFactory {
 /**
  * Factory to create Armour entities.
  *
- * <p>Each Weapon entity type should have a creation method that returns a corresponding entity.
+ * <p>Each Armour entity type should have a creation method that returns a corresponding entity.
  */
 
     private static final ArmourTypeConfig configs =
             FileLoader.readClass(ArmourTypeConfig.class, "configs/Armours.json");
 
     /**
-     * Creates a generic Weapon to be used as a base Weapon entity by more specific aura creation methods.
+     * Creates a generic Armour to be used as a base Armour entity.
      * @return base weapon entity
      */
     public static Entity createBaseArmour() {
@@ -43,26 +43,26 @@ public class ArmourFactory {
         DAMAGE_RETURNER
     }
 
-
-    public static Entity createArmour(ArmourType type) {
-        Entity armour = createBaseArmour();
-        String texturePath = "";
-        ArmourConfig config = null;
+    /**
+     * Returns the config based on the input ArmourType
+     * @param type armour type
+     * @return armour config, baseArmour config if no type is matching
+     */
+    private static ArmourConfig getConfig (ArmourType type) {
         switch (type){
             case DAMAGE_RETURNER:
-                config = configs.damage_returner;
-                texturePath = "";
-                break;
+                return configs.damageReturner;
             case FAST_LEATHER:
-                config = configs.fast_leather;
-                texturePath = "";
-                break;
+                return configs.fastLeather;
             case SLOW_DIAMOND:
-                config = configs.slow_diamond;
-                texturePath = "";
-                break;
+                return configs.slowDiamond;
         }
+        return configs.baseArmour;
+    }
 
+    public static Entity createArmour(ArmourType type, String texturePath) {
+        Entity armour = createBaseArmour();
+        ArmourConfig config = getConfig(type);
         ArmourStatsComponent armourStats = new ArmourStatsComponent(config.phyResistance,
                 config.durability, config.vitality,
                 config.dmgReturn, config.weight, config.materials);
