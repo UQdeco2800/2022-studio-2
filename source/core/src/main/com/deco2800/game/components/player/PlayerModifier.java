@@ -227,6 +227,7 @@ public class PlayerModifier extends Component{
             case MOVESPEED -> {
                 modSpeed = (-1* mod.value >= modSpeed) ? 0.1f : modSpeed + mod.value;
                 refSpeed = (-1* mod.value >= refSpeed) ? 0.1f : refSpeed + mod.value;
+                playerActions.updateMaxSpeed(modSpeed);
             }
             case DMGREDUCTION -> {
                 modDamageReduction += mod.value;
