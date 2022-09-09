@@ -184,7 +184,7 @@ public class PlayerModifier extends Component{
             case MOVESPEED -> {
                 difference = modSpeed;
                 modSpeed = remove ? modSpeed - mod.value : modSpeed + mod.value;
-                modSpeed = (modSpeed < 0) ? 0.1f : modSpeed; // Precaution for negative values
+                modSpeed = (modSpeed <= 0) ? 0.1f : modSpeed; // Precaution for negative values
                 difference -= modSpeed;
                 mod.value = -1 * difference;
                 playerActions.updateMaxSpeed(modSpeed);
@@ -225,9 +225,8 @@ public class PlayerModifier extends Component{
 
         switch (mod.target) {
             case MOVESPEED -> {
-                modSpeed += mod.value;
-                refSpeed += mod.value;
-                playerActions.updateMaxSpeed(modSpeed);
+                modSpeed = (-1* mod.value >= modSpeed) ? 0.1f : modSpeed + mod.value;
+                refSpeed = (-1* mod.value >= refSpeed) ? 0.1f : refSpeed + mod.value;
             }
             case DMGREDUCTION -> {
                 modDamageReduction += mod.value;
