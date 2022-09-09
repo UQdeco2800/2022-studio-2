@@ -1,20 +1,14 @@
 package com.deco2800.game.components.player;
 
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -23,6 +17,7 @@ import java.util.List;
  * Can also be used as a more generic component for other entities.
  */
 public class InventoryComponent extends Component {
+
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
   /**
@@ -33,7 +28,7 @@ public class InventoryComponent extends Component {
   /**
    * Initial item equipment slot
    */
-  private final int equipSlots = 2;
+  private static final int equipSlots = 2;
 
   /**
    * An inventory unit for players to inspect and store their items.
@@ -43,12 +38,18 @@ public class InventoryComponent extends Component {
   /**
    * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
    */
-  private Entity[] equippables = new Entity[equipSlots];
+  public static Entity[] equippables = new Entity[equipSlots];
 
   /**
    * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
    */
   private int[] itemQuantity = new int[inventorySize];
+
+  // CRASHES GAME, NOT SURE WHY
+  /*@Override
+  public void create() {
+    entity.getEvents().addListener("EquipWeapon", this::equipItem);
+  }*/
 
   /**
    * Returns the current inventory
@@ -135,6 +136,7 @@ public class InventoryComponent extends Component {
       //Equipment
       equippables[0] = item;
       removeItem(item);
+      System.out.println("item equipped");
 
       /* from team 4
       WeaponStatsComponent weaponStats = weapon.getComponent(WeaponStatsComponent.class);
@@ -149,6 +151,9 @@ public class InventoryComponent extends Component {
       }
        */
     }
+  }
+  public Entity getEquippable(int index){
+    return equippables[index];
   }
 
   class quickBar {

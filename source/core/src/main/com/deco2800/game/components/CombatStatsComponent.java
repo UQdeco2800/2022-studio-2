@@ -1,6 +1,10 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.player.InventoryComponent;
+import com.deco2800.game.components.player.PlayerTouchAttackComponent;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * which engage it combat should have an instance of this class registered. This class can be
  * extended for more specific combat needs.
  */
+
 public class CombatStatsComponent extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
@@ -21,6 +26,8 @@ public class CombatStatsComponent extends Component {
   private int staminaRegenerationRate=1;
   private int baseAttack;
   private float damageReduction;
+
+  private int attackDmg;
 
   @Override
   public void create(){
@@ -112,8 +119,16 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
-    setHealth(newHealth);
+    if (InventoryComponent.equippables[0] != null) {
+      attackDmg = (int) ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
+              .getEquippable(0).getComponent(WeaponStatsComponent.class).getDamage();
+      int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
+      setHealth(newHealth);
+    }
+    else {
+      int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
+      setHealth(newHealth);
+    };
   }
 
   /**

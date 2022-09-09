@@ -37,7 +37,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
     }
 
-
     private void onCollisionStart(Fixture me, Fixture other) {
         if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
             target = ((BodyUserData) other.getBody().getUserData()).entity;
