@@ -29,11 +29,12 @@ public class ArmourFactory {
      * @return base weapon entity
      */
     public static Entity createBaseArmour() {
-        Entity weapon = new Entity()
+        Entity armour = new Entity()
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
-        return weapon;
+        armour.setEntityType(EntityTypes.ARMOUR);
+        return armour;
     }
 
     public enum ArmourType {
