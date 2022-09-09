@@ -34,6 +34,7 @@ public class WeaponFactory {
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
+        weapon.setEntityType(EntityTypes.WEAPON);
         return weapon;
     }
 
@@ -50,7 +51,7 @@ public class WeaponFactory {
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"));
         dagger.getComponent(TextureRenderComponent.class).scaleEntity();
-        dagger.scaleHeight(5f);
+        dagger.scaleHeight(1f);
         return dagger;
     }
 

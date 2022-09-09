@@ -65,7 +65,6 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
-
     "images/gold_cobble.png",
     "images/gold_drain.png",
     "images/Map_assets/sprint_1/column.png",
@@ -81,6 +80,11 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/stairs.png",
     "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/column.png",
+    "images/level_1_tiledmap/32x32/drain_empty.png",
+    "images/level_1_tiledmap/32x32/drain_plug.png",
+    "images/level_1_tiledmap/32x32/tree-2.png",
+    "images/NPC/male_citizen/male_citizen.png",
+    "images/level_1_tiledmap/32x32/rock.png",
     "images/Potions/defence_potion.png",
     "images/level_1_tiledmap/32x32/column.png",
     "images/NPC/male_citizen/male_citizen.png",
@@ -103,15 +107,25 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
+    "images/Movement/movement.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
-    "images/Skills/skillAnimations.png"
+    "images/Skills/skillAnimations.png",
+          "images/Crafting-assets-sprint1/materials/gold.png",
+          "images/Crafting-assets-sprint1/materials/iron.png",
+          "images/Crafting-assets-sprint1/materials/plastic.png",
+          "images/Crafting-assets-sprint1/materials/platinum.png",
+          "images/Crafting-assets-sprint1/materials/rubber.png",
+          "images/Crafting-assets-sprint1/materials/silver.png",
+          "images/Crafting-assets-sprint1/materials/steel.png",
+          "images/Crafting-assets-sprint1/materials/wood.png"
+
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -156,6 +170,7 @@ public class ForestGameArea extends GameArea {
     //spawnEffectBlobs();
     spawnGymBro();
     spawnOneLegGirl();
+    spawnPlug();
     spawnPoops();
 
     spawnChild();
@@ -200,6 +215,8 @@ public class ForestGameArea extends GameArea {
     spawnTrees(22,15);
     spawnSmallTrees(1,6);
     spawnSmallTrees(22,6);
+    spawnRock(2,9);
+    spawnRock(22, 8);
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
@@ -294,7 +311,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnSpeedDebuff() {
     Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
-    weaponOnMap.add(speedDebuff);
+    auraOnMap.add(speedDebuff);
     spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
   }
   /**
@@ -304,7 +321,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnDmgBuff() {
     Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
-    weaponOnMap.add(dmgBuff);
+    auraOnMap.add(dmgBuff);
     spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
   }
 
@@ -315,7 +332,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnDmgDebuff() {
     Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
-    weaponOnMap.add(dmgDebuff);
+    auraOnMap.add(dmgDebuff);
     spawnEntityAt(dmgDebuff, new GridPoint2(11,15), true, false);
   }
 
@@ -326,7 +343,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnFireBuff() {
     Entity fireBuff = AuraFactory.createFireBuff();
-    weaponOnMap.add(fireBuff);
+    auraOnMap.add(fireBuff);
     spawnEntityAt(fireBuff, new GridPoint2(20,10), true, false);
   }
 
@@ -337,8 +354,16 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnPoisonBuff() {
     Entity fireBuff = AuraFactory.createPoisonBuff();
-    weaponOnMap.add(fireBuff);
+    auraOnMap.add(fireBuff);
     spawnEntityAt(fireBuff, new GridPoint2(18,14), true, false);
+  }
+
+  /**
+   * Spawn rock in a certain position. - Team 5 1map4all @LYB
+   */
+  private void spawnRock(int x, int y) {
+    Entity rock = ObstacleFactory.createRock();
+    spawnEntityAt(rock, new GridPoint2(x, y), false, false);
   }
 
   /**
@@ -389,7 +414,7 @@ public class ForestGameArea extends GameArea {
   private void spawnDagger() {
     Entity dagger = WeaponFactory.createDagger();
     weaponOnMap.add(dagger);
-    spawnEntityAt(dagger, new GridPoint2(10, 10), true, false);
+    spawnEntityAt(dagger, new GridPoint2(20, 20), true, false);
   }
   /**
    * Spawns second Level 2 dagger entity into the game
@@ -467,6 +492,16 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity potion = PotionFactory.createSpeedPotion();
     this.spawnEntityAt(potion, randomPos, true, false);
+  }
+
+  /**
+   * Spawns a plug Entity to assist with map transition. - Team 5 1map4all
+   */
+  private void spawnPlug() {
+    GridPoint2 plugPosition = new GridPoint2(12, 17);
+    Entity plug = NPCFactory.createPlug(player);
+
+    spawnEntityAt(plug, plugPosition, true, true);
   }
 
   /**
@@ -564,7 +599,7 @@ public class ForestGameArea extends GameArea {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 3; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity gymBro = NPCFactory.createGymBro(player);
       spawnEntityAt(gymBro, randomPos, true, true);
