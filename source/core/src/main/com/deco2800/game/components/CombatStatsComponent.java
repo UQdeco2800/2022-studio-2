@@ -1,11 +1,13 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,13 +135,19 @@ public class CombatStatsComponent extends Component {
       setHealth(newHealth);
     }*/
 
-    if (entity.checkEntityType(EntityTypes.PLAYER)) {
-      if ((playerWeapon = entity.getComponent(InventoryComponent.class).getEquipable(0)) != null) {
-        attackDmg = (int) playerWeapon.getComponent(WeaponStatsComponent.class).getDamage();
+    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER)) {
+      Entity wep = WeaponFactory.createTridentLvl2();
+      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the trident to inventory
+      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the trident*/
+      if ((playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+        attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
+      } else { //if player doesnt have weapon equipped, proly can cleanup as is duplicate of code below
+        int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
+        setHealth(newHealth);
       }
-    } else{ //if its not a player or if player doesnt have weapon equipped
+    } else{ //if its not a player
       int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
     }
