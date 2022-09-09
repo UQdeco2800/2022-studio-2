@@ -328,5 +328,4 @@ public class InventoryComponent extends Component {
       }
     }
   }
-
 }

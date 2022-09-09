@@ -6,6 +6,7 @@ public enum EntityTypes {
     MELEE,
     RANGED,
     BOSS,
+    PROJECTILE,
     WEAPON,
     ARMOUR,
     POTION,

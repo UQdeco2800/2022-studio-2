@@ -1,6 +1,10 @@
 package com.deco2800.game.crafting;
 
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.files.FileLoader;
 
 import java.util.*;
 
@@ -11,30 +15,28 @@ import java.util.*;
  */
 public class CraftingLogic {
 
+    public static final WeaponConfig configs =
+            FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
     /**
      * List containing the possible builds the user can make with their given inventory
      */
     private static List<MeleeConfig> possibleBuilds =  new ArrayList<MeleeConfig>();
 
-    /**
-     * List of all weapons that exist in the game
-     */
-    private static ArrayList<MeleeConfig> possibleWeapons =  new ArrayList<>();
 
     /**
      * Returns the list of all possible builds the user can make with their given inventory.
      * @return list
      */
     public static List<MeleeConfig> getPossibleBuilds(){
-            return new ArrayList<>(possibleBuilds);
-        }
+        return new ArrayList<>(possibleBuilds);
+    }
 
     /**
      * Sets a list of all the possible builds the user can make with the items contained in their inventory
      * @param weapons, a list of the items they can craft
      */
     public static void setPossibleBuilds(List<MeleeConfig> weapons){
-            possibleBuilds = weapons;
+        possibleBuilds = weapons;
     }
 
     /**
@@ -42,16 +44,18 @@ public class CraftingLogic {
      * @return list
      */
     public static List<MeleeConfig> getPossibleWeapons(){
-        return new ArrayList<>(possibleWeapons);
+        ArrayList<MeleeConfig> possibleWeapons =  new ArrayList<>();
+        possibleWeapons.add(configs.athenaDag);
+        possibleWeapons.add(configs.herraDag);
+        possibleWeapons.add(configs.SwordLvl2);
+        possibleWeapons.add(configs.dumbbell);
+        possibleWeapons.add(configs.tridentLvl2);
+        possibleWeapons.add(configs.herraAthenaDag);
+        possibleWeapons.add(configs.plunger);
+        return possibleWeapons;
+
     }
 
-    /**
-     * Sets a list of all the possible builds the user can make with the items contained in their inventory
-     * @param weapons, a list of the items they can craft
-     */
-    public static void setPossibleWeapons(ArrayList<MeleeConfig> weapons){
-        possibleWeapons = weapons;
-    }
 
     /**
      * Method that determines what items can be built based on items present in users' inventory. Checks if
@@ -62,26 +66,58 @@ public class CraftingLogic {
      * @return List of the buildable items
      */
     public static List<MeleeConfig> canBuild(List<Materials> inventoryContents){
+        List<MeleeConfig> possibleWeapons = getPossibleWeapons();
         List<MeleeConfig> buildables = new ArrayList<>();
+        List<String> inventory = new ArrayList<>();
+
+        for (Materials materials: inventoryContents){
+            inventory.add(materials.toString());
+        }
 
         for (int i = 0 ; i < possibleWeapons.size(); i++){
 
-                Map<Materials,Integer> materialValues = possibleWeapons.get(i).materials;
+            Map<Materials,Integer> materialValues = possibleWeapons.get(i).materials;
 
-                for (Map.Entry<Materials,Integer> entry : materialValues.entrySet()) {
+            Boolean buildable = true;
 
-                    if (!inventoryContents.contains(entry.getKey())){
-                    }
+            for (Map.Entry<Materials,Integer> entry : materialValues.entrySet()) {
 
-                    else if (Collections.frequency(inventoryContents, entry.getKey()) < entry.getValue()){
-                    }
+                String mapname = entry.toString().split("=")[0];
 
-                    else {
-                        buildables.add(possibleWeapons.get(i));
-                    }
+                if (!inventory.contains(mapname)) {
+                    buildable = false;
                 }
+
+            }
+            if (buildable)
+                buildables.add(possibleWeapons.get(i));
         }
         return buildables;
     }
 
+    public static Entity damageToWeapon(MeleeConfig weapon){
+        double dam = weapon.damage;
+        switch ((int) Math.floor(dam)){
+            case 7:
+                return WeaponFactory.createDagger();
+
+            case 9:
+                return WeaponFactory.createDaggerTwo();
+
+            case 26:
+                return WeaponFactory.createSwordLvl2();
+
+            case 5:
+                return WeaponFactory.createDumbbell();
+
+            case 25:
+                return WeaponFactory.createTridentLvl2();
+
+            case 35:
+                return WeaponFactory.createHerraAthenaDag();
+
+            default:
+                return WeaponFactory.createPlunger();
+        }
+    }
 }

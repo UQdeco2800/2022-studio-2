@@ -22,6 +22,8 @@ public class ServiceLocator {
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
   private static EntityService entityService;
   private static RenderService renderService;
+
+  private static GameAreaDisplay pauseMenuArea;
   private static PhysicsService physicsService;
   private static GameTime timeSource;
   private static InputService inputService;
@@ -95,6 +97,12 @@ public class ServiceLocator {
     timeSource = null;
     inputService = null;
     resourceService = null;
+  }
+
+  public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+
+  public static GameAreaDisplay getPauseMenuArea() {
+    return pauseMenuArea;
   }
 
   private ServiceLocator() {

@@ -46,6 +46,8 @@ public class ForestGameArea extends GameArea {
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/Enemies/gym_bro.png",
+    "images/Enemies/poops.png",
+    "images/Enemies/poopSludge.png",
     "images/ghost_king.png",
     "images/ghost_1.png",
     "images/grass_1.png",
@@ -108,7 +110,15 @@ public class ForestGameArea extends GameArea {
     "images/Movement/movement.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
-    "images/Skills/skillAnimations.png"
+    "images/Skills/skillAnimations.png",
+          "images/Crafting-assets-sprint1/materials/gold.png",
+          "images/Crafting-assets-sprint1/materials/iron.png",
+          "images/Crafting-assets-sprint1/materials/plastic.png",
+          "images/Crafting-assets-sprint1/materials/platinum.png",
+          "images/Crafting-assets-sprint1/materials/rubber.png",
+          "images/Crafting-assets-sprint1/materials/silver.png",
+          "images/Crafting-assets-sprint1/materials/steel.png",
+          "images/Crafting-assets-sprint1/materials/wood.png"
 
   };
 
@@ -161,6 +171,8 @@ public class ForestGameArea extends GameArea {
     spawnGymBro();
     spawnOneLegGirl();
     spawnPlug();
+    spawnPoops();
+
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
@@ -587,10 +599,21 @@ public class ForestGameArea extends GameArea {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 3; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity gymBro = NPCFactory.createGymBro(player);
       spawnEntityAt(gymBro, randomPos, true, true);
+    }
+  }
+
+  private void spawnPoops() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    for (int i = 0; i < 3; i++) {
+      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+      Entity poops = NPCFactory.createPoops(player);
+      spawnEntityAt(poops, randomPos, true, true);
     }
   }
 
