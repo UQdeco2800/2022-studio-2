@@ -14,12 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.crafting.Materials;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -47,6 +51,12 @@ public class GameAreaDisplay extends UIComponent {
   List<Materials> inventory;
   private Image inventoryMenu;
   private Group inventoryGroup = new Group();
+  private List<Entity> items;
+
+  private ImageButton stone;
+  private Texture stoneTexture;
+  private TextureRegion stoneTextureRegion;
+  private TextureRegionDrawable stoneDrawable;
 
 
   public GameAreaDisplay(String gameAreaName) {
@@ -75,11 +85,53 @@ public class GameAreaDisplay extends UIComponent {
       inventoryMenu = new Image(new Texture(Gdx.files.internal
               ("images/Inventory/pixil-frame (x10).png")));
       //Note: the position of the asset is at the bottom left.
-      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() * (float) 1.5,
-              Gdx.graphics.getHeight() / 2);
+      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() /2,
+              Gdx.graphics.getHeight() / 2 - inventoryMenu.getWidth() /2);
       inventoryGroup.addActor(inventoryMenu);
       stage.addActor(inventoryGroup);
       stage.draw();
+  }
+
+  public void showItem() {
+    float padding = 20;
+    items = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getInventory();
+    for (int i = 0; i < items.size(); ++i) {
+      Texture itemTexture = items.get(i).getComponent(TextureRenderComponent.class).getTexture();
+      TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
+      TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
+      ImageButton item = new ImageButton(itemTextureDrawable);
+      item.setSize(60, 60);
+      if (i < 4){
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 450);
+          } else if (4 < i || i <= 8) {
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 340);
+          } else if (8 < i || i <= 12) {
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 220);
+          } else if (12 < i || i <= 16) {
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 100);
+          }
+      inventoryGroup.addActor(item);
+//      switch (items.get(i)) {
+//        case Wood:
+//          woodTexture = new Texture(Gdx.files.internal
+//                  ("images/Crafting-assets-sprint1/materials/wood.png"));
+//          woodTextureRegion = new TextureRegion(woodTexture);
+//          woodDrawable = new TextureRegionDrawable(woodTextureRegion);
+//          wood = new ImageButton(woodDrawable);
+//          wood.setSize(50, 50);
+//          if (i < 4){
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 450);
+//          } else if (4 < i || i <= 8) {
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 340);
+//          } else if (8 < i || i <= 12) {
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 220);
+//          } else if (12 < i || i <= 16) {
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 100);
+//          }
+//          inventoryGroup.addActor(wood);
+//          break;
+//      }
+    }
   }
 
   /**
@@ -162,7 +214,7 @@ public class GameAreaDisplay extends UIComponent {
               @Override
               public void changed(ChangeEvent event, Actor actor) {
                 steel.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 270);
-                count++;
+                count++;  
                 entity.getEvents().trigger("check");
               }
             });

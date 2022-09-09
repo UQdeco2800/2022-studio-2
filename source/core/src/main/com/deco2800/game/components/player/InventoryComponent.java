@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
@@ -10,6 +11,7 @@ import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -251,6 +253,8 @@ public class InventoryComponent extends Component {
   public void toggleInventoryDisplay() {
     if (!inventoryIsOpened) {
       ServiceLocator.getInventoryArea().displayInventoryMenu();
+      ServiceLocator.getInventoryArea().showItem();
+      EntityService.pauseAndResume();
     } else {
       ServiceLocator.getInventoryArea().disposeInventoryMenu();
     }
