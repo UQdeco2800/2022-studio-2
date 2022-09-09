@@ -634,16 +634,13 @@ public class GameAreaDisplay extends UIComponent {
     pausingGroup.remove();
   }
 
-
   private void displayWeapon(MeleeConfig item) {
-    /**
     Entity newItem = CraftingLogic.damageToWeapon(item);
-    String image = newItem.getComponent(TextureRenderComponent.class).getTexture();
-    weapon = new Image(new Texture(Gdx.files.internal(image)));
-    weapon.setSize(50, 50);
-    weapon.setPosition(craftMenu.getX() + 674, craftMenu.getY() + 237);
+  //  String image = newItem.getComponent(TextureRenderComponent.class).getTexture();
+   // weapon = new Image(new Texture(Gdx.files.internal(image)));
+   // weapon.setSize(50, 50);
+   // weapon.setPosition(craftMenu.getX() + 674, craftMenu.getY() + 237);
     craftingGroup.addActor(weapon);
-     **/
   }
 
   @Override
