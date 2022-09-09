@@ -244,7 +244,7 @@ public class InventoryComponent extends Component {
    * Does nothing if the inventory is full.
    *
    * @param itemSlot the index of the item slot
-   * @requires itemSlot >= 0 and itemSlot <= 1
+   * @requires itemSlot >= 0 and itemSlot less than or equal to 1
    * NOT FINISHED!!!!!
    */
   public void unequipItem (int itemSlot) {
