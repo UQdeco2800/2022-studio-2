@@ -44,13 +44,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -83,6 +83,21 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final <a href="../entities/configs/CombatItemsConfig/WeaponConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">WeaponConfig</a></code></div>
+<div class="col-second even-row-color"><code><a href="#configs" class="member-name-link">configs</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor-summary">
@@ -112,23 +127,21 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Method that determines what items can be built based on items present in users' inventory.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPossibleBuilds()" class="member-name-link">getPossibleBuilds</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Returns the list of all possible builds the user can make with their given inventory.</div>
-</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#damageToWeapon(com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig)" class="member-name-link">damageToWeapon</a><wbr>(<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&nbsp;weapon)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPossibleWeapons()" class="member-name-link">getPossibleWeapons</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPossibleBuilds()" class="member-name-link">getPossibleBuilds</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Returns the list of all possible builds the user can make with their given inventory.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setPossibleBuilds(java.util.List)" class="member-name-link">setPossibleBuilds</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;&nbsp;weapons)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPossibleWeapons()" class="member-name-link">getPossibleWeapons</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Sets a list of all the possible builds the user can make with the items contained in their inventory</div>
+<div class="block">Returns the list of all possible builds the user can make with their given inventory.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setPossibleWeapons(java.util.ArrayList)" class="member-name-link">setPossibleWeapons</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;&nbsp;weapons)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setPossibleBuilds(java.util.List)" class="member-name-link">setPossibleBuilds</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;&nbsp;weapons)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Sets a list of all the possible builds the user can make with the items contained in their inventory</div>
 </div>
@@ -144,6 +157,20 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="configs">
+<h3>configs</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="../entities/configs/CombatItemsConfig/WeaponConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">WeaponConfig</a></span>&nbsp;<span class="element-name">configs</span></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">
@@ -197,17 +224,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="setPossibleWeapons(java.util.ArrayList)">
-<h3>setPossibleWeapons</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setPossibleWeapons</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;&nbsp;weapons)</span></div>
-<div class="block">Sets a list of all the possible builds the user can make with the items contained in their inventory</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>weapons</code> - , a list of the items they can craft</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="canBuild(java.util.List)">
 <h3>canBuild</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&gt;</span>&nbsp;<span class="element-name">canBuild</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>&gt;&nbsp;inventoryContents)</span></div>
@@ -220,6 +236,12 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>List of the buildable items</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="damageToWeapon(com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig)">
+<h3>damageToWeapon</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">damageToWeapon</span><wbr><span class="parameters">(<a href="../entities/configs/CombatItemsConfig/MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a>&nbsp;weapon)</span></div>
 </section>
 </li>
 </ul>
