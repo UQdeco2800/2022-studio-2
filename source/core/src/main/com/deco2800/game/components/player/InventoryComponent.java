@@ -250,9 +250,9 @@ public class InventoryComponent extends Component {
    */
   public void toggleInventoryDisplay() {
     if (!inventoryIsOpened) {
-      ServiceLocator.getInventoryArea().displayInventoryMenu();
+     // ServiceLocator.getInventoryArea().displayInventoryMenu();
     } else {
-      ServiceLocator.getInventoryArea().disposeInventoryMenu();
+      //ServiceLocator.getInventoryArea().disposeInventoryMenu();
     }
     EntityService.pauseAndResume();
     inventoryIsOpened = !inventoryIsOpened;
@@ -312,6 +312,10 @@ public class InventoryComponent extends Component {
         --quickBarQuantity[quickBarItems.indexOf(inputIndex)];
       }
     }
+  }
+
+  public List<Entity> getItems() {
+    return List.copyOf(inventory);
   }
 
 }
