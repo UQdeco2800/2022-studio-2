@@ -1,3 +1,4 @@
+
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +13,6 @@ import com.deco2800.game.entities.Entity;
  * the player action manager into this class's skill functionality.
  */
 public class PlayerSkillComponent extends Component {
-
     private Entity skillAnimator;
     private Entity playerEntity;
 
@@ -23,19 +23,33 @@ public class PlayerSkillComponent extends Component {
     private static final int TELEPORT_LENGTH = 4;
     private long teleportEnd; // Teleport charge end system time
     private boolean teleporting;
-    private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millsec = 1sec)
+    private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millisec = 1sec)
     private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
     private boolean teleportEndEvent = false;
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
-    private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
+    private static final long DASH_LENGTH = 350; // In MilliSec (1000millisec = 1sec)
     private static final float DASH_MOVEMENT_RESTRICTION = 0.8f; // As a proportion of regular move (0.8 = 80%)
     private Vector2 dashDirection = Vector2.Zero.cpy();
     private boolean dashing = false;
     private long dashEnd; // Dash end system time
     private boolean dashEndEvent = false;
 
+    // Dodge Variables
+    private long dodgeEnd; // Teleport charge end system time
+    private boolean dodging;
+    private static final long DODGE_LENGTH = 300; // In MilliSec (1000millsec = 1sec)
+    private static final Vector2 DODGE_SPEED = new Vector2(-4.5f, -4.5f); // As a proportion of regular move (0.8 = 80%)
+    private static final float DODGE_SIDE_MOVE = 3.0f;
+    private boolean dodgeEndEvent = false;
+    private Vector2 dodgeDirection;
+
+    // Block Variables
+    private boolean blocking;
+    private long blockEnd;
+    private static final long BLOCK_LENGTH = 400;
+    private boolean blockEndEvent;
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -67,6 +81,13 @@ public class PlayerSkillComponent extends Component {
             this.isInvulnerable = false;
         }
 
+        // Check if player should still be invulnerable
+        if (this.blocking && System.currentTimeMillis() > this.blockEnd) {
+            this.blocking = false;
+            this.blockEndEvent = true;
+            skillAnimator.getEvents().trigger("regularAnimation");
+        }
+
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
             this.dashing = false;
@@ -81,19 +102,38 @@ public class PlayerSkillComponent extends Component {
             teleportPlayer();
             skillAnimator.getEvents().trigger("regularAnimation");
         }
+
+        // Check if the player is waiting to finish a dodge
+        if (this.dodging && System.currentTimeMillis() > this.dodgeEnd) {
+            this.dodging = false;
+            this.dodgeEndEvent = true;
+        }
     }
 
     /**
      * Sets a listener to the skill event
      * @param skillName the skill name:
      *                  - "teleport" - the teleport skill
+     * @param skillNum the skill number (not 0 based and up to 2 skills)
      * @param entity the player entity of the player actions component
      * @param playerActionsComponent the player actions component containing the call for the skill to
      *                               pass information into the skill manager
      */
-    public void setSkill(String skillName, Entity entity, PlayerActions playerActionsComponent) {
+    public void setSkill(int skillNum, String skillName, Entity entity, PlayerActions playerActionsComponent) {
+        String skillEvent;
+        if (skillNum == 1) {
+            skillEvent = "skill";
+        } else if (skillNum == 2) {
+            skillEvent = "skill2";
+        } else {
+            skillEvent = "skill";
+        }
         if (skillName.equals("teleport")) {
-            entity.getEvents().addListener("skill", playerActionsComponent::teleport);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::teleport);
+        } else if (skillName.equals("dodge")) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
+        } else if (skillName.equals("block")) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         }
     }
 
@@ -111,7 +151,7 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean movementIsModified() {
 
-        return (isDashing() || isTeleporting());
+        return (isDashing() || isTeleporting() || isDodging());
     }
 
     /**
@@ -122,12 +162,22 @@ public class PlayerSkillComponent extends Component {
      */
     public Vector2 getModifiedMovement(Vector2 baseMovement) {
         Vector2 modifiedMovementVector = baseMovement;
-        if (isDashing()) {
+
+        if (isDodging()) { // Dodging has priority over dash (can interrupt dash with a dodge)
+            Vector2 dodgeVelocity = dodgeDirection.cpy().scl(DODGE_SPEED);
+            float vectorDotProduct = vectorDotProduct(modifiedMovementVector, dodgeVelocity);
+            Vector2 alteredMovement = new Vector2(modifiedMovementVector.x * (1 - Math.abs(vectorDotProduct)) * DODGE_SIDE_MOVE,
+                    modifiedMovementVector.y * (1 - Math.abs(vectorDotProduct)) * DODGE_SIDE_MOVE);
+
+            modifiedMovementVector = addVectors(alteredMovement, dodgeVelocity);
+
+        } else if (isDashing()) {
             Vector2 dashVelocity = dashDirection.cpy().scl(DASH_SPEED);
             Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * DASH_MOVEMENT_RESTRICTION,
                     modifiedMovementVector.y * DASH_MOVEMENT_RESTRICTION);
             modifiedMovementVector = addVectors(reducedMovement, dashVelocity);
         }
+
 
         if (isTeleporting()) {
             Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * TELEPORT_MOVEMENT_RESTRICTION,
@@ -155,6 +205,12 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean checkSkillEnd(String skillName) {
         switch(skillName) {
+            case "dodge":
+                if (this.dodgeEndEvent) {
+                    this.dodgeEndEvent = false;
+                    return true;
+                }
+                return false;
             case "dash":
                 if (this.dashEndEvent) {
                     this.dashEndEvent = false;
@@ -164,6 +220,12 @@ public class PlayerSkillComponent extends Component {
             case "teleport":
                 if (this.teleportEndEvent) {
                     this.teleportEndEvent = false;
+                    return true;
+                }
+                return false;
+            case "block":
+                if (this.blockEndEvent) {
+                    this.blockEndEvent = false;
                     return true;
                 }
                 return false;
@@ -191,6 +253,24 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Checks if the player is in the dodge skill state
+     * @return true - if the player is dodging
+     *         false - otherwise
+     */
+    public boolean isDodging() {
+        return this.dodging;
+    }
+
+    /**
+     * Checks if the player is in the block skill state
+     * @return true - if the player is blocking
+     *         false - otherwise
+     */
+    public boolean isBlocking() {
+        return this.blocking;
+    }
+
+    /**
      * The functional start of the dash.
      * Should be called when player actions component registers dash event.
      * @param moveDirection the direction of the players movement at the start of the dash event.
@@ -200,7 +280,7 @@ public class PlayerSkillComponent extends Component {
         this.dashing = true;
         long dashStart = System.currentTimeMillis();
         this.dashEnd = dashStart + DASH_LENGTH;
-        setInvulnerable(DASH_LENGTH);
+        setInvulnerable(200);
     }
 
     /**
@@ -211,6 +291,29 @@ public class PlayerSkillComponent extends Component {
         this.teleporting = true;
         long teleportStart = System.currentTimeMillis();
         this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
+    }
+
+    /**
+     * The functional start of the dodge skill.
+     * Should be called when player actions component registers dodge event.
+     */
+    public void startDodge(Vector2 moveDirection) {
+        this.dodgeDirection = moveDirection;
+        this.dodging = true;
+        long dodgeStart = System.currentTimeMillis();
+        this.dodgeEnd = dodgeStart + DODGE_LENGTH;
+        setInvulnerable(DODGE_LENGTH);
+    }
+
+    /**
+     * The functional start of the block skill.
+     * Should be called when player actions component registers block event.
+     */
+    public void startBlock() {
+        this.blocking = true;
+        long blockStart = System.currentTimeMillis();
+        this.blockEnd = blockStart + BLOCK_LENGTH;
+        setInvulnerable(BLOCK_LENGTH);
     }
 
     /**
@@ -247,12 +350,53 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Normalises a vector such that the magnitude of the vector is 1.
+     * @param rawVector the vector to be normalised
+     * @return the normalised vector, in the same direction as rawVector but with a magnitude of 1
+     */
+    private Vector2 normaliseVector(Vector2 rawVector) {
+        float magnitude;
+
+        if (rawVector.y == 0 && rawVector.x == 0) {
+            return new Vector2(0,0);
+        } else if (rawVector.x == 0) {
+            magnitude = rawVector.y;
+        } else if (rawVector.y == 0) {
+            magnitude = rawVector.x;
+        } else {
+            magnitude = (float) Math.pow(Math.pow(rawVector.x, 2) + Math.pow(rawVector.y, 2), 0.5);
+        }
+        return new Vector2(rawVector.x / magnitude, rawVector.y / magnitude);
+    }
+
+    /**
+     * Tool for normalised vector dot product.
+     * Normalises input vectors to have the same magnitude, and as a result
+     * the output of this is between -1 and 1 depending on the angle between the two vectors.
+     * Essentially gives the cos of the angle between the two input vectors.
+     * @param firstVector first vector for dot product
+     * @param secondVector second vector for dot product
+     * @return a float which is the dot product of the vectors always between -1 and 1,
+     *          with 0 being the vectors are perpendicular
+     *          and magnitude 1 being the vectors are parallel
+     */
+    private float vectorDotProduct(Vector2 firstVector, Vector2 secondVector) {
+        Vector2 normFirstVector = normaliseVector(firstVector);
+        Vector2 normSecondVector = normaliseVector(secondVector);
+        return ((normFirstVector.x * normSecondVector.x) + (normFirstVector.y * normSecondVector.y));
+    }
+
+    /**
      * Sets player invulnerability as a result of a player skill.
      * @param invulnerableLength length of time in ms for a skill to render player
      *                           invulnerable
      */
     private void setInvulnerable(long invulnerableLength) {
         this.isInvulnerable = true;
-        this.invulnerableEnd = System.currentTimeMillis() + invulnerableLength;
+        long newInvulnerableEnd = System.currentTimeMillis() + invulnerableLength;
+        if (newInvulnerableEnd > this.invulnerableEnd) {
+            this.invulnerableEnd =  newInvulnerableEnd;
+        }
     }
 }
+

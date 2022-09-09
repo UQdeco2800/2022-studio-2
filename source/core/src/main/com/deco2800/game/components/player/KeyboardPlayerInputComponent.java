@@ -1,3 +1,4 @@
+
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.Input.Keys;
@@ -13,7 +14,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  private int keyPressedCounter = 1;
+
   public KeyboardPlayerInputComponent() {
     super(5);
   }
@@ -48,10 +49,18 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
-        //entity.getEvents().trigger("is_opening");
+//        EntityService.pauseGame();
+        return true;
+      case Keys.L:
+        System.out.println("9");
+        entity.getEvents().trigger("can_close");
+//        EntityService.pauseAndResume();
         return true;
       case Keys.E:
         entity.getEvents().trigger("skill");
+        return true;
+      case Keys.J:
+        entity.getEvents().trigger("skill2");
         return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
@@ -60,15 +69,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("toggleInventory");
         return true;
       case Keys.ESCAPE:
-        if (!OpenCraftingComponent.getCraftingStatus()) {
-          keyPressedCounter++;
-        }
-        if (keyPressedCounter % 2 == 0) {
-        entity.getEvents().trigger("game paused");
-        return true;
-        }
-        entity.getEvents().trigger("game resumed");
-        return true;
+        EntityService.pauseAndResume();
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;
@@ -113,10 +114,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private void triggerWalkEvent() {
     if (walkDirection.epsilonEquals(Vector2.Zero)) {
       entity.getEvents().trigger("walkStop");
+      entity.getEvents().trigger("movementIdle");
     } else {
       entity.getEvents().trigger("walk", walkDirection);
+      entity.getEvents().trigger("movementHandle", walkDirection);
     }
   }
 
 
 }
+

@@ -4,6 +4,7 @@
     "coolDown": 500,
     "weight": 1,
     "materials": {"Gold": 1, "Platinum": 1}
+
   },
 
   "herraDag": {
@@ -11,6 +12,7 @@
     "coolDown": 700,
     "weight": 1,
     "materials": {"Gold": 1, "Steel": 1}
+
   },
 
   "SwordLvl2": {
@@ -18,6 +20,7 @@
     "coolDown": 1200,
     "weight": 2,
     "materials": {"Gold": 1, "Iron": 1}
+
   },
 
   "dumbbell": {
@@ -32,6 +35,7 @@
     "coolDown": 1500,
     "weight": 10,
     "materials": {"Gold": 1,"Silver": 1}
+
   },
 
   "herraAthenaDag": {
@@ -46,5 +50,6 @@
     "coolDown": 1000,
     "weight": 1,
     "materials": {"Plastic": 1, "Rubber": 1}
+
   }
 }

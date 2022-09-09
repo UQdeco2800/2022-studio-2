@@ -1,75 +1,16 @@
+
 package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.MaterialFactory;
+import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
 
-class quickBar<Potions> {
 
-  /**
-   * TO BE IMPLEMENTED
-   */
-  private List<Potions> quickBarItems = new ArrayList<>();
-
-  /**
-   * TO BE IMPLEMENTED
-   * By default every element in the array is 0.
-   */
-  int[] itemQuantity = new int[6];
-
-  /**
-   * Adding potion to the quickbar.
-   * TO BE IMPLEMENTED
-   */
-  public void setQuickBarItems(Potions potion) {
-
-    if (quickBarItems.contains(potion)) {
-      ++itemQuantity[quickBarItems.indexOf(potion)];
-    } else if (quickBarItems.size() == 6) {
-      //Error code here
-      System.out.println("Quickbar is full.");
-    } else {
-      quickBarItems.add(potion);
-      ++itemQuantity[quickBarItems.indexOf(potion)];
-    }
-  }
-
-  /**
-   * Removes the potion from the quickbar based on the input index
-   *
-   * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-   */
-  public void removePotion(int inputIndex) {
-    quickBarItems.remove(inputIndex);
-    itemQuantity[inputIndex] = 0;
-  }
-
-  /**
-   * Consume the potion rom quickbar based on the input index
-   *
-   * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-   *                   <p>
-   *                   ****To be implemented by potion team or player team.****
-   */
-  public void consumePotion(int inputIndex) {
-    if (quickBarItems.get(inputIndex) != null
-            && itemQuantity[inputIndex] == 1) {
-      //Potion consumption effect code here
-      removePotion(inputIndex);
-    } else if (quickBarItems.get(inputIndex) != null
-            && itemQuantity[inputIndex] > 1) {
-      //Potion consumption effect code here
-      --itemQuantity[quickBarItems.indexOf(inputIndex)];
-    }
-    //Do nothing if there is no potion on the selected slot or the quantity ! >= 1
-  }
-
-}
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -80,18 +21,30 @@ class quickBar<Potions> {
 public class InventoryComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
+  /**
+   * Initial inventory size
+   */
   private final int inventorySize = 16;
 
   /**
-   * Currently only takes ite  ms that implement the Buildable interface. TO BE IMPLEMENTED
+   * Initial item equipment slot
+   */
+  private final int equipSlots = 2;
+
+  /**
+   * An inventory unit for players to inspect and store their items.
    */
   private List<Entity> inventory = new ArrayList<>(inventorySize);
 
   /**
-   * TO BE IMPLEMENTED
-   * By default every inventory item in the array has a quantity of 0.
+   * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
    */
-  int[] itemQuantity = new int[16];
+  private Entity[] equippables = new Entity[equipSlots];
+
+  /**
+   * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
+   */
+  private int[] itemQuantity = new int[inventorySize];
 
   /**
    * Returns the current inventory
@@ -106,31 +59,142 @@ public class InventoryComponent extends Component {
    * @param item item to add
    */
   public void addItem(Entity item) {
-    inventory.add(item);
+    if (inventory.size() == inventorySize) {
+      //Error code here.
+      //Error should end this block of code
+    } else if (!inventory.contains(item)) {
+        inventory.add(item);
+    } else if ((item.checkEntityType(EntityTypes.MELEE)
+            || item.checkEntityType(EntityTypes.RANGED))
+            && inventory.contains(item)) {
+      //Does weapon have quantity?
+    }
+
+    //Item quantity undefined. TO BE IMPLEMENTED
+    ++itemQuantity[inventory.indexOf(item)];
   }
 
   /**
    * Removes an item to player's inventory.
    * @param item item to remove
+   * requires getItemQuantity(item) >= 1
    */
   public void removeItem(Entity item) {
-    //Currently taking item as parameter, may take in index in the future
-    inventory.remove(item);
+    --itemQuantity[inventory.indexOf(item)];
+    if (getItemQuantity(item) == 0) {
+      inventory.remove(item);
+    }
   }
 
   /**
-   *
+   * Removes an item to player's inventory.
+   * @param index item's index stored in inventory
+   * requires inventory.indexOf(index) != -1 and getItemQuantity(index) >= 1
    */
-  void displayInventory() {}
+  public void removeItem(int index) {
+    --itemQuantity[index];
+    if (getItemQuantity(index) == 0) {
+      inventory.remove(index);
+    }
+  }
 
   /**
-   * Implemented by potion team or player team.
+   * Returns the item's quantity
+   * @param item item to be checked
+   * @return item's quantity
+   * requires inventory.contains(item) == true
    */
-  void consumeItem() {}
+  public int getItemQuantity (Entity item) {
+    return itemQuantity[inventory.indexOf(item)];
+  }
 
   /**
-   * Implemented by weapon team or player team.
+   * Returns the item's quantity
+   * @param index item's index stored in inventory
+   * @return item's quantity
+   * requires inventory.indexOf(index) != -1
    */
-  void equipWeapon() {}
+  public int getItemQuantity (int index) {
+    return itemQuantity[index];
+  }
+
+  /**
+   * Assuming weapon's max quantity is one
+   * NOT FINISHED!!!!!
+   */
+  public void equipItem(Entity item) {
+    if ((item.checkEntityType(EntityTypes.MELEE)
+            || item.checkEntityType(EntityTypes.RANGED))
+            && inventory.contains(item)) {
+      //Equipment
+      equippables[0] = item;
+      removeItem(item);
+    }
+  }
+
+  class quickBar {
+
+    /**
+     * The initial size of quick bar.
+     */
+      private final int quickBarSize = 3;
+
+    /**
+     * Temporary storage for players to store their potions.
+     */
+      private List<Entity> quickBarItems = new ArrayList<>(quickBarSize);
+
+    /**
+     * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
+     */
+      private int[] itemQuantity = new int[quickBarSize];
+
+      /**
+       * Adding potion to the quickbar.
+       * Is there a limit of potion quantities? To be discussed with team
+       */
+      public void addQuickBarItems(Entity potion) {
+
+        //Max quantity undefined. TO BE IMPLEMENTED
+        if (quickBarItems.contains(potion)) {
+          ++itemQuantity[quickBarItems.indexOf(potion)];
+        } else if (quickBarItems.size() == quickBarSize) {
+          //Error code here
+          System.out.println("Quickbar is full.");
+        } else {
+          quickBarItems.add(potion);
+          ++itemQuantity[quickBarItems.indexOf(potion)];
+        }
+      }
+
+      /**
+       * Removes the potion from the quickbar based on the input index
+       * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+       */
+      public void removePotion(int inputIndex) {
+        quickBarItems.remove(inputIndex);
+        itemQuantity[inputIndex] = 0;
+      }
+
+      /**
+       * Consume the potion rom quickbar based on the input index
+       *
+       * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+       *                   <p>
+       *                   ****To be implemented by potion team or player team.****
+       */
+      public void consumePotion(int inputIndex) {
+        if (quickBarItems.get(inputIndex) != null
+                && itemQuantity[inputIndex] == 1) {
+          //Potion consumption effect code here
+          removePotion(inputIndex);
+        } else if (quickBarItems.get(inputIndex) != null
+                && itemQuantity[inputIndex] > 1) {
+          //Potion consumption effect code here
+          --itemQuantity[quickBarItems.indexOf(inputIndex)];
+        }
+        //Do nothing if there is no potion on the selected slot or the quantity ! >= 1
+      }
+    }
 
 }

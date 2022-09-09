@@ -1,3 +1,4 @@
+
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -23,13 +24,13 @@ public class ObstacleFactory {
   public static Entity createTree() {
     Entity tree =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/tree-1_1.png"))
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/tree-2.png"))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     tree.getComponent(TextureRenderComponent.class).scaleEntity();
-    tree.scaleHeight(2.2f);
+    tree.scaleHeight(1.8f);
     PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
     return tree;
   }
@@ -104,7 +105,7 @@ public class ObstacleFactory {
   public static Entity createColumn() {
     Entity column =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/column.png"))
+                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/column.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -115,7 +116,26 @@ public class ObstacleFactory {
     return column;
   }
 
+  /**
+   * Creates a rock entity on the map. - Team 5 1map4all @LYB
+   * @return Column entity.
+   */
+  public static Entity createRock() {
+    Entity rock =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/rock.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    rock.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    rock.getComponent(TextureRenderComponent.class).scaleEntity();
+    rock.scaleHeight(1f);
+    PhysicsUtils.setScaledCollider(rock, 0.9f, 0.9f);
+    return rock;
+  }
+
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }
 }
+

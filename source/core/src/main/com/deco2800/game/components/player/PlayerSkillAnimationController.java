@@ -1,3 +1,4 @@
+
 package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
@@ -43,6 +44,7 @@ public class PlayerSkillAnimationController extends Component {
         entity.getEvents().addListener("regularAnimation", this::animateRegular);
         entity.getEvents().addListener("teleportAnimation", this::animateTeleport);
         entity.getEvents().addListener("blockAnimation", this::animateBlock);
+        entity.getEvents().addListener("dodgeAnimation", this::animateDodge);
         entity.getEvents().trigger("regularAnimation");
     }
 
@@ -65,5 +67,12 @@ public class PlayerSkillAnimationController extends Component {
      */
     void animateBlock() {
         animator.startAnimation("block");
+    }
+
+    /**
+     * Triggers the block animation.
+     */
+    void animateDodge() {
+        animator.startAnimation("dodge");
     }
 }
