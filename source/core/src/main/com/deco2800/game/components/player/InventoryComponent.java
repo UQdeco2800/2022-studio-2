@@ -262,7 +262,6 @@ public class InventoryComponent extends Component {
     if (!inventoryIsOpened) {
       ServiceLocator.getInventoryArea().displayInventoryMenu();
       ServiceLocator.getInventoryArea().showItem();
-      EntityService.pauseAndResume();
     } else {
       ServiceLocator.getInventoryArea().disposeInventoryMenu();
     }
