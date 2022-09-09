@@ -21,36 +21,41 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 public class PotionFactory {
 
     /**
+     * Creates the base potion which can be modified to other types of potion.
+     * @return base potion
+     */
+    public static Entity createBasePotion() {
+        Entity potion = new Entity()
+                .addComponent(new PhysicsComponent())
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
+        potion.setEntityType(EntityTypes.POTION);
+        potion.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+        return potion;
+    }
+    /**
      * Creates speed potion
      * @return speed potion
      */
     public static Entity createSpeedPotion() {
-        Entity speedPotion = new Entity()
+        Entity speedPotion = createBasePotion()
                 .addComponent(new TextureRenderComponent("images/Potions/agility_potion.png"
                 ))
-                .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER))
-                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "speed"))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
-        speedPotion.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "speed"));
         speedPotion.getComponent(TextureRenderComponent.class).scaleEntity();
         speedPotion.scaleHeight(1.0f);
         PhysicsUtils.setScaledCollider(speedPotion, 0.5f, 0.2f);
         return speedPotion;
     }
 
-    public static Entity createPotion() {
-        Entity potion = new Entity()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"))
-                .addComponent(new PhysicsComponent())
-                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER));
+    public static Entity createDefencePotion() {
+        Entity potion = createBasePotion()
+                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"));
 
-        potion.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
         potion.getComponent(TextureRenderComponent.class).scaleEntity();
         potion.scaleHeight(1.5f);
         PhysicsUtils.setScaledCollider(potion, 0.5f, 0.2f);
         return potion;
-
     }
 
 

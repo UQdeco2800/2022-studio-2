@@ -106,12 +106,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         setTask(taskShoot);
     }
 
-    // Weapon pickup component
-
     public void shoot(List<EntityTypes> bulletType) {
         if (bulletType.contains(EntityTypes.ENEMY)) {
             if (bulletType.contains(EntityTypes.RANGED)) {
-                poopSludge = ProjectileFactory.createPoopsSludge();
+                poopSludge = ProjectileFactory.createPoopsSludge(target);
                 ServiceLocator.getEntityService().register(poopSludge);
                 poopSludge.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
 

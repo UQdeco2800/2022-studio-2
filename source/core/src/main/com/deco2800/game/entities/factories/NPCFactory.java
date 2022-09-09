@@ -10,7 +10,6 @@ import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
-import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -217,6 +216,25 @@ public class NPCFactory {
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
+  }
+
+  // Creates the plug as an NPC that can be pushed off the plughole by the player
+  public static Entity createPlug(Entity target) {
+    Entity plug = createBaseNPC();
+    PlugConfig config = configs.plug;
+
+    /**
+    /plug.getComponent(AITaskComponent.class)
+             // Create new task for the plug to move off the hole
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 120f));
+*/
+    plug
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/drain_plug.png"));
+    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
+    plug.setScale(3f, 3f);
+    return plug;
   }
 
   private NPCFactory() {

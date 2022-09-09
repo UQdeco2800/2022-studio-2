@@ -7,4 +7,15 @@ public enum EntityTypes {
     RANGED,
     BOSS,
     PROJECTILE,
+    WEAPON,
+    ARMOUR,
+    POTION,
+    GOLD,
+    IRON,
+    STEEL,
+    WOOD,
+    PLASTIC,
+    RUBBER,
+    PLATINUM,
+    SILVER
 }
