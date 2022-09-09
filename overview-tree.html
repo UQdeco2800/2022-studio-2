@@ -80,6 +80,7 @@ loadScripts(document, 'script');</script>
 <li><a href="com/deco2800/game/rendering/package-tree.html">com.deco2800.game.rendering</a>, </li>
 <li><a href="com/deco2800/game/screens/package-tree.html">com.deco2800.game.screens</a>, </li>
 <li><a href="com/deco2800/game/services/package-tree.html">com.deco2800.game.services</a>, </li>
+<li><a href="com/deco2800/game/services/commands/package-tree.html">com.deco2800.game.services.commands</a>, </li>
 <li><a href="com/deco2800/game/ui/package-tree.html">com.deco2800.game.ui</a>, </li>
 <li><a href="com/deco2800/game/ui/terminal/package-tree.html">com.deco2800.game.ui.terminal</a>, </li>
 <li><a href="com/deco2800/game/ui/terminal/commands/package-tree.html">com.deco2800.game.ui.terminal.commands</a>, </li>
@@ -106,6 +107,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/Male_citizenConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs">Male_citizenConfig</a></li>
 <li class="circle">com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlayerConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs">PlayerConfig</a></li>
 <li class="circle">com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PlugConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs">PlugConfig</a></li>
+<li class="circle">com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/PoopsConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs">PoopsConfig</a></li>
 </ul>
 </li>
 <li class="circle">com.deco2800.game.physics.<a href="com/deco2800/game/physics/BodyUserData.html" class="type-name-link" title="class in com.deco2800.game.physics">BodyUserData</a></li>
@@ -184,12 +186,15 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.deco2800.game.components.<a href="com/deco2800/game/components/ComponentType.html" class="type-name-link" title="class in com.deco2800.game.components">ComponentType</a></li>
 <li class="circle">com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingLogic.html" class="type-name-link" title="class in com.deco2800.game.crafting">CraftingLogic</a></li>
 <li class="circle">com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/CraftingSystem.html" class="type-name-link" title="class in com.deco2800.game.crafting">CraftingSystem</a> (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>)</li>
+<li class="circle">com.deco2800.game.services.commands.<a href="com/deco2800/game/services/commands/DebugCommand.html" class="type-name-link" title="class in com.deco2800.game.services.commands">DebugCommand</a> (implements com.deco2800.game.services.commands.<a href="com/deco2800/game/services/commands/Command.html" title="interface in com.deco2800.game.services.commands">Command</a>)</li>
 <li class="circle">com.deco2800.game.ui.terminal.commands.<a href="com/deco2800/game/ui/terminal/commands/DebugCommand.html" class="type-name-link" title="class in com.deco2800.game.ui.terminal.commands">DebugCommand</a> (implements com.deco2800.game.ui.terminal.commands.<a href="com/deco2800/game/ui/terminal/commands/Command.html" title="interface in com.deco2800.game.ui.terminal.commands">Command</a>)</li>
 <li class="circle">com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/DebugRenderer.html" class="type-name-link" title="class in com.deco2800.game.rendering">DebugRenderer</a></li>
 <li class="circle">com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/DefaultTask.html" class="type-name-link" title="class in com.deco2800.game.ai.tasks">DefaultTask</a> (implements com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/Task.html" title="interface in com.deco2800.game.ai.tasks">Task</a>)
 <ul>
 <li class="circle">com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ChaseTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">ChaseTask</a> (implements com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a>)</li>
 <li class="circle">com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/MovementTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">MovementTask</a></li>
+<li class="circle">com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ProjectileTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">ProjectileTask</a> (implements com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a>)</li>
+<li class="circle">com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ShootTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">ShootTask</a> (implements com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a>)</li>
 <li class="circle">com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/WaitTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">WaitTask</a></li>
 <li class="circle">com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/WanderTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">WanderTask</a> (implements com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a>)</li>
 </ul>
@@ -232,6 +237,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsUtils.html" class="type-name-link" title="class in com.deco2800.game.physics">PhysicsUtils</a></li>
 <li class="circle">com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PlayerFactory.html" class="type-name-link" title="class in com.deco2800.game.entities.factories">PlayerFactory</a></li>
 <li class="circle">com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PotionFactory.html" class="type-name-link" title="class in com.deco2800.game.entities.factories">PotionFactory</a></li>
+<li class="circle">com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ProjectileFactory.html" class="type-name-link" title="class in com.deco2800.game.entities.factories">ProjectileFactory</a></li>
 <li class="circle">com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/RandomUtils.html" class="type-name-link" title="class in com.deco2800.game.utils.math">RandomUtils</a></li>
 <li class="circle">com.deco2800.game.physics.raycast.<a href="com/deco2800/game/physics/raycast/RaycastHit.html" class="type-name-link" title="class in com.deco2800.game.physics.raycast">RaycastHit</a></li>
 <li class="circle">com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/Renderer.html" class="type-name-link" title="class in com.deco2800.game.rendering">Renderer</a> (implements com.badlogic.gdx.utils.Disposable)</li>
@@ -264,6 +270,7 @@ loadScripts(document, 'script');</script>
 <section class="hierarchy">
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
+<li class="circle">com.deco2800.game.services.commands.<a href="com/deco2800/game/services/commands/Command.html" class="type-name-link" title="interface in com.deco2800.game.services.commands">Command</a></li>
 <li class="circle">com.deco2800.game.ui.terminal.commands.<a href="com/deco2800/game/ui/terminal/commands/Command.html" class="type-name-link" title="interface in com.deco2800.game.ui.terminal.commands">Command</a></li>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" class="type-name-link external-link" title="class or interface in java.lang">Comparable</a>&lt;T&gt;
 <ul>
