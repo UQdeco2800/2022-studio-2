@@ -225,13 +225,13 @@ public class InventoryComponent extends Component {
         equipables[0] = item;
         //Slot 1 - Reserved for combat items
         applyWeaponEffect(item);
+      } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
+        equipables[1] = item;
+        //Slot 2 - Reserved for armour
+        applyArmourEffect(item);
       }
-    } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
-      equipables[1] = item;
-      //Slot 2 - Reserved for armour
-      applyArmourEffect(item);
+      removeItem(item);
     }
-    removeItem(item);
   }
 
 
@@ -243,7 +243,7 @@ public class InventoryComponent extends Component {
    * @requires itemSlot >= 0 and itemSlot <= 1
    * NOT FINISHED!!!!!
    */
-  public void unequipItem(int itemSlot) {
+  public void unequipItem (int itemSlot) {
     if (inventory.size() == inventorySize) {
       logger.info("Inventory if full, cannot unequip");
     } else {

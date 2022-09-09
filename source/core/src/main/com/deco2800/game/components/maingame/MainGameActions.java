@@ -25,7 +25,7 @@ public class MainGameActions extends Component {
   }
 
   /**
-   * Swaps to the Main Menu screen.
+   * Swaps to the Main Menu screen and clears the pause game status.
    */
   private void onExit() {
     logger.info("Exiting main game screen");
