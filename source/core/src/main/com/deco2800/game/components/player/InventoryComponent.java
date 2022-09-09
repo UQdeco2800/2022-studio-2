@@ -211,12 +211,12 @@ public class InventoryComponent extends Component {
    */
   public void equipItem(Entity item) {
     if (inventory.contains(item)) {
-      if (item.checkEntityType(EntityTypes.WEAPON)) {
+      if (item.checkEntityType(EntityTypes.WEAPON) && equipables[0] == null) {
         equipables[0] = item;
         //Slot 1 - Reserved for combat items
         applyWeaponEffect(item);
       }
-    } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
+    } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
       equipables[1] = item;
       //Slot 2 - Reserved for armour
       //Equipment
@@ -230,7 +230,7 @@ public class InventoryComponent extends Component {
    * Does nothing if the inventory is full.
    *
    * @param itemSlot the index of the item slot
-   * @requires itemSlot >= 0 and itemSlot less than or equal to 1
+   * @requires itemSlot >= 0 and itemSlot <= 1
    * NOT FINISHED!!!!!
    */
   public void unequipItem(int itemSlot) {

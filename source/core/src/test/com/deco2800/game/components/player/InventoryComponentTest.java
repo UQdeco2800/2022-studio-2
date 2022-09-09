@@ -63,4 +63,5 @@ class InventoryComponentTest {
     assertEquals(testInventory3.getInventory(), expectedList);
   }
 
+
 }

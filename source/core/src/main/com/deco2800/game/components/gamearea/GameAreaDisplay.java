@@ -73,9 +73,10 @@ public class GameAreaDisplay extends UIComponent {
    */
   public void displayInventoryMenu() {
       inventoryMenu = new Image(new Texture(Gdx.files.internal
-              ("images/Inventory/pixil-frame (x10).png")));
+              ("images/Inventory/Inventory_Armor_V2.png")));
       //Note: the position of the asset is at the bottom left.
-      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() * (float) 1.5,
+    inventoryMenu.setSize(320, 240 );
+      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth(),
               Gdx.graphics.getHeight() / 2);
       inventoryGroup.addActor(inventoryMenu);
       stage.addActor(inventoryGroup);
