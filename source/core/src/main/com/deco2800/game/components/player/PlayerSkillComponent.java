@@ -1,6 +1,7 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 
@@ -49,6 +50,14 @@ public class PlayerSkillComponent extends Component {
     private long blockEnd;
     private static final long BLOCK_LENGTH = 400;
     private boolean blockEndEvent;
+
+    // Bleed Variables
+    private boolean bleedApplied;
+    private long bleedStart;
+    private long bleedEnd = 0;
+    private static final long BLEED_LENGTH = 1000;
+    private static final long BLEED_HITS = 7;
+    private static final int BLEED_DAMAGE = 5;
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -107,6 +116,16 @@ public class PlayerSkillComponent extends Component {
             this.dodging = false;
             this.dodgeEndEvent = true;
         }
+
+        // Check if bleed is applied to player
+        if (this.bleedApplied) {
+            // Do damage every x seconds (time set by BLEED_LENGTH)
+            if (this.bleedEnd - this.bleedStart < BLEED_LENGTH * (BLEED_HITS - 1)) {
+                checkBleed();
+            } else {
+                this.bleedApplied = false;
+            }
+        }
     }
 
     /**
@@ -133,6 +152,8 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
         } else if (skillName.equals("block")) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
+        } else if (skillName.equals("bleed")) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::bleed);
         }
     }
 
@@ -313,6 +334,19 @@ public class PlayerSkillComponent extends Component {
         long blockStart = System.currentTimeMillis();
         this.blockEnd = blockStart + BLOCK_LENGTH;
         setInvulnerable(BLOCK_LENGTH);
+    }
+
+    public void startBleed() {
+        this.bleedApplied = true;
+        this.bleedStart = System.currentTimeMillis();
+    }
+
+    void checkBleed() {
+        if (System.currentTimeMillis() > this.bleedEnd + BLEED_LENGTH) {
+            CombatStatsComponent playerStats = playerEntity.getComponent(CombatStatsComponent.class);
+            playerStats.setHealth(playerStats.getHealth() - BLEED_DAMAGE);
+            this.bleedEnd = System.currentTimeMillis();
+        }
     }
 
     /**

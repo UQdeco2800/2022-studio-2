@@ -248,6 +248,16 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Applies bleed to the player's next attack. Registers call of the bleed function to the skill manager component.
+   */
+  void bleed() {
+    if (mana>=10 && cooldownFinished("bleed", 7000)) {
+      entity.getEvents().trigger("decreaseMana", -10);
+      skillManager.startBleed();
+    }
+  }
+
+  /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
