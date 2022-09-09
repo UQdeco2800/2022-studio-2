@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsService;
@@ -28,7 +29,7 @@ class InventoryComponentTest {
   @Test
   void createEmptyInventory() {
     InventoryComponent testInventory1 = new InventoryComponent();
-    assertEquals(testInventory1.getItems(), new ArrayList<>(16));
+    assertEquals(testInventory1.getInventory(), new ArrayList<>(16));
   }
 
 
@@ -43,7 +44,7 @@ class InventoryComponentTest {
     testInventory2.addItem(testWeapon);
     expectedList.add(testWeapon);
 
-    assertEquals(testInventory2.getItems(), expectedList);
+    assertEquals(testInventory2.getInventory(), expectedList);
   }
 
   @Test
@@ -57,9 +58,9 @@ class InventoryComponentTest {
     testInventory3.addItem(testWeapon);
 
     expectedList.remove(testWeapon);
-    testInventory3.removeItem(testWeapon);
+    testInventory3.removeItem(EntityTypes.WEAPON);
 
-    assertEquals(testInventory3.getItems(), expectedList);
+    assertEquals(testInventory3.getInventory(), expectedList);
   }
 
 }

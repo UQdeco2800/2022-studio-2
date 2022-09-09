@@ -22,6 +22,8 @@ public class ServiceLocator {
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
   private static EntityService entityService;
   private static RenderService renderService;
+
+  private static GameAreaDisplay pauseMenuArea;
   private static PhysicsService physicsService;
   private static GameTime timeSource;
   private static InputService inputService;
@@ -31,6 +33,7 @@ public class ServiceLocator {
 
   private static GameAreaDisplay craftArea;
 
+  private static GameAreaDisplay inventoryArea;
 
   public static GameArea getGameArea() {return gameArea;}
   public static EntityService getEntityService() {
@@ -96,6 +99,12 @@ public class ServiceLocator {
     resourceService = null;
   }
 
+  public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+
+  public static GameAreaDisplay getPauseMenuArea() {
+    return pauseMenuArea;
+  }
+
   private ServiceLocator() {
     throw new IllegalStateException("Instantiating static util class");
   }
@@ -108,8 +117,16 @@ public class ServiceLocator {
     craftArea = area;
   }
 
+  public static void registerInventoryArea(GameAreaDisplay area){
+    inventoryArea = area;
+  }
+
   public static GameAreaDisplay getCraftArea() {
     return craftArea;
+  }
+
+  public static GameAreaDisplay getInventoryArea() {
+    return inventoryArea;
   }
 }
 

@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Null;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ public class CombatStatsComponent extends Component {
   private float damageReduction;
 
   private int attackDmg;
+  private Entity playerWeapon;
 
   @Override
   public void create(){
@@ -119,16 +122,27 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    if (InventoryComponent.equippables[0] != null) {
+    /*if (InventoryComponent.equipables[0] != null) {
       attackDmg = (int) ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
-              .getEquippable(0).getComponent(WeaponStatsComponent.class).getDamage();
+              .getEquipable(0).getComponent(WeaponStatsComponent.class).getDamage();
       int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
       setHealth(newHealth);
     }
     else {
       int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
-    };
+    }*/
+
+    if (entity.checkEntityType(EntityTypes.PLAYER)) {
+      if ((playerWeapon = entity.getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+        attackDmg = (int) playerWeapon.getComponent(WeaponStatsComponent.class).getDamage();
+        int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
+        setHealth(newHealth);
+      }
+    } else{ //if its not a player or if player doesnt have weapon equipped
+      int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
+      setHealth(newHealth);
+    }
   }
 
   /**

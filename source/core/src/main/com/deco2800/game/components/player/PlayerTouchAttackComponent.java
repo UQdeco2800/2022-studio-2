@@ -51,7 +51,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             applyDamage(target);
             if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
                 target.dispose();
-                target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
+                if (target.getComponent(AnimationRenderComponent.class) != null) {
+                    target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
+                }
             }
         }
     }
