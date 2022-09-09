@@ -1,10 +1,17 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -12,8 +19,11 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -31,12 +41,12 @@ public class PlayerActions extends Component {
   private CombatStatsComponent combatStatsComponent;
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private boolean inventoryIsOpened = false;
   private boolean miniMapOpen = false;
   private int stamina= 100;
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
+  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
@@ -57,16 +67,19 @@ public class PlayerActions extends Component {
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
-    entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+//    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
+//    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
+//    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
 
 
     // Skills and Dash initialisation
-    String startingSkill = "dodge";
+    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(startingSkill, entity, this);
+    skillManager.setSkill(1, startingSkill, entity,this);
+    skillManager.setSkill(2, "dodge", entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
     skillCooldowns.put(startingSkill, 0L);
@@ -85,14 +98,32 @@ public class PlayerActions extends Component {
     this.playerModifier.update();
   }
 
-  private void toggleInventory(){
-    inventoryIsOpened = !inventoryIsOpened;
-    //Code for debugging
-    if(inventoryIsOpened) {
-      // Open code
-    } else {
-      // Close code
-    }
+  /**
+   * Pressing the 'I' button toggles the inventory menu UI opening/closing.
+   */
+  public void toggleInventory(){
+    entity.getComponent(InventoryComponent.class).toggleInventoryDisplay();
+  }
+
+  /**
+   * Pressing the '1' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot1(){
+    entity.getComponent(InventoryComponent.class).consumePotion(1);
+  }
+
+  /**
+   * Pressing the '2' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot2(){
+    entity.getComponent(InventoryComponent.class).consumePotion(2);
+  }
+
+  /**
+   * Pressing the '3' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot3(){
+    entity.getComponent(InventoryComponent.class).consumePotion(3);
   }
 
   public void killEnemy(){
@@ -124,7 +155,7 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Pressing the 'I' button toggles the Minimap window being open.
+   * Pressing the 'M' button toggles the Minimap window being open.
    */
   private void toggleMinimap(){
     miniMapOpen = !miniMapOpen;
@@ -154,15 +185,6 @@ public class PlayerActions extends Component {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
 
-  }
-
-  /**
-   * Makes the player attack.
-   */
-  void attack() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
-    playerModifier.createModifier("moveSpeed", 2, true, 350);
   }
 
   /**
@@ -246,9 +268,20 @@ public class PlayerActions extends Component {
     }
   }
 
+  /**
+   * Makes the player dodge. Registers call of the dodge function to the skill manager component.
+   */
   void dodge() {
     skillAnimator.getEvents().trigger("dodgeAnimation");
     skillManager.startDodge(this.walkDirection.cpy());
+  }
+
+  /**
+   * Makes the player block. Registers call of the block function to the skill manager component.
+   */
+  void block() {
+    skillAnimator.getEvents().trigger("blockAnimation");
+    skillManager.startBlock();
   }
 
   Vector2 getWalkDirection() {

@@ -3,8 +3,6 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Skill component for managing player skills and the player state as a result of those skills.
@@ -14,7 +12,6 @@ import org.slf4j.LoggerFactory;
  * the player action manager into this class's skill functionality.
  */
 public class PlayerSkillComponent extends Component {
-    private static Logger logger;
     private Entity skillAnimator;
     private Entity playerEntity;
 
@@ -25,13 +22,13 @@ public class PlayerSkillComponent extends Component {
     private static final int TELEPORT_LENGTH = 4;
     private long teleportEnd; // Teleport charge end system time
     private boolean teleporting;
-    private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millsec = 1sec)
+    private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millisec = 1sec)
     private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
     private boolean teleportEndEvent = false;
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
-    private static final long DASH_LENGTH = 350; // In MilliSec (1000millsec = 1sec)
+    private static final long DASH_LENGTH = 350; // In MilliSec (1000millisec = 1sec)
     private static final float DASH_MOVEMENT_RESTRICTION = 0.8f; // As a proportion of regular move (0.8 = 80%)
     private Vector2 dashDirection = Vector2.Zero.cpy();
     private boolean dashing = false;
@@ -48,6 +45,10 @@ public class PlayerSkillComponent extends Component {
     private Vector2 dodgeDirection;
 
     // Block Variables
+    private boolean blocking;
+    private long blockEnd;
+    private static final long BLOCK_LENGTH = 400;
+    private boolean blockEndEvent;
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -79,6 +80,13 @@ public class PlayerSkillComponent extends Component {
             this.isInvulnerable = false;
         }
 
+        // Check if player should still be invulnerable
+        if (this.blocking && System.currentTimeMillis() > this.blockEnd) {
+            this.blocking = false;
+            this.blockEndEvent = true;
+            skillAnimator.getEvents().trigger("regularAnimation");
+        }
+
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
             this.dashing = false;
@@ -105,15 +113,26 @@ public class PlayerSkillComponent extends Component {
      * Sets a listener to the skill event
      * @param skillName the skill name:
      *                  - "teleport" - the teleport skill
+     * @param skillNum the skill number (not 0 based and up to 2 skills)
      * @param entity the player entity of the player actions component
      * @param playerActionsComponent the player actions component containing the call for the skill to
      *                               pass information into the skill manager
      */
-    public void setSkill(String skillName, Entity entity, PlayerActions playerActionsComponent) {
+    public void setSkill(int skillNum, String skillName, Entity entity, PlayerActions playerActionsComponent) {
+        String skillEvent;
+        if (skillNum == 1) {
+            skillEvent = "skill";
+        } else if (skillNum == 2) {
+            skillEvent = "skill2";
+        } else {
+            skillEvent = "skill";
+        }
         if (skillName.equals("teleport")) {
-            entity.getEvents().addListener("skill", playerActionsComponent::teleport);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::teleport);
         } else if (skillName.equals("dodge")) {
-            entity.getEvents().addListener("skill", playerActionsComponent::dodge);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
+        } else if (skillName.equals("block")) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         }
     }
 
@@ -203,6 +222,12 @@ public class PlayerSkillComponent extends Component {
                     return true;
                 }
                 return false;
+            case "block":
+                if (this.blockEndEvent) {
+                    this.blockEndEvent = false;
+                    return true;
+                }
+                return false;
             default:
                 return false;
         }
@@ -233,6 +258,15 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean isDodging() {
         return this.dodging;
+    }
+
+    /**
+     * Checks if the player is in the block skill state
+     * @return true - if the player is blocking
+     *         false - otherwise
+     */
+    public boolean isBlocking() {
+        return this.blocking;
     }
 
     /**
@@ -268,6 +302,17 @@ public class PlayerSkillComponent extends Component {
         long dodgeStart = System.currentTimeMillis();
         this.dodgeEnd = dodgeStart + DODGE_LENGTH;
         setInvulnerable(DODGE_LENGTH);
+    }
+
+    /**
+     * The functional start of the block skill.
+     * Should be called when player actions component registers block event.
+     */
+    public void startBlock() {
+        this.blocking = true;
+        long blockStart = System.currentTimeMillis();
+        this.blockEnd = blockStart + BLOCK_LENGTH;
+        setInvulnerable(BLOCK_LENGTH);
     }
 
     /**
