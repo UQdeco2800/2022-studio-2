@@ -14,13 +14,14 @@ import org.slf4j.LoggerFactory;
  */
 public class WanderTask extends DefaultTask implements PriorityTask {
   private static final Logger logger = LoggerFactory.getLogger(WanderTask.class);
-
   private final Vector2 wanderRange;
   private final float waitTime;
   private Vector2 startPos;
   private MovementTask movementTask;
   private WaitTask waitTask;
   private Task currentTask;
+
+  private Vector2 target;
 
   /**
    * @param wanderRange Distance in X and Y the entity can move from its position when start() is
@@ -32,11 +33,18 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     this.waitTime = waitTime;
   }
 
+  /**
+   * Get the priority of this task.
+   * @return integer representing the priority of this task.
+   */
   @Override
   public int getPriority() {
     return 1; // Low priority task
   }
 
+  /**
+   * Start this task.
+   */
   @Override
   public void start() {
     super.start();
@@ -44,15 +52,19 @@ public class WanderTask extends DefaultTask implements PriorityTask {
 
     waitTask = new WaitTask(waitTime);
     waitTask.create(owner);
-    movementTask = new MovementTask(getRandomPosInRange());
+    target = getRandomPosInRange();
+    movementTask = new MovementTask(target);
     movementTask.create(owner);
 
     movementTask.start();
     currentTask = movementTask;
 
-    this.owner.getEntity().getEvents().trigger("wanderStart");
+    animate();
   }
 
+  /**
+   * Update this task.
+   */
   @Override
   public void update() {
     if (currentTask.getStatus() != Status.ACTIVE) {
@@ -65,17 +77,28 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     currentTask.update();
   }
 
+  /**
+   * Start the waiting task.
+   */
   private void startWaiting() {
     logger.debug("Starting waiting");
     swapTask(waitTask);
   }
 
+  /**
+   * Start the movement task.
+   */
   private void startMoving() {
     logger.debug("Starting moving");
-    movementTask.setTarget(getRandomPosInRange());
+    this.target = getRandomPosInRange();
+    movementTask.setTarget(this.target);
     swapTask(movementTask);
+    animate();
   }
 
+  /**
+   * Swap tasks.
+   */
   private void swapTask(Task newTask) {
     if (currentTask != null) {
       currentTask.stop();
@@ -84,10 +107,37 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     currentTask.start();
   }
 
+  /**
+   * Get a random position in range.
+   * @return Vector2 that represents a random position in range.
+   */
   private Vector2 getRandomPosInRange() {
     Vector2 halfRange = wanderRange.cpy().scl(0.5f);
     Vector2 min = startPos.cpy().sub(halfRange);
     Vector2 max = startPos.cpy().add(halfRange);
     return RandomUtils.random(min, max);
+  }
+
+  /**
+   * Animates enemy based on which direction they are facing
+   */
+  private void animate() {
+    Vector2 enemy = owner.getEntity().getCenterPosition();
+    float y = enemy.y - target.y;
+    float x = enemy.x - target.x;
+
+    if (Math.abs(y) > Math.abs(x)) {
+      if (y >= 0) {
+        this.owner.getEntity().getEvents().trigger("walkFront");
+      } else {
+        this.owner.getEntity().getEvents().trigger("walkBack");
+      }
+    } else {
+      if (x >= 0) {
+        this.owner.getEntity().getEvents().trigger("walkLeft");
+      } else {
+        this.owner.getEntity().getEvents().trigger("walkRight");
+      }
+    }
   }
 }

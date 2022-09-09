@@ -21,7 +21,6 @@ public class PlayerSkillComponentTest {
 
     @BeforeEach
     void initialisation() {
-
         player = new Entity()
                         .addComponent(new PhysicsComponent(new PhysicsEngine(
                                 new World(Vector2.Zero, true),
@@ -29,9 +28,11 @@ public class PlayerSkillComponentTest {
                         .addComponent(new PlayerActions())
                         .addComponent(new CombatStatsComponent(100, 5, 100, 100))
                         .addComponent(new KeyboardPlayerInputComponent())
-                        .addComponent(new PlayerStatsDisplay());
+                        .addComponent(new PlayerStatsDisplay())
+                        .addComponent(new PlayerModifier());
 
         skillManager = new PlayerSkillComponent(player);
+        skillManager.setSkillAnimator(new Entity());
     }
 
     @Test
@@ -109,15 +110,15 @@ public class PlayerSkillComponentTest {
 
     @Test
     void testSkillSet() {
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 1);
     }
 
     @Test
     void testSkillSetMultiple(){
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 3);
     }
 
@@ -132,15 +133,15 @@ public class PlayerSkillComponentTest {
 
     @Test
     void testSkillSetWrong() {
-        skillManager.setSkill("mamma_jamma_bootsy_wiggle", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "mamma_jamma_bootsy_wiggle", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), -1);
     }
 
     @Test
     void testSkillRemoval() {
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         skillManager.resetSkills(player);
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 0);
     }
@@ -202,8 +203,117 @@ public class PlayerSkillComponentTest {
     }
 
     @Test
-    void testTeleportPlayer() {
-        // function needs editing
+    void testTeleportPlayer1() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(1,1));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x + 4.0f, beforePos.y + 4.0f), afterPos);
     }
 
+    @Test
+    void testTeleportPlayer2() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(1,0));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x + 24.18f, beforePos.y + 0.11f), afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer3() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(-1,0));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x - 0.08f, beforePos.y + 0.11f), afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer4() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(0,1));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x, beforePos.y + 24.68f), afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer5() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(0,-1));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x, beforePos.y + 0.11f), afterPos);
+    }
+
+    @Test
+    void getSkillComponent() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        assertEquals(component.getClass(), PlayerSkillComponent.class);
+    }
+
+    @Test
+    void dashActivation() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        actions.dash();
+        assertTrue(component.isDashing());
+
+    }
+
+    @Test
+    void teleportActivation() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        actions.setSkillAnimator(new Entity());
+        PlayerSkillComponent component = actions.getSkillComponent();
+        component.setSkill(1, "teleport", player, actions);
+        actions.teleport();
+        assertTrue(component.isTeleporting());
+
+    }
+
+    @Test
+    void skillCooldownTest() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        actions.setSkillCooldown("teleport", 100L);
+        assertFalse(actions.cooldownFinished("teleport", 100));
+
+    }
+
+    @Test
+    void skillCooldownTestBadInput() {
+        PlayerActions actions = player.getComponent(PlayerActions.class);
+        actions.create();
+        PlayerSkillComponent component = actions.getSkillComponent();
+        actions.setSkillCooldown("jibberish", 0L);
+        actions.cooldownFinished("jibberish", 0L);
+    }
 }

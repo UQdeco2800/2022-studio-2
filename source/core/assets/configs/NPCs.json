@@ -1,18 +1,39 @@
 {
-  "ghost": {
-    "health": 40,
-    "baseAttack": 10
-  },
-  "ghostKing": {
-    "health": 100,
-    "baseAttack": 25,
-    "spookyFactor": 7
-  },
-  "atlantisCitizen": {
+  "gymBro": {
     "health": 70,
-    "baseAttack": 20
+    "baseAttack": 20,
+    "speed": 120
   },
+  "heracles": {
+    "health": 70,
+    "baseAttack": 20,
+    "speed": 120
+  },
+
+  "poops": {
+    "health": 70,
+    "baseAttack": 20,
+    "speed": 120
+  },
+
   "oneLegGirl": {
+    "health": 1,
+    "baseAttack": 0
+  },
+  "plug": {
+    "health": 1,
+    "baseAttack": 0
+  },
+
+  "child": {
+    "health": 1,
+    "baseAttack": 0
+  },
+  "guard": {
+    "health": 1,
+    "baseAttack": 0
+  },
+  "male_citizen": {
     "health": 1,
     "baseAttack": 0
   }

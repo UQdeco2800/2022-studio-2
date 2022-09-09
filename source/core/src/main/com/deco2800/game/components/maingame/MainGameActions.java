@@ -2,6 +2,7 @@ package com.deco2800.game.components.maingame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.EntityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,13 +21,17 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
+
   }
 
   /**
-   * Swaps to the Main Menu screen.
+   * Swaps to the Main Menu screen and clears the pause game status.
    */
   private void onExit() {
     logger.info("Exiting main game screen");
+    EntityService.unpauseGame();
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
+
+
 }

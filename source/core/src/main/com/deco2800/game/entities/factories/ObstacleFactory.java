@@ -1,12 +1,7 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.deco2800.game.components.MenuComponent;
-import com.deco2800.game.components.tasks.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -28,13 +23,13 @@ public class ObstacleFactory {
   public static Entity createTree() {
     Entity tree =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/tree-1_1.png"))
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/tree-2.png"))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     tree.getComponent(TextureRenderComponent.class).scaleEntity();
-    tree.scaleHeight(2.2f);
+    tree.scaleHeight(1.8f);
     PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
     return tree;
   }
@@ -56,38 +51,6 @@ public class ObstacleFactory {
     smallTree.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(smallTree, 0.5f, 0.2f);
     return smallTree;
-  }
-
-  public static Entity createCraftingMenu() {
-    Entity craftingTable =
-            new Entity()
-                    .addComponent(new TextureRenderComponent
-                            ("images/Crafting-assets-sprint1/crafting table/craftingUI.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                    .addComponent(new MenuComponent());
-
-    craftingTable.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    craftingTable.getComponent(TextureRenderComponent.class).scaleEntity();
-    craftingTable.scaleHeight(10f);
-
-    return craftingTable;
-  }
-
-  public static Entity createCraftButton() {
-    Entity craftButton =
-            new Entity()
-                    .addComponent(new TextureRenderComponent
-                            ("images/Crafting-assets-sprint1/widgets/craftButton.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
-                    .addComponent(new MenuComponent());
-
-    craftButton.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    craftButton.getComponent(TextureRenderComponent.class).scaleEntity();
-    craftButton.scaleHeight(1.1f);
-
-    return craftButton;
   }
 
   public static Entity createCraftingTable() {
@@ -141,7 +104,7 @@ public class ObstacleFactory {
   public static Entity createColumn() {
     Entity column =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/Map_assets/sprint_1/column.png"))
+                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/column.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -150,6 +113,24 @@ public class ObstacleFactory {
     column.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(column, 0.9f, 0.9f);
     return column;
+  }
+
+  /**
+   * Creates a rock entity on the map. - Team 5 1map4all @LYB
+   * @return Column entity.
+   */
+  public static Entity createRock() {
+    Entity rock =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/rock.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    rock.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    rock.getComponent(TextureRenderComponent.class).scaleEntity();
+    rock.scaleHeight(1f);
+    PhysicsUtils.setScaledCollider(rock, 0.9f, 0.9f);
+    return rock;
   }
 
   private ObstacleFactory() {

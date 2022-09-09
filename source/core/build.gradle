@@ -1,3 +1,7 @@
+dependencies {
+    implementation 'org.testng:testng:7.1.0'
+    implementation 'junit:junit:4.12'
+}
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/main/" ]
@@ -26,5 +30,6 @@ jacocoTestReport {
 javadoc {
     options {
         links 'https://javadoc.io/doc/com.badlogicgames.gdx/gdx/latest/com/badlogic/gdx/package-summary.html'
+        tags = ['require', 'requires', 'ensure', 'ensures']
     }
 }

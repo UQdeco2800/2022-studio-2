@@ -1,17 +1,19 @@
 package com.deco2800.game.crafting;
 
-import com.deco2800.game.crafting.craftingDisplay.CraftingDisplay;
+import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.files.FileLoader;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Public class that creates a new crafting system which allows users to combine materials in their inventory to make
  * new items. Implements runnable in order to create multiple threads for concurrent processing.
  */
 public class CraftingSystem implements Runnable{
+
+    public static final WeaponConfig configs =
+            FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
 
     /**
      * List of all the items the user has built
@@ -21,7 +23,7 @@ public class CraftingSystem implements Runnable{
     /**
      *List containing the users' inventory
      */
-    private  List<Materials>  inventoryContents;
+    private static List<Materials> inventoryContents;
 
     /**
      * Constructor that creates an instance of the crafting system class which creates a set of the users inventory and
@@ -30,15 +32,21 @@ public class CraftingSystem implements Runnable{
      */
     public void CraftingSystem() {
 
-         builtItems = new ArrayList<String>();
+         builtItems = new ArrayList<>();
 
          //Set Possible Builds by finding all weapons that implement Buildable component
-        HashSet<Object> possibleWeapons = new HashSet<Object>();
-        possibleWeapons.add("Sword");
-        CraftingLogic.setPossibleWeapons(possibleWeapons);
+        ArrayList<MeleeConfig> possibleWeapons = new ArrayList<>();
+    //    possibleWeapons.add(configs.Sword);
+  //      possibleWeapons.add(configs.dagger);
+//        possibleWeapons.add(configs.daggerTwo);
+      //  possibleWeapons.add(configs.dumbbell);
+       // possibleWeapons.add(configs.SwordLvl2);
+        //possibleWeapons.add(configs.tridentLvl2);
+
 
          //List<Materials> inventoryContents = getInventoryContents();
-        inventoryContents = new ArrayList<>(); inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel); inventoryContents.add(Materials.Steel);
+        inventoryContents = new ArrayList<>();
+        inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel);
 
         CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
 
@@ -47,18 +55,16 @@ public class CraftingSystem implements Runnable{
     }
 
     /**
-     * Checks if an item can be build and adds it to the list of built items if possible.
+     * Checks if an item can be build, then adds it to the list of built items if possible.
      * @param Item
      */
     public void buildItem(Object Item){
         if (CraftingLogic.getPossibleBuilds().contains(Item)){
             builtItems.add("Sword");
             inventoryContents.remove(Materials.Steel);
-            inventoryContents.remove(Materials.Steel);
             inventoryContents.remove(Materials.Wood);
 
-            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));
-
+            CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents)); // For sprint one only a sword can be built.
         }
     }
 
@@ -67,7 +73,14 @@ public class CraftingSystem implements Runnable{
      * conflicts.
      */
     public synchronized List<Materials> getInventoryContents(){
+        inventoryContents = new ArrayList<Materials>(Arrays.asList(Materials.values()));
         return inventoryContents;
+    }
+
+    //iterates through Weapons.json file and adds all weapons to the possible weapons list
+    public void getRecipes(){
+
+
     }
 
     /**

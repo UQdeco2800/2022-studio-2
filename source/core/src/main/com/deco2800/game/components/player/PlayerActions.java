@@ -1,50 +1,58 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-//import javax.imageio.ImageIO;
-//import javax.swing.*;
-//import java.awt.*;
-//import java.awt.image.BufferedImage;
-//import java.io.File;
-//import java.io.IOException;
-
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
+
+  private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
+  private Entity skillAnimator;
+
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
   private PlayerSkillComponent skillManager;
-
   private CombatStatsComponent combatStatsComponent;
-
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private boolean inventoryIsOpened = false;
+  private boolean miniMapOpen = false;
   private int stamina= 100;
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
+  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
 
+  Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
   @Override
   public void create() {
@@ -59,14 +67,22 @@ public class PlayerActions extends Component {
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
-    entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+//    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
+//    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
+//    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
+    entity.getEvents().addListener("kill switch", this::killEnemy);
+    entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
 
 
     // Skills and Dash initialisation
+    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill("teleport", entity, this);
+    skillManager.setSkill(1, startingSkill, entity,this);
+    skillManager.setSkill(2, "dodge", entity, this);
     entity.getEvents().addListener("dash", this::dash);
+
+    skillCooldowns.put(startingSkill, 0L);
   }
 
   @Override
@@ -82,40 +98,42 @@ public class PlayerActions extends Component {
     this.playerModifier.update();
   }
 
+  /**
+   * Pressing the 'I' button toggles the inventory menu UI opening/closing.
+   */
+  public void toggleInventory(){
+    entity.getComponent(InventoryComponent.class).toggleInventoryDisplay();
+  }
 
-  private void toggleInventory(){
-    inventoryIsOpened = !inventoryIsOpened;
-    //Code for debugging
-    if(inventoryIsOpened) {
-      System.out.println("Opening inventory");
-      // Open code
-      showInventory();
-    } else {
-      System.out.println("Closing inventory");
-      // Close code
+  /**
+   * Pressing the '1' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot1(){
+    entity.getComponent(InventoryComponent.class).consumePotion(1);
+  }
+
+  /**
+   * Pressing the '2' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot2(){
+    entity.getComponent(InventoryComponent.class).consumePotion(2);
+  }
+
+  /**
+   * Pressing the '3' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot3(){
+    entity.getComponent(InventoryComponent.class).consumePotion(3);
+  }
+
+  public void killEnemy(){
+    for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
+      if (enemy.checkEntityType(EntityTypes.ENEMY)) {
+        enemy.flagDead();
+      }
     }
   }
 
-  private void showInventory() {
-    JFrame j = new JFrame();
-    j.setUndecorated(true);
-    j.setLocationRelativeTo(null);
-    j.setSize(400, 400);
-    j.setResizable(false);
-    j.getContentPane().setLayout(null);
-    JPanel panel = new ImagePanel();
-    panel.setBounds(0, 0, 400, 400);
-    j.getContentPane().add(panel);
-    j.setVisible(true);
-  }
-
-  class ImagePanel extends JPanel {
-    public void paint(Graphics g) {
-      super.paint(g);
-      ImageIcon icon = new ImageIcon("images/Inventory/pixil-frame (x10).png");
-      g.drawImage(icon.getImage(), 0, 0, 400, 400, this);
-    }
-  }
 
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
@@ -137,6 +155,21 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Pressing the 'M' button toggles the Minimap window being open.
+   */
+  private void toggleMinimap(){
+    miniMapOpen = !miniMapOpen;
+
+    if (miniMapOpen) {
+      logger.trace("minimap open");
+    } else {
+      logger.trace("minimap closed");
+    }
+    //logger.debug()
+    return;
+  }
+
+  /**
    * Moves the player towards a given direction.
    *
    * @param direction direction to move in
@@ -152,15 +185,6 @@ public class PlayerActions extends Component {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
 
-  }
-
-  /**
-   * Makes the player attack.
-   */
-  void attack() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
-    playerModifier.createModifier("moveSpeed", 2, true, 350);
   }
 
   /**
@@ -239,12 +263,69 @@ public class PlayerActions extends Component {
   void teleport() {
     if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
+      skillAnimator.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
     }
+  }
+
+  /**
+   * Makes the player dodge. Registers call of the dodge function to the skill manager component.
+   */
+  void dodge() {
+    skillAnimator.getEvents().trigger("dodgeAnimation");
+    skillManager.startDodge(this.walkDirection.cpy());
+  }
+
+  /**
+   * Makes the player block. Registers call of the block function to the skill manager component.
+   */
+  void block() {
+    skillAnimator.getEvents().trigger("blockAnimation");
+    skillManager.startBlock();
   }
 
   Vector2 getWalkDirection() {
     return this.walkDirection;
   }
 
+  /**
+   * Checks if the cooldown period is over for the given skill and updates cooldown map.
+   * @param skill the skill to check
+   * @param cooldown the cooldown period (in milliseconds)
+   *
+   * @return true if cooldown period is over, false otherwise
+   */
+  public boolean cooldownFinished(String skill, long cooldown) {
+    if (skillCooldowns.get(skill) == null) {
+      return false;
+    }
+    if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
+      skillCooldowns.replace(skill, System.currentTimeMillis());
+      return true;
+    } else {
+      return false;
+    }
+  }
+  /**
+  * Sets an existing skill cooldown to a new cooldown.
+  * @param skill the skill to check
+  * @param cooldown the cooldown period (in milliseconds)
+  *
+  */
+  public void setSkillCooldown(String skill, long cooldown) {
+    if (skillCooldowns.get(skill) != null) {
+      skillCooldowns.replace(skill, System.currentTimeMillis());
+    }
+  }
+
+  /**
+   * Sets the skill animator for this actions component and passes it to the skill
+   * component so the skill component can alter the skill animation state.
+   * @param skillAnimator the skill animator entity which has subcomponents
+   *                      PlayerSkillAnimationController and AnimationRenderer
+   */
+  public void setSkillAnimator(Entity skillAnimator) {
+    this.skillAnimator = skillAnimator;
+    this.skillManager.setSkillAnimator(skillAnimator);
+  }
 }

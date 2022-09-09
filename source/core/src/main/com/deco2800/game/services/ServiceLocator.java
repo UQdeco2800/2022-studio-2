@@ -1,6 +1,8 @@
 package com.deco2800.game.services;
 
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
@@ -20,14 +22,20 @@ public class ServiceLocator {
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
   private static EntityService entityService;
   private static RenderService renderService;
+
+  private static GameAreaDisplay pauseMenuArea;
   private static PhysicsService physicsService;
   private static GameTime timeSource;
   private static InputService inputService;
   private static ResourceService resourceService;
 
-  private static ForestGameArea gameArea;
+  private static GameArea gameArea;
 
+  private static GameAreaDisplay craftArea;
 
+  private static GameAreaDisplay inventoryArea;
+
+  public static GameArea getGameArea() {return gameArea;}
   public static EntityService getEntityService() {
     return entityService;
   }
@@ -91,15 +99,34 @@ public class ServiceLocator {
     resourceService = null;
   }
 
+  public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+
+  public static GameAreaDisplay getPauseMenuArea() {
+    return pauseMenuArea;
+  }
+
   private ServiceLocator() {
     throw new IllegalStateException("Instantiating static util class");
   }
 
-  public static void registerGameArea(ForestGameArea area){
+  public static void registerGameArea(GameArea area){
      gameArea = area;
   }
 
-  public static ForestGameArea getGameArea(){
-    return gameArea;
+  public static void registerCraftArea(GameAreaDisplay area){
+    craftArea = area;
+  }
+
+  public static void registerInventoryArea(GameAreaDisplay area){
+    inventoryArea = area;
+  }
+
+  public static GameAreaDisplay getCraftArea() {
+    return craftArea;
+  }
+
+  public static GameAreaDisplay getInventoryArea() {
+    return inventoryArea;
   }
 }
+
