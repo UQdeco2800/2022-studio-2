@@ -1,9 +1,13 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Skill component for managing player skills and the player state as a result of those skills.
@@ -18,6 +22,7 @@ public class PlayerSkillComponent extends Component {
 
     private boolean isInvulnerable;
     private long invulnerableEnd;
+    private long slowEnd;
 
     // Teleport variables
     private static final int TELEPORT_LENGTH = 4;
@@ -50,6 +55,12 @@ public class PlayerSkillComponent extends Component {
     private long blockEnd;
     private static final long BLOCK_LENGTH = 400;
     private boolean blockEndEvent;
+
+    // Root Variables
+    private boolean rooted;
+    private long rootEnd;
+    private static final long ROOT_LENGTH = 5000;
+    private Entity enemy = null;
 
     // Bleed Variables
     private boolean bleedApplied;
@@ -117,6 +128,12 @@ public class PlayerSkillComponent extends Component {
             this.dodgeEndEvent = true;
         }
 
+        // Check if the slow effect should be ended
+        if (this.rooted && System.currentTimeMillis() > this.slowEnd) {
+            this.rooted = false;
+            changeSpeed(0, false);
+        }
+
         // Check if bleed is applied to player
         if (this.bleedApplied) {
             // Do damage every x seconds (time set by BLEED_LENGTH)
@@ -154,6 +171,8 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         } else if (skillName.equals("bleed")) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::bleed);
+        }  else if (skillName.equals("root")) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::root);
         }
     }
 
@@ -336,11 +355,31 @@ public class PlayerSkillComponent extends Component {
         setInvulnerable(BLOCK_LENGTH);
     }
 
+    /**
+     * The functional start of the root skill.
+     * Should be called when player actions component registers root event.
+     */
+    public void startRoot() {
+        this.rooted = true;
+        long rootStart = System.currentTimeMillis();
+        this.rootEnd = rootStart + ROOT_LENGTH;
+        changeSpeed(ROOT_LENGTH, true);
+    }
+
+    /**
+     * The functional start of the bleed skill.
+     * Should be called when player actions component registers bleed event.
+     */
     public void startBleed() {
         this.bleedApplied = true;
         this.bleedStart = System.currentTimeMillis();
     }
 
+    /**
+     * Does damage over time to target.
+     *
+     * TODO: change target to enemy (currently applies to self)
+     */
     void checkBleed() {
         if (System.currentTimeMillis() > this.bleedEnd + BLEED_LENGTH) {
             CombatStatsComponent playerStats = playerEntity.getComponent(CombatStatsComponent.class);
@@ -430,5 +469,34 @@ public class PlayerSkillComponent extends Component {
         if (newInvulnerableEnd > this.invulnerableEnd) {
             this.invulnerableEnd =  newInvulnerableEnd;
         }
+    }
+
+    /**
+     * Changes enemy movement speed as a result of a player skill.
+     * @param slowLength length of time in ms for a skill to reduce speed
+     * @param slow true to slow enemy, false to return to normal speed
+     *
+     * TODO: change target to attacked enemy (currently targets random)
+     */
+    private void changeSpeed(long slowLength, boolean slow) {
+        // testing
+        if (slow) {
+            for (Entity e : ServiceLocator.getEntityService().getEntityList()) {
+                if (e.checkEntityType(EntityTypes.ENEMY)) {
+                    this.enemy = e;
+                    break;
+                }
+            }
+        }
+
+        if (slow) {
+            this.enemy.getComponent(AITaskComponent.class).addTask
+                    (new ChaseTask(playerEntity, 11, 5f, 6f, 3f));
+        } else {
+            this.enemy.getComponent(AITaskComponent.class).dispose();
+            this.enemy.getComponent(AITaskComponent.class).getPriorityTasks().remove
+                    (enemy.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
+        }
+        this.slowEnd = System.currentTimeMillis() + slowLength;
     }
 }

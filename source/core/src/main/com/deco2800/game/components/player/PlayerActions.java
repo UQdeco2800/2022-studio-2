@@ -258,6 +258,16 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Applies root to the player's next attack. Registers call of the root function to the skill manager component.
+   */
+  void root() {
+    if (mana>=10 && cooldownFinished("root", 5000)) {
+      entity.getEvents().trigger("decreaseMana", -10);
+      skillManager.startRoot();
+    }
+  }
+
+  /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
