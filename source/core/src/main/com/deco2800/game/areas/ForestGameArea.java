@@ -60,6 +60,7 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
     "images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png",
+    "images/CombatWeapons-assets-sprint1/slowDiamond.png",
     "images/CombatWeapons-assets-sprint1/Level 2 Dagger 2png.png",
     "images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
@@ -184,7 +185,7 @@ public class ForestGameArea extends GameArea {
 
 
     spawnDumbbell();
-    //spawnSlowDiamond();
+    spawnSlowDiamond();
     spawnSpeedDebuff();
     spawnDmgBuff();
     spawnDmgDebuff();
@@ -439,14 +440,14 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
   
-/*
+
   private void spawnSlowDiamond() {
     Entity slowDiamond = ArmourFactory.createArmour(ArmourFactory.ArmourType.SLOW_DIAMOND,
             "images/CombatWeapons-assets-sprint1/slowDiamond.png");
     armourOnMap.add(slowDiamond);
     spawnEntityAt(slowDiamond, new GridPoint2(2,13), true, false);
   }
-*/
+
   /**
    * Spawns level 3 Herra and Athena entity into the game
    * Spawns x-pos 10
