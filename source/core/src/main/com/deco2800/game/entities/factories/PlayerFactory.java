@@ -6,6 +6,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
+import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -60,8 +61,12 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
+<<<<<<< HEAD
                 .addComponent(new DialogueKeybordInputComponent())
                 .addComponent(new DialogueDisplay())
+=======
+            .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
+>>>>>>> main
             .addComponent(animator)
             .addComponent(new PlayerAnimationController());
 
