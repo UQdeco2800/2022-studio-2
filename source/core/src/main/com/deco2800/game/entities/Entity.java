@@ -5,8 +5,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.ComponentType;
+import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.events.EventHandler;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -214,11 +216,18 @@ public class Entity {
     return entityType.contains(type);
   }
 
+  public List<EntityTypes> getEntityTypes() {
+    return this.entityType;
+  }
+
 
   /** Dispose of the entity. This will dispose of all components on this entity. */
   public void dispose() {
     for (Component component : createdComponents) {
-      component.dispose();
+      if (component instanceof AnimationRenderComponent){} //this prevents the other entities using the same animation from having their atlases disposed (black box)
+      else {
+        component.dispose();
+      }
     }
     ServiceLocator.getEntityService().unregister(this);
   }
@@ -262,11 +271,9 @@ public class Entity {
     if (!enabled) {
       return;
     }
-
     if (isDead) {
       dispose();
     }
-
     for (Component component : createdComponents) {
       component.triggerUpdate();
     }

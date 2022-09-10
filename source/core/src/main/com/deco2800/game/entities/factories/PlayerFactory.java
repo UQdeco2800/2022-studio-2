@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.*;
+import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -38,15 +39,16 @@ public class PlayerFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/playerTeleport.atlas", TextureAtlas.class));
-
-    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Movement/movement.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("up", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("down", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("right", 0.2f, Animation.PlayMode.LOOP);
 
     Entity player =
         new Entity()
-            .addComponent(animator)
-            .addComponent(new PlayerAnimationController())
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -56,12 +58,52 @@ public class PlayerFactory {
             .addComponent(new PlayerModifier())
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new OpenCraftingComponent());
+            .addComponent(new OpenCraftingComponent())
+            .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
+            .addComponent(animator)
+            .addComponent(new PlayerAnimationController());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.setEntityType(EntityTypes.PLAYER);
     return player;
+  }
+
+  public static Entity createSkillAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/Skills/skillAnimations.atlas", TextureAtlas.class));
+    animator.addAnimation("no_animation", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("block", 0.1f, Animation.PlayMode.LOOP);
+
+    Entity skillAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerSkillAnimationController(playerEntity));
+
+    skillAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return skillAnimator;
+  }
+
+  /**
+   * Create level 3 dagger and hera combat item animation.
+   * @return entity
+   */
+  public static Entity createCombatAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/combatanimation.atlas", TextureAtlas.class));
+    animator.addAnimation("noAnimation", 0.1f);
+    animator.addAnimation("level3Dagger", 0.1f);
+    animator.addAnimation("hera", 0.1f);
+
+    Entity combatAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerCombatAnimationController(playerEntity));
+
+    combatAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return combatAnimator;
   }
 
   private PlayerFactory() {
