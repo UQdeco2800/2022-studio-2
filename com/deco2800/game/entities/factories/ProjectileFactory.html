@@ -105,13 +105,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createBaseProjectile()" class="member-name-link">createBaseProjectile</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createBasePlayerProjectile(com.deco2800.game.entities.Entity)" class="member-name-link">createBasePlayerProjectile</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates base entity of projectile</div>
+<div class="block">Creates a non-colliding projectile shooting in the walk direction of the player
+ which damages enemies.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createPoopsSludge(com.deco2800.game.entities.Entity)" class="member-name-link">createPoopsSludge</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createBaseProjectile()" class="member-name-link">createBaseProjectile</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates base entity of projectile</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createPoopsSludge(com.deco2800.game.entities.Entity)" class="member-name-link">createPoopsSludge</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -158,6 +164,20 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createPoopsSludge(com.deco2800.game.entities.Entity)">
 <h3>createPoopsSludge</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPoopsSludge</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="createBasePlayerProjectile(com.deco2800.game.entities.Entity)">
+<h3>createBasePlayerProjectile</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBasePlayerProjectile</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
+<div class="block">Creates a non-colliding projectile shooting in the walk direction of the player
+ which damages enemies.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>player</code> - the player entity</dd>
+<dt>Returns:</dt>
+<dd>the projectile entity</dd>
+</dl>
 </section>
 </li>
 </ul>
