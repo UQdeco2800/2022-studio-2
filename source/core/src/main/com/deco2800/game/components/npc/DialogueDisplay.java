@@ -4,12 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
-import com.badlogic.gdx.Input.Keys;
+import com.deco2800.game.areas.ForestGameArea;
 
+import static com.deco2800.game.areas.ForestGameArea.*;
 
 
 /**
@@ -17,13 +16,12 @@ import com.badlogic.gdx.Input.Keys;
  */
 public class DialogueDisplay extends UIComponent {
 
-    private static Table dialogueTable;
     private static Image dialogueImage;
 
     private String dialogueText;
 
-//    private static Boolean state = DiaDialogueKeybordInputComponentlogueKeybordInputComponent.dialogueState;
     public static Boolean state = false;
+
 
     @Override
     public void create() {
@@ -34,7 +32,7 @@ public class DialogueDisplay extends UIComponent {
     }
 
     public void openDialogue() {
-        dialogueTable = new Table();
+        Table dialogueTable = new Table();
         dialogueTable.bottom();
         dialogueTable.setFillParent(true);
         dialogueTable.padBottom(0f).padLeft(50f);
@@ -44,9 +42,16 @@ public class DialogueDisplay extends UIComponent {
         // need add text function here
         dialogueTable.add(dialogueImage).size(100,100).pad(0);
 
-        if (state) {
-
-
+        if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) < 2) {
+            stage.addActor(dialogueImage);
+            state = false;
+        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) < 2) {
+            stage.addActor(dialogueImage);
+            state = false;
+        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) < 2) {
+            stage.addActor(dialogueImage);
+            state = false;
+        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) < 2) {
             stage.addActor(dialogueImage);
             state = false;
         }
@@ -57,7 +62,28 @@ public class DialogueDisplay extends UIComponent {
 
     //hide dialogue function
     public void hideDialogue() {
-        if (!state) {
+        if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) < 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) < 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) < 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) < 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) > 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) > 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) > 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) > 2) {
             dialogueImage.remove();
             state = true;
         }
@@ -69,7 +95,7 @@ public class DialogueDisplay extends UIComponent {
 
     @Override
     public void draw(SpriteBatch batch) {
-        // draw is handled by the stage
+
     }
 
 

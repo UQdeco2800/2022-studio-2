@@ -13,9 +13,9 @@ public class DialogueKeybordInputComponent extends InputComponent {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Keys.F) {
-            entity.getEvents().trigger("openDialogue");
             DialogueDisplay.state = true;
-            System.out.print("f hase pressed");
+            entity.getEvents().trigger("openDialogue");
+
             return true;
         } else if (keycode == Keys.G) {
             entity.getEvents().trigger("hideDialogue");
@@ -25,8 +25,6 @@ public class DialogueKeybordInputComponent extends InputComponent {
         return false;
     }
 
-    public static Boolean getDialogueState() {
-        return null;
-    }
+
 
 }

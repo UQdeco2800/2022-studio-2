@@ -9,6 +9,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -22,6 +23,8 @@ import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+import java.util.*;
+
 
 
 /**
@@ -37,7 +40,6 @@ import com.deco2800.game.services.ServiceLocator;
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-
 
   /**
    * Creates an atlantis female NPC entity.
@@ -111,10 +113,9 @@ public class NPCFactory {
     Entity male_citizen = createBaseNPC();
     Male_citizenConfig config = configs.male_citizen;
 
-
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/Male_citizen/male_citizen.png"));
+            .addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
 
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
@@ -122,6 +123,23 @@ public class NPCFactory {
     return male_citizen;
   }
 
+  /**
+   * the npc helps player should have base attack, health,
+   * when the npc have dead, pop up a dialogue to ask if reborn
+   * The npc will chase player and attack automatically.
+   * @param target
+   * @return
+   */
+  public static Entity createFriendlyPet (Entity target) {
+    Entity friendlyPet = createBaseNPC();
+    FriendPetConfig config = configs.pet;
+
+    friendlyPet.getComponent(AITaskComponent.class)
+            .addTask(new ChaseTask(target, 9, 5f, 100, config.speed));
+
+
+    return friendlyPet;
+  }
   /**
    * Creates an atlantis citizen entity.
    *
@@ -177,21 +195,43 @@ public class NPCFactory {
   }
 
   /**
+   * Creates Heracles, the boss of the first level.
+   *
+   * @return entity
+   */
+  public static Entity createPoops(Entity target)  {
+    Entity poops = createBaseNPC();
+    PoopsConfig config = configs.poops;
+    List<EntityTypes> types = poops.getEntityTypes();
+    poops.getComponent(AITaskComponent.class)
+            .addTask(new ProjectileTask(target, types, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+
+    poops
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/Enemies/poops.png"));
+    //Will need to add movement/attacks and will need to add texture
+    poops.setEntityType(EntityTypes.ENEMY);
+    poops.setEntityType(EntityTypes.RANGED);
+    poops.setScale(2f, 2f);
+    return poops;
+  }
+
+  /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @return entity
    */
-
   private static Entity createBaseNPC() {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
-            new Entity()
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new PhysicsMovementComponent())
-                    .addComponent(new ColliderComponent())
-                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                    .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
-                    .addComponent(aiComponent);
+        new Entity()
+            .addComponent(new PhysicsComponent())
+            .addComponent(new PhysicsMovementComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            //.addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+            .addComponent(aiComponent);
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;

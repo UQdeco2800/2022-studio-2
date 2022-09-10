@@ -71,9 +71,6 @@ public class UndergroundGameArea extends GameArea {
     public UndergroundGameArea(TerrainFactory terrainFactory) {
         super();
         this.terrainFactory = terrainFactory;
-
-//        ServiceLocator.registerGameArea(this);
-
     }
 
     /**
@@ -173,7 +170,6 @@ public class UndergroundGameArea extends GameArea {
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
         return RandomUtils.random(minPos, maxPos);
     }
 
