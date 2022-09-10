@@ -67,6 +67,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
+//      case Keys.NUM_1:
+//        entity.getEvents().trigger("consumePotionSlot1");
+//        return true;
+//      case Keys.NUM_2:
+//        entity.getEvents().trigger("consumePotionSlot2");
+//        return true;
+//      case Keys.NUM_3:
+//        entity.getEvents().trigger("consumePotionSlot3");
+//        return true;
       case Keys.ESCAPE:
         EntityService.pauseAndResume();
       case Keys.K:
@@ -113,8 +122,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private void triggerWalkEvent() {
     if (walkDirection.epsilonEquals(Vector2.Zero)) {
       entity.getEvents().trigger("walkStop");
+      entity.getEvents().trigger("movementIdle");
     } else {
       entity.getEvents().trigger("walk", walkDirection);
+      entity.getEvents().trigger("movementHandle", walkDirection);
     }
   }
 
