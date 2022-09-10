@@ -65,7 +65,7 @@ class InventoryComponentTest {
 
     assertEquals(testInventory3.getInventory(), expectedList);
   }
-
+  /*
   @Test
   void equipItem() {
     InventoryComponent testInventory4 = new InventoryComponent();
@@ -81,5 +81,5 @@ class InventoryComponentTest {
              (float) (meleeStats.getWeight()), true
              , 0));
   }
-
+  */
 }
