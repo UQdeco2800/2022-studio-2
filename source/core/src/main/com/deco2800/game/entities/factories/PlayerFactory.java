@@ -51,12 +51,10 @@ public class PlayerFactory {
 
     Entity player =
         new Entity()
-<<<<<<< HEAD
+
             .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
             //.addComponent(animator) For player animations if you want it
             .addComponent(new PlayerAnimationController())
-=======
->>>>>>> 1ca7a92fd9b76bf41ca8abb50e6ca7b6bcbd0e5f
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
