@@ -1,4 +1,3 @@
-
 package com.deco2800.game.entities.configs;
 
 import com.deco2800.game.entities.Entity;

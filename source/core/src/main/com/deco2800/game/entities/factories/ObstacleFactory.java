@@ -1,4 +1,3 @@
-
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -138,4 +137,3 @@ public class ObstacleFactory {
     throw new IllegalStateException("Instantiating static util class");
   }
 }
-

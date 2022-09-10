@@ -29,7 +29,7 @@ public class MainGameExitDisplay extends UIComponent {
     table.setFillParent(true);
 
     TextButton mainMenuBtn = new TextButton("Exit", skin);
-    TextButton inventoryBtn = new TextButton("inventory", skin);
+    TextButton inventoryBtn = new TextButton("Inventory", skin);
 
     // Triggers an event when the button is pressed.
     mainMenuBtn.addListener(
@@ -45,8 +45,8 @@ public class MainGameExitDisplay extends UIComponent {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
-          logger.debug("inventory button clicked");
-          entity.getEvents().trigger("openInventory");
+          logger.debug("Inventory button clicked");
+
         }
       });
 

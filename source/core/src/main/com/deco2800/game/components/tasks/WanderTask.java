@@ -1,4 +1,3 @@
-
 package com.deco2800.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
@@ -142,4 +141,3 @@ public class WanderTask extends DefaultTask implements PriorityTask {
     }
   }
 }
-

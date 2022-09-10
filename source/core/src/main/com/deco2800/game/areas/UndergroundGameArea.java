@@ -1,39 +1,21 @@
 package com.deco2800.game.areas;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-
-import com.deco2800.game.components.areas.GameArea;
-import com.deco2800.game.components.areas.terrain.TerrainFactory;
+import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.*;
-import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.entities.factories.PotionFactory;
-import com.deco2800.game.physics.PhysicsEngine;
-import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.rendering.RenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
-import com.deco2800.game.entities.factories.DialogueFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.ArrayList;
 
 
 /** Underground area for the demo game with trees, a player, and some enemies. */
@@ -106,7 +88,7 @@ public class UndergroundGameArea extends GameArea {
 
     private void spawnTerrain() {
         // Background terrain
-        terrain = terrainFactory.createTerrain(TerrainFactory.TerrainType.LEVEL_TWO);
+        terrain = terrainFactory.createTerrain(TerrainType.LEVEL_TWO);
         spawnEntity(new Entity().addComponent(terrain));
 
         // Terrain walls

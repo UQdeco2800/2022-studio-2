@@ -1,4 +1,3 @@
-
 package com.deco2800.game.events;
 
 import com.badlogic.gdx.utils.Array;
@@ -191,4 +190,3 @@ public class EventHandler {
     logger.debug("Triggering event {}", eventName);
   }
 }
-

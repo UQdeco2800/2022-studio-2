@@ -1,7 +1,6 @@
 package com.deco2800.game.services;
 
-
-import com.deco2800.game.components.areas.GameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
@@ -19,7 +18,6 @@ import org.slf4j.LoggerFactory;
  * Read the wiki for details (https://github.com/UQdeco2800/game-engine/wiki/Service-Locator).
  */
 public class ServiceLocator {
-
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
   private static EntityService entityService;
   private static RenderService renderService;
@@ -27,15 +25,10 @@ public class ServiceLocator {
   private static GameTime timeSource;
   private static InputService inputService;
   private static ResourceService resourceService;
-
-
-  private static GameArea gameArea;
-
-
   private static GameAreaDisplay craftArea;
-
   private static GameAreaDisplay pauseMenuArea;
-
+  private static GameArea gameArea;
+  private static GameAreaDisplay inventoryArea;
 
   public static GameArea getGameArea() {return gameArea;}
   public static EntityService getEntityService() {
@@ -115,6 +108,10 @@ public class ServiceLocator {
 
   public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
 
+  public static void registerInventoryArea(GameAreaDisplay area){
+    inventoryArea = area;
+  }
+
   public static GameAreaDisplay getCraftArea() {
     return craftArea;
   }
@@ -123,6 +120,8 @@ public class ServiceLocator {
     return pauseMenuArea;
   }
 
-
+  public static GameAreaDisplay getInventoryArea() {
+    return inventoryArea;
+  }
 }
 
