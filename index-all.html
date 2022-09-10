@@ -546,6 +546,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerAnimationController.html" title="class in com.deco2800.game.components.player">PlayerAnimationController</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerCombatAnimationController.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerCombatAnimationController.html" title="class in com.deco2800.game.components.player">PlayerCombatAnimationController</a></dt>
+<dd>
+<div class="block">Initialises all the required animation listeners and triggers the regular (initial)
+ animation</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>
 <div class="block">Creation function to gather all necessary components for PlayerModified component
@@ -639,6 +644,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createColumn()" class="member-name-link">createColumn()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>
 <div class="block">Creates a column entity on the map.</div>
+</dd>
+<dt><a href="com/deco2800/game/entities/factories/PlayerFactory.html#createCombatAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">createCombatAnimator(Entity)</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PlayerFactory.html" title="class in com.deco2800.game.entities.factories">PlayerFactory</a></dt>
+<dd>
+<div class="block">Create level 3 dagger and hera combat item animation.</div>
 </dd>
 <dt><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCraftingTable()" class="member-name-link">createCraftingTable()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
@@ -1315,6 +1324,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#getEntityService()" class="member-name-link">getEntityService()</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#getEntityTypes()" class="member-name-link">getEntityTypes()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getEquipable(int)" class="member-name-link">getEquipable(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#getEvents()" class="member-name-link">getEvents()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>&nbsp;</dd>
@@ -2283,6 +2294,15 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerAnimationController.html#%3Cinit%3E()" class="member-name-link">PlayerAnimationController()</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerAnimationController.html" title="class in com.deco2800.game.components.player">PlayerAnimationController</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerCombatAnimationController.html" class="type-name-link" title="class in com.deco2800.game.components.player">PlayerCombatAnimationController</a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
+<dd>
+<div class="block">The controller for the player combat item animator.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerCombatAnimationController.html#%3Cinit%3E(com.deco2800.game.entities.Entity)" class="member-name-link">PlayerCombatAnimationController(Entity)</a> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerCombatAnimationController.html" title="class in com.deco2800.game.components.player">PlayerCombatAnimationController</a></dt>
+<dd>
+<div class="block">Creates a player combat item animation controller with the joined player entity with
+ which the animation controller overlays.</div>
+</dd>
 <dt><a href="com/deco2800/game/entities/configs/PlayerConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs">PlayerConfig</a> - Class in <a href="com/deco2800/game/entities/configs/package-summary.html">com.deco2800.game.entities.configs</a></dt>
 <dd>
 <div class="block">Defines the properties stored in player config files to be loaded by the Player Factory.</div>
@@ -2700,6 +2720,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/ui/terminal/Terminal.html#setClosed()" class="member-name-link">setClosed()</a> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
 <dd>
 <div class="block">Closes the terminal and clears the stored message.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerActions.html#setCombatAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setCombatAnimator(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
+<dd>
+<div class="block">Sets the combat item animator for this actions component</div>
 </dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/WeaponStatsComponent.html#setCoolDown(double)" class="member-name-link">setCoolDown(double)</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/WeaponStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">WeaponStatsComponent</a></dt>
 <dd>
@@ -3370,6 +3394,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerCombatAnimationController.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerCombatAnimationController.html" title="class in com.deco2800.game.components.player">PlayerCombatAnimationController</a></dt>
+<dd>
+<div class="block">Updates the combat item animator to always be overlaid the player entity</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerModifier.html#update()" class="member-name-link">update()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerModifier.html" title="class in com.deco2800.game.components.player">PlayerModifier</a></dt>
 <dd>
 <div class="block">Triggers on frame update.</div>
