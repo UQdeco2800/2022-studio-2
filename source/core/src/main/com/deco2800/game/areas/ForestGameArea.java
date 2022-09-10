@@ -122,7 +122,7 @@ public class ForestGameArea extends GameArea {
   private static final String[] forestTextureAtlases = {
 
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/NPC/dialogue_indicator/dialogue.atlas",
 
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
