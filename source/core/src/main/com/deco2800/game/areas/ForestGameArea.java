@@ -380,23 +380,13 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
 
-
-
-
-
   public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
     spawnEntityAt(entity, position, centreX, centreY);
   }
 
   public void spawnCraftingTable() {
-    GridPoint2 minPos = new GridPoint2(2, 2);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
-    spawnEntityAt(craftingTable, randomPos, true, false);
+    spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
   }
 
   /**
