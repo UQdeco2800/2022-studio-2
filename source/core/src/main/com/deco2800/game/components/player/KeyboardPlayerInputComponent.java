@@ -67,11 +67,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("skill");
         // Temporary projectile shoot on skill activation
         if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectile();
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
         }
         return true;
       case Keys.J:
         entity.getEvents().trigger("skill2");
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+        }
         return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
