@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png","images/Inventory/quickbar.png"};
+  private static final String[] healthBar = {"images/PlayerStatDisplayGraphic/Health_plunger/plunger_1.png", "images/PlayerStatDisplayGraphic/Health_plunger/plunger_2.png", "images/PlayerStatDisplayGraphic/Health_plunger/plunger_3.png", "images/PlayerStatDisplayGraphic/Health_plunger/plunger_4.png", "images/PlayerStatDisplayGraphic/Health_plunger/plunger_5.png", "images/PlayerStatDisplayGraphic/Health_plunger/plunger_6.png", "images/PlayerStatDisplayGraphic/Health_plunger/plunger_7.png", "images/PlayerStatDisplayGraphic/Health_plunger/plunger_8.png"};
   private static final String[] dashImg = {"images/Skills/dash.png"};
   private static final String[] blockImg = {"images/Skills/block.png"};
   private static final String[] dodgeImg = {"images/Skills/dodge.png"};

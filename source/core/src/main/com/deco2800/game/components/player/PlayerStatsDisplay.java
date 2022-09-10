@@ -14,7 +14,7 @@ import com.deco2800.game.ui.UIComponent;
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-  private Image heartImage=new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
+  private Image heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
   private Label healthLabel;
   private Label staminaLabel;
   private Label manaLabel;
@@ -44,7 +44,7 @@ public class PlayerStatsDisplay extends UIComponent {
     table.padTop(45f).padLeft(5f);
 
     // Heart image
-    float heartSideLength = 30f;
+    float heartSideLength = 120f;
 //    heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/heart.png", Texture.class));
 
     // Health text
@@ -92,10 +92,13 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerHealthUI(int health) {
     dispose();
+
+
+    heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/PlayerStatDisplayGraphic/Health_plunger/plunger_1.png", Texture.class));
     addActors();
-    heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/tree.png", Texture.class));
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
+
   }
 
   /**
