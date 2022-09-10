@@ -21,7 +21,7 @@ public class OpenCraftingComponent extends Component {
     }
 
     private void openCrafting() {
-        if (entity.getCenterPosition().dst(15, 15) < 1 && craftingStatus == false) {
+        if (entity.getCenterPosition().dst(15, 15) < 3 && craftingStatus == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();
             setCraftingStatus();
             EntityService.pauseGame();
