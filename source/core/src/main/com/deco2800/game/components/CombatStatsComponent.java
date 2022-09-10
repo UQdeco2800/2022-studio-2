@@ -120,7 +120,8 @@ public class CombatStatsComponent extends Component {
 
   /**
    * Reduce entity health due to an attack. Decreases by the damage reduction multiplier.
-   *
+   * If the attacker is a player, checks if the player has any weapon equipped, and use the damage of the weapon instead
+   * of the player's base attack damage.
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {

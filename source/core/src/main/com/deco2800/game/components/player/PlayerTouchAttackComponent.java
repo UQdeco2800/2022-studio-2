@@ -21,13 +21,12 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private Entity target;
 
     /**
-     * Create a component which attacks entities on collision, without knockback.
+     * Create a component which attacks enemy entities on collision, without knockback.
      * @param targetLayer The physics layer of the target's collider.
      */
     public PlayerTouchAttackComponent(short targetLayer) {
         super(targetLayer);
     }
-
 
     @Override
     public void create() {
@@ -37,6 +36,12 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
     }
 
+    /**
+     * Method called when collision is detected between the hitbox of the entity that implements this component (player)
+     * and another entity (enemy).
+     * @param me The fixture of the entity (player) that implements this component.
+     * @param other The fixture of the other entity (enemy) that is colliding.
+     */
     private void onCollisionStart(Fixture me, Fixture other) {
         if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
             target = ((BodyUserData) other.getBody().getUserData()).entity;
@@ -44,6 +49,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         }
     }
 
+    /**
+     * Method called when the player entity is attacking.
+     */
     void attack() {
         Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
         attackSound.play();
@@ -57,16 +65,22 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             }
         }
     }
+
     /**
-     * Applies damage to a given target. Checks for skill state invulnerability in the case
-     * of a player target.
-     * @param target the target entity to do domage to
+     * Applies damage to a given enemy target
+     * @param target the target enemy entity to do damage to
      */
     private void applyDamage(Entity target) {
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
         targetStats.hit(combatStats);
     }
 
+    /**
+     * Method called when collision ends between the hitbox of the entity that implements this component (player)
+     * and another entity (enemy)
+     * @param me The fixture of the entity (player) that implements this component.
+     * @param other The fixture of the other entity (enemy) that is colliding.
+     */
     private void onCollisionEnd(Fixture me, Fixture other) {
         enemyCollide = false;
     }
