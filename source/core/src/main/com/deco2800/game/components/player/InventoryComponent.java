@@ -1,5 +1,7 @@
 package com.deco2800.game.components.player;
 
+
+import DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
@@ -10,6 +12,7 @@ import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -184,7 +187,7 @@ public class InventoryComponent extends Component {
 
   /**
    * Modify the player's stat according to the weapon stat.
-   *
+   * Credit to Team 4
    * @param weapon the weapon that is going to be equipped on
    */
   private void applyWeaponEffect(Entity weapon) {
@@ -209,26 +212,37 @@ public class InventoryComponent extends Component {
    * @param armour
    */
   private void applyArmourEffect(Entity armour) {
+    ArmourStatsComponent armourStats = armour.getComponent(ArmourStatsComponent.class);
+    PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
+            .getComponent(PlayerModifier.class);
+    //Applying the weight of the armour to player
+    pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
+    //Applying the physical resistance of the armour to player
+    pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float)armourStats.getPhyResistance(), true, 0);
   }
 
   /**
    * Assuming weapon's max quantity is one.
-   * NOT FINISHED!!!!!
+   * PARTIALLY FINISHED
+   * @param item the item to be equipped
    * NOTE: This should check if the player has equipped a weapon or amour.
    */
   public void equipItem(Entity item) {
+    boolean equipped = false;
     if (inventory.contains(item)) {
-      if (item.checkEntityType(EntityTypes.WEAPON)) {
+      if (item.checkEntityType(EntityTypes.WEAPON) && equipables[0] == null) {
         equipables[0] = item;
         //Slot 1 - Reserved for combat items
         applyWeaponEffect(item);
+        equipped = true;
+      } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
+        equipables[1] = item;
+        //Slot 2 - Reserved for armour
+        applyArmourEffect(item);
+        equipped = true;
       }
-    } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
-      equipables[1] = item;
-      //Slot 2 - Reserved for armour
-      //Equipment
+      if (equipped) removeItem(item);
     }
-    removeItem(item);
   }
 
 
@@ -240,7 +254,7 @@ public class InventoryComponent extends Component {
    * @requires itemSlot >= 0 and itemSlot less than or equal to 1
    * NOT FINISHED!!!!!
    */
-  public void unequipItem(int itemSlot) {
+  public void unequipItem (int itemSlot) {
     if (inventory.size() == inventorySize) {
       logger.info("Inventory if full, cannot unequip");
     } else {
@@ -257,9 +271,10 @@ public class InventoryComponent extends Component {
    */
   public void toggleInventoryDisplay() {
     if (!inventoryIsOpened) {
-     // ServiceLocator.getInventoryArea().displayInventoryMenu();
+      ServiceLocator.getInventoryArea().displayInventoryMenu();
+      ServiceLocator.getInventoryArea().showItem();
     } else {
-      //ServiceLocator.getInventoryArea().disposeInventoryMenu();
+      ServiceLocator.getInventoryArea().disposeInventoryMenu();
     }
     EntityService.pauseAndResume();
     inventoryIsOpened = !inventoryIsOpened;
@@ -306,7 +321,7 @@ public class InventoryComponent extends Component {
    * Consume the potion rom quickbar based on the input index.
    *
    * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-   *                   NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
+   * NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
    *                   ****To be implemented by potion team.****
    */
   public void consumePotion(int inputIndex) {
@@ -320,9 +335,4 @@ public class InventoryComponent extends Component {
       }
     }
   }
-
-  public List<Entity> getItems() {
-    return List.copyOf(inventory);
-  }
-
 }

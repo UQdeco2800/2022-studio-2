@@ -13,10 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.player.InventoryComponent;
-import com.deco2800.game.components.player.OpenCraftingComponent;
-import com.deco2800.game.crafting.CraftingLogic;
+import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.components.player.OpenCraftingComponent;
+import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -61,16 +62,30 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegionDrawable materialDrawable;
   private Image weapon;
   private Group craftingGroup = new Group();
+  private int count;
+
+  private Image inventoryMenu;
+  private Group inventoryGroup = new Group();
+  private List<Entity> items;
+
+  private ImageButton stone;
+  private Texture stoneTexture;
+  private TextureRegion stoneTextureRegion;
+  private TextureRegionDrawable stoneDrawable;
+
+
   private Group materialsGroup = new Group();
   private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
-  List<Entity> inventory;
-  InventoryComponent inventoryComponent;
+  private List<Entity> inventory;
+  private InventoryComponent inventoryComponent;
   private int index;
+
 
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
     ServiceLocator.registerCraftArea(this);
+    ServiceLocator.registerInventoryArea(this);
     ServiceLocator.registerPauseArea(this);
     inventoryComponent = new InventoryComponent();
     inventoryComponent.addItem(MaterialFactory.createGold());
@@ -90,6 +105,73 @@ public class GameAreaDisplay extends UIComponent {
     title = new Label(this.gameAreaName, skin, "large");
     stage.addActor(title);
   }
+
+  /**
+   * Displays the inventory UI.
+   *
+   * INVENTORY_DISPLAY Self-made tag for the ease of searching
+   */
+  public void displayInventoryMenu() {
+      inventoryMenu = new Image(new Texture(Gdx.files.internal
+              ("images/Inventory/Inventory_Armor_V2.png")));
+      //Note: the position of the asset is at the bottom left.
+      inventoryMenu.setSize(640, 480 );
+      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth(),
+              Gdx.graphics.getHeight() / 2);
+      inventoryGroup.addActor(inventoryMenu);
+      stage.addActor(inventoryGroup);
+      stage.draw();
+  }
+
+  public void showItem() {
+    float padding = 20;
+    items = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getInventory();
+    for (int i = 0; i < items.size(); ++i) {
+      Texture itemTexture = items.get(i).getComponent(TextureRenderComponent.class).getTexture();
+      TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
+      TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
+      ImageButton item = new ImageButton(itemTextureDrawable);
+      item.setSize(60, 60);
+      if (i < 4){
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 450);
+          } else if (4 < i || i <= 8) {
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 340);
+          } else if (8 < i || i <= 12) {
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 220);
+          } else if (12 < i || i <= 16) {
+            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 100);
+          }
+      inventoryGroup.addActor(item);
+//      switch (items.get(i)) {
+//        case Wood:
+//          woodTexture = new Texture(Gdx.files.internal
+//                  ("images/Crafting-assets-sprint1/materials/wood.png"));
+//          woodTextureRegion = new TextureRegion(woodTexture);
+//          woodDrawable = new TextureRegionDrawable(woodTextureRegion);
+//          wood = new ImageButton(woodDrawable);
+//          wood.setSize(50, 50);
+//          if (i < 4){
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 450);
+//          } else if (4 < i || i <= 8) {
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 340);
+//          } else if (8 < i || i <= 12) {
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 220);
+//          } else if (12 < i || i <= 16) {
+//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 100);
+//          }
+//          inventoryGroup.addActor(wood);
+//          break;
+//      }
+    }
+  }
+
+  /**
+   * Disposes the inventory display group.
+   */
+  public void disposeInventoryMenu() {
+    inventoryGroup.remove();
+  }
+
 
   /**
    * Code that opens an overlay crafting menu when the craft button is pressed. Creates assets based on users inventory
@@ -191,7 +273,7 @@ public class GameAreaDisplay extends UIComponent {
 
   private void getInventory() {
     index = 0;
-    inventory = inventoryComponent.getItems();
+    inventory = inventoryComponent.getInventory();
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.GOLD)) {
         gold = initMaterials(Materials.Gold);
