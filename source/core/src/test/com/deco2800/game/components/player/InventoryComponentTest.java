@@ -1,7 +1,10 @@
 package com.deco2800.game.components.player;
 
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.factories.ArmourFactory;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
@@ -63,5 +66,20 @@ class InventoryComponentTest {
     assertEquals(testInventory3.getInventory(), expectedList);
   }
 
+  @Test
+  void equipItem() {
+    InventoryComponent testInventory4 = new InventoryComponent();
+    Entity testArmour = ArmourFactory.createBaseArmour();
+    testInventory4.addItem(testArmour);
+    testInventory4.equipItem(testArmour);
+
+    PlayerModifier pmComponent =
+            ServiceLocator.getGameArea().getPlayer().getComponent(PlayerModifier.class);
+    MeleeStatsComponent meleeStats =
+            (MeleeStatsComponent) testArmour.getComponent(WeaponStatsComponent.class);
+     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED,
+             (float) (meleeStats.getWeight()), true
+             , 0));
+  }
 
 }

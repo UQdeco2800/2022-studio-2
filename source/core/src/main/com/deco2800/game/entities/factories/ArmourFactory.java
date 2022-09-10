@@ -1,12 +1,12 @@
 package com.deco2800.game.entities.factories;
 
 
-import DefensiveItemsComponents.ArmourStatsComponent;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
 import com.deco2800.game.entities.Entity;
-import DefensiveItemsComponents.ArmourConfig;
-import DefensiveItemsComponents.ArmourTypeConfig;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourConfig;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourTypeConfig;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;

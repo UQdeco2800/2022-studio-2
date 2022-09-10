@@ -119,7 +119,6 @@ public class ForestGameArea extends GameArea {
           "images/Crafting-assets-sprint1/materials/silver.png",
           "images/Crafting-assets-sprint1/materials/steel.png",
           "images/Crafting-assets-sprint1/materials/wood.png"
-
   };
 
   public static String[] newTextures;
@@ -135,6 +134,7 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private static List<Entity> weaponOnMap = new ArrayList<>();
+  private static List<Entity> armourOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
 
@@ -184,6 +184,7 @@ public class ForestGameArea extends GameArea {
 
 
     spawnDumbbell();
+    //spawnSlowDiamond();
     spawnSpeedDebuff();
     spawnDmgBuff();
     spawnDmgDebuff();
@@ -431,12 +432,21 @@ public class ForestGameArea extends GameArea {
    * Spawns x-pos 5
    * Spawns y-pos 10
    */
+
   private void spawnDumbbell() {
     Entity dumbbell = WeaponFactory.createDumbbell();
     weaponOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
-
+  
+/*
+  private void spawnSlowDiamond() {
+    Entity slowDiamond = ArmourFactory.createArmour(ArmourFactory.ArmourType.SLOW_DIAMOND,
+            "images/CombatWeapons-assets-sprint1/slowDiamond.png");
+    armourOnMap.add(slowDiamond);
+    spawnEntityAt(slowDiamond, new GridPoint2(2,13), true, false);
+  }
+*/
   /**
    * Spawns level 3 Herra and Athena entity into the game
    * Spawns x-pos 10

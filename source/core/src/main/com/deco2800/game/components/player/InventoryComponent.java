@@ -1,7 +1,7 @@
 package com.deco2800.game.components.player;
 
 
-import DefensiveItemsComponents.ArmourStatsComponent;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
@@ -12,7 +12,6 @@ import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -87,6 +86,8 @@ public class InventoryComponent extends Component {
    * @param item item to add
    */
   public void addItem(Entity item) {
+    System.out.println("DEBUG ONLY: ");
+    System.out.println(inventory.toString());
     if (inventory.size() == inventorySize) {
       logger.info("Inventory if full");
     } else if (!inventory.contains(item)) {
@@ -181,7 +182,7 @@ public class InventoryComponent extends Component {
     return itemQuantity[index];
   }
 
-  /**
+  /**add
    * Modify the player's stat according to the weapon stat.
    * Credit to Team 4
    * @param weapon the weapon that is going to be equipped on

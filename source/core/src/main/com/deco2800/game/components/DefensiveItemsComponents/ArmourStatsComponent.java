@@ -1,4 +1,4 @@
-package DefensiveItemsComponents;
+package com.deco2800.game.components.DefensiveItemsComponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
