@@ -9,6 +9,13 @@
     "baseAttack": 20,
     "speed": 120
   },
+
+  "poops": {
+    "health": 70,
+    "baseAttack": 20,
+    "speed": 120
+  },
+
   "oneLegGirl": {
     "health": 1,
     "baseAttack": 0

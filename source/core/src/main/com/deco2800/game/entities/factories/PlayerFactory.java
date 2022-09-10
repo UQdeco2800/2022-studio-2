@@ -6,6 +6,7 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
+import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -40,15 +41,16 @@ public class PlayerFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/playerTeleport.atlas", TextureAtlas.class));
-
-    animator.addAnimation("walk", 0.1f, Animation.PlayMode.LOOP);
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Movement/movement.atlas", TextureAtlas.class));
+    animator.addAnimation("idle", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("up", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("down", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("left", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("right", 0.2f, Animation.PlayMode.LOOP);
 
     Entity player =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
-            //.addComponent(animator) For player animations if you want it
-            //.addComponent(new PlayerAnimationController())
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -60,13 +62,15 @@ public class PlayerFactory {
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
                 .addComponent(new DialogueKeybordInputComponent())
-                .addComponent(new DialogueDisplay());
+                .addComponent(new DialogueDisplay())
+            .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
+            .addComponent(animator)
+            .addComponent(new PlayerAnimationController());
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    //player.getComponent(AnimationRenderComponent.class).scaleEntity();
-    player.getComponent(TextureRenderComponent.class).scaleEntity();
+    player.getComponent(AnimationRenderComponent.class).scaleEntity();
     return player;
   }
 

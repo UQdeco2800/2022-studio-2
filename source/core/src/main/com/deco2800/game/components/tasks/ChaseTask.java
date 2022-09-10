@@ -3,11 +3,13 @@ package com.deco2800.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.rendering.DebugRenderer;
+import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 
 /** Chases a target entity until they get too far away or line of sight is lost */
@@ -21,6 +23,10 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private float speed = 1;
   private final RaycastHit hit = new RaycastHit();
   private MovementTask movementTask;
+  private float attackRange = 1.5f;
+
+  private GameTime gameTime;
+  private float lastAttackTime = 0L;
 
   /**
    * @param target The entity to chase.
@@ -35,6 +41,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.maxChaseDistance = maxChaseDistance;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
+    gameTime = ServiceLocator.getTimeSource();
   }
 
   /**
@@ -52,6 +59,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.speed = speed;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
+    gameTime = ServiceLocator.getTimeSource();
   }
 
   /**
@@ -63,7 +71,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     movementTask = new MovementTask(target.getPosition(), 0.01f, this.speed);
     movementTask.create(owner);
     movementTask.start();
-    animate();
+    walkAnimate();
   }
 
   /**
@@ -71,9 +79,21 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
    */
   @Override
   public void update() {
-    animate();
+    float currentTime = gameTime.getTime();
     movementTask.setTarget(target.getPosition());
     movementTask.update();
+    // Attack target if it appears in range
+    if (getDistanceToTarget() <= attackRange) {
+      if (currentTime - lastAttackTime > 1500L) {
+        target.getComponent(CombatStatsComponent.class)
+                .hit(owner.getEntity().getComponent(CombatStatsComponent.class));
+        lastAttackTime = gameTime.getTime();
+      }
+      attackAnimate();
+    } else {
+      walkAnimate();
+    }
+
     if (movementTask.getStatus() != Status.ACTIVE) {
       movementTask.start();
     }
@@ -153,7 +173,30 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   /**
    * Animates enemy based on which direction they are facing
    */
-  private void animate() {
+  private void walkAnimate() {
+    Vector2 enemy = owner.getEntity().getCenterPosition();
+    Vector2 player = target.getCenterPosition();
+    Boolean inAttackRange = getDistanceToTarget() <= attackRange;
+
+    float y = enemy.y - player.y;
+    float x = enemy.x - player.x;
+
+    if (Math.abs(y) > Math.abs(x)) {
+      if (y >= 0) {
+        this.owner.getEntity().getEvents().trigger("walkFront");
+      } else {
+        this.owner.getEntity().getEvents().trigger("walkBack");
+      }
+    } else {
+      if (x >= 0) {
+        this.owner.getEntity().getEvents().trigger("walkLeft");
+      } else {
+        this.owner.getEntity().getEvents().trigger("walkRight");
+      }
+    }
+  }
+
+  private void attackAnimate() {
     Vector2 enemy = owner.getEntity().getCenterPosition();
     Vector2 player = target.getCenterPosition();
 
