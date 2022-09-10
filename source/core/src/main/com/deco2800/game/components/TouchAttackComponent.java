@@ -62,18 +62,18 @@ public class TouchAttackComponent extends Component {
     }
 
     Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-    applyDamage(target);
+    //applyDamage(target);
     Entity Me = ((BodyUserData) me.getBody().getUserData()).entity;
     CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
     if (targetStats != null) {
       if (target.getCenterPosition().sub(entity.getCenterPosition()).x >= 0) {
         // Player occurs at right
         targetStats.hit(combatStats);
-        Me.getEvents().trigger("meleeAttack");
+        Me.getEvents().trigger("attackRight");
       } else {
         // Player occurs at left
         targetStats.hit(combatStats);
-        Me.getEvents().trigger("chaseStart");
+        Me.getEvents().trigger("attackLeft");
       }
     }
 
@@ -108,6 +108,6 @@ public class TouchAttackComponent extends Component {
 
   private void onCollisionEnd(Fixture me, Fixture other) {
     Entity attacker = ((BodyUserData) me.getBody().getUserData()).entity;
-    attacker.getEvents().trigger("chaseStart");
+    attacker.getEvents().trigger("walkFront");
   }
 }

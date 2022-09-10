@@ -1,5 +1,8 @@
 package com.deco2800.game.ui.terminal;
 
+import com.deco2800.game.ui.terminal.KeyboardTerminalInputComponent;
+import com.deco2800.game.ui.terminal.Terminal;
+import com.deco2800.game.ui.terminal.TouchTerminalInputComponent;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -28,7 +28,6 @@ public class PlayerSkillComponentTest {
                         .addComponent(new PlayerActions())
                         .addComponent(new CombatStatsComponent(100, 5, 100, 100))
                         .addComponent(new KeyboardPlayerInputComponent())
-                        .addComponent(new PlayerStatsDisplay())
                         .addComponent(new PlayerModifier());
 
         skillManager = new PlayerSkillComponent(player);
@@ -110,15 +109,15 @@ public class PlayerSkillComponentTest {
 
     @Test
     void testSkillSet() {
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 1);
     }
 
     @Test
     void testSkillSetMultiple(){
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 3);
     }
 
@@ -133,15 +132,15 @@ public class PlayerSkillComponentTest {
 
     @Test
     void testSkillSetWrong() {
-        skillManager.setSkill("mamma_jamma_bootsy_wiggle", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "mamma_jamma_bootsy_wiggle", player, player.getComponent(PlayerActions.class));
         assertEquals(player.getEvents().getNumberOfListeners("skill"), -1);
     }
 
     @Test
     void testSkillRemoval() {
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
-        skillManager.setSkill("teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
+        skillManager.setSkill(1, "teleport", player, player.getComponent(PlayerActions.class));
         skillManager.resetSkills(player);
         assertEquals(player.getEvents().getNumberOfListeners("skill"), 0);
     }
@@ -292,18 +291,21 @@ public class PlayerSkillComponentTest {
         actions.create();
         actions.setSkillAnimator(new Entity());
         PlayerSkillComponent component = actions.getSkillComponent();
+        component.setSkill(1, "teleport", player, actions);
         actions.teleport();
         assertTrue(component.isTeleporting());
 
     }
 
     @Test
-    void skillCooldownTest() {
+    void skillCooldownTest() throws InterruptedException {
         PlayerActions actions = player.getComponent(PlayerActions.class);
         actions.create();
         PlayerSkillComponent component = actions.getSkillComponent();
-        actions.setSkillCooldown("teleport", 100L);
-        assertFalse(actions.cooldownFinished("teleport", 100));
+        component.setSkillCooldown("teleport");
+        assertFalse(component.cooldownFinished("teleport", 1));
+        Thread.sleep(2);
+        assertTrue(component.cooldownFinished("teleport", 1));
 
     }
 
@@ -312,7 +314,7 @@ public class PlayerSkillComponentTest {
         PlayerActions actions = player.getComponent(PlayerActions.class);
         actions.create();
         PlayerSkillComponent component = actions.getSkillComponent();
-        actions.setSkillCooldown("jibberish", 0L);
-        actions.cooldownFinished("jibberish", 0L);
+        component.setSkillCooldown("jibberish");
+        component.cooldownFinished("jibberish", 0L);
     }
 }

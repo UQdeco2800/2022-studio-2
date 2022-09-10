@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.services.ServiceLocator;
+import org.w3c.dom.Text;
 
 /** Render a static texture. */
 public class TextureRenderComponent extends RenderComponent {
@@ -25,13 +26,15 @@ public class TextureRenderComponent extends RenderComponent {
     this.texture = texture;
   }
 
-  public String getTexture(){
-    return texturePath;
-  }
-
   /** Scale the entity to a width of 1 and a height matching the texture's ratio */
   public void scaleEntity() {
     entity.setScale(1f, (float) texture.getHeight() / texture.getWidth());
+  }
+
+  /** Return the texture
+   */
+  public Texture getTexture() {
+    return texture;
   }
 
   @Override

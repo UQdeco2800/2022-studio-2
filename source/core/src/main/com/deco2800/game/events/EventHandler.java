@@ -108,7 +108,8 @@ public class EventHandler {
    * @param arg0 arg 0 to pass to event
    * @param arg1 arg 1 to pass to event
    * @param <T0> Type of arg 0
-   * @param <T1> Type of arg 1
+   * @param <T1> Type of arg 1    bruh(entityToRemove);
+
    */
   @SuppressWarnings("unchecked")
   public <T0, T1> void trigger(String eventName, T0 arg0, T1 arg1) {

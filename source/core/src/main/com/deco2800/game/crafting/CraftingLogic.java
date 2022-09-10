@@ -28,15 +28,15 @@ public class CraftingLogic {
      * @return list
      */
     public static List<MeleeConfig> getPossibleBuilds(){
-            return new ArrayList<>(possibleBuilds);
-        }
+        return new ArrayList<>(possibleBuilds);
+    }
 
     /**
      * Sets a list of all the possible builds the user can make with the items contained in their inventory
      * @param weapons, a list of the items they can craft
      */
     public static void setPossibleBuilds(List<MeleeConfig> weapons){
-            possibleBuilds = weapons;
+        possibleBuilds = weapons;
     }
 
     /**
@@ -76,21 +76,21 @@ public class CraftingLogic {
 
         for (int i = 0 ; i < possibleWeapons.size(); i++){
 
-                Map<Materials,Integer> materialValues = possibleWeapons.get(i).materials;
+            Map<Materials,Integer> materialValues = possibleWeapons.get(i).materials;
 
-                Boolean buildable = true;
+            Boolean buildable = true;
 
-                for (Map.Entry<Materials,Integer> entry : materialValues.entrySet()) {
+            for (Map.Entry<Materials,Integer> entry : materialValues.entrySet()) {
 
-                    String mapname = entry.toString().split("=")[0];
+                String mapname = entry.toString().split("=")[0];
 
-                    if (!inventory.contains(mapname)) {
-                        buildable = false;
-                    }
-
+                if (!inventory.contains(mapname)) {
+                    buildable = false;
                 }
-                if (buildable)
-                    buildables.add(possibleWeapons.get(i));
+
+            }
+            if (buildable)
+                buildables.add(possibleWeapons.get(i));
         }
         return buildables;
     }

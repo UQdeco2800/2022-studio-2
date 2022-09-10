@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
@@ -22,6 +22,8 @@ import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+import java.util.*;
+
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -36,66 +38,6 @@ import com.deco2800.game.services.ServiceLocator;
 public class NPCFactory {
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
-
-  /**
-   * Creates a ghost entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public static Entity createGhost(Entity target) {
-    Entity ghost = createBaseNPC();
-    BaseEntityConfig config = configs.ghost;
-
-    ghost.getComponent(AITaskComponent.class)
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
-
-    AnimationRenderComponent animator =
-        new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-
-    ghost
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-        .addComponent(animator)
-        .addComponent(new GhostAnimationController());
-
-    ghost.getComponent(AnimationRenderComponent.class).scaleEntity();
-
-    return ghost;
-  }
-
-  /**
-   * Creates a ghost king entity.
-   *
-   * @param target entity to chase
-   * @return entity
-   */
-  public static Entity createGhostKing(Entity target) {
-    Entity ghostKing = createBaseNPC();
-    GhostKingConfig config = configs.ghostKing;
-
-    ghostKing.getComponent(AITaskComponent.class)
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, 100f));
-
-    AnimationRenderComponent animator =
-        new AnimationRenderComponent(
-            ServiceLocator.getResourceService()
-                .getAsset("images/ghostKing.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-
-    ghostKing
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-        .addComponent(animator)
-        .addComponent(new GhostAnimationController());
-
-    ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return ghostKing;
-  }
 
   /**
    * Creates an atlantis female NPC entity.
@@ -187,7 +129,7 @@ public class NPCFactory {
    */
   public static Entity createGymBro(Entity target) {
     Entity gymBro = createBaseNPC();
-    AtlantisCitizenConfig config = configs.atlantisCitizen;
+    GymBroConfig config = configs.gymBro;
 
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
@@ -197,8 +139,8 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Enemies/gym_bro.atlas", TextureAtlas.class));
-    animator.addAnimation("walk_forward", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_backward", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack_front", 0.1f, Animation.PlayMode.LOOP);
@@ -234,6 +176,29 @@ public class NPCFactory {
   }
 
   /**
+   * Creates Heracles, the boss of the first level.
+   *
+   * @return entity
+   */
+  public static Entity createPoops(Entity target)  {
+    Entity poops = createBaseNPC();
+    PoopsConfig config = configs.poops;
+    List<EntityTypes> types = poops.getEntityTypes();
+    poops.getComponent(AITaskComponent.class)
+            .addTask(new ProjectileTask(target, types, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+
+    poops
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/Enemies/poops.png"));
+    //Will need to add movement/attacks and will need to add texture
+    poops.setEntityType(EntityTypes.ENEMY);
+    poops.setEntityType(EntityTypes.RANGED);
+    poops.setScale(2f, 2f);
+    return poops;
+  }
+
+  /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *
    * @return entity
@@ -246,11 +211,30 @@ public class NPCFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
+            //.addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(aiComponent);
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     return npc;
+  }
+
+  // Creates the plug as an NPC that can be pushed off the plughole by the player
+  public static Entity createPlug(Entity target) {
+    Entity plug = createBaseNPC();
+    PlugConfig config = configs.plug;
+
+    /**
+    /plug.getComponent(AITaskComponent.class)
+             // Create new task for the plug to move off the hole
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, 120f));
+*/
+    plug
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/drain_plug.png"));
+    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
+    plug.setScale(3f, 3f);
+    return plug;
   }
 
   private NPCFactory() {

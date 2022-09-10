@@ -40,13 +40,13 @@ public class CraftingLogicTest {
         assertEquals(inputList, CraftingLogic.getPossibleBuilds());
     }
 
-    @Test
+    /*@Test
     void getPossibleWeaponsTest() {
         inventory = new ArrayList<>();
         inventory.add(Materials.Gold);
         inventory.add(Materials.Iron);
         WeaponConfig configs = FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
         assertEquals(CraftingLogic.canBuild(inventory).get(0).damage, configs.SwordLvl2.damage);
-    }
+    }*/
 
 }
