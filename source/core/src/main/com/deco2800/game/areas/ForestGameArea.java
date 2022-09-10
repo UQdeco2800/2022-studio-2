@@ -133,10 +133,10 @@ public class ForestGameArea extends GameArea {
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
-  private static GridPoint2 oneLegGirlPosition;
-  private static GridPoint2 GuardPosition;
-  private static GridPoint2 maleCitizenPosition;
-  private static GridPoint2 childPosition;
+  public static GridPoint2 oneLegGirlPosition;
+  public static GridPoint2 GuardPosition;
+  public static GridPoint2 maleCitizenPosition;
+  public static GridPoint2 childPosition;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -519,43 +519,38 @@ public class ForestGameArea extends GameArea {
    * Spawn female NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnOneLegGirl() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    oneLegGirlPosition = new GridPoint2(20, 20);
+
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
-    spawnEntityAt(oneLegGirl, randomPos, true, true);
+    spawnEntityAt(oneLegGirl, oneLegGirlPosition, true, true);
 
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, randomPos, true, true);
+    spawnEntityAt(dialogue, oneLegGirlPosition, true, true);
   }
   public static GridPoint2 getOneLegGirlPosition() {
     return oneLegGirlPosition;
   }
 
-  private int player_positionToEntity(GridPoint2 position) {
-    player.update();
-    int playerX = (int) player.getPosition().x;
-    int playerY = (int) player.getPosition().y;
-    GridPoint2 player_position = new GridPoint2(playerX, playerY);
-    return (int) player_position.dst(position);
+  public static Vector2 GridPointToVector(GridPoint2 position) {
+    int playerX = (int) position.x;
+    int playerY = (int) position.y;
+    Vector2 new_position = new Vector2(playerX, playerY);
+    return new_position;
   }
 
   /**
    * Spawn child NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnChild() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    childPosition = new GridPoint2(7, 7);
 
     Entity child = NPCFactory.createChild(player);
-    spawnEntityAt(child, randomPos, true, true);
-    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(child, childPosition, true, true);
 
-    spawnEntityAt(dialogue, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, childPosition, true, true);
   }
 
   public static GridPoint2 getChildPosition() {
@@ -567,16 +562,13 @@ public class ForestGameArea extends GameArea {
    * Spawn guard NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnGuard() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GuardPosition = new GridPoint2(4, 8);
 
     Entity guard = NPCFactory.createGuard(player);
-    spawnEntityAt(guard, randomPos, true, true);
-    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(guard, GuardPosition, true, true);
 
-    spawnEntityAt(dialogue, randomPos, true, true);
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, GuardPosition, true, true);
   }
 
   public static GridPoint2 getGuardPosition() {
@@ -587,11 +579,8 @@ public class ForestGameArea extends GameArea {
    * Spawn male NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnMaleCitizen() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    maleCitizenPosition = new GridPoint2(3, 8);
 
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    maleCitizenPosition = randomPos;
     Entity male_citizen = NPCFactory.createMale_citizen(player);
     spawnEntityAt(male_citizen, maleCitizenPosition, true, true);
 

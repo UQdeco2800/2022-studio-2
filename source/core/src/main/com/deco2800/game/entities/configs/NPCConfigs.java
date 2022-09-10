@@ -13,4 +13,6 @@ public class NPCConfigs {
   public Male_citizenConfig male_citizen = new Male_citizenConfig();
   public HeraclesConfig heracles = new HeraclesConfig();
 
+  public FriendPetConfig pet = new FriendPetConfig();
+
 }
