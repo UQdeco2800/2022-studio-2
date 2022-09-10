@@ -226,7 +226,7 @@ public class PlayerSkillComponent extends Component {
     public boolean skillDamageTrigger() {
         if (this.isInvulnerable) {
             if (this.isBlocking()) {
-                // Do Something
+                this.skillCooldowns.forEach((skill, timestamp) -> timestamp = timestamp + 500);
             }
             if (this.isDodging()) {
                 dodgeSpeedBoost = true;

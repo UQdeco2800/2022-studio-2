@@ -298,12 +298,14 @@ public class PlayerSkillComponentTest {
     }
 
     @Test
-    void skillCooldownTest() {
+    void skillCooldownTest() throws InterruptedException {
         PlayerActions actions = player.getComponent(PlayerActions.class);
         actions.create();
         PlayerSkillComponent component = actions.getSkillComponent();
-        //actions.setSkillCooldown("teleport", 100L);
-        //assertFalse(actions.cooldownFinished("teleport", 100));
+        component.setSkillCooldown("teleport");
+        assertFalse(component.cooldownFinished("teleport", 1));
+        Thread.sleep(2);
+        assertTrue(component.cooldownFinished("teleport", 1));
 
     }
 
@@ -312,7 +314,7 @@ public class PlayerSkillComponentTest {
         PlayerActions actions = player.getComponent(PlayerActions.class);
         actions.create();
         PlayerSkillComponent component = actions.getSkillComponent();
-        //actions.setSkillCooldown("jibberish", 0L);
-        //actions.cooldownFinished("jibberish", 0L);
+        component.setSkillCooldown("jibberish");
+        component.cooldownFinished("jibberish", 0L);
     }
 }
