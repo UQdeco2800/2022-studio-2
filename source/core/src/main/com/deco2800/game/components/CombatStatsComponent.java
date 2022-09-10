@@ -125,19 +125,17 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER)) {
+    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
+            (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+      //this is how we would equip a weapon manually, given that a working equip function has not yet been coded by the inventory team
       /*Entity wep = WeaponFactory.createPlunger();
-      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the trident to inventory
-      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the trident*/
-      if ((playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the weapon to inventory
+      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the weapon*/
         attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
-      } else { //if player doesnt have weapon equipped, proly can cleanup as is duplicate of code below
-        int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
-        setHealth(newHealth);
       }
-    } else{ //if its not a player
+    else { //if it's not a player, or if it is a player without a weapon
       int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
     }
