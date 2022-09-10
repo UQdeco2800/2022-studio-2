@@ -266,6 +266,7 @@ public class PlayerActions extends Component {
     }
   }
 
+
   /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
@@ -281,7 +282,9 @@ public class PlayerActions extends Component {
   }
 
   public Vector2 getWalkDirection() {
+
     return this.walkDirection;
+
   }
 
   /**

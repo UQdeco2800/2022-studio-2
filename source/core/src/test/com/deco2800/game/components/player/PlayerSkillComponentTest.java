@@ -28,7 +28,6 @@ public class PlayerSkillComponentTest {
                         .addComponent(new PlayerActions())
                         .addComponent(new CombatStatsComponent(100, 5, 100, 100))
                         .addComponent(new KeyboardPlayerInputComponent())
-                        .addComponent(new PlayerStatsDisplay())
                         .addComponent(new PlayerModifier());
 
         skillManager = new PlayerSkillComponent(player);
