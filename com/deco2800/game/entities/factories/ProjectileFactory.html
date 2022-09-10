@@ -105,7 +105,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createBasePlayerProjectile(com.deco2800.game.entities.Entity)" class="member-name-link">createBasePlayerProjectile</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createBasePlayerProjectile(com.deco2800.game.entities.Entity,double)" class="member-name-link">createBasePlayerProjectile</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
+ double&nbsp;angle)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a non-colliding projectile shooting in the walk direction of the player
  which damages enemies.</div>
@@ -167,14 +168,16 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="createBasePlayerProjectile(com.deco2800.game.entities.Entity)">
+<section class="detail" id="createBasePlayerProjectile(com.deco2800.game.entities.Entity,double)">
 <h3>createBasePlayerProjectile</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBasePlayerProjectile</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBasePlayerProjectile</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
+ double&nbsp;angle)</span></div>
 <div class="block">Creates a non-colliding projectile shooting in the walk direction of the player
  which damages enemies.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>player</code> - the player entity</dd>
+<dd><code>angle</code> - the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)</dd>
 <dt>Returns:</dt>
 <dd>the projectile entity</dd>
 </dl>
