@@ -73,7 +73,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.J:
         entity.getEvents().trigger("skill2");
         if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectile();
         }
         return true;
       case Keys.SHIFT_LEFT:
