@@ -118,13 +118,15 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/rubber.png",
     "images/Crafting-assets-sprint1/materials/silver.png",
     "images/Crafting-assets-sprint1/materials/steel.png",
-    "images/Crafting-assets-sprint1/materials/wood.png"
+    "images/Crafting-assets-sprint1/materials/wood.png",
+    "images/CombatItems/animations/combatanimation.png"
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
+    "images/CombatItems/animations/combatanimation.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -504,15 +506,19 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawns the player entity, with a skill animator overlaid above the player.
+   * Spawns the player entity, with a skill and combat animator overlaid above the player.
    * @return the player entity
    */
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
+    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
+    newPlayer.getComponent(PlayerActions.class).setCombatAnimator(newCombatAnimator);
+
     return newPlayer;
   }
 
