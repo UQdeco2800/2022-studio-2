@@ -518,6 +518,16 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * Spawns a projectile at the player entity's coordinates.
+   */
+  public void spawnPlayerProjectile() {
+    Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player);
+    spawnEntityAt(newProjectile,
+            new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+            true, true);
+  }
+
+  /**
    * Spawn female NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnOneLegGirl() {

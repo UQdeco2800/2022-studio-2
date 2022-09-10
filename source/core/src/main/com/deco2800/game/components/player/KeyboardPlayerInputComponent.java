@@ -3,9 +3,14 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+
+import java.security.Provider;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
@@ -57,6 +62,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.E:
         entity.getEvents().trigger("skill");
+        // Temporary projectile shoot on skill activation
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectile();
+        }
         return true;
       case Keys.J:
         entity.getEvents().trigger("skill2");

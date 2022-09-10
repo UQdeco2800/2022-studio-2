@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.ProjectileFactory;
 import com.deco2800.game.services.ServiceLocator;
 
 import java.util.ArrayList;
@@ -72,4 +73,6 @@ public abstract class GameArea implements Disposable {
   public Entity getPlayer() {
     return player;
   }
+
+
 }

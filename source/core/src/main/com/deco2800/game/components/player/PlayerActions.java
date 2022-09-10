@@ -284,7 +284,7 @@ public class PlayerActions extends Component {
     skillManager.startBlock();
   }
 
-  Vector2 getWalkDirection() {
+  public Vector2 getWalkDirection() {
     return this.walkDirection;
   }
 
