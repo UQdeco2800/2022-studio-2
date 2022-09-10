@@ -188,16 +188,17 @@ public class InventoryComponent extends Component {
    * @param weapon the weapon that is going to be equipped on
    */
   private void applyWeaponEffect(Entity weapon) {
-    WeaponStatsComponent weaponStats = weapon.getComponent(WeaponStatsComponent.class);
-    if (weaponStats instanceof MeleeStatsComponent) {
+    WeaponStatsComponent weaponStats;
+    if ((weaponStats = weapon.getComponent(MeleeStatsComponent.class)) != null) {
       MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
       PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
               .getComponent(PlayerModifier.class);
-      //dk if requires dmg stat or not think about it
-      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (1 / meleeStats.getWeight()), true, 0);
+      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight()/15) //this would be < 1
+              , true, 0);
       //for duration
     }
   }
+
   public Entity getEquipable(int index){
     return equipables[index];
   }

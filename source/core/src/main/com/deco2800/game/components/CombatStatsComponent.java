@@ -124,19 +124,8 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    /*if (InventoryComponent.equipables[0] != null) {
-      attackDmg = (int) ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
-              .getEquipable(0).getComponent(WeaponStatsComponent.class).getDamage();
-      int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
-      setHealth(newHealth);
-    }
-    else {
-      int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
-      setHealth(newHealth);
-    }*/
-
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER)) {
-      Entity wep = WeaponFactory.createTridentLvl2();
+      /*Entity wep = WeaponFactory.createPlunger();
       attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the trident to inventory
       attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the trident*/
       if ((playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
