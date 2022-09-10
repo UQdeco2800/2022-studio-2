@@ -64,9 +64,10 @@ public class ProjectileFactory {
      * Creates a non-colliding projectile shooting in the walk direction of the player
      * which damages enemies.
      * @param player the player entity
+     * @param angle the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
      * @return the projectile entity
      */
-    public static Entity createBasePlayerProjectile(Entity player) {
+    public static Entity createBasePlayerProjectile(Entity player, double angle) {
         PhysicsComponent physicsComponent = new PhysicsComponent();
         PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
 
@@ -84,7 +85,21 @@ public class ProjectileFactory {
         projectile.setEntityType(EntityTypes.PROJECTILE);
 
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
-        playerSkillProjectileComponent.setProjectileDirection(playerActions.getWalkDirection().cpy());
+        if(angle == 0) {
+            playerSkillProjectileComponent.setProjectileDirection(playerActions.getWalkDirection().cpy());
+        } else {
+            double angleRadians = angle * Math.PI;
+            Vector2 rotatedVector = rotateVector(playerActions.getWalkDirection().cpy(), angleRadians);
+            playerSkillProjectileComponent.setProjectileDirection(rotatedVector.cpy());
+        }
         return projectile;
     }
+
+    private static Vector2 rotateVector(Vector2 vectorToRotate, double radianAngle) {
+        double cosAngle = Math.cos(radianAngle);
+        double sinAngle = Math.sin(radianAngle);
+        return new Vector2((float) ((vectorToRotate.x * cosAngle) - (vectorToRotate.y * sinAngle)),
+                (float) ((vectorToRotate.x * sinAngle) + (vectorToRotate.y * cosAngle)));
+    }
+
 }

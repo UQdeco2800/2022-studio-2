@@ -526,10 +526,23 @@ public class ForestGameArea extends GameArea {
    * Spawns a projectile at the player entity's coordinates.
    */
   public void spawnPlayerProjectile() {
-    Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player);
+    Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player, 0);
     spawnEntityAt(newProjectile,
             new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
             true, true);
+  }
+
+  /**
+   * Spawns a spray of projectiles at the player entity's coordinates.
+   */
+  public void spawnPlayerProjectileSpray() {
+    double[] sprayAngles = {0,0.25,0.5,0.75,1,1.25,1.5,1.75};
+    for (int i = 0; i < sprayAngles.length; ++i) {
+      Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
+      spawnEntityAt(newProjectile,
+              new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+              true, true);
+    }
   }
 
   /**
