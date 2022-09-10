@@ -66,6 +66,7 @@ public class PlayerFactory {
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.setEntityType(EntityTypes.PLAYER);
     return player;
   }
 
@@ -85,6 +86,25 @@ public class PlayerFactory {
     return skillAnimator;
   }
 
+  /**
+   * Create level 3 dagger and hera combat item animation.
+   * @return entity
+   */
+  public static Entity createCombatAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/combatanimation.atlas", TextureAtlas.class));
+    animator.addAnimation("noAnimation", 0.1f);
+    animator.addAnimation("level3Dagger", 0.1f);
+    animator.addAnimation("hera", 0.1f);
+
+    Entity combatAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerCombatAnimationController(playerEntity));
+
+    combatAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return combatAnimator;
+  }
 
   private PlayerFactory() {
     throw new IllegalStateException("Instantiating static util class");

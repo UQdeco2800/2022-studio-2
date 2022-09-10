@@ -59,9 +59,9 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
-    "images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png",
-    "images/CombatWeapons-assets-sprint1/Level 2 Dagger 2png.png",
-    "images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png",
+    "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
+    "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+    "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
@@ -97,35 +97,36 @@ public class ForestGameArea extends GameArea {
     "images/NPC/Dialogue/dialogues2.png",
     "images/Potions/defence_potion.png",
     "images/level_1_tiledmap/32x32/column.png",
-    "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
-    "images/CombatWeapons-assets-sprint1/Damage Increase Buff.png",
-    "images/CombatWeapons-assets-sprint1/Sword_Lvl2.png",
-    "images/CombatWeapons-assets-sprint1/AttackDamageDebuff.png",
-    "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
-    "images/CombatWeapons-assets-sprint1/poisonBuff.png",
+    "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+    "images/CombatItems/Sprint-1/Damage Increase Buff.png",
+    "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+    "images/CombatItems/Sprint-1/AttackDamageDebuff.png",
+    "images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png",
+    "images/CombatItems/Sprint-1/poisonBuff.png",
     "images/Potions/defence_potion.png",
-    "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
+    "images/CombatItems/Sprint-1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
     "images/Movement/movement.png",
-    "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
-    "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
+    "images/CombatItems/Sprint-2/H&ADagger.png",
+    "images/CombatItems/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
-          "images/Crafting-assets-sprint1/materials/gold.png",
-          "images/Crafting-assets-sprint1/materials/iron.png",
-          "images/Crafting-assets-sprint1/materials/plastic.png",
-          "images/Crafting-assets-sprint1/materials/platinum.png",
-          "images/Crafting-assets-sprint1/materials/rubber.png",
-          "images/Crafting-assets-sprint1/materials/silver.png",
-          "images/Crafting-assets-sprint1/materials/steel.png",
-          "images/Crafting-assets-sprint1/materials/wood.png"
-
+    "images/Crafting-assets-sprint1/materials/gold.png",
+    "images/Crafting-assets-sprint1/materials/iron.png",
+    "images/Crafting-assets-sprint1/materials/plastic.png",
+    "images/Crafting-assets-sprint1/materials/platinum.png",
+    "images/Crafting-assets-sprint1/materials/rubber.png",
+    "images/Crafting-assets-sprint1/materials/silver.png",
+    "images/Crafting-assets-sprint1/materials/steel.png",
+    "images/Crafting-assets-sprint1/materials/wood.png",
+    "images/CombatItems/animations/combatanimation.png"
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
+    "images/CombatItems/animations/combatanimation.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -505,15 +506,19 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawns the player entity, with a skill animator overlaid above the player.
+   * Spawns the player entity, with a skill and combat animator overlaid above the player.
    * @return the player entity
    */
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
+    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
+    newPlayer.getComponent(PlayerActions.class).setCombatAnimator(newCombatAnimator);
+
     return newPlayer;
   }
 

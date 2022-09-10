@@ -224,7 +224,7 @@ public class Entity {
   /** Dispose of the entity. This will dispose of all components on this entity. */
   public void dispose() {
     for (Component component : createdComponents) {
-      if (component instanceof AnimationRenderComponent){} //this prevents the other entities using the same animation to have their atlases disposed (black box)
+      if (component instanceof AnimationRenderComponent){} //this prevents the other entities using the same animation from having their atlases disposed (black box)
       else {
         component.dispose();
       }

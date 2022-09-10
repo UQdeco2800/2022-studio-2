@@ -37,7 +37,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
     }
 
-
     private void onCollisionStart(Fixture me, Fixture other) {
         if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
             target = ((BodyUserData) other.getBody().getUserData()).entity;
@@ -48,13 +47,13 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     void attack() {
         Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
         attackSound.play();
-        System.out.println(enemyCollide);
-        System.out.println(target);
         if (enemyCollide) {
             applyDamage(target);
             if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
                 target.dispose();
-                target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
+                if (target.getComponent(AnimationRenderComponent.class) != null) {
+                    target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
+                }
             }
         }
     }

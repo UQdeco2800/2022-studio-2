@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-
-
 /**
  * A component intended to be used by the player to track their inventory.
  *
@@ -25,6 +22,7 @@ import java.util.List;
  * Can also be used as a more generic component for other entities.
  */
 public class InventoryComponent extends Component {
+
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
   /**
@@ -45,7 +43,7 @@ public class InventoryComponent extends Component {
   /**
    * Initial item equipment slot
    */
-  private final int equipSlots = 2;
+  private static final int equipSlots = 2;
 
   /**
    * An inventory unit for players to inspect and store their items.
@@ -66,6 +64,12 @@ public class InventoryComponent extends Component {
    * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
    */
   private int[] itemQuantity = new int[inventorySize];
+
+  // CRASHES GAME, NOT SURE WHY
+  /*@Override
+  public void create() {
+    entity.getEvents().addListener("EquipWeapon", this::equipItem);
+  }*/
 
   /**
    * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
@@ -187,16 +191,19 @@ public class InventoryComponent extends Component {
    * @param weapon the weapon that is going to be equipped on
    */
   private void applyWeaponEffect(Entity weapon) {
-    WeaponStatsComponent weaponStats = weapon.getComponent(WeaponStatsComponent.class);
-    if (weaponStats instanceof MeleeStatsComponent) {
+    WeaponStatsComponent weaponStats;
+    if ((weaponStats = weapon.getComponent(MeleeStatsComponent.class)) != null) {
       MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
       PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
               .getComponent(PlayerModifier.class);
-
-      //dk if requires dmg stat or not think about it
-      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (1 / meleeStats.getWeight()), true, 0);
+      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight()/15) //this would be < 1
+              , true, 0);
       //for duration
     }
+  }
+
+  public Entity getEquipable(int index){
+    return equipables[index];
   }
 
   /**

@@ -34,6 +34,7 @@ public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
   private Entity skillAnimator;
+  private Entity combatAnimator;
 
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
@@ -73,6 +74,8 @@ public class PlayerActions extends Component {
 //    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
+    entity.getEvents().addListener("attack", this::attackAnimation);
+    entity.getEvents().addListener("attack2", this::attackAnimation2);
 
 
     // Skills and Dash initialisation
@@ -327,5 +330,29 @@ public class PlayerActions extends Component {
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillAnimator = skillAnimator;
     this.skillManager.setSkillAnimator(skillAnimator);
+  }
+
+
+  /**
+   * Sets the combat item animator for this actions component
+   * @param combatAnimator the combat animator entity which has subcomponents
+   *                      PlayerSkillAnimationController and AnimationRenderer
+   */
+  public void setCombatAnimator(Entity combatAnimator){
+    this.combatAnimator = combatAnimator;
+  }
+
+  /**
+   *  Makes the player attack with the hera combat item.
+   */
+  void attackAnimation(){
+    this.combatAnimator.getEvents().trigger("hera");
+  }
+
+  /**
+   *  Makes the player attack with the level3Dagger combat item.
+   */
+  void attackAnimation2(){
+    this.combatAnimator.getEvents().trigger("level3Dagger");
   }
 }
