@@ -61,12 +61,9 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
-<<<<<<< HEAD
                 .addComponent(new DialogueKeybordInputComponent())
                 .addComponent(new DialogueDisplay())
-=======
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
->>>>>>> main
             .addComponent(animator)
             .addComponent(new PlayerAnimationController());
 
