@@ -126,9 +126,10 @@ public class CombatStatsComponent extends Component {
   public void hit(CombatStatsComponent attacker) {
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
             (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+      //this is how we would equip a weapon manually, given that a working equip function has not yet been coded by the inventory team
       /*Entity wep = WeaponFactory.createPlunger();
-      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the trident to inventory
-      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the trident*/
+      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the weapon to inventory
+      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the weapon*/
         attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
