@@ -200,7 +200,7 @@ public class GameAreaDisplay extends UIComponent {
                   (75 * (numcrafted-1)), craftMenu.getTop() - 475);
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
                   area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
-        }
+        };
       }
     });
     craftingGroup.addActor(craftButton);
@@ -247,10 +247,8 @@ public class GameAreaDisplay extends UIComponent {
         for (Map.Entry entry: item.materials.entrySet()){
           String entryString = entry.toString().split("=")[0];
           String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
-          System.out.println(upperCaseEntry);
           if (boxes[0].toString().equals(upperCaseEntry) ||
                   boxes[1].toString().equals(upperCaseEntry)){
-            System.out.println("reached here");
             numItems += 1;
 
           }
