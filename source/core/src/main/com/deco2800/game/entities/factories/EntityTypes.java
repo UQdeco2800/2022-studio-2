@@ -1,8 +1,11 @@
 package com.deco2800.game.entities.factories;
 
+import java.util.EnumSet;
+
 public enum EntityTypes {
     PLAYER,
     ENEMY,
+    CRAFTABLE,
     MELEE,
     RANGED,
     BOSS,
@@ -17,5 +20,5 @@ public enum EntityTypes {
     PLASTIC,
     RUBBER,
     PLATINUM,
-    SILVER
+    SILVER;
 }
