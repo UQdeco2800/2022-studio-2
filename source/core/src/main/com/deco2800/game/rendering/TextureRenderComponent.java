@@ -37,6 +37,10 @@ public class TextureRenderComponent extends RenderComponent {
     return texture;
   }
 
+    public String getTexturePath() {
+        return texturePath;
+    }
+
   @Override
   protected void draw(SpriteBatch batch) {
     Vector2 position = entity.getPosition();
