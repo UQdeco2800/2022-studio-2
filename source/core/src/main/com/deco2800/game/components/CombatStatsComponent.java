@@ -1,6 +1,8 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -40,6 +42,8 @@ public class CombatStatsComponent extends Component {
     entity.getEvents().addListener("decreaseStamina",this::addStamina);
     entity.getEvents().addListener("increaseMana",this::addMana);
     entity.getEvents().addListener("decreaseMana",this::addMana);
+    entity.getEvents().addListener("dropWeapon",this::dropWeapon);
+
   }
 
   public CombatStatsComponent(int health, int baseAttack, int stamina, int mana) {
@@ -314,5 +318,35 @@ public class CombatStatsComponent extends Component {
    * @return The float value of damageReduction.
    */
   public float getDamageReduction() { return damageReduction; }
+
+  /**
+   * Drop weapon function, for the first implementation is called only when emeny is dead
+   *
+   */
+  public void dropWeapon() {
+
+    float x = getEntity().getPosition().x;
+    float y = getEntity().getPosition().y;
+
+    if (getEntity().checkEntityType(EntityTypes.PLAYER)) {
+
+      // check equippable, which weapon is equipped and drop that one
+
+      Entity newWeapon = WeaponFactory.createDagger();
+
+      ServiceLocator.getEntityService().register(newWeapon);
+
+      newWeapon.setPosition(x , (float) (y - 1.5));
+
+
+    } else if (getEntity().checkEntityType(EntityTypes.ENEMY)) {
+      Entity newWeapon = WeaponFactory.createDumbbell();
+
+      ServiceLocator.getEntityService().register(newWeapon);
+
+      newWeapon.setPosition(x , (float) (y - 1.5));
+    }
+
+  }
 
 }

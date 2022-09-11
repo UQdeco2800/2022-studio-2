@@ -90,6 +90,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.X:
         entity.getEvents().trigger("EquipWeapon");
         return true;
+      case Keys.Y:
+        entity.getEvents().trigger("dropWeapon");
+        return true;
       default:
         return false;
     }

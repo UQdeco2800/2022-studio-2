@@ -3,6 +3,8 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
