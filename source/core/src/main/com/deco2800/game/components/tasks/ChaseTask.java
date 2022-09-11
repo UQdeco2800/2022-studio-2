@@ -176,7 +176,6 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private void walkAnimate() {
     Vector2 enemy = owner.getEntity().getCenterPosition();
     Vector2 player = target.getCenterPosition();
-    Boolean inAttackRange = getDistanceToTarget() <= attackRange;
 
     float y = enemy.y - player.y;
     float x = enemy.x - player.x;

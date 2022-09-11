@@ -32,7 +32,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro walking when facing right
      */
     private void animateWalkRight() {
-        if (animator.getCurrentAnimation() != "walk_right") {
+        if (!"walk_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_right");
         }
     }
@@ -41,7 +41,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro walking when facing left
      */
     private void animateWalkLeft() {
-        if (animator.getCurrentAnimation() != "walk_left") {
+        if (!"walk_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_left");
         }
     }
@@ -50,7 +50,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro walking when facing backwards
      */
     private void animateWalkBack() {
-        if (animator.getCurrentAnimation() != "walk_back") {
+        if (!"walk_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_back");
         }
     }
@@ -59,7 +59,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro walking when facing forwards
      */
     private void animateWalkFront() {
-        if (animator.getCurrentAnimation() != "walk_front") {
+        if (!"walk_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_front");
         }
     }
@@ -68,7 +68,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro attacking when facing right
      */
     private void animateAttackRight() {
-        if (animator.getCurrentAnimation() != "attack_right") {
+        if (!"attack_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("attack_right");
         }
     }
@@ -77,7 +77,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro attacking when facing left
      */
     private void animateAttackLeft() {
-        if (animator.getCurrentAnimation() != "attack_left") {
+        if (!"attack_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("attack_left");
         }
     }
@@ -86,7 +86,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro attacking when facing forwards
      */
     private void animateAttackFront() {
-        if (animator.getCurrentAnimation() != "attack_front") {
+        if (!"attack_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("attack_front");
         }
     }
@@ -95,7 +95,7 @@ public class GymBroAnimationController extends Component {
      * Animates the gym bro attacking when facing backwards
      */
     private void animateAttackBack() {
-        if (animator.getCurrentAnimation() != "attack_back") {
+        if (!"attack_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("attack_back");
         }
     }
