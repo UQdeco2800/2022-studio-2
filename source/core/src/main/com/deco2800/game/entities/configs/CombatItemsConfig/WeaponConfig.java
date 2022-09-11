@@ -1,6 +1,5 @@
 package com.deco2800.game.entities.configs.CombatItemsConfig;
 
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 
 /**
  * Defines all weapon configs to be loaded by the Weapon Factory.
