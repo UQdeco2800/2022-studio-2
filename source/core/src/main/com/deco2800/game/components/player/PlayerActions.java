@@ -81,6 +81,10 @@ public class PlayerActions extends Component {
     skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
+    // temp skill bindings for sprint 2 marking
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
+
   }
 
   @Override

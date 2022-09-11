@@ -197,11 +197,11 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
         } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
-        } else if (skillName == SkillTypes.BLEED) {
-            entity.getEvents().addListener(skillEvent, playerActionsComponent::bleed);
+        } else if (skillName == SkillTypes.BLEED) { // change back to skillEvent after sprint 2
+            entity.getEvents().addListener("bleedTemp", playerActionsComponent::bleed);
             entity.getEvents().addListener("hitEnemy", this::hitBleed);
-        }  else if (skillName == SkillTypes.ROOT) {
-            entity.getEvents().addListener(skillEvent, playerActionsComponent::root);
+        }  else if (skillName == SkillTypes.ROOT) { // change back to skillEvent after sprint 2
+            entity.getEvents().addListener("rootTemp", playerActionsComponent::root);
             entity.getEvents().addListener("hitEnemy", this::hitRoot);
         }
     }
