@@ -102,6 +102,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         walkDirection.sub(Vector2Utils.RIGHT);
         triggerWalkEvent();
         return true;
+      case Keys.ENTER:
+        if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) && (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
+          System.out.println("Going to next level!");
+        }
+        return true;
       default:
         return false;
     }
