@@ -7,6 +7,7 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.npc.HeraclesAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
@@ -165,10 +166,35 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createHeracles()  {
+  public static Entity createHeracles(Entity target)  {
     Entity heracles = createBaseNPC();
     HeraclesConfig config = configs.heracles;
-    //Will need to add movement/attacks and will need to add texture
+    List<EntityTypes> types = heracles.getEntityTypes();
+
+    heracles.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+            //.addTask(new ProjectileTask(target, types, 10, 5f, 6f,config.speed, 2f))
+            //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Enemies/heracles.atlas", TextureAtlas.class));
+    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_right", 0.1f, Animation.PlayMode.LOOP);
+
+
+    heracles
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new HeraclesAnimationController());
+
     heracles.setEntityType(EntityTypes.ENEMY);
     heracles.setEntityType(EntityTypes.BOSS);
     heracles.setScale(3f, 3f);
@@ -191,7 +217,6 @@ public class NPCFactory {
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/Enemies/poops.png"));
-    //Will need to add movement/attacks and will need to add texture
     poops.setEntityType(EntityTypes.ENEMY);
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
