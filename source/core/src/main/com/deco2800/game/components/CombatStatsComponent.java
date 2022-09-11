@@ -320,8 +320,11 @@ public class CombatStatsComponent extends Component {
   public float getDamageReduction() { return damageReduction; }
 
   /**
-   * Drop weapon function, for the first implementation is called only when emeny is dead
+   * If the current entity is a player, then the function is called on a key press and drops
+   * a weapon on the map only if the player is equipped with a weapon.
    *
+   * If the current entity is an enemy, then the function is called when the enemy is dead
+   * and a weapon is dropped below the enemy.
    */
   public void dropWeapon() {
 
