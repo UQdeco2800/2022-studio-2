@@ -156,6 +156,7 @@ public class InventoryComponent extends Component {
     for (int i = 0; i < inventory.size(); ++i) {
       if (inventory.get(i).checkEntityType(type)) {
         removeItem(i);
+        break;
       }
     }
   }
@@ -203,7 +204,7 @@ public class InventoryComponent extends Component {
   /**
    * Waiting for stat modification implementation of armour
    *
-   * @param armour
+   * @param armour the armour that is equipped
    */
   private void applyArmourEffect(Entity armour) {
     ArmourStatsComponent armourStats = armour.getComponent(ArmourStatsComponent.class);
