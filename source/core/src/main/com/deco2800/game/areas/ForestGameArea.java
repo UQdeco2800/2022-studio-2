@@ -48,8 +48,7 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/gym_bro.png",
     "images/Enemies/poops.png",
     "images/Enemies/poopSludge.png",
-    "images/ghost_king.png",
-    "images/ghost_1.png",
+    "images/Enemies/discus.png",
     "images/grass_1.png",
     "images/grass_2.png",
     "images/grass_3.png",
@@ -125,7 +124,8 @@ public class ForestGameArea extends GameArea {
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas"
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
+    "images/Movement/movement.atlas", "images/Enemies/heracles.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -169,6 +169,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     //spawnEffectBlobs();
     spawnGymBro();
+    spawnHeracles();
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
@@ -595,6 +596,9 @@ public class ForestGameArea extends GameArea {
   }
 
 
+  /**
+   * Spawn gym bros in random positions.
+   */
   private void spawnGymBro() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -606,6 +610,21 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawn Heracles in a random position.
+   */
+  private void spawnHeracles() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity heracles = NPCFactory.createHeracles(player);
+    spawnEntityAt(heracles, randomPos, true, true);
+  }
+
+  /**
+   * Spawn poops in random positions.
+   */
   private void spawnPoops() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);

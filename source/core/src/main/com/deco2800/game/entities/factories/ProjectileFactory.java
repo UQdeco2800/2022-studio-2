@@ -34,11 +34,11 @@ public class ProjectileFactory {
                 .addComponent(new PhysicsComponent())
                 .addComponent(new PhysicsMovementComponent())
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-                //.addComponent(new ColliderComponent())
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
                 .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f)) //7.5
                 .addComponent(aiComponent);
-        PhysicsUtils.setScaledCollider(projectile, 0.8f, 0.8f);
+        PhysicsUtils.setScaledCollider(projectile, 0.1f, 0.1f);
+
         projectile.setEntityType(EntityTypes.PROJECTILE);
         return projectile;
 
@@ -49,11 +49,24 @@ public class ProjectileFactory {
         poops.addComponent(new CombatStatsComponent(1, 10, 0, 0))
                 .addComponent(new TextureRenderComponent("images/Enemies/poopSludge.png"))
                 .getComponent(TextureRenderComponent.class).scaleEntity();
-        poops.setScale(2f, 2f); //0.6
+        poops.setScale(2f, 2f);
         poops.getComponent(AITaskComponent.class)
                 .addTask(new ShootTask(target, 10, 10f));
         poops.getComponent(PhysicsMovementComponent.class);
         poops.setEntityType(EntityTypes.ENEMY);
         return poops;
+    }
+
+    public static Entity createDiscus(Entity target) {
+        Entity discus = createBaseProjectile();
+        discus.addComponent(new CombatStatsComponent(1, 10, 0, 0))
+                .addComponent(new TextureRenderComponent("images/Enemies/discus.png"))
+                .getComponent(TextureRenderComponent.class).scaleEntity();
+        discus.setScale(2f, 2f);
+        discus.getComponent(AITaskComponent.class)
+                .addTask(new ShootTask(target, 10, 10f));
+        discus.getComponent(PhysicsMovementComponent.class);
+        discus.setEntityType(EntityTypes.ENEMY);
+        return discus;
     }
 }

@@ -5,27 +5,19 @@ import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.ai.tasks.Task;
-import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.entities.factories.ProjectileFactory;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.*;
+
+import static com.deco2800.game.entities.factories.ProjectileFactory.createDiscus;
+import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
 
 public class ProjectileTask extends DefaultTask implements PriorityTask{
-    private static final Logger logger = LoggerFactory.getLogger(ProjectileTask.class);
     private final Entity target;
-    private Entity poopSludge;
-    private MovementTask movementTask;
     private final float waitTime;
-    private Vector2 startPos;
     private WaitTask taskWait;
     private ProjectileTask taskShoot;
     private final float speed;
@@ -35,19 +27,21 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     private final DebugRenderer debugRenderer;
     private Task currentTask;
     private RaycastHit hit = new RaycastHit();
-    private List<EntityTypes> types;
+
+    private String projectileType;
     private int priority;
+
+    private Entity projectile = null;
+
     /**
      * @param target The entity to chase.
      * @param speed The speed to chase at.
      */
-
-    public ProjectileTask(Entity target, List<EntityTypes> types, int priority, float viewDistance,
+    public ProjectileTask(Entity target, String projectileType, int priority, float viewDistance,
                           float maxShootDistance, float speed, float waitTime) {
-
         this.speed = speed;
         this.target = target;
-        this.types = types;
+        this.projectileType = projectileType;
         this.waitTime = waitTime;
         this.viewDistance = viewDistance;
         this.maxShootDistance = maxShootDistance;
@@ -62,16 +56,11 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     @Override
     public void start() {
         super.start();
-        startPos = owner.getEntity().getPosition();
         taskWait = new WaitTask(waitTime);
         taskWait.create(owner);
 
-        taskShoot = new ProjectileTask(target, types, priority, viewDistance, maxShootDistance, speed, waitTime);
+        taskShoot = new ProjectileTask(target, projectileType, priority, viewDistance, maxShootDistance, speed, waitTime);
         taskShoot.create(owner);
-
-        //movementTask = new MovementTask(target.getPosition(), 0.01f, this.speed);
-        //movementTask.create(owner);
-        //movementTask.start();
 
         currentTask = taskShoot;
     }
@@ -83,18 +72,18 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         }
         return getInactivePriority();
     }
+
     /**
-     * Update chase task.
+     * Update projectile task.
      */
     @Override
     public void update() {
-        //movementTask.setTarget(target.getPosition());
-        //movementTask.update();
         if (currentTask.getStatus() != Status.ACTIVE) {
             if (currentTask == taskWait) {
                 waiting();
             } else {
-                shoot(this.types);
+                attackAnimate();
+                shoot(this.projectileType);
             }
         }
         currentTask.update();
@@ -102,9 +91,9 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
 
 
     public void waiting() {
-
         setTask(taskShoot);
     }
+
 
     public void shoot(List<EntityTypes> bulletType) {
         if (bulletType.contains(EntityTypes.ENEMY)) {
@@ -114,8 +103,25 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
                 poopSludge.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
                 setTask(taskWait);
             }
+
+    public void shoot(String projectileType) {
+        if (projectileType == "poopSludge") {
+            projectile = createPoopsSludge(target);
         }
-        
+        if (projectileType == "discus") {
+            projectile = createDiscus(target);
+        }
+        if (projectile != null) {
+            ServiceLocator.getEntityService().register(projectile);
+            projectile.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
+
+            float xVel = owner.getEntity().getPosition().x - target.getCenterPosition().x;
+            float yVel = owner.getEntity().getPosition().y - target.getCenterPosition().y;
+
+            // SHOOOOOOOOOOOOOTTTTTT;
+            projectile.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(xVel, yVel);
+            setTask(taskWait);
+        }
     }
     
     public void setTask(Task task) {
@@ -141,7 +147,7 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     private int getActivePriority() {
         float dst = getDistanceToTarget();
         if (dst > maxShootDistance || !isTargetVisible()) {
-            return -1; // Too far, stop chasing
+            return -1; // Too far, stop shooting
         }
         return priority;
     }
@@ -171,16 +177,31 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         return true;
     }
 
+<<<<<<< HEAD
     private boolean hasCollided() {
         Vector2 currentPos = owner.getEntity().getCenterPosition();
         Vector2 targetPos = target.getCenterPosition();
+=======
+    private void attackAnimate() {
+        Vector2 enemy = owner.getEntity().getCenterPosition();
+        Vector2 player = target.getCenterPosition();
+>>>>>>> fb9396123d71ac83fcd13f2beb43be0a170de5bc
 
-        // If hits an obstacle, delete projectile
-        if (physics.raycast(currentPos, targetPos, PhysicsLayer.OBSTACLE, hit)) {
-            debugRenderer.drawLine(currentPos, hit.point);
-            return false;
+        float y = enemy.y - player.y;
+        float x = enemy.x - player.x;
+
+        if (Math.abs(y) > Math.abs(x)) {
+            if (y >= 0) {
+                this.owner.getEntity().getEvents().trigger("discusAttackFront");
+            } else {
+                this.owner.getEntity().getEvents().trigger("discusAttackBack");
+            }
+        } else {
+            if (x >= 0) {
+                this.owner.getEntity().getEvents().trigger("discusAttackLeft");
+            } else {
+                this.owner.getEntity().getEvents().trigger("discusAttackRight");
+            }
         }
-        debugRenderer.drawLine(currentPos, targetPos);
-        return true;
     }
 }
