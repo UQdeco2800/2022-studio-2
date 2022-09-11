@@ -64,14 +64,20 @@ class PlayerSkillComponentTest {
     void testSkillEnd() {
         skillManager.startDash(new Vector2(1,1));
         skillManager.startTeleport();
+        skillManager.startBlock();
+        skillManager.startDodge(new Vector2(1,1));
 
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
 
         skillManager.update();
 
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
 
         customWait(1001);
 
@@ -79,14 +85,20 @@ class PlayerSkillComponentTest {
 
         Assert.assertFalse(skillManager.isTeleporting());
         Assert.assertFalse(skillManager.isDashing());
+        Assert.assertFalse(skillManager.isBlocking());
+        Assert.assertFalse(skillManager.isDodging());
 
         // First poll on skill end should be true
         Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
         Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
+        Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
+        Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
 
         // Second poll on skill end should be false
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
     }
 
     @Test
@@ -115,6 +127,11 @@ class PlayerSkillComponentTest {
     void testSkillSet() {
         skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.TELEPORT, player, player.getComponent(PlayerActions.class));
         assertEquals(1, player.getEvents().getNumberOfListeners("skill"));
+        skillManager.setSkill(3, PlayerSkillComponent.SkillTypes.DODGE, player, player.getComponent(PlayerActions.class));
+        assertEquals(2, player.getEvents().getNumberOfListeners("skill"));
+        skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.TELEPORT, player, player.getComponent(PlayerActions.class));
+        assertEquals(1, player.getEvents().getNumberOfListeners("skill2"));
+
     }
 
     @Test
@@ -220,37 +237,52 @@ class PlayerSkillComponentTest {
 
     @Test
     void testDodgeSpeedBoost() {
+        skillManager.skillDamageTrigger();
         skillManager.startDodge(new Vector2(1,1));
         skillManager.update();
         skillManager.skillDamageTrigger();
         customWait(301);
         skillManager.update();
+        assertTrue(skillManager.movementIsModified());
         assertEquals(1.5f, skillManager.getModifiedMovement(new Vector2(1,1)).x);
         assertEquals(1.5f, skillManager.getModifiedMovement(new Vector2(1,1)).y);
+        customWait(1500);
+        skillManager.update();
+        assertFalse(skillManager.movementIsModified());
+        assertEquals(1.0f, skillManager.getModifiedMovement(new Vector2(1,1)).x);
+        assertEquals(1.0f, skillManager.getModifiedMovement(new Vector2(1,1)).y);
     }
 
     @Test
     void testVectorNormalisation() {
         skillManager.startDodge(new Vector2(0,0));
-        skillManager.startDodge(new Vector2(0,1));
-        skillManager.startDodge(new Vector2(1,0));
+        assertEquals(0.0, skillManager.getModifiedMovement(new Vector2(0,1)).x);
+        assertEquals(3.0, skillManager.getModifiedMovement(new Vector2(0,1)).y);
+        assertEquals(0.0, skillManager.getModifiedMovement(new Vector2(1,0)).y);
+        assertEquals(3.0, skillManager.getModifiedMovement(new Vector2(1,0)).x);
     }
 
     @Test
     void testBlock() {
+        assertFalse(skillManager.isInvulnerable());
+        skillManager.startBlock();
         skillManager.startBlock();
         skillManager.update();
         assertTrue(skillManager.isInvulnerable());
+        customWait(2000);
+        skillManager.update();
+        assertFalse(skillManager.isInvulnerable());
     }
 
     @Test
     void testBlockDamageCooldowns() {
-        skillManager.startDodge(new Vector2(1,1));
+        skillManager.skillDamageTrigger();
+        skillManager.startBlock();
         skillManager.update();
         skillManager.skillDamageTrigger();
         skillManager.update();
-        customWait(2);
-        assertTrue(skillManager.cooldownFinished("dodge", 1L));
+        //customWait(2);
+        assertTrue(skillManager.cooldownFinished("dodge", 500L));
     }
 
     @Test
