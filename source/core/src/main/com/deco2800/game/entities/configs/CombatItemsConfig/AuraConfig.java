@@ -6,7 +6,7 @@ package com.deco2800.game.entities.configs.CombatItemsConfig;
  */
 public class AuraConfig {
 
-    public static final String auraName = "pen15";
+    public String auraName = "pen15";
     public int auraDuration;
     public double damageMultiplier;
     public double coolDownMultiplier;
