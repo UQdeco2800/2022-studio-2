@@ -1,10 +1,17 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -12,8 +19,11 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -23,7 +33,7 @@ import java.util.Map;
 public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
-  private Entity skillAnimator;
+  private Entity combatAnimator;
 
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
@@ -31,18 +41,16 @@ public class PlayerActions extends Component {
   private CombatStatsComponent combatStatsComponent;
   private PlayerModifier playerModifier;
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private boolean inventoryIsOpened = false;
   private boolean miniMapOpen = false;
   private int stamina= 100;
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
+  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
-
-  Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
   @Override
   public void create() {
@@ -57,20 +65,22 @@ public class PlayerActions extends Component {
     playerModifier = entity.getComponent(PlayerModifier.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
-    entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+//    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
+//    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
+//    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
+    entity.getEvents().addListener("attack", this::attackAnimation);
+    entity.getEvents().addListener("attack2", this::attackAnimation2);
 
 
     // Skills and Dash initialisation
-    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(1, startingSkill, entity,this);
-    skillManager.setSkill(2, "dodge", entity, this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
+    skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
-    skillCooldowns.put(startingSkill, 0L);
   }
 
   @Override
@@ -86,14 +96,32 @@ public class PlayerActions extends Component {
     this.playerModifier.update();
   }
 
-  private void toggleInventory(){
-    inventoryIsOpened = !inventoryIsOpened;
-    //Code for debugging
-    if(inventoryIsOpened) {
-      // Open code
-    } else {
-      // Close code
-    }
+  /**
+   * Pressing the 'I' button toggles the inventory menu UI opening/closing.
+   */
+  public void toggleInventory(){
+    entity.getComponent(InventoryComponent.class).toggleInventoryDisplay();
+  }
+
+  /**
+   * Pressing the '1' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot1(){
+    entity.getComponent(InventoryComponent.class).consumePotion(1);
+  }
+
+  /**
+   * Pressing the '2' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot2(){
+    entity.getComponent(InventoryComponent.class).consumePotion(2);
+  }
+
+  /**
+   * Pressing the '3' button toggles the inventory menu UI opening/closing.
+   */
+  public void consumePotionSlot3(){
+    entity.getComponent(InventoryComponent.class).consumePotion(3);
   }
 
   public void killEnemy(){
@@ -155,15 +183,6 @@ public class PlayerActions extends Component {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
 
-  }
-
-  /**
-   * Makes the player attack.
-   */
-  void attack() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
-    playerModifier.createModifier("moveSpeed", 2, true, 350);
   }
 
   /**
@@ -242,16 +261,15 @@ public class PlayerActions extends Component {
   void teleport() {
     if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
-      skillAnimator.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
     }
   }
+
 
   /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
-    skillAnimator.getEvents().trigger("dodgeAnimation");
     skillManager.startDodge(this.walkDirection.cpy());
   }
 
@@ -259,42 +277,13 @@ public class PlayerActions extends Component {
    * Makes the player block. Registers call of the block function to the skill manager component.
    */
   void block() {
-    skillAnimator.getEvents().trigger("blockAnimation");
     skillManager.startBlock();
   }
 
-  Vector2 getWalkDirection() {
-    return this.walkDirection;
-  }
+  public Vector2 getWalkDirection() {
 
-  /**
-   * Checks if the cooldown period is over for the given skill and updates cooldown map.
-   * @param skill the skill to check
-   * @param cooldown the cooldown period (in milliseconds)
-   *
-   * @return true if cooldown period is over, false otherwise
-   */
-  public boolean cooldownFinished(String skill, long cooldown) {
-    if (skillCooldowns.get(skill) == null) {
-      return false;
-    }
-    if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
-      skillCooldowns.replace(skill, System.currentTimeMillis());
-      return true;
-    } else {
-      return false;
-    }
-  }
-  /**
-  * Sets an existing skill cooldown to a new cooldown.
-  * @param skill the skill to check
-  * @param cooldown the cooldown period (in milliseconds)
-  *
-  */
-  public void setSkillCooldown(String skill, long cooldown) {
-    if (skillCooldowns.get(skill) != null) {
-      skillCooldowns.replace(skill, System.currentTimeMillis());
-    }
+    return this.walkDirection;
+
   }
 
   /**
@@ -304,7 +293,30 @@ public class PlayerActions extends Component {
    *                      PlayerSkillAnimationController and AnimationRenderer
    */
   public void setSkillAnimator(Entity skillAnimator) {
-    this.skillAnimator = skillAnimator;
     this.skillManager.setSkillAnimator(skillAnimator);
+  }
+
+
+  /**
+   * Sets the combat item animator for this actions component
+   * @param combatAnimator the combat animator entity which has subcomponents
+   *                      PlayerSkillAnimationController and AnimationRenderer
+   */
+  public void setCombatAnimator(Entity combatAnimator){
+    this.combatAnimator = combatAnimator;
+  }
+
+  /**
+   *  Makes the player attack with the hera combat item.
+   */
+  void attackAnimation(){
+    this.combatAnimator.getEvents().trigger("hera");
+  }
+
+  /**
+   *  Makes the player attack with the level3Dagger combat item.
+   */
+  void attackAnimation2(){
+    this.combatAnimator.getEvents().trigger("level3Dagger");
   }
 }

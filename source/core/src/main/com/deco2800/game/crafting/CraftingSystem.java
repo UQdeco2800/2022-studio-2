@@ -42,7 +42,7 @@ public class CraftingSystem implements Runnable{
       //  possibleWeapons.add(configs.dumbbell);
        // possibleWeapons.add(configs.SwordLvl2);
         //possibleWeapons.add(configs.tridentLvl2);
-        CraftingLogic.setPossibleWeapons(possibleWeapons);
+
 
          //List<Materials> inventoryContents = getInventoryContents();
         inventoryContents = new ArrayList<>();

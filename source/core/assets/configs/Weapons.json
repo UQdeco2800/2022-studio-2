@@ -45,6 +45,13 @@
     "damage": 3,
     "coolDown": 1000,
     "weight": 1,
+    "materials": {"wood": 1, "rubber": 1}
+  },
+
+  "pipe": {
+    "damage": 5,
+    "coolDown": 1000,
+    "weight": 2,
     "materials": {"plastic": 1, "rubber": 1}
   }
 }

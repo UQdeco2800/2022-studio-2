@@ -4,6 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Skill component for managing player skills and the player state as a result of those skills.
  * Designed to be a subcomponent of the PlayerActions.java class as a controller of
@@ -12,11 +15,23 @@ import com.deco2800.game.entities.Entity;
  * the player action manager into this class's skill functionality.
  */
 public class PlayerSkillComponent extends Component {
+
     private Entity skillAnimator;
     private Entity playerEntity;
+    private static final String SKILL1_LISTENER = "skill";
+    private static final String SKILL2_LISTENER = "skill2";
+
+    public enum SkillTypes {
+        DASH,
+        TELEPORT,
+        BLOCK,
+        DODGE
+    }
 
     private boolean isInvulnerable;
     private long invulnerableEnd;
+
+    Map<String, Long> skillCooldowns = new HashMap<>();
 
     // Teleport variables
     private static final int TELEPORT_LENGTH = 4;
@@ -24,6 +39,7 @@ public class PlayerSkillComponent extends Component {
     private boolean teleporting;
     private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millisec = 1sec)
     private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
+    private static final long TELEPORT_COOLDOWN = 3000;
     private boolean teleportEndEvent = false;
 
     // Dashing Variables
@@ -38,9 +54,13 @@ public class PlayerSkillComponent extends Component {
     // Dodge Variables
     private long dodgeEnd; // Teleport charge end system time
     private boolean dodging;
+    private long dodgeSpeedBoostEnd;
+    private boolean dodgeSpeedBoost;
+    private static final float DODGE_SPEED_BOOST = 1.5f;
     private static final long DODGE_LENGTH = 300; // In MilliSec (1000millsec = 1sec)
     private static final Vector2 DODGE_SPEED = new Vector2(-4.5f, -4.5f); // As a proportion of regular move (0.8 = 80%)
     private static final float DODGE_SIDE_MOVE = 3.0f;
+    private static final long DODGE_COOLDOWN = 500;
     private boolean dodgeEndEvent = false;
     private Vector2 dodgeDirection;
 
@@ -48,7 +68,9 @@ public class PlayerSkillComponent extends Component {
     private boolean blocking;
     private long blockEnd;
     private static final long BLOCK_LENGTH = 400;
+    private static final long BLOCK_COOLDOWN = 500;
     private boolean blockEndEvent;
+
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -106,6 +128,8 @@ public class PlayerSkillComponent extends Component {
         if (this.dodging && System.currentTimeMillis() > this.dodgeEnd) {
             this.dodging = false;
             this.dodgeEndEvent = true;
+        } else if (System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
+            this.dodgeSpeedBoost = false;
         }
     }
 
@@ -118,20 +142,20 @@ public class PlayerSkillComponent extends Component {
      * @param playerActionsComponent the player actions component containing the call for the skill to
      *                               pass information into the skill manager
      */
-    public void setSkill(int skillNum, String skillName, Entity entity, PlayerActions playerActionsComponent) {
+    public void setSkill(int skillNum, SkillTypes skillName, Entity entity, PlayerActions playerActionsComponent) {
         String skillEvent;
         if (skillNum == 1) {
-            skillEvent = "skill";
+            skillEvent = SKILL1_LISTENER;
         } else if (skillNum == 2) {
-            skillEvent = "skill2";
+            skillEvent = SKILL2_LISTENER;
         } else {
-            skillEvent = "skill";
+            skillEvent = SKILL1_LISTENER;
         }
-        if (skillName.equals("teleport")) {
+        if (skillName == SkillTypes.TELEPORT) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::teleport);
-        } else if (skillName.equals("dodge")) {
+        } else if (skillName == SkillTypes.DODGE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
-        } else if (skillName.equals("block")) {
+        } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         }
     }
@@ -141,7 +165,7 @@ public class PlayerSkillComponent extends Component {
      * @param entity the player entity to remove all skill listeners from
      */
     public void resetSkills(Entity entity) {
-        entity.getEvents().removeAllListeners("skill");
+        entity.getEvents().removeAllListeners(SKILL1_LISTENER);
     }
 
     /**
@@ -150,7 +174,7 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean movementIsModified() {
 
-        return (isDashing() || isTeleporting() || isDodging());
+        return (isDashing() || isTeleporting() || isDodging() || this.dodgeSpeedBoost);
     }
 
     /**
@@ -170,13 +194,17 @@ public class PlayerSkillComponent extends Component {
 
             modifiedMovementVector = addVectors(alteredMovement, dodgeVelocity);
 
-        } else if (isDashing()) {
+        } else if (isDashing()) { // Dashing movement
             Vector2 dashVelocity = dashDirection.cpy().scl(DASH_SPEED);
             Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * DASH_MOVEMENT_RESTRICTION,
                     modifiedMovementVector.y * DASH_MOVEMENT_RESTRICTION);
             modifiedMovementVector = addVectors(reducedMovement, dashVelocity);
         }
 
+        if (this.dodgeSpeedBoost) { // Flat speed boost from mitigating damage from dodge
+            modifiedMovementVector = new Vector2(modifiedMovementVector.x * DODGE_SPEED_BOOST,
+                    modifiedMovementVector.y * DODGE_SPEED_BOOST);
+        }
 
         if (isTeleporting()) {
             Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * TELEPORT_MOVEMENT_RESTRICTION,
@@ -196,33 +224,53 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Functional equivalent of isInvulnerable but also triggers effects internally based on skill
+     * states. Should be used instead of isInvulnerable unless just checking invulnerable state.
+     * @return true if the player should be invulnerable
+     *         false if the player should be able to take damage
+     */
+    public boolean skillDamageTrigger() {
+        if (this.isInvulnerable) {
+            if (this.isBlocking()) {
+                this.skillCooldowns.forEach((skill, timestamp) -> timestamp = timestamp - 500);
+            }
+            if (this.isDodging()) {
+                dodgeSpeedBoost = true;
+                this.dodgeSpeedBoostEnd = dodgeEnd + (DODGE_LENGTH * 3);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Checks for the end of a skill, should be polled continuously in update.
      * Note: if not polled continuously cannot guarantee correct behaviour.
      * @param skillName - the name of the skill to check end condition
      * @return true if the skill has ended and the flag has not been polled
      *          false if the skill end has been read
      */
-    public boolean checkSkillEnd(String skillName) {
+    public boolean checkSkillEnd(SkillTypes skillName) {
         switch(skillName) {
-            case "dodge":
+            case DODGE:
                 if (this.dodgeEndEvent) {
                     this.dodgeEndEvent = false;
                     return true;
                 }
                 return false;
-            case "dash":
+            case DASH:
                 if (this.dashEndEvent) {
                     this.dashEndEvent = false;
                     return true;
                 }
                 return false;
-            case "teleport":
+            case TELEPORT:
                 if (this.teleportEndEvent) {
                     this.teleportEndEvent = false;
                     return true;
                 }
                 return false;
-            case "block":
+            case BLOCK:
                 if (this.blockEndEvent) {
                     this.blockEndEvent = false;
                     return true;
@@ -275,11 +323,14 @@ public class PlayerSkillComponent extends Component {
      * @param moveDirection the direction of the players movement at the start of the dash event.
      */
     public void startDash(Vector2 moveDirection) {
-        this.dashDirection = moveDirection;
-        this.dashing = true;
-        long dashStart = System.currentTimeMillis();
-        this.dashEnd = dashStart + DASH_LENGTH;
-        setInvulnerable(200);
+        if (cooldownFinished("dash", (long) (DASH_LENGTH * 1.2))) {
+            this.dashDirection = moveDirection;
+            this.dashing = true;
+            long dashStart = System.currentTimeMillis();
+            this.dashEnd = dashStart + DASH_LENGTH;
+            setInvulnerable(DASH_LENGTH/2);
+            setSkillCooldown("dash");
+        }
     }
 
     /**
@@ -287,9 +338,13 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers teleport event.
      */
     public void startTeleport() {
-        this.teleporting = true;
-        long teleportStart = System.currentTimeMillis();
-        this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
+        if (cooldownFinished("teleport", TELEPORT_COOLDOWN)) {
+            this.teleporting = true;
+            skillAnimator.getEvents().trigger("teleportAnimation");
+            long teleportStart = System.currentTimeMillis();
+            this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
+            setSkillCooldown("teleport");
+        }
     }
 
     /**
@@ -297,11 +352,15 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers dodge event.
      */
     public void startDodge(Vector2 moveDirection) {
-        this.dodgeDirection = moveDirection;
-        this.dodging = true;
-        long dodgeStart = System.currentTimeMillis();
-        this.dodgeEnd = dodgeStart + DODGE_LENGTH;
-        setInvulnerable(DODGE_LENGTH);
+        if (cooldownFinished("dodge", DODGE_COOLDOWN)) {
+            this.dodgeDirection = moveDirection;
+            this.dodging = true;
+            skillAnimator.getEvents().trigger("dodgeAnimation");
+            long dodgeStart = System.currentTimeMillis();
+            this.dodgeEnd = dodgeStart + DODGE_LENGTH;
+            setInvulnerable(DODGE_LENGTH);
+            setSkillCooldown("dodge");
+        }
     }
 
     /**
@@ -309,10 +368,15 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers block event.
      */
     public void startBlock() {
-        this.blocking = true;
-        long blockStart = System.currentTimeMillis();
-        this.blockEnd = blockStart + BLOCK_LENGTH;
-        setInvulnerable(BLOCK_LENGTH);
+        if (cooldownFinished("block", BLOCK_COOLDOWN)) {
+            this.blocking = true;
+            skillAnimator.getEvents().trigger("blockAnimation");
+            long blockStart = System.currentTimeMillis();
+            this.blockEnd = blockStart + BLOCK_LENGTH;
+            setInvulnerable(BLOCK_LENGTH);
+            setSkillCooldown("block");
+        }
+
     }
 
     /**
@@ -335,6 +399,34 @@ public class PlayerSkillComponent extends Component {
             teleportPositionY = 24.68f;
         playerEntity.setPosition(teleportPositionX, teleportPositionY);
 
+    }
+
+    /**
+     * Checks if the cooldown period is over for the given skill and updates cooldown map.
+     * @param skill the skill to check
+     * @param cooldown the cooldown period (in milliseconds)
+     *
+     * @return true if cooldown period is over, false otherwise
+     */
+    public boolean cooldownFinished(String skill, long cooldown) {
+        if (skillCooldowns.get(skill) == null) {
+            return true; // First time this skill is called don't check previous time stamps
+        }
+        if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
+            skillCooldowns.replace(skill, System.currentTimeMillis());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Sets an existing skill cooldown to a new cooldown.
+     * @param skill the skill to check
+     */
+    public void setSkillCooldown(String skill) {
+        skillCooldowns.putIfAbsent(skill, 0L);
+        skillCooldowns.replace(skill, System.currentTimeMillis());
     }
 
     /**
