@@ -112,16 +112,6 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
                 poopSludge = ProjectileFactory.createPoopsSludge(target);
                 ServiceLocator.getEntityService().register(poopSludge);
                 poopSludge.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
-
-                float xVel = owner.getEntity().getPosition().x - target.getCenterPosition().x;
-                float yVel = owner.getEntity().getPosition().y - target.getCenterPosition().y;
-
-                // SHOOOOOOOOOOOOOTTTTTT;
-                poopSludge.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(xVel, yVel);
-                if (hasCollided()) {
-                    poopSludge.flagD:wqq
-                :ead();
-                }
                 setTask(taskWait);
             }
         }
