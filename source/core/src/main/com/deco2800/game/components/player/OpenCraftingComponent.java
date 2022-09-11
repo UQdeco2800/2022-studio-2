@@ -21,29 +21,8 @@ public class OpenCraftingComponent extends Component {
 
         logger = LoggerFactory.getLogger(OpenCraftingComponent.class);
         entity.getEvents().addListener("can_open", this::openCrafting);
-        entity.getEvents().addListener("nextMap", this::nextMap);
 
     }
-
-    private boolean nextMap() {
-        int mapLevel;
-        MainGameScreen gameScreen = ServiceLocator.getMainGameScreen();
-
-        if (gameScreen.getClass() == MainGameScreen.class) {
-            logger.info("class of current map: " + gameScreen.getMap().toString());
-            switch (gameScreen.getMap().toString()) {
-                case "ForestGameArea":
-                    mapLevel = 2;
-                    logger.info("chooseMap: " + mapLevel);
-                    gameScreen.chooseMap(mapLevel);
-                    return true;
-                default:
-                    return false;
-            }
-        }
-        return false;
-    }
-
 
 
     //Hi Ly, sry I touched ur method, cuz im trying to reduce the crafting range,

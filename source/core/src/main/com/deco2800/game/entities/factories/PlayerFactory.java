@@ -59,6 +59,7 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
+                .addComponent(new TransitionMapComponent())
             .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
             .addComponent(animator)

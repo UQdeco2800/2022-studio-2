@@ -137,7 +137,7 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   /**
-   * Loads
+   * Disposes of the current level and loads the next one - Team 5 1map4all @otili9890
    * @param level (int) - The int describing which map to load (1-3)
    */
   public GameArea chooseMap(int level) {
@@ -145,9 +145,7 @@ public class MainGameScreen extends ScreenAdapter {
       case 1:
         return this.loadLevelOneMap();
       case 2:
-        logger.info("Disposing of " + map.toString());
         map.dispose();
-        logger.info("loading level 2");
         return map = this.loadLevelTwoMap();
       default:
     }

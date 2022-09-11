@@ -111,6 +111,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.X:
         entity.getEvents().trigger("EquipWeapon");
         return true;
+        // Determines if the player is near the plug when enter is hit, transitions to next map
       case Keys.ENTER:
         if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) && (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
           entity.getEvents().trigger("nextMap");
