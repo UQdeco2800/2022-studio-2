@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.OpenCraftingComponent;
 import com.deco2800.game.crafting.CraftingLogic;
@@ -35,6 +36,8 @@ import java.util.Map;
 public class GameAreaDisplay extends UIComponent {
   private String gameAreaName = "";
   private Label title;
+
+  private int numcrafted = 0;
   private ImageButton craftButton;
   private ImageButton catalogueButton;
   private ImageButton catOneButton;
@@ -46,6 +49,7 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
   private List<MeleeConfig> possibleBuilds;
+  Entity currentWeapon;
   private Image catOneMenu;
   private Image catTwoMenu;
   private Image pauseMenu;
@@ -178,11 +182,15 @@ public class GameAreaDisplay extends UIComponent {
     craftButton.setSize(146, 146);
     craftButton.setPosition(craftMenu.getX() + 527, craftMenu.getY() + 110.5f);
     craftButton.addListener(new ChangeListener() {
+      // Method to add item to players inventory
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         if (weapon != null) {
-          weapon.setPosition(craftMenu.getX() + 180, craftMenu.getTop() - 200);
-        }
+          weapon.setPosition(craftMenu.getX() + 100 +
+                  (75 * (numcrafted-1)), craftMenu.getTop() - 475);
+          ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
+                  area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
+        };
       }
     });
     craftingGroup.addActor(craftButton);
@@ -229,10 +237,8 @@ public class GameAreaDisplay extends UIComponent {
         for (Map.Entry entry: item.materials.entrySet()){
           String entryString = entry.toString().split("=")[0];
           String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
-          System.out.println(upperCaseEntry);
           if (boxes[0].toString().equals(upperCaseEntry) ||
                   boxes[1].toString().equals(upperCaseEntry)){
-            System.out.println("reached here");
             numItems += 1;
 
           }
@@ -528,10 +534,12 @@ public class GameAreaDisplay extends UIComponent {
 
   private void displayWeapon(MeleeConfig item) {
     Entity newItem = CraftingLogic.damageToWeapon(item);
+    currentWeapon = newItem;
     String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
     weapon = new Image(new Texture(Gdx.files.internal(image)));
     weapon.setSize(200, 200);
     weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
+    numcrafted += 1;
     craftingGroup.addActor(weapon);
   }
 
