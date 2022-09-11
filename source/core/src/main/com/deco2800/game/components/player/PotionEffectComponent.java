@@ -56,10 +56,17 @@ public class PotionEffectComponent extends Component {
     }
 
     /**
+     * Returns component effect
+     */
+    public String getPotionEffect() {
+        return effectType;
+    }
+
+    /**
      * Applies component effect
      * @param target - the target entity (player)
      */
-    private void applyEffect(Entity target) {
+    public void applyEffect(Entity target) {
         PlayerModifier playerModifier = target.getComponent(PlayerModifier.class);
         switch (this.effectType) {
             case "speed":

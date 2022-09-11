@@ -35,7 +35,8 @@ public class ServiceLocator {
   private static MainGameScreen mainGameScreen;
 
   private static GameAreaDisplay craftArea;
-
+  private static GameAreaDisplay pauseMenuArea;
+  private static GameAreaDisplay inventoryArea;
 
   public static GameArea getGameArea() {return gameArea;}
   public static EntityService getEntityService() {
@@ -121,8 +122,22 @@ public class ServiceLocator {
     craftArea = area;
   }
 
+  public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+
+  public static void registerInventoryArea(GameAreaDisplay area){
+    inventoryArea = area;
+  }
+
   public static GameAreaDisplay getCraftArea() {
     return craftArea;
+  }
+
+  public static GameAreaDisplay getPauseMenuArea() {
+    return pauseMenuArea;
+  }
+
+  public static GameAreaDisplay getInventoryArea() {
+    return inventoryArea;
   }
 }
 

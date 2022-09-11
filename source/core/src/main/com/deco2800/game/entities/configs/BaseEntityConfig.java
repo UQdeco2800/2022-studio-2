@@ -8,10 +8,4 @@ public class BaseEntityConfig {
     public int stamina = 1;
     public int baseAttack = 5;
     public int mana= 20;
-    public String enemyType = "Minion";
-    public void setBoss() {
-        enemyType = "Boss";
-        this.health = 100;
-        this.baseAttack = 15;
-    }
 }
