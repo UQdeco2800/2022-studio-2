@@ -17,6 +17,10 @@ public class GymBroAnimationController extends Component {
     public void create() {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
+        entity.getEvents().addListener("attackFront", this::animateAttackFront);
+        entity.getEvents().addListener("attackBack", this::animateAttackBack);
+        entity.getEvents().addListener("attackLeft", this::animateAttackLeft);
+        entity.getEvents().addListener("attackRight", this::animateAttackRight);
         entity.getEvents().addListener("walkFront", this::animateWalkFront);
         entity.getEvents().addListener("walkBack", this::animateWalkBack);
         entity.getEvents().addListener("walkLeft", this::animateWalkLeft);
@@ -57,6 +61,42 @@ public class GymBroAnimationController extends Component {
     private void animateWalkFront() {
         if (animator.getCurrentAnimation() != "walk_front") {
             animator.startAnimation("walk_front");
+        }
+    }
+
+    /**
+     * Animates the gym bro attacking when facing right
+     */
+    private void animateAttackRight() {
+        if (animator.getCurrentAnimation() != "attack_right") {
+            animator.startAnimation("attack_right");
+        }
+    }
+
+    /**
+     * Animates the gym bro attacking when facing left
+     */
+    private void animateAttackLeft() {
+        if (animator.getCurrentAnimation() != "attack_left") {
+            animator.startAnimation("attack_left");
+        }
+    }
+
+    /**
+     * Animates the gym bro attacking when facing forwards
+     */
+    private void animateAttackFront() {
+        if (animator.getCurrentAnimation() != "attack_front") {
+            animator.startAnimation("attack_front");
+        }
+    }
+
+    /**
+     * Animates the gym bro attacking when facing backwards
+     */
+    private void animateAttackBack() {
+        if (animator.getCurrentAnimation() != "attack_back") {
+            animator.startAnimation("attack_back");
         }
     }
 }

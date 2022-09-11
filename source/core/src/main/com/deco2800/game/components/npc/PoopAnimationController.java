@@ -59,40 +59,4 @@ public class PoopAnimationController extends Component {
             animator.startAnimation("walk_front");
         }
     }
-
-    /**
-     * Animates the gym bro attacking when facing right
-     */
-    private void animateAttackRight() {
-        if (animator.getCurrentAnimation() != "attack_right") {
-            animator.startAnimation("attack_right");
-        }
-    }
-
-    /**
-     * Animates the gym bro attacking when facing left
-     */
-    private void animateAttackLeft() {
-        if (animator.getCurrentAnimation() != "attack_left") {
-            animator.startAnimation("attack_left");
-        }
-    }
-
-    /**
-     * Animates the gym bro attacking when facing forwards
-     */
-    private void animateAttackFront() {
-        if (animator.getCurrentAnimation() != "attack_front") {
-            animator.startAnimation("attack_front");
-        }
-    }
-
-    /**
-     * Animates the gym bro attacking when facing backwards
-     */
-    private void animateAttackBack() {
-        if (animator.getCurrentAnimation() != "attack_back") {
-            animator.startAnimation("attack_back");
-        }
-    }
 }
