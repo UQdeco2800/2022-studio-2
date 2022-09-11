@@ -101,7 +101,6 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Health: %d", health);
     healthLabel.setText(text);
 
-
   }
   public String checkImage(int value){
     String filename= "";
