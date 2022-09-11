@@ -43,8 +43,6 @@ public class UndergroundGameArea extends GameArea {
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
-            "images/ghost_king.png",
-            "images/ghost_1.png",
             "images/grass_1.png",
             "images/grass_2.png",
             "images/grass_3.png",

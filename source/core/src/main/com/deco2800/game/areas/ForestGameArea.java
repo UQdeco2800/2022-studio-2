@@ -46,8 +46,6 @@ public class ForestGameArea extends GameArea {
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/Enemies/gym_bro.png",
-    "images/ghost_king.png",
-    "images/ghost_1.png",
     "images/grass_1.png",
     "images/grass_2.png",
     "images/grass_3.png",
@@ -624,8 +622,18 @@ public class ForestGameArea extends GameArea {
 
   @Override
   public void dispose() {
-    super.dispose();
+    //super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
+    logger.info("Unloading forest assets");
     this.unloadAssets();
+  }
+
+  /**
+   * toString returning a string of the classes name
+   * @return (String) class name
+   */
+  @Override
+  public String toString() {
+    return "ForestGameArea";
   }
 }

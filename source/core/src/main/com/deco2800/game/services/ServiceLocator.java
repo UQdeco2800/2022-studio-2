@@ -1,5 +1,6 @@
 package com.deco2800.game.services;
 
+import com.badlogic.gdx.Screen;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
@@ -7,8 +8,10 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.screens.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.reporters.jq.Main;
 
 /**
  * A simplified implementation of the Service Locator pattern:
@@ -28,6 +31,8 @@ public class ServiceLocator {
   private static ResourceService resourceService;
 
   private static GameArea gameArea;
+
+  private static MainGameScreen mainGameScreen;
 
   private static GameAreaDisplay craftArea;
 
@@ -102,6 +107,14 @@ public class ServiceLocator {
 
   public static void registerGameArea(GameArea area){
      gameArea = area;
+  }
+
+  public static void registerMainGameScreen(MainGameScreen gameScreen) {
+    mainGameScreen = gameScreen;
+  }
+
+  public static MainGameScreen getMainGameScreen() {
+    return mainGameScreen;
   }
 
   public static void registerCraftArea(GameAreaDisplay area){

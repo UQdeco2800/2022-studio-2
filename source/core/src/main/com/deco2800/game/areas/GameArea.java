@@ -5,7 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,8 @@ import java.util.List;
 public abstract class GameArea implements Disposable {
   protected TerrainComponent terrain;
   protected List<Entity> areaEntities;
+
+  private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private Entity player;
 
   protected GameArea() {
