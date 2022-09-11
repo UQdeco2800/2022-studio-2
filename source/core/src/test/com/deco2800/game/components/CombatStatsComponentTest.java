@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(GameExtension.class)
 class CombatStatsComponentTest {
+
   @Test
   void shouldSetGetHealth() {
     CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
@@ -122,4 +123,10 @@ class CombatStatsComponentTest {
     combat.setMaxMana(-50);
     assertEquals(0, combat.getMaxMana());
   }
+
+  @Test
+  void dropWeaponTest() {
+    // mock a weapon and drop it using mockito
+  }
+
 }

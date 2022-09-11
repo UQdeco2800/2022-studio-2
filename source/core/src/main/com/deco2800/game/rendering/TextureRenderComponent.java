@@ -10,12 +10,15 @@ import org.w3c.dom.Text;
 public class TextureRenderComponent extends RenderComponent {
   private final Texture texture;
 
+  private String texturePath;
+
   /**
    * @param texturePath Internal path of static texture to render.
    *                    Will be scaled to the entity's scale.
    */
   public TextureRenderComponent(String texturePath) {
     this(ServiceLocator.getResourceService().getAsset(texturePath, Texture.class));
+    this.texturePath = texturePath;
   }
 //...
   /** @param texture Static texture to render. Will be scaled to the entity's scale. */

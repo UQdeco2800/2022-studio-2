@@ -88,7 +88,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
       if (currentTime - lastAttackTime > 1500L) {
 
         PlayerActions playerActions = target.getComponent(PlayerActions.class);
-        if (playerActions != null && !(playerActions.getSkillComponent().isInvulnerable())) {
+        if (playerActions != null && !(playerActions.getSkillComponent().skillDamageTrigger())) {
           target.getComponent(CombatStatsComponent.class)
                   .hit(owner.getEntity().getComponent(CombatStatsComponent.class));
         }
