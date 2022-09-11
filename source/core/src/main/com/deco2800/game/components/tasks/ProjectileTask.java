@@ -95,15 +95,6 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     }
 
 
-    public void shoot(List<EntityTypes> bulletType) {
-        if (bulletType.contains(EntityTypes.ENEMY)) {
-            if (bulletType.contains(EntityTypes.RANGED)) {
-                poopSludge = ProjectileFactory.createPoopsSludge(target);
-                ServiceLocator.getEntityService().register(poopSludge);
-                poopSludge.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
-                setTask(taskWait);
-            }
-
     public void shoot(String projectileType) {
         if (projectileType == "poopSludge") {
             projectile = createPoopsSludge(target);
@@ -177,15 +168,11 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         return true;
     }
 
-<<<<<<< HEAD
-    private boolean hasCollided() {
-        Vector2 currentPos = owner.getEntity().getCenterPosition();
-        Vector2 targetPos = target.getCenterPosition();
-=======
+
     private void attackAnimate() {
         Vector2 enemy = owner.getEntity().getCenterPosition();
         Vector2 player = target.getCenterPosition();
->>>>>>> fb9396123d71ac83fcd13f2beb43be0a170de5bc
+
 
         float y = enemy.y - player.y;
         float x = enemy.x - player.x;
