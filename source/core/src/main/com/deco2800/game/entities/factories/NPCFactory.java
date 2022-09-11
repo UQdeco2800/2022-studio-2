@@ -172,10 +172,11 @@ public class NPCFactory {
     Entity heracles = createBaseNPC();
     HeraclesConfig config = configs.heracles;
     List<EntityTypes> types = heracles.getEntityTypes();
+    String projectileType = "discus";
 
     heracles.getComponent(AITaskComponent.class)
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
-            //.addTask(new ProjectileTask(target, types, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
 
     AnimationRenderComponent animator =
@@ -260,7 +261,6 @@ public class NPCFactory {
     plug
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/drain_plug.png"));
-    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     plug.setScale(3f, 3f);
     return plug;
   }

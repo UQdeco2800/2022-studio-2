@@ -12,6 +12,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.physics.components.PhysicsComponent;
 
+import static com.deco2800.game.entities.factories.ProjectileFactory.createDiscus;
 import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
 
 public class ProjectileTask extends DefaultTask implements PriorityTask{
@@ -81,6 +82,7 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
             if (currentTask == taskWait && waitTime == 0) {
                 waiting();
             } else {
+                attackAnimate();
                 shoot(this.projectileType);
             }
         }
@@ -95,6 +97,9 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     public void shoot(String projectileType) {
         if (projectileType == "poopSludge") {
             projectile = createPoopsSludge(target);
+        }
+        if (projectileType == "discus") {
+            projectile = createDiscus(target);
         }
         if (projectile != null) {
             ServiceLocator.getEntityService().register(projectile);
@@ -160,5 +165,27 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         }
         debugRenderer.drawLine(from, to);
         return true;
+    }
+
+    private void attackAnimate() {
+        Vector2 enemy = owner.getEntity().getCenterPosition();
+        Vector2 player = target.getCenterPosition();
+
+        float y = enemy.y - player.y;
+        float x = enemy.x - player.x;
+
+        if (Math.abs(y) > Math.abs(x)) {
+            if (y >= 0) {
+                this.owner.getEntity().getEvents().trigger("discusAttackFront");
+            } else {
+                this.owner.getEntity().getEvents().trigger("discusAttackBack");
+            }
+        } else {
+            if (x >= 0) {
+                this.owner.getEntity().getEvents().trigger("discusAttackLeft");
+            } else {
+                this.owner.getEntity().getEvents().trigger("discusAttackRight");
+            }
+        }
     }
 }

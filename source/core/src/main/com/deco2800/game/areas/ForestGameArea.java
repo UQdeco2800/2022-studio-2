@@ -48,6 +48,7 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/gym_bro.png",
     "images/Enemies/poops.png",
     "images/Enemies/poopSludge.png",
+    "images/Enemies/discus.png",
     "images/grass_1.png",
     "images/grass_2.png",
     "images/grass_3.png",
