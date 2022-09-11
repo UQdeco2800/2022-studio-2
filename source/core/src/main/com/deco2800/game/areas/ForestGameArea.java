@@ -1,11 +1,9 @@
 package com.deco2800.game.areas;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
@@ -15,10 +13,6 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.entities.factories.PotionFactory;
-import com.deco2800.game.physics.PhysicsEngine;
-import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.rendering.RenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -30,8 +24,6 @@ import org.slf4j.LoggerFactory;
 
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.ArrayList;
 
 
@@ -388,23 +380,13 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(column, new GridPoint2(x, y), false, false);
     }
 
-
-
-
-
   public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
     spawnEntityAt(entity, position, centreX, centreY);
   }
 
   public void spawnCraftingTable() {
-    GridPoint2 minPos = new GridPoint2(2, 2);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
-    spawnEntityAt(craftingTable, randomPos, true, false);
+    spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
   }
 
   /**

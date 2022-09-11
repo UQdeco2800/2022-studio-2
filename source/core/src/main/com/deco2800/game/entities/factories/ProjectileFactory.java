@@ -95,6 +95,13 @@ public class ProjectileFactory {
         return projectile;
     }
 
+    /**
+     * Rotates a vector a certain number of radians. Uses a rotation transformation matrix
+     * calculations.
+     * @param vectorToRotate the vector to rotate
+     * @param radianAngle the angle in radians to rotate the vector
+     * @return the rotated vector
+     */
     private static Vector2 rotateVector(Vector2 vectorToRotate, double radianAngle) {
         double cosAngle = Math.cos(radianAngle);
         double sinAngle = Math.sin(radianAngle);
