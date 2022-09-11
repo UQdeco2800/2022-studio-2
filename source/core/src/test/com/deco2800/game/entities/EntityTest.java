@@ -1,9 +1,11 @@
 package com.deco2800.game.entities;
 
+import static com.deco2800.game.entities.factories.NPCFactory.createGymBro;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -12,12 +14,26 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.entities.configs.BaseEntityConfig;
+import com.deco2800.game.entities.configs.GymBroConfig;
+import com.deco2800.game.entities.configs.HeraclesConfig;
+import com.deco2800.game.entities.configs.PoopsConfig;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.physics.PhysicsEngine;
+import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.PhysicsUtils;
+import com.deco2800.game.rendering.DebugRenderer;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 @ExtendWith(GameExtension.class)
 class EntityTest {
@@ -210,6 +226,70 @@ class EntityTest {
     System.out.println(entity.getScale().y);
   }
 
+  @BeforeEach
+  void beforeEach() {
+    // Mock rendering, physics, game time
+    RenderService renderService = new RenderService();
+    renderService.setDebug(mock(DebugRenderer.class));
+    ServiceLocator.registerRenderService(renderService);
+    GameTime gameTime = mock(GameTime.class);
+    when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
+    ServiceLocator.registerTimeSource(gameTime);
+    ServiceLocator.registerPhysicsService(new PhysicsService());
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+  }
+  @Test
+  void BaseEntityConfigHealthTest() {
+    Entity target = new Entity();
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(30, baseEntityConfig.health);
+  }
+
+  @Test
+  void BaseEntityConfigStaminaTest() {
+    Entity target = new Entity();
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(1, baseEntityConfig.stamina);
+  }
+
+  @Test
+  void BaseEntityConfigBaseAttackTest() {
+    Entity target = new Entity();
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(5, baseEntityConfig.baseAttack);
+  }
+
+  @Test
+  void BaseEntityConfigManaTest() {
+    Entity target = new Entity();
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(20, baseEntityConfig.mana);
+  }
+
+
+  @Test
+  void gymBroConfigSpeedTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    resourceService.loadTextures(textures);
+    resourceService.loadAll();
+    GymBroConfig gymBroConfig = new GymBroConfig();
+    assertEquals(100f, gymBroConfig.speed);
+  }
+
+  @Test
+  void heraclesConfigSpeedTest() {
+    HeraclesConfig heraclesConfig = new HeraclesConfig();
+    assertEquals(100f, heraclesConfig.speed);
+  }
+
+  @Test
+  void poopsConfigSpeedTest() {
+    PoopsConfig poopsConfig = new PoopsConfig();
+    assertEquals(60f, poopsConfig.speed);
+  }
 
 
   static class TestComponent1 extends Component {}
