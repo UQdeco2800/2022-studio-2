@@ -128,7 +128,7 @@ public class PlayerSkillComponent extends Component {
         if (this.dodging && System.currentTimeMillis() > this.dodgeEnd) {
             this.dodging = false;
             this.dodgeEndEvent = true;
-        } else if (this.dodgeSpeedBoost && System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
+        } else if (System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
             this.dodgeSpeedBoost = false;
         }
     }
