@@ -1,7 +1,6 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
@@ -21,6 +20,16 @@ public class PlayerSkillComponent extends Component {
 
     private Entity skillAnimator;
     private Entity playerEntity;
+    private static final String SKILL1_LISTENER = "skill";
+    private static final String SKILL2_LISTENER = "skill2";
+
+    public enum SkillTypes {
+        DASH,
+        TELEPORT,
+        BLOCK,
+        DODGE
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(PlayerSkillComponent.class);
     private boolean isInvulnerable;
     private long invulnerableEnd;
@@ -136,20 +145,20 @@ public class PlayerSkillComponent extends Component {
      * @param playerActionsComponent the player actions component containing the call for the skill to
      *                               pass information into the skill manager
      */
-    public void setSkill(int skillNum, String skillName, Entity entity, PlayerActions playerActionsComponent) {
+    public void setSkill(int skillNum, SkillTypes skillName, Entity entity, PlayerActions playerActionsComponent) {
         String skillEvent;
         if (skillNum == 1) {
-            skillEvent = "skill";
+            skillEvent = SKILL1_LISTENER;
         } else if (skillNum == 2) {
-            skillEvent = "skill2";
+            skillEvent = SKILL2_LISTENER;
         } else {
-            skillEvent = "skill";
+            skillEvent = SKILL1_LISTENER;
         }
-        if (skillName.equals("teleport")) {
+        if (skillName == SkillTypes.TELEPORT) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::teleport);
-        } else if (skillName.equals("dodge")) {
+        } else if (skillName == SkillTypes.DODGE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
-        } else if (skillName.equals("block")) {
+        } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         }
     }
