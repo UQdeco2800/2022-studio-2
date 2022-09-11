@@ -25,6 +25,8 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import java.util.*;
 
+import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
+
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -209,9 +211,10 @@ public class NPCFactory {
   public static Entity createPoops(Entity target)  {
     Entity poops = createBaseNPC();
     PoopsConfig config = configs.poops;
-    List<EntityTypes> types = poops.getEntityTypes();
+    Entity projectile = createPoopsSludge(target);
+    //List<EntityTypes> types = poops.getEntityTypes();
     poops.getComponent(AITaskComponent.class)
-            .addTask(new ProjectileTask(target, types, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new ProjectileTask(target, projectile, 10, 5f, 6f,config.speed, 2f))
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
 
     poops

@@ -595,6 +595,9 @@ public class ForestGameArea extends GameArea {
   }
 
 
+  /**
+   * Spawn gym bros in random positions.
+   */
   private void spawnGymBro() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -606,6 +609,9 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * Spawn Heracles in a random position.
+   */
   private void spawnHeracles() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -615,6 +621,9 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(heracles, randomPos, true, true);
   }
 
+  /**
+   * Spawn poops in random positions.
+   */
   private void spawnPoops() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
