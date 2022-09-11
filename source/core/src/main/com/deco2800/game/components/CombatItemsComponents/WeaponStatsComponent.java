@@ -3,8 +3,6 @@ package com.deco2800.game.components.CombatItemsComponents;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.WeaponFactory;
-import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,5 +87,5 @@ public abstract class WeaponStatsComponent extends Component {
    */
   public abstract void auraEffect(Entity auraToApply);
 
-
 }
+

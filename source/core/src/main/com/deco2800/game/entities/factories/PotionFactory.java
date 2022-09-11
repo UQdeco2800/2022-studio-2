@@ -64,4 +64,3 @@ public class PotionFactory {
             "images/Potions/agility_potion.png"
     };
 }
-

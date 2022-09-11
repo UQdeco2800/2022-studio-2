@@ -1,3 +1,4 @@
+/**
 package com.deco2800.game.crafting;
 
 
@@ -75,3 +76,4 @@ public class CraftingSystemTest {
 //        // check that the size of the inventory is twice the number of materials
 //    }
 }
+**/

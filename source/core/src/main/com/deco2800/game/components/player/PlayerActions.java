@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
-  private Entity skillAnimator;
   private Entity combatAnimator;
 
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
@@ -52,8 +51,6 @@ public class PlayerActions extends Component {
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
-
-  Map<String, Long> skillCooldowns = new HashMap<String, Long>();
 
   @Override
   public void create() {
@@ -79,13 +76,11 @@ public class PlayerActions extends Component {
 
 
     // Skills and Dash initialisation
-    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(1, startingSkill, entity,this);
-    skillManager.setSkill(2, "dodge", entity, this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
+    skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
-    skillCooldowns.put(startingSkill, 0L);
   }
 
   @Override
@@ -266,16 +261,15 @@ public class PlayerActions extends Component {
   void teleport() {
     if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
-      skillAnimator.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
     }
   }
+
 
   /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
-    skillAnimator.getEvents().trigger("dodgeAnimation");
     skillManager.startDodge(this.walkDirection.cpy());
   }
 
@@ -283,42 +277,13 @@ public class PlayerActions extends Component {
    * Makes the player block. Registers call of the block function to the skill manager component.
    */
   void block() {
-    skillAnimator.getEvents().trigger("blockAnimation");
     skillManager.startBlock();
   }
 
-  Vector2 getWalkDirection() {
-    return this.walkDirection;
-  }
+  public Vector2 getWalkDirection() {
 
-  /**
-   * Checks if the cooldown period is over for the given skill and updates cooldown map.
-   * @param skill the skill to check
-   * @param cooldown the cooldown period (in milliseconds)
-   *
-   * @return true if cooldown period is over, false otherwise
-   */
-  public boolean cooldownFinished(String skill, long cooldown) {
-    if (skillCooldowns.get(skill) == null) {
-      return false;
-    }
-    if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
-      skillCooldowns.replace(skill, System.currentTimeMillis());
-      return true;
-    } else {
-      return false;
-    }
-  }
-  /**
-  * Sets an existing skill cooldown to a new cooldown.
-  * @param skill the skill to check
-  * @param cooldown the cooldown period (in milliseconds)
-  *
-  */
-  public void setSkillCooldown(String skill, long cooldown) {
-    if (skillCooldowns.get(skill) != null) {
-      skillCooldowns.replace(skill, System.currentTimeMillis());
-    }
+    return this.walkDirection;
+
   }
 
   /**
@@ -328,7 +293,6 @@ public class PlayerActions extends Component {
    *                      PlayerSkillAnimationController and AnimationRenderer
    */
   public void setSkillAnimator(Entity skillAnimator) {
-    this.skillAnimator = skillAnimator;
     this.skillManager.setSkillAnimator(skillAnimator);
   }
 

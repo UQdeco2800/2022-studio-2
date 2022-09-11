@@ -15,4 +15,5 @@ public class WeaponConfig {
     public MeleeConfig herraAthenaDag = new MeleeConfig();
     public MeleeConfig plunger = new MeleeConfig();
     public MeleeConfig pipe = new MeleeConfig();
+
 }
