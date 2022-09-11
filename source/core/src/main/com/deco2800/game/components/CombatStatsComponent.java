@@ -336,15 +336,14 @@ public class CombatStatsComponent extends Component {
 
       ServiceLocator.getEntityService().register(newWeapon);
 
-      newWeapon.setPosition(x , (float) (y - 1.5));
+      newWeapon.setPosition(x , (float) (y - 1.2));
 
-
-    } else if (getEntity().checkEntityType(EntityTypes.ENEMY)) {
+    } else if (getEntity().checkEntityType(EntityTypes.MELEE)) {
       Entity newWeapon = WeaponFactory.createDumbbell();
 
       ServiceLocator.getEntityService().register(newWeapon);
 
-      newWeapon.setPosition(x , (float) (y - 1.5));
+      newWeapon.setPosition(x , (float) (y - 1));
     }
 
   }
