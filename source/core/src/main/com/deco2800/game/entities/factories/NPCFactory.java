@@ -211,10 +211,10 @@ public class NPCFactory {
   public static Entity createPoops(Entity target)  {
     Entity poops = createBaseNPC();
     PoopsConfig config = configs.poops;
-    Entity projectile = createPoopsSludge(target);
+    String projectileType = "poopSludge";
     //List<EntityTypes> types = poops.getEntityTypes();
     poops.getComponent(AITaskComponent.class)
-            .addTask(new ProjectileTask(target, projectile, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
 
     poops
