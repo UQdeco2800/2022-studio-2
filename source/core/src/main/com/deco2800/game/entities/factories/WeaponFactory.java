@@ -158,5 +158,21 @@ public class WeaponFactory {
         plunger.scaleHeight(2f);
         return plunger;
     }
+    /**
+     * Creates the PVC pipe weapon
+     * @return plunger weapon
+     */
+    public static Entity createPipe() {
+        Entity pipe = createBaseWeapon();
+        MeleeConfig config = configs.pipe;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        pipe
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/pipe.png"));
+        pipe.getComponent(TextureRenderComponent.class).scaleEntity();
+        pipe.scaleHeight(2f);
+        return pipe;
+    }
 
 }

@@ -119,7 +119,8 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/silver.png",
     "images/Crafting-assets-sprint1/materials/steel.png",
     "images/Crafting-assets-sprint1/materials/wood.png",
-    "images/CombatItems/animations/combatanimation.png"
+    "images/CombatItems/animations/combatanimation.png",
+    "images/CombatItems/Sprint-2/pipe.png"
   };
 
   public static String[] newTextures;
@@ -192,6 +193,7 @@ public class ForestGameArea extends GameArea {
     spawnPoisonBuff();
     spawnHerraAndAthena();
     spawnPlunger();
+    spawnPipe();
   }
 
 
@@ -458,6 +460,17 @@ public class ForestGameArea extends GameArea {
     Entity plunger = WeaponFactory.createPlunger();
     weaponOnMap.add(plunger);
     spawnEntityAt(plunger, new GridPoint2(20,4), true, false);
+  }
+
+  /**
+   * Spawns basic PVC pipe into game
+   * Spawns x-pos 15
+   * Spawns y-pos 10
+   */
+  private void spawnPipe() {
+    Entity plunger = WeaponFactory.createPipe();
+    weaponOnMap.add(plunger);
+    spawnEntityAt(plunger, new GridPoint2(15,10), true, false);
   }
 
   /**
