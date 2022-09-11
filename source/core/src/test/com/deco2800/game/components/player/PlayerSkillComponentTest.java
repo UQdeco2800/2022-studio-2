@@ -61,17 +61,17 @@ class PlayerSkillComponentTest {
     }
 
     @Test
-    void testSkillEnd() throws InterruptedException {
+    void testSkillEnd() {
         skillManager.startDash(new Vector2(1,1));
         skillManager.startTeleport();
 
-        Assert.assertFalse(skillManager.checkSkillEnd("dash"));
-        Assert.assertFalse(skillManager.checkSkillEnd("teleport"));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
 
         skillManager.update();
 
-        Assert.assertFalse(skillManager.checkSkillEnd("dash"));
-        Assert.assertFalse(skillManager.checkSkillEnd("teleport"));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
 
         customWait(1001);
 
@@ -81,18 +81,12 @@ class PlayerSkillComponentTest {
         Assert.assertFalse(skillManager.isDashing());
 
         // First poll on skill end should be true
-        Assert.assertTrue(skillManager.checkSkillEnd("dash"));
-        Assert.assertTrue(skillManager.checkSkillEnd("teleport"));
+        Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
+        Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
 
         // Second poll on skill end should be false
-        Assert.assertFalse(skillManager.checkSkillEnd("dash"));
-        Assert.assertFalse(skillManager.checkSkillEnd("teleport"));
-    }
-
-    @Test
-    void testSkillEndWrongArguments() {
-        Assert.assertFalse(skillManager.checkSkillEnd(
-                "Greater good?' I am your wife! I'm the greatest good you're ever gonna get!"));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
     }
 
     @Test
@@ -185,6 +179,8 @@ class PlayerSkillComponentTest {
     @Test
     void testDashingModifiedMovement() {
         skillManager.startDash(new Vector2(1,1));
+        customWait(1);
+        skillManager.startDash(new Vector2(1,1));
         assertEquals(6, skillManager.getModifiedMovement(new Vector2(0,0)).x);
         assertEquals(6, skillManager.getModifiedMovement(new Vector2(0,0)).y);
         assertEquals(6.800000190734863, skillManager.getModifiedMovement(new Vector2(1,1)).x);
@@ -202,6 +198,8 @@ class PlayerSkillComponentTest {
     @Test
     void testTeleportModifiedMovement() {
         skillManager.startTeleport();
+        customWait(1);
+        skillManager.startTeleport();
         assertTrue(skillManager.getModifiedMovement(new Vector2(1,1)).x < 1);
         assertTrue(skillManager.getModifiedMovement(new Vector2(1,1)).y < 1);
         assertNotEquals(0, skillManager.getModifiedMovement(new Vector2(1,1)).x);
@@ -209,6 +207,50 @@ class PlayerSkillComponentTest {
         assertEquals(0,skillManager.getModifiedMovement(new Vector2(0,0)).x);
         assertEquals(0,skillManager.getModifiedMovement(new Vector2(0,0)).y);
 
+    }
+
+    @Test
+    void testDodgeModifiedMovement() {
+        skillManager.startDodge(new Vector2(1,1));
+        customWait(1);
+        skillManager.startDodge(new Vector2(1,1));
+        assertEquals(-4.5f, skillManager.getModifiedMovement(new Vector2(1,1)).x);
+        assertEquals(-4.5f, skillManager.getModifiedMovement(new Vector2(1,1)).y);
+    }
+
+    @Test
+    void testDodgeSpeedBoost() {
+        skillManager.startDodge(new Vector2(1,1));
+        skillManager.update();
+        skillManager.skillDamageTrigger();
+        customWait(301);
+        skillManager.update();
+        assertEquals(1.5f, skillManager.getModifiedMovement(new Vector2(1,1)).x);
+        assertEquals(1.5f, skillManager.getModifiedMovement(new Vector2(1,1)).y);
+    }
+
+    @Test
+    void testVectorNormalisation() {
+        skillManager.startDodge(new Vector2(0,0));
+        skillManager.startDodge(new Vector2(0,1));
+        skillManager.startDodge(new Vector2(1,0));
+    }
+
+    @Test
+    void testBlock() {
+        skillManager.startBlock();
+        skillManager.update();
+        assertTrue(skillManager.isInvulnerable());
+    }
+
+    @Test
+    void testBlockDamageCooldowns() {
+        skillManager.startDodge(new Vector2(1,1));
+        skillManager.update();
+        skillManager.skillDamageTrigger();
+        skillManager.update();
+        customWait(2);
+        assertTrue(skillManager.cooldownFinished("dodge", 1L));
     }
 
     @Test
@@ -308,7 +350,7 @@ class PlayerSkillComponentTest {
     }
 
     @Test
-    void skillCooldownTest() throws InterruptedException {
+    void skillCooldownTest() {
         PlayerActions actions = player.getComponent(PlayerActions.class);
         actions.create();
         PlayerSkillComponent component = actions.getSkillComponent();

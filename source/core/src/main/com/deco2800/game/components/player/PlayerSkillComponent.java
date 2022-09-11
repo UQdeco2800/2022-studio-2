@@ -3,8 +3,6 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,11 +28,10 @@ public class PlayerSkillComponent extends Component {
         DODGE
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(PlayerSkillComponent.class);
     private boolean isInvulnerable;
     private long invulnerableEnd;
 
-    Map<String, Long> skillCooldowns = new HashMap<String, Long>();
+    Map<String, Long> skillCooldowns = new HashMap<>();
 
     // Teleport variables
     private static final int TELEPORT_LENGTH = 4;
@@ -168,7 +165,7 @@ public class PlayerSkillComponent extends Component {
      * @param entity the player entity to remove all skill listeners from
      */
     public void resetSkills(Entity entity) {
-        entity.getEvents().removeAllListeners("skill");
+        entity.getEvents().removeAllListeners(SKILL1_LISTENER);
     }
 
     /**
@@ -235,7 +232,7 @@ public class PlayerSkillComponent extends Component {
     public boolean skillDamageTrigger() {
         if (this.isInvulnerable) {
             if (this.isBlocking()) {
-                this.skillCooldowns.forEach((skill, timestamp) -> timestamp = timestamp + 500);
+                this.skillCooldowns.forEach((skill, timestamp) -> timestamp = timestamp - 500);
             }
             if (this.isDodging()) {
                 dodgeSpeedBoost = true;
@@ -253,27 +250,27 @@ public class PlayerSkillComponent extends Component {
      * @return true if the skill has ended and the flag has not been polled
      *          false if the skill end has been read
      */
-    public boolean checkSkillEnd(String skillName) {
+    public boolean checkSkillEnd(SkillTypes skillName) {
         switch(skillName) {
-            case "dodge":
+            case DODGE:
                 if (this.dodgeEndEvent) {
                     this.dodgeEndEvent = false;
                     return true;
                 }
                 return false;
-            case "dash":
+            case DASH:
                 if (this.dashEndEvent) {
                     this.dashEndEvent = false;
                     return true;
                 }
                 return false;
-            case "teleport":
+            case TELEPORT:
                 if (this.teleportEndEvent) {
                     this.teleportEndEvent = false;
                     return true;
                 }
                 return false;
-            case "block":
+            case BLOCK:
                 if (this.blockEndEvent) {
                     this.blockEndEvent = false;
                     return true;
