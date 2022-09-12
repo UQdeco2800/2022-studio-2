@@ -76,10 +76,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("dash");
         return true;
       case Keys.EQUALS: // temp mapping for sprint 2 marking
-        entity.getEvents().trigger("rootTemp");
-        return true;
-      case Keys.MINUS: // temp mapping for sprint 2 marking
-        entity.getEvents().trigger("bleedTemp");
+        entity.getEvents().trigger("skillTemp");
         return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");

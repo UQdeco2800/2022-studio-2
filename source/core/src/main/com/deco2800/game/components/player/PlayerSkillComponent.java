@@ -38,7 +38,7 @@ public class PlayerSkillComponent extends Component {
 
     private boolean isInvulnerable;
     private long invulnerableEnd;
-    private long slowEnd;
+    private Entity enemy = null;
 
     Map<String, Long> skillCooldowns = new HashMap<>();
 
@@ -85,7 +85,7 @@ public class PlayerSkillComponent extends Component {
     private boolean rooted;
     private long rootEnd;
     private static final long ROOT_LENGTH = 5000;
-    private Entity enemy = null;
+    private boolean rootEndEvent = false;
 
     // Bleed Variables
     private boolean bleedApplied;
@@ -95,6 +95,7 @@ public class PlayerSkillComponent extends Component {
     private static final long BLEED_LENGTH = 1000;
     private static final long BLEED_HITS = 7;
     private static final int BLEED_DAMAGE = 5;
+    private boolean bleedEndEvent = false;
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -157,8 +158,9 @@ public class PlayerSkillComponent extends Component {
         }
 
         // Check if the slow effect should be ended
-        if (this.rooted && System.currentTimeMillis() > this.slowEnd) {
+        if (this.rooted && System.currentTimeMillis() > this.rootEnd) {
             this.rooted = false;
+            this.rootEndEvent = true;
             changeSpeed(this.enemy, 0, false);
         }
 
@@ -169,6 +171,7 @@ public class PlayerSkillComponent extends Component {
                 checkBleed(this.enemy);
             } else {
                 this.bleeding = false;
+                this.bleedEndEvent = true;
             }
         }
     }
@@ -198,10 +201,10 @@ public class PlayerSkillComponent extends Component {
         } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         } else if (skillName == SkillTypes.BLEED) { // change back to skillEvent after sprint 2
-            entity.getEvents().addListener("bleedTemp", playerActionsComponent::bleed);
+            entity.getEvents().addListener("skillTemp", playerActionsComponent::bleed);
             entity.getEvents().addListener("hitEnemy", this::hitBleed);
         }  else if (skillName == SkillTypes.ROOT) { // change back to skillEvent after sprint 2
-            entity.getEvents().addListener("rootTemp", playerActionsComponent::root);
+            entity.getEvents().addListener("skillTemp", playerActionsComponent::root);
             entity.getEvents().addListener("hitEnemy", this::hitRoot);
         }
     }
@@ -322,6 +325,18 @@ public class PlayerSkillComponent extends Component {
                     return true;
                 }
                 return false;
+            case BLEED:
+                if (this.bleedEndEvent) {
+                    this.bleedEndEvent = false;
+                    return true;
+                }
+                return false;
+            case ROOT:
+                if (this.rootEndEvent) {
+                    this.rootEndEvent = false;
+                    return true;
+                }
+                return false;
             default:
                 return false;
         }
@@ -361,6 +376,42 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean isBlocking() {
         return this.blocking;
+    }
+
+    /**
+     * Checks if the player is in the bleed skill state
+     * @return true - if the player has bleed active
+     *         false - otherwise
+     */
+    public boolean bleedActive() {
+        return this.bleedApplied;
+    }
+
+    /**
+     * Checks if the enemy has bleeding applied
+     * @return true - if the enemy is bleeding
+     *         false - otherwise
+     */
+    public boolean isBleeding() {
+        return this.bleeding;
+    }
+
+    /**
+     * Checks if the player is in the root skill state
+     * @return true - if the player has root active
+     *         false - otherwise
+     */
+    public boolean rootActive() {
+        return this.rootApplied;
+    }
+
+    /**
+     * Checks if the enemy has rooted applied
+     * @return true - if the enemy is rooted
+     *         false - otherwise
+     */
+    public boolean isRooted() {
+        return this.rooted;
     }
 
     /**
@@ -442,8 +493,6 @@ public class PlayerSkillComponent extends Component {
             return;
         }
         this.enemy = target;
-        long rootStart = System.currentTimeMillis();
-        this.rootEnd = rootStart + ROOT_LENGTH;
         changeSpeed(target, ROOT_LENGTH, true);
     }
 
@@ -472,7 +521,7 @@ public class PlayerSkillComponent extends Component {
      * Does damage over time to target.
      * @param target enemy to damage
      */
-    void checkBleed(Entity target) {
+    public void checkBleed(Entity target) {
         if (System.currentTimeMillis() > this.bleedEnd + BLEED_LENGTH) {
             CombatStatsComponent enemyStats = target.getComponent(CombatStatsComponent.class);
             enemyStats.setHealth(enemyStats.getHealth() - BLEED_DAMAGE);
@@ -613,11 +662,11 @@ public class PlayerSkillComponent extends Component {
                     (new ChaseTask(playerEntity, 11, 5f, 6f, 1f));
             this.rooted = true;
             this.rootApplied = false;
+            this.rootEnd = System.currentTimeMillis() + slowLength;
         } else {
             target.getComponent(AITaskComponent.class).dispose();
             target.getComponent(AITaskComponent.class).getPriorityTasks().remove
                     (target.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
         }
-        this.slowEnd = System.currentTimeMillis() + slowLength;
     }
 }
