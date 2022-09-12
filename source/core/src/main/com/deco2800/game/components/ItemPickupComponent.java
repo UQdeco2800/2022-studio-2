@@ -41,6 +41,5 @@ public class ItemPickupComponent extends Component{
             ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(entityOfComponent);
             logger.info("Item picked up");
         }
-
     }
 }

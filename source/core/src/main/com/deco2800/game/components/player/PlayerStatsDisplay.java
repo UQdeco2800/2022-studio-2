@@ -140,7 +140,8 @@ public class PlayerStatsDisplay extends UIComponent {
    */
   public void updatePlayerStaminaUI(int stamina) {
     dispose();
-    staminaImage = new Image(ServiceLocator.getResourceService().getAsset("images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_"+checkImage(stamina), Texture.class));
+    staminaImage = new Image(ServiceLocator.getResourceService().
+            getAsset("images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_"+checkImage(stamina), Texture.class));
     addActors();
     CharSequence text = String.format("Stamina: %d", stamina);
     staminaLabel.setText(text);

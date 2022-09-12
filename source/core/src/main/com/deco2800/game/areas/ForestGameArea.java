@@ -50,6 +50,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png",
     "images/Armour-assets-sprint2/baseArmour.png",
     "images/Armour-assets-sprint2/slowDiamond.png",
+    "images/Armour-assets-sprint2/damageReturner.png",
+    "images/Armour-assets-sprint2/fastLeather.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
@@ -130,7 +132,6 @@ public class ForestGameArea extends GameArea {
   private Entity player;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
-  private static List<Entity> armourOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
 
@@ -181,10 +182,11 @@ public class ForestGameArea extends GameArea {
 
 
     spawnDumbbell();
-    //spawnBaseArmour();
-    spawnSlowDiamond();
-    spawnFastLeather();
-    spawnDamageReturner();
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 16, 16);
+    spawnArmour(ArmourFactory.ArmourType.baseArmour, 5, 5);
+    spawnArmour(ArmourFactory.ArmourType.fastLeather, 36, 36);
+    spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
+
     spawnSpeedDebuff();
     spawnDmgBuff();
     spawnDmgDebuff();
@@ -378,26 +380,12 @@ public class ForestGameArea extends GameArea {
    * spawn an armour on the map based on the input armour type
    * @param armourType armourType of the armour to be spawned
    */
-  /*
-  private void spawnArmour(ArmourFactory.ArmourType armourType) {
+  private void spawnArmour(ArmourFactory.ArmourType armourType, int x, int y) {
     Entity armour = ArmourFactory.createArmour(armourType);
-    int armourID = armour.getId();
-    armourOnMap.add();
-    spawnEntityAt(armour, new GridPoint2(armourID * 3,armourID * 6), true, false);
+    ItemsOnMap.add(armour);
+    spawnEntityAt(armour, new GridPoint2( x,y), true, false);
   }
 
-  private void spawnSlowDiamond() {
-      spawnArmour(ArmourFactory.ArmourType.slowDiamond);
-  }
-
-  private void spawnFastLeather() {
-      spawnArmour(ArmourFactory.ArmourType.slowDiamond);
-  }
-
-  private void spawnDamageReturner() {
-      spawnArmour(ArmourFactory.ArmourType.slowDiamond);
-  }
-  */
   /**
    * Spawn small tress in a certain position. - Team 5 1map4all @LYB
    */
@@ -470,32 +458,6 @@ public class ForestGameArea extends GameArea {
     weaponOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
-  
-
-  private void spawnBaseArmour() {
-    Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
-    armourOnMap.add(baseArmour);
-    spawnEntityAt(baseArmour, new GridPoint2(2,20), true, false);
-  }
-
-  private void spawnSlowDiamond() {
-      Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
-      armourOnMap.add(baseArmour);
-      spawnEntityAt(baseArmour, new GridPoint2(2,5), true, false);
-  }
-
-  private void spawnFastLeather() {
-      Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
-      armourOnMap.add(baseArmour);
-      spawnEntityAt(baseArmour, new GridPoint2(10,2), true, false);
-  }
-
-  private void spawnDamageReturner() {
-      Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
-      armourOnMap.add(baseArmour);
-      spawnEntityAt(baseArmour, new GridPoint2(2,13), true, false);
-  }
-
 
   /**
    * Spawns level 3 Herra and Athena entity into the game

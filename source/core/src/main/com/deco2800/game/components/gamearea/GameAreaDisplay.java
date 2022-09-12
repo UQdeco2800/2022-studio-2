@@ -158,6 +158,13 @@ public class GameAreaDisplay extends UIComponent {
                               switch (buttonText) {
                                 case "Equip item":
                                  inventory.equipItem(currentItem);
+                                 break;
+                                case "Add to quick bar":
+                                  inventory.addQuickBarItems(currentItem);
+                                  break;
+                                case "Add to crafting menu":
+                                  //Crafting team use this block to add items in crafting menu
+                                  break;
                               }
                             }
                           }
