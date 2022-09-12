@@ -111,14 +111,15 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/silver.png",
     "images/Crafting-assets-sprint1/materials/steel.png",
     "images/Crafting-assets-sprint1/materials/wood.png",
-    "images/CombatItems/animations/combatanimation.png"
+    "images/CombatItems/animations/combatanimation.png",
+    "images/Skills/projectileSprites.png"
   };
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
-    "images/CombatItems/animations/combatanimation.atlas"
+    "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
