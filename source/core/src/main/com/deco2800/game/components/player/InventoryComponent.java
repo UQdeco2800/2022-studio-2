@@ -192,8 +192,7 @@ public class InventoryComponent extends Component {
     WeaponStatsComponent weaponStats = weapon.getComponent(WeaponStatsComponent.class);
     if (weaponStats instanceof MeleeStatsComponent) {
       MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
-      PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
-              .getComponent(PlayerModifier.class);
+      PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
 
       //dk if requires dmg stat or not think about it
       pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (1 / meleeStats.getWeight()), true, 0);
@@ -208,8 +207,7 @@ public class InventoryComponent extends Component {
    */
   private void applyArmourEffect(Entity armour) {
     ArmourStatsComponent armourStats = armour.getComponent(ArmourStatsComponent.class);
-    PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
-            .getComponent(PlayerModifier.class);
+    PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
     //Applying the weight of the armour to player
     pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
     //Applying the physical resistance of the armour to player

@@ -26,21 +26,30 @@ public class ArmourFactory {
 
     /**
      * Creates a generic Armour to be used as a base Armour entity.
-     * @return base weapon entity
+     * @return base armour entity
      */
     public static Entity createBaseArmour() {
+        ArmourConfig config = getConfig(ArmourType.baseArmour);
         Entity armour = new Entity()
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new ArmourStatsComponent(
+                        config.phyResistance,
+                        config.durability,
+                        config.vitality,
+                        config.dmgReturn,
+                        config.weight,
+                        config.materials))
                 .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
         armour.setEntityType(EntityTypes.ARMOUR);
         return armour;
     }
 
     public enum ArmourType {
-        SLOW_DIAMOND,
-        FAST_LEATHER,
-        DAMAGE_RETURNER
+        baseArmour,
+        slowDiamond,
+        fastLeather,
+        damageReturner
     }
 
     /**
@@ -49,15 +58,16 @@ public class ArmourFactory {
      * @return armour config, baseArmour config if no type is matching
      */
     private static ArmourConfig getConfig (ArmourType type) {
+        ArmourConfig config = configs.baseArmour;
         switch (type){
-            case DAMAGE_RETURNER:
-                return configs.damageReturner;
-            case FAST_LEATHER:
-                return configs.fastLeather;
-            case SLOW_DIAMOND:
-                return configs.slowDiamond;
+            case damageReturner:
+                config = configs.damageReturner;
+            case fastLeather:
+                config = configs.fastLeather;
+            case slowDiamond:
+                config = configs.slowDiamond;
         }
-        return configs.baseArmour;
+        return config;
     }
 
     public static Entity createArmour(ArmourType type, String texturePath) {

@@ -461,7 +461,7 @@ public class ForestGameArea extends GameArea {
   
 
   private void spawnSlowDiamond() {
-    Entity slowDiamond = ArmourFactory.createArmour(ArmourFactory.ArmourType.SLOW_DIAMOND,
+    Entity slowDiamond = ArmourFactory.createArmour(ArmourFactory.ArmourType.slowDiamond,
             "images/CombatWeapons-assets-sprint1/slowDiamond.png");
     armourOnMap.add(slowDiamond);
     spawnEntityAt(slowDiamond, new GridPoint2(2,13), true, false);

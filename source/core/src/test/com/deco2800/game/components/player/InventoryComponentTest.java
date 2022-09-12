@@ -2,13 +2,17 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.ArmourFactory;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +31,9 @@ class InventoryComponentTest {
   void beforeEach() {
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerPhysicsService(new PhysicsService());
+    ServiceLocator.registerInputService(new InputService());
+    ServiceLocator.registerResourceService(new ResourceService());
+
   }
 
   @Test
@@ -67,17 +74,17 @@ class InventoryComponentTest {
   }
   @Test
   void equipItem() {
-    InventoryComponent testInventory4 = new InventoryComponent();
     Entity testArmour = ArmourFactory.createBaseArmour();
-    testInventory4.addItem(testArmour);
-    testInventory4.equipItem(testArmour);
+    Entity player = PlayerFactory.createTestPlayer();
+    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
+
+    player.getComponent(InventoryComponent.class).addItem(testArmour);
+    player.getComponent(InventoryComponent.class).equipItem(testArmour);
 
     PlayerModifier pmComponent =
-            ServiceLocator.getGameArea().getPlayer().getComponent(PlayerModifier.class);
-    MeleeStatsComponent meleeStats =
-            (MeleeStatsComponent) testArmour.getComponent(WeaponStatsComponent.class);
-     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED,
-             (float) (meleeStats.getWeight()), true
-             , 0));
+            player.getComponent(PlayerModifier.class);
+
+     assertTrue(pmComponent.
+             checkModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0));
   }
 }
