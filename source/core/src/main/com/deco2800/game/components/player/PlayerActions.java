@@ -53,6 +53,7 @@ public class PlayerActions extends Component {
   private long restStart=0;
   private long restEnd;
   private Music walkingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/walk_on_sand.wav"));
+  private Music teleportSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/teleport_sound.wav"));
 
   @Override
   public void create() {
@@ -210,9 +211,11 @@ public class PlayerActions extends Component {
    */
   void dash() {
     if(stamina >=20){
+      teleportSound.play();
       skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
     }
+
     playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
 
@@ -267,6 +270,7 @@ public class PlayerActions extends Component {
     if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
       skillManager.startTeleport();
+      teleportSound.play();
     }
   }
 
