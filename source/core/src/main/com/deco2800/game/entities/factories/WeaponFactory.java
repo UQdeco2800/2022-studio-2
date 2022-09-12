@@ -44,6 +44,7 @@ public class WeaponFactory {
      */
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
+        dagger.setEntityType(EntityTypes.CRAFTABLE);
         MeleeConfig config = configs.athenaDag;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 
@@ -61,6 +62,7 @@ public class WeaponFactory {
      */
     public static Entity createDaggerTwo() {
         Entity daggerTwo = createBaseWeapon();
+        daggerTwo.setEntityType(EntityTypes.CRAFTABLE);
         MeleeConfig config = configs.herraDag;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 

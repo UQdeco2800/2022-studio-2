@@ -24,6 +24,7 @@ import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.MaterialFactory;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -193,7 +194,7 @@ public class GameAreaDisplay extends UIComponent {
           disposeFirstBox();
           disposeSecondBox();
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
-          area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
+          inventoryComponent.addItem(currentWeapon);
           weapon.remove();
           weapon = null;
           clearBoxes(0);
@@ -272,6 +273,7 @@ public class GameAreaDisplay extends UIComponent {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();
     inventory = inventoryComponent.getInventory();
+    System.out.println(inventory);
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
         materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());

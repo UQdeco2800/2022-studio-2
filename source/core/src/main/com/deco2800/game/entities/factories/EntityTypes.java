@@ -20,5 +20,5 @@ public enum EntityTypes {
     PLASTIC,
     RUBBER,
     PLATINUM,
-    SILVER;
+    SILVER,
 }
