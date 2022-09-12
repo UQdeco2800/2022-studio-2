@@ -190,6 +190,7 @@ public class GameAreaDisplay extends UIComponent {
                   (75 * (numcrafted-1)), craftMenu.getTop() - 475);
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
                   area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
+                  clearBoxes(0);
         };
       }
     });
