@@ -374,10 +374,10 @@ class EntityTest {
   void poopsScaleTest() {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
-            "images/Enemies/poops.png",
-            "images/Enemies/poopSludge.png"};
+    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/poop.atlas"};
     resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
     resourceService.loadAll();
     Entity target = new Entity();
 
