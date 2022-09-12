@@ -54,10 +54,16 @@ public class DialogueDisplay extends UIComponent {
         } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) < 2) {
             stage.addActor(dialogueImage);
             state = false;
+        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(HumanGuardPosition)) < 2) {
+            stage.addActor(dialogueImage);
+            state = false;
+        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) < 2) {
+            stage.addActor(dialogueImage);
+            state = false;
+        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(friendlycreaturePosition)) < 2) {
+            stage.addActor(dialogueImage);
+            state = false;
         }
-
-
-
     }
 
     //hide dialogue function
@@ -84,6 +90,16 @@ public class DialogueDisplay extends UIComponent {
             dialogueImage.remove();
             state = true;
         } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) > 2) {
+            dialogueImage.remove();
+            state = true;
+        }
+        else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(HumanGuardPosition)) > 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) > 2) {
+            dialogueImage.remove();
+            state = true;
+        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(friendlycreaturePosition)) > 2) {
             dialogueImage.remove();
             state = true;
         }
