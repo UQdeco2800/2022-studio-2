@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -51,6 +52,7 @@ public class PlayerActions extends Component {
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
+  private Music walkingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/walk_on_sand.wav"));
 
   @Override
   public void create() {
@@ -173,6 +175,9 @@ public class PlayerActions extends Component {
    * @param direction direction to move in
    */
   void walk(Vector2 direction) {
+    walkingSound.setLooping(true);
+    walkingSound.play();
+
     this.walkDirection = direction;
   }
 
@@ -182,7 +187,7 @@ public class PlayerActions extends Component {
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
-
+    walkingSound.stop();
   }
 
   /**
