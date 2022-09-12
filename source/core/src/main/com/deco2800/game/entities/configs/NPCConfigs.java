@@ -10,12 +10,11 @@ public class NPCConfigs {
   public FemaleCitizenConfig oneLegGirl = new FemaleCitizenConfig();
   public ChildConfig child = new ChildConfig();
   public GuardConfig guard = new GuardConfig();
-  public Male_citizenConfig male_citizen = new Male_citizenConfig();
   public HumanGuardConfig humanguard = new HumanGuardConfig();
   public PlumberFriendConfig plumberfriend = new PlumberFriendConfig();
+  public FriendlyCreatureConfig friendlycreature = new FriendlyCreatureConfig();
+  public Male_citizenConfig male_citizen = new Male_citizenConfig();
   public HeraclesConfig heracles = new HeraclesConfig();
   public PoopsConfig poops = new PoopsConfig();
-
   public FriendPetConfig pet = new FriendPetConfig();
-
 }

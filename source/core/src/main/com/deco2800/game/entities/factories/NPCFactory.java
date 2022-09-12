@@ -13,7 +13,12 @@ import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.npc.MaleAnimationController;
 
 import com.deco2800.game.components.npc.NPCAnimationController;
+<<<<<<< HEAD
 
+=======
+import com.deco2800.game.components.npc.PoopAnimationController;
+import com.deco2800.game.components.npc.HeraclesAnimationController;
+>>>>>>> 1d0548da8ee01456c7786afc76f243cbf44271a1
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
@@ -30,6 +35,8 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import java.util.*;
+
+import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
 
 
 
@@ -79,20 +86,27 @@ public class NPCFactory {
    * @param target entity to stand
    * @return entity
    */
-//  public static Entity createChild (Entity target) {
-//    Entity child = createBaseNPC();
-//    ChildConfig config = configs.child;
-//
-//
-//    child
-//            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-//            .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
-//
-//    child.getComponent(AITaskComponent.class);
-//    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-//    child.setScale(1, 1);
-//    return child;
-//  }
+  public static Entity createChild (Entity target) {
+    Entity child = createBaseNPC();
+    ChildConfig config = configs.child;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/child npc/npcchild.atlas", TextureAtlas.class));
+    animator.addAnimation("childShake", 0.1f, Animation.PlayMode.LOOP);
+
+
+    child
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
+
+
+    child.getComponent(AITaskComponent.class);
+    child.getComponent(AnimationRenderComponent.class).scaleEntity();
+    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    child.setScale(1, 1);
+    return child;
+  }
 
   /**
    * Creates an atlantis guard NPC entity.
@@ -119,27 +133,6 @@ public class NPCFactory {
     guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     guard.setScale(1, 1);
     return guard;
-  }
-
-  public static Entity createChild (Entity target) {
-    Entity child = createBaseNPC();
-    ChildConfig config = configs.child;
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/child npc/npcchild.atlas", TextureAtlas.class));
-    animator.addAnimation("childShake", 0.1f, Animation.PlayMode.LOOP);
-
-
-    child
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(animator)
-            .addComponent(new NPCAnimationController());
-
-    child.getComponent(AITaskComponent.class);
-    child.getComponent(AnimationRenderComponent.class).scaleEntity();
-    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    child.setScale(1, 1);
-    return child;
   }
 
   public static Entity createHumanGuard (Entity target) {
@@ -184,6 +177,33 @@ public class NPCFactory {
     return plumberfriend;
   }
 
+  /**
+   * Creates a friendly creature NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
+  public static Entity createFriendlyCreature (Entity target) {
+    Entity friendlycreature = createBaseNPC();
+    FriendlyCreatureConfig config = configs.friendlycreature;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/friendly_creature npc/friendly_creature.atlas", TextureAtlas.class));
+    animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
+
+
+    friendlycreature
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
+
+    friendlycreature.getComponent(AITaskComponent.class);
+    friendlycreature.getComponent(AnimationRenderComponent.class).scaleEntity();
+    friendlycreature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    friendlycreature.setScale(1, 1);
+    return friendlycreature;
+
+  }
 
   /**
    * Creates an atlantis male NPC entity.
@@ -257,15 +277,42 @@ public class NPCFactory {
 
   }
 
+
   /**
    * Creates Heracles, the boss of the first level.
    *
    * @return entity
    */
-  private static Entity createHeracles()  {
+  public static Entity createHeracles(Entity target)  {
     Entity heracles = createBaseNPC();
     HeraclesConfig config = configs.heracles;
-    //Will need to add movement/attacks and will need to add texture
+    List<EntityTypes> types = heracles.getEntityTypes();
+    String projectileType = "discus";
+
+    heracles.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
+            //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Enemies/heracles.atlas", TextureAtlas.class));
+    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("discus_attack_right", 0.1f, Animation.PlayMode.LOOP);
+
+
+    heracles
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new HeraclesAnimationController());
+
     heracles.setEntityType(EntityTypes.ENEMY);
     heracles.setEntityType(EntityTypes.BOSS);
     heracles.setScale(3f, 3f);
@@ -280,15 +327,25 @@ public class NPCFactory {
   public static Entity createPoops(Entity target)  {
     Entity poops = createBaseNPC();
     PoopsConfig config = configs.poops;
-    List<EntityTypes> types = poops.getEntityTypes();
+    String projectileType = "poopSludge";
+    //List<EntityTypes> types = poops.getEntityTypes();
     poops.getComponent(AITaskComponent.class)
-            .addTask(new ProjectileTask(target, types, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Enemies/poop.atlas", TextureAtlas.class));
+    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
 
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/Enemies/poops.png"));
-    //Will need to add movement/attacks and will need to add texture
+            .addComponent(animator)
+            .addComponent(new PoopAnimationController());
     poops.setEntityType(EntityTypes.ENEMY);
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
@@ -308,7 +365,6 @@ public class NPCFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            //.addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f))
             .addComponent(aiComponent);
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
@@ -329,7 +385,6 @@ public class NPCFactory {
     plug
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/drain_plug.png"));
-    //atlantisCitizen.getComponent(TextureRenderComponent.class).scaleEntity();
     plug.setScale(3f, 3f);
     return plug;
   }

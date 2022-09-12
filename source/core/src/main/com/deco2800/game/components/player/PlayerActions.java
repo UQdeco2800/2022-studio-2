@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
-  private Entity skillAnimator;
+  private Entity combatAnimator;
 
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
@@ -46,13 +47,12 @@ public class PlayerActions extends Component {
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
-  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
-
-  Map<String, Long> skillCooldowns = new HashMap<String, Long>();
+  private Music walkingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/walk_on_sand.wav"));
+  private Music teleportSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/teleport_sound.wav"));
 
   @Override
   public void create() {
@@ -68,21 +68,27 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
-//    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
-//    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
-//    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
+    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
+    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
+    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
+    entity.getEvents().addListener("attack", this::attackAnimation);
+    entity.getEvents().addListener("attack2", this::attackAnimation2);
 
 
     // Skills and Dash initialisation
-    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(1, startingSkill, entity,this);
-    skillManager.setSkill(2, "dodge", entity, this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
+    skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
-    skillCooldowns.put(startingSkill, 0L);
+    // temp skill bindings for sprint 2 marking
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
+
   }
 
   @Override
@@ -175,6 +181,9 @@ public class PlayerActions extends Component {
    * @param direction direction to move in
    */
   void walk(Vector2 direction) {
+    walkingSound.setLooping(true);
+    walkingSound.play();
+
     this.walkDirection = direction;
   }
 
@@ -184,7 +193,7 @@ public class PlayerActions extends Component {
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
-
+    walkingSound.stop();
   }
 
   /**
@@ -207,9 +216,11 @@ public class PlayerActions extends Component {
    */
   void dash() {
     if(stamina >=20){
+      teleportSound.play();
       skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
     }
+
     playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
 
@@ -263,8 +274,29 @@ public class PlayerActions extends Component {
   void teleport() {
     if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
-      skillAnimator.getEvents().trigger("teleportAnimation");
       skillManager.startTeleport();
+      teleportSound.play();
+    }
+  }
+
+
+  /**
+   * Applies bleed to the player's next attack. Registers call of the bleed function to the skill manager component.
+   */
+  void bleed() {
+    if (mana>=10) {
+      entity.getEvents().trigger("decreaseMana", -10);
+      skillManager.startBleed();
+    }
+  }
+
+  /**
+   * Applies root to the player's next attack. Registers call of the root function to the skill manager component.
+   */
+  void root() {
+    if (mana>=10) {
+      entity.getEvents().trigger("decreaseMana", -10);
+      skillManager.startRoot();
     }
   }
 
@@ -272,7 +304,6 @@ public class PlayerActions extends Component {
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
-    skillAnimator.getEvents().trigger("dodgeAnimation");
     skillManager.startDodge(this.walkDirection.cpy());
   }
 
@@ -280,42 +311,29 @@ public class PlayerActions extends Component {
    * Makes the player block. Registers call of the block function to the skill manager component.
    */
   void block() {
-    skillAnimator.getEvents().trigger("blockAnimation");
     skillManager.startBlock();
   }
 
-  Vector2 getWalkDirection() {
-    return this.walkDirection;
+  /**
+   * Makes the player cast their ultimate skill.
+   * Registers call of the ultimate function to the skill manager component.
+   */
+  void ultimate() {
+    skillManager.startUltimate();
   }
 
   /**
-   * Checks if the cooldown period is over for the given skill and updates cooldown map.
-   * @param skill the skill to check
-   * @param cooldown the cooldown period (in milliseconds)
-   *
-   * @return true if cooldown period is over, false otherwise
+   * Makes the player cast their attackspeed skill.
+   * Registers call of the attackspeed skill function to the skill manager component.
    */
-  public boolean cooldownFinished(String skill, long cooldown) {
-    if (skillCooldowns.get(skill) == null) {
-      return false;
-    }
-    if (System.currentTimeMillis() - skillCooldowns.get(skill) > cooldown) {
-      skillCooldowns.replace(skill, System.currentTimeMillis());
-      return true;
-    } else {
-      return false;
-    }
+  void attackSpeedUp() {
+    skillManager.startAttackSpeedUp();
   }
-  /**
-  * Sets an existing skill cooldown to a new cooldown.
-  * @param skill the skill to check
-  * @param cooldown the cooldown period (in milliseconds)
-  *
-  */
-  public void setSkillCooldown(String skill, long cooldown) {
-    if (skillCooldowns.get(skill) != null) {
-      skillCooldowns.replace(skill, System.currentTimeMillis());
-    }
+
+  public Vector2 getWalkDirection() {
+
+    return this.walkDirection;
+
   }
 
   /**
@@ -325,7 +343,30 @@ public class PlayerActions extends Component {
    *                      PlayerSkillAnimationController and AnimationRenderer
    */
   public void setSkillAnimator(Entity skillAnimator) {
-    this.skillAnimator = skillAnimator;
     this.skillManager.setSkillAnimator(skillAnimator);
+  }
+
+
+  /**
+   * Sets the combat item animator for this actions component
+   * @param combatAnimator the combat animator entity which has subcomponents
+   *                      PlayerSkillAnimationController and AnimationRenderer
+   */
+  public void setCombatAnimator(Entity combatAnimator){
+    this.combatAnimator = combatAnimator;
+  }
+
+  /**
+   *  Makes the player attack with the hera combat item.
+   */
+  void attackAnimation(){
+    this.combatAnimator.getEvents().trigger("hera");
+  }
+
+  /**
+   *  Makes the player attack with the level3Dagger combat item.
+   */
+  void attackAnimation2(){
+    this.combatAnimator.getEvents().trigger("level3Dagger");
   }
 }

@@ -1,5 +1,6 @@
 package com.deco2800.game.entities;
 
+import static com.deco2800.game.entities.factories.NPCFactory.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -16,18 +17,42 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.ai.tasks.AITaskComponent;
+
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.WanderTask;
+import com.deco2800.game.entities.configs.*;
+import com.deco2800.game.entities.factories.NPCFactory;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.physics.PhysicsEngine;
+import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.PhysicsUtils;
+
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.GridPoint2Utils;
+
+import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.DebugRenderer;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+
 import org.mockito.junit.jupiter.MockitoExtension;
+
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(GameExtension.class)
@@ -42,10 +67,7 @@ class EntityTest {
 
   DebugRenderer debugRenderer;
 
-  @BeforeEach
-  void beforeEach() {
-    debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
-  }
+
 
 
   @Test
@@ -237,6 +259,7 @@ class EntityTest {
     System.out.println(entity.getScale().y);
   }
 
+
   @Test
   void npcPosition() {
 
@@ -325,6 +348,162 @@ class EntityTest {
   }
 
 
+  @BeforeEach
+  void beforeEach() {
+    // Mock rendering, physics, game time
+    RenderService renderService = new RenderService();
+    renderService.setDebug(mock(DebugRenderer.class));
+    ServiceLocator.registerRenderService(renderService);
+    GameTime gameTime = mock(GameTime.class);
+    when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
+    ServiceLocator.registerTimeSource(gameTime);
+    ServiceLocator.registerPhysicsService(new PhysicsService());
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+  }
+  @Test
+  void BaseEntityConfigHealthTest() {
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(30, baseEntityConfig.health);
+  }
+
+
+  @Test
+  void BaseEntityConfigStaminaTest() {
+    Entity target = new Entity();
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(1, baseEntityConfig.stamina);
+  }
+
+  @Test
+  void BaseEntityConfigBaseAttackTest() {
+    Entity target = new Entity();
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(5, baseEntityConfig.baseAttack);
+  }
+
+  @Test
+  void BaseEntityConfigManaTest() {
+    Entity target = new Entity();
+    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
+    assertEquals(20, baseEntityConfig.mana);
+  }
+
+
+  @Test
+  void gymBroConfigSpeedTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
+    resourceService.loadTextures(textures);
+    resourceService.loadAll();
+    GymBroConfig gymBroConfig = new GymBroConfig();
+    assertEquals(100f, gymBroConfig.speed);
+  }
+
+  @Test
+  void heraclesConfigSpeedTest() {
+    HeraclesConfig heraclesConfig = new HeraclesConfig();
+    assertEquals(100f, heraclesConfig.speed);
+  }
+
+  @Test
+  void poopsConfigSpeedTest() {
+    PoopsConfig poopsConfig = new PoopsConfig();
+    assertEquals(60f, poopsConfig.speed);
+  }
+
+  @Test
+  void gymBroAnimationControllerHasAnimationsTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity gymBro = createGymBro(target);
+    AnimationRenderComponent animator = gymBro.getComponent(AnimationRenderComponent.class);
+    assertTrue(animator.hasAnimation("walk_front"));
+    assertTrue(animator.hasAnimation("walk_back"));
+    assertTrue(animator.hasAnimation("walk_right"));
+    assertTrue(animator.hasAnimation("walk_left"));
+    assertTrue(animator.hasAnimation("attack_front"));
+    assertTrue(animator.hasAnimation("attack_back"));
+    assertTrue(animator.hasAnimation("attack_right"));
+    assertTrue(animator.hasAnimation("attack_left"));
+  }
+
+  @Test
+  void heraclesAnimationControllerHasAnimationsTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity heracles = createHeracles(target);
+
+    AnimationRenderComponent animator = heracles.getComponent(AnimationRenderComponent.class);
+    assertTrue(animator.hasAnimation("walk_front"));
+    assertTrue(animator.hasAnimation("walk_back"));
+    assertTrue(animator.hasAnimation("walk_right"));
+    assertTrue(animator.hasAnimation("walk_left"));
+    assertTrue(animator.hasAnimation("discus_attack_front"));
+    assertTrue(animator.hasAnimation("discus_attack_back"));
+    assertTrue(animator.hasAnimation("discus_attack_right"));
+    assertTrue(animator.hasAnimation("discus_attack_left"));
+  }
+
+  @Test
+  void gymBroScaleTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity gymBro = createGymBro(target);
+    assertEquals(new Vector2(2f,2f), gymBro.getScale());
+  }
+
+  @Test
+  void heraclesScaleTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity heracles = createHeracles(target);
+    assertEquals(new Vector2(3f,3f), heracles.getScale());
+  }
+
+  @Test
+  void poopsScaleTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/poop.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity poops = createPoops(target);
+    assertEquals(new Vector2(2f,2f), poops.getScale());
+  }
 
   static class TestComponent1 extends Component {}
 

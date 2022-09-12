@@ -1,6 +1,11 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.player.InventoryComponent;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * which engage it combat should have an instance of this class registered. This class can be
  * extended for more specific combat needs.
  */
+
 public class CombatStatsComponent extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(CombatStatsComponent.class);
@@ -22,12 +28,17 @@ public class CombatStatsComponent extends Component {
   private int baseAttack;
   private float damageReduction;
 
+  private int attackDmg;
+  private Entity playerWeapon;
+
   @Override
   public void create(){
     entity.getEvents().addListener("increaseStamina",this::addStamina);
     entity.getEvents().addListener("decreaseStamina",this::addStamina);
     entity.getEvents().addListener("increaseMana",this::addMana);
     entity.getEvents().addListener("decreaseMana",this::addMana);
+    entity.getEvents().addListener("dropWeapon",this::dropWeapon);
+
   }
 
   public CombatStatsComponent(int health, int baseAttack, int stamina, int mana) {
@@ -108,12 +119,25 @@ public class CombatStatsComponent extends Component {
 
   /**
    * Reduce entity health due to an attack. Decreases by the damage reduction multiplier.
-   *
+   * If the attacker is a player, checks if the player has any weapon equipped, and use the damage of the weapon instead
+   * of the player's base attack damage.
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
-    setHealth(newHealth);
+    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
+            (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+      //this is how we would equip a weapon manually, given that a working equip function has not yet been coded by the inventory team
+      /*Entity wep = WeaponFactory.createPlunger();
+      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the weapon to inventory
+      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the weapon*/
+        attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
+        int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
+        setHealth(newHealth);
+      }
+    else { //if it's not a player, or if it is a player without a weapon
+      int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
+      setHealth(newHealth);
+    }
   }
 
   /**
@@ -271,6 +295,30 @@ public class CombatStatsComponent extends Component {
   }
 
   /**
+   * check whether the mana is enough
+   * @param mana
+   * @return
+   */
+  public boolean checkMana(int mana){
+    if (this.getMana()>=mana){
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * check whether the stamina is enough
+   * @param stamina
+   * @return
+   */
+  public boolean checkStamina(int stamina){
+    if (this.getStamina()>=stamina){
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Sets the entity's damage reduction. Damage reduction damage has a minimum bound of 0.
    *
    * @param damageReduction Attack damage
@@ -289,5 +337,37 @@ public class CombatStatsComponent extends Component {
    * @return The float value of damageReduction.
    */
   public float getDamageReduction() { return damageReduction; }
+
+  /**
+   * If the current entity is a player, then the function is called on a key press and drops
+   * a weapon on the map only if the player is equipped with a weapon.
+   *
+   * If the current entity is an enemy, then the function is called when the enemy is dead
+   * and a weapon is dropped below the enemy.
+   */
+  public void dropWeapon() {
+
+    float x = getEntity().getPosition().x;
+    float y = getEntity().getPosition().y;
+
+    if (getEntity().checkEntityType(EntityTypes.PLAYER)) {
+
+      // check equippable, which weapon is equipped and drop that one
+
+      Entity newWeapon = WeaponFactory.createDagger();
+
+      ServiceLocator.getEntityService().register(newWeapon);
+
+      newWeapon.setPosition(x , (float) (y - 1.2));
+
+    } else if (getEntity().checkEntityType(EntityTypes.MELEE)) {
+      Entity newWeapon = WeaponFactory.createDumbbell();
+
+      ServiceLocator.getEntityService().register(newWeapon);
+
+      newWeapon.setPosition(x , (y - 1));
+    }
+
+  }
 
 }

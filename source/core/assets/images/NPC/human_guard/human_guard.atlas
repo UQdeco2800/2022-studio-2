@@ -41,8 +41,8 @@ humanguardShake
 humanguardShake
   rotate: false
   xy: 512, 0
-  size: 128, 128
-  orig: 128, 128
+ size: 128, 128
+ orig: 128, 128
   offset: 0, 0
   index: 4
 humanguardShake
