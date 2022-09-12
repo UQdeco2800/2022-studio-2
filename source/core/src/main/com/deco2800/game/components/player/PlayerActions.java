@@ -47,7 +47,6 @@ public class PlayerActions extends Component {
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
-  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
@@ -83,6 +82,12 @@ public class PlayerActions extends Component {
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
     skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
+
+    // temp skill bindings for sprint 2 marking
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
 
   }
 
@@ -276,6 +281,26 @@ public class PlayerActions extends Component {
 
 
   /**
+   * Applies bleed to the player's next attack. Registers call of the bleed function to the skill manager component.
+   */
+  void bleed() {
+    if (mana>=10) {
+      entity.getEvents().trigger("decreaseMana", -10);
+      skillManager.startBleed();
+    }
+  }
+
+  /**
+   * Applies root to the player's next attack. Registers call of the root function to the skill manager component.
+   */
+  void root() {
+    if (mana>=10) {
+      entity.getEvents().trigger("decreaseMana", -10);
+      skillManager.startRoot();
+    }
+  }
+
+  /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
@@ -287,6 +312,22 @@ public class PlayerActions extends Component {
    */
   void block() {
     skillManager.startBlock();
+  }
+
+  /**
+   * Makes the player cast their ultimate skill.
+   * Registers call of the ultimate function to the skill manager component.
+   */
+  void ultimate() {
+    skillManager.startUltimate();
+  }
+
+  /**
+   * Makes the player cast their attackspeed skill.
+   * Registers call of the attackspeed skill function to the skill manager component.
+   */
+  void attackSpeedUp() {
+    skillManager.startAttackSpeedUp();
   }
 
   public Vector2 getWalkDirection() {

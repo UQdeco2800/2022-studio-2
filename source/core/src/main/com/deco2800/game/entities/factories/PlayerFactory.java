@@ -96,6 +96,10 @@ public class PlayerFactory {
     animator.addAnimation("no_animation", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("block", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("dodge", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vendemaire", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("dash", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("attackSpeed", 0.1f, Animation.PlayMode.LOOP);
 
     Entity skillAnimator =
             new Entity().addComponent(animator)
