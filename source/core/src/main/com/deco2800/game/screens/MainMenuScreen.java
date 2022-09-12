@@ -3,6 +3,7 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.BackgroundSoundComponent;
 import com.deco2800.game.components.maingame.DialogueDisplay;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
@@ -99,7 +100,8 @@ public class MainMenuScreen extends ScreenAdapter {
     Entity ui = new Entity();
     ui.addComponent(new MainMenuDisplay())
         .addComponent(new InputDecorator(stage, 10))
-        .addComponent(new MainMenuActions(game));
+        .addComponent(new MainMenuActions(game))
+         .addComponent(new BackgroundSoundComponent("sounds/MenuSong-Overcast.mp3",0.5f, true));
     ui.addComponent(new DialogueDisplay());
 
     ServiceLocator.getEntityService().register(ui);
