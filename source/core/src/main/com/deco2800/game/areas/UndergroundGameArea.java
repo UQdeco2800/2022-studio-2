@@ -28,6 +28,8 @@ public class UndergroundGameArea extends GameArea {
             "images/Enemies/gym_bro.png",
             "images/level_2_tiledmap/dirt.png",
             "images/level_2_tiledmap/drain_empty.png",
+            "images/level_2_tiledmap/columns.png",
+            "images/level_2_tiledmap/torch.png",
             "images/level_2_tiledmap/floor1.png",
             "images/level_2_tiledmap/floor2.png",
             "images/level_2_tiledmap/floor3.png",
