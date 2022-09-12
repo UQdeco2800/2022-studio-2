@@ -522,6 +522,7 @@ public class GameAreaDisplay extends UIComponent {
   public void disposeCraftingMenu() {
     try {
       clearMaterials();
+      clearBoxes(0);
       disposeFirstBox();
       disposeSecondBox();
     } catch (NullPointerException e) {}
