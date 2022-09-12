@@ -11,11 +11,7 @@ public enum Materials {
     Plastic("Plastic", 1, "images/Crafting-assets-sprint1/materials/plastic.png"),
     Rubber("Rubber", 1, "images/Crafting-assets-sprint1/materials/rubber.png"),
     Platinum("Platinum", 1, "images/Crafting-assets-sprint1/materials/platinum.png"),
-    Silver("Silver", 1, "images/Crafting-assets-sprint1/materials/silver.png"),
-
-    AthenaDag("AthenaDag",1,"images/CombatItems/Sprint-1/Level 2 Dagger 1.png"),
-
-    HerraDag("HerraDag",1,"images/CombatItems/Sprint-1/Level 2 Dagger 2png.png");
+    Silver("Silver", 1, "images/Crafting-assets-sprint1/materials/silver.png");
 
     private final String material;
     private final int amount;
