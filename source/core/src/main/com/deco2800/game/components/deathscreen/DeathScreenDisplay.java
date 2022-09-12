@@ -1,4 +1,4 @@
-package com.deco2800.game.deathscreen;
+package com.deco2800.game.components.deathscreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
