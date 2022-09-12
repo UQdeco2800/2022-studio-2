@@ -102,7 +102,7 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.setText(text);
 
   }
-  public String checkImage(int value){
+  private String checkImage(int value){
     String filename= "";
     if (value ==100){
       filename= "1.png";
