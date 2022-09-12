@@ -47,7 +47,6 @@ public class PlayerActions extends Component {
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
-  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
