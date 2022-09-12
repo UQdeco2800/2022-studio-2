@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -11,16 +12,42 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsUtils;
+import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.utils.math.GridPoint2Utils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 @ExtendWith(GameExtension.class)
 class EntityTest {
+
+  @Mock
+  ShapeRenderer shapeRenderer;
+  @Mock
+  Box2DDebugRenderer physicsRenderer;
+  @Mock
+  Matrix4 projMatrix;
+
+  DebugRenderer debugRenderer;
+
+  @BeforeEach
+  void beforeEach() {
+    debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
+  }
+
+
   @Test
   void shouldSetAndGetPosition() {
     Entity entity = new Entity();
@@ -208,6 +235,93 @@ class EntityTest {
 
     System.out.println(entity.getScale().x);
     System.out.println(entity.getScale().y);
+  }
+
+  @Test
+  void npcPosition() {
+
+    Vector2 from = new Vector2(0f, 0f);
+    Vector2 to = new Vector2(20f, 20f);
+    debugRenderer.drawLine(from, to);
+    debugRenderer.render(projMatrix);
+
+    verify(shapeRenderer).line(from, to);
+
+    // Should not render next frame
+    debugRenderer.render(projMatrix);
+    verify(shapeRenderer, times(1)).line(any(Vector2.class), any(Vector2.class));
+  }
+
+  @Test
+  void GuardExist() {
+
+    GridPoint2 GuardPosition = new GridPoint2(4, 8);
+    if (GuardPosition.x>0&&GuardPosition.x<=20 && GuardPosition.y>0&&GuardPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
+  }
+
+  @Test
+  void MaleCitizenExist() {
+
+    GridPoint2 maleCitizenPosition = new GridPoint2(3, 8);
+    if (maleCitizenPosition.x>0&&maleCitizenPosition.x<=20 && maleCitizenPosition.y>0&&maleCitizenPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
+  }
+
+  @Test
+  void ChildExist() {
+
+    GridPoint2 childPosition = new GridPoint2(7, 7);
+    if (childPosition.x>0&&childPosition.x<=20 && childPosition.y>0&&childPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
+  }
+
+  @Test
+  void PlumberFriendExist() {
+
+    GridPoint2 PlumberFriendPosition = new GridPoint2(4, 20);
+    if (PlumberFriendPosition.x>0&&PlumberFriendPosition.x<=20 && PlumberFriendPosition.y>0&&PlumberFriendPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
+  }
+
+  @Test
+  void HumanGuardExist() {
+
+    GridPoint2 HumanGuardPosition = new GridPoint2(7,20);
+    if (HumanGuardPosition.x>0&&HumanGuardPosition.x<=20 && HumanGuardPosition.y>0&&HumanGuardPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
+  }
+
+  @Test
+  void OneLegGirlExist() {
+
+    GridPoint2 oneLegGirlPosition = new GridPoint2(20, 20);
+    if (oneLegGirlPosition.x>0&&oneLegGirlPosition.x<=20 && oneLegGirlPosition.y>0&&oneLegGirlPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
   }
 
 
