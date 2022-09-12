@@ -8,6 +8,7 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.npc.MaleAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
@@ -110,12 +111,18 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createMale_citizen (Entity target) {
+
     Entity male_citizen = createBaseNPC();
     Male_citizenConfig config = configs.male_citizen;
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/NPC/male_citizen/male-atlas.atlas", TextureAtlas.class));
+    animator.addAnimation("MaleShake", 0.1f, Animation.PlayMode.LOOP);
 
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/male_citizen/male_citizen.png"));
+            .addComponent(new MaleAnimationController());
 
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
