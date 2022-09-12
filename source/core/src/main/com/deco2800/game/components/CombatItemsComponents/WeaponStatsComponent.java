@@ -3,8 +3,6 @@ package com.deco2800.game.components.CombatItemsComponents;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
@@ -15,7 +13,6 @@ import java.util.HashMap;
  */
 public abstract class WeaponStatsComponent extends Component {
 
-  private static final Logger logger = LoggerFactory.getLogger(WeaponStatsComponent.class);
   protected double damage;
   protected double coolDown;
   protected HashMap<Materials, Integer> materials;
@@ -26,7 +23,7 @@ public abstract class WeaponStatsComponent extends Component {
    * @param coolDown duration before the next attack instance can be called
    * @param materials materials needed to craft the weapon
    */
-  public WeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials) {
+  protected WeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials) {
     setDamage(damage);
     setCoolDown(coolDown);
     setMaterials(materials);
