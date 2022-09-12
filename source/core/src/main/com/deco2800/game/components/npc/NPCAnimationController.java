@@ -22,7 +22,7 @@ public class NPCAnimationController extends Component {
         entity.getEvents().trigger("humanguardShake");
         entity.getEvents().addListener("plumberfriendShake", this::plumberfriendShakeStart);
         entity.getEvents().trigger("plumberfriendShake");
-        entity.getEvents().addListener("creatureShake", this::femaleShakeStart);
+        entity.getEvents().addListener("creatureShake", this::creatureShakeStart);
         entity.getEvents().trigger("creatureShake");
     }
 

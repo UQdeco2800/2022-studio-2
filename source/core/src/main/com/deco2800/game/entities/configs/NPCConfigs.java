@@ -17,4 +17,4 @@ public class NPCConfigs {
   public HeraclesConfig heracles = new HeraclesConfig();
   public PoopsConfig poops = new PoopsConfig();
   public FriendPetConfig pet = new FriendPetConfig();
-
+}

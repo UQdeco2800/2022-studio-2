@@ -123,8 +123,7 @@ public class ForestGameArea extends GameArea {
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
           "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
-          "images/NPC/friendly_creature npc/friendly_creature.atlas",
-
+          "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas",
     "images/Enemies/poop.atlas"
@@ -648,7 +647,7 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnHumanGuard() {
-    HumanGuardPosition = new GridPoint2(4, 8);
+    HumanGuardPosition = new GridPoint2(7, 10);
 
     Entity humanguard = NPCFactory.createHumanGuard(player);
     spawnEntityAt(humanguard, HumanGuardPosition, true, true);
@@ -658,7 +657,7 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnPlumberFriend() {
-    PlumberFriendPosition = new GridPoint2(4, 8);
+    PlumberFriendPosition = new GridPoint2(7, 20);
 
     Entity plumberfriend = NPCFactory.createPlumberFriend(player);
     spawnEntityAt(plumberfriend, PlumberFriendPosition, true, true);
