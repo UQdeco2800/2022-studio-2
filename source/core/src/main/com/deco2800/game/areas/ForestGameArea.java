@@ -131,17 +131,13 @@ public class ForestGameArea extends GameArea {
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
 
-
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/NPC/dialogue_indicator/dialogue.atlas",
-          "images/NPC/male_citizen/male-atlas.atlas",
-    "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
-          "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas"
+          "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
+          "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
+          "images/NPC/friendly_creature npc/friendly_creature.atlas",
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -154,6 +150,9 @@ public class ForestGameArea extends GameArea {
   private static List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
   public static GridPoint2 oneLegGirlPosition;
+  public static GridPoint2 HumanGuardPosition;
+  public static GridPoint2 PlumberFriendPosition;
+  public static GridPoint2 friendlycreaturePosition;
   public static GridPoint2 GuardPosition;
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 childPosition;
@@ -193,7 +192,8 @@ public class ForestGameArea extends GameArea {
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
-
+    spawnHumanGuard();
+    spawnPlumberFriend();
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
@@ -594,9 +594,28 @@ public class ForestGameArea extends GameArea {
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, GuardPosition, true, true);
   }
-
   public static GridPoint2 getGuardPosition() {
     return GuardPosition;
+  }
+
+  private void spawnHumanGuard() {
+    HumanGuardPosition = new GridPoint2(4, 8);
+
+    Entity humanguard = NPCFactory.createHumanGuard(player);
+    spawnEntityAt(humanguard, HumanGuardPosition, true, true);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, HumanGuardPosition, true, true);
+  }
+
+  private void spawnPlumberFriend() {
+    PlumberFriendPosition = new GridPoint2(4, 8);
+
+    Entity plumberfriend = NPCFactory.createPlumberFriend(player);
+    spawnEntityAt(plumberfriend, PlumberFriendPosition, true, true);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, PlumberFriendPosition, true, true);
   }
 
   /**
@@ -619,16 +638,13 @@ public class ForestGameArea extends GameArea {
    * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnfriendlycreature() {
-    friendly_creaturePosition = new GridPoint2(5, 10);
+    friendlycreaturePosition = new GridPoint2(5, 10);
 
-    Entity friendly_creature = NPCFactory.createFriendly_creature(player);
-    spawnEntityAt(friendly_creature, friendly_creaturePosition, true, true);
+    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, friendly_creaturePosition, true, true);
-  }
-  public static GridPoint2 friendly_creaturePosition() {
-    return friendly_creaturePosition;
+    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
   }
 
   private void spawnGymBro() {
