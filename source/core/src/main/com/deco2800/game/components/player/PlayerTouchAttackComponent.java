@@ -26,9 +26,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     @Override
     public void create() {
         entity.getEvents().addListener("attack", this::attack);
-        entity.getEvents().addListener("collisionStart", this::onCollisionStart);
+        entity.getEvents().addListener("collisionStart", this::playerCollidesEnemyStart);
         combatStats = entity.getComponent(CombatStatsComponent.class); //or just get the currently equipped weapon's damage
-        entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
+        entity.getEvents().addListener("collisionEnd", this::playerCollidesEnemyEnd);
     }
 
     /**
@@ -37,7 +37,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      * @param me The fixture of the entity (player) that implements this component.
      * @param other The fixture of the other entity (enemy) that is colliding.
      */
-    private void onCollisionStart(Fixture me, Fixture other) {
+    private void playerCollidesEnemyStart(Fixture me, Fixture other) {
         if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
             target = ((BodyUserData) other.getBody().getUserData()).entity;
             enemyCollide = true;
@@ -51,7 +51,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
         attackSound.play();
         if (enemyCollide) {
-            applyDamage(target);
+            applyDamageToTarget(target);
             if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
                 target.dispose();
                 target.getComponent(CombatStatsComponent.class).dropWeapon();
@@ -66,7 +66,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      * Applies damage to a given enemy target
      * @param target the target enemy entity to do damage to
      */
-    private void applyDamage(Entity target) {
+    private void applyDamageToTarget(Entity target) {
         CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
         targetStats.hit(combatStats);
     }
@@ -77,7 +77,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      * @param me The fixture of the entity (player) that implements this component.
      * @param other The fixture of the other entity (enemy) that is colliding.
      */
-    private void onCollisionEnd(Fixture me, Fixture other) {
+    private void playerCollidesEnemyEnd(Fixture me, Fixture other) {
         enemyCollide = false;
     }
 }
