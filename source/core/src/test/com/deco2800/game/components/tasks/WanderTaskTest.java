@@ -7,6 +7,7 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.events.listeners.EventListener0;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.services.GameTime;
