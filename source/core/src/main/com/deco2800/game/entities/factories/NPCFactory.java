@@ -199,14 +199,23 @@ public class NPCFactory {
     Entity friendly_creature = createBaseNPC();
     FriendlyCreatureConfig config = configs.friendly_creature;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/friendly_creature npc/friendly_creature.atlas", TextureAtlas.class));
+    animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
+
+
     friendly_creature
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/friendly_creature npc/Friendly_creature"));
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
 
     friendly_creature.getComponent(AITaskComponent.class);
+    friendly_creature.getComponent(AnimationRenderComponent.class).scaleEntity();
     friendly_creature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     friendly_creature.setScale(1, 1);
     return friendly_creature;
+
+  }
 
   /**
    * Creates Heracles, the boss of the first level.

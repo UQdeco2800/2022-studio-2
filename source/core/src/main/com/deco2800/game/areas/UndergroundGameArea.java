@@ -169,22 +169,6 @@ public class UndergroundGameArea extends GameArea {
         return craftingTablePos;
     }
 
-    /**
-     * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
-     */
-    private void spawnFriendly_Creature() {
-        friendlycreaturePosition = new GridPoint2(3, 8);
-
-        Entity friendly_creature = NPCFactory.createFriendly_creature(player);
-        spawnEntityAt(friendly_creature, friendly_creaturePosition, true, true);
-
-        Entity dialogue = DialogueFactory.createDialogue();
-        spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-    }
-    public static GridPoint2 getfriendly_creature() {
-        return friendlycreaturePosition;
-    }
-
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
