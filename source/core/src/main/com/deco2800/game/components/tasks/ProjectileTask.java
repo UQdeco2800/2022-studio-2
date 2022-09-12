@@ -79,7 +79,7 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     @Override
     public void update() {
         if (currentTask.getStatus() != Status.ACTIVE) {
-            if (currentTask == taskWait && waitTime == 0) {
+            if (currentTask == taskWait) {
                 waiting();
             } else {
                 attackAnimate();
@@ -93,6 +93,7 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     public void waiting() {
         setTask(taskShoot);
     }
+
 
     public void shoot(String projectileType) {
         if (projectileType == "poopSludge") {
@@ -167,9 +168,11 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         return true;
     }
 
+
     private void attackAnimate() {
         Vector2 enemy = owner.getEntity().getCenterPosition();
         Vector2 player = target.getCenterPosition();
+
 
         float y = enemy.y - player.y;
         float x = enemy.x - player.x;

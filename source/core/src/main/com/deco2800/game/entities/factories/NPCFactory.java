@@ -7,6 +7,7 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
@@ -218,9 +219,19 @@ public class NPCFactory {
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Enemies/poop.atlas", TextureAtlas.class));
+    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/Enemies/poops.png"));
+            .addComponent(animator)
+            .addComponent(new PoopAnimationController());
     poops.setEntityType(EntityTypes.ENEMY);
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
