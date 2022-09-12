@@ -139,8 +139,9 @@ public class ForestGameArea extends GameArea {
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
 
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
-
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
+          "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
+          "images/NPC/child npc/npcchild.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
