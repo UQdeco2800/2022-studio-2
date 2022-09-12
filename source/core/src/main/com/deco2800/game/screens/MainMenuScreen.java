@@ -28,6 +28,8 @@ public class MainMenuScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {"images/box_boy_title.png"};
+  private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
+  private static final String[] mainMenuMusic = {backgroundMusic};
 
   public MainMenuScreen(GdxGame game) {
     this.game = game;
@@ -42,6 +44,14 @@ public class MainMenuScreen extends ScreenAdapter {
 
     loadAssets();
     createUI();
+    playMusic();
+  }
+
+  private void playMusic() {
+    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
   }
 
   @Override
@@ -74,6 +84,7 @@ public class MainMenuScreen extends ScreenAdapter {
     unloadAssets();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getEntityService().dispose();
+    ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
 
     ServiceLocator.clear();
   }
@@ -82,6 +93,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
+    resourceService.loadMusic(mainMenuMusic);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -101,8 +113,7 @@ public class MainMenuScreen extends ScreenAdapter {
     Entity ui = new Entity();
     ui.addComponent(new MainMenuDisplay())
         .addComponent(new InputDecorator(stage, 10))
-        .addComponent(new MainMenuActions(game))
-        .addComponent(new BackgroundSoundComponent("sounds/MenuSong-Overcast.mp3",0.5f, true));
+        .addComponent(new MainMenuActions(game));
     ui.addComponent(new DialogueDisplay());
 
     ServiceLocator.getEntityService().register(ui);
