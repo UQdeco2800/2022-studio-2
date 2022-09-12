@@ -1,6 +1,6 @@
 package com.deco2800.game.entities;
 
-import static com.deco2800.game.entities.factories.NPCFactory.createGymBro;
+import static com.deco2800.game.entities.factories.NPCFactory.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -15,16 +15,19 @@ import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.entities.configs.BaseEntityConfig;
-import com.deco2800.game.entities.configs.GymBroConfig;
-import com.deco2800.game.entities.configs.HeraclesConfig;
-import com.deco2800.game.entities.configs.PoopsConfig;
+import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.WanderTask;
+import com.deco2800.game.entities.configs.*;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.PhysicsUtils;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.GameTime;
@@ -241,7 +244,6 @@ class EntityTest {
   }
   @Test
   void BaseEntityConfigHealthTest() {
-    Entity target = new Entity();
     BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
     assertEquals(30, baseEntityConfig.health);
   }
@@ -291,6 +293,97 @@ class EntityTest {
     assertEquals(60f, poopsConfig.speed);
   }
 
+  @Test
+  void gymBroAnimationControllerHasAnimationsTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity gymBro = createGymBro(target);
+    AnimationRenderComponent animator = gymBro.getComponent(AnimationRenderComponent.class);
+    assertTrue(animator.hasAnimation("walk_front"));
+    assertTrue(animator.hasAnimation("walk_back"));
+    assertTrue(animator.hasAnimation("walk_right"));
+    assertTrue(animator.hasAnimation("walk_left"));
+    assertTrue(animator.hasAnimation("attack_front"));
+    assertTrue(animator.hasAnimation("attack_back"));
+    assertTrue(animator.hasAnimation("attack_right"));
+    assertTrue(animator.hasAnimation("attack_left"));
+  }
+
+  @Test
+  void heraclesAnimationControllerHasAnimationsTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity heracles = createHeracles(target);
+
+    AnimationRenderComponent animator = heracles.getComponent(AnimationRenderComponent.class);
+    assertTrue(animator.hasAnimation("walk_front"));
+    assertTrue(animator.hasAnimation("walk_back"));
+    assertTrue(animator.hasAnimation("walk_right"));
+    assertTrue(animator.hasAnimation("walk_left"));
+    assertTrue(animator.hasAnimation("discus_attack_front"));
+    assertTrue(animator.hasAnimation("discus_attack_back"));
+    assertTrue(animator.hasAnimation("discus_attack_right"));
+    assertTrue(animator.hasAnimation("discus_attack_left"));
+  }
+
+  @Test
+  void gymBroScaleTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity gymBro = createGymBro(target);
+    assertEquals(new Vector2(2f,2f), gymBro.getScale());
+  }
+
+  @Test
+  void heraclesScaleTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
+    resourceService.loadTextures(textures);
+    resourceService.loadTextureAtlases(textureAtlases);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity heracles = createHeracles(target);
+    assertEquals(new Vector2(3f,3f), heracles.getScale());
+  }
+
+  @Test
+  void poopsScaleTest() {
+    ResourceService resourceService = new ResourceService();
+    ServiceLocator.registerResourceService(resourceService);
+    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
+            "images/Enemies/poops.png",
+            "images/Enemies/poopSludge.png"};
+    resourceService.loadTextures(textures);
+    resourceService.loadAll();
+    Entity target = new Entity();
+
+    Entity poops = createPoops(target);
+    assertEquals(new Vector2(2f,2f), poops.getScale());
+  }
 
   static class TestComponent1 extends Component {}
 
