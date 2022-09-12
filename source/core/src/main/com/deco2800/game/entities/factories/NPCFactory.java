@@ -133,23 +133,7 @@ public class NPCFactory {
     return male_citizen;
   }
 
-  /**
-   * the npc helps player should have base attack, health,
-   * when the npc have dead, pop up a dialogue to ask if reborn
-   * The npc will chase player and attack automatically.
-   * @param target
-   * @return
-   */
-  public static Entity createFriendlyPet (Entity target) {
-    Entity friendlyPet = createBaseNPC();
-    FriendPetConfig config = configs.pet;
 
-    friendlyPet.getComponent(AITaskComponent.class)
-            .addTask(new ChaseTask(target, 9, 5f, 100, config.speed));
-
-
-    return friendlyPet;
-  }
   /**
    * Creates an atlantis citizen entity.
    *
