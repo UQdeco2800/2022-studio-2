@@ -13,12 +13,12 @@ import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.npc.MaleAnimationController;
 
 import com.deco2800.game.components.npc.NPCAnimationController;
-<<<<<<< HEAD
 
-=======
+
+
 import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
->>>>>>> 1d0548da8ee01456c7786afc76f243cbf44271a1
+
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
