@@ -2,7 +2,10 @@ package com.deco2800.game.crafting;
 
 //import com.deco2800.game.CombatItems.Weapon;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.files.FileLoader;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,17 +37,20 @@ public class CraftingLogicTest {
 
     @Test
     void getWeaponsTest() {
-        List<MeleeConfig> possibleWeaponsTest = CraftingLogic.getPossibleWeapons();
-        assertEquals(possibleWeaponsTest, CraftingLogic.getPossibleWeapons());
-//        List<MeleeConfig> possibleWeaponsTest = new ArrayList<>();
-//        possibleWeaponsTest.add(configs.athenaDag);
-//        possibleWeaponsTest.add(configs.herraDag);
-//        possibleWeaponsTest.add(configs.SwordLvl2);
-//        possibleWeaponsTest.add(configs.dumbbell);
-//        possibleWeaponsTest.add(configs.tridentLvl2);
-//        possibleWeaponsTest.add(configs.herraAthenaDag);
-//        possibleWeaponsTest.add(configs.plunger);
 //        List<MeleeConfig> possibleWeaponsTest = CraftingLogic.getPossibleWeapons();
+//        assertEquals(possibleWeaponsTest, CraftingLogic.getPossibleWeapons());
+        WeaponConfig configs =
+                FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
+        List<MeleeConfig> possibleWeaponsTest = new ArrayList<>();
+        possibleWeaponsTest.add(configs.athenaDag);
+        possibleWeaponsTest.add(configs.herraDag);
+        possibleWeaponsTest.add(configs.SwordLvl2);
+        possibleWeaponsTest.add(configs.dumbbell);
+        possibleWeaponsTest.add(configs.tridentLvl2);
+        possibleWeaponsTest.add(configs.herraAthenaDag);
+        possibleWeaponsTest.add(configs.plunger);
+
+        assertNotSame(possibleWeaponsTest,CraftingLogic.getPossibleWeapons());
 
 //        for (int i = 0; i < CraftingLogic.getPossibleWeapons().size(); i++){
 //
@@ -86,21 +92,15 @@ public class CraftingLogicTest {
 
 //    @Test
 //    void damageToWeaponTest() {
-//        WeaponConfig configs =
-//                FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
+//
 //        MeleeConfig daggerConfig = new MeleeConfig();
-////        assertEquals(CraftingLogic.damageToWeapon(daggerConfig), WeaponFactory.createDagger());
+//        daggerConfig.damage = 7;
+//        double damage = daggerConfig.damage;
+//        assertEquals(CraftingLogic.damageToWeapon(daggerConfig), WeaponFactory.createDagger());
 //
 //    }
-//
 
-//    @Test
-//    void getPossibleWeaponsTest() {
-//        inventory = new ArrayList<>();
-//        inventory.add(Materials.Gold);
-//        inventory.add(Materials.Iron);
-//        WeaponConfig configs = FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
-//        assertEquals(CraftingLogic.canBuild(inventory).get(0).damage, configs.SwordLvl2.damage);
-//    }
+
+
 
 }
