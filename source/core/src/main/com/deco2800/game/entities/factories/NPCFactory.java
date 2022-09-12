@@ -53,17 +53,11 @@ public class NPCFactory {
     Entity oneLegGirl = createBaseNPC();
     FemaleCitizenConfig config = configs.oneLegGirl;
 
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/female npc/npcfemale.atlas", TextureAtlas.class));
-    animator.addAnimation("femaleShake", 0.1f, Animation.PlayMode.LOOP);
-
     oneLegGirl
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(animator)
-            .addComponent(new NPCAnimationController());
+            .addComponent(new TextureRenderComponent("images/NPC/female npc/npcfemale_1.png"));
 
     oneLegGirl.getComponent(AITaskComponent.class);
-    oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
     oneLegGirl.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     oneLegGirl.setScale(1, 1);
     return oneLegGirl;
@@ -75,20 +69,20 @@ public class NPCFactory {
    * @param target entity to stand
    * @return entity
    */
-//  public static Entity createChild (Entity target) {
-//    Entity child = createBaseNPC();
-//    ChildConfig config = configs.child;
-//
-//
-//    child
-//            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-//            .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
-//
-//    child.getComponent(AITaskComponent.class);
-//    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-//    child.setScale(1, 1);
-//    return child;
-//  }
+  public static Entity createChild (Entity target) {
+    Entity child = createBaseNPC();
+    ChildConfig config = configs.child;
+
+
+    child
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
+
+    child.getComponent(AITaskComponent.class);
+    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    child.setScale(1, 1);
+    return child;
+  }
 
   /**
    * Creates an atlantis guard NPC entity.
@@ -100,86 +94,16 @@ public class NPCFactory {
     Entity guard = createBaseNPC();
     GuardConfig config = configs.guard;
 
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/guard npc/npcguard.atlas", TextureAtlas.class));
-    animator.addAnimation("guardShake", 0.1f, Animation.PlayMode.LOOP);
-
 
     guard
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(animator)
-            .addComponent(new NPCAnimationController());
+            .addComponent(new TextureRenderComponent("images/NPC/guard npc/atlantisguardnpc_1.png"));
 
     guard.getComponent(AITaskComponent.class);
-    guard.getComponent(AnimationRenderComponent.class).scaleEntity();
     guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     guard.setScale(1, 1);
     return guard;
   }
-
-  public static Entity createChild (Entity target) {
-    Entity child = createBaseNPC();
-    ChildConfig config = configs.child;
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/child npc/npcchild.atlas", TextureAtlas.class));
-    animator.addAnimation("childShake", 0.1f, Animation.PlayMode.LOOP);
-
-
-    child
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(animator)
-            .addComponent(new NPCAnimationController());
-
-    child.getComponent(AITaskComponent.class);
-    child.getComponent(AnimationRenderComponent.class).scaleEntity();
-    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    child.setScale(1, 1);
-    return child;
-  }
-
-  public static Entity createHumanGuard (Entity target) {
-    Entity humanguard = createBaseNPC();
-    HumanGuardConfig config = configs.humanguard;
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/human_guard/human_guard.atlas", TextureAtlas.class));
-    animator.addAnimation("humanguardShake", 0.1f, Animation.PlayMode.LOOP);
-
-
-    humanguard
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(animator)
-            .addComponent(new NPCAnimationController());
-
-    humanguard.getComponent(AITaskComponent.class);
-    humanguard.getComponent(AnimationRenderComponent.class).scaleEntity();
-    humanguard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    humanguard.setScale(1, 1);
-    return humanguard;
-  }
-
-  public static Entity createPlumberFriend (Entity target) {
-    Entity plumberfriend = createBaseNPC();
-    PlumberFriendConfig config = configs.plumberfriend;
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/plumber_friend/plumber_friend.atlas", TextureAtlas.class));
-    animator.addAnimation("plumberfriendShake", 0.1f, Animation.PlayMode.LOOP);
-
-
-    plumberfriend
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(animator)
-            .addComponent(new NPCAnimationController());
-
-    plumberfriend.getComponent(AITaskComponent.class);
-    plumberfriend.getComponent(AnimationRenderComponent.class).scaleEntity();
-    plumberfriend.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    plumberfriend.setScale(1, 1);
-    return plumberfriend;
-  }
-
 
   /**
    * Creates an atlantis male NPC entity.
@@ -209,7 +133,23 @@ public class NPCFactory {
     return male_citizen;
   }
 
+  /**
+   * the npc helps player should have base attack, health,
+   * when the npc have dead, pop up a dialogue to ask if reborn
+   * The npc will chase player and attack automatically.
+   * @param target
+   * @return
+   */
+  public static Entity createFriendlyPet (Entity target) {
+    Entity friendlyPet = createBaseNPC();
+    FriendPetConfig config = configs.pet;
 
+    friendlyPet.getComponent(AITaskComponent.class)
+            .addTask(new ChaseTask(target, 9, 5f, 100, config.speed));
+
+
+    return friendlyPet;
+  }
   /**
    * Creates an atlantis citizen entity.
    *
