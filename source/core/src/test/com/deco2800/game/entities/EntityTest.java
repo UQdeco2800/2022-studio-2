@@ -70,15 +70,7 @@ class EntityTest {
   @BeforeEach
   void beforeEach() {
     debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
-//    RenderService renderService = new RenderService();
-//    renderService.setDebug(mock(DebugRenderer.class));
-//    ServiceLocator.registerRenderService(renderService);
-//    GameTime gameTime = mock(GameTime.class);
-//    when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
-//    ServiceLocator.registerTimeSource(gameTime);
-//    ServiceLocator.registerPhysicsService(new PhysicsService());
-//    ResourceService resourceService = new ResourceService();
-//    ServiceLocator.registerResourceService(resourceService);
+
   }
 
 
