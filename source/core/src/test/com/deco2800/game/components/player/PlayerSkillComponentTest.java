@@ -294,7 +294,6 @@ public class PlayerSkillComponentTest {
         component.setSkill(1, "teleport", player, actions);
         actions.teleport();
         assertTrue(component.isTeleporting());
-
     }
 
     @Test
