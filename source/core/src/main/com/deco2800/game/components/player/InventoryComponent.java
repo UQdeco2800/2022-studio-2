@@ -224,6 +224,7 @@ public class InventoryComponent extends Component {
     pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
     //Applying the physical resistance of the armour to player
     pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float)armourStats.getPhyResistance(), true, 0);
+    pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float)armourStats.getVitality(), true, 0);
   }
 
   /**
