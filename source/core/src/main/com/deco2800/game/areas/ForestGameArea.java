@@ -137,7 +137,8 @@ public class ForestGameArea extends GameArea {
           "images/NPC/male_citizen/male-atlas.atlas",
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-
+   "images/NPC/guard npc/npcguard.atlas", "images/NPC/child npc/npcchild.atlas",
+      "images/NPC/female npc/npcfemale.atlas", "images/NPC/human_guard/human_guard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
@@ -157,6 +158,8 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 GuardPosition;
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 childPosition;
+  public static GridPoint2 HumanGuardPosition;
+  public static GridPoint2 PlumberFriendPosition;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -192,7 +195,8 @@ public class ForestGameArea extends GameArea {
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
-
+    spawnHumanGuard();
+    spawnPlumberFriend();
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
@@ -562,6 +566,31 @@ public class ForestGameArea extends GameArea {
     return new_position;
   }
 
+  private void spawnHumanGuard() {
+
+    HumanGuardPosition = new GridPoint2(7,20);
+
+    Entity HumanGuard = NPCFactory.createHumanGuard(player);
+    spawnEntityAt(HumanGuard, HumanGuardPosition, true, true);
+
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, HumanGuardPosition, true, true);
+  }
+
+
+
+  private void spawnPlumberFriend() {
+
+    PlumberFriendPosition = new GridPoint2(4, 20);
+
+    Entity PlumberFriend = NPCFactory.createPlumberFriend(player);
+    spawnEntityAt(PlumberFriend, PlumberFriendPosition, true, true);
+
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, PlumberFriendPosition, true, true);
+  }
   /**
    * Spawn child NPC in random position. - Team 7 all-mid-npc
    */
