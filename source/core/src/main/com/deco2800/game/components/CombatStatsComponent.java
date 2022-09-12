@@ -1,6 +1,8 @@
 package com.deco2800.game.components;
 
 import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -40,6 +42,8 @@ public class CombatStatsComponent extends Component {
     entity.getEvents().addListener("decreaseStamina",this::addStamina);
     entity.getEvents().addListener("increaseMana",this::addMana);
     entity.getEvents().addListener("decreaseMana",this::addMana);
+    entity.getEvents().addListener("dropWeapon",this::dropWeapon);
+
   }
 
   public CombatStatsComponent(int health, int baseAttack, int stamina, int mana) {
@@ -120,23 +124,22 @@ public class CombatStatsComponent extends Component {
 
   /**
    * Reduce entity health due to an attack. Decreases by the damage reduction multiplier.
-   *
+   * If the attacker is a player, checks if the player has any weapon equipped, and use the damage of the weapon instead
+   * of the player's base attack damage.
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER)) {
+    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
+            (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+      //this is how we would equip a weapon manually, given that a working equip function has not yet been coded by the inventory team
       /*Entity wep = WeaponFactory.createPlunger();
-      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the trident to inventory
-      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the trident*/
-      if ((playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the weapon to inventory
+      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the weapon*/
         attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
-      } else { //if player doesnt have weapon equipped, proly can cleanup as is duplicate of code below
-        int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
-        setHealth(newHealth);
       }
-    } else{ //if its not a player
+    else { //if it's not a player, or if it is a player without a weapon
       int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
     }
@@ -339,5 +342,37 @@ public class CombatStatsComponent extends Component {
    * @return The float value of damageReduction.
    */
   public float getDamageReduction() { return damageReduction; }
+
+  /**
+   * If the current entity is a player, then the function is called on a key press and drops
+   * a weapon on the map only if the player is equipped with a weapon.
+   *
+   * If the current entity is an enemy, then the function is called when the enemy is dead
+   * and a weapon is dropped below the enemy.
+   */
+  public void dropWeapon() {
+
+    float x = getEntity().getPosition().x;
+    float y = getEntity().getPosition().y;
+
+    if (getEntity().checkEntityType(EntityTypes.PLAYER)) {
+
+      // check equippable, which weapon is equipped and drop that one
+
+      Entity newWeapon = WeaponFactory.createDagger();
+
+      ServiceLocator.getEntityService().register(newWeapon);
+
+      newWeapon.setPosition(x , (float) (y - 1.2));
+
+    } else if (getEntity().checkEntityType(EntityTypes.MELEE)) {
+      Entity newWeapon = WeaponFactory.createDumbbell();
+
+      ServiceLocator.getEntityService().register(newWeapon);
+
+      newWeapon.setPosition(x , (float) (y - 1));
+    }
+
+  }
 
 }

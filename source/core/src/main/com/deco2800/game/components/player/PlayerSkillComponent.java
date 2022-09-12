@@ -33,7 +33,9 @@ public class PlayerSkillComponent extends Component {
         BLOCK,
         DODGE,
         BLEED,
-        ROOT
+        ROOT,
+        ATTACKSPEED,
+        ULTIMATE
     }
 
     private boolean isInvulnerable;
@@ -53,7 +55,7 @@ public class PlayerSkillComponent extends Component {
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
-    private static final long DASH_LENGTH = 350; // In MilliSec (1000millisec = 1sec)
+    private static final long DASH_LENGTH = 300; // In MilliSec (1000millisec = 1sec)
     private static final float DASH_MOVEMENT_RESTRICTION = 0.8f; // As a proportion of regular move (0.8 = 80%)
     private Vector2 dashDirection = Vector2.Zero.cpy();
     private boolean dashing = false;
@@ -136,6 +138,10 @@ public class PlayerSkillComponent extends Component {
 
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
+            // Only end animation if not interrupting another skill
+            if (!this.teleporting && !this.blocking && !this.dodging) {
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
             this.dashing = false;
             this.dashEndEvent = true;
         }
@@ -153,6 +159,7 @@ public class PlayerSkillComponent extends Component {
         if (this.dodging && System.currentTimeMillis() > this.dodgeEnd) {
             this.dodging = false;
             this.dodgeEndEvent = true;
+            skillAnimator.getEvents().trigger("regularAnimation");
         } else if (System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
             this.dodgeSpeedBoost = false;
         }
@@ -206,6 +213,10 @@ public class PlayerSkillComponent extends Component {
         }  else if (skillName == SkillTypes.ROOT) { // change back to skillEvent after sprint 2
             entity.getEvents().addListener("skillTemp", playerActionsComponent::root);
             entity.getEvents().addListener("hitEnemy", this::hitRoot);
+        } else if (skillName == SkillTypes.ATTACKSPEED) {
+            entity.getEvents().addListener("attackspeedTemp", playerActionsComponent::attackSpeedUp);
+        } else if (skillName == SkillTypes.ULTIMATE) {
+            entity.getEvents().addListener("ultimateTemp", playerActionsComponent::ultimate);
         }
     }
 
@@ -423,6 +434,7 @@ public class PlayerSkillComponent extends Component {
         if (cooldownFinished("dash", (long) (DASH_LENGTH * 1.2))) {
             this.dashDirection = moveDirection;
             this.dashing = true;
+            skillAnimator.getEvents().trigger("dashAnimation");
             long dashStart = System.currentTimeMillis();
             this.dashEnd = dashStart + DASH_LENGTH;
             setInvulnerable(DASH_LENGTH/2);
@@ -482,6 +494,22 @@ public class PlayerSkillComponent extends Component {
      */
     public void startRoot() {
         this.rootApplied = true;
+    }
+
+    /**
+     * The functional start of the ultimate skill.
+     * Should be called when player actions component registers ultimate event.
+     */
+    public void startUltimate() {
+        skillAnimator.getEvents().trigger("ultimateAnimation");
+    }
+
+    /**
+     * The functional start of the attack speed skill.
+     * Should be called when player actions component registers attackspeed skill event.
+     */
+    public void startAttackSpeedUp() {
+        skillAnimator.getEvents().trigger("attackSpeedAnimation");
     }
 
     /**

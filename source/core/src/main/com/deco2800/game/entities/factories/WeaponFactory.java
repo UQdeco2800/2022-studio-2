@@ -3,6 +3,8 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
@@ -44,6 +46,7 @@ public class WeaponFactory {
      */
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
+        dagger.setEntityType(EntityTypes.CRAFTABLE);
         MeleeConfig config = configs.athenaDag;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 
@@ -61,6 +64,7 @@ public class WeaponFactory {
      */
     public static Entity createDaggerTwo() {
         Entity daggerTwo = createBaseWeapon();
+        daggerTwo.setEntityType(EntityTypes.CRAFTABLE);
         MeleeConfig config = configs.herraDag;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
 
@@ -155,6 +159,22 @@ public class WeaponFactory {
         plunger.getComponent(TextureRenderComponent.class).scaleEntity();
         plunger.scaleHeight(2f);
         return plunger;
+    }
+    /**
+     * Creates the PVC pipe weapon
+     * @return plunger weapon
+     */
+    public static Entity createPipe() {
+        Entity pipe = createBaseWeapon();
+        MeleeConfig config = configs.pipe;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        pipe
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/pipe.png"));
+        pipe.getComponent(TextureRenderComponent.class).scaleEntity();
+        pipe.scaleHeight(2f);
+        return pipe;
     }
 
 }

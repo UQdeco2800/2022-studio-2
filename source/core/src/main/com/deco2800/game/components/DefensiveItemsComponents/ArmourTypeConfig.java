@@ -1,4 +1,4 @@
-package DefensiveItemsComponents;
+package com.deco2800.game.components.DefensiveItemsComponents;
 
 public class ArmourTypeConfig {
     public ArmourConfig baseArmour = new ArmourConfig();

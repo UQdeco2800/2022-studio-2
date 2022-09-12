@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -51,6 +52,8 @@ public class PlayerActions extends Component {
   private boolean resting = false;
   private long restStart=0;
   private long restEnd;
+  private Music walkingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/walk_on_sand.wav"));
+  private Music teleportSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/teleport_sound.wav"));
 
   @Override
   public void create() {
@@ -66,9 +69,9 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
-//    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
-//    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
-//    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
+    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
+    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
+    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
     entity.getEvents().addListener("attack", this::attackAnimation);
@@ -84,6 +87,8 @@ public class PlayerActions extends Component {
     // temp skill bindings for sprint 2 marking
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
 
   }
 
@@ -177,6 +182,9 @@ public class PlayerActions extends Component {
    * @param direction direction to move in
    */
   void walk(Vector2 direction) {
+    walkingSound.setLooping(true);
+    walkingSound.play();
+
     this.walkDirection = direction;
   }
 
@@ -186,7 +194,7 @@ public class PlayerActions extends Component {
   void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
-
+    walkingSound.stop();
   }
 
   /**
@@ -209,9 +217,11 @@ public class PlayerActions extends Component {
    */
   void dash() {
     if(stamina >=20){
+      teleportSound.play();
       skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
     }
+
     playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
 
@@ -266,6 +276,7 @@ public class PlayerActions extends Component {
     if (mana>=40) {
       entity.getEvents().trigger("decreaseMana", -40);
       skillManager.startTeleport();
+      teleportSound.play();
     }
   }
 
@@ -302,6 +313,22 @@ public class PlayerActions extends Component {
    */
   void block() {
     skillManager.startBlock();
+  }
+
+  /**
+   * Makes the player cast their ultimate skill.
+   * Registers call of the ultimate function to the skill manager component.
+   */
+  void ultimate() {
+    skillManager.startUltimate();
+  }
+
+  /**
+   * Makes the player cast their attackspeed skill.
+   * Registers call of the attackspeed skill function to the skill manager component.
+   */
+  void attackSpeedUp() {
+    skillManager.startAttackSpeedUp();
   }
 
   public Vector2 getWalkDirection() {
