@@ -207,6 +207,7 @@ public class GameAreaDisplay extends UIComponent {
           weapon = null;
           clearBoxes(0);
         };
+        getInventory();
       }
     });
     craftingGroup.addActor(craftButton);
@@ -253,6 +254,8 @@ public class GameAreaDisplay extends UIComponent {
         for (Map.Entry entry: item.materials.entrySet()){
           String entryString = entry.toString().split("=")[0];
           String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
+          System.out.print(upperCaseEntry);
+          System.out.println(boxes[0].toString());
           if (boxes[0].toString().equals(upperCaseEntry) ||
                   boxes[1].toString().equals(upperCaseEntry)){
             numItems += 1;
@@ -282,7 +285,6 @@ public class GameAreaDisplay extends UIComponent {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();
     inventory = inventoryComponent.getInventory();
-    System.out.println(inventory);
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
         materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -297,7 +299,6 @@ public class GameAreaDisplay extends UIComponent {
         material.addListener(new ChangeListener() {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
-            System.out.println(checkType(item));
             if (boxes[0] == null) {
               clearMaterials();
               materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -409,6 +410,8 @@ public class GameAreaDisplay extends UIComponent {
       materials = Materials.Platinum;
     } else if (type == EntityTypes.SILVER) {
       materials = Materials.Silver;
+    } else {
+      materials = Materials.HerraDag;
     }
     if (this.boxes[0] == null)
       boxes[0] = materials;
