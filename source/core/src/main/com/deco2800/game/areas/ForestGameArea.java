@@ -182,6 +182,9 @@ public class ForestGameArea extends GameArea {
 
     spawnDumbbell();
     //spawnBaseArmour();
+    spawnSlowDiamond();
+    spawnFastLeather();
+    spawnDamageReturner();
     spawnSpeedDebuff();
     spawnDmgBuff();
     spawnDmgDebuff();
@@ -375,9 +378,11 @@ public class ForestGameArea extends GameArea {
    * spawn an armour on the map based on the input armour type
    * @param armourType armourType of the armour to be spawned
    */
+  /*
   private void spawnArmour(ArmourFactory.ArmourType armourType) {
     Entity armour = ArmourFactory.createArmour(armourType);
     int armourID = armour.getId();
+    armourOnMap.add();
     spawnEntityAt(armour, new GridPoint2(armourID * 3,armourID * 6), true, false);
   }
 
@@ -392,7 +397,7 @@ public class ForestGameArea extends GameArea {
   private void spawnDamageReturner() {
       spawnArmour(ArmourFactory.ArmourType.slowDiamond);
   }
-
+  */
   /**
    * Spawn small tress in a certain position. - Team 5 1map4all @LYB
    */
@@ -466,13 +471,32 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
   
-/*
+
   private void spawnBaseArmour() {
     Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
     armourOnMap.add(baseArmour);
-    spawnEntityAt(baseArmour, new GridPoint2(2,13), true, false);
+    spawnEntityAt(baseArmour, new GridPoint2(2,20), true, false);
   }
-*/
+
+  private void spawnSlowDiamond() {
+      Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
+      armourOnMap.add(baseArmour);
+      spawnEntityAt(baseArmour, new GridPoint2(2,5), true, false);
+  }
+
+  private void spawnFastLeather() {
+      Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
+      armourOnMap.add(baseArmour);
+      spawnEntityAt(baseArmour, new GridPoint2(10,2), true, false);
+  }
+
+  private void spawnDamageReturner() {
+      Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
+      armourOnMap.add(baseArmour);
+      spawnEntityAt(baseArmour, new GridPoint2(2,13), true, false);
+  }
+
+
   /**
    * Spawns level 3 Herra and Athena entity into the game
    * Spawns x-pos 10

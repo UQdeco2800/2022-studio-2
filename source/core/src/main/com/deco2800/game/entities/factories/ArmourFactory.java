@@ -76,9 +76,9 @@ public class ArmourFactory {
         String texturePath = "images/Armour-assets-sprint2/baseArmour.png";
         switch (type){
             case damageReturner:
-                texturePath = "";
+                texturePath = "images/Armour-assets-sprint2/damageReturner.png";
             case fastLeather:
-                texturePath = "";
+                texturePath = "images/Armour-assets-sprint2/fastLeather.png";
             case slowDiamond:
                 texturePath = "images/Armour-assets-sprint2/slowDiamond.png";
         }
