@@ -3,20 +3,20 @@ package com.deco2800.game.components.npc;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 
-public class NPCAnimationController extends Component {
+public class FriendlyCreatureAnimationController extends Component {
     AnimationRenderComponent animator;
 
     @Override
     public void create() {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
-        entity.getEvents().addListener("MaleShake", this::MaleShakeStart);
-        entity.getEvents().trigger("MaleShake");
+        entity.getEvents().addListener("creatureShake", this::femaleShakeStart);
+        entity.getEvents().trigger("creatureShake");
+
     }
 
-    void MaleShakeStart() {
-        animator.startAnimation("MaleShake");
+    void femaleShakeStart() {
+        animator.startAnimation("creatureShake");
     }
 
 }
-

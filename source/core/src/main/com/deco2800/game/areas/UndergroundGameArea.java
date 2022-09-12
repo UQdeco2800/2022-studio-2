@@ -44,6 +44,7 @@ public class UndergroundGameArea extends GameArea {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
             "images/ghost_king.png",
+            "images/NPC/friendly_creature npc/Friendly_creature.png",
             "images/ghost_1.png",
             "images/grass_1.png",
             "images/grass_2.png",
@@ -56,7 +57,8 @@ public class UndergroundGameArea extends GameArea {
     public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-            "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
+            "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
+            "images/NPC/friendly_creature npc/Friendly_creaturesheet.atlas"
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";

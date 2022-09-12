@@ -1,5 +1,5 @@
-plumber_friend_spritesheet.png
-size: 896, 128
+Friendly_creaturesheet.png
+size: 256, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -10,53 +10,38 @@ default
   orig: 64, 64
   offset: 0, 0
   index: 0
-plumberfriendShake
+creatureShake
   rotate: false
   xy: 0, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-plumberfriendShake
+creatureShake
+  rotate: false
+  xy: 64, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+creatureShake
   rotate: false
   xy: 128, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-plumberfriendShake
+  index: 2
+creatureShake
+  rotate: false
+  xy: 192, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+creatureShake
   rotate: false
   xy: 256, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-plumberfriendShake
-  rotate: false
-  xy: 384, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 3
-plumberfriendShake
-  rotate: false
-  xy: 512, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
   index: 4
-plumberfriendShake
-  rotate: false
-  xy: 640, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 5
-plumberfriendShake
-  rotate: false
-  xy: 768, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 6
-

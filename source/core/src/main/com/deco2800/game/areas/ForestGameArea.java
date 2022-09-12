@@ -109,7 +109,7 @@ public class ForestGameArea extends GameArea {
     "images/NPC/dialogue_indicator/dialogue_1.png",
     "images/NPC/dialogue_indicator/dialogue_2.png",
     "images/NPC/dialogue_indicator/dialogue_3.png",
-    "images/NPC/male_citizen/male_citizen.png",
+    "images/NPC/friendly_creature npc/Friendly_creature.png",
     "images/Movement/movement.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
@@ -137,12 +137,11 @@ public class ForestGameArea extends GameArea {
           "images/NPC/male_citizen/male-atlas.atlas",
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-   "images/NPC/guard npc/npcguard.atlas", "images/NPC/child npc/npcchild.atlas",
-      "images/NPC/female npc/npcfemale.atlas", "images/NPC/human_guard/human_guard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
+
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
-          "images/NPC/child npc/npcchild.atlas"
+          "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -158,8 +157,7 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 GuardPosition;
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 childPosition;
-  public static GridPoint2 HumanGuardPosition;
-  public static GridPoint2 PlumberFriendPosition;
+  public static GridPoint2 friendly_creaturePosition;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -195,11 +193,11 @@ public class ForestGameArea extends GameArea {
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
-    spawnHumanGuard();
-    spawnPlumberFriend();
+
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
+    spawnfriendlycreature();
 //    spawnDialogue();
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
@@ -566,31 +564,6 @@ public class ForestGameArea extends GameArea {
     return new_position;
   }
 
-  private void spawnHumanGuard() {
-
-    HumanGuardPosition = new GridPoint2(7,20);
-
-    Entity HumanGuard = NPCFactory.createHumanGuard(player);
-    spawnEntityAt(HumanGuard, HumanGuardPosition, true, true);
-
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, HumanGuardPosition, true, true);
-  }
-
-
-
-  private void spawnPlumberFriend() {
-
-    PlumberFriendPosition = new GridPoint2(4, 20);
-
-    Entity PlumberFriend = NPCFactory.createPlumberFriend(player);
-    spawnEntityAt(PlumberFriend, PlumberFriendPosition, true, true);
-
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, PlumberFriendPosition, true, true);
-  }
   /**
    * Spawn child NPC in random position. - Team 7 all-mid-npc
    */
@@ -642,6 +615,21 @@ public class ForestGameArea extends GameArea {
     return maleCitizenPosition;
   }
 
+  /**
+   * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
+   */
+  private void spawnfriendlycreature() {
+    friendly_creaturePosition = new GridPoint2(5, 10);
+
+    Entity friendly_creature = NPCFactory.createFriendly_creature(player);
+    spawnEntityAt(friendly_creature, friendly_creaturePosition, true, true);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, friendly_creaturePosition, true, true);
+  }
+  public static GridPoint2 friendly_creaturePosition() {
+    return friendly_creaturePosition;
+  }
 
   private void spawnGymBro() {
     GridPoint2 minPos = new GridPoint2(0, 0);
