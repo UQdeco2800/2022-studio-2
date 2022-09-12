@@ -68,9 +68,9 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
-//    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
-//    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
-//    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
+    entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
+    entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
+    entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
 

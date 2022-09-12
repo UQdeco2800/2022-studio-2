@@ -105,6 +105,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/PeriPeriBuff_FIRE.png",
     "images/CombatWeapons-assets-sprint1/poisonBuff.png",
     "images/Potions/defence_potion.png",
+    "images/Potions/agility_potion.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
     "images/Potions/agility_potion.png",
@@ -135,6 +136,7 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private static List<Entity> weaponOnMap = new ArrayList<>();
+  private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> armourOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
@@ -181,7 +183,7 @@ public class ForestGameArea extends GameArea {
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
     playMusic();
-
+    spawnSpeedPotion();
 
 
     spawnDumbbell();
@@ -274,6 +276,12 @@ public class ForestGameArea extends GameArea {
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
 
+  public static void removeItemOnMap(Entity entityToRemove) {
+
+    entityToRemove.setEnabled(false);
+    ItemsOnMap.remove(entityToRemove);
+    Gdx.app.postRunnable(() -> entityToRemove.dispose());
+  }
 
   /**
    * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
@@ -406,6 +414,17 @@ public class ForestGameArea extends GameArea {
     craftingTablePos = randomPos;
     Entity craftingTable = ObstacleFactory.createCraftingTable();
     spawnEntityAt(craftingTable, randomPos, true, false);
+  }
+
+  /**
+   * Spawns speed potion entity into the game
+   * Spawns x-pos 30
+   * Spawns y-pos 23
+   */
+  private void spawnSpeedPotion() {
+    Entity speedPotion =PotionFactory.createSpeedPotion();
+    ItemsOnMap.add(speedPotion);
+    spawnEntityAt(speedPotion, new GridPoint2(30, 23), true, false);
   }
 
   /**
