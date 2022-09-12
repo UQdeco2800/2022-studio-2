@@ -45,6 +45,7 @@ public class GameAreaDisplay extends UIComponent {
   private ImageButton inventoryButton;
   private ImageButton exitButton;
   private Texture buttonTexture;
+
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
@@ -186,11 +187,12 @@ public class GameAreaDisplay extends UIComponent {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         if (weapon != null) {
-          weapon.setPosition(craftMenu.getX() + 100 +
-                  (75 * (numcrafted-1)), craftMenu.getTop() - 475);
+          disposeFirstBox();
+          disposeSecondBox();
+          weapon.setPosition(craftMenu.getX() + 100, craftMenu.getTop() - 475);
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
                   area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
-                  clearBoxes(0);
+        clearBoxes(0);
         };
       }
     });
@@ -295,6 +297,7 @@ public class GameAreaDisplay extends UIComponent {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                   disposeFirstBox();
+                  clearBoxes(1);
                   addToInventory(checkType(item));
                   getInventory();
                 }
@@ -315,6 +318,7 @@ public class GameAreaDisplay extends UIComponent {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                   disposeSecondBox();
+                  clearBoxes(2);
                   addToInventory(checkType(item));
                   getInventory();
                 }
@@ -405,9 +409,18 @@ public class GameAreaDisplay extends UIComponent {
       boxes[1] = null;
     } else if (number == 1) {
       boxes[0] = null;
+      if (weapon != null){
+        weapon.remove();
+        weapon = null;
+      }
     } else if (number == 2) {
       boxes[1] = null;
+      if (weapon != null){
+        weapon.remove();
+        weapon = null;
+      }
     }
+
   }
 
   private void displayCatOne() {
