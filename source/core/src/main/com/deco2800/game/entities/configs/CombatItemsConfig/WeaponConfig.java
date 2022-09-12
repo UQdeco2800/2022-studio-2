@@ -14,4 +14,6 @@ public class WeaponConfig {
     public MeleeConfig tridentLvl2 = new MeleeConfig();
     public MeleeConfig herraAthenaDag = new MeleeConfig();
     public MeleeConfig plunger = new MeleeConfig();
+    public MeleeConfig pipe = new MeleeConfig();
+
 }

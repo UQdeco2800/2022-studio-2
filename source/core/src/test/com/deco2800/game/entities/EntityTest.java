@@ -274,7 +274,7 @@ class EntityTest {
   void gymBroConfigSpeedTest() {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
     resourceService.loadTextures(textures);
     resourceService.loadAll();
     GymBroConfig gymBroConfig = new GymBroConfig();
@@ -297,7 +297,7 @@ class EntityTest {
   void gymBroAnimationControllerHasAnimationsTest() {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
     String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
     resourceService.loadTextures(textures);
     resourceService.loadTextureAtlases(textureAtlases);
@@ -320,7 +320,7 @@ class EntityTest {
   void heraclesAnimationControllerHasAnimationsTest() {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
     String[] textureAtlases = {"images/Enemies/heracles.atlas"};
     resourceService.loadTextures(textures);
     resourceService.loadTextureAtlases(textureAtlases);
@@ -344,7 +344,7 @@ class EntityTest {
   void gymBroScaleTest() {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
     String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
     resourceService.loadTextures(textures);
     resourceService.loadTextureAtlases(textureAtlases);
@@ -359,7 +359,7 @@ class EntityTest {
   void heraclesScaleTest() {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
     String[] textureAtlases = {"images/Enemies/heracles.atlas"};
     resourceService.loadTextures(textures);
     resourceService.loadTextureAtlases(textureAtlases);
@@ -374,7 +374,7 @@ class EntityTest {
   void poopsScaleTest() {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"};
+    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
     String[] textureAtlases = {"images/Enemies/poop.atlas"};
     resourceService.loadTextures(textures);
     resourceService.loadTextureAtlases(textureAtlases);

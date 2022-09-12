@@ -88,3 +88,4 @@ public abstract class WeaponStatsComponent extends Component {
   public abstract void auraEffect(Entity auraToApply);
 
 }
+

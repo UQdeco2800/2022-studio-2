@@ -20,6 +20,7 @@ public abstract class GameArea implements Disposable {
   protected TerrainComponent terrain;
   protected List<Entity> areaEntities;
   private Entity player;
+  private static GridPoint2 craftingTablePos;
 
   protected GameArea() {
     areaEntities = new ArrayList<>();
@@ -40,7 +41,7 @@ public abstract class GameArea implements Disposable {
    *
    * @param entity Entity (not yet registered)
    */
-  protected void spawnEntity(Entity entity) {
+  public void spawnEntity(Entity entity) {
     areaEntities.add(entity);
     ServiceLocator.getEntityService().register(entity);
   }
@@ -54,7 +55,7 @@ public abstract class GameArea implements Disposable {
    * @param centerY true to center entity Y on the tile, false to align the bottom left corner
    */
   protected void spawnEntityAt(
-      Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+          Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
     Vector2 worldPos = terrain.tileToWorldPosition(tilePos);
     float tileSize = terrain.getTileSize();
 
@@ -71,5 +72,10 @@ public abstract class GameArea implements Disposable {
 
   public Entity getPlayer() {
     return player;
+  }
+
+
+  public static GridPoint2 getCraftingTablePos() {
+    return craftingTablePos;
   }
 }
