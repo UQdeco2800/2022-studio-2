@@ -111,6 +111,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
           System.out.println("Going to next level!");
         }
         return true;
+      case Keys.L:
+        entity.getEvents().trigger("DeathScreen");
+        return true;
       default:
         return false;
     }
