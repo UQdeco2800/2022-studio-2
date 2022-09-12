@@ -73,7 +73,7 @@ public class ArmourFactory {
      * @return armour
      */
     private static String getTexture (ArmourType type) {
-        String texturePath = "images/Armour-assets-sprint2/baseArmour.png";
+        String texturePath = "images/Armour-assets-sprint2/fastLeather.png";
         switch (type){
             case damageReturner:
                 texturePath = "images/Armour-assets-sprint2/damageReturner.png";

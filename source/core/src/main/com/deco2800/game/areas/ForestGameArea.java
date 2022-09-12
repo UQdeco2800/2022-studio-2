@@ -50,6 +50,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png",
     "images/Armour-assets-sprint2/baseArmour.png",
     "images/Armour-assets-sprint2/slowDiamond.png",
+          "images/Armour-assets-sprint2/fastLeather.png",
+          "images/Armour-assets-sprint2/damageReturner.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
