@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.deco2800.game.components.player;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -403,5 +402,4 @@ class PlayerSkillComponentTest {
         customWait(1);
         Assert.assertTrue(component.cooldownFinished("jibberish", 0L));
     }
->>>>>>> main
 }
