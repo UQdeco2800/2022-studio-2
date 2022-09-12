@@ -10,7 +10,6 @@ import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
-import com.deco2800.game.components.tasks.JumpTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -139,7 +138,6 @@ public class NPCFactory {
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            //.addTask(new JumpTask(target, 11, 5f, 150f, 1f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -180,8 +178,7 @@ public class NPCFactory {
     heracles.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
-            //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed))
-            //.addTask(new JumpTask(target, 11, 5f, 200f, 1f));
+            //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
