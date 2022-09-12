@@ -125,15 +125,10 @@ public class NPCFactory {
                             .getAsset("images/NPC/male_citizen/male-atlas.atlas", TextureAtlas.class));
     animator.addAnimation("MaleShake", 0.1f, Animation.PlayMode.LOOP);
 
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/male_citizen/male-atlas.atlas", TextureAtlas.class));
-    animator.addAnimation("MaleShake", 0.1f, Animation.PlayMode.LOOP);
-
-
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
 
-            .addComponent(new MaleAnimationController());
+            .addComponent(new MaleAnimationController())
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
             ;
