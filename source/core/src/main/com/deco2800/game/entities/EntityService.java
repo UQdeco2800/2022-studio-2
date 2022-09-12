@@ -68,6 +68,14 @@ public class EntityService {
   }
 
   /**
+   * Unpause the game. Called when the exit button is clicked.
+   * NOTE: this method is meant to fix a minor bug of UI interactions.
+   */
+  public static void unpauseGame() {
+    paused = false;
+  }
+
+  /**
    * Dispose all entities.
    */
   public void dispose() {

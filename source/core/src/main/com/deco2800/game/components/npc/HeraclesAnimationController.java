@@ -32,7 +32,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro walking when facing right
      */
     private void animateWalkRight() {
-        if (animator.getCurrentAnimation() != "walk_right") {
+        if (!"walk_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_right");
         }
     }
@@ -41,7 +41,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro walking when facing left
      */
     private void animateWalkLeft() {
-        if (animator.getCurrentAnimation() != "walk_left") {
+        if (!"walk_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_left");
         }
     }
@@ -50,7 +50,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro walking when facing backwards
      */
     private void animateWalkBack() {
-        if (animator.getCurrentAnimation() != "walk_back") {
+        if (!"walk_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_back");
         }
     }
@@ -59,7 +59,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro walking when facing forwards
      */
     private void animateWalkFront() {
-        if (animator.getCurrentAnimation() != "walk_front") {
+        if (!"walk_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_front");
         }
     }
@@ -68,7 +68,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro attacking when facing right
      */
     private void animateDiscusAttackRight() {
-        if (animator.getCurrentAnimation() != "discus_attack_right") {
+        if (!"discus_attack_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("discus_attack_right");
         }
     }
@@ -77,7 +77,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro attacking when facing left
      */
     private void animateDiscusAttackLeft() {
-        if (animator.getCurrentAnimation() != "discus_attack_left") {
+        if (!"discus_attack_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("discus_attack_left");
         }
     }
@@ -86,7 +86,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro attacking when facing forwards
      */
     private void animateDiscusAttackFront() {
-        if (animator.getCurrentAnimation() != "discus_attack_front") {
+        if (!"discus_attack_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("discus_attack_front");
         }
     }
@@ -95,7 +95,7 @@ public class HeraclesAnimationController extends Component {
      * Animates the gym bro attacking when facing backwards
      */
     private void animateDiscusAttackBack() {
-        if (animator.getCurrentAnimation() != "discus_attack_back") {
+        if (!"discus_attack_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("discus_attack_back");
         }
     }

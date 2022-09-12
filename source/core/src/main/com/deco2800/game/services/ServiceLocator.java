@@ -1,6 +1,5 @@
 package com.deco2800.game.services;
 
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.EntityService;
@@ -22,17 +21,13 @@ public class ServiceLocator {
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
   private static EntityService entityService;
   private static RenderService renderService;
-
-  private static GameAreaDisplay pauseMenuArea;
   private static PhysicsService physicsService;
   private static GameTime timeSource;
   private static InputService inputService;
   private static ResourceService resourceService;
-
-  private static GameArea gameArea;
-
   private static GameAreaDisplay craftArea;
-
+  private static GameAreaDisplay pauseMenuArea;
+  private static GameArea gameArea;
   private static GameAreaDisplay inventoryArea;
 
   public static GameArea getGameArea() {return gameArea;}
@@ -99,12 +94,6 @@ public class ServiceLocator {
     resourceService = null;
   }
 
-  public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
-
-  public static GameAreaDisplay getPauseMenuArea() {
-    return pauseMenuArea;
-  }
-
   private ServiceLocator() {
     throw new IllegalStateException("Instantiating static util class");
   }
@@ -117,12 +106,18 @@ public class ServiceLocator {
     craftArea = area;
   }
 
+  public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+
   public static void registerInventoryArea(GameAreaDisplay area){
     inventoryArea = area;
   }
 
   public static GameAreaDisplay getCraftArea() {
     return craftArea;
+  }
+
+  public static GameAreaDisplay getPauseMenuArea() {
+    return pauseMenuArea;
   }
 
   public static GameAreaDisplay getInventoryArea() {
