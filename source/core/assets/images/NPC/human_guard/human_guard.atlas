@@ -1,0 +1,82 @@
+human_guard_spritesheet.png
+size: 1280, 128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+default
+  rotate: false
+  xy: 0, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+humanguardShake
+  rotate: false
+  xy: 0, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+humanguardShake
+  rotate: false
+  xy: 128, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+humanguardShake
+  rotate: false
+  xy: 256, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+humanguardShake
+  rotate: false
+  xy: 384, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+humanguardShake
+  rotate: false
+  xy: 512, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+humanguardShake
+  rotate: false
+  xy: 640, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 5
+humanguardShake
+  rotate: false
+  xy: 768, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 6
+humanguardShake
+  rotate: false
+  xy: 896, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 7
+humanguardShake
+  rotate: false
+  xy: 1024, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 8
+humanguardShake
+  rotate: false
+  xy: 1152, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 9
