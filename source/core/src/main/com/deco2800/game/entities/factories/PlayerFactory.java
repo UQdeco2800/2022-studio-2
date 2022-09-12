@@ -63,6 +63,7 @@ public class PlayerFactory {
             .addComponent(new OpenCraftingComponent())
                 .addComponent(new DialogueKeybordInputComponent())
                 .addComponent(new DialogueDisplay())
+            .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
             .addComponent(animator)
             .addComponent(new PlayerAnimationController());
@@ -71,6 +72,25 @@ public class PlayerFactory {
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
+    player.setEntityType(EntityTypes.PLAYER);
+    return player;
+  }
+
+  /**
+   * Create a player entity for test.
+   * @return entity
+   */
+  public static Entity createTestPlayer() {
+    Entity player = new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                    .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina, stats.mana))
+                    .addComponent(new PlayerActions())
+                    .addComponent(new InventoryComponent())
+                    .addComponent(new PlayerModifier())
+                    .addComponent(new OpenCraftingComponent())
+                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER));
     return player;
   }
 
@@ -81,6 +101,10 @@ public class PlayerFactory {
     animator.addAnimation("no_animation", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("block", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("dodge", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vendemaire", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("dash", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("attackSpeed", 0.1f, Animation.PlayMode.LOOP);
 
     Entity skillAnimator =
             new Entity().addComponent(animator)
@@ -90,6 +114,25 @@ public class PlayerFactory {
     return skillAnimator;
   }
 
+  /**
+   * Create level 3 dagger and hera combat item animation.
+   * @return entity
+   */
+  public static Entity createCombatAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/combatanimation.atlas", TextureAtlas.class));
+    animator.addAnimation("noAnimation", 0.1f);
+    animator.addAnimation("level3Dagger", 0.1f);
+    animator.addAnimation("hera", 0.1f);
+
+    Entity combatAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerCombatAnimationController(playerEntity));
+
+    combatAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return combatAnimator;
+  }
 
   private PlayerFactory() {
     throw new IllegalStateException("Instantiating static util class");

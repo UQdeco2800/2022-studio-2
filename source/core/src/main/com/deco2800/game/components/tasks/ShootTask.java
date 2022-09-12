@@ -4,12 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.PhysicsEngine;
-import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.raycast.RaycastHit;
-import com.deco2800.game.rendering.DebugRenderer;
-import com.deco2800.game.services.GameTime;
-import com.deco2800.game.services.ServiceLocator;
 
 /** Chases a target entity until they get too far away or line of sight is lost */
 public class ShootTask extends DefaultTask implements PriorityTask {
@@ -17,15 +11,9 @@ public class ShootTask extends DefaultTask implements PriorityTask {
 
     private Vector2 targetPosition;
     private final int priority;
-    private final PhysicsEngine physics;
-    private final DebugRenderer debugRenderer;
     private float speed = 1;
-    private final RaycastHit hit = new RaycastHit();
     private MovementTask movementTask;
-    private float attackRange = 1.5f;
 
-    private GameTime gameTime;
-    private float lastAttackTime = 0L;
 
     /**
      * @param target           The location to fire towards.
@@ -36,14 +24,11 @@ public class ShootTask extends DefaultTask implements PriorityTask {
         this.target = target;
         this.priority = priority;
         this.speed = speed;
-        physics = ServiceLocator.getPhysicsService().getPhysics();
-        debugRenderer = ServiceLocator.getRenderService().getDebug();
-        gameTime = ServiceLocator.getTimeSource();
     }
 
 
     /**
-     * Start chase task.
+     * Start shoot task.
      */
     @Override
     public void start() {
@@ -55,7 +40,7 @@ public class ShootTask extends DefaultTask implements PriorityTask {
     }
 
     /**
-     * Update chase task.
+     * Update shoot task.
      */
     @Override
     public void update() {

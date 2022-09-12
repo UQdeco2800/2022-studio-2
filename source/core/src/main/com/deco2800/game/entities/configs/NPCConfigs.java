@@ -18,3 +18,5 @@ public class NPCConfigs {
   public PoopsConfig poops = new PoopsConfig();
   public FriendPetConfig pet = new FriendPetConfig();
 }
+
+

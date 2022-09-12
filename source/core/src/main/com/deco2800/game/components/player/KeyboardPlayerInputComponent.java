@@ -3,9 +3,14 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+
+import java.security.Provider;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
@@ -13,6 +18,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
+  private int keyPressedCounter = 1;
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -46,43 +52,78 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
+      case Keys.N:
+        entity.getEvents().trigger("attack2");
+        return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
 //        EntityService.pauseGame();
         return true;
-      case Keys.L:
-        System.out.println("9");
-        entity.getEvents().trigger("can_close");
-//        EntityService.pauseAndResume();
-        return true;
       case Keys.E:
         entity.getEvents().trigger("skill");
+        // Temporary projectile shoot on skill activation
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+        }
         return true;
       case Keys.J:
         entity.getEvents().trigger("skill2");
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectile();
+        }
         return true;
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
         return true;
+      case Keys.EQUALS: // temp mapping for sprint 2 marking
+        entity.getEvents().trigger("rootTemp");
+        return true;
+      case Keys.MINUS: // temp mapping for sprint 2 marking
+        entity.getEvents().trigger("bleedTemp");
+        return true;
+      case Keys.BACKSLASH:
+        entity.getEvents().trigger("ultimateTemp");
+        return true;
+      case Keys.BACKSPACE:
+        entity.getEvents().trigger("attackspeedTemp");
+        return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
-//      case Keys.NUM_1:
-//        entity.getEvents().trigger("consumePotionSlot1");
-//        return true;
-//      case Keys.NUM_2:
-//        entity.getEvents().trigger("consumePotionSlot2");
-//        return true;
-//      case Keys.NUM_3:
-//        entity.getEvents().trigger("consumePotionSlot3");
-//        return true;
+      case Keys.NUM_1:
+        entity.getEvents().trigger("consumePotionSlot1");
+        return true;
+      case Keys.NUM_2:
+        entity.getEvents().trigger("consumePotionSlot2");
+        return true;
+      case Keys.NUM_3:
+        entity.getEvents().trigger("consumePotionSlot3");
+        return true;
       case Keys.ESCAPE:
-        EntityService.pauseAndResume();
+        if (!OpenCraftingComponent.getCraftingStatus()) {
+          keyPressedCounter++;
+        }
+        if (keyPressedCounter % 2 == 0) {
+          entity.getEvents().trigger("game paused");
+          return true;
+        }
+        entity.getEvents().trigger("game resumed");
+        return true;
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;
       case Keys.M:
         entity.getEvents().trigger("toggleMinimap");
+        return true;
+      case Keys.X:
+        entity.getEvents().trigger("EquipWeapon");
+        return true;
+      case Keys.Y:
+        entity.getEvents().trigger("dropWeapon");
+      case Keys.ENTER:
+        if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) && (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
+          System.out.println("Going to next level!");
+        }
         return true;
       default:
         return false;
