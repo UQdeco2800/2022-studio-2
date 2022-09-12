@@ -1,4 +1,4 @@
-package DefensiveItemsComponents;
+package com.deco2800.game.components.DefensiveItemsComponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
@@ -15,6 +15,16 @@ public class ArmourStatsComponent extends Component {
 
     public ArmourStatsComponent(double phyResistance, double durability, double vitality,
                                 double dmgReturn, double weight, HashMap<Materials, Integer> materials){
+        this.phyResistance = phyResistance;
+        this.durability = durability;
+        this.vitality = vitality;
+        this.dmgReturn = dmgReturn;
+        this.weight = weight;
+        this.materials = materials;
+    }
+
+    public void setArmourStats (double phyResistance, double durability, double vitality,
+                                double dmgReturn, double weight, HashMap<Materials, Integer> materials) {
         this.phyResistance = phyResistance;
         this.durability = durability;
         this.vitality = vitality;

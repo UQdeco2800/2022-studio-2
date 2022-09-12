@@ -150,4 +150,13 @@ public class PlayerAnimationControllerTest {
         dummy.getEvents().trigger("movementHandle", walkDirection);
         assertEquals(controller.MOVELEFTDOWN, controller.getMovementAnimation());
     }
+
+    @Test
+    void shouldNotMove() {
+        walkDirection.add(Vector2Utils.LEFT);
+        walkDirection.add(Vector2Utils.DOWN);
+        walkDirection.add(Vector2Utils.DOWN);
+        dummy.getEvents().trigger("movementHandle", walkDirection);
+        assertEquals(controller.MOVEIDLE, controller.getMovementAnimation());
+    }
 }

@@ -1,8 +1,10 @@
 package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.BackgroundSoundComponent;
 import com.deco2800.game.components.maingame.DialogueDisplay;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
@@ -26,6 +28,8 @@ public class MainMenuScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {"images/box_boy_title.png"};
+  private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
+  private static final String[] mainMenuMusic = {backgroundMusic};
 
   public MainMenuScreen(GdxGame game) {
     this.game = game;
@@ -40,6 +44,14 @@ public class MainMenuScreen extends ScreenAdapter {
 
     loadAssets();
     createUI();
+    playMusic();
+  }
+
+  private void playMusic() {
+    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
   }
 
   @Override
@@ -72,6 +84,7 @@ public class MainMenuScreen extends ScreenAdapter {
     unloadAssets();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getEntityService().dispose();
+    ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
 
     ServiceLocator.clear();
   }
@@ -80,6 +93,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
+    resourceService.loadMusic(mainMenuMusic);
     ServiceLocator.getResourceService().loadAll();
   }
 

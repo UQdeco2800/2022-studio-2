@@ -10,6 +10,7 @@ public class MaterialFactory {
         Entity gold = new Entity();
         gold.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/gold.png"));
         gold.setEntityType(EntityTypes.GOLD);
+        gold.setEntityType(EntityTypes.CRAFTABLE);
         return gold;
     }
 
@@ -17,6 +18,7 @@ public class MaterialFactory {
         Entity iron = new Entity();
         iron.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/iron.png"));
         iron.setEntityType(EntityTypes.IRON);
+        iron.setEntityType(EntityTypes.CRAFTABLE);
         return iron;
     }
 
@@ -24,6 +26,7 @@ public class MaterialFactory {
         Entity steel = new Entity();
         steel.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/steel.png"));
         steel.setEntityType(EntityTypes.STEEL);
+        steel.setEntityType(EntityTypes.CRAFTABLE);
         return steel;
     }
 
@@ -31,6 +34,7 @@ public class MaterialFactory {
         Entity wood = new Entity();
         wood.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/wood.png"));
         wood.setEntityType(EntityTypes.WOOD);
+        wood.setEntityType(EntityTypes.CRAFTABLE);
         return wood;
     }
 
@@ -39,6 +43,7 @@ public class MaterialFactory {
         plastic.addComponent
                 (new TextureRenderComponent("images/Crafting-assets-sprint1/materials/plastic.png"));
         plastic.setEntityType(EntityTypes.PLASTIC);
+        plastic.setEntityType(EntityTypes.CRAFTABLE);
         return plastic;
     }
 
@@ -47,6 +52,7 @@ public class MaterialFactory {
         rubber.addComponent
                 (new TextureRenderComponent("images/Crafting-assets-sprint1/materials/rubber.png"));
         rubber.setEntityType(EntityTypes.RUBBER);
+        rubber.setEntityType(EntityTypes.CRAFTABLE);
         return rubber;
     }
 
@@ -55,6 +61,7 @@ public class MaterialFactory {
         platinum.addComponent
                 (new TextureRenderComponent("images/Crafting-assets-sprint1/materials/platinum.png"));
         platinum.setEntityType(EntityTypes.PLATINUM);
+        platinum.setEntityType(EntityTypes.CRAFTABLE);
         return platinum;
     }
 
@@ -63,6 +70,7 @@ public class MaterialFactory {
         silver.addComponent
                 (new TextureRenderComponent("images/Crafting-assets-sprint1/materials/silver.png"));
         silver.setEntityType(EntityTypes.SILVER);
+        silver.setEntityType(EntityTypes.CRAFTABLE);
         return silver;
     }
 }

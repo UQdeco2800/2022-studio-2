@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -85,8 +86,13 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     // Attack target if it appears in range
     if (getDistanceToTarget() <= attackRange) {
       if (currentTime - lastAttackTime > 1500L) {
-        target.getComponent(CombatStatsComponent.class)
-                .hit(owner.getEntity().getComponent(CombatStatsComponent.class));
+
+        PlayerActions playerActions = target.getComponent(PlayerActions.class);
+        if (playerActions != null && !(playerActions.getSkillComponent().skillDamageTrigger())) {
+          target.getComponent(CombatStatsComponent.class)
+                  .hit(owner.getEntity().getComponent(CombatStatsComponent.class));
+        }
+
         lastAttackTime = gameTime.getTime();
       }
       attackAnimate();
@@ -176,7 +182,6 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   private void walkAnimate() {
     Vector2 enemy = owner.getEntity().getCenterPosition();
     Vector2 player = target.getCenterPosition();
-    Boolean inAttackRange = getDistanceToTarget() <= attackRange;
 
     float y = enemy.y - player.y;
     float x = enemy.x - player.x;
