@@ -304,9 +304,9 @@ public class InventoryComponent extends Component {
   }
 
   /**
-   *
-   * @param effectType
-   * @return
+   * Returns the potion Entity with the same type of effect.
+   * @param effectType the effect type of potion
+   * @return potion with the specified effect, null if there is none
    */
   public Entity getPotion(String effectType) {
     for (int i = 0; i < quickBarItems.size(); ++i) {
@@ -318,9 +318,9 @@ public class InventoryComponent extends Component {
   }
 
   /**
-   *
-   * @param
-   * @return
+   * Returns the potion Entity with the same type of effect.
+   * @param potion
+   * @return potion with the same effect, null if there is none
    */
   public Entity getPotion(Entity potion) {
     for (int i = 0; i < quickBarItems.size(); ++i) {
@@ -332,9 +332,9 @@ public class InventoryComponent extends Component {
   }
 
   /**
-   *
-   * @param effectType
-   * @return
+   * Returns the index of the potion if there exists a potion with the same effect.
+   * @param effectType the potion effect
+   * @return index of the potion, -1 if potion does not exist
    */
   public int getPotionIndex(String effectType) {
     for (int i = 0; i < quickBarItems.size(); ++i) {
@@ -346,9 +346,9 @@ public class InventoryComponent extends Component {
   }
 
   /**
-   *
-   * @param
-   * @return
+   * Returns the index of the potion in the quickbar.
+   * @param potion the potion in the quickbar.
+   * @return index of the potion, -1 if potion does not exist
    */
   public int getPotionIndex(Entity potion) {
     for (int i = 0; i < quickBarItems.size(); ++i) {
