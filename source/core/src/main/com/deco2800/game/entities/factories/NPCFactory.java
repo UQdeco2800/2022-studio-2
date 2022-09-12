@@ -250,6 +250,25 @@ public class NPCFactory {
   }
 
   /**
+   * Creates a friendly creature NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
+  public static Entity createFriendly_creature (Entity target) {
+    Entity friendly_creature = createBaseNPC();
+    FriendlyCreatureConfig config = configs.friendly_creature;
+
+    friendly_creature
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new TextureRenderComponent("images/NPC/friendly_creature npc/Friendly_creature"));
+
+    friendly_creature.getComponent(AITaskComponent.class);
+    friendly_creature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    friendly_creature.setScale(1, 1);
+    return friendly_creature;
+
+  /**
    * Creates Heracles, the boss of the first level.
    *
    * @return entity

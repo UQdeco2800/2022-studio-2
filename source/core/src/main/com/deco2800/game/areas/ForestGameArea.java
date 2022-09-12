@@ -109,7 +109,7 @@ public class ForestGameArea extends GameArea {
     "images/NPC/dialogue_indicator/dialogue_1.png",
     "images/NPC/dialogue_indicator/dialogue_2.png",
     "images/NPC/dialogue_indicator/dialogue_3.png",
-    "images/NPC/male_citizen/male_citizen.png",
+    "images/NPC/friendly_creature npc/Friendly_creature.png",
     "images/Movement/movement.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
@@ -142,7 +142,7 @@ public class ForestGameArea extends GameArea {
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
-          "images/NPC/child npc/npcchild.atlas"
+          "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/Friendly_creaturesheet.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -578,8 +578,6 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(dialogue, HumanGuardPosition, true, true);
   }
 
-
-
   private void spawnPlumberFriend() {
 
     PlumberFriendPosition = new GridPoint2(4, 20);
@@ -591,6 +589,23 @@ public class ForestGameArea extends GameArea {
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, PlumberFriendPosition, true, true);
   }
+
+  /**
+   * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
+   */
+  private void spawnFriendly_Creature() {
+    friendlycreaturePosition = new GridPoint2(10, 30);
+
+    Entity friendly_creature = NPCFactory.createFriendly_creature(player);
+    spawnEntityAt(friendly_creature, friendly_creaturePosition, true, true);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+  }
+  public static GridPoint2 getfriendly_creature() {
+    return friendlycreaturePosition;
+  }
+
   /**
    * Spawn child NPC in random position. - Team 7 all-mid-npc
    */

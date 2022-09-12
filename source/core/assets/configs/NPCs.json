@@ -37,6 +37,10 @@
     "health": 1,
     "baseAttack": 0
   },
+  "friendly_creature": {
+  "health": 1,
+  "baseAttack": 0
+  },
   "pet": {
     "health": 10,
     "baseAttack": 10,
