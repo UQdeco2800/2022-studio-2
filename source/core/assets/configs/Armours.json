@@ -2,7 +2,7 @@
   "baseArmour": {
     "phyResistance": 7.5,
     "durability": 2,
-    "weight": 1,
+    "weight": 10,
     "dmgReturn": 0,
     "vitality": 10,
     "materials": {"gold": 1, "steel": 1}

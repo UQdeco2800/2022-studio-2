@@ -372,6 +372,16 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * spawn an armour on the map based on the input armour type
+   * @param armourType armourType of the armour to be spawned
+   */
+  private void spawnArmour(ArmourFactory.ArmourType armourType) {
+    Entity armour = ArmourFactory.createArmour(armourType);
+    int armourID = armour.getId();
+    spawnEntityAt(armour, new GridPoint2(armourID * 3,armourID * 6), true, false);
+  }
+
+  /**
    * Spawn small tress in a certain position. - Team 5 1map4all @LYB
    */
   private void spawnSmallTrees(int x, int y) {

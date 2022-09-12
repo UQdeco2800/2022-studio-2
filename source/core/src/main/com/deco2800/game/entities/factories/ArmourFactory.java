@@ -67,6 +67,11 @@ public class ArmourFactory {
         return config;
     }
 
+    /**
+     * Returns the texture file path based on the input ArmourType
+     * @param type armour type
+     * @return armour
+     */
     private static String getTexture (ArmourType type) {
         String texturePath = "images/Armour-assets-sprint2/baseArmour.png";
         switch (type){
