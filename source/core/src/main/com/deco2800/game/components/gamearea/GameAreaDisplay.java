@@ -69,6 +69,8 @@ public class GameAreaDisplay extends UIComponent {
   private Group materialsGroup = new Group();
   private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
+
+  private int firstTime = 0;
   List<Entity> inventory;
   InventoryComponent inventoryComponent;
   private int index;
@@ -166,19 +168,24 @@ public class GameAreaDisplay extends UIComponent {
    * and creates button event handlers to test for user clicks.
    */
   public void openCraftingMenu() {
-    inventoryComponent = new InventoryComponent();
-    inventoryComponent.addItem(MaterialFactory.createGold());
-    inventoryComponent.addItem(MaterialFactory.createPlatinum());
-    inventoryComponent.addItem(MaterialFactory.createSilver());
-    inventoryComponent.addItem(MaterialFactory.createSteel());
-    inventoryComponent.addItem(MaterialFactory.createWood());
+    if (firstTime == 0) {
+      inventoryComponent = new InventoryComponent();
+      inventoryComponent.addItem(MaterialFactory.createGold());
+      inventoryComponent.addItem(MaterialFactory.createPlatinum());
+      inventoryComponent.addItem(MaterialFactory.createSilver());
+      inventoryComponent.addItem(MaterialFactory.createSteel());
+      inventoryComponent.addItem(MaterialFactory.createWood());
+      firstTime += 1;
+    }
     craftMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/crafting table/crafting_inventory.png")));
     craftMenu.setSize(883.26f, 500);
     craftMenu.setPosition(Gdx.graphics.getWidth()/2 - craftMenu.getWidth()/2,
             Gdx.graphics.getHeight()/2 - craftMenu.getHeight()/2);
     craftingGroup.addActor(craftMenu);
+
     getInventory();
+
     buttonTexture = new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/widgets/craft_button.png"));
     buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -187,6 +194,7 @@ public class GameAreaDisplay extends UIComponent {
     craftButton.setSize(146, 146);
     craftButton.setPosition(craftMenu.getX() + 527, craftMenu.getY() + 110.5f);
     craftButton.addListener(new ChangeListener() {
+
       // Method to add item to players inventory
       @Override
       public void changed(ChangeEvent event, Actor actor) {
@@ -281,6 +289,7 @@ public class GameAreaDisplay extends UIComponent {
         materialDrawable = new TextureRegionDrawable(materialTextureRegion);
         material = new ImageButton(materialDrawable);
         material.setSize(50, 50);
+
         material.setPosition(craftMenu.getX() + 172 + ((index%4) * 68),
                 (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 208)));
         index++;
