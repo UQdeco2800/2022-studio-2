@@ -76,10 +76,9 @@ public class PlayerActions extends Component {
 
 
     // Skills and Dash initialisation
-    String startingSkill = "block";
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(1, startingSkill, entity,this);
-    skillManager.setSkill(2, "dodge", entity, this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
+    skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
 
   }

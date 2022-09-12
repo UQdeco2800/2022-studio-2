@@ -84,10 +84,10 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    ForestGameArea map = loadLevelOneMap();
-//    UndergroundGameArea map = loadLevelTwoMap();
-    this.map = map;
+    GameArea map = loadLevelOneMap();
+//    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
+
 
   }
 
