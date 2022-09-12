@@ -3,6 +3,8 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
@@ -49,7 +51,7 @@ public class WeaponFactory {
 
        dagger
                 .addComponent(weaponStats)
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png"));
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Level 2 Dagger 1.png"));
         dagger.getComponent(TextureRenderComponent.class).scaleEntity();
         dagger.scaleHeight(1f);
         return dagger;
@@ -66,7 +68,7 @@ public class WeaponFactory {
 
         daggerTwo
                 .addComponent(weaponStats)
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Level 2 Dagger 2png.png"));
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"));
         daggerTwo.getComponent(TextureRenderComponent.class).scaleEntity();
         daggerTwo.scaleHeight(5f);
         return daggerTwo;
@@ -83,7 +85,7 @@ public class WeaponFactory {
 
         dumbbell
                 .addComponent(weaponStats)
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png"));
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Enemy_dumbbell.png"));
         dumbbell.getComponent(TextureRenderComponent.class).scaleEntity();
         dumbbell.scaleHeight(1f);
         return dumbbell;
@@ -100,7 +102,7 @@ public class WeaponFactory {
 
         SwordLvl2
                 .addComponent(weaponStats)
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sword_Lvl2.png"));
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Sword_Lvl2.png"));
         SwordLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
         SwordLvl2.scaleHeight(2f);
         return SwordLvl2;
@@ -117,7 +119,7 @@ public class WeaponFactory {
 
         TridentLvl2
                 .addComponent(weaponStats)
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/trident_Lvl2.png"));
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/trident_Lvl2.png"));
         TridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
         TridentLvl2.scaleHeight(2f);
         return TridentLvl2;
@@ -134,7 +136,7 @@ public class WeaponFactory {
 
         heraAthenaDag
                 .addComponent(weaponStats)
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png"));
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/H&ADagger.png"));
         heraAthenaDag.getComponent(TextureRenderComponent.class).scaleEntity();
         heraAthenaDag.scaleHeight(2f);
         return heraAthenaDag;
@@ -151,10 +153,26 @@ public class WeaponFactory {
 
         plunger
                 .addComponent(weaponStats)
-                .addComponent(new TextureRenderComponent("images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png"));
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/Plunger.png"));
         plunger.getComponent(TextureRenderComponent.class).scaleEntity();
         plunger.scaleHeight(2f);
         return plunger;
+    }
+    /**
+     * Creates the PVC pipe weapon
+     * @return plunger weapon
+     */
+    public static Entity createPipe() {
+        Entity pipe = createBaseWeapon();
+        MeleeConfig config = configs.pipe;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+
+        pipe
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/pipe.png"));
+        pipe.getComponent(TextureRenderComponent.class).scaleEntity();
+        pipe.scaleHeight(2f);
+        return pipe;
     }
 
 }

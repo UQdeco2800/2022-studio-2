@@ -8,6 +8,5 @@ import com.deco2800.game.entities.factories.WeaponFactory;
  */
 public class PoopsConfig extends BaseEntityConfig {
     public float speed = 60f;
-    public Entity weapon = WeaponFactory.createDumbbell();
 }
 

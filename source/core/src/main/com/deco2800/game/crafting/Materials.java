@@ -22,12 +22,15 @@ public enum Materials {
         this.amount = amount;
         this.image = image;
     }
+
     public String getMaterial() {
         return material;
     }
+
     public int getAmount() {
         return amount;
     }
+
     public String getImage() {
         return image;
     }
