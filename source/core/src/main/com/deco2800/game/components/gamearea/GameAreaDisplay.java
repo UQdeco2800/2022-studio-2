@@ -21,6 +21,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.rendering.TextureRenderComponent;
@@ -60,6 +61,8 @@ public class GameAreaDisplay extends UIComponent {
   private Texture materialTexture;
   private TextureRegion materialTextureRegion;
   private TextureRegionDrawable materialDrawable;
+
+  private String weaponType = "";
   private Image weapon;
   private Group craftingGroup = new Group();
   private Group materialsGroup = new Group();
@@ -189,10 +192,14 @@ public class GameAreaDisplay extends UIComponent {
         if (weapon != null) {
           disposeFirstBox();
           disposeSecondBox();
-          weapon.setPosition(craftMenu.getX() + 100, craftMenu.getTop() - 475);
+          if (weaponType.equals("Trident")){
+            weapon.setPosition(craftMenu.getX() + 160, craftMenu.getTop() - 400);
+          } else {
+            weapon.setPosition(craftMenu.getX() + 100, craftMenu.getTop() - 475);
+          }
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
-                  area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
-        clearBoxes(0);
+          area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
+          clearBoxes(0);
         };
       }
     });
@@ -552,8 +559,14 @@ public class GameAreaDisplay extends UIComponent {
     currentWeapon = newItem;
     String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
     weapon = new Image(new Texture(Gdx.files.internal(image)));
-    weapon.setSize(200, 200);
-    weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
+    if (Math.floor(item.damage) == 25){
+      weapon.setSize(60, 60);
+      weaponType = "Trident";
+      weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
+    } else {
+      weapon.setSize(200, 200);
+      weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
+    }
     numcrafted += 1;
     craftingGroup.addActor(weapon);
   }
