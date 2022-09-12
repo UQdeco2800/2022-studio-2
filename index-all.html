@@ -212,6 +212,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Materials.html#AthenaDag" class="member-name-link">AthenaDag</a> - Enum constant in enum class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html#ATTACKSPEED" class="member-name-link">ATTACKSPEED</a> - Enum constant in enum class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html" title="enum class in com.deco2800.game.components.player">PlayerSkillComponent.SkillTypes</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/CombatItemsConfig/AuraConfig.html" class="type-name-link" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">AuraConfig</a> - Class in <a href="com/deco2800/game/entities/configs/CombatItemsConfig/package-summary.html">com.deco2800.game.entities.configs.CombatItemsConfig</a></dt>
 <dd>
 <div class="block">Defines a basic set of properties stored in aura config files to be loaded by Aura Factory.</div>
@@ -275,6 +277,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/entities/configs/BaseEntityConfig.html#%3Cinit%3E()" class="member-name-link">BaseEntityConfig()</a> - Constructor for class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/BaseEntityConfig.html" title="class in com.deco2800.game.entities.configs">BaseEntityConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/PhysicsContactListener.html#beginContact(com.badlogic.gdx.physics.box2d.Contact)" class="member-name-link">beginContact(Contact)</a> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html#BLEED" class="member-name-link">BLEED</a> - Enum constant in enum class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html" title="enum class in com.deco2800.game.components.player">PlayerSkillComponent.SkillTypes</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html#BLOCK" class="member-name-link">BLOCK</a> - Enum constant in enum class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html" title="enum class in com.deco2800.game.components.player">PlayerSkillComponent.SkillTypes</a></dt>
 <dd>&nbsp;</dd>
@@ -1589,6 +1593,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/input/InputComponent.html#getPriority()" class="member-name-link">getPriority()</a> - Method in class com.deco2800.game.input.<a href="com/deco2800/game/input/InputComponent.html" title="class in com.deco2800.game.input">InputComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/ai/tasks/AITaskComponent.html#getPriorityTasks()" class="member-name-link">getPriorityTasks()</a> - Method in class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/AITaskComponent.html" title="class in com.deco2800.game.ai.tasks">AITaskComponent</a></dt>
+<dd>
+<div class="block">Get task list</div>
+</dd>
 <dt><a href="com/deco2800/game/services/ResourceService.html#getProgress()" class="member-name-link">getProgress()</a> - Method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a></dt>
 <dd>
 <div class="block">Returns the loading completion progress as a percentage.</div>
@@ -1792,12 +1800,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Reduce entity health due to an attack.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#hitBleed(com.deco2800.game.entities.Entity)" class="member-name-link">hitBleed(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Apply bleed effect to enemy</div>
+</dd>
 <dt><a href="com/deco2800/game/physics/components/HitboxComponent.html" class="type-name-link" title="class in com.deco2800.game.physics.components">HitboxComponent</a> - Class in <a href="com/deco2800/game/physics/components/package-summary.html">com.deco2800.game.physics.components</a></dt>
 <dd>
 <div class="block">Physics comp</div>
 </dd>
 <dt><a href="com/deco2800/game/physics/components/HitboxComponent.html#%3Cinit%3E()" class="member-name-link">HitboxComponent()</a> - Constructor for class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/HitboxComponent.html" title="class in com.deco2800.game.physics.components">HitboxComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#hitRoot(com.deco2800.game.entities.Entity)" class="member-name-link">hitRoot(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Apply root effect to enemy</div>
+</dd>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
@@ -2784,6 +2800,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/math/Vector2Utils.html#RIGHT" class="member-name-link">RIGHT</a> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html#ROOT" class="member-name-link">ROOT</a> - Enum constant in enum class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html" title="enum class in com.deco2800.game.components.player">PlayerSkillComponent.SkillTypes</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/crafting/Materials.html#Rubber" class="member-name-link">Rubber</a> - Enum constant in enum class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/EntityTypes.html#RUBBER" class="member-name-link">RUBBER</a> - Enum constant in enum class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/EntityTypes.html" title="enum class in com.deco2800.game.entities.factories">EntityTypes</a></dt>
@@ -3248,6 +3266,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Start playback of an animation.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startAttackSpeedUp()" class="member-name-link">startAttackSpeedUp()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">The functional start of the attack speed skill.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startBleed()" class="member-name-link">startBleed()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">The functional start of the bleed skill.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startBlock()" class="member-name-link">startBlock()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
 <div class="block">The functional start of the block skill.</div>
@@ -3260,9 +3286,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The functional start of the dodge skill.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startRoot()" class="member-name-link">startRoot()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">The functional start of the root skill.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startTeleport()" class="member-name-link">startTeleport()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
 <div class="block">The functional start of the teleport skill.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startUltimate()" class="member-name-link">startUltimate()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">The functional start of the ultimate skill.</div>
 </dd>
 <dt><a href="com/deco2800/game/ai/tasks/DefaultTask.html#status" class="member-name-link">status</a> - Variable in class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/DefaultTask.html" title="class in com.deco2800.game.ai.tasks">DefaultTask</a></dt>
 <dd>&nbsp;</dd>
@@ -3521,6 +3555,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">ui Scale.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html#ULTIMATE" class="member-name-link">ULTIMATE</a> - Enum constant in enum class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html" title="enum class in com.deco2800.game.components.player">PlayerSkillComponent.SkillTypes</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/UndergroundGameArea.html" class="type-name-link" title="class in com.deco2800.game.areas">UndergroundGameArea</a> - Class in <a href="com/deco2800/game/areas/package-summary.html">com.deco2800.game.areas</a></dt>
 <dd>
 <div class="block">Underground area for the demo game with trees, a player, and some enemies.</div>

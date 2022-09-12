@@ -154,6 +154,16 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the modified movement vector based on base movement speed and the alterations
  of the skill state on the player movement.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hitBleed(com.deco2800.game.entities.Entity)" class="member-name-link">hitBleed</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Apply bleed effect to enemy</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hitRoot(com.deco2800.game.entities.Entity)" class="member-name-link">hitRoot</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Apply root effect to enemy</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isBlocking()" class="member-name-link">isBlocking</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -215,6 +225,16 @@ loadScripts(document, 'script');</script>
  states.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startAttackSpeedUp()" class="member-name-link">startAttackSpeedUp</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The functional start of the attack speed skill.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startBleed()" class="member-name-link">startBleed</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The functional start of the bleed skill.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startBlock()" class="member-name-link">startBlock</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The functional start of the block skill.</div>
@@ -230,9 +250,19 @@ loadScripts(document, 'script');</script>
 <div class="block">The functional start of the dodge skill.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startTeleport()" class="member-name-link">startTeleport</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startRoot()" class="member-name-link">startRoot</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The functional start of the root skill.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startTeleport()" class="member-name-link">startTeleport</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The functional start of the teleport skill.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startUltimate()" class="member-name-link">startUltimate</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The functional start of the ultimate skill.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#teleportPlayer()" class="member-name-link">teleportPlayer</a>()</code></div>
@@ -486,6 +516,60 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">startBlock</span>()</div>
 <div class="block">The functional start of the block skill.
  Should be called when player actions component registers block event.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="startRoot()">
+<h3>startRoot</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">startRoot</span>()</div>
+<div class="block">The functional start of the root skill.
+ Should be called when player actions component registers root event.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="startUltimate()">
+<h3>startUltimate</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">startUltimate</span>()</div>
+<div class="block">The functional start of the ultimate skill.
+ Should be called when player actions component registers ultimate event.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="startAttackSpeedUp()">
+<h3>startAttackSpeedUp</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">startAttackSpeedUp</span>()</div>
+<div class="block">The functional start of the attack speed skill.
+ Should be called when player actions component registers attackspeed skill event.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="hitRoot(com.deco2800.game.entities.Entity)">
+<h3>hitRoot</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">hitRoot</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</span></div>
+<div class="block">Apply root effect to enemy</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - enemy to apply effect on</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="startBleed()">
+<h3>startBleed</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">startBleed</span>()</div>
+<div class="block">The functional start of the bleed skill.
+ Should be called when player actions component registers bleed event.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="hitBleed(com.deco2800.game.entities.Entity)">
+<h3>hitBleed</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">hitBleed</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</span></div>
+<div class="block">Apply bleed effect to enemy</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>target</code> - enemy to apply effect on</dd>
+</dl>
 </section>
 </li>
 <li>
