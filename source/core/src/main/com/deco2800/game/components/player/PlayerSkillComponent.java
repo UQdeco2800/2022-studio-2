@@ -1,11 +1,8 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +18,20 @@ public class PlayerSkillComponent extends Component {
 
     private Entity skillAnimator;
     private Entity playerEntity;
-    private static final Logger logger = LoggerFactory.getLogger(PlayerSkillComponent.class);
+    private static final String SKILL1_LISTENER = "skill";
+    private static final String SKILL2_LISTENER = "skill2";
+
+    public enum SkillTypes {
+        DASH,
+        TELEPORT,
+        BLOCK,
+        DODGE
+    }
+
     private boolean isInvulnerable;
     private long invulnerableEnd;
 
-    Map<String, Long> skillCooldowns = new HashMap<String, Long>();
+    Map<String, Long> skillCooldowns = new HashMap<>();
 
     // Teleport variables
     private static final int TELEPORT_LENGTH = 4;
@@ -122,7 +128,7 @@ public class PlayerSkillComponent extends Component {
         if (this.dodging && System.currentTimeMillis() > this.dodgeEnd) {
             this.dodging = false;
             this.dodgeEndEvent = true;
-        } else if (this.dodgeSpeedBoost && System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
+        } else if (System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
             this.dodgeSpeedBoost = false;
         }
     }
@@ -136,20 +142,20 @@ public class PlayerSkillComponent extends Component {
      * @param playerActionsComponent the player actions component containing the call for the skill to
      *                               pass information into the skill manager
      */
-    public void setSkill(int skillNum, String skillName, Entity entity, PlayerActions playerActionsComponent) {
+    public void setSkill(int skillNum, SkillTypes skillName, Entity entity, PlayerActions playerActionsComponent) {
         String skillEvent;
         if (skillNum == 1) {
-            skillEvent = "skill";
+            skillEvent = SKILL1_LISTENER;
         } else if (skillNum == 2) {
-            skillEvent = "skill2";
+            skillEvent = SKILL2_LISTENER;
         } else {
-            skillEvent = "skill";
+            skillEvent = SKILL1_LISTENER;
         }
-        if (skillName.equals("teleport")) {
+        if (skillName == SkillTypes.TELEPORT) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::teleport);
-        } else if (skillName.equals("dodge")) {
+        } else if (skillName == SkillTypes.DODGE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
-        } else if (skillName.equals("block")) {
+        } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         }
     }
@@ -159,7 +165,7 @@ public class PlayerSkillComponent extends Component {
      * @param entity the player entity to remove all skill listeners from
      */
     public void resetSkills(Entity entity) {
-        entity.getEvents().removeAllListeners("skill");
+        entity.getEvents().removeAllListeners(SKILL1_LISTENER);
     }
 
     /**
@@ -226,7 +232,7 @@ public class PlayerSkillComponent extends Component {
     public boolean skillDamageTrigger() {
         if (this.isInvulnerable) {
             if (this.isBlocking()) {
-                this.skillCooldowns.forEach((skill, timestamp) -> timestamp = timestamp + 500);
+                this.skillCooldowns.forEach((skill, timestamp) -> timestamp = timestamp - 500);
             }
             if (this.isDodging()) {
                 dodgeSpeedBoost = true;
@@ -244,27 +250,27 @@ public class PlayerSkillComponent extends Component {
      * @return true if the skill has ended and the flag has not been polled
      *          false if the skill end has been read
      */
-    public boolean checkSkillEnd(String skillName) {
+    public boolean checkSkillEnd(SkillTypes skillName) {
         switch(skillName) {
-            case "dodge":
+            case DODGE:
                 if (this.dodgeEndEvent) {
                     this.dodgeEndEvent = false;
                     return true;
                 }
                 return false;
-            case "dash":
+            case DASH:
                 if (this.dashEndEvent) {
                     this.dashEndEvent = false;
                     return true;
                 }
                 return false;
-            case "teleport":
+            case TELEPORT:
                 if (this.teleportEndEvent) {
                     this.teleportEndEvent = false;
                     return true;
                 }
                 return false;
-            case "block":
+            case BLOCK:
                 if (this.blockEndEvent) {
                     this.blockEndEvent = false;
                     return true;

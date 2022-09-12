@@ -17,6 +17,10 @@ public class WeaponPickupComponent extends Component {
     private short targetLayer;
 
 
+    /**
+     * Creates a component which allows a (weapon) entity to be picked up from the map and put in inventory
+     * @param targetLayer The physics layer of the target's collider.
+     */
     public WeaponPickupComponent(short targetLayer) {
         this.targetLayer = targetLayer;
     }
@@ -27,6 +31,12 @@ public class WeaponPickupComponent extends Component {
         entity.getEvents().addListener("collisionStart", this::pickUp);
     }
 
+    /**
+     * Method called when collision starts between the weapon on the map that implements this component and the player.
+     * Removes the weapon from the map and inserts the weapon into the inventory.
+     * @param me Fixture of the weapon that implements this component.
+     * @param other Fixture of the entity that is colliding with this weapon on the map.
+     */
     private void pickUp(Fixture me, Fixture other) {
         hitboxComponent = entity.getComponent(HitboxComponent.class);
         Fixture f = ServiceLocator.getGameArea().getPlayer().getComponent(HitboxComponent.class).getFixture();
@@ -37,10 +47,17 @@ public class WeaponPickupComponent extends Component {
 
             //insert into inventory
             ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(entityOfComponent);
-            logger.info("Weapon picked up");
-            }
-
         }
+    }
+
+    /**
+     * Pickup function used purely for Junit testing only.
+     * @param me Fixture of the weapon that implements this component.
+     * @param other Fixture of the entity that is colliding with this weapon on the map.
+     */
+    public void pickUpJunit(Fixture me, Fixture other) {
+        this.pickUp(me, other);
+    }
 }
 
 

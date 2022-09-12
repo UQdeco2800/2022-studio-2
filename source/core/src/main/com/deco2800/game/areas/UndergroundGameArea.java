@@ -34,12 +34,18 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/32x32/grass.png",
             "images/level_2_tiledmap/32x32/purple_cobble.png",
             "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+            "images/Crafting-assets-sprint1/materials/gold.png",
+            "images/Crafting-assets-sprint1/materials/platinum.png",
+            "images/Crafting-assets-sprint1/materials/silver.png",
+            "images/Crafting-assets-sprint1/materials/steel.png",
+            "images/Crafting-assets-sprint1/materials/wood.png",
     };
 
     public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-            "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas"
+            "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
+            "images/Movement/movement.atlas"
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -55,7 +61,7 @@ public class UndergroundGameArea extends GameArea {
         super();
         this.terrainFactory = terrainFactory;
 
-//        ServiceLocator.registerGameArea(this);
+        ServiceLocator.registerGameArea(this);
 
     }
 
