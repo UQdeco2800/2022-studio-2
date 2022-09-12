@@ -30,16 +30,13 @@ public class ArmourFactory {
      */
     public static Entity createBaseArmour() {
         ArmourConfig config = getConfig(ArmourType.baseArmour);
+        ArmourStatsComponent armourStats = new ArmourStatsComponent(config.phyResistance,
+                config.durability, config.vitality,
+                config.dmgReturn, config.weight, config.materials);
         Entity armour = new Entity()
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-                .addComponent(new ArmourStatsComponent(
-                        config.phyResistance,
-                        config.durability,
-                        config.vitality,
-                        config.dmgReturn,
-                        config.weight,
-                        config.materials))
+                .addComponent(armourStats)
                 .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
         armour.setEntityType(EntityTypes.ARMOUR);
         return armour;
@@ -70,16 +67,31 @@ public class ArmourFactory {
         return config;
     }
 
-    public static Entity createArmour(ArmourType type, String texturePath) {
+    private static String getTexture (ArmourType type) {
+        String texturePath = "images/Armour-assets-sprint2/baseArmour.png";
+        switch (type){
+            case damageReturner:
+                texturePath = "";
+            case fastLeather:
+                texturePath = "";
+            case slowDiamond:
+                texturePath = "images/Armour-assets-sprint2/slowDiamond.png";
+        }
+        return texturePath;
+    }
+
+    public static Entity createArmour(ArmourType type) {
         Entity armour = createBaseArmour();
         ArmourConfig config = getConfig(type);
-        ArmourStatsComponent armourStats = new ArmourStatsComponent(config.phyResistance,
-                config.durability, config.vitality,
-                config.dmgReturn, config.weight, config.materials);
-
-        armour
-                .addComponent(armourStats)
-                .addComponent(new TextureRenderComponent(texturePath));
+        String texturePath = getTexture(type);
+        armour.addComponent(new TextureRenderComponent(texturePath));
+        armour.getComponent(ArmourStatsComponent.class).setArmourStats(
+                config.phyResistance,
+                config.durability,
+                config.vitality,
+                config.dmgReturn,
+                config.weight,
+                config.materials);
         armour.getComponent(TextureRenderComponent.class).scaleEntity();
         armour.scaleHeight(5f);
         return armour;

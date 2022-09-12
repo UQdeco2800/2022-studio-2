@@ -60,9 +60,10 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_2.png",
     "images/iso_grass_3.png",
     "images/CombatWeapons-assets-sprint1/Level 2 Dagger 1.png",
-    "images/CombatWeapons-assets-sprint1/slowDiamond.png",
     "images/CombatWeapons-assets-sprint1/Level 2 Dagger 2png.png",
     "images/CombatWeapons-assets-sprint1/Weapon Speed Buff.png",
+    "images/Armour-assets-sprint2/baseArmour.png",
+    "images/Armour-assets-sprint2/slowDiamond.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
@@ -96,7 +97,6 @@ public class ForestGameArea extends GameArea {
     "images/NPC/guard npc/atlantisguardnpc_1.png",
     "images/NPC/Male_citizen/male_citizen.png",
     "images/NPC/Dialogue/dialogues2.png",
-    "images/Potions/defence_potion.png",
     "images/level_1_tiledmap/32x32/column.png",
     "images/CombatWeapons-assets-sprint1/Enemy_dumbbell.png",
     "images/CombatWeapons-assets-sprint1/Damage Increase Buff.png",
@@ -113,14 +113,14 @@ public class ForestGameArea extends GameArea {
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
-          "images/Crafting-assets-sprint1/materials/gold.png",
-          "images/Crafting-assets-sprint1/materials/iron.png",
-          "images/Crafting-assets-sprint1/materials/plastic.png",
-          "images/Crafting-assets-sprint1/materials/platinum.png",
-          "images/Crafting-assets-sprint1/materials/rubber.png",
-          "images/Crafting-assets-sprint1/materials/silver.png",
-          "images/Crafting-assets-sprint1/materials/steel.png",
-          "images/Crafting-assets-sprint1/materials/wood.png"
+    "images/Crafting-assets-sprint1/materials/gold.png",
+    "images/Crafting-assets-sprint1/materials/iron.png",
+    "images/Crafting-assets-sprint1/materials/plastic.png",
+    "images/Crafting-assets-sprint1/materials/platinum.png",
+    "images/Crafting-assets-sprint1/materials/rubber.png",
+    "images/Crafting-assets-sprint1/materials/silver.png",
+    "images/Crafting-assets-sprint1/materials/steel.png",
+    "images/Crafting-assets-sprint1/materials/wood.png"
   };
 
   public static String[] newTextures;
@@ -187,7 +187,7 @@ public class ForestGameArea extends GameArea {
 
 
     spawnDumbbell();
-    spawnSlowDiamond();
+    spawnBaseArmour();
     spawnSpeedDebuff();
     spawnDmgBuff();
     spawnDmgDebuff();
@@ -460,11 +460,10 @@ public class ForestGameArea extends GameArea {
   }
   
 
-  private void spawnSlowDiamond() {
-    Entity slowDiamond = ArmourFactory.createArmour(ArmourFactory.ArmourType.slowDiamond,
-            "images/CombatWeapons-assets-sprint1/slowDiamond.png");
-    armourOnMap.add(slowDiamond);
-    spawnEntityAt(slowDiamond, new GridPoint2(2,13), true, false);
+  private void spawnBaseArmour() {
+    Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
+    armourOnMap.add(baseArmour);
+    spawnEntityAt(baseArmour, new GridPoint2(2,13), true, false);
   }
 
   /**

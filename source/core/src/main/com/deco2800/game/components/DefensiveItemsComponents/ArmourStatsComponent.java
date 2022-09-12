@@ -23,6 +23,16 @@ public class ArmourStatsComponent extends Component {
         this.materials = materials;
     }
 
+    public void setArmourStats (double phyResistance, double durability, double vitality,
+                                double dmgReturn, double weight, HashMap<Materials, Integer> materials) {
+        this.phyResistance = phyResistance;
+        this.durability = durability;
+        this.vitality = vitality;
+        this.dmgReturn = dmgReturn;
+        this.weight = weight;
+        this.materials = materials;
+    }
+
     public double getPhyResistance() {
         return phyResistance;
     }
