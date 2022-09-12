@@ -109,10 +109,12 @@ public class ForestGameArea extends GameArea {
     "images/NPC/dialogue_indicator/dialogue_1.png",
     "images/NPC/dialogue_indicator/dialogue_2.png",
     "images/NPC/dialogue_indicator/dialogue_3.png",
+    "images/NPC/male_citizen/male_citizen.png",
     "images/Movement/movement.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/H&ADagger.png",
     "images/CombatWeapons-assets-sprint1/Sprint-2/Plunger.png",
     "images/NPC/dialogue_indicator/dialogue_indicator_sprite_sheet.png",
+    "source/core/assets/images/NPC/male_citizen/male_citizen0.png",
     "images/Skills/skillAnimations.png",
           "images/Crafting-assets-sprint1/materials/gold.png",
           "images/Crafting-assets-sprint1/materials/iron.png",
@@ -128,6 +130,13 @@ public class ForestGameArea extends GameArea {
 
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
+
+
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/playerTeleport.atlas",
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/NPC/dialogue_indicator/dialogue.atlas",
+          "images/NPC/male_citizen/male-atlas.atlas",
+    "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
+    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
 
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
