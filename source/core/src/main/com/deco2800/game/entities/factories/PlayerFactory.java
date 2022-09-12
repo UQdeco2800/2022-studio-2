@@ -71,6 +71,24 @@ public class PlayerFactory {
     return player;
   }
 
+  /**
+   * Create a player entity for test.
+   * @return entity
+   */
+  public static Entity createTestPlayer() {
+    Entity player = new Entity()
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent())
+                    .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                    .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina, stats.mana))
+                    .addComponent(new PlayerActions())
+                    .addComponent(new InventoryComponent())
+                    .addComponent(new PlayerModifier())
+                    .addComponent(new OpenCraftingComponent())
+                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER));
+    return player;
+  }
+
   public static Entity createSkillAnimator(Entity playerEntity) {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
