@@ -181,7 +181,7 @@ public class ForestGameArea extends GameArea {
 
 
     spawnDumbbell();
-    spawnBaseArmour();
+    //spawnBaseArmour();
     spawnSpeedDebuff();
     spawnDmgBuff();
     spawnDmgDebuff();
@@ -381,6 +381,18 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(armour, new GridPoint2(armourID * 3,armourID * 6), true, false);
   }
 
+  private void spawnSlowDiamond() {
+      spawnArmour(ArmourFactory.ArmourType.slowDiamond);
+  }
+
+  private void spawnFastLeather() {
+      spawnArmour(ArmourFactory.ArmourType.slowDiamond);
+  }
+
+  private void spawnDamageReturner() {
+      spawnArmour(ArmourFactory.ArmourType.slowDiamond);
+  }
+
   /**
    * Spawn small tress in a certain position. - Team 5 1map4all @LYB
    */
@@ -454,13 +466,13 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
   
-
+/*
   private void spawnBaseArmour() {
     Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
     armourOnMap.add(baseArmour);
     spawnEntityAt(baseArmour, new GridPoint2(2,13), true, false);
   }
-
+*/
   /**
    * Spawns level 3 Herra and Athena entity into the game
    * Spawns x-pos 10
