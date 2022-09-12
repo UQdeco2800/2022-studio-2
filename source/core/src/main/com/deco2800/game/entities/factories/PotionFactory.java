@@ -2,6 +2,7 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.components.player.PlayerModifier;
 import com.deco2800.game.components.player.PotionEffectComponent;
 import com.deco2800.game.entities.Entity;
@@ -28,7 +29,8 @@ public class PotionFactory {
         Entity potion = new Entity()
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.PLAYER))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
         potion.setEntityType(EntityTypes.POTION);
         potion.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
         return potion;
@@ -64,4 +66,3 @@ public class PotionFactory {
             "images/Potions/agility_potion.png"
     };
 }
-

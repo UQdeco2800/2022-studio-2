@@ -12,6 +12,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
+import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -24,7 +25,6 @@ import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.GameTime;
-import com.deco2800.game.services.PauseGame;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
@@ -42,6 +42,9 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png","images/Inventory/quickbar.png"};
+  private static final String[] healthBar = {"images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png","images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png"};
+  private static final String[] staminaBar = {"images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png","images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png" };
+  private static final String[] manaBar = {"images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_1.png","images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_2.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_3.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_4.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png"};
   private static final String[] dashImg = {"images/Skills/dash.png"};
   private static final String[] blockImg = {"images/Skills/block.png"};
   private static final String[] dodgeImg = {"images/Skills/dodge.png"};
@@ -83,10 +86,10 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    ForestGameArea map = loadLevelOneMap();
-//    UndergroundGameArea map = loadLevelTwoMap();
-    this.map = map;
+    GameArea map = loadLevelOneMap();
+//    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
+
 
   }
 
@@ -160,6 +163,9 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextures(healthBar);
+    resourceService.loadTextures(staminaBar);
+    resourceService.loadTextures(manaBar);
     resourceService.loadTextures(dashImg);
     resourceService.loadTextures(blockImg);
     resourceService.loadTextures(dodgeImg);
@@ -174,6 +180,9 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(healthBar);
+    resourceService.unloadAssets(staminaBar);
+    resourceService.unloadAssets(manaBar);
     resourceService.unloadAssets(dashImg);
     resourceService.unloadAssets(blockImg);
     resourceService.unloadAssets(dodgeImg);

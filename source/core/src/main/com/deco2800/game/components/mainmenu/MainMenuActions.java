@@ -1,5 +1,7 @@
 package com.deco2800.game.components.mainmenu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class MainMenuActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
   private GdxGame game;
+  private Sound sound;
 
   public MainMenuActions(GdxGame game) {
     this.game = game;
@@ -29,6 +32,8 @@ public class MainMenuActions extends Component {
    * Swaps to the Main Game screen.
    */
   private void onStart() {
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
+    sound.play(1.0f);
     logger.info("Start game");
     game.setScreen(GdxGame.ScreenType.MAIN_GAME);
   }
@@ -38,6 +43,8 @@ public class MainMenuActions extends Component {
    * Load functionality is not actually implemented.
    */
   private void onLoad() {
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
+    sound.play(1.0f);
     logger.info("Load game");
   }
 
@@ -45,6 +52,8 @@ public class MainMenuActions extends Component {
    * Exits the game.
    */
   private void onExit() {
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
+    sound.play(1.0f);
     logger.info("Exit game");
     game.exit();
   }
@@ -53,6 +62,8 @@ public class MainMenuActions extends Component {
    * Swaps to the Settings screen.
    */
   private void onSettings() {
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
+    sound.play(1.0f);
     logger.info("Launching settings screen");
     game.setScreen(GdxGame.ScreenType.SETTINGS);
   }

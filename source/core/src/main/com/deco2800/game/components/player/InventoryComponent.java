@@ -1,7 +1,7 @@
 package com.deco2800.game.components.player;
 
 
-import DefensiveItemsComponents.ArmourStatsComponent;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
@@ -12,11 +12,7 @@ import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-
-
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -25,6 +21,7 @@ import java.util.List;
  * Can also be used as a more generic component for other entities.
  */
 public class InventoryComponent extends Component {
+
   private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
   /**
@@ -45,7 +42,7 @@ public class InventoryComponent extends Component {
   /**
    * Initial item equipment slot
    */
-  private final int equipSlots = 2;
+  private static final int equipSlots = 2;
 
   /**
    * An inventory unit for players to inspect and store their items.
@@ -66,6 +63,12 @@ public class InventoryComponent extends Component {
    * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
    */
   private int[] itemQuantity = new int[inventorySize];
+
+  // CRASHES GAME, NOT SURE WHY
+  /*@Override
+  public void create() {
+    entity.getEvents().addListener("EquipWeapon", this::equipItem);
+  }*/
 
   /**
    * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
@@ -155,6 +158,7 @@ public class InventoryComponent extends Component {
     for (int i = 0; i < inventory.size(); ++i) {
       if (inventory.get(i).checkEntityType(type)) {
         removeItem(i);
+        break;
       }
     }
   }
@@ -181,33 +185,41 @@ public class InventoryComponent extends Component {
     return itemQuantity[index];
   }
 
-  /**
+  /**add
    * Modify the player's stat according to the weapon stat.
    * Credit to Team 4
    * @param weapon the weapon that is going to be equipped on
    */
   private void applyWeaponEffect(Entity weapon) {
-    WeaponStatsComponent weaponStats = weapon.getComponent(WeaponStatsComponent.class);
-    if (weaponStats instanceof MeleeStatsComponent) {
+    WeaponStatsComponent weaponStats;
+    if ((weaponStats = weapon.getComponent(MeleeStatsComponent.class)) != null) {
       MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
-      PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
-              .getComponent(PlayerModifier.class);
-
+      PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
       //dk if requires dmg stat or not think about it
-      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (1 / meleeStats.getWeight()), true, 0);
+      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight()/15) //this would be < 1
+              , true, 0);
       //for duration
     }
   }
 
   /**
+   * Returns the item at the given index or
+   * @param index the index of the item
+   * @return entity
+   * @requires equipables[index] != null
+   */
+  public Entity getEquipable(int index){
+    return equipables[index];
+  }
+
+  /**
    * Waiting for stat modification implementation of armour
    *
-   * @param armour
+   * @param armour the armour that is equipped
    */
   private void applyArmourEffect(Entity armour) {
     ArmourStatsComponent armourStats = armour.getComponent(ArmourStatsComponent.class);
-    PlayerModifier pmComponent = ServiceLocator.getGameArea().getPlayer()
-            .getComponent(PlayerModifier.class);
+    PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
     //Applying the weight of the armour to player
     pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
     //Applying the physical resistance of the armour to player
@@ -319,7 +331,7 @@ public class InventoryComponent extends Component {
    */
   public void consumePotion(int inputIndex) {
     //Does nothing if there is no potion on the selected slot or the quantity < 1
-    if (quickBarItems.get(inputIndex) != null) {
+    if (quickBarItems.size() == inputIndex) {
       quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
       if (quickBarQuantity[inputIndex] == 1) {
         removePotion(inputIndex);
