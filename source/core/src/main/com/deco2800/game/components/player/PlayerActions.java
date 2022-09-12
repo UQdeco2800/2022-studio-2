@@ -84,6 +84,8 @@ public class PlayerActions extends Component {
     // temp skill bindings for sprint 2 marking
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
 
   }
 
@@ -302,6 +304,22 @@ public class PlayerActions extends Component {
    */
   void block() {
     skillManager.startBlock();
+  }
+
+  /**
+   * Makes the player cast their ultimate skill.
+   * Registers call of the ultimate function to the skill manager component.
+   */
+  void ultimate() {
+    skillManager.startUltimate();
+  }
+
+  /**
+   * Makes the player cast their attackspeed skill.
+   * Registers call of the attackspeed skill function to the skill manager component.
+   */
+  void attackSpeedUp() {
+    skillManager.startAttackSpeedUp();
   }
 
   public Vector2 getWalkDirection() {

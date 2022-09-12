@@ -81,6 +81,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.MINUS: // temp mapping for sprint 2 marking
         entity.getEvents().trigger("bleedTemp");
         return true;
+      case Keys.BACKSLASH:
+        entity.getEvents().trigger("ultimateTemp");
+        return true;
+      case Keys.BACKSPACE:
+        entity.getEvents().trigger("attackspeedTemp");
+        return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
