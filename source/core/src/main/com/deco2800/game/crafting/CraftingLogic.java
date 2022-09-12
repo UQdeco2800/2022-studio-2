@@ -43,7 +43,7 @@ public class CraftingLogic {
      * Returns the list of all possible builds the user can make with their given inventory.
      * @return list
      */
-    public static List<MeleeConfig> getPossibleWeapons(){
+    public static List<MeleeConfig> getPossibleWeapons() {
         ArrayList<MeleeConfig> possibleWeapons =  new ArrayList<>();
         possibleWeapons.add(configs.athenaDag);
         possibleWeapons.add(configs.herraDag);
