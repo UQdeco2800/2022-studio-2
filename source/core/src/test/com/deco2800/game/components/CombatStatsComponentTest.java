@@ -1,14 +1,34 @@
 package com.deco2800.game.components;
 
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.player.PlayerTouchAttackComponent;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GameExtension.class)
 class CombatStatsComponentTest {
+
+  @Mock
+  RenderService renderService;
 
   @Test
   void shouldSetGetHealth() {
@@ -124,9 +144,34 @@ class CombatStatsComponentTest {
     assertEquals(0, combat.getMaxMana());
   }
 
-  @Test
-  void dropWeaponTest() {
+  /*
+  void playerDropWeaponTest() {
     // mock a weapon and drop it using mockito
+    ServiceLocator.registerPhysicsService(new PhysicsService());
+    ServiceLocator.registerEntityService(new EntityService());
+    ServiceLocator.registerRenderService(new RenderService());
+
+    short targetLayer = (1 << 3);
+
+    Entity player =  createPlayer(targetLayer);
+
+    player.getEvents().trigger("dropWeapon");
+
+    assertEquals(0, 0);
+
+  }*/
+
+  Entity createPlayer(short targetLayer) {
+    Entity entity =
+            new Entity()
+                    .addComponent(new TouchAttackComponent(targetLayer))
+                    .addComponent(new PlayerTouchAttackComponent(targetLayer))
+                    .addComponent(new CombatStatsComponent(100, 10, 1, 1))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new HitboxComponent());
+    entity.setEntityType(EntityTypes.PLAYER);
+    entity.create();
+    return entity;
   }
 
 }

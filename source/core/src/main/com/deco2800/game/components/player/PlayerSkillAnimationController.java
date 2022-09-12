@@ -44,6 +44,9 @@ public class PlayerSkillAnimationController extends Component {
         entity.getEvents().addListener("teleportAnimation", this::animateTeleport);
         entity.getEvents().addListener("blockAnimation", this::animateBlock);
         entity.getEvents().addListener("dodgeAnimation", this::animateDodge);
+        entity.getEvents().addListener("attackSpeedAnimation", this::animateAttackSpeed);
+        entity.getEvents().addListener("ultimateAnimation", this::animateUltimate);
+        entity.getEvents().addListener("dashAnimation", this::animateDash);
         entity.getEvents().trigger("regularAnimation");
     }
 
@@ -73,5 +76,26 @@ public class PlayerSkillAnimationController extends Component {
      */
     void animateDodge() {
         animator.startAnimation("dodge");
+    }
+
+    /**
+     * Triggers the dash animation.
+     */
+    void animateDash() {
+        animator.startAnimation("dash");
+    }
+
+    /**
+     * Triggers the timestop animation.
+     */
+    void animateUltimate() {
+        animator.startAnimation("vendemaire");
+    }
+
+    /**
+     * Triggers the attackspeed animation.
+     */
+    void animateAttackSpeed() {
+        animator.startAnimation("attackSpeed");
     }
 }

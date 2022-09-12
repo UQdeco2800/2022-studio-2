@@ -3,6 +3,8 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.npc.DialogueDisplay;
+import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
@@ -49,6 +51,10 @@ public class PlayerFactory {
 
     Entity player =
         new Entity()
+
+            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
+            //.addComponent(animator) For player animations if you want it
+            .addComponent(new PlayerAnimationController())
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -59,10 +65,13 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
+                .addComponent(new DialogueKeybordInputComponent())
+                .addComponent(new DialogueDisplay())
             .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
             .addComponent(animator)
             .addComponent(new PlayerAnimationController());
+
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
@@ -96,6 +105,10 @@ public class PlayerFactory {
     animator.addAnimation("no_animation", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("teleport", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("block", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("dodge", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vendemaire", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("dash", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("attackSpeed", 0.1f, Animation.PlayMode.LOOP);
 
     Entity skillAnimator =
             new Entity().addComponent(animator)
