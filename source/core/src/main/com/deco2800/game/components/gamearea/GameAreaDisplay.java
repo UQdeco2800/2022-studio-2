@@ -276,6 +276,7 @@ public class GameAreaDisplay extends UIComponent {
     stage.addActor(pausingGroup);
     stage.draw();
   }
+  //return the inventory for the user
 
   private void getInventory() {
     index = 0;
