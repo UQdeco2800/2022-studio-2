@@ -192,13 +192,10 @@ public class GameAreaDisplay extends UIComponent {
         if (weapon != null) {
           disposeFirstBox();
           disposeSecondBox();
-          if (weaponType.equals("Trident")){
-            weapon.setPosition(craftMenu.getX() + 160, craftMenu.getTop() - 400);
-          } else {
-            weapon.setPosition(craftMenu.getX() + 100, craftMenu.getTop() - 475);
-          }
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
           area.getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
+          weapon.remove();
+          weapon = null;
           clearBoxes(0);
         };
       }
