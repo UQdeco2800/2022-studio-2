@@ -165,6 +165,26 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the item's quantity</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotion(com.deco2800.game.entities.Entity)" class="member-name-link">getPotion</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the potion Entity with the same type of effect.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotion(java.lang.String)" class="member-name-link">getPotion</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the potion Entity with the same type of effect.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotionIndex(com.deco2800.game.entities.Entity)" class="member-name-link">getPotionIndex</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the index of the potion in the quickbar.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotionIndex(java.lang.String)" class="member-name-link">getPotionIndex</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the index of the potion if there exists a potion with the same effect.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getQuickBarItems()" class="member-name-link">getQuickBarItems</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -403,11 +423,63 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="getPotion(java.lang.String)">
+<h3>getPotion</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">getPotion</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</span></div>
+<div class="block">Returns the potion Entity with the same type of effect.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>effectType</code> - the effect type of potion</dd>
+<dt>Returns:</dt>
+<dd>potion with the specified effect, null if there is none</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getPotion(com.deco2800.game.entities.Entity)">
+<h3>getPotion</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">getPotion</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
+<div class="block">Returns the potion Entity with the same type of effect.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>potion</code> - </dd>
+<dt>Returns:</dt>
+<dd>potion with the same effect, null if there is none</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getPotionIndex(java.lang.String)">
+<h3>getPotionIndex</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getPotionIndex</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</span></div>
+<div class="block">Returns the index of the potion if there exists a potion with the same effect.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>effectType</code> - the potion effect</dd>
+<dt>Returns:</dt>
+<dd>index of the potion, -1 if potion does not exist</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getPotionIndex(com.deco2800.game.entities.Entity)">
+<h3>getPotionIndex</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getPotionIndex</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
+<div class="block">Returns the index of the potion in the quickbar.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>potion</code> - the potion in the quickbar.</dd>
+<dt>Returns:</dt>
+<dd>index of the potion, -1 if potion does not exist</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="addQuickBarItems(com.deco2800.game.entities.Entity)">
 <h3>addQuickBarItems</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addQuickBarItems</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
 <div class="block">Adding potion to the quickbar.
- Is there a limit of potion quantities? To be discussed with team</div>
+ DEBUGGING</div>
 </section>
 </li>
 <li>

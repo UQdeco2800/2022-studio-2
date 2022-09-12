@@ -1232,6 +1232,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Check if this entity equals another object</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PotionEffectComponent.html#equalTo(com.deco2800.game.entities.Entity)" class="member-name-link">equalTo(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PotionEffectComponent.html" title="class in com.deco2800.game.components.player">PotionEffectComponent</a></dt>
+<dd>
+<div class="block">Returns if the two potion has the same effect</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/PotionEffectComponent.html#equalTo(java.lang.String)" class="member-name-link">equalTo(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PotionEffectComponent.html" title="class in com.deco2800.game.components.player">PotionEffectComponent</a></dt>
+<dd>
+<div class="block">Returns if the two potion has the same effect</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#equipItem(com.deco2800.game.entities.Entity)" class="member-name-link">equipItem(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
 <div class="block">Assuming weapon's max quantity is one.</div>
@@ -1670,9 +1678,25 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the list of all possible builds the user can make with their given inventory.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getPotion(com.deco2800.game.entities.Entity)" class="member-name-link">getPotion(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the potion Entity with the same type of effect.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getPotion(java.lang.String)" class="member-name-link">getPotion(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the potion Entity with the same type of effect.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PotionEffectComponent.html#getPotionEffect()" class="member-name-link">getPotionEffect()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PotionEffectComponent.html" title="class in com.deco2800.game.components.player">PotionEffectComponent</a></dt>
 <dd>
 <div class="block">Returns component effect</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getPotionIndex(com.deco2800.game.entities.Entity)" class="member-name-link">getPotionIndex(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the index of the potion in the quickbar.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getPotionIndex(java.lang.String)" class="member-name-link">getPotionIndex(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the index of the potion if there exists a potion with the same effect.</div>
 </dd>
 <dt><a href="com/deco2800/game/ai/tasks/PriorityTask.html#getPriority()" class="member-name-link">getPriority()</a> - Method in interface com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a></dt>
 <dd>&nbsp;</dd>
@@ -3311,7 +3335,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/tasks/ShootTask.html#%3Cinit%3E(com.deco2800.game.entities.Entity,int,float)" class="member-name-link">ShootTask(Entity, int, float)</a> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ShootTask.html" title="class in com.deco2800.game.components.tasks">ShootTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#showItem()" class="member-name-link">showItem()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Display each item in the inventory in the inventory storage blocks.</div>
+</dd>
 <dt><a href="com/deco2800/game/crafting/Materials.html#Silver" class="member-name-link">Silver</a> - Enum constant in enum class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/EntityTypes.html#SILVER" class="member-name-link">SILVER</a> - Enum constant in enum class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/EntityTypes.html" title="enum class in com.deco2800.game.entities.factories">EntityTypes</a></dt>

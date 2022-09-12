@@ -128,6 +128,16 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates component attached to potion entity</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equalTo(com.deco2800.game.entities.Entity)" class="member-name-link">equalTo</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns if the two potion has the same effect</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equalTo(java.lang.String)" class="member-name-link">equalTo</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns if the two potion has the same effect</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotionEffect()" class="member-name-link">getPotionEffect</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -189,6 +199,34 @@ loadScripts(document, 'script');</script>
 <h3>getPotionEffect</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getPotionEffect</span>()</div>
 <div class="block">Returns component effect</div>
+</section>
+</li>
+<li>
+<section class="detail" id="equalTo(com.deco2800.game.entities.Entity)">
+<h3>equalTo</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equalTo</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
+<div class="block">Returns if the two potion has the same effect</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>potion</code> - the potion to be checked</dd>
+<dt>Returns:</dt>
+<dd>true if both have the same effect type, false otherwise</dd>
+<dt>Requires:</dt>
+<dd>potion.checkEntityType(EntityTypes.POTION) == true</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="equalTo(java.lang.String)">
+<h3>equalTo</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equalTo</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</span></div>
+<div class="block">Returns if the two potion has the same effect</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>effectType</code> - the potion effect type</dd>
+<dt>Returns:</dt>
+<dd>true if the effect type matches, false otherwise</dd>
+</dl>
 </section>
 </li>
 <li>
