@@ -67,7 +67,11 @@ class EntityTest {
 
   DebugRenderer debugRenderer;
 
+  @BeforeEach
+  void beforeEach() {
+    debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
 
+  }
 
 
   @Test
@@ -338,7 +342,7 @@ class EntityTest {
   @Test
   void OneLegGirlExist() {
 
-    GridPoint2 oneLegGirlPosition = new GridPoint2(20, 20);
+    GridPoint2 oneLegGirlPosition = new GridPoint2(20, 19);
     if (oneLegGirlPosition.x>0&&oneLegGirlPosition.x<=20 && oneLegGirlPosition.y>0&&oneLegGirlPosition.y<=20){
       System.out.println("exist");
     }else {
@@ -347,163 +351,6 @@ class EntityTest {
 
   }
 
-
-  @BeforeEach
-  void beforeEach() {
-    // Mock rendering, physics, game time
-    RenderService renderService = new RenderService();
-    renderService.setDebug(mock(DebugRenderer.class));
-    ServiceLocator.registerRenderService(renderService);
-    GameTime gameTime = mock(GameTime.class);
-    when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
-    ServiceLocator.registerTimeSource(gameTime);
-    ServiceLocator.registerPhysicsService(new PhysicsService());
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-  }
-  @Test
-  void BaseEntityConfigHealthTest() {
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(30, baseEntityConfig.health);
-  }
-
-
-  @Test
-  void BaseEntityConfigStaminaTest() {
-    Entity target = new Entity();
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(1, baseEntityConfig.stamina);
-  }
-
-  @Test
-  void BaseEntityConfigBaseAttackTest() {
-    Entity target = new Entity();
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(5, baseEntityConfig.baseAttack);
-  }
-
-  @Test
-  void BaseEntityConfigManaTest() {
-    Entity target = new Entity();
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(20, baseEntityConfig.mana);
-  }
-
-
-  @Test
-  void gymBroConfigSpeedTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    resourceService.loadTextures(textures);
-    resourceService.loadAll();
-    GymBroConfig gymBroConfig = new GymBroConfig();
-    assertEquals(100f, gymBroConfig.speed);
-  }
-
-  @Test
-  void heraclesConfigSpeedTest() {
-    HeraclesConfig heraclesConfig = new HeraclesConfig();
-    assertEquals(100f, heraclesConfig.speed);
-  }
-
-  @Test
-  void poopsConfigSpeedTest() {
-    PoopsConfig poopsConfig = new PoopsConfig();
-    assertEquals(60f, poopsConfig.speed);
-  }
-
-  @Test
-  void gymBroAnimationControllerHasAnimationsTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity gymBro = createGymBro(target);
-    AnimationRenderComponent animator = gymBro.getComponent(AnimationRenderComponent.class);
-    assertTrue(animator.hasAnimation("walk_front"));
-    assertTrue(animator.hasAnimation("walk_back"));
-    assertTrue(animator.hasAnimation("walk_right"));
-    assertTrue(animator.hasAnimation("walk_left"));
-    assertTrue(animator.hasAnimation("attack_front"));
-    assertTrue(animator.hasAnimation("attack_back"));
-    assertTrue(animator.hasAnimation("attack_right"));
-    assertTrue(animator.hasAnimation("attack_left"));
-  }
-
-  @Test
-  void heraclesAnimationControllerHasAnimationsTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity heracles = createHeracles(target);
-
-    AnimationRenderComponent animator = heracles.getComponent(AnimationRenderComponent.class);
-    assertTrue(animator.hasAnimation("walk_front"));
-    assertTrue(animator.hasAnimation("walk_back"));
-    assertTrue(animator.hasAnimation("walk_right"));
-    assertTrue(animator.hasAnimation("walk_left"));
-    assertTrue(animator.hasAnimation("discus_attack_front"));
-    assertTrue(animator.hasAnimation("discus_attack_back"));
-    assertTrue(animator.hasAnimation("discus_attack_right"));
-    assertTrue(animator.hasAnimation("discus_attack_left"));
-  }
-
-  @Test
-  void gymBroScaleTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity gymBro = createGymBro(target);
-    assertEquals(new Vector2(2f,2f), gymBro.getScale());
-  }
-
-  @Test
-  void heraclesScaleTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity heracles = createHeracles(target);
-    assertEquals(new Vector2(3f,3f), heracles.getScale());
-  }
-
-  @Test
-  void poopsScaleTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/poop.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity poops = createPoops(target);
-    assertEquals(new Vector2(2f,2f), poops.getScale());
-  }
 
   static class TestComponent1 extends Component {}
 
