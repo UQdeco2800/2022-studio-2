@@ -1,12 +1,7 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.utils.Null;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
-import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.WeaponFactory;
@@ -370,7 +365,7 @@ public class CombatStatsComponent extends Component {
 
       ServiceLocator.getEntityService().register(newWeapon);
 
-      newWeapon.setPosition(x , (float) (y - 1));
+      newWeapon.setPosition(x , (y - 1));
     }
 
   }

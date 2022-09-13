@@ -38,7 +38,7 @@
     "damage": 35,
     "coolDown": 1000,
     "weight": 3,
-    "materials": {"dagger": 1,"daggerTwo": 1}
+    "materials": {"herraDag": 1,"Gold": 1}
   },
 
   "plunger": {
