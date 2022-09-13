@@ -37,9 +37,13 @@ public class TextureRenderComponent extends RenderComponent {
     return texture;
   }
 
-    public String getTexturePath() {
+  /**
+   * Returns the file path of the texture
+   * @return file path of the texture
+   */
+  public String getTexturePath() {
         return texturePath;
-    }
+  }
 
   @Override
   protected void draw(SpriteBatch batch) {

@@ -9,6 +9,7 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,18 +110,20 @@ class InventoryComponentTest {
 //    assertEquals(testInventory5.getPotion(testPotion), testPotion);
 //  }
 
-//  @Test
-//  void addQuickBarItems() {
-//    InventoryComponent testInventory5 = new InventoryComponent();
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    Entity testPotion = PotionFactory.createBasePotion();
-//
-//    testInventory5.addQuickBarItems(testPotion);
-//    expectedList.add(testPotion);
-//
-//    assertEquals(testInventory5.getQuickBarItems(), expectedList);
-//  }
+  @Test
+  void addQuickBarItems() {
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent testInventory5 = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+
+
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+
+    testInventory5.addQuickBarItems(testPotion);
+    expectedList.add(testPotion);
+
+    assertEquals(testInventory5.getQuickBarItems(), expectedList);
+  }
 
 //  @Test
 //  void removePotion() {
