@@ -182,8 +182,7 @@ public class NPCFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/friendly_creature npc/friendly_creature.atlas", TextureAtlas.class));
-    animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
-
+            animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
 
     friendlycreature
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
