@@ -3,7 +3,7 @@ package com.deco2800.game.entities.factories;
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
+import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourConfig;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourTypeConfig;
@@ -37,7 +37,7 @@ public class ArmourFactory {
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(armourStats)
-                .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
+                .addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
         armour.setEntityType(EntityTypes.ARMOUR);
         return armour;
     }
@@ -55,27 +55,42 @@ public class ArmourFactory {
      * @return armour config, baseArmour config if no type is matching
      */
     private static ArmourConfig getConfig (ArmourType type) {
-        ArmourConfig config = configs.baseArmour;
+        ArmourConfig config;
         switch (type){
             case damageReturner:
                 config = configs.damageReturner;
+                break;
             case fastLeather:
                 config = configs.fastLeather;
+                break;
             case slowDiamond:
                 config = configs.slowDiamond;
+                break;
+            default:
+                config = configs.baseArmour;
         }
         return config;
     }
 
+    /**
+     * Returns the texture file path based on the input ArmourType
+     * @param type armour type
+     * @return armour
+     */
     private static String getTexture (ArmourType type) {
-        String texturePath = "images/Armour-assets-sprint2/baseArmour.png";
+        String texturePath;
         switch (type){
             case damageReturner:
-                texturePath = "";
+                texturePath = "images/Armour-assets-sprint2/damageReturner.png";
+                break;
             case fastLeather:
-                texturePath = "";
+                texturePath = "images/Armour-assets-sprint2/fastLeather.png";
+                 break;
             case slowDiamond:
                 texturePath = "images/Armour-assets-sprint2/slowDiamond.png";
+                break;
+            default:
+               texturePath = "images/Armour-assets-sprint2/baseArmour.png";
         }
         return texturePath;
     }

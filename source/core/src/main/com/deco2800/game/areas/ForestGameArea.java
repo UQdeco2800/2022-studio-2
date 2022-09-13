@@ -50,6 +50,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png",
     "images/Armour-assets-sprint2/baseArmour.png",
     "images/Armour-assets-sprint2/slowDiamond.png",
+    "images/Armour-assets-sprint2/damageReturner.png",
+    "images/Armour-assets-sprint2/fastLeather.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
@@ -79,7 +81,6 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png",
     "images/Potions/defence_potion.png",
     "images/NPC/male_citizen/male_citizen.png",
-
     "images/playerTeleport.png",
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
@@ -93,6 +94,11 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png",
     "images/CombatItems/Sprint-1/poisonBuff.png",
     "images/Potions/defence_potion.png",
+    "images/NPC/dialogue_indicator/dialogue.png",
+    "images/NPC/dialogue_indicator/dialogue_1.png",
+    "images/NPC/dialogue_indicator/dialogue_2.png",
+    "images/NPC/dialogue_indicator/dialogue_3.png",
+    "images/NPC/dialogue_indicator/dialogue_indicator_sprite_sheet.png",
     "images/Potions/agility_potion.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/CombatItems/Sprint-1/trident_Lvl2.png",
@@ -138,7 +144,6 @@ public class ForestGameArea extends GameArea {
   private Entity player;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
-  private static List<Entity> armourOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
   public static GridPoint2 oneLegGirlPosition;
@@ -187,6 +192,7 @@ public class ForestGameArea extends GameArea {
     spawnPoops();
     spawnHumanGuard();
     spawnPlumberFriend();
+    spawnfriendlycreature();
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
@@ -199,7 +205,11 @@ public class ForestGameArea extends GameArea {
 
 
     spawnDumbbell();
-    spawnBaseArmour();
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 16, 16);
+    spawnArmour(ArmourFactory.ArmourType.baseArmour, 5, 5);
+    spawnArmour(ArmourFactory.ArmourType.fastLeather, 36, 36);
+    spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
+
     spawnSpeedDebuff();
     spawnDmgBuff();
     spawnDmgDebuff();
@@ -390,6 +400,16 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * spawn an armour on the map based on the input armour type
+   * @param armourType armourType of the armour to be spawned
+   */
+  private void spawnArmour(ArmourFactory.ArmourType armourType, int x, int y) {
+    Entity armour = ArmourFactory.createArmour(armourType);
+    ItemsOnMap.add(armour);
+    spawnEntityAt(armour, new GridPoint2( x,y), true, false);
+  }
+
+  /**
    * Spawn small tress in a certain position. - Team 5 1map4all @LYB
    */
   private void spawnSmallTrees(int x, int y) {
@@ -460,13 +480,6 @@ public class ForestGameArea extends GameArea {
     Entity dumbbell = WeaponFactory.createDumbbell();
     weaponOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
-  }
-  
-
-  private void spawnBaseArmour() {
-    Entity baseArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.baseArmour);
-    armourOnMap.add(baseArmour);
-    spawnEntityAt(baseArmour, new GridPoint2(2,13), true, false);
   }
 
   /**
@@ -685,6 +698,7 @@ public class ForestGameArea extends GameArea {
   /**
    * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
    */
+
   private void spawnfriendlycreature() {
     friendlycreaturePosition = new GridPoint2(5, 10);
 

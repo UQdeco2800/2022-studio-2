@@ -134,7 +134,6 @@ public class NPCFactory {
     guard.setScale(1, 1);
     return guard;
   }
-
   public static Entity createHumanGuard (Entity target) {
     Entity humanguard = createBaseNPC();
     HumanGuardConfig config = configs.humanguard;
@@ -183,6 +182,7 @@ public class NPCFactory {
    * @param target entity to stand
    * @return entity
    */
+
   public static Entity createFriendlyCreature (Entity target) {
     Entity friendlycreature = createBaseNPC();
     FriendlyCreatureConfig config = configs.friendlycreature;
@@ -227,7 +227,8 @@ public class NPCFactory {
             .addComponent(new MaleAnimationController())
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
-            ;
+    ;
+
 //images/NPC/male_citizen/male-atlas.atlas
 
     male_citizen.getComponent(AITaskComponent.class);
@@ -236,7 +237,6 @@ public class NPCFactory {
     male_citizen.setScale(1, 1);
     return male_citizen;
   }
-
 
   /**
    * Creates an atlantis citizen entity.
