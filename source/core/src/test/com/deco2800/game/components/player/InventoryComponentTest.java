@@ -9,6 +9,7 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,7 @@ class InventoryComponentTest {
     ServiceLocator.registerPhysicsService(new PhysicsService());
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
-
+    ServiceLocator.registerRenderService(new RenderService());
   }
 
   @Test
@@ -100,27 +101,27 @@ class InventoryComponentTest {
 
 //    @Test
 //  void getPotion() {
-//    InventoryComponent testInventory5 = new InventoryComponent();
+//    Entity player = PlayerFactory.createTestPlayer();
 //
 //    Entity testPotion = PotionFactory.createBasePotion();
 //
-//    testInventory5.addQuickBarItems(testPotion);
+//    player.getComponent(InventoryComponent.class).addQuickBarItems(testPotion);
 //
-//    assertEquals(testInventory5.getPotion(testPotion), testPotion);
+//    assertEquals(player.getComponent(InventoryComponent.class).getPotion(testPotion), testPotion);
 //  }
 
-//  @Test
-//  void addQuickBarItems() {
-//    InventoryComponent testInventory5 = new InventoryComponent();
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    Entity testPotion = PotionFactory.createBasePotion();
-//
-//    testInventory5.addQuickBarItems(testPotion);
-//    expectedList.add(testPotion);
-//
-//    assertEquals(testInventory5.getQuickBarItems(), expectedList);
-//  }
+  @Test
+  void addQuickBarItems() {
+    Entity player = PlayerFactory.createTestPlayer();
+    List<Entity> expectedList = new ArrayList<>(3);
+
+    Entity testPotion = PotionFactory.createSpeedPotion();
+
+    player.getComponent(InventoryComponent.class).addQuickBarItems(testPotion);
+    expectedList.add(testPotion);
+
+    assertEquals(player.getComponent(InventoryComponent.class).getQuickBarItems(), expectedList);
+  }
 
 //  @Test
 //  void removePotion() {
