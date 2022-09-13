@@ -115,7 +115,7 @@ class InventoryComponentTest {
     Entity player = PlayerFactory.createTestPlayer();
     List<Entity> expectedList = new ArrayList<>(3);
 
-    Entity testPotion = PotionFactory.createSpeedPotion();
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
 
     player.getComponent(InventoryComponent.class).addQuickBarItems(testPotion);
     expectedList.add(testPotion);

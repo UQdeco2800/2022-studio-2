@@ -35,6 +35,7 @@ public class PotionFactory {
         potion.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
         return potion;
     }
+
     /**
      * Creates speed potion
      * @return speed potion
@@ -47,6 +48,16 @@ public class PotionFactory {
         speedPotion.getComponent(TextureRenderComponent.class).scaleEntity();
         speedPotion.scaleHeight(1.0f);
         PhysicsUtils.setScaledCollider(speedPotion, 0.5f, 0.2f);
+        return speedPotion;
+    }
+
+    /**
+     * Creates speed potion without rendering Compononet
+     * @return speed potion for testing purposes
+     */
+    public static Entity createTestSpeedPotion() {
+        Entity speedPotion = createBasePotion()
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "speed"));
         return speedPotion;
     }
 
