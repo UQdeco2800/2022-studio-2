@@ -342,7 +342,7 @@ class EntityTest {
   @Test
   void OneLegGirlExist() {
 
-    GridPoint2 oneLegGirlPosition = new GridPoint2(20, 20);
+    GridPoint2 oneLegGirlPosition = new GridPoint2(20, 19);
     if (oneLegGirlPosition.x>0&&oneLegGirlPosition.x<=20 && oneLegGirlPosition.y>0&&oneLegGirlPosition.y<=20){
       System.out.println("exist");
     }else {
