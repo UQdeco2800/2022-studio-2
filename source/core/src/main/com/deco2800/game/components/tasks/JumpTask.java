@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.GameTime;
@@ -52,8 +53,11 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     public void update() {
         if (isAtTarget()) {
             if (getDistanceToTarget() <= 2f) {
-                CombatStatsComponent targetStats = target.getComponent(CombatStatsComponent.class);
-                targetStats.hit(combatStats);
+                PlayerActions playerActions = target.getComponent(PlayerActions.class);
+                if (playerActions != null && !(playerActions.getSkillComponent().skillDamageTrigger())) {
+                    target.getComponent(CombatStatsComponent.class)
+                            .hit(owner.getEntity().getComponent(CombatStatsComponent.class));
+                }
 
                 // Apply knock back
                 PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class);
@@ -77,16 +81,15 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         if (didMove()) {
             lastTimeMoved = gameTime.getTime();
             lastPos = owner.getEntity().getPosition();
-        } else if (gameTime.getTimeSince(lastTimeMoved) > 200L) {
-            //movementComponent.setMoving(false);
+        } else if (gameTime.getTimeSince(lastTimeMoved) > 150L) {
+            stop();
             lastJumpTime = gameTime.getTime();
             status = Status.FINISHED;
-            System.out.println("here");
         }
     }
 
     private boolean didMove() {
-        return owner.getEntity().getPosition().dst2(lastPos) > 0.001f;
+        return owner.getEntity().getPosition().dst2(lastPos) > 0.07f;
     }
 
     @Override
@@ -104,15 +107,15 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
         if (Math.abs(y) > Math.abs(x)) {
             if (y >= 0) {
-                this.owner.getEntity().getEvents().trigger("attackFront");
+                this.owner.getEntity().getEvents().trigger("walkFront");
             } else {
-                this.owner.getEntity().getEvents().trigger("attackBack");
+                this.owner.getEntity().getEvents().trigger("walkBack");
             }
         } else {
             if (x >= 0) {
-                this.owner.getEntity().getEvents().trigger("attackLeft");
+                this.owner.getEntity().getEvents().trigger("walkLeft");
             } else {
-                this.owner.getEntity().getEvents().trigger("attackRight");
+                this.owner.getEntity().getEvents().trigger("walkRight");
             }
         }
     }
@@ -122,7 +125,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         return owner.getEntity().getPosition().dst(target.getPosition());
     }
 
-    private boolean isAtTarget() {return owner.getEntity().getPosition().dst(targetPos) <= 2f;}
+    private boolean isAtTarget() {return owner.getEntity().getPosition().dst(targetPos) <= 1f;}
 
     @Override
     public int getPriority() {
@@ -134,7 +137,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
     private int getActivePriority() {
         float dst = getDistanceToTarget();
-        if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 10000L)) {
+        if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 7000L)) {
             return -1;
         }
         return priority;
@@ -142,7 +145,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
     private int getInactivePriority() {
         float dst = getDistanceToTarget();
-        if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 10000L)) {
+        if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 7000L)) {
             return priority;
         }
         return -1;
