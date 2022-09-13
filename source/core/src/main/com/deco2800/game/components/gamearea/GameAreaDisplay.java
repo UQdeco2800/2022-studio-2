@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.areas.ForestGameArea;
@@ -105,53 +106,73 @@ public class GameAreaDisplay extends UIComponent {
       inventoryMenu = new Image(new Texture(Gdx.files.internal
               ("images/Inventory/Inventory_Armor_V2.png")));
       //Note: the position of the asset is at the bottom left.
-      inventoryMenu.setSize(640, 480 );
+      inventoryMenu.setSize(768, 576 );
       inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth(),
-              Gdx.graphics.getHeight() / 2);
+              Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
       inventoryGroup.addActor(inventoryMenu);
       stage.addActor(inventoryGroup);
       stage.draw();
   }
 
+  /**
+   * Display each item in the inventory in the inventory storage blocks.
+   * Implemented by Team 2.
+   */
   public void showItem() {
-    float padding = 20;
-    items = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getInventory();
+    float padding = 12.5f;
+    InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    items = inventory.getInventory();
     for (int i = 0; i < items.size(); ++i) {
-      Texture itemTexture = items.get(i).getComponent(TextureRenderComponent.class).getTexture();
+      Entity currentItem = items.get(i);
+      Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
       TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
       TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
       ImageButton item = new ImageButton(itemTextureDrawable);
-      item.setSize(60, 60);
-      if (i < 4){
-            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 450);
-          } else if (4 < i || i <= 8) {
-            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 340);
-          } else if (8 < i || i <= 12) {
-            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 220);
-          } else if (12 < i || i <= 16) {
-            item.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 100);
-          }
+      item.setSize(53, 53);
+      //187.5 and 360 are the magic numbers. DO NOT CHANGE!
+      int row = i / 4;
+      int column = i % 4;
+      float horizontalPosition = (inventoryMenu.getX() + 187.5f) + column * (padding + 53);
+      float verticalPosition = (inventoryMenu.getY() + 360) - row * (padding + 53);
+      item.setPosition(horizontalPosition, verticalPosition);
+      // Triggers an event when the button is pressed.
+      String buttonText;
+      if (items.get(i).checkEntityType(EntityTypes.WEAPON)
+      || items.get(i).checkEntityType(EntityTypes.ARMOUR)) {
+        buttonText = "Equip item";
+      } else if (items.get(i).checkEntityType(EntityTypes.POTION)){
+        buttonText = "Add to quick bar";
+      } else {
+        buttonText = "Add to crafting menu";
+      }
+      item.addListener(
+              new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+                  TextButton mainMenuBtn = new TextButton(buttonText, skin);
+                  mainMenuBtn.setPosition(horizontalPosition, verticalPosition);
+                  mainMenuBtn.addListener(
+                          new ChangeListener() {
+                            @Override
+                            public void changed(ChangeEvent event, Actor actor) {
+                              switch (buttonText) {
+                                case "Equip item":
+                                 inventory.equipItem(currentItem);
+                                 break;
+                                case "Add to quick bar":
+                                  inventory.addQuickBarItems(currentItem);
+                                  break;
+                                case "Add to crafting menu":
+                                  //Crafting team use this block to add items in crafting menu
+                                  break;
+                              }
+                            }
+                          }
+                  );
+                  inventoryGroup.addActor(mainMenuBtn);
+                }
+              });
       inventoryGroup.addActor(item);
-//      switch (items.get(i)) {
-//        case Wood:
-//          woodTexture = new Texture(Gdx.files.internal
-//                  ("images/Crafting-assets-sprint1/materials/wood.png"));
-//          woodTextureRegion = new TextureRegion(woodTexture);
-//          woodDrawable = new TextureRegionDrawable(woodTextureRegion);
-//          wood = new ImageButton(woodDrawable);
-//          wood.setSize(50, 50);
-//          if (i < 4){
-//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 450);
-//          } else if (4 < i || i <= 8) {
-//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 340);
-//          } else if (8 < i || i <= 12) {
-//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 220);
-//          } else if (12 < i || i <= 16) {
-//            wood.setPosition(inventoryMenu.getX() + 20 + (100 * (i+1)) + (10 * i), inventoryMenu.getY() + 100);
-//          }
-//          inventoryGroup.addActor(wood);
-//          break;
-//      }
     }
   }
 
