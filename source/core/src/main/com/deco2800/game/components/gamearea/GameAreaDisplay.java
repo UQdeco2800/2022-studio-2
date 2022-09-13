@@ -227,6 +227,9 @@ public class GameAreaDisplay extends UIComponent {
       inventoryComponent.addItem(MaterialFactory.createSilver());
       inventoryComponent.addItem(MaterialFactory.createSteel());
       inventoryComponent.addItem(MaterialFactory.createWood());
+      inventoryComponent.addItem(MaterialFactory.createPlastic());
+      inventoryComponent.addItem(MaterialFactory.createRubber());
+      inventoryComponent.addItem(MaterialFactory.createIron());
       firstTime += 1;
     }
     craftMenu = new Image(new Texture(Gdx.files.internal
@@ -259,6 +262,7 @@ public class GameAreaDisplay extends UIComponent {
           weapon = null;
           clearBoxes(0);
         };
+        getInventory();
       }
     });
     craftingGroup.addActor(craftButton);
@@ -298,7 +302,6 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void checkBuildables() {
-
     if (boxes[0] != null && boxes[1] != null){
       for (MeleeConfig item: possibleBuilds){
         int numItems = 0;
@@ -307,6 +310,7 @@ public class GameAreaDisplay extends UIComponent {
           String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
           if (boxes[0].toString().equals(upperCaseEntry) ||
                   boxes[1].toString().equals(upperCaseEntry)){
+
             numItems += 1;
           }
         }
@@ -333,7 +337,6 @@ public class GameAreaDisplay extends UIComponent {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();
     inventory = inventoryComponent.getInventory();
-
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
         materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -348,14 +351,12 @@ public class GameAreaDisplay extends UIComponent {
         material.addListener(new ChangeListener() {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
-
             if (boxes[0] == null) {
               clearMaterials();
               materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
               materialTextureRegion = new TextureRegion(materialTexture);
               materialDrawable = new TextureRegionDrawable(materialTextureRegion);
               firstToCraft = new ImageButton(materialDrawable);
-
               firstToCraft.setSize(50, 50);
               firstToCraft.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
               stage.addActor(firstToCraft);
