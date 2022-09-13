@@ -65,6 +65,7 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
+                .addComponent(new TransitionMapComponent())
                 .addComponent(new DialogueKeybordInputComponent())
                 .addComponent(new DialogueDisplay())
             .addComponent(new OpenPauseComponent())
