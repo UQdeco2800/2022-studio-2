@@ -42,6 +42,14 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/wall_edge.png",
             "images/level_2_tiledmap/wall_side.png",
             "images/level_2_tiledmap/water.png",
+            "images/ghost_king.png",
+            "images/NPC/friendly_creature npc/Friendly_creature.png",
+            "images/ghost_1.png",
+            "images/grass_1.png",
+            "images/grass_2.png",
+            "images/grass_3.png",
+            "images/level_2_tiledmap/32x32/grass.png",
+            "images/level_2_tiledmap/32x32/purple_cobble.png",
             "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
             "images/Crafting-assets-sprint1/materials/gold.png",
             "images/Crafting-assets-sprint1/materials/platinum.png",
@@ -55,6 +63,7 @@ public class UndergroundGameArea extends GameArea {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas"
+
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -69,8 +78,8 @@ public class UndergroundGameArea extends GameArea {
     public UndergroundGameArea(TerrainFactory terrainFactory) {
         super();
         this.terrainFactory = terrainFactory;
-
         ServiceLocator.registerGameArea(this);
+
 
     }
 
@@ -171,7 +180,6 @@ public class UndergroundGameArea extends GameArea {
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
         return RandomUtils.random(minPos, maxPos);
     }
 

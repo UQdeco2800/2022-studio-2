@@ -80,18 +80,30 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SHIFT_LEFT:
         entity.getEvents().trigger("dash");
         return true;
+      case Keys.EQUALS: // temp mapping for sprint 2 marking
+        entity.getEvents().trigger("rootTemp");
+        return true;
+      case Keys.MINUS: // temp mapping for sprint 2 marking
+        entity.getEvents().trigger("bleedTemp");
+        return true;
+      case Keys.BACKSLASH:
+        entity.getEvents().trigger("ultimateTemp");
+        return true;
+      case Keys.BACKSPACE:
+        entity.getEvents().trigger("attackspeedTemp");
+        return true;
       case Keys.I:
         entity.getEvents().trigger("toggleInventory");
         return true;
-//      case Keys.NUM_1:
-//        entity.getEvents().trigger("consumePotionSlot1");
-//        return true;
-//      case Keys.NUM_2:
-//        entity.getEvents().trigger("consumePotionSlot2");
-//        return true;
-//      case Keys.NUM_3:
-//        entity.getEvents().trigger("consumePotionSlot3");
-//        return true;
+      case Keys.NUM_1:
+        entity.getEvents().trigger("consumePotionSlot1");
+        return true;
+      case Keys.NUM_2:
+        entity.getEvents().trigger("consumePotionSlot2");
+        return true;
+      case Keys.NUM_3:
+        entity.getEvents().trigger("consumePotionSlot3");
+        return true;
       case Keys.ESCAPE:
         if (!OpenCraftingComponent.getCraftingStatus()) {
           keyPressedCounter++;
@@ -111,8 +123,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.X:
         entity.getEvents().trigger("EquipWeapon");
         return true;
+      case Keys.Y:
+        entity.getEvents().trigger("dropWeapon");
         // Determines if the player is near the plug when enter is hit, transitions to next map
-      case Keys.ENTER:
+        case Keys.ENTER:
         if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
                 (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
           entity.getEvents().trigger("nextMap");

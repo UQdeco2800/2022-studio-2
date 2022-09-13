@@ -363,6 +363,7 @@ class PlayerSkillComponentTest {
     void dashActivation() {
         PlayerActions actions = player.getComponent(PlayerActions.class);
         actions.create();
+        actions.setSkillAnimator(new Entity());
         PlayerSkillComponent component = actions.getSkillComponent();
         actions.dash();
         assertTrue(component.isDashing());
