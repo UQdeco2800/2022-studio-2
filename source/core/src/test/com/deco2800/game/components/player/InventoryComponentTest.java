@@ -99,16 +99,28 @@ class InventoryComponentTest {
              checkModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0));
   }
 
-//    @Test
-//  void getPotion() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//
-//    Entity testPotion = PotionFactory.createBasePotion();
-//
-//    player.getComponent(InventoryComponent.class).addQuickBarItems(testPotion);
-//
-//    assertEquals(player.getComponent(InventoryComponent.class).getPotion(testPotion), testPotion);
-//  }
+  @Test
+  void getPotionIndex() {
+    Entity player = PlayerFactory.createTestPlayer();
+    int expectedNumber = 0;
+
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+
+    player.getComponent(InventoryComponent.class).addQuickBarItems(testPotion);
+
+    assertEquals(player.getComponent(InventoryComponent.class).getPotionIndex(testPotion), expectedNumber);
+  }
+
+    @Test
+  void getPotion() {
+    Entity player = PlayerFactory.createTestPlayer();
+
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+
+    player.getComponent(InventoryComponent.class).addQuickBarItems(testPotion);
+
+    assertEquals(player.getComponent(InventoryComponent.class).getPotion(testPotion), testPotion);
+  }
 
   @Test
   void addQuickBarItems() {
