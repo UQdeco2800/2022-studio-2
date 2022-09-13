@@ -1,8 +1,14 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,11 +31,16 @@ public class PlayerSkillComponent extends Component {
         DASH,
         TELEPORT,
         BLOCK,
-        DODGE
+        DODGE,
+        BLEED,
+        ROOT,
+        ATTACKSPEED,
+        ULTIMATE
     }
 
     private boolean isInvulnerable;
     private long invulnerableEnd;
+    private Entity enemy = null;
 
     Map<String, Long> skillCooldowns = new HashMap<>();
 
@@ -44,7 +55,7 @@ public class PlayerSkillComponent extends Component {
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
-    private static final long DASH_LENGTH = 350; // In MilliSec (1000millisec = 1sec)
+    private static final long DASH_LENGTH = 300; // In MilliSec (1000millisec = 1sec)
     private static final float DASH_MOVEMENT_RESTRICTION = 0.8f; // As a proportion of regular move (0.8 = 80%)
     private Vector2 dashDirection = Vector2.Zero.cpy();
     private boolean dashing = false;
@@ -71,6 +82,22 @@ public class PlayerSkillComponent extends Component {
     private static final long BLOCK_COOLDOWN = 500;
     private boolean blockEndEvent;
 
+    // Root Variables
+    private boolean rootApplied;
+    private boolean rooted;
+    private long rootEnd;
+    private static final long ROOT_LENGTH = 5000;
+    private boolean rootEndEvent = false;
+
+    // Bleed Variables
+    private boolean bleedApplied;
+    private boolean bleeding;
+    private long bleedStart;
+    private long bleedEnd = 0;
+    private static final long BLEED_LENGTH = 1000;
+    private static final long BLEED_HITS = 7;
+    private static final int BLEED_DAMAGE = 5;
+    private boolean bleedEndEvent = false;
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -111,6 +138,10 @@ public class PlayerSkillComponent extends Component {
 
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
+            // Only end animation if not interrupting another skill
+            if (!this.teleporting && !this.blocking && !this.dodging) {
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
             this.dashing = false;
             this.dashEndEvent = true;
         }
@@ -128,8 +159,27 @@ public class PlayerSkillComponent extends Component {
         if (this.dodging && System.currentTimeMillis() > this.dodgeEnd) {
             this.dodging = false;
             this.dodgeEndEvent = true;
+            skillAnimator.getEvents().trigger("regularAnimation");
         } else if (System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
             this.dodgeSpeedBoost = false;
+        }
+
+        // Check if the slow effect should be ended
+        if (this.rooted && System.currentTimeMillis() > this.rootEnd) {
+            this.rooted = false;
+            this.rootEndEvent = true;
+            changeSpeed(this.enemy, 0, false);
+        }
+
+        // Check if bleed is applied to enemy
+        if (this.bleeding) {
+            // Do damage every x seconds (time set by BLEED_LENGTH)
+            if (this.bleedEnd - this.bleedStart < BLEED_LENGTH * (BLEED_HITS - 1)) {
+                checkBleed(this.enemy);
+            } else {
+                this.bleeding = false;
+                this.bleedEndEvent = true;
+            }
         }
     }
 
@@ -157,6 +207,16 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
         } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
+        } else if (skillName == SkillTypes.BLEED) { // change back to skillEvent after sprint 2
+            entity.getEvents().addListener("skillTemp", playerActionsComponent::bleed);
+            entity.getEvents().addListener("hitEnemy", this::hitBleed);
+        }  else if (skillName == SkillTypes.ROOT) { // change back to skillEvent after sprint 2
+            entity.getEvents().addListener("skillTemp", playerActionsComponent::root);
+            entity.getEvents().addListener("hitEnemy", this::hitRoot);
+        } else if (skillName == SkillTypes.ATTACKSPEED) {
+            entity.getEvents().addListener("attackspeedTemp", playerActionsComponent::attackSpeedUp);
+        } else if (skillName == SkillTypes.ULTIMATE) {
+            entity.getEvents().addListener("ultimateTemp", playerActionsComponent::ultimate);
         }
     }
 
@@ -276,6 +336,18 @@ public class PlayerSkillComponent extends Component {
                     return true;
                 }
                 return false;
+            case BLEED:
+                if (this.bleedEndEvent) {
+                    this.bleedEndEvent = false;
+                    return true;
+                }
+                return false;
+            case ROOT:
+                if (this.rootEndEvent) {
+                    this.rootEndEvent = false;
+                    return true;
+                }
+                return false;
             default:
                 return false;
         }
@@ -318,6 +390,42 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Checks if the player is in the bleed skill state
+     * @return true - if the player has bleed active
+     *         false - otherwise
+     */
+    public boolean bleedActive() {
+        return this.bleedApplied;
+    }
+
+    /**
+     * Checks if the enemy has bleeding applied
+     * @return true - if the enemy is bleeding
+     *         false - otherwise
+     */
+    public boolean isBleeding() {
+        return this.bleeding;
+    }
+
+    /**
+     * Checks if the player is in the root skill state
+     * @return true - if the player has root active
+     *         false - otherwise
+     */
+    public boolean rootActive() {
+        return this.rootApplied;
+    }
+
+    /**
+     * Checks if the enemy has rooted applied
+     * @return true - if the enemy is rooted
+     *         false - otherwise
+     */
+    public boolean isRooted() {
+        return this.rooted;
+    }
+
+    /**
      * The functional start of the dash.
      * Should be called when player actions component registers dash event.
      * @param moveDirection the direction of the players movement at the start of the dash event.
@@ -326,6 +434,7 @@ public class PlayerSkillComponent extends Component {
         if (cooldownFinished("dash", (long) (DASH_LENGTH * 1.2))) {
             this.dashDirection = moveDirection;
             this.dashing = true;
+            skillAnimator.getEvents().trigger("dashAnimation");
             long dashStart = System.currentTimeMillis();
             this.dashEnd = dashStart + DASH_LENGTH;
             setInvulnerable(DASH_LENGTH/2);
@@ -377,6 +486,85 @@ public class PlayerSkillComponent extends Component {
             setSkillCooldown("block");
         }
 
+    }
+
+    /**
+     * The functional start of the root skill.
+     * Should be called when player actions component registers root event.
+     */
+    public void startRoot() {
+        this.rootApplied = true;
+    }
+
+    /**
+     * The functional start of the ultimate skill.
+     * Should be called when player actions component registers ultimate event.
+     */
+    public void startUltimate() {
+        skillAnimator.getEvents().trigger("ultimateAnimation");
+    }
+
+    /**
+     * The functional start of the attack speed skill.
+     * Should be called when player actions component registers attackspeed skill event.
+     */
+    public void startAttackSpeedUp() {
+        skillAnimator.getEvents().trigger("attackSpeedAnimation");
+    }
+
+    /**
+     * Apply root effect to enemy
+     * @param target enemy to apply effect on
+     */
+    public void hitRoot(Entity target) {
+        if (!this.rootApplied) {
+            return;
+        }
+        this.enemy = target;
+        changeSpeed(target, ROOT_LENGTH, true);
+    }
+
+    /**
+     * The functional start of the bleed skill.
+     * Should be called when player actions component registers bleed event.
+     */
+    public void startBleed() {
+        this.bleedApplied = true;
+    }
+
+    /**
+     * Apply bleed effect to enemy
+     * @param target enemy to apply effect on
+     */
+    public void hitBleed(Entity target) {
+        if (!this.bleedApplied) {
+            return;
+        }
+        this.enemy = target;
+        this.bleeding = true;
+        this.bleedStart = System.currentTimeMillis();
+    }
+
+    /**
+     * Does damage over time to target.
+     * @param target enemy to damage
+     */
+    public void checkBleed(Entity target) {
+        if (System.currentTimeMillis() > this.bleedEnd + BLEED_LENGTH) {
+            CombatStatsComponent enemyStats = target.getComponent(CombatStatsComponent.class);
+            enemyStats.setHealth(enemyStats.getHealth() - BLEED_DAMAGE);
+
+            // enemy dead
+            if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
+                target.dispose();
+                if (target.getComponent(AnimationRenderComponent.class) != null) {
+                    target.getComponent(AnimationRenderComponent.class).stopAnimation();
+                }
+                this.bleedEnd = this.bleedStart + BLEED_LENGTH * (BLEED_HITS - 1) + 1;
+                return;
+            }
+            this.bleedEnd = System.currentTimeMillis();
+        }
     }
 
     /**
@@ -487,6 +675,26 @@ public class PlayerSkillComponent extends Component {
         long newInvulnerableEnd = System.currentTimeMillis() + invulnerableLength;
         if (newInvulnerableEnd > this.invulnerableEnd) {
             this.invulnerableEnd =  newInvulnerableEnd;
+        }
+    }
+
+    /**
+     * Changes enemy movement speed as a result of a player skill.
+     * @param target the entity to change speed
+     * @param slowLength length of time in ms for a skill to reduce speed
+     * @param slow true to slow enemy, false to return to normal speed
+     */
+    private void changeSpeed(Entity target, long slowLength, boolean slow) {
+        if (slow) {
+            target.getComponent(AITaskComponent.class).addTask
+                    (new ChaseTask(playerEntity, 11, 5f, 6f, 1f));
+            this.rooted = true;
+            this.rootApplied = false;
+            this.rootEnd = System.currentTimeMillis() + slowLength;
+        } else {
+            target.getComponent(AITaskComponent.class).dispose();
+            target.getComponent(AITaskComponent.class).getPriorityTasks().remove
+                    (target.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
         }
     }
 }

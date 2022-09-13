@@ -26,7 +26,24 @@ public class UndergroundGameArea extends GameArea {
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
+            "images/level_2_tiledmap/dirt.png",
+            "images/level_2_tiledmap/drain_empty.png",
+            "images/level_2_tiledmap/columns.png",
+            "images/level_2_tiledmap/torch.png",
+            "images/level_2_tiledmap/floor1.png",
+            "images/level_2_tiledmap/floor2.png",
+            "images/level_2_tiledmap/floor3.png",
+            "images/level_2_tiledmap/floor4.png",
+            "images/level_2_tiledmap/floor5.png",
+            "images/level_2_tiledmap/floor6.png",
+            "images/level_2_tiledmap/floor7.png",
+            "images/level_2_tiledmap/wall.png",
+            "images/level_2_tiledmap/wall_corner.png",
+            "images/level_2_tiledmap/wall_edge.png",
+            "images/level_2_tiledmap/wall_side.png",
+            "images/level_2_tiledmap/water.png",
             "images/ghost_king.png",
+            "images/NPC/friendly_creature npc/Friendly_creature.png",
             "images/ghost_1.png",
             "images/grass_1.png",
             "images/grass_2.png",
@@ -46,6 +63,7 @@ public class UndergroundGameArea extends GameArea {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas"
+
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -62,7 +80,6 @@ public class UndergroundGameArea extends GameArea {
         this.terrainFactory = terrainFactory;
 
         ServiceLocator.registerGameArea(this);
-
     }
 
     /**
@@ -162,7 +179,6 @@ public class UndergroundGameArea extends GameArea {
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
         return RandomUtils.random(minPos, maxPos);
     }
 

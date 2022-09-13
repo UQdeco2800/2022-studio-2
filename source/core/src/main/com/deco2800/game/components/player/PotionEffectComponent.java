@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -25,7 +26,7 @@ public class PotionEffectComponent extends Component {
         this.effectType = effectType; // make enum for this later
         switch (effectType) {
             case "speed":
-                this.effectValue = 0.50f;
+                this.effectValue = 2f;
             default:
                 ;
         }
@@ -52,7 +53,7 @@ public class PotionEffectComponent extends Component {
             return;
         }
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-        applyEffect(target);
+        if(!target.checkEntityType(EntityTypes.PLAYER)) applyEffect(target);
     }
 
     /**
@@ -63,6 +64,25 @@ public class PotionEffectComponent extends Component {
     }
 
     /**
+     * Returns if the two potion has the same effect
+     * @param potion the potion to be checked
+     * @return true if both have the same effect type, false otherwise
+     * @requires potion.checkEntityType(EntityTypes.POTION) == true
+     */
+    public boolean equalTo(Entity potion) {
+        return this.effectType.equals(potion.getComponent(PotionEffectComponent.class).getPotionEffect());
+    }
+
+    /**
+     * Returns if the two potion has the same effect
+     * @param effectType the potion effect type
+     * @return true if the effect type matches, false otherwise
+     */
+    public boolean equalTo(String effectType) {
+        return this.effectType.equals(effectType);
+    }
+
+    /**
      * Applies component effect
      * @param target - the target entity (player)
      */
@@ -70,9 +90,9 @@ public class PotionEffectComponent extends Component {
         PlayerModifier playerModifier = target.getComponent(PlayerModifier.class);
         switch (this.effectType) {
             case "speed":
-                if (!playerModifier.checkModifier(MOVESPEED, this.effectValue, true, 60000)) {
+                if (!playerModifier.checkModifier(MOVESPEED, this.effectValue, true, 3000)) {
                     // Modify does not exist
-                    playerModifier.createModifier(MOVESPEED, this.effectValue, true, 60000);
+                    playerModifier.createModifier(MOVESPEED, this.effectValue, true, 3000);
                 }
             default:
                 ;

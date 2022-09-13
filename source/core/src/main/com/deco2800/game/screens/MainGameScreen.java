@@ -11,6 +11,7 @@ import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
@@ -48,6 +49,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] blockImg = {"images/Skills/block.png"};
   private static final String[] dodgeImg = {"images/Skills/dodge.png"};
   private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+  private static final String[] dialogueImg = {"images/NPC/Dialogue/dialogues2.png"};
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private final Entity player;
@@ -64,6 +66,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     this.game = game;
     logger.debug("Initialising main game screen services");
+    ServiceLocator.registerMainGameScreen(this);
     ServiceLocator.registerTimeSource(new GameTime());
 
     PhysicsService physicsService = new PhysicsService();
@@ -84,7 +87,9 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    GameArea map = loadLevelOneMap();
+    ForestGameArea map = (ForestGameArea) chooseMap(1);
+//    UndergroundGameArea map = loadLevelTwoMap();
+    this.map = map;
 //    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
 
@@ -134,6 +139,22 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   /**
+   * Disposes of the current level and loads the next one - Team 5 1map4all @otili9890
+   * @param level (int) - The int describing which map to load (1-3)
+   */
+  public GameArea chooseMap(int level) {
+    switch (level) {
+      case 1:
+        return this.loadLevelOneMap();
+      case 2:
+        map.dispose();
+        return map = this.loadLevelTwoMap();
+      default:
+    }
+    return null;
+  }
+
+  /**
    * Load the first map. - Team 5 1map4all @LYB
    * @return The game instance.
    */
@@ -150,6 +171,7 @@ public class MainGameScreen extends ScreenAdapter {
    * @return The game instance.
    */
   private UndergroundGameArea loadLevelTwoMap() {
+
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
 
@@ -169,6 +191,8 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(dodgeImg);
     resourceService.loadTextures(invulnerabilityImg);
     resourceService.loadTextures(teleportImg);
+    resourceService.loadTextures(dialogueImg);
+
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -184,6 +208,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(dodgeImg);
     resourceService.unloadAssets(invulnerabilityImg);
     resourceService.unloadAssets(teleportImg);
+    resourceService.loadTextures(dialogueImg);
   }
 
   /**
@@ -204,7 +229,8 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay());
+        .addComponent(new TerminalDisplay())
+        .addComponent(new DialogueDisplay());
 
     ServiceLocator.getEntityService().register(ui);
   }

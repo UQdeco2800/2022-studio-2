@@ -63,6 +63,13 @@ public class AITaskComponent extends Component implements TaskRunner {
   }
 
   /**
+   * Get task list
+   */
+  public List<PriorityTask> getPriorityTasks() {
+    return this.priorityTasks;
+  }
+
+  /**
    * Get the task with the highest priority.
    * @return PriorityTask with the highest priority.
    */
