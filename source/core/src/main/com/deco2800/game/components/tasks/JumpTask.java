@@ -11,6 +11,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 
+/** Jump to an entity and attack it if it is still in attacking range. */
 public class JumpTask extends DefaultTask implements PriorityTask {
     private Entity target;
     private int priority;
@@ -26,6 +27,14 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private GameTime gameTime;
     private CombatStatsComponent combatStats;
 
+    /**
+     * Create a JumpTask with target, attack range, gliding speed and knock back distance.
+     * @param target The target entity will be jumped at.
+     * @param priority Task priority when jumping.
+     * @param attackRange Maximum distance from the entity while gliding before giving up.
+     * @param glidingSpeed The speed to glide at.
+     * @param knockBackForce The magnitude of the knock back applied to the entity.
+     */
     public JumpTask(Entity target, int priority, float attackRange, float glidingSpeed, float knockBackForce) {
         this.target = target;
         this.priority = priority;
@@ -37,6 +46,9 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         combatStats = target.getComponent(CombatStatsComponent.class);
     }
 
+    /**
+     * Start the jump task.
+     */
     @Override
     public void start() {
         super.start();
@@ -49,6 +61,9 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         animate();
     }
 
+    /**
+     * Update the jump task.
+     */
     @Override
     public void update() {
         if (isAtTarget()) {
@@ -77,6 +92,18 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         checkIfStuck();
     }
 
+    /**
+     * Stop the jump task.
+     */
+    @Override
+    public void stop() {
+        super.stop();
+        movementTask.stop();
+    }
+
+    /**
+     * Check if entity is stuck.
+     */
     private void checkIfStuck() {
         if (didMove()) {
             lastTimeMoved = gameTime.getTime();
@@ -88,16 +115,17 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         }
     }
 
+    /**
+     * Check if entity did move.
+     * @return true if entity did move, false if not.
+     */
     private boolean didMove() {
         return owner.getEntity().getPosition().dst2(lastPos) > 0.07f;
     }
 
-    @Override
-    public void stop() {
-        super.stop();
-        movementTask.stop();
-    }
-
+    /**
+     * Animates enemy based on which direction they are facing.
+     */
     private void animate() {
         Vector2 enemy = owner.getEntity().getCenterPosition();
         Vector2 player = target.getCenterPosition();
@@ -120,13 +148,24 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         }
     }
 
-
+    /**
+     * Get the distance from entity to its target.
+     * @return float representing the distance from entity to its target.
+     */
     private float getDistanceToTarget() {
         return owner.getEntity().getPosition().dst(target.getPosition());
     }
 
+    /**
+     * Check if entity at target
+     * @return true if entity is at target, else false.
+     */
     private boolean isAtTarget() {return owner.getEntity().getPosition().dst(targetPos) <= 1f;}
 
+    /**
+     * Get the priority of this task.
+     * @return integer representing the priority of this task.
+     */
     @Override
     public int getPriority() {
         if (status == Status.ACTIVE) {
@@ -135,6 +174,10 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         return getInactivePriority();
     }
 
+    /**
+     * Get the active priority.
+     * @return integer representing the active priority
+     */
     private int getActivePriority() {
         float dst = getDistanceToTarget();
         if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 7000L)) {
@@ -143,6 +186,10 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         return priority;
     }
 
+    /**
+     * Get the inactive priority.
+     * @return integer representing the inactive priority.
+     */
     private int getInactivePriority() {
         float dst = getDistanceToTarget();
         if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 7000L)) {
