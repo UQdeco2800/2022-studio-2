@@ -52,6 +52,7 @@ public class CraftingLogic {
         possibleWeapons.add(configs.tridentLvl2);
         possibleWeapons.add(configs.herraAthenaDag);
         possibleWeapons.add(configs.plunger);
+        possibleWeapons.add(configs.pipe);
         return possibleWeapons;
 
     }
@@ -108,7 +109,7 @@ public class CraftingLogic {
                 return WeaponFactory.createSwordLvl2();
 
             case 5:
-                return WeaponFactory.createDumbbell();
+                return WeaponFactory.createPipe();
 
             case 25:
                 return WeaponFactory.createTridentLvl2();

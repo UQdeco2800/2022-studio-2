@@ -175,6 +175,9 @@ public class GameAreaDisplay extends UIComponent {
       inventoryComponent.addItem(MaterialFactory.createSilver());
       inventoryComponent.addItem(MaterialFactory.createSteel());
       inventoryComponent.addItem(MaterialFactory.createWood());
+      inventoryComponent.addItem(MaterialFactory.createPlastic());
+      inventoryComponent.addItem(MaterialFactory.createRubber());
+      inventoryComponent.addItem(MaterialFactory.createIron());
       firstTime += 1;
     }
     craftMenu = new Image(new Texture(Gdx.files.internal
@@ -247,19 +250,16 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void checkBuildables() {
-
     if (boxes[0] != null && boxes[1] != null){
       for (MeleeConfig item: possibleBuilds){
         int numItems = 0;
         for (Map.Entry entry: item.materials.entrySet()){
           String entryString = entry.toString().split("=")[0];
           String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
-          System.out.print(upperCaseEntry);
-          System.out.println(boxes[0].toString());
           if (boxes[0].toString().equals(upperCaseEntry) ||
                   boxes[1].toString().equals(upperCaseEntry)){
-            numItems += 1;
 
+            numItems += 1;
           }
         }
         if (numItems == 2){
