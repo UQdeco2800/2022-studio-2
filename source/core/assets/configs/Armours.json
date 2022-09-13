@@ -2,7 +2,7 @@
   "baseArmour": {
     "phyResistance": 7.5,
     "durability": 2,
-    "weight": 5,
+    "weight": 1,
     "dmgReturn": 0,
     "vitality": 10,
     "materials": {"gold": 1, "steel": 1}
@@ -11,7 +11,7 @@
   "fastLeather": {
     "phyResistance": 4.5,
     "durability": 3,
-    "weight": 5,
+    "weight": 2,
     "dmgReturn": 0,
     "vitality": 5,
     "materials": {"gold": 1, "steel": 1}

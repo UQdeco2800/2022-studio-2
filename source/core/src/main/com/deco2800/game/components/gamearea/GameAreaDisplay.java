@@ -30,6 +30,7 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 

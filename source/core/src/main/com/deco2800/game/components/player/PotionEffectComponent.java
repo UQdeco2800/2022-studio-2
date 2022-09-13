@@ -26,7 +26,7 @@ public class PotionEffectComponent extends Component {
         this.effectType = effectType; // make enum for this later
         switch (effectType) {
             case "speed":
-                this.effectValue = 2f;
+                this.effectValue = 1.5f;
             default:
                 ;
         }

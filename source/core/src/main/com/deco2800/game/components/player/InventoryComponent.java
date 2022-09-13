@@ -406,7 +406,7 @@ public class InventoryComponent extends Component {
    *
    * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
    * NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
-   *                   ****To be implemented by potion team.****
+   *                   ****STILL NEEDS TO BE FIXED.****
    */
   public void consumePotion(int inputIndex) {
     //Does nothing if there is no potion on the selected slot or the quantity < 1
