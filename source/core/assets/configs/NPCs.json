@@ -36,11 +36,6 @@
   "male_citizen": {
     "health": 1,
     "baseAttack": 0
-  },
-  "pet": {
-    "health": 10,
-    "baseAttack": 10,
-    "speed": 120
   }
 }
 

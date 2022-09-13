@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.DialogueAnimationController;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.npc.NPCAnimationController;
 import com.deco2800.game.components.npc.PoopAnimationController;
@@ -146,6 +147,7 @@ public class NPCFactory {
     humanguard.setScale(1, 1);
     return humanguard;
   }
+
   public static Entity createPlumberFriend (Entity target) {
     Entity plumberfriend = createBaseNPC();
     PlumberFriendConfig config = configs.plumberfriend;
@@ -166,6 +168,13 @@ public class NPCFactory {
     plumberfriend.setScale(1, 1);
     return plumberfriend;
   }
+
+  /**
+   * Creates a friendly creature NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
 
   public static Entity createFriendlyCreature (Entity target) {
     Entity friendlycreature = createBaseNPC();
@@ -188,6 +197,7 @@ public class NPCFactory {
     return friendlycreature;
 
   }
+
   /**
    * Creates an atlantis male NPC entity.
    *
@@ -208,6 +218,7 @@ public class NPCFactory {
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
     ;
+
 //images/NPC/male_citizen/male-atlas.atlas
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
@@ -254,6 +265,7 @@ public class NPCFactory {
     return gymBro;
 
   }
+
 
   /**
    * Creates Heracles, the boss of the first level.
