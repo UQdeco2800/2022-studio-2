@@ -98,6 +98,17 @@ class InventoryComponentTest {
              checkModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0));
   }
 
+//    @Test
+//  void getPotion() {
+//    InventoryComponent testInventory5 = new InventoryComponent();
+//
+//    Entity testPotion = PotionFactory.createBasePotion();
+//
+//    testInventory5.addQuickBarItems(testPotion);
+//
+//    assertEquals(testInventory5.getPotion(testPotion), testPotion);
+//  }
+
 //  @Test
 //  void addQuickBarItems() {
 //    InventoryComponent testInventory5 = new InventoryComponent();
