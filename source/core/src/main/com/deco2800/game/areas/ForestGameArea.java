@@ -81,7 +81,6 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/column.png",
     "images/Potions/defence_potion.png",
     "images/NPC/male_citizen/male_citizen.png",
-
     "images/playerTeleport.png",
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
@@ -95,6 +94,11 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png",
     "images/CombatItems/Sprint-1/poisonBuff.png",
     "images/Potions/defence_potion.png",
+    "images/NPC/dialogue_indicator/dialogue.png",
+    "images/NPC/dialogue_indicator/dialogue_1.png",
+    "images/NPC/dialogue_indicator/dialogue_2.png",
+    "images/NPC/dialogue_indicator/dialogue_3.png",
+    "images/NPC/dialogue_indicator/dialogue_indicator_sprite_sheet.png",
     "images/Potions/agility_potion.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/CombatItems/Sprint-1/trident_Lvl2.png",
@@ -188,6 +192,7 @@ public class ForestGameArea extends GameArea {
     spawnPoops();
     spawnHumanGuard();
     spawnPlumberFriend();
+    spawnfriendlycreature();
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
@@ -693,6 +698,7 @@ public class ForestGameArea extends GameArea {
   /**
    * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
    */
+
   private void spawnfriendlycreature() {
     friendlycreaturePosition = new GridPoint2(5, 10);
 
