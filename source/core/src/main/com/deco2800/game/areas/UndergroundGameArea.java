@@ -26,6 +26,22 @@ public class UndergroundGameArea extends GameArea {
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
+            "images/level_2_tiledmap/dirt.png",
+            "images/level_2_tiledmap/drain_empty.png",
+            "images/level_2_tiledmap/columns.png",
+            "images/level_2_tiledmap/torch.png",
+            "images/level_2_tiledmap/floor1.png",
+            "images/level_2_tiledmap/floor2.png",
+            "images/level_2_tiledmap/floor3.png",
+            "images/level_2_tiledmap/floor4.png",
+            "images/level_2_tiledmap/floor5.png",
+            "images/level_2_tiledmap/floor6.png",
+            "images/level_2_tiledmap/floor7.png",
+            "images/level_2_tiledmap/wall.png",
+            "images/level_2_tiledmap/wall_corner.png",
+            "images/level_2_tiledmap/wall_edge.png",
+            "images/level_2_tiledmap/wall_side.png",
+            "images/level_2_tiledmap/water.png",
             "images/ghost_king.png",
             "images/NPC/friendly_creature npc/Friendly_creature.png",
             "images/ghost_1.png",
@@ -62,9 +78,8 @@ public class UndergroundGameArea extends GameArea {
     public UndergroundGameArea(TerrainFactory terrainFactory) {
         super();
         this.terrainFactory = terrainFactory;
+
         ServiceLocator.registerGameArea(this);
-
-
     }
 
     /**

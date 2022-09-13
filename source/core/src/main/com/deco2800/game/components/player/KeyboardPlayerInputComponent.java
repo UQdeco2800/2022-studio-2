@@ -3,12 +3,15 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.Component;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.Provider;
 
@@ -19,6 +22,8 @@ import java.security.Provider;
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
   private int keyPressedCounter = 1;
+
+  private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -76,10 +81,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("dash");
         return true;
       case Keys.EQUALS: // temp mapping for sprint 2 marking
-        entity.getEvents().trigger("rootTemp");
-        return true;
-      case Keys.MINUS: // temp mapping for sprint 2 marking
-        entity.getEvents().trigger("bleedTemp");
+        entity.getEvents().trigger("skillTemp");
         return true;
       case Keys.BACKSLASH:
         entity.getEvents().trigger("ultimateTemp");
@@ -120,10 +122,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.Y:
         entity.getEvents().trigger("dropWeapon");
-      case Keys.ENTER:
-        if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) && (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
-          System.out.println("Going to next level!");
+        // Determines if the player is near the plug when enter is hit, transitions to next map
+        case Keys.ENTER:
+        if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
+                (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
+          entity.getEvents().trigger("nextMap");
         }
+        return true;
+      case Keys.L:
+        entity.getEvents().trigger("DeathScreen");
         return true;
       default:
         return false;

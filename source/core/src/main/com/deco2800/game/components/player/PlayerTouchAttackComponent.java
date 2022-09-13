@@ -60,7 +60,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                     target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
                 }
             }
-            entity.getEvents().trigger("hitEnemy", target);
+            entity.getEvents().trigger("hitEnemy", target); // for skill listener
         }
     }
 

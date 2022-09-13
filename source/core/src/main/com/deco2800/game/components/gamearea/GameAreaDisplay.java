@@ -80,6 +80,11 @@ public class GameAreaDisplay extends UIComponent {
   private Group inventoryGroup = new Group();
   private List<Entity> items;
 
+  // Janky fix for deathscreen, temp fix
+  private Image deathScreen;
+  private Image deathScreenTwo;
+  private Image deathScreenThree;
+
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
     ServiceLocator.registerCraftArea(this);
@@ -90,6 +95,7 @@ public class GameAreaDisplay extends UIComponent {
   @Override
   public void create() {
     super.create();
+    deathScreenDisplay();
     addActors();
   }
 
@@ -186,6 +192,31 @@ public class GameAreaDisplay extends UIComponent {
 
 
   /**
+   * Display deathscreen in game as a very temporary fix for grading purposes.
+   */
+  public void deathScreenDisplay(){
+    deathScreen = new Image(new Texture(Gdx.files.internal
+            ("images/DeathScreens/lvl 1.PNG")));
+    deathScreen.setSize(250,160);
+    deathScreen.setPosition(0,0);
+
+    deathScreenTwo = new Image(new Texture(Gdx.files.internal
+            ("images/DeathScreens/lvl 2.PNG")));
+    deathScreenTwo.setSize(250,160);
+    deathScreenTwo.setPosition(0,160);
+
+    deathScreenThree = new Image(new Texture(Gdx.files.internal
+            ("images/DeathScreens/lvl3.PNG")));
+    deathScreenThree.setSize(250,160);
+    deathScreenThree.setPosition(0,320);
+
+    stage.addActor(deathScreen);
+    stage.addActor(deathScreenTwo);
+    stage.addActor(deathScreenThree);
+
+  }
+
+  /**
    * Code that opens an overlay crafting menu when the craft button is pressed. Creates assets based on users inventory
    * and creates button event handlers to test for user clicks.
    */
@@ -197,6 +228,9 @@ public class GameAreaDisplay extends UIComponent {
       inventoryComponent.addItem(MaterialFactory.createSilver());
       inventoryComponent.addItem(MaterialFactory.createSteel());
       inventoryComponent.addItem(MaterialFactory.createWood());
+      inventoryComponent.addItem(MaterialFactory.createPlastic());
+      inventoryComponent.addItem(MaterialFactory.createRubber());
+      inventoryComponent.addItem(MaterialFactory.createIron());
       firstTime += 1;
     }
     craftMenu = new Image(new Texture(Gdx.files.internal
@@ -229,6 +263,7 @@ public class GameAreaDisplay extends UIComponent {
           weapon = null;
           clearBoxes(0);
         };
+        getInventory();
       }
     });
     craftingGroup.addActor(craftButton);
@@ -268,7 +303,6 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void checkBuildables() {
-
     if (boxes[0] != null && boxes[1] != null){
       for (MeleeConfig item: possibleBuilds){
         int numItems = 0;
@@ -277,6 +311,7 @@ public class GameAreaDisplay extends UIComponent {
           String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
           if (boxes[0].toString().equals(upperCaseEntry) ||
                   boxes[1].toString().equals(upperCaseEntry)){
+
             numItems += 1;
           }
         }
@@ -303,7 +338,6 @@ public class GameAreaDisplay extends UIComponent {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();
     inventory = inventoryComponent.getInventory();
-
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
         materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -318,14 +352,12 @@ public class GameAreaDisplay extends UIComponent {
         material.addListener(new ChangeListener() {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
-
             if (boxes[0] == null) {
               clearMaterials();
               materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
               materialTextureRegion = new TextureRegion(materialTexture);
               materialDrawable = new TextureRegionDrawable(materialTextureRegion);
               firstToCraft = new ImageButton(materialDrawable);
-
               firstToCraft.setSize(50, 50);
               firstToCraft.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
               stage.addActor(firstToCraft);
