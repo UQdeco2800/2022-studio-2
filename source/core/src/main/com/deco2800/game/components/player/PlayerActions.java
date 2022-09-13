@@ -47,7 +47,6 @@ public class PlayerActions extends Component {
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
-  private HitboxComponent hit;
 
   private boolean resting = false;
   private long restStart=0;
@@ -116,21 +115,21 @@ public class PlayerActions extends Component {
    * Pressing the '1' button toggles the inventory menu UI opening/closing.
    */
   public void consumePotionSlot1(){
-    entity.getComponent(InventoryComponent.class).consumePotion(1);
+    entity.getComponent(InventoryComponent.class).consumePotion(0);
   }
 
   /**
    * Pressing the '2' button toggles the inventory menu UI opening/closing.
    */
   public void consumePotionSlot2(){
-    entity.getComponent(InventoryComponent.class).consumePotion(2);
+    entity.getComponent(InventoryComponent.class).consumePotion(1);
   }
 
   /**
    * Pressing the '3' button toggles the inventory menu UI opening/closing.
    */
   public void consumePotionSlot3(){
-    entity.getComponent(InventoryComponent.class).consumePotion(3);
+    entity.getComponent(InventoryComponent.class).consumePotion(2);
   }
 
   public void killEnemy(){

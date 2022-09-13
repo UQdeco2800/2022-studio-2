@@ -155,6 +155,7 @@ public class PlayerStatsDisplay extends UIComponent {
     // Sets stamina image to correct image depending on stamina given
     staminaImage = new Image(ServiceLocator.getResourceService().getAsset("images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_"+checkImage(stamina), Texture.class));
     playerStaminaImage(stamina);
+
     addActors();
     // Sets stamina text to correct stat depending on stamina given
     CharSequence text = String.format("Stamina: %d", stamina);
