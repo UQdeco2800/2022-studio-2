@@ -64,12 +64,6 @@ public class InventoryComponent extends Component {
    */
   private int[] itemQuantity = new int[inventorySize];
 
-  // CRASHES GAME, NOT SURE WHY
-  /*@Override
-  public void create() {
-    entity.getEvents().addListener("EquipWeapon", this::equipItem);
-  }*/
-
   /**
    * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
    */
@@ -224,6 +218,7 @@ public class InventoryComponent extends Component {
     pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
     //Applying the physical resistance of the armour to player
     pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float)armourStats.getPhyResistance(), true, 0);
+    pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float)armourStats.getVitality(), true, 0);
   }
 
   /**
@@ -294,21 +289,105 @@ public class InventoryComponent extends Component {
     return List.copyOf(quickBarItems);
   }
 
+  /**
+   * Returns if the quick bar contains the same type of potion
+   * @param potion potion
+   * @return true if the quick bar contains a same type of potion, false otherwise
+   */
+  private boolean hasPotion(Entity potion) {
+    for (int i = 0; i < quickBarItems.size(); ++i) {
+      if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns the potion Entity with the same type of effect.
+   * @param effectType the effect type of potion
+   * @return potion with the specified effect, null if there is none
+   */
+  public Entity getPotion(String effectType) {
+    for (int i = 0; i < quickBarItems.size(); ++i) {
+      if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(effectType)) {
+        return quickBarItems.get(i);
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns the potion Entity with the same type of effect.
+   * @param potion
+   * @return potion with the same effect, null if there is none
+   */
+  public Entity getPotion(Entity potion) {
+    for (int i = 0; i < quickBarItems.size(); ++i) {
+      if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
+        return quickBarItems.get(i);
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns the index of the potion if there exists a potion with the same effect.
+   * @param effectType the potion effect
+   * @return index of the potion, -1 if potion does not exist
+   */
+  public int getPotionIndex(String effectType) {
+    for (int i = 0; i < quickBarItems.size(); ++i) {
+      if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(effectType)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**
+   * Returns the index of the potion in the quickbar.
+   * @param potion the potion in the quickbar.
+   * @return index of the potion, -1 if potion does not exist
+   */
+  public int getPotionIndex(Entity potion) {
+    for (int i = 0; i < quickBarItems.size(); ++i) {
+      if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
   /**
    * Adding potion to the quickbar.
-   * Is there a limit of potion quantities? To be discussed with team
+   * DEBUGGING
    */
   public void addQuickBarItems(Entity potion) {
-    int itemIndex = quickBarItems.indexOf(potion);
-    //Max quantity undefined. TO BE IMPLEMENTED
-    if (quickBarItems.contains(potion) && quickBarQuantity[itemIndex] < 9) {
-      ++quickBarQuantity[itemIndex];
-    } else if (quickBarItems.size() == quickBarSize) {
-      logger.info("Inventory if full");
+    boolean hasPotion = hasPotion(potion);
+
+    if (quickBarItems.size() == quickBarSize) {
+      if (!hasPotion) {
+        logger.info("Inventory is full");
+      } else {
+        if (quickBarQuantity[getPotionIndex(potion)] < 9) {
+            logger.info("Added to quick bar");
+            ++quickBarQuantity[getPotionIndex(potion)];
+        }
+      }
     } else {
-      quickBarItems.add(potion);
-      ++quickBarQuantity[itemIndex];
+      if (hasPotion) {
+        if (quickBarQuantity[getPotionIndex(potion)] < 9) {
+          logger.info("Added to quick bar");
+          ++quickBarQuantity[getPotionIndex(potion)];
+        } else {
+          logger.info("Inventory is full");
+        }
+      } else {
+        logger.info("Added to quick bar");
+        quickBarItems.add(potion);
+        ++quickBarQuantity[getPotionIndex(potion)];
+      }
     }
   }
 
@@ -331,7 +410,7 @@ public class InventoryComponent extends Component {
    */
   public void consumePotion(int inputIndex) {
     //Does nothing if there is no potion on the selected slot or the quantity < 1
-    if (quickBarItems.size() == inputIndex) {
+    if (quickBarItems.size() >= inputIndex) {
       quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
       if (quickBarQuantity[inputIndex] == 1) {
         removePotion(inputIndex);

@@ -2,11 +2,15 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsEngine;
+import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.Assert;
@@ -68,11 +72,15 @@ class PlayerSkillComponentTest {
         skillManager.startTeleport();
         skillManager.startBlock();
         skillManager.startDodge(new Vector2(1,1));
+        skillManager.startBleed();
+        skillManager.startRoot();
 
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLEED));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.ROOT));
 
         skillManager.update();
 
@@ -80,6 +88,8 @@ class PlayerSkillComponentTest {
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLEED));
+        Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.ROOT));
 
         customWait(1001);
 
@@ -95,12 +105,16 @@ class PlayerSkillComponentTest {
         Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
         Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
         Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
+        //Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLEED));
+        //Assert.assertTrue(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.ROOT));
 
         // Second poll on skill end should be false
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DASH));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.TELEPORT));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.DODGE));
         Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLOCK));
+        //Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.BLEED));
+        //Assert.assertFalse(skillManager.checkSkillEnd(PlayerSkillComponent.SkillTypes.ROOT));
     }
 
     @Test
@@ -285,6 +299,66 @@ class PlayerSkillComponentTest {
         skillManager.update();
         //customWait(2);
         assertTrue(skillManager.cooldownFinished("dodge", 500L));
+    }
+
+    @Test
+    void testBleed() {
+        assertFalse(skillManager.bleedActive());
+        assertFalse(skillManager.isBleeding());
+        skillManager.hitBleed(null);
+        assertFalse(skillManager.isBleeding());
+        skillManager.startBleed();
+        assertTrue(skillManager.bleedActive());
+        skillManager.hitBleed(null);
+        assertTrue(skillManager.isBleeding());
+    }
+
+    @Test
+    void testCheckBleed() {
+        ServiceLocator.registerEntityService(new EntityService());
+        Entity enemy =
+                new Entity()
+                        .addComponent(new CombatStatsComponent(15, 1, 1, 1));
+        enemy.create();
+
+        skillManager.startBleed();
+        skillManager.hitBleed(enemy);
+        assertTrue(skillManager.isBleeding());
+        skillManager.checkBleed(enemy);
+        assertEquals(10, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        skillManager.checkBleed(enemy);
+        assertEquals(10, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        customWait(1001);
+        skillManager.checkBleed(enemy);
+        assertEquals(5, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        customWait(1001);
+        skillManager.checkBleed(enemy);
+        assertEquals(0, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        skillManager.update();
+        assertFalse(skillManager.isBleeding());
+    }
+
+    @Test
+    void testRoot() {
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ServiceLocator.registerRenderService(new RenderService());
+        Entity enemy =
+                new Entity()
+                        .addComponent(new AITaskComponent());
+        enemy.create();
+
+        assertFalse(skillManager.rootActive());
+        assertFalse(skillManager.isRooted());
+        skillManager.hitRoot(enemy);
+        assertFalse(skillManager.isRooted());
+        skillManager.startRoot();
+        assertTrue(skillManager.rootActive());
+        skillManager.hitRoot(enemy);
+        assertTrue(skillManager.isRooted());
+        assertFalse(skillManager.rootActive());
+        customWait(5001);
+        skillManager.update();
+        assertFalse(skillManager.isRooted());
     }
 
     @Test

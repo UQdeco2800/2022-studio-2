@@ -3,13 +3,24 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.DialogueAnimationController;
 import com.deco2800.game.components.npc.GymBroAnimationController;
+
+import com.deco2800.game.components.npc.MaleAnimationController;
+
+import com.deco2800.game.components.npc.NPCAnimationController;
+
+
+
 import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
+
 import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.JumpTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -27,6 +38,7 @@ import com.deco2800.game.services.ServiceLocator;
 import java.util.*;
 
 import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
+
 
 
 /**
@@ -53,14 +65,18 @@ public class NPCFactory {
     Entity oneLegGirl = createBaseNPC();
     FemaleCitizenConfig config = configs.oneLegGirl;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/female npc/npcfemale.atlas", TextureAtlas.class));
+    animator.addAnimation("femaleShake", 0.1f, Animation.PlayMode.LOOP);
+
     oneLegGirl
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/female npc/npcfemale_1.png"));
-
-
-
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
 
     oneLegGirl.getComponent(AITaskComponent.class);
+    oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
+    oneLegGirl.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     oneLegGirl.setScale(1, 1);
     return oneLegGirl;
   }
@@ -75,12 +91,20 @@ public class NPCFactory {
     Entity child = createBaseNPC();
     ChildConfig config = configs.child;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/child npc/npcchild.atlas", TextureAtlas.class));
+    animator.addAnimation("childShake", 0.1f, Animation.PlayMode.LOOP);
+
 
     child
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/child npc/npcchild_1.png"));
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
+
 
     child.getComponent(AITaskComponent.class);
+    child.getComponent(AnimationRenderComponent.class).scaleEntity();
+    child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     child.setScale(1, 1);
     return child;
   }
@@ -95,14 +119,91 @@ public class NPCFactory {
     Entity guard = createBaseNPC();
     GuardConfig config = configs.guard;
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/guard npc/npcguard.atlas", TextureAtlas.class));
+    animator.addAnimation("guardShake", 0.1f, Animation.PlayMode.LOOP);
+
 
     guard
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/guard npc/atlantisguardnpc_1.png"));
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
 
     guard.getComponent(AITaskComponent.class);
+    guard.getComponent(AnimationRenderComponent.class).scaleEntity();
+    guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     guard.setScale(1, 1);
     return guard;
+  }
+  public static Entity createHumanGuard (Entity target) {
+    Entity humanguard = createBaseNPC();
+    HumanGuardConfig config = configs.humanguard;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/human_guard/human_guard.atlas", TextureAtlas.class));
+    animator.addAnimation("humanguardShake", 0.1f, Animation.PlayMode.LOOP);
+
+
+    humanguard
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
+
+    humanguard.getComponent(AITaskComponent.class);
+    humanguard.getComponent(AnimationRenderComponent.class).scaleEntity();
+    humanguard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    humanguard.setScale(1, 1);
+    return humanguard;
+  }
+
+  public static Entity createPlumberFriend (Entity target) {
+    Entity plumberfriend = createBaseNPC();
+    PlumberFriendConfig config = configs.plumberfriend;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/plumber_friend/plumber_friend.atlas", TextureAtlas.class));
+    animator.addAnimation("plumberfriendShake", 0.1f, Animation.PlayMode.LOOP);
+
+
+    plumberfriend
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
+
+    plumberfriend.getComponent(AITaskComponent.class);
+    plumberfriend.getComponent(AnimationRenderComponent.class).scaleEntity();
+    plumberfriend.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    plumberfriend.setScale(1, 1);
+    return plumberfriend;
+  }
+
+  /**
+   * Creates a friendly creature NPC entity.
+   *
+   * @param target entity to stand
+   * @return entity
+   */
+
+  public static Entity createFriendlyCreature (Entity target) {
+    Entity friendlycreature = createBaseNPC();
+    FriendlyCreatureConfig config = configs.friendlycreature;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/friendly_creature npc/friendly_creature.atlas", TextureAtlas.class));
+    animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
+
+
+    friendlycreature
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
+
+    friendlycreature.getComponent(AITaskComponent.class);
+    friendlycreature.getComponent(AnimationRenderComponent.class).scaleEntity();
+    friendlycreature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    friendlycreature.setScale(1, 1);
+    return friendlycreature;
+
   }
 
   /**
@@ -112,15 +213,28 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createMale_citizen (Entity target) {
+
     Entity male_citizen = createBaseNPC();
     Male_citizenConfig config = configs.male_citizen;
-
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/NPC/male_citizen/male-atlas.atlas", TextureAtlas.class));
+    animator.addAnimation("MaleShake", 0.1f, Animation.PlayMode.LOOP);
 
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-            .addComponent(new TextureRenderComponent("images/NPC/Male_citizen/male_citizen.png"));
+
+            .addComponent(new MaleAnimationController())
+            .addComponent(animator)
+            .addComponent(new NPCAnimationController());
+    ;
+
+//images/NPC/male_citizen/male-atlas.atlas
 
     male_citizen.getComponent(AITaskComponent.class);
+    male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
+    male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     male_citizen.setScale(1, 1);
     return male_citizen;
   }
@@ -164,6 +278,7 @@ public class NPCFactory {
 
   }
 
+
   /**
    * Creates Heracles, the boss of the first level.
    *
@@ -177,8 +292,9 @@ public class NPCFactory {
 
     heracles.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
+            .addTask(new JumpTask(target, 11, 8f,150, 0.5f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(

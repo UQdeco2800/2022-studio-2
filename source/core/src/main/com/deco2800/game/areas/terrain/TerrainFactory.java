@@ -86,10 +86,9 @@ public class TerrainFactory {
                 new TextureRegion(resourceService.getAsset("images/level_1_tiledmap/32x32/gold_cobble.png", Texture.class));
         return createLevelOne(1f, gold_cobble);
       case LEVEL_TWO:
-        TextureRegion purple_cobble =
-                new TextureRegion(resourceService.getAsset("images/level_2_tiledmap/32x32" +
-                        "/purple_cobble.png", Texture.class));
-        return createLevelTwo(1f, purple_cobble);
+        TextureRegion dirt =
+                new TextureRegion(resourceService.getAsset("images/level_2_tiledmap/dirt.png", Texture.class));
+        return createLevelTwo(1f, dirt);
       default:
         return null;
     }
@@ -114,7 +113,7 @@ public class TerrainFactory {
   private TerrainComponent createLevelTwo(
           float tileWorldSize, TextureRegion purple_cobble) {
     GridPoint2 tilePixelSize = new GridPoint2(purple_cobble.getRegionWidth(), purple_cobble.getRegionHeight());
-    TiledMap tiledMap =   new TmxMapLoader().load("images/level_2_tiledmap/level_2_test.tmx");
+    TiledMap tiledMap =   new TmxMapLoader().load("images/level_2_tiledmap/level_2.tmx");
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);
   }
