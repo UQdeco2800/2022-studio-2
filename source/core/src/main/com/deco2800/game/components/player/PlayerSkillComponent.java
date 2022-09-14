@@ -542,6 +542,7 @@ public class PlayerSkillComponent extends Component {
         }
         this.enemy = target;
         this.bleeding = true;
+        this.bleedApplied = false;
         this.bleedStart = System.currentTimeMillis();
     }
 
