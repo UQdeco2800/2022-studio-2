@@ -128,6 +128,7 @@ public class GameAreaDisplay extends UIComponent {
   public void showItem() {
     float padding = 12.5f;
     InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    System.out.println(inventory);
     items = inventory.getInventory();
     for (int i = 0; i < items.size(); ++i) {
       Entity currentItem = items.get(i);
@@ -144,6 +145,7 @@ public class GameAreaDisplay extends UIComponent {
       item.setPosition(horizontalPosition, verticalPosition);
       // Triggers an event when the button is pressed.
       String buttonText;
+
       if (items.get(i).checkEntityType(EntityTypes.WEAPON)
       || items.get(i).checkEntityType(EntityTypes.ARMOUR)) {
         buttonText = "Equip item";
@@ -258,6 +260,7 @@ public class GameAreaDisplay extends UIComponent {
           disposeFirstBox();
           disposeSecondBox();
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
+          ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
           inventoryComponent.addItem(currentWeapon);
           weapon.remove();
           weapon = null;
@@ -337,7 +340,9 @@ public class GameAreaDisplay extends UIComponent {
   private void getInventory() {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();
+
     inventory = inventoryComponent.getInventory();
+    //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
         materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
