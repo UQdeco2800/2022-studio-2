@@ -178,6 +178,29 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   /**
+   * Display each item in the inventory in the inventory storage blocks.
+   * Implemented by Team 2.
+   */
+  public void displayItems(float padding, float pictureWidth, float pictureHeight) {
+    InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    items = inventory.getInventory();
+    for (int i = 0; i < items.size(); ++i) {
+      Entity currentItem = items.get(i);
+      Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
+      TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
+      TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
+      ImageButton item = new ImageButton(itemTextureDrawable);
+      item.setSize(pictureWidth, pictureHeight);
+      int row = i / 4;
+      int column = i % 4;
+      //These positions should be adjusted according to your crafting menu positions
+      float horizontalPosition = (inventoryMenu.getX() + 187.5f) + column * (padding + pictureWidth);
+      float verticalPosition = (inventoryMenu.getY() + 360) - row * (padding + pictureHeight);
+      item.setPosition(horizontalPosition, verticalPosition);
+    }
+  }
+
+  /**
    * Disposes the inventory display group.
    */
   public void disposeInventoryMenu() {
