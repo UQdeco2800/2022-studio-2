@@ -196,7 +196,6 @@ public class ForestGameArea extends GameArea {
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
-    spawnfriendlycreature();
 //    spawnDialogue();
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
