@@ -13,9 +13,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
@@ -27,19 +34,46 @@ import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.PhysicsUtils;
+
+import com.deco2800.game.rendering.DebugRenderer;
+import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.utils.math.GridPoint2Utils;
+
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 
+import org.mockito.junit.jupiter.MockitoExtension;
+
+
+@ExtendWith(MockitoExtension.class)
 @ExtendWith(GameExtension.class)
 class EntityTest {
+
+  @Mock
+  ShapeRenderer shapeRenderer;
+  @Mock
+  Box2DDebugRenderer physicsRenderer;
+  @Mock
+  Matrix4 projMatrix;
+
+  DebugRenderer debugRenderer;
+
+  @BeforeEach
+  void beforeEach() {
+    debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
+
+  }
+
+
   @Test
   void shouldSetAndGetPosition() {
     Entity entity = new Entity();
@@ -229,161 +263,94 @@ class EntityTest {
     System.out.println(entity.getScale().y);
   }
 
-  @BeforeEach
-  void beforeEach() {
-    // Mock rendering, physics, game time
-    RenderService renderService = new RenderService();
-    renderService.setDebug(mock(DebugRenderer.class));
-    ServiceLocator.registerRenderService(renderService);
-    GameTime gameTime = mock(GameTime.class);
-    when(gameTime.getDeltaTime()).thenReturn(20f / 1000);
-    ServiceLocator.registerTimeSource(gameTime);
-    ServiceLocator.registerPhysicsService(new PhysicsService());
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-  }
+
   @Test
-  void BaseEntityConfigHealthTest() {
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(30, baseEntityConfig.health);
+  void npcPosition() {
+
+    Vector2 from = new Vector2(0f, 0f);
+    Vector2 to = new Vector2(20f, 20f);
+    debugRenderer.drawLine(from, to);
+    debugRenderer.render(projMatrix);
+
+    verify(shapeRenderer).line(from, to);
+
+    // Should not render next frame
+    debugRenderer.render(projMatrix);
+    verify(shapeRenderer, times(1)).line(any(Vector2.class), any(Vector2.class));
   }
 
   @Test
-  void BaseEntityConfigStaminaTest() {
-    Entity target = new Entity();
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(1, baseEntityConfig.stamina);
+  void GuardExist() {
+
+    GridPoint2 GuardPosition = new GridPoint2(4, 8);
+    if (GuardPosition.x>0&&GuardPosition.x<=20 && GuardPosition.y>0&&GuardPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
   }
 
   @Test
-  void BaseEntityConfigBaseAttackTest() {
-    Entity target = new Entity();
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(5, baseEntityConfig.baseAttack);
+  void MaleCitizenExist() {
+
+    GridPoint2 maleCitizenPosition = new GridPoint2(3, 8);
+    if (maleCitizenPosition.x>0&&maleCitizenPosition.x<=20 && maleCitizenPosition.y>0&&maleCitizenPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
   }
 
   @Test
-  void BaseEntityConfigManaTest() {
-    Entity target = new Entity();
-    BaseEntityConfig baseEntityConfig = new BaseEntityConfig();
-    assertEquals(20, baseEntityConfig.mana);
-  }
+  void ChildExist() {
 
+    GridPoint2 childPosition = new GridPoint2(7, 7);
+    if (childPosition.x>0&&childPosition.x<=20 && childPosition.y>0&&childPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
 
-  @Test
-  void gymBroConfigSpeedTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    resourceService.loadTextures(textures);
-    resourceService.loadAll();
-    GymBroConfig gymBroConfig = new GymBroConfig();
-    assertEquals(100f, gymBroConfig.speed);
   }
 
   @Test
-  void heraclesConfigSpeedTest() {
-    HeraclesConfig heraclesConfig = new HeraclesConfig();
-    assertEquals(100f, heraclesConfig.speed);
+  void PlumberFriendExist() {
+
+    GridPoint2 PlumberFriendPosition = new GridPoint2(4, 20);
+    if (PlumberFriendPosition.x>0&&PlumberFriendPosition.x<=20 && PlumberFriendPosition.y>0&&PlumberFriendPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
   }
 
   @Test
-  void poopsConfigSpeedTest() {
-    PoopsConfig poopsConfig = new PoopsConfig();
-    assertEquals(60f, poopsConfig.speed);
+  void HumanGuardExist() {
+
+    GridPoint2 HumanGuardPosition = new GridPoint2(7,20);
+    if (HumanGuardPosition.x>0&&HumanGuardPosition.x<=20 && HumanGuardPosition.y>0&&HumanGuardPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
   }
 
   @Test
-  void gymBroAnimationControllerHasAnimationsTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
+  void OneLegGirlExist() {
 
-    Entity gymBro = createGymBro(target);
-    AnimationRenderComponent animator = gymBro.getComponent(AnimationRenderComponent.class);
-    assertTrue(animator.hasAnimation("walk_front"));
-    assertTrue(animator.hasAnimation("walk_back"));
-    assertTrue(animator.hasAnimation("walk_right"));
-    assertTrue(animator.hasAnimation("walk_left"));
-    assertTrue(animator.hasAnimation("attack_front"));
-    assertTrue(animator.hasAnimation("attack_back"));
-    assertTrue(animator.hasAnimation("attack_right"));
-    assertTrue(animator.hasAnimation("attack_left"));
+    GridPoint2 oneLegGirlPosition = new GridPoint2(20, 20);
+    if (oneLegGirlPosition.x>0&&oneLegGirlPosition.x<=20 && oneLegGirlPosition.y>0&&oneLegGirlPosition.y<=20){
+      System.out.println("exist");
+    }else {
+      System.out.println("not exist");
+    }
+
   }
 
-  @Test
-  void heraclesAnimationControllerHasAnimationsTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity heracles = createHeracles(target);
-
-    AnimationRenderComponent animator = heracles.getComponent(AnimationRenderComponent.class);
-    assertTrue(animator.hasAnimation("walk_front"));
-    assertTrue(animator.hasAnimation("walk_back"));
-    assertTrue(animator.hasAnimation("walk_right"));
-    assertTrue(animator.hasAnimation("walk_left"));
-    assertTrue(animator.hasAnimation("discus_attack_front"));
-    assertTrue(animator.hasAnimation("discus_attack_back"));
-    assertTrue(animator.hasAnimation("discus_attack_right"));
-    assertTrue(animator.hasAnimation("discus_attack_left"));
-  }
-
-  @Test
-  void gymBroScaleTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/gym_bro.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity gymBro = createGymBro(target);
-    assertEquals(new Vector2(2f,2f), gymBro.getScale());
-  }
-
-  @Test
-  void heraclesScaleTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/heracles.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity heracles = createHeracles(target);
-    assertEquals(new Vector2(3f,3f), heracles.getScale());
-  }
-
-  @Test
-  void poopsScaleTest() {
-    ResourceService resourceService = new ResourceService();
-    ServiceLocator.registerResourceService(resourceService);
-    String[] textures = {"images/CombatItems/Sprint-1/Enemy_dumbbell.png"};
-    String[] textureAtlases = {"images/Enemies/poop.atlas"};
-    resourceService.loadTextures(textures);
-    resourceService.loadTextureAtlases(textureAtlases);
-    resourceService.loadAll();
-    Entity target = new Entity();
-
-    Entity poops = createPoops(target);
-    assertEquals(new Vector2(2f,2f), poops.getScale());
-  }
 
   static class TestComponent1 extends Component {}
 
