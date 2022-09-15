@@ -155,6 +155,7 @@ public class InventoryComponent extends Component {
   public void removeItem(int index) {
     --itemQuantity[index];
     if (getItemQuantity(index) == 0) {
+      sortInventory(index, inventory, itemQuantity);
       inventory.remove(index);
     }
   }
@@ -244,7 +245,7 @@ public class InventoryComponent extends Component {
    * @param item the item to be equipped
    * NOTE: This should check if the player has equipped a weapon or amour.
    */
-  public void equipItem(Entity item) {
+  public boolean equipItem(Entity item) {
     boolean equipped = false;
     if (inventory.contains(item)) {
       if (item.checkEntityType(EntityTypes.WEAPON) && equipables[0] == null) {
@@ -260,6 +261,7 @@ public class InventoryComponent extends Component {
       }
       if (equipped) removeItem(item);
     }
+    return equipped;
   }
 
 
@@ -271,14 +273,17 @@ public class InventoryComponent extends Component {
    * @requires itemSlot >= 0 and itemSlot less than or equal to 1
    * NOT FINISHED!!!!!
    */
-  public void unequipItem (int itemSlot) {
+  public boolean unequipItem (int itemSlot) {
+    boolean unequipped = false;
     if (inventory.size() == inventorySize) {
       logger.info("Inventory if full, cannot unequip");
     } else {
       inventory.add(equipables[itemSlot]);
       equipables[itemSlot] = null;
+      unequipped = true;
       //Modify player stat
     }
+    return unequipped;
   }
 
   /**
@@ -380,9 +385,9 @@ public class InventoryComponent extends Component {
    * Adding potion to the quickbar.
    * DEBUGGING
    */
-  public void addQuickBarItems(Entity potion) {
+  public boolean addQuickBarItems(Entity potion) {
     boolean hasPotion = hasPotion(potion);
-
+    boolean added = false;
     if (quickBarItems.size() == quickBarSize) {
       if (!hasPotion) {
         logger.info("Inventory is full");
@@ -390,6 +395,7 @@ public class InventoryComponent extends Component {
         if (quickBarQuantity[getPotionIndex(potion)] < 9) {
             logger.info("Added to quick bar");
             ++quickBarQuantity[getPotionIndex(potion)];
+            added = true;
         }
       }
     } else {
@@ -397,6 +403,7 @@ public class InventoryComponent extends Component {
         if (quickBarQuantity[getPotionIndex(potion)] < 9) {
           logger.info("Added to quick bar");
           ++quickBarQuantity[getPotionIndex(potion)];
+          added = true;
         } else {
           logger.info("Inventory is full");
         }
@@ -404,8 +411,10 @@ public class InventoryComponent extends Component {
         logger.info("Added to quick bar");
         quickBarItems.add(potion);
         ++quickBarQuantity[getPotionIndex(potion)];
+        added = true;
       }
     }
+    return added;
   }
 
   /**
@@ -419,7 +428,7 @@ public class InventoryComponent extends Component {
   }
 
   /**
-   * Consume the potion rom quickbar based on the input index.
+   * Consume the potion from quickbar based on the input index.
    *
    * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
    * NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
@@ -431,6 +440,7 @@ public class InventoryComponent extends Component {
       quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
       if (quickBarQuantity[inputIndex] == 1) {
         removePotion(inputIndex);
+        sortInventory(inputIndex, quickBarItems, quickBarQuantity);
       } else if (quickBarQuantity[inputIndex] > 1) {
         --quickBarQuantity[quickBarItems.indexOf(inputIndex)];
       }

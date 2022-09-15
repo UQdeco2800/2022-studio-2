@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -147,32 +148,33 @@ public class GameAreaDisplay extends UIComponent {
         buttonText = "Add to crafting menu";
       }
       item.addListener(
-              new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent changeEvent, Actor actor) {
-                  TextButton mainMenuBtn = new TextButton(buttonText, skin);
-                  mainMenuBtn.setPosition(horizontalPosition, verticalPosition);
-                  mainMenuBtn.addListener(
-                          new ChangeListener() {
-                            @Override
-                            public void changed(ChangeEvent event, Actor actor) {
-                              switch (buttonText) {
-                                case "Equip item":
-                                 inventory.equipItem(currentItem);
-                                 break;
-                                case "Add to quick bar":
-                                  inventory.addQuickBarItems(currentItem);
-                                  break;
-                                case "Add to crafting menu":
-                                  //Crafting team use this block to add items in crafting menu
-                                  break;
-                              }
-                            }
+          new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+              TextButton mainMenuBtn = new TextButton(buttonText, skin);
+              mainMenuBtn.setPosition(horizontalPosition, verticalPosition);
+              mainMenuBtn.addListener(
+                      new ChangeListener() {
+                        @Override
+                        public void changed(ChangeEvent event, Actor actor) {
+                          switch (buttonText) {
+                            case "Equip item":
+                             if (inventory.equipItem(currentItem)) inventoryGroup.removeActor(item);
+                             break;
+                            case "Add to quick bar":
+                              if (inventory.addQuickBarItems(currentItem)) inventoryGroup.removeActor(item);
+                              break;
+                            case "Add to crafting menu":
+                              //Crafting team use this block to add items in crafting menu
+                              break;
                           }
-                  );
-                  inventoryGroup.addActor(mainMenuBtn);
-                }
-              });
+                          if (mainMenuBtn.isChecked()) inventoryGroup.removeActor(mainMenuBtn);
+                        }
+                      }
+              );
+              inventoryGroup.addActor(mainMenuBtn);
+            }
+          });
       inventoryGroup.addActor(item);
     }
   }
