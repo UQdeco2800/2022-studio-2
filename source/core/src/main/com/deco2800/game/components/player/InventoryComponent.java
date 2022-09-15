@@ -437,7 +437,7 @@ public class InventoryComponent extends Component {
   public void consumePotion(int inputIndex) {
     //Does nothing if there is no potion on the selected slot or the quantity < 1
     if (quickBarItems.size() >= inputIndex) {
-      quickBarItems.get(inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
+      quickBarItems.get(--inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
       if (quickBarQuantity[inputIndex] == 1) {
         removePotion(inputIndex);
         sortInventory(inputIndex, quickBarItems, quickBarQuantity);

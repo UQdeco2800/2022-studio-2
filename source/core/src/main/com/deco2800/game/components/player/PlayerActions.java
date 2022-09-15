@@ -115,21 +115,21 @@ public class PlayerActions extends Component {
    * Pressing the '1' button toggles the inventory menu UI opening/closing.
    */
   public void consumePotionSlot1(){
-    entity.getComponent(InventoryComponent.class).consumePotion(0);
+    entity.getComponent(InventoryComponent.class).consumePotion(1);
   }
 
   /**
    * Pressing the '2' button toggles the inventory menu UI opening/closing.
    */
   public void consumePotionSlot2(){
-    entity.getComponent(InventoryComponent.class).consumePotion(1);
+    entity.getComponent(InventoryComponent.class).consumePotion(2);
   }
 
   /**
    * Pressing the '3' button toggles the inventory menu UI opening/closing.
    */
   public void consumePotionSlot3(){
-    entity.getComponent(InventoryComponent.class).consumePotion(2);
+    entity.getComponent(InventoryComponent.class).consumePotion(3);
   }
 
   public void killEnemy(){
