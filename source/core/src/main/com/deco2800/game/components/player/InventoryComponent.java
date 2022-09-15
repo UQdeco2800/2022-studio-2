@@ -9,6 +9,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -117,14 +118,30 @@ public class InventoryComponent extends Component {
   }
 
   /**
+   * Sort the item quantity array once an item is removed from the inventory.
+   * @param index index of the item
+   * @param list the list of the inventory storage
+   * @param quantity the quantity array of corresponding inventory
+   */
+  public void sortInventory(int index, List list, int[] quantity) {
+    if (list.size() > index) {
+      for (int i = index; i < list.size();) {
+        quantity[i] = quantity[++i];
+      }
+    }
+  }
+
+  /**
    * Removes an item to player's inventory.
    *
    * @param item item to remove
    * @requires getItemQuantity(item) >= 1
    */
   public void removeItem(Entity item) {
-    --itemQuantity[inventory.indexOf(item)];
+    int index = inventory.indexOf(item);
+    --itemQuantity[index];
     if (getItemQuantity(item) == 0) {
+      sortInventory(index, inventory, itemQuantity);
       inventory.remove(item);
     }
   }

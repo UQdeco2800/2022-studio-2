@@ -310,7 +310,6 @@ public class GameAreaDisplay extends UIComponent {
       }
     }
   }
-
   public void setPauseMenu() {
     pauseMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
