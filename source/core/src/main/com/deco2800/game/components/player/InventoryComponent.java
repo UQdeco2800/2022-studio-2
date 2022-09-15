@@ -201,6 +201,7 @@ public class InventoryComponent extends Component {
    * Modify the player's stat according to the weapon stat.
    * Credit to Team 4
    * @param weapon the weapon that is going to be equipped on
+   * @param equip boolean to determine equip or unequip item
    */
   private void applyWeaponEffect(Entity weapon, boolean equip) {
     WeaponStatsComponent weaponStats;
@@ -218,9 +219,10 @@ public class InventoryComponent extends Component {
   }
 
   /**
-   * Waiting for stat modification implementation of armour
+   * Modify the player's stat according to the armour stat.
    *
    * @param armour the armour that is equipped
+   * @param equip boolean to determine equip or unequip item
    */
   private void applyArmourEffect(Entity armour, boolean equip) {
     ArmourStatsComponent armourStats;
@@ -251,8 +253,8 @@ public class InventoryComponent extends Component {
 
 
   /**
-   * Assuming weapon's max quantity is one.
-   * PARTIALLY FINISHED
+   * Equip the item and apply effect of the item to the player.
+   *
    * @param item the item to be equipped
    * NOTE: This should check if the player has equipped a weapon or amour.
    */
@@ -269,6 +271,8 @@ public class InventoryComponent extends Component {
         //Slot 2 - Reserved for armour
         equipped = true;
         applyArmourEffect(item, equipped);
+      } else {
+        logger.info("Slot is occupied");
       }
       if (equipped) removeItem(item);
     }
