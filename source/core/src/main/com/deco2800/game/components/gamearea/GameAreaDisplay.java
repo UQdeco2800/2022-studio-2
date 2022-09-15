@@ -157,9 +157,27 @@ public class GameAreaDisplay extends UIComponent {
           new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-              TextButton mainMenuBtn = new TextButton(buttonText, skin);
-              mainMenuBtn.setPosition(horizontalPosition, verticalPosition);
-              mainMenuBtn.addListener(
+              Group dropDownMenuBtn = new Group();
+              TextButton itemOpBtn = new TextButton(buttonText, skin);
+              TextButton dropItemBtn = new TextButton("Drop item", skin);
+              itemOpBtn.setPosition(horizontalPosition, verticalPosition);
+              dropItemBtn.setPosition(horizontalPosition, verticalPosition - 50);
+              dropDownMenuBtn.addActor(itemOpBtn);
+              dropDownMenuBtn.addActor(dropItemBtn);
+              dropItemBtn.addListener(
+                      new ChangeListener() {
+                        @Override
+                        public void changed(ChangeEvent event, Actor actor) {
+                          inventory.removeItem(currentItem);
+                          //Team 4, Call drop item function here
+                          if (itemOpBtn.isChecked() || dropItemBtn.isChecked()) {
+                            inventoryGroup.removeActor(itemOpBtn);
+                            inventoryGroup.removeActor(dropItemBtn);
+                          }
+                        }
+                      }
+              );
+              itemOpBtn.addListener(
                       new ChangeListener() {
                         @Override
                         public void changed(ChangeEvent event, Actor actor) {
@@ -174,11 +192,15 @@ public class GameAreaDisplay extends UIComponent {
                               //Crafting team use this block to add items in crafting menu
                               break;
                           }
-                          if (mainMenuBtn.isChecked()) inventoryGroup.removeActor(mainMenuBtn);
+                          if (itemOpBtn.isChecked() || dropItemBtn.isChecked()) {
+                            inventoryGroup.removeActor(itemOpBtn);
+                            inventoryGroup.removeActor(dropItemBtn);
+                          }
                         }
                       }
               );
-              inventoryGroup.addActor(mainMenuBtn);
+              inventoryGroup.addActor(itemOpBtn);
+              inventoryGroup.addActor(dropItemBtn);
             }
           });
       inventoryGroup.addActor(item);
