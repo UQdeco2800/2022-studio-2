@@ -28,7 +28,7 @@ public class DeathScreenDisplay extends UIComponent {
     private Group deathGroup;
 
     /**
-     *
+     * Creates an event listener to listen for 'DeathScreen' action
      */
     @Override
     public void create() {
@@ -39,20 +39,26 @@ public class DeathScreenDisplay extends UIComponent {
     }
 
     /**
-     *
+     * Adds elements to the game
      */
     private void addActors() {
+        //Creates a new table
         table = new Table();
+        //Centers the table
         table.center();
         table.setFillParent(true);
+        //Sets the height and width of table
         table.setHeight(200);
         table.setWidth(200);
-        Image title =
+        //Calls the image of the deathscreen
+        Image death =
                 new Image(
                         ServiceLocator.getResourceService()
                                 .getAsset("images/DeathScreens/lvl 1.PNG", Texture.class));
-        table.add(title);
+        //Adds the deathscreen to the table to display
+        table.add(death);
 
+        //adds table to the game.
         stage.addActor(table);
     }
 
