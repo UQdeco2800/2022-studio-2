@@ -32,40 +32,46 @@ public class ProjectileFactory {
         AITaskComponent aiComponent = new AITaskComponent();
         Entity projectile = new Entity()
                 .addComponent(new PhysicsComponent())
-                .addComponent(new PhysicsMovementComponent())
-                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE))
-                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-                .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 1.5f)) //7.5
+                //.addComponent(new PhysicsMovementComponent())
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
+                .addComponent(new CombatStatsComponent(1, 1, 0, 0))
                 .addComponent(aiComponent);
-        PhysicsUtils.setScaledCollider(projectile, 0.1f, 0.1f);
+        PhysicsUtils.setScaledCollider(projectile, 1.0f, 1.0f);
 
         projectile.setEntityType(EntityTypes.PROJECTILE);
         return projectile;
+
+        /*
+        Entity projectile = new Entity()
+                .addComponent(physicsComponent)
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 10.0f))
+                .addComponent(new CombatStatsComponent(100000, 100000, 0, 0))
+                .addComponent(projectileAnimator)
+                .addComponent(playerSkillProjectileComponent);
+         */
 
     }
 
     public static Entity createPoopsSludge(Entity target) {
         Entity poops = createBaseProjectile();
-        poops.addComponent(new CombatStatsComponent(1, 10, 0, 0))
-                .addComponent(new TextureRenderComponent("images/Enemies/poopSludge.png"))
+        poops.addComponent(new TextureRenderComponent("images/Enemies/poopSludge.png"))
                 .getComponent(TextureRenderComponent.class).scaleEntity();
-        poops.setScale(2f, 2f);
-        poops.getComponent(AITaskComponent.class)
-                .addTask(new ShootTask(target, 10, 10f));
-        poops.getComponent(PhysicsMovementComponent.class);
+        //poops.getComponent(AITaskComponent.class)
+          //      .addTask(new ShootTask(target, 10, 10f));
         poops.setEntityType(EntityTypes.ENEMY);
         return poops;
     }
 
     public static Entity createDiscus(Entity target) {
         Entity discus = createBaseProjectile();
-        discus.addComponent(new CombatStatsComponent(1, 10, 0, 0))
-                .addComponent(new TextureRenderComponent("images/Enemies/discus.png"))
+        discus.addComponent(new TextureRenderComponent("images/Enemies/discus.png"))
                 .getComponent(TextureRenderComponent.class).scaleEntity();
-        discus.setScale(2f, 2f);
-        discus.getComponent(AITaskComponent.class)
-                .addTask(new ShootTask(target, 10, 10f));
-        discus.getComponent(PhysicsMovementComponent.class);
+        //discus.getComponent(AITaskComponent.class)
+          //      .addTask(new ShootTask(target, 10, 10f));
         discus.setEntityType(EntityTypes.ENEMY);
         return discus;
     }
