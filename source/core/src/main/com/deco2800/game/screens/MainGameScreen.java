@@ -66,6 +66,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     this.game = game;
     logger.debug("Initialising main game screen services");
+    ServiceLocator.registerMainGameScreen(this);
     ServiceLocator.registerTimeSource(new GameTime());
 
     PhysicsService physicsService = new PhysicsService();
@@ -86,7 +87,9 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    GameArea map = loadLevelOneMap();
+    ForestGameArea map = (ForestGameArea) chooseMap(1);
+//    UndergroundGameArea map = loadLevelTwoMap();
+    this.map = map;
 //    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
 
@@ -136,6 +139,22 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   /**
+   * Disposes of the current level and loads the next one - Team 5 1map4all @otili9890
+   * @param level (int) - The int describing which map to load (1-3)
+   */
+  public GameArea chooseMap(int level) {
+    switch (level) {
+      case 1:
+        return this.loadLevelOneMap();
+      case 2:
+        map.dispose();
+        return map = this.loadLevelTwoMap();
+      default:
+    }
+    return null;
+  }
+
+  /**
    * Load the first map. - Team 5 1map4all @LYB
    * @return The game instance.
    */
@@ -152,6 +171,7 @@ public class MainGameScreen extends ScreenAdapter {
    * @return The game instance.
    */
   private UndergroundGameArea loadLevelTwoMap() {
+
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
 
