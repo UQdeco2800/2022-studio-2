@@ -40,7 +40,7 @@ public class ProjectileFactory {
                 .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
                 .addComponent(new CombatStatsComponent(1, 1, 0, 0))
                 .addComponent(enemyProjectileComponent);
-        PhysicsUtils.setScaledCollider(projectile, 1.0f, 1.0f);
+        PhysicsUtils.setScaledCollider(projectile, 0.5f, 0.5f);
         projectile.setEntityType(EntityTypes.PROJECTILE);
         enemyProjectileComponent.setProjectileDirection(new Vector2(
                 target.getPosition().x - ownerEntity.getPosition().x,
@@ -58,10 +58,11 @@ public class ProjectileFactory {
      */
     public static Entity createPoopsSludge(Entity ownerEntity, Entity target) {
         Entity poops = createBaseProjectile(ownerEntity, target);
-        poops.setScale(3f,3f);
         poops.addComponent(new TextureRenderComponent("images/Enemies/poopSludge.png"))
                 .getComponent(TextureRenderComponent.class).scaleEntity();
         poops.setEntityType(EntityTypes.ENEMY);
+
+        poops.setScale(2,2);
         return poops;
     }
 
@@ -76,6 +77,7 @@ public class ProjectileFactory {
         discus.addComponent(new TextureRenderComponent("images/Enemies/discus.png"))
                 .getComponent(TextureRenderComponent.class).scaleEntity();
         discus.setEntityType(EntityTypes.ENEMY);
+        discus.setScale(2,2);
         return discus;
     }
 

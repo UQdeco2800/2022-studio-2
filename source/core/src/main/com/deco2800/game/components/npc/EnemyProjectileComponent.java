@@ -37,4 +37,5 @@ public class EnemyProjectileComponent extends Component {
     public void setProjectileDirection(Vector2 projectileDirection) {
         projectileVector = projectileDirection.cpy().scl(projectileVelocity);
     }
+
 }
