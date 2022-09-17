@@ -42,7 +42,7 @@ public class CombatStatsComponent extends Component {
   }
 
   public CombatStatsComponent(int health, int baseAttack, int stamina, int mana) {
-    setHealth(health);
+    setHealth(health); setHealth(3); // Isaac
     setBaseAttack(baseAttack);
     setMaxStamina(stamina);
     setStamina(stamina);
@@ -133,10 +133,22 @@ public class CombatStatsComponent extends Component {
         attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
-      }
-    else { //if it's not a player, or if it is a player without a weapon
-      int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
-      setHealth(newHealth);
+      } else { //if it's not a player, or if it is a player without a weapon
+        int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
+        setHealth(newHealth);
+
+        if (entity.checkEntityType(EntityTypes.PLAYER)) {
+          logger.info("Player is taking damage");
+          if (isDead()) {
+            logger.info("Lmao ya dead");
+            entity.getEvents().trigger("death");
+          }
+        }
+
+//      if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+//          logger.debug("Lmao ya dead");
+//          entity.getEvents().trigger("death");
+//        }
     }
   }
 
