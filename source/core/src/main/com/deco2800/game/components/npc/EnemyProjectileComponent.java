@@ -10,7 +10,7 @@ public class EnemyProjectileComponent extends Component {
 
     private PhysicsComponent physicsComponent;
     private Vector2 projectileVector;
-    private Vector2 projectileVelocity = new Vector2(15,15);
+    private Vector2 projectileVelocity = new Vector2(1,1);
 
     @Override
     public void create() {
@@ -25,9 +25,7 @@ public class EnemyProjectileComponent extends Component {
     public void update() {
         Body body = physicsComponent.getBody();
         Vector2 currentVelocity = body.getLinearVelocity();
-
         Vector2 desiredVelocity = projectileVector.cpy();
-
         Vector2 impulse = desiredVelocity.sub(currentVelocity).scl(body.getMass());
         body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
     }
