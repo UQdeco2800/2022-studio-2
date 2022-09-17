@@ -52,7 +52,7 @@ public class PotionFactory {
     }
 
     /**
-     * Creates speed potion without rendering Compononet
+     * Creates speed potion without rendering Component.
      * @return speed potion for testing purposes
      */
     public static Entity createTestSpeedPotion() {
