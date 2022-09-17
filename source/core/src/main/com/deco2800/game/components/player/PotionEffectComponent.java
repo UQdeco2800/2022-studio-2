@@ -9,6 +9,7 @@ import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 
 import static com.deco2800.game.components.player.PlayerModifier.MOVESPEED;
+import static java.util.Objects.isNull;
 
 public class PotionEffectComponent extends Component {
     private short targetLayer;
@@ -26,7 +27,7 @@ public class PotionEffectComponent extends Component {
         this.effectType = effectType; // make enum for this later
         switch (effectType) {
             case "speed":
-                this.effectValue = 2f;
+                this.effectValue = 1.5f;
             default:
                 ;
         }
@@ -88,14 +89,16 @@ public class PotionEffectComponent extends Component {
      */
     public void applyEffect(Entity target) {
         PlayerModifier playerModifier = target.getComponent(PlayerModifier.class);
-        switch (this.effectType) {
-            case "speed":
-                if (!playerModifier.checkModifier(MOVESPEED, this.effectValue, true, 3000)) {
-                    // Modify does not exist
-                    playerModifier.createModifier(MOVESPEED, this.effectValue, true, 3000);
-                }
-            default:
-                ;
+        if (!isNull(playerModifier)) {
+            switch (this.effectType) {
+                case "speed":
+                    if (!playerModifier.checkModifier(MOVESPEED, this.effectValue, true, 3000)) {
+                        // Modify does not exist
+                        playerModifier.createModifier(MOVESPEED, this.effectValue, true, 3000);
+                    }
+                default:
+                    ;
+            }
         }
     }
 }

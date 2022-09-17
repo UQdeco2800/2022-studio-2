@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -30,6 +31,7 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -152,33 +154,57 @@ public class GameAreaDisplay extends UIComponent {
         buttonText = "Add to crafting menu";
       }
       item.addListener(
-              new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent changeEvent, Actor actor) {
-                  TextButton mainMenuBtn = new TextButton(buttonText, skin);
-                  mainMenuBtn.setPosition(horizontalPosition, verticalPosition);
-                  mainMenuBtn.addListener(
-                          new ChangeListener() {
-                            @Override
-                            public void changed(ChangeEvent event, Actor actor) {
-                              switch (buttonText) {
-                                case "Equip item":
-                                 inventory.equipItem(currentItem);
-                                 break;
-                                case "Add to quick bar":
-                                  inventory.addQuickBarItems(currentItem);
-                                  break;
-                                case "Add to crafting menu":
-                                  //Crafting team use this block to add items in crafting menu
-                                  break;
-                              }
-                            }
+          new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+              TextButton mainMenuBtn = new TextButton(buttonText, skin);
+              mainMenuBtn.setPosition(horizontalPosition, verticalPosition);
+              mainMenuBtn.addListener(
+                      new ChangeListener() {
+                        @Override
+                        public void changed(ChangeEvent event, Actor actor) {
+                          switch (buttonText) {
+                            case "Equip item":
+                             if (inventory.equipItem(currentItem)) inventoryGroup.removeActor(item);
+                             break;
+                            case "Add to quick bar":
+                              if (inventory.addQuickBarItems(currentItem)) inventoryGroup.removeActor(item);
+                              break;
+                            case "Add to crafting menu":
+                              //Crafting team use this block to add items in crafting menu
+                              break;
                           }
-                  );
-                  inventoryGroup.addActor(mainMenuBtn);
-                }
-              });
+                          if (mainMenuBtn.isChecked()) inventoryGroup.removeActor(mainMenuBtn);
+                        }
+                      }
+              );
+              inventoryGroup.addActor(mainMenuBtn);
+            }
+          });
       inventoryGroup.addActor(item);
+    }
+  }
+
+  /**
+   * Display each item in the inventory in the inventory storage blocks.
+   * Implemented by Team 2.
+   */
+  public void displayItems(float padding, float pictureWidth, float pictureHeight) {
+    InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    items = inventory.getInventory();
+    for (int i = 0; i < items.size(); ++i) {
+      Entity currentItem = items.get(i);
+      Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
+      TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
+      TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
+      ImageButton item = new ImageButton(itemTextureDrawable);
+      item.setSize(pictureWidth, pictureHeight);
+      int row = i / 4;
+      int column = i % 4;
+      //These positions should be adjusted according to your crafting menu positions
+      float horizontalPosition = (inventoryMenu.getX() + 187.5f) + column * (padding + pictureWidth);
+      float verticalPosition = (inventoryMenu.getY() + 360) - row * (padding + pictureHeight);
+      item.setPosition(horizontalPosition, verticalPosition);
     }
   }
 
@@ -227,6 +253,9 @@ public class GameAreaDisplay extends UIComponent {
       inventoryComponent.addItem(MaterialFactory.createSilver());
       inventoryComponent.addItem(MaterialFactory.createSteel());
       inventoryComponent.addItem(MaterialFactory.createWood());
+      inventoryComponent.addItem(MaterialFactory.createPlastic());
+      inventoryComponent.addItem(MaterialFactory.createRubber());
+      inventoryComponent.addItem(MaterialFactory.createIron());
       firstTime += 1;
     }
     craftMenu = new Image(new Texture(Gdx.files.internal
@@ -259,6 +288,7 @@ public class GameAreaDisplay extends UIComponent {
           weapon = null;
           clearBoxes(0);
         };
+        getInventory();
       }
     });
     craftingGroup.addActor(craftButton);
@@ -298,7 +328,6 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   private void checkBuildables() {
-
     if (boxes[0] != null && boxes[1] != null){
       for (MeleeConfig item: possibleBuilds){
         int numItems = 0;
@@ -307,6 +336,7 @@ public class GameAreaDisplay extends UIComponent {
           String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
           if (boxes[0].toString().equals(upperCaseEntry) ||
                   boxes[1].toString().equals(upperCaseEntry)){
+
             numItems += 1;
           }
         }
@@ -317,7 +347,6 @@ public class GameAreaDisplay extends UIComponent {
       }
     }
   }
-
   public void setPauseMenu() {
     pauseMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
@@ -333,7 +362,6 @@ public class GameAreaDisplay extends UIComponent {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();
     inventory = inventoryComponent.getInventory();
-
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
         materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -348,14 +376,12 @@ public class GameAreaDisplay extends UIComponent {
         material.addListener(new ChangeListener() {
           @Override
           public void changed(ChangeEvent event, Actor actor) {
-
             if (boxes[0] == null) {
               clearMaterials();
               materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
               materialTextureRegion = new TextureRegion(materialTexture);
               materialDrawable = new TextureRegionDrawable(materialTextureRegion);
               firstToCraft = new ImageButton(materialDrawable);
-
               firstToCraft.setSize(50, 50);
               firstToCraft.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
               stage.addActor(firstToCraft);

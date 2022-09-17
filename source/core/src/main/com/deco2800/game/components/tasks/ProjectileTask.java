@@ -97,20 +97,20 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
 
     public void shoot(String projectileType) {
         if (projectileType == "poopSludge") {
-            projectile = createPoopsSludge(target);
+            projectile = createPoopsSludge(owner.getEntity(), target);
         }
         if (projectileType == "discus") {
-            projectile = createDiscus(target);
+            projectile = createDiscus(owner.getEntity(), target);
         }
         if (projectile != null) {
             ServiceLocator.getEntityService().register(projectile);
             projectile.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
 
-            float xVel = owner.getEntity().getPosition().x - target.getCenterPosition().x;
-            float yVel = owner.getEntity().getPosition().y - target.getCenterPosition().y;
+            //float xVel = owner.getEntity().getPosition().x - target.getCenterPosition().x;
+            //float yVel = owner.getEntity().getPosition().y - target.getCenterPosition().y;
 
             // SHOOOOOOOOOOOOOTTTTTT;
-            projectile.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(xVel, yVel);
+            //projectile.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(xVel, yVel);
             setTask(taskWait);
         }
     }
