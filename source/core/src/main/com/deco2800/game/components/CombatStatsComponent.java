@@ -42,7 +42,7 @@ public class CombatStatsComponent extends Component {
   }
 
   public CombatStatsComponent(int health, int baseAttack, int stamina, int mana) {
-    setHealth(health); setHealth(3); // Isaac
+    setHealth(health);
     setBaseAttack(baseAttack);
     setMaxStamina(stamina);
     setStamina(stamina);
@@ -137,18 +137,9 @@ public class CombatStatsComponent extends Component {
         int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
         setHealth(newHealth);
 
-        if (entity.checkEntityType(EntityTypes.PLAYER)) {
-          logger.info("Player is taking damage");
-          if (isDead()) {
-            logger.info("Lmao ya dead");
-            entity.getEvents().trigger("death");
-          }
+        if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+          entity.getEvents().trigger("death");
         }
-
-//      if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
-//          logger.debug("Lmao ya dead");
-//          entity.getEvents().trigger("death");
-//        }
     }
   }
 
