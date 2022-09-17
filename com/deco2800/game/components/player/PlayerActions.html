@@ -165,19 +165,29 @@ loadScripts(document, 'script');</script>
  component so the skill component can alter the skill animation state.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleInventory()" class="member-name-link">toggleInventory</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#stopWalking()" class="member-name-link">stopWalking</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Pressing the 'I' button toggles the inventory menu UI opening/closing.</div>
+<div class="block">Stops the player from walking.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleInventory()" class="member-name-link">toggleInventory</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Called once per frame of the game, and should be used for most component logic.</div>
+<div class="block">Pressing the 'I' button toggles the inventory menu UI opening/closing.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMaxSpeed(float)" class="member-name-link">updateMaxSpeed</a><wbr>(float&nbsp;newSpeed)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called once per frame of the game, and should be used for most component logic.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateMaxSpeed(float)" class="member-name-link">updateMaxSpeed</a><wbr>(float&nbsp;newSpeed)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Public function to set new max speed.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#walk(com.badlogic.gdx.math.Vector2)" class="member-name-link">walk</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;direction)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Moves the player towards a given direction.</div>
 </div>
 </div>
 </div>
@@ -271,6 +281,24 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="killEnemy()">
 <h3>killEnemy</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">killEnemy</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="walk(com.badlogic.gdx.math.Vector2)">
+<h3>walk</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">walk</span><wbr><span class="parameters">(com.badlogic.gdx.math.Vector2&nbsp;direction)</span></div>
+<div class="block">Moves the player towards a given direction.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>direction</code> - direction to move in</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="stopWalking()">
+<h3>stopWalking</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">stopWalking</span>()</div>
+<div class="block">Stops the player from walking.</div>
 </section>
 </li>
 <li>
