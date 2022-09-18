@@ -1,13 +1,17 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
@@ -372,5 +376,44 @@ public class CombatStatsComponent extends Component {
     }
 
   }
+
+  public void dropMaterial() {
+
+    float x = getEntity().getPosition().x;
+    float y = getEntity().getPosition().y;
+
+    int randomnum = random.nextInt(100);
+
+    Entity material;
+
+    if (randomnum < 10) {
+      material = MaterialFactory.createSilver();
+    } else if (randomnum < 30 && randomnum >= 10) {
+      material = MaterialFactory.createGold();
+    } else if (randomnum < 40 && randomnum >= 30) {
+      material = MaterialFactory.createPlastic();
+    } else if (randomnum < 50 && randomnum >= 40) {
+      material = MaterialFactory.createRubber();
+    } else if (randomnum < 60 && randomnum >= 50) {
+      material = MaterialFactory.createIron();
+    } else if (randomnum < 70 && randomnum >= 60) {
+      material = MaterialFactory.createPlatinum();
+    } else if (randomnum < 80 && randomnum >= 70) {
+      material = MaterialFactory.createWood();
+    } else if (randomnum < 90 && randomnum >= 80) {
+      material = MaterialFactory.createSteel();
+    } else {
+      material = MaterialFactory.createWood();
+    }
+
+    if (!(randomnum > 90)) {
+      material.setScale(new Vector2(0.6f, 0.6f));
+
+      ServiceLocator.getEntityService().register(material);
+
+      material.setPosition((x), (y - 2));
+    }
+  }
+
 
 }
