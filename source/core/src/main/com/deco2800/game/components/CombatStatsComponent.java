@@ -133,10 +133,13 @@ public class CombatStatsComponent extends Component {
         attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
-      }
-    else { //if it's not a player, or if it is a player without a weapon
-      int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
-      setHealth(newHealth);
+      } else { //if it's not a player, or if it is a player without a weapon
+        int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
+        setHealth(newHealth);
+
+        if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+          entity.getEvents().trigger("death");
+        }
     }
   }
 
