@@ -1,92 +1,104 @@
 package com.deco2800.game.components.deathscreen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.deco2800.game.components.player.OpenPauseComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-import com.sun.jdi.PathSearchingVirtualMachine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Displays a button to exit the Main Game screen to the Main Menu screen.
+ * A ui component for displaying the Death Screen.
  */
 public class DeathScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreenDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private static Boolean isOpen = false;
-    private Image deathScreenOne;
-    private Group deathGroup;
+    private Image deathBackground = new Image(ServiceLocator.getResourceService()
+            .getAsset("images/DeathScreens/lvl_1.PNG", Texture.class));
 
-    /**
-     * Creates an event listener to listen for 'DeathScreen' action
-     */
     @Override
     public void create() {
-        entity.getEvents().addListener("DeathScreen", this::showDeathScreen);
         super.create();
         addActors();
-
     }
 
-    /**
-     * Adds elements to the game
-     */
-    private void addActors() {
-        //Creates a new table
-        table = new Table();
-        //Centers the table
-        table.center();
-        table.setFillParent(true);
-        //Sets the height and width of table
-        table.setHeight(200);
-        table.setWidth(200);
-        //Calls the image of the deathscreen
-        Image death =
-                new Image(
-                        ServiceLocator.getResourceService()
-                                .getAsset("images/DeathScreens/lvl 1.PNG", Texture.class));
-        //Adds the deathscreen to the table to display
-        table.add(death);
 
-        //adds table to the game.
+    private void addActors() {
+        table = new Table();
+        table.setFillParent(true);
+
+        TextButton yesBtn = new TextButton("Yes", skin);
+        TextButton noBtn = new TextButton("No", skin);
+
+
+        // Triggers an event when the button is pressed
+        // For now it swtiches back to main game screen like in main menu.
+        // TODO check if I need to swap this to saved version
+        yesBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("The Yes button was clicked");
+                        entity.getEvents().trigger("continueGame");
+                    }
+                });
+
+        //For now it exits the game when no is pressed
+        noBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("The No button was clicked");
+                        entity.getEvents().trigger("exit");
+                    }
+                });
+
+
+        // TODO work out why loading the image crashes the game...
+        table.add(deathBackground);
+        table.row();
+        table.add(yesBtn).padTop(30f);
+        table.row();
+        table.add(noBtn).padTop(15f);
+        table.row();
+
         stage.addActor(table);
     }
 
     /**
-     * Displays death screen image in game, this is an event that is called
+     * Adjusts DeathScreens background image based on given level
+     * @param level the games level
      */
-    private void showDeathScreen() {
-        deathScreenOne = new Image(new Texture(Gdx.files.internal
-                ("images/DeathScreens/lvl 1.PNG")));
-        deathScreenOne.setPosition(Gdx.graphics.getWidth()/2 - deathScreenOne.getWidth()/2,
-                Gdx.graphics.getHeight()/2 - deathScreenOne.getHeight()/2);
-        deathGroup.addActor(deathScreenOne);
-        stage.addActor(deathGroup);
-        stage.draw();
+    // TODO workout where in the code i can set this, I am not sure how i check what the level is.
+    public void levelBackground (int level) {
+        switch (level){
+            case 1:
+                deathBackground = new Image(ServiceLocator.getResourceService()
+                        .getAsset("images/DeathScreens/lvl_1.PNG", Texture.class));
+            case 2:
+                deathBackground = new Image(ServiceLocator.getResourceService()
+                        .getAsset("images/DeathScreens/lvl_2.PNG", Texture.class));
+            default:
+                deathBackground = new Image(ServiceLocator.getResourceService()
+                        .getAsset("images/DeathScreens/lvl_1.PNG", Texture.class));
+        }
     }
-
 
     @Override
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }
 
-
     @Override
     public float getZIndex() {
         return Z_INDEX;
     }
-
 
     @Override
     public void dispose() {

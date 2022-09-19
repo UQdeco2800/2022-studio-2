@@ -10,6 +10,7 @@ import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.PlayerActions;
@@ -116,7 +117,7 @@ public class MainGameScreen extends ScreenAdapter {
     if (dead) {
       // Could add further player cleanup functionality here
       player.getComponent(PlayerActions.class).stopWalking();
-      mainGameActions.getEntity().getEvents().trigger("exit");
+      game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
     }
   }
 
