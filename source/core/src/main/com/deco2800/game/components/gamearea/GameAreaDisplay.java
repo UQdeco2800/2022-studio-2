@@ -113,10 +113,10 @@ public class GameAreaDisplay extends UIComponent {
    */
   public void displayInventoryMenu() {
       inventoryMenu = new Image(new Texture(Gdx.files.internal
-              ("images/Inventory/Inventory_Armor_V2.png")));
+              ("images/Inventory/Inventory_v3.png")));
       //Note: the position of the asset is at the bottom left.
-      inventoryMenu.setSize(768, 576 );
-      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth(),
+      inventoryMenu.setSize(1024, 768 );
+      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
               Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
       inventoryGroup.addActor(inventoryMenu);
       stage.addActor(inventoryGroup);
@@ -128,7 +128,7 @@ public class GameAreaDisplay extends UIComponent {
    * Implemented by Team 2.
    */
   public void showItem() {
-    float padding = 12.5f;
+    float padding = 32f;
     InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
     items = inventory.getInventory();
     for (int i = 0; i < items.size(); ++i) {
@@ -137,12 +137,11 @@ public class GameAreaDisplay extends UIComponent {
       TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
       TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
       ImageButton item = new ImageButton(itemTextureDrawable);
-      item.setSize(53, 53);
-      //187.5 and 360 are the magic numbers. DO NOT CHANGE!
+      item.setSize(64, 64);
       int row = i / 4;
       int column = i % 4;
-      float horizontalPosition = (inventoryMenu.getX() + 187.5f) + column * (padding + 53);
-      float verticalPosition = (inventoryMenu.getY() + 360) - row * (padding + 53);
+      float horizontalPosition = (inventoryMenu.getX() + 192) + column * (padding + 64);
+      float verticalPosition = (inventoryMenu.getY() + 496) - row * (padding + 64);
       item.setPosition(horizontalPosition, verticalPosition);
       // Triggers an event when the button is pressed.
       String buttonText;
@@ -215,10 +214,12 @@ public class GameAreaDisplay extends UIComponent {
 
   /**
    * Display each item in the inventory in the inventory storage blocks.
-   * Implemented by Team 2.
+   * Implemented by Peter.
    */
   public void displayItems(float padding, float pictureWidth, float pictureHeight) {
     InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    int craftingTableX = 0;
+    int craftingTableY = 0;
     items = inventory.getInventory();
     for (int i = 0; i < items.size(); ++i) {
       Entity currentItem = items.get(i);
@@ -230,8 +231,8 @@ public class GameAreaDisplay extends UIComponent {
       int row = i / 4;
       int column = i % 4;
       //These positions should be adjusted according to your crafting menu positions
-      float horizontalPosition = (inventoryMenu.getX() + 187.5f) + column * (padding + pictureWidth);
-      float verticalPosition = (inventoryMenu.getY() + 360) - row * (padding + pictureHeight);
+      float horizontalPosition = (inventoryMenu.getX() + craftingTableX) + column * (padding + pictureWidth);
+      float verticalPosition = (inventoryMenu.getY() + craftingTableY) - row * (padding + pictureHeight);
       item.setPosition(horizontalPosition, verticalPosition);
     }
   }
