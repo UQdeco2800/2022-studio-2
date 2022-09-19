@@ -8,6 +8,7 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.screens.DeathScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,6 +119,11 @@ public class ServiceLocator {
   public static MainGameScreen getMainGameScreen() {
     return mainGameScreen;
   }
+
+  /**
+   * ISAAC LOOK AT THIS AND WORK OUT HOW IT WORKS
+   */
+  //public static DeathScreen getDeathScreen() {return }
 
   public static void registerCraftArea(GameAreaDisplay area){
     craftArea = area;
