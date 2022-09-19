@@ -262,11 +262,15 @@ public class InventoryComponent extends Component {
     return Arrays.copyOf(equipables,2);
   }
 
-
-  public boolean removeEquipable(int index) {
+  /**
+   * Remove the item in the given itemSlot.
+   * @param itemSlot
+   * @return true if the item is correctly removed, false otherwise
+   */
+  public boolean removeEquipable(int itemSlot) {
     boolean removed = false;
-    if (equipables[index] != null) {
-      equipables[index] = null;
+    if (equipables[itemSlot] != null) {
+      equipables[itemSlot] = null;
       removed = true;
     }
     return removed;
