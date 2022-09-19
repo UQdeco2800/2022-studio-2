@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
+import com.deco2800.game.screens.DeathScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.screens.SettingsScreen;
@@ -71,11 +72,14 @@ public class GdxGame extends Game {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        MainGameScreen mainGame = new MainGameScreen(this);
+        //MainGameScreen mainGame = new MainGameScreen(this);
         currentGameScreen = new MainGameScreen(this);
         return currentGameScreen;
       case SETTINGS:
         return new SettingsScreen(this);
+      case DEATH_SCREEN:
+        DeathScreen deathScreen = new DeathScreen(this);
+        return deathScreen;
       default:
         return null;
     }

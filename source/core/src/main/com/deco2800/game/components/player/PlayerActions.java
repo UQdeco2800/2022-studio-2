@@ -180,7 +180,7 @@ public class PlayerActions extends Component {
    *
    * @param direction direction to move in
    */
-  void walk(Vector2 direction) {
+  public void walk(Vector2 direction) {
     walkingSound.setLooping(true);
     walkingSound.play();
 
@@ -190,7 +190,7 @@ public class PlayerActions extends Component {
   /**
    * Stops the player from walking.
    */
-  void stopWalking() {
+  public void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
     walkingSound.stop();

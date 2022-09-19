@@ -34,6 +34,7 @@ public class DeathScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
+    /* Lol he said. Lmao. */
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;

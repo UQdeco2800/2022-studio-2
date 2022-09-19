@@ -177,10 +177,6 @@ public class ForestGameArea extends GameArea {
     loadAssets();
     displayUI();
     spawnTerrain();
-    spawnDagger();
-    spawnDaggerTwo();
-    spawnSwordLvl2();
-    spawnTridentLvl2();
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
@@ -215,9 +211,7 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
-    spawnHerraAndAthena();
-    spawnPlunger();
-    spawnPipe();
+
   }
 
 
@@ -455,21 +449,21 @@ public class ForestGameArea extends GameArea {
    * Spawns x-pos 10
    * Spawns y-pos 10
    */
-  private void spawnDagger() {
-    Entity dagger = WeaponFactory.createDagger();
-    weaponOnMap.add(dagger);
-    spawnEntityAt(dagger, new GridPoint2(20, 20), true, false);
-  }
+  //private void spawnDagger() {
+   // Entity dagger = WeaponFactory.createDagger();
+   // weaponOnMap.add(dagger);
+   // spawnEntityAt(dagger, new GridPoint2(20, 20), true, false);
+ // }
   /**
    * Spawns second Level 2 dagger entity into the game
    * Spawns x-pos 18
    * Spawns y-pos 10
    */
-  private void spawnDaggerTwo() {
-    Entity daggerTwo = WeaponFactory.createDaggerTwo();
-    weaponOnMap.add(daggerTwo);
-    spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
-  }
+ // private void spawnDaggerTwo() {
+  //  Entity daggerTwo = WeaponFactory.createDaggerTwo();
+  //  weaponOnMap.add(daggerTwo);
+  //  spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
+  //}
   /**
    * Spawns dumbbell entity into the game
    * Spawns x-pos 5
@@ -487,53 +481,53 @@ public class ForestGameArea extends GameArea {
    * Spawns x-pos 10
    * Spawns y-pos 4
    */
-  private void spawnHerraAndAthena() {
-    Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
-    weaponOnMap.add(herraAthenaDag);
-    spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
-  }
+ // private void spawnHerraAndAthena() {
+  //  Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
+  //  weaponOnMap.add(herraAthenaDag);
+  //  spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
+ // }
 
   /**
    * Spawns basic plunger into game
    * Spawns x-pos 20
    * Spawns y-pos 4
    */
-  private void spawnPlunger() {
-    Entity plunger = WeaponFactory.createPlunger();
-    weaponOnMap.add(plunger);
-    spawnEntityAt(plunger, new GridPoint2(20,4), true, false);
-  }
+  //private void spawnPlunger() {
+  //  Entity plunger = WeaponFactory.createPlunger();
+  //  weaponOnMap.add(plunger);
+  //  spawnEntityAt(plunger, new GridPoint2(20,4), true, false);
+ // }
 
   /**
    * Spawns basic PVC pipe into game
    * Spawns x-pos 15
    * Spawns y-pos 10
    */
-  private void spawnPipe() {
-    Entity plunger = WeaponFactory.createPipe();
-    weaponOnMap.add(plunger);
-    spawnEntityAt(plunger, new GridPoint2(15,10), true, false);
-  }
+ // private void spawnPipe() {
+ //   Entity plunger = WeaponFactory.createPipe();
+ //   weaponOnMap.add(plunger);
+ //   spawnEntityAt(plunger, new GridPoint2(15,10), true, false);
+ // }
 
   /**
    * Spawns Level 2 Sword entity into the game
    * Spawns x-pos 20
    * Spawns y-pos 20
    */
-  private void spawnSwordLvl2() {
-    Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
-    weaponOnMap.add(SwordLvl2);
-    spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
-  }
+ // private void spawnSwordLvl2() {
+ //   Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
+  //  weaponOnMap.add(SwordLvl2);
+  //  spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
+ // }
 
   /**
    * Spawns Level 2 Trident entity into the game
    */
-  private void spawnTridentLvl2() {
-    Entity tridentLvl2 = WeaponFactory.createTridentLvl2();
-    weaponOnMap.add(tridentLvl2);
-    spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
-  }
+ // private void spawnTridentLvl2() {
+  //  Entity tridentLvl2 = WeaponFactory.createTridentLvl2();
+  //  weaponOnMap.add(tridentLvl2);
+  //  spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
+ // }
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
   }
@@ -770,6 +764,8 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+
+
   private void unloadAssets() {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
@@ -781,7 +777,7 @@ public class ForestGameArea extends GameArea {
 
   @Override
   public void dispose() {
-    //super.dispose();
+    super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     logger.info("Unloading forest assets");
     this.unloadAssets();

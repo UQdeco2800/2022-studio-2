@@ -193,6 +193,7 @@ public class GameAreaDisplay extends UIComponent {
    * Displays each item in the inventory in the inventory storage blocks.
    * Implemented by Team 2.
    */
+
   public void displayItems() {
     float padding = 32f;
     InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
@@ -211,6 +212,7 @@ public class GameAreaDisplay extends UIComponent {
       item.setPosition(horizontalPosition, verticalPosition);
       // Triggers an event when the button is pressed.
       String buttonText;
+
       if (items.get(i).checkEntityType(EntityTypes.WEAPON)
       || items.get(i).checkEntityType(EntityTypes.ARMOUR)) {
         buttonText = "Equip item";
@@ -345,6 +347,7 @@ public class GameAreaDisplay extends UIComponent {
     if (firstTime == 0) {
       inventoryComponent = new InventoryComponent();
       inventoryComponent.addItem(MaterialFactory.createGold());
+      inventoryComponent.addItem(MaterialFactory.createGold());
       inventoryComponent.addItem(MaterialFactory.createPlatinum());
       inventoryComponent.addItem(MaterialFactory.createSilver());
       inventoryComponent.addItem(MaterialFactory.createSteel());
@@ -379,6 +382,7 @@ public class GameAreaDisplay extends UIComponent {
           disposeFirstBox();
           disposeSecondBox();
           ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
+          ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
           inventoryComponent.addItem(currentWeapon);
           weapon.remove();
           weapon = null;
@@ -457,7 +461,9 @@ public class GameAreaDisplay extends UIComponent {
   private void getInventory() {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();
+
     inventory = inventoryComponent.getInventory();
+    //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
     for (Entity item : inventory) {
       if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
         materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -744,10 +750,23 @@ public class GameAreaDisplay extends UIComponent {
     currentWeapon = newItem;
     String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
     weapon = new Image(new Texture(Gdx.files.internal(image)));
+
     if (Math.floor(item.damage) == 25){
       weapon.setSize(60, 60);
       weaponType = "Trident";
       weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
+    } else if (Math.floor(item.damage) == 26) {
+      weapon.setSize(60, 60);
+      weapon.setPosition(craftMenu.getX() + 675, craftMenu.getY() + 235);
+    } else if (Math.floor(item.damage) == 5) {
+      weapon.setSize(100, 100);
+      weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 210);
+    } else if (Math.floor(item.damage) == 3) {
+      weapon.setSize(110, 110);
+      weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
+    } else if (Math.floor(item.damage) == 35) {
+      weapon.setSize(100, 100);
+      weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
     } else {
       weapon.setSize(200, 200);
       weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
