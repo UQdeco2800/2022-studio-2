@@ -323,7 +323,7 @@ public class InventoryComponent extends Component {
       } else if (item.checkEntityType(EntityTypes.ARMOUR)){
         applyArmourEffect(item, unequipped);
       }
-      inventory.add(item);
+      addItem(item);
       equipables[itemSlot] = null;
       unequipped = true;
     }
