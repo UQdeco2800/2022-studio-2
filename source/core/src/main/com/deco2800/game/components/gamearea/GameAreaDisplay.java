@@ -251,6 +251,7 @@ public class GameAreaDisplay extends UIComponent {
     if (firstTime == 0) {
       inventoryComponent = new InventoryComponent();
       inventoryComponent.addItem(MaterialFactory.createGold());
+      inventoryComponent.addItem(MaterialFactory.createGold());
       inventoryComponent.addItem(MaterialFactory.createPlatinum());
       inventoryComponent.addItem(MaterialFactory.createSilver());
       inventoryComponent.addItem(MaterialFactory.createSteel());
@@ -653,10 +654,23 @@ public class GameAreaDisplay extends UIComponent {
     currentWeapon = newItem;
     String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
     weapon = new Image(new Texture(Gdx.files.internal(image)));
+
     if (Math.floor(item.damage) == 25){
       weapon.setSize(60, 60);
       weaponType = "Trident";
       weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
+    } else if (Math.floor(item.damage) == 26) {
+      weapon.setSize(60, 60);
+      weapon.setPosition(craftMenu.getX() + 675, craftMenu.getY() + 235);
+    } else if (Math.floor(item.damage) == 5) {
+      weapon.setSize(100, 100);
+      weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 210);
+    } else if (Math.floor(item.damage) == 3) {
+      weapon.setSize(110, 110);
+      weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
+    } else if (Math.floor(item.damage) == 35) {
+      weapon.setSize(100, 100);
+      weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
     } else {
       weapon.setSize(200, 200);
       weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
