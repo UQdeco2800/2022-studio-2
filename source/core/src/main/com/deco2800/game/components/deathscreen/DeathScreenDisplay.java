@@ -20,7 +20,7 @@ public class DeathScreenDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private Table table;
     private Image deathBackground = new Image(ServiceLocator.getResourceService()
-            .getAsset("images/DeathScreens/lvl_1.PNG", Texture.class));
+            .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
 
     @Override
     public void create() {
@@ -80,13 +80,13 @@ public class DeathScreenDisplay extends UIComponent {
         switch (level){
             case 1:
                 deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_1.PNG", Texture.class));
+                        .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
             case 2:
                 deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_2.PNG", Texture.class));
+                        .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
             default:
                 deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_1.PNG", Texture.class));
+                        .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
         }
     }
 
@@ -102,6 +102,7 @@ public class DeathScreenDisplay extends UIComponent {
 
     @Override
     public void dispose() {
+        deathBackground.remove();
         table.clear();
         super.dispose();
     }

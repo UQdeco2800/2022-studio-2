@@ -29,7 +29,7 @@ public class DeathScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] mainMenuTextures = {"images/box_boy_title.png"};
+    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
     private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
     private static final String[] mainMenuMusic = {backgroundMusic};
 
@@ -80,7 +80,7 @@ public class DeathScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing main menu screen");
+        logger.debug("Disposing death screen");
 
         renderer.dispose();
         unloadAssets();
@@ -94,7 +94,7 @@ public class DeathScreen extends ScreenAdapter {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(mainMenuTextures);
+        resourceService.loadTextures(deathTextures);
         resourceService.loadMusic(mainMenuMusic);
         ServiceLocator.getResourceService().loadAll();
     }
@@ -102,7 +102,7 @@ public class DeathScreen extends ScreenAdapter {
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(mainMenuTextures);
+        resourceService.unloadAssets(deathTextures);
     }
 
     /**
