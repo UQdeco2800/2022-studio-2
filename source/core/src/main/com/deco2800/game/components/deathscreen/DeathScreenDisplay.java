@@ -2,11 +2,14 @@ package com.deco2800.game.components.deathscreen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -32,6 +35,7 @@ public class DeathScreenDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
+
 
         TextButton yesBtn = new TextButton("Yes", skin);
         TextButton noBtn = new TextButton("No", skin);
@@ -60,12 +64,12 @@ public class DeathScreenDisplay extends UIComponent {
                 });
 
 
-        // TODO work out why loading the image crashes the game...
+        // TODO adjust layout of table to make it align with what we planed for death screen
+        // https://gamedev.stackexchange.com/questions/144876/how-do-you-stack-things-in-between-a-table
         table.add(deathBackground);
         table.row();
-        table.add(yesBtn).padTop(30f);
-        table.row();
-        table.add(noBtn).padTop(15f);
+        table.add(yesBtn).padTop(30f).padLeft(30f).left();
+        table.add(noBtn).padTop(30f).padRight(30f).right();
         table.row();
 
         stage.addActor(table);
