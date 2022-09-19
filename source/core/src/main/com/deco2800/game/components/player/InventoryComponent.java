@@ -225,19 +225,22 @@ public class InventoryComponent extends Component {
    * @param equip boolean to determine equip or unequip item
    */
   private void applyArmourEffect(Entity armour, boolean equip) {
+    System.out.println("Applying effect");
     ArmourStatsComponent armourStats;
     PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
     //Applying the weight of the armour to player
     if ((armourStats = armour.getComponent(ArmourStatsComponent.class)) != null) {
       if (equip) {
-        pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
+        pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(),true
+                , 0);
         pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float)armourStats.getPhyResistance(), true, 0);
         pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float)armourStats.getVitality(), true, 0);
       } else {
-        pmComponent.createModifier(PlayerModifier.MOVESPEED, 1 / (float)armourStats.getWeight(), true, 0);
-        pmComponent.createModifier(PlayerModifier.DMGREDUCTION, 1 / (float)armourStats.getPhyResistance(), true, 0);
-        pmComponent.createModifier(PlayerModifier.STAMINAMAX, 1 / (float)armourStats.getVitality(), true, 0);
-      }
+      pmComponent.createModifier(PlayerModifier.MOVESPEED, 15 / (float)armourStats.getWeight(),
+              true, 0);
+      pmComponent.createModifier(PlayerModifier.DMGREDUCTION, 1 / (float)armourStats.getPhyResistance(), true, 0);
+      pmComponent.createModifier(PlayerModifier.STAMINAMAX, 1 / (float)armourStats.getVitality(), true, 0);
+    }
     }
   }
 

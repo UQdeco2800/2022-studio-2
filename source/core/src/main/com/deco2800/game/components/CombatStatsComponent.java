@@ -93,6 +93,8 @@ public class CombatStatsComponent extends Component {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
+    System.out.println("Setting health " + this.health);
+
   }
 
   /**
@@ -324,6 +326,7 @@ public class CombatStatsComponent extends Component {
    * @param damageReduction Attack damage
    */
   public void setDamageReduction(float damageReduction) {
+    System.out.println("Setting dmg reduc");
     if (damageReduction >= 0) {
       this.damageReduction = damageReduction;
     } else {

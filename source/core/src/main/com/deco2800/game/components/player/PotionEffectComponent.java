@@ -8,6 +8,7 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 
+import static com.deco2800.game.components.player.PlayerModifier.DMGREDUCTION;
 import static com.deco2800.game.components.player.PlayerModifier.MOVESPEED;
 
 public class PotionEffectComponent extends Component {
@@ -27,7 +28,11 @@ public class PotionEffectComponent extends Component {
         switch (effectType) {
             case "speed":
                 this.effectValue = 1.5f;
-            default:
+            case "health":
+                this.effectValue = 1;
+            case "damageReduction":
+                this.effectValue = 2f;
+                default:
                 ;
         }
     }
@@ -53,7 +58,7 @@ public class PotionEffectComponent extends Component {
             return;
         }
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-        if(!target.checkEntityType(EntityTypes.PLAYER)) applyEffect(target);
+        if(target.checkEntityType(EntityTypes.PLAYER)) applyEffect(target);
     }
 
     /**
@@ -93,6 +98,13 @@ public class PotionEffectComponent extends Component {
                 if (!playerModifier.checkModifier(MOVESPEED, this.effectValue, true, 3000)) {
                     // Modify does not exist
                     playerModifier.createModifier(MOVESPEED, this.effectValue, true, 3000);
+                }
+            case "health":
+                playerModifier.createModifier("health", this.effectValue, false, 0);
+            case "damageReduction":
+                if (!playerModifier.checkModifier(DMGREDUCTION, this.effectValue, true, 3000)) {
+                    // Modify does not exist
+                    playerModifier.createModifier(DMGREDUCTION, this.effectValue, true, 3000);
                 }
             default:
                 ;

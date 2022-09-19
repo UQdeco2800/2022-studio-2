@@ -447,7 +447,7 @@ public class ForestGameArea extends GameArea {
   private void spawnSpeedPotion() {
     Entity speedPotion =PotionFactory.createSpeedPotion();
     ItemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(30, 23), true, false);
+    spawnEntityAt(speedPotion, new GridPoint2(0, 0), true, false);
   }
 
   /**
@@ -546,8 +546,10 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity potion = PotionFactory.createSpeedPotion();
-    this.spawnEntityAt(potion, randomPos, true, false);
+//    Entity potion = PotionFactory.createSpeedPotion();
+//    this.spawnEntityAt(potion, randomPos, true, false);
+    Entity potion = PotionFactory.createDamageReductionPotion();
+    this.spawnEntityAt(potion, new GridPoint2(5,5), true, false);
   }
 
   /**
