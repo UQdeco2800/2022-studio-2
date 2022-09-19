@@ -137,13 +137,16 @@ public class InventoryComponent extends Component {
    * @param item item to remove
    * @requires getItemQuantity(item) >= 1
    */
-  public void removeItem(Entity item) {
+  public boolean removeItem(Entity item) {
+    boolean removed = false;
     int index = inventory.indexOf(item);
     --itemQuantity[index];
     if (getItemQuantity(item) == 0) {
       sortInventory(index, inventory, itemQuantity);
       inventory.remove(item);
+      removed = true;
     }
+    return removed;
   }
 
   /**

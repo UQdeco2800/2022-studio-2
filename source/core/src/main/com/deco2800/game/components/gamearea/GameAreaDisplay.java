@@ -24,6 +24,7 @@ import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.factories.ArmourFactory;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
@@ -128,7 +129,7 @@ public class GameAreaDisplay extends UIComponent {
    */
   public void showItem() {
     float padding = 12.5f;
-    InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
     items = inventory.getInventory();
     for (int i = 0; i < items.size(); ++i) {
       Entity currentItem = items.get(i);
@@ -168,9 +169,13 @@ public class GameAreaDisplay extends UIComponent {
                       new ChangeListener() {
                         @Override
                         public void changed(ChangeEvent event, Actor actor) {
-                          inventory.removeItem(currentItem);
+                          if (inventory.removeItem(currentItem)) inventoryGroup.removeActor(item);
                           //Team 4, Call drop item function here
-                          if (itemOpBtn.isChecked() || dropItemBtn.isChecked()) {
+                          float x = inventory.getEntity().getPosition().x;
+                          float y = inventory.getEntity().getPosition().y;
+                          ServiceLocator.getEntityService().register(currentItem);
+                          currentItem.setPosition(x , (float) (y - 1.2));
+                          if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                             inventoryGroup.removeActor(itemOpBtn);
                             inventoryGroup.removeActor(dropItemBtn);
                           }
@@ -192,13 +197,14 @@ public class GameAreaDisplay extends UIComponent {
                               //Crafting team use this block to add items in crafting menu
                               break;
                           }
-                          if (itemOpBtn.isChecked() || dropItemBtn.isChecked()) {
+                          if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                             inventoryGroup.removeActor(itemOpBtn);
                             inventoryGroup.removeActor(dropItemBtn);
                           }
                         }
                       }
               );
+
               inventoryGroup.addActor(itemOpBtn);
               inventoryGroup.addActor(dropItemBtn);
             }
