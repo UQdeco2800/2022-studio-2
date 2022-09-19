@@ -1067,9 +1067,17 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/physics/raycast/SingleHitCallback.html#didHit" class="member-name-link">didHit</a> - Variable in class com.deco2800.game.physics.raycast.<a href="com/deco2800/game/physics/raycast/SingleHitCallback.html" title="class in com.deco2800.game.physics.raycast">SingleHitCallback</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#displayEquipables()" class="member-name-link">displayEquipables()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
+<dd>
+<div class="block">Displays the items that the player has equipped.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#displayInventoryMenu()" class="member-name-link">displayInventoryMenu()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
 <dd>
 <div class="block">Displays the inventory UI.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#displayItems()" class="member-name-link">displayItems()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
+<dd>
+<div class="block">Displays each item in the inventory in the inventory storage blocks.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#displayItems(float,float,float)" class="member-name-link">displayItems(float, float, float)</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
 <dd>
@@ -1315,7 +1323,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#equipItem(com.deco2800.game.entities.Entity)" class="member-name-link">equipItem(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
-<div class="block">Assuming weapon's max quantity is one.</div>
+<div class="block">Equip the item and apply effect of the item to the player.</div>
 </dd>
 <dt><a href="com/deco2800/game/events/EventHandler.html" class="type-name-link" title="class in com.deco2800.game.events">EventHandler</a> - Class in <a href="com/deco2800/game/events/package-summary.html">com.deco2800.game.events</a></dt>
 <dd>
@@ -1589,6 +1597,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getEquipable(int)" class="member-name-link">getEquipable(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
 <div class="block">Returns the item at the given index or</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getEquipables()" class="member-name-link">getEquipables()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Returns the items the player equipped</div>
 </dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#getEvents()" class="member-name-link">getEvents()</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>&nbsp;</dd>
@@ -2972,6 +2984,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Remove an animation from this animator.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeEquipable(int)" class="member-name-link">removeEquipable(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Remove the item in the given itemSlot.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeItem(int)" class="member-name-link">removeItem(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
 <div class="block">Removes an item to player's inventory.</div>
@@ -3455,10 +3471,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/components/tasks/ShootTask.html#%3Cinit%3E(com.deco2800.game.entities.Entity,int,float)" class="member-name-link">ShootTask(Entity, int, float)</a> - Constructor for class com.deco2800.game.components.tasks.<a href="com/deco2800/game/components/tasks/ShootTask.html" title="class in com.deco2800.game.components.tasks">ShootTask</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#showItem()" class="member-name-link">showItem()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
-<dd>
-<div class="block">Display each item in the inventory in the inventory storage blocks.</div>
-</dd>
 <dt><a href="com/deco2800/game/crafting/Materials.html#Silver" class="member-name-link">Silver</a> - Enum constant in enum class com.deco2800.game.crafting.<a href="com/deco2800/game/crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/EntityTypes.html#SILVER" class="member-name-link">SILVER</a> - Enum constant in enum class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/EntityTypes.html" title="enum class in com.deco2800.game.entities.factories">EntityTypes</a></dt>
