@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -37,8 +38,8 @@ public class DeathScreenDisplay extends UIComponent {
         table.setFillParent(true);
 
 
-        TextButton yesBtn = new TextButton("Yes", skin);
-        TextButton noBtn = new TextButton("No", skin);
+        TextButton yesBtn = new TextButton("PLAY AGAIN", skin);
+        TextButton noBtn = new TextButton("EXIT", skin);
 
 
         // Triggers an event when the button is pressed
@@ -65,13 +66,21 @@ public class DeathScreenDisplay extends UIComponent {
 
 
         // TODO adjust layout of table to make it align with what we planed for death screen
-        // https://gamedev.stackexchange.com/questions/144876/how-do-you-stack-things-in-between-a-table
-        table.add(deathBackground);
-        table.row();
-        table.add(yesBtn).padTop(30f).padLeft(30f).left();
-        table.add(noBtn).padTop(30f).padRight(30f).right();
-        table.row();
 
+        // Creates a stack of items, this allows you to overlay them and 'stack' them on top of eachother
+        Stack background = new Stack();
+        background.add(deathBackground);
+
+        // Creates a table within the stack for the buttons
+        Table btnTable = new Table();
+        btnTable.bottom().right();
+        btnTable.add(yesBtn).pad(35).right();
+        btnTable.row();
+        btnTable.add(noBtn).pad(35).right();
+        background.add(btnTable);
+
+        // Adds the stack to the parent table
+        table.add(background);
         stage.addActor(table);
     }
 
