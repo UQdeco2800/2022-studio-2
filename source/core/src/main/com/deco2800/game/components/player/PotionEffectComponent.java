@@ -115,7 +115,7 @@ public class PotionEffectComponent extends Component {
                     }
                     break;
                 case "health":
-                    playerModifier.createModifier("health", this.effectValue, false, 0);
+                    playerModifier.createModifier("health", this.effectValue, false, 1);
                     break;
                 case "damageReduction":
                     if (!playerModifier.checkModifier(DMGREDUCTION, this.effectValue, true, 3000)) {

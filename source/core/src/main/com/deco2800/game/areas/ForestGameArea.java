@@ -198,6 +198,7 @@ public class ForestGameArea extends GameArea {
 //    spawnColumn(30, 20);
     playMusic();
     spawnSpeedPotion();
+    spawnHealthPotion();
 
 
     spawnDumbbell();
@@ -439,9 +440,15 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 23
    */
   private void spawnSpeedPotion() {
-    Entity speedPotion =PotionFactory.createSpeedPotion();
+    Entity speedPotion = PotionFactory.createSpeedPotion();
     ItemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(0, 0), true, false);
+    spawnEntityAt(speedPotion, new GridPoint2(20, 0), true, false);
+  }
+
+  private void spawnHealthPotion() {
+    Entity speedPotion = PotionFactory.createHealthPotion();
+    ItemsOnMap.add(speedPotion);
+    spawnEntityAt(speedPotion, new GridPoint2(10, 0), true, false);
   }
 
   /**
