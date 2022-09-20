@@ -20,6 +20,7 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Component that affects entities on collision.
+     *
      * @param targetLayer The physics layer of the target's collider.
      */
 
@@ -29,12 +30,15 @@ public class PotionEffectComponent extends Component {
         switch (effectType) {
             case "speed":
                 this.effectValue = 1.5f;
+                break;
             case "health":
                 this.effectValue = 1;
+                break;
             case "damageReduction":
                 this.effectValue = 2f;
-                default:
-                ;
+                break;
+            default:
+                break;
         }
     }
 
@@ -48,7 +52,8 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Applies component effect on collision
-     * @param me - player entity
+     *
+     * @param me    - player entity
      * @param other - other entity
      */
     private void onCollisionStart(Fixture me, Fixture other) {
@@ -59,7 +64,10 @@ public class PotionEffectComponent extends Component {
             return;
         }
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-        if(target.checkEntityType(EntityTypes.PLAYER)) applyEffect(target);
+//        if (!target.checkEntityType(EntityTypes.PLAYER)) {
+//            System.out.println("Not player pickup, applying effect");
+//            applyEffect(target);
+//        }
     }
 
     /**
@@ -71,6 +79,7 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Returns if the two potion has the same effect
+     *
      * @param potion the potion to be checked
      * @return true if both have the same effect type, false otherwise
      * @requires potion.checkEntityType(EntityTypes.POTION) == true
@@ -81,6 +90,7 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Returns if the two potion has the same effect
+     *
      * @param effectType the potion effect type
      * @return true if the effect type matches, false otherwise
      */
@@ -90,6 +100,7 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Applies component effect
+     *
      * @param target - the target entity (player)
      */
     public void applyEffect(Entity target) {

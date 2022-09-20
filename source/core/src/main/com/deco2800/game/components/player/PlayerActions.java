@@ -115,6 +115,7 @@ public class PlayerActions extends Component {
    * Pressing the '1' button toggles the inventory menu UI opening/closing.
    */
   public void consumePotionSlot1(){
+    System.out.println("Clicking slot 1");
     entity.getComponent(InventoryComponent.class).consumePotion(1);
   }
 

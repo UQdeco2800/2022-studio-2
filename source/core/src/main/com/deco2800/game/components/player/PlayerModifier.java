@@ -11,7 +11,7 @@ import java.util.Iterator;
  * statistics.
  * Takes in the
  */
-public class PlayerModifier extends Component{
+public class PlayerModifier extends Component {
 
     private static class Modifier {
         boolean used; // Flag to determine if the modifier has been used
@@ -70,7 +70,6 @@ public class PlayerModifier extends Component{
     // STAMINAMAX
     private static float refStaminaMax;
     private static float modStaminaMax;
-
 
 
     /**
@@ -161,7 +160,7 @@ public class PlayerModifier extends Component{
         }
 
         // Iterate and remove any modifiers flagged as expired
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Modifier mod = iterator.next();
             if (mod.expired) {
                 iterator.remove();
@@ -174,45 +173,49 @@ public class PlayerModifier extends Component{
      * to the increase/decrease in the reference statistic such that when this function is called for
      * modifier removal, the value is properly restored.
      *
-     * @param mod       Target statistic
-     * @param remove    Boolean to determine if a modifier is being removed
+     * @param mod    Target statistic
+     * @param remove Boolean to determine if a modifier is being removed
      */
-    private static void modifierHandler (Modifier mod, boolean remove) {
+    private static void modifierHandler(Modifier mod, boolean remove) {
 
         float difference; // Used to return to original value if modifier is negative
 
         switch (mod.target) {
-            case MOVESPEED -> {
+            case MOVESPEED:
                 difference = modSpeed;
                 modSpeed = remove ? modSpeed - mod.value : modSpeed + mod.value;
                 modSpeed = (modSpeed < 0) ? 0.1f : modSpeed; // Precaution for negative values
                 difference -= modSpeed;
                 mod.value = -1 * difference;
                 playerActions.updateMaxSpeed(modSpeed);
-            }
-            case DMGREDUCTION -> {
+                break;
+
+            case DMGREDUCTION:
                 modDamageReduction = remove ? modDamageReduction - mod.value : modDamageReduction + mod.value;
+                System.out.println("Setting dmg reduc "  + modDamageReduction);
                 combatStatsComponent.setDamageReduction(modDamageReduction);
-            }
-            case MANAREGEN -> {
+                break;
+
+            case MANAREGEN:
                 modManaRegen = remove ? modManaRegen - mod.value : modManaRegen + mod.value;
                 combatStatsComponent.setManaRegenerationRate((int) modManaRegen);
-            }
-            case MANAMAX -> {
+                break;
+
+            case MANAMAX:
                 modManaMax = remove ? modManaMax - mod.value : modManaMax + mod.value;
                 combatStatsComponent.setMaxMana((int) modManaMax);
-            }
-            case STAMINAREGEN -> {
+                break;
+            case STAMINAREGEN:
                 modStaminaRegen = remove ? modStaminaRegen - mod.value : modStaminaRegen + mod.value;
                 combatStatsComponent.setStaminaRegenerationRate((int) modStaminaRegen);
-            }
-            case STAMINAMAX -> {
+                break;
+            case STAMINAMAX:
                 modStaminaMax = remove ? modStaminaMax - mod.value : modStaminaMax + mod.value;
                 combatStatsComponent.setMaxStamina((int) modStaminaMax);
-            }
-            default -> {
+            default:
                 // Do nothing
-            }
+                break;
+
         }
     }
 
@@ -220,44 +223,44 @@ public class PlayerModifier extends Component{
      * Permanently apply a modification to the player entity. Increase the base and
      * modified player statistics.
      *
-     * @param mod   Target statistic
+     * @param mod Target statistic
      */
-    private void applyModifierPerm (Modifier mod) {
+    private void applyModifierPerm(Modifier mod) {
 
         switch (mod.target) {
-            case MOVESPEED -> {
+            case MOVESPEED:
                 modSpeed += mod.value;
                 refSpeed += mod.value;
                 playerActions.updateMaxSpeed(modSpeed);
-            }
-            case DMGREDUCTION -> {
+                break;
+            case DMGREDUCTION:
                 modDamageReduction += mod.value;
                 refDamageReduction += mod.value;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
-            }
-            case MANAREGEN -> {
+                break;
+            case MANAREGEN:
                 modManaRegen += mod.value;
                 refManaRegen += mod.value;
                 combatStatsComponent.setManaRegenerationRate((int) modManaRegen);
-            }
-            case MANAMAX -> {
+                break;
+            case MANAMAX:
                 modManaMax += mod.value;
                 refManaMax += mod.value;
                 combatStatsComponent.setMaxMana((int) modManaMax);
-            }
-            case STAMINAREGEN -> {
+                break;
+            case STAMINAREGEN:
                 modStaminaRegen += mod.value;
                 refStaminaRegen += mod.value;
                 combatStatsComponent.setStaminaRegenerationRate((int) modStaminaRegen);
-            }
-            case STAMINAMAX -> {
+                break;
+            case STAMINAMAX:
                 modStaminaMax += mod.value;
                 refStaminaMax += mod.value;
                 combatStatsComponent.setMaxStamina((int) modStaminaMax);
-            }
-            default -> {
+                break;
+            default:
                 // Do nothing
-            }
+                break;
         }
     }
 
@@ -268,13 +271,13 @@ public class PlayerModifier extends Component{
      * (0 if the modifier is intended to be permanent).
      * Modifiers are handled by the PlayerModifier update() override.
      *
-     * @param target    Desired player statistic.
-     * @param value     The value of the increase
-     * @param scaling   Boolean flag to indicate if the increase value is multiplicative or additive
-     * @param expiry    Expiry time (milliseconds) of modifier, 0 if permanent
-     * @return          True on success, false otherwise
+     * @param target  Desired player statistic.
+     * @param value   The value of the increase
+     * @param scaling Boolean flag to indicate if the increase value is multiplicative or additive
+     * @param expiry  Expiry time (milliseconds) of modifier, 0 if permanent
+     * @return True on success, false otherwise
      */
-    public boolean createModifier (String target, float value, boolean scaling, int expiry) {
+    public boolean createModifier(String target, float value, boolean scaling, int expiry) {
 
         float valChange;
 
@@ -285,17 +288,17 @@ public class PlayerModifier extends Component{
             case DMGREDUCTION:
                 valChange = (scaling) ? refDamageReduction * value : value;
                 break;
-            case MANAREGEN :
-                valChange = (scaling) ? (int)(refManaRegen * value) : (int)value;
+            case MANAREGEN:
+                valChange = (scaling) ? (int) (refManaRegen * value) : (int) value;
                 break;
-            case MANAMAX :
-                valChange = (scaling) ? (int)(refManaMax * value) : (int)value;
+            case MANAMAX:
+                valChange = (scaling) ? (int) (refManaMax * value) : (int) value;
                 break;
-            case STAMINAREGEN :
-                valChange = (scaling) ? (int)(refStaminaRegen * value) : (int)value;
+            case STAMINAREGEN:
+                valChange = (scaling) ? (int) (refStaminaRegen * value) : (int) value;
                 break;
-            case STAMINAMAX :
-                valChange = (scaling) ? (int)(refStaminaMax * value) : (int)value;
+            case STAMINAMAX:
+                valChange = (scaling) ? (int) (refStaminaMax * value) : (int) value;
                 break;
             case HEALTH:
                 combatStatsComponent.addHealth(1);
@@ -312,17 +315,17 @@ public class PlayerModifier extends Component{
     /**
      * Public function to check if there is an already existing modifier with matching parameters
      *
-     * @param target    Desired player statistic.
-     * @param value     The value of the increase
-     * @param scaling   Boolean flag to indicate if the increase value is multiplicative or additive
-     * @param expiry    Expiry time (milliseconds) of modifier, 0 if permanent
-     * @return          True if modifier exists, false otherwise
+     * @param target  Desired player statistic.
+     * @param value   The value of the increase
+     * @param scaling Boolean flag to indicate if the increase value is multiplicative or additive
+     * @param expiry  Expiry time (milliseconds) of modifier, 0 if permanent
+     * @return True if modifier exists, false otherwise
      */
-    public boolean checkModifier (String target, float value, boolean scaling, int expiry) {
+    public boolean checkModifier(String target, float value, boolean scaling, int expiry) {
 
         Iterator<Modifier> iterator = modifiers.iterator();
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Modifier mod = iterator.next();
             if (mod.target.equals(target) && mod.ogValue == value && mod.lifetime == expiry && mod.scalar == scaling) {
                 return true;
@@ -335,39 +338,53 @@ public class PlayerModifier extends Component{
     /**
      * Public function to return current reference value of a desired target.
      *
-     * @param target    Desired player statistic.
+     * @param target Desired player statistic.
      * @return Float value of the desired reference target statistic, else -1 on fail.
      */
-    public float getModified (String target) {
+    public float getModified(String target) {
 
-        return switch (target) {
-            case MOVESPEED -> modSpeed;
-            case DMGREDUCTION -> modDamageReduction;
-            case MANAREGEN -> modManaRegen;
-            case MANAMAX -> modManaMax;
-            case STAMINAREGEN -> modStaminaRegen;
-            case STAMINAMAX -> modStaminaMax;
-            default -> -1;
-        };
+        switch (target) {
+            case MOVESPEED:
+                return modSpeed;
+            case DMGREDUCTION:
+                return modDamageReduction;
+            case MANAREGEN:
+                return modManaRegen;
+            case MANAMAX:
+                return modManaMax;
+            case STAMINAREGEN:
+                return modStaminaRegen;
+            case STAMINAMAX:
+                return modStaminaMax;
+            default:
+                return -1;
+        }
     }
 
     /**
      * Public function to return current modified value of a desired target.
      *
-     * @param target    Desired player statistic.
+     * @param target Desired player statistic.
      * @return Float value of the desired modified target statistic, else -1 on fail.
      */
-    public float getReference (String target) {
+    public float getReference(String target) {
 
-        return switch (target) {
-            case MOVESPEED -> refSpeed;
-            case DMGREDUCTION -> refDamageReduction;
-            case MANAREGEN -> refManaRegen;
-            case MANAMAX -> refManaMax;
-            case STAMINAREGEN -> refStaminaRegen;
-            case STAMINAMAX -> refStaminaMax;
-            default -> -1;
-        };
+        switch (target) {
+            case MOVESPEED :
+                return refSpeed;
+            case DMGREDUCTION :
+                return refDamageReduction;
+            case MANAREGEN :
+                return refManaRegen;
+            case MANAMAX :
+                return refManaMax;
+            case STAMINAREGEN :
+                return refStaminaRegen;
+            case STAMINAMAX :
+                return refStaminaMax;
+            default :
+                return -1;
+        }
     }
 
     /**
@@ -375,13 +392,13 @@ public class PlayerModifier extends Component{
      * is covered in the course.
      */
 
-    public static void jUnitAddPlayerActions (PlayerActions actions) {
+    public static void jUnitAddPlayerActions(PlayerActions actions) {
         playerActions = actions;
         refSpeed = playerActions.getMaxSpeed();
         modSpeed = playerActions.getMaxSpeed();
     }
 
-    public static void jUnitAddCombatStats (CombatStatsComponent combat) {
+    public static void jUnitAddCombatStats(CombatStatsComponent combat) {
         combatStatsComponent = combat;
         refDamageReduction = combatStatsComponent.getDamageReduction();
         modDamageReduction = combatStatsComponent.getDamageReduction();

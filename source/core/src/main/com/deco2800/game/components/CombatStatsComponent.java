@@ -333,7 +333,6 @@ public class CombatStatsComponent extends Component {
    * @param damageReduction Attack damage
    */
   public void setDamageReduction(float damageReduction) {
-    System.out.println("Setting dmg reduc");
     if (damageReduction >= 0) {
       this.damageReduction = damageReduction;
     } else {
