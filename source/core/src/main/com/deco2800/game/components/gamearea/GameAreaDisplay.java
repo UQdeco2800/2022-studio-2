@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.OpenCraftingComponent;
 import com.deco2800.game.crafting.CraftingLogic;
@@ -30,6 +31,8 @@ import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.util.List;
@@ -50,6 +53,7 @@ public class GameAreaDisplay extends UIComponent {
   private ImageButton inventoryButton;
   private ImageButton exitButton;
   private Texture buttonTexture;
+  private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
 
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
@@ -88,6 +92,7 @@ public class GameAreaDisplay extends UIComponent {
 
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
+    logger.info("The current map is {}", this.gameAreaName);
     ServiceLocator.registerCraftArea(this);
     ServiceLocator.registerInventoryArea(this);
     ServiceLocator.registerPauseArea(this);
