@@ -10,7 +10,6 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.ai.tasks.Task;
-import com.deco2800.game.physics.components.PhysicsComponent;
 
 import static com.deco2800.game.entities.factories.ProjectileFactory.createDiscus;
 import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
@@ -105,12 +104,6 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         if (projectile != null) {
             ServiceLocator.getEntityService().register(projectile);
             projectile.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
-
-            //float xVel = owner.getEntity().getPosition().x - target.getCenterPosition().x;
-            //float yVel = owner.getEntity().getPosition().y - target.getCenterPosition().y;
-
-            // SHOOOOOOOOOOOOOTTTTTT;
-            //projectile.getComponent(PhysicsComponent.class).getBody().setLinearVelocity(xVel, yVel);
             setTask(taskWait);
         }
     }
