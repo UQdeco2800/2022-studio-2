@@ -18,8 +18,6 @@ import java.util.List;
 
 /**
  * A component intended to be used by the player to track their inventory.
- * <p>
- * Currently only stores the items that implement the Buildable interface. IN_PROGRESS
  * Can also be used as a more generic component for other entities.
  */
 public class InventoryComponent extends Component {
