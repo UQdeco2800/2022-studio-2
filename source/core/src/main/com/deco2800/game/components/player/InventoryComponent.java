@@ -301,7 +301,6 @@ public class InventoryComponent extends Component {
     EntityService.pauseAndResume();
     inventoryIsOpened = !inventoryIsOpened;
   }
-
   /**
    * Returns the current quick bar items
    *

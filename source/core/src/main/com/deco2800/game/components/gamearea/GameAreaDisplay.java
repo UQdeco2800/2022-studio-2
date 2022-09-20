@@ -371,6 +371,9 @@ public class GameAreaDisplay extends UIComponent {
     }
   }
 
+  /**
+   * Display the pause menu when ESC is clicked.
+   */
   public void setPauseMenu() {
     pauseMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));

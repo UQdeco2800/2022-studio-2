@@ -11,6 +11,7 @@ import com.deco2800.game.entities.EntityService;
 public class OpenPauseComponent extends Component {
     private static Logger logger;
     private static Boolean isOpen = false;
+    private static Boolean inventoryToggled = false;
     //private static Boolean craftingStatus = false;
     private GdxGame game;
 
@@ -20,12 +21,13 @@ public class OpenPauseComponent extends Component {
 
         entity.getEvents().addListener("game paused", this::openPauseMenu);
         entity.getEvents().addListener("game resumed", this::closePauseMenu);
+        entity.getEvents().addListener("toggleInventory", this::setInventoryStatus);
         //entity.getEvents().addListener("is_opening", this::setCraftingStatus);
         //entity.getEvents().addListener("is_closed", this::setCraftingStatus);
     }
 
     private void openPauseMenu() {
-        if (isOpen == false && OpenCraftingComponent.craftingStatus == false) {
+        if (isOpen == false && OpenCraftingComponent.craftingStatus == false && !inventoryToggled) {
             ServiceLocator.getPauseMenuArea().setPauseMenu();
             isOpen = true;
             EntityService.pauseGame();
@@ -42,5 +44,17 @@ public class OpenPauseComponent extends Component {
 
     public static void setPauseMenuStatus() {
         isOpen = !isOpen;
+    }
+
+    private boolean getInventoryStatus() {
+        return inventoryToggled;
+    }
+
+    private void setInventoryStatus() {
+        inventoryToggled = !inventoryToggled;
+    }
+
+    public static boolean getPausingStatus() {
+        return isOpen;
     }
 }
