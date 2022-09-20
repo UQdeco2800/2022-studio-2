@@ -80,13 +80,14 @@ public class InventoryComponent extends Component {
 
     /**
      * Checks if there is an item with the same type in the storage
+     *
      * @param item the Entity to be checked
      * @param storage the List of storage(e.g. can be quick bar, inventory)
      * @return true if there is a same kind of Entity, false otherwise
      */
     public boolean hasItem(Entity item, List<Entity> storage) {
         for (Entity other: storage) {
-            if (itemEqualTo(item, other)) {
+            if (itemequals(item, other)) {
                 return true;
             }
         }
@@ -95,6 +96,7 @@ public class InventoryComponent extends Component {
 
     /**
      * Returns the index in the storage if there is one with the same Entity type
+     *
      * @param item item to be found
      * @param storage the List of storage(e.g. can be quick bar, inventory)
      * @return index of the item, or -1 if item is not in the storage
@@ -102,7 +104,7 @@ public class InventoryComponent extends Component {
     public int getItemIndex(Entity item, List<Entity> storage) {
         int index = -1;
         for (int i = 0; i < storage.size(); ++i) {
-            if (itemEqualTo(item, storage.get(i))) index = i;
+            if (itemequals(item, storage.get(i))) index = i;
         }
         return index;
     }
@@ -135,7 +137,7 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * Adds item to player's inventory with the specified quantity.
+     * Adds item to player's inventory with the specified quantity. Use this for testing purposes
      *
      * @param item     item to add
      * @param quantity item's quantity
@@ -403,16 +405,16 @@ public class InventoryComponent extends Component {
      * @param other the comparison item
      * @return true if two items are the same type, false otherwise
      */
-    public boolean itemEqualTo (Entity item, Entity other) {
+    public boolean itemequals (Entity item, Entity other) {
         boolean equals = false;
         if (item.checkEntityType(EntityTypes.POTION)
         && other.checkEntityType(EntityTypes.POTION)){
-            equals = item.getComponent(PotionEffectComponent.class).equalTo(other);
+            equals = item.getComponent(PotionEffectComponent.class).equals(other);
             logger.info(String.format("%s", equals));
         } else if (item.checkEntityType(EntityTypes.ARMOUR)
         && other.checkEntityType(EntityTypes.ARMOUR)) {
             equals = item.getComponent(ArmourStatsComponent.class)
-                    .equalTo(other.getComponent(ArmourStatsComponent.class));
+                    .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)) {
             //Partially implemented since each weapon will be only spawned once
             equals = item.getId() == other.getId();
@@ -428,92 +430,17 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * Returns if the quick bar contains the same type of potion
-     *
-     * @param potion potion
-     * @return true if the quick bar contains a same type of potion, false otherwise
-     */
-    private boolean hasPotion(Entity potion, List<Entity> storage) {
-        for (int i = 0; i < storage.size(); ++i) {
-            if (storage.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Returns the potion Entity with the same type of effect.
-     *
-     * @param effectType the effect type of potion
-     * @return potion with the specified effect, null if there is none
-     */
-    public Entity getPotion(String effectType) {
-        for (int i = 0; i < quickBarItems.size(); ++i) {
-            if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(effectType)) {
-                return quickBarItems.get(i);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns the potion Entity with the same type of effect.
-     *
-     * @param potion
-     * @return potion with the same effect, null if there is none
-     */
-    public Entity getPotion(Entity potion, List<Entity> storage) {
-        for (int i = 0; i < storage.size(); ++i) {
-            if (storage.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
-                return storage.get(i);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns the index of the potion if there exists a potion with the same effect.
-     *
-     * @param effectType the potion effect
-     * @return index of the potion, -1 if potion does not exist
-     */
-    public int getPotionIndex(String effectType) {
-        for (int i = 0; i < quickBarItems.size(); ++i) {
-            if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(effectType)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Returns the index of the potion in the quickbar.
-     *
-     * @param potion the potion in the quickbar.
-     * @return index of the potion, -1 if potion does not exist
-     */
-    public int getPotionIndex(Entity potion) {
-        for (int i = 0; i < quickBarItems.size(); ++i) {
-            if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * Adding potion to the quickbar.
-     * DEBUGGING
+     * @param potion the potion to be added
      */
     public boolean addQuickBarItems(Entity potion) {
-        boolean hasPotion = hasPotion(potion, quickBarItems);
+        boolean hasPotion = hasItem(potion, quickBarItems);
         boolean added = false;
 
         if (hasPotion) {
             logger.info("Added 1 to an existing potion");
-            if(quickBarQuantity[getPotionIndex(potion)] < 9) {// Maximum quantity for one potion
-                ++quickBarQuantity[getPotionIndex(potion)];
+            if(quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
+                ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
             }
         } else {
@@ -523,7 +450,7 @@ public class InventoryComponent extends Component {
             } else {
                 logger.info("Added to quick bar");
                 quickBarItems.add(potion);
-                ++quickBarQuantity[getPotionIndex(potion)];
+                ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
             }
         }

@@ -84,7 +84,7 @@ public class PotionEffectComponent extends Component {
      * @return true if both have the same effect type, false otherwise
      * @requires potion.checkEntityType(EntityTypes.POTION) == true
      */
-    public boolean equalTo(Entity other) {
+    public boolean equals(Entity other) {
         return this.effectType.equals(other.getComponent(PotionEffectComponent.class).getPotionEffect());
     }
 
@@ -94,7 +94,7 @@ public class PotionEffectComponent extends Component {
      * @param effectType the potion effect type
      * @return true if the effect type matches, false otherwise
      */
-    public boolean equalTo(String effectType) {
+    public boolean equals(String effectType) {
         return this.effectType.equals(effectType);
     }
 

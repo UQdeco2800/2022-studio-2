@@ -86,7 +86,7 @@ public class ArmourStatsComponent extends Component {
      * @param other ArmourStatSComponent
      * @return true if the stats are the same, false otherwise
      */
-    public boolean equalTo (ArmourStatsComponent other) {
+    public boolean equals (ArmourStatsComponent other) {
         return phyResistance == other.getPhyResistance()
                 && durability == other.durability
                 && vitality == other.vitality
