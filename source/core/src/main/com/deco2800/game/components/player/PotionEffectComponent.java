@@ -80,7 +80,7 @@ public class PotionEffectComponent extends Component {
     /**
      * Returns if the two potion has the same effect
      *
-     * @param potion the potion to be checked
+     * @param other the potion to be checked
      * @return true if both have the same effect type, false otherwise
      * @requires potion.checkEntityType(EntityTypes.POTION) == true
      */
