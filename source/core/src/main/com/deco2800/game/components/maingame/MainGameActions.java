@@ -27,7 +27,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen and clears the pause game status.
    */
-  private void onExit() {
+  public void onExit() {
     logger.info("Exiting main game screen");
     EntityService.unpauseGame();
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);

@@ -14,9 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.Component;
+import com.deco2800.game.components.maingame.MainGameActions;
+
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.player.InventoryComponent;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.components.player.OpenCraftingComponent;
+import com.deco2800.game.components.player.OpenPauseComponent;
 import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
@@ -30,6 +37,8 @@ import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.util.List;
@@ -42,6 +51,8 @@ public class GameAreaDisplay extends UIComponent {
   private String gameAreaName = "";
   private Label title;
 
+  private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
+  private static Component mainGameActions;
   private int numcrafted = 0;
   private ImageButton craftButton;
   private ImageButton catalogueButton;
@@ -62,6 +73,11 @@ public class GameAreaDisplay extends UIComponent {
   private ImageButton material;
   private ImageButton firstToCraft;
   private ImageButton secondToCraft;
+
+  private Image resume_image;
+  private ImageButton resume;
+
+  private ImageButton exit;
   private Texture materialTexture;
   private TextureRegion materialTextureRegion;
   private TextureRegionDrawable materialDrawable;
@@ -297,6 +313,7 @@ public class GameAreaDisplay extends UIComponent {
     });
     craftingGroup.addActor(craftButton);
     entity.getEvents().addListener("check", this::checkBuildables);
+
     buttonTexture = new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/widgets/catalogue_button.png"));
     buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -311,6 +328,7 @@ public class GameAreaDisplay extends UIComponent {
       }
     });
     craftingGroup.addActor(catalogueButton);
+
     buttonTexture = new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/widgets/exit_button.png"));
     buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -328,6 +346,7 @@ public class GameAreaDisplay extends UIComponent {
     });
     craftingGroup.addActor(exitButton);
     stage.addActor(craftingGroup);
+
     stage.draw();
   }
 
@@ -351,17 +370,63 @@ public class GameAreaDisplay extends UIComponent {
       }
     }
   }
+
   public void setPauseMenu() {
     pauseMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
+    pauseMenu.setSize(1100, 1200);
     pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
             Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
     pausingGroup.addActor(pauseMenu);
     stage.addActor(pausingGroup);
+
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    resume = new ImageButton(buttonDrawable);
+    resume.setSize(386, 122.4f);
+    resume.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 600);
+    resume.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        disposePauseMenu();
+        EntityService.pauseAndResume();
+        KeyboardPlayerInputComponent.incrementPauseCounter();
+        OpenPauseComponent.setPauseMenuStatus();
+      }
+    });
+    pausingGroup.addActor(resume);
+    stage.addActor(pausingGroup);
+
+    buttonTexture = new Texture(Gdx.files.internal
+            ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+    buttonTextureRegion = new TextureRegion(buttonTexture);
+    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+    exit = new ImageButton(buttonDrawable);
+    exit.setSize(386, 122.4f);
+    exit.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 432);
+    exit.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        logger.debug("Exit button clicked");
+        PauseMenuActions.setQuitGameStatus();
+        KeyboardPlayerInputComponent.incrementPauseCounter();
+        OpenPauseComponent.setPauseMenuStatus();
+      }
+    });
+    pausingGroup.addActor(exit);
+    stage.addActor(pausingGroup);
+
     stage.draw();
   }
-  //return the inventory for the user
 
+  public void disposeResumeButton() {
+    resume_image.remove();
+  }
+
+
+  //return the inventory for the user
   private void getInventory() {
     index = 0;
     this.possibleBuilds = CraftingLogic.getPossibleWeapons();

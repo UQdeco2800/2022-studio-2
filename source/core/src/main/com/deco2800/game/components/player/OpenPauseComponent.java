@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ public class OpenPauseComponent extends Component {
     private static Logger logger;
     private static Boolean isOpen = false;
     //private static Boolean craftingStatus = false;
+    private GdxGame game;
 
     public void create() {
 
@@ -38,7 +40,7 @@ public class OpenPauseComponent extends Component {
         }
     }
 
-    /*private void setCraftingStatus() {
-        craftingStatus = !craftingStatus;
-    }*/
+    public static void setPauseMenuStatus() {
+        isOpen = !isOpen;
+    }
 }
