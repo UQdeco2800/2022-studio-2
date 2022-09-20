@@ -79,6 +79,35 @@ public class InventoryComponent extends Component {
     }
 
     /**
+     * Checks if there is an item with the same type in the storage
+     * @param item the Entity to be checked
+     * @param storage the List of storage(e.g. can be quick bar, inventory)
+     * @return true if there is a same kind of Entity, false otherwise
+     */
+    public boolean hasItem(Entity item, List<Entity> storage) {
+        for (Entity other: storage) {
+            if (itemEqualTo(item, other)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the index in the storage if there is one with the same Entity type
+     * @param item item to be found
+     * @param storage the List of storage(e.g. can be quick bar, inventory)
+     * @return index of the item, or -1 if item is not in the storage
+     */
+    public int getItemIndex(Entity item, List<Entity> storage) {
+        int index = -1;
+        for (int i = 0; i < storage.size(); ++i) {
+            if (itemEqualTo(item, storage.get(i))) index = i;
+        }
+        return index;
+    }
+
+    /**
      * Adds an item to player's inventory.
      *
      * @param item item to add
@@ -86,18 +115,23 @@ public class InventoryComponent extends Component {
     public void addItem(Entity item) {
         if (inventory.size() == inventorySize) {
             logger.info("Inventory if full");
-        } else if (!inventory.contains(item)) {
-            inventory.add(item);
-        } else if ((item.checkEntityType(EntityTypes.MELEE)
-                || item.checkEntityType(EntityTypes.RANGED))
-                && !inventory.contains(item)) {
-            inventory.add(item);
+        } else if (!hasItem(item, inventory)) {
+            if (item.checkEntityType(EntityTypes.POTION)
+                    || item.checkEntityType(EntityTypes.CRAFTABLE)) {
+                inventory.add(item);
+                logger.info(String.format("Added %s", item.getEntityTypes().toString()));
+            } else if (item.checkEntityType(EntityTypes.WEAPON)
+                    || item.checkEntityType(EntityTypes.ARMOUR)) {
+                inventory.add(item);
+                ++itemQuantity[inventory.indexOf(item)];
+            }
         }
-        //Do nothing if the weapon is already in the inventory.
-        //Consider adding a console message to player.
-
-        //Item quantity undefined. TO BE IMPLEMENTED
-        ++itemQuantity[inventory.indexOf(item)];
+        //Stacking Potions and Craftables NOT FINISHED
+        if (getItemIndex(item, inventory) != -1
+                && (item.checkEntityType(EntityTypes.POTION)
+                || item.checkEntityType(EntityTypes.CRAFTABLE))) {
+            ++itemQuantity[getItemIndex(item, inventory)];
+        }
     }
 
     /**
@@ -106,7 +140,7 @@ public class InventoryComponent extends Component {
      * @param item     item to add
      * @param quantity item's quantity
      */
-    public void addItem(Entity item, int quantity) {
+    public void addItem (Entity item, int quantity) {
         if (inventory.size() == inventorySize) {
             logger.info("Inventory if full");
             //Error should end this block of code
@@ -230,7 +264,6 @@ public class InventoryComponent extends Component {
      * @param equip  boolean to determine equip or unequip item
      */
     private void applyArmourEffect(Entity armour, boolean equip) {
-        System.out.println("Applying effect");
         ArmourStatsComponent armourStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
         //Applying the weight of the armour to player
@@ -365,14 +398,44 @@ public class InventoryComponent extends Component {
     }
 
     /**
+     * Check if two items are the same kind
+     * @param item the item to be checked
+     * @param other the comparison item
+     * @return true if two items are the same type, false otherwise
+     */
+    public boolean itemEqualTo (Entity item, Entity other) {
+        boolean equals = false;
+        if (item.checkEntityType(EntityTypes.POTION)
+        && other.checkEntityType(EntityTypes.POTION)){
+            equals = item.getComponent(PotionEffectComponent.class).equalTo(other);
+            logger.info(String.format("%s", equals));
+        } else if (item.checkEntityType(EntityTypes.ARMOUR)
+        && other.checkEntityType(EntityTypes.ARMOUR)) {
+            equals = item.getComponent(ArmourStatsComponent.class)
+                    .equalTo(other.getComponent(ArmourStatsComponent.class));
+        } else if (item.checkEntityType(EntityTypes.WEAPON)) {
+            //Partially implemented since each weapon will be only spawned once
+            equals = item.getId() == other.getId();
+        } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
+        && other.checkEntityType(EntityTypes.CRAFTABLE)){
+            for (EntityTypes type: other.getEntityTypes()) {
+                if (type != EntityTypes.CRAFTABLE) {
+                    equals = item.checkEntityType(type);
+                }
+            }
+        }
+        return equals;
+    }
+
+    /**
      * Returns if the quick bar contains the same type of potion
      *
      * @param potion potion
      * @return true if the quick bar contains a same type of potion, false otherwise
      */
-    private boolean hasPotion(Entity potion) {
-        for (int i = 0; i < quickBarItems.size(); ++i) {
-            if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
+    private boolean hasPotion(Entity potion, List<Entity> storage) {
+        for (int i = 0; i < storage.size(); ++i) {
+            if (storage.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
                 return true;
             }
         }
@@ -400,10 +463,10 @@ public class InventoryComponent extends Component {
      * @param potion
      * @return potion with the same effect, null if there is none
      */
-    public Entity getPotion(Entity potion) {
-        for (int i = 0; i < quickBarItems.size(); ++i) {
-            if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
-                return quickBarItems.get(i);
+    public Entity getPotion(Entity potion, List<Entity> storage) {
+        for (int i = 0; i < storage.size(); ++i) {
+            if (storage.get(i).getComponent(PotionEffectComponent.class).equalTo(potion)) {
+                return storage.get(i);
             }
         }
         return null;
@@ -444,7 +507,7 @@ public class InventoryComponent extends Component {
      * DEBUGGING
      */
     public boolean addQuickBarItems(Entity potion) {
-        boolean hasPotion = hasPotion(potion);
+        boolean hasPotion = hasPotion(potion, quickBarItems);
         boolean added = false;
 
         if (hasPotion) {
@@ -487,7 +550,6 @@ public class InventoryComponent extends Component {
     public void consumePotion(int inputIndex) {
         //Does nothing if there is no potion on the selected slot or the quantity < 1
         if (quickBarItems.size() >= inputIndex) {
-            System.out.println("Consuming potion yum");
             quickBarItems.get(--inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
             if (quickBarQuantity[inputIndex] == 1) {
                 removePotion(inputIndex);

@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.Component;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -117,9 +118,10 @@ class InventoryComponentTest {
 
     Entity testPotion = PotionFactory.createTestSpeedPotion();
 
-    player.getComponent(InventoryComponent.class).addQuickBarItems(testPotion);
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    inventory.addQuickBarItems(testPotion);
 
-    assertEquals(player.getComponent(InventoryComponent.class).getPotion(testPotion), testPotion);
+    assertEquals(player.getComponent(InventoryComponent.class).getPotion(testPotion, inventory.getQuickBarItems()), testPotion);
   }
 
   @Test

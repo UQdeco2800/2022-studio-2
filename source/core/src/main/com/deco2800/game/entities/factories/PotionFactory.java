@@ -53,7 +53,7 @@ public class PotionFactory {
 
     public static Entity createHealthPotion() {
         Entity healthPotion = createBasePotion()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
+                .addComponent(new TextureRenderComponent("images/Potions/health_potion.png"
                 ))
                 .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "health"));
         healthPotion.getComponent(TextureRenderComponent.class).scaleEntity();
