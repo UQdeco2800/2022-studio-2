@@ -1,7 +1,10 @@
 package com.deco2800.game.entities.factories;
 
+import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
+import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
 public class MaterialFactory {
@@ -9,6 +12,8 @@ public class MaterialFactory {
     public static Entity createGold() {
         Entity gold = new Entity();
         gold.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/gold.png"));
+        gold.addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
+        gold.addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
         gold.setEntityType(EntityTypes.GOLD);
         gold.setEntityType(EntityTypes.CRAFTABLE);
         return gold;

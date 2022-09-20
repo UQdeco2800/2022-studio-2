@@ -357,16 +357,18 @@ public class Entity {
     return id;
   }
 
-  /**
-   * Get the event handler attached to this entity. Can be used to trigger events from an attached
-   * component, or listen to events from a component.
-   */
 
   public void flagDead(){
     isDead = true;
   }
 
-
+  /**
+   * A method that returns true if dead and false if not
+   * @return true if dead, false if not
+   */
+  public boolean isDead() {
+    return isDead;
+  }
   public EventHandler getEvents() {
     return eventHandler;
   }
