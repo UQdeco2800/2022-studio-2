@@ -417,11 +417,12 @@ public class InventoryComponent extends Component {
                     .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)
         && other.checkEntityType(EntityTypes.WEAPON)) {
+//            equals = item.getId() == other.getId();
 //            Better for testing since there will be no render component
-//            equals = item.getComponent(MeleeStatsComponent.class)
-//                    .equals(other.getComponent(MeleeStatsComponent.class));
-            equals = item.getComponent(TextureRenderComponent.class).getTexturePath()
-                    .equals(other.getComponent(TextureRenderComponent.class).getTexturePath());
+            equals = item.getComponent(MeleeStatsComponent.class)
+                    .equals(other.getComponent(MeleeStatsComponent.class));
+//            equals = item.getComponent(TextureRenderComponent.class).getTexturePath()
+//                    .equals(other.getComponent(TextureRenderComponent.class).getTexturePath());
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
         && other.checkEntityType(EntityTypes.CRAFTABLE)){
             for (EntityTypes type: other.getEntityTypes()) {

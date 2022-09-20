@@ -48,7 +48,7 @@ class InventoryComponentTest {
     InventoryComponent testInventory2 = new InventoryComponent();
     List<Entity> expectedList = new ArrayList<>(16);
 
-    Entity testWeapon = WeaponFactory.createBaseWeapon();
+    Entity testWeapon = WeaponFactory.createTestDagger();
 
     testInventory2.addItem(testWeapon);
     expectedList.add(testWeapon);
@@ -61,7 +61,7 @@ class InventoryComponentTest {
     InventoryComponent testInventory3 = new InventoryComponent();
     List<Entity> expectedList = new ArrayList<>(16);
 
-    Entity testWeapon = WeaponFactory.createBaseWeapon();
+    Entity testWeapon = WeaponFactory.createTestDagger();
 
     expectedList.add(testWeapon);
     testInventory3.addItem(testWeapon);
@@ -77,7 +77,7 @@ class InventoryComponentTest {
     InventoryComponent testInventory4 = new InventoryComponent();
     int expectedQuantity = 1;
 
-    Entity testWeapon = WeaponFactory.createBaseWeapon();
+    Entity testWeapon = WeaponFactory.createTestDagger();
 
     testInventory4.addItem(testWeapon);
 
