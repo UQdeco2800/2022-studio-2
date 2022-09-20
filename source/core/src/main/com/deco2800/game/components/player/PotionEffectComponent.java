@@ -29,12 +29,13 @@ public class PotionEffectComponent extends Component {
         switch (effectType) {
             case "speed":
                 this.effectValue = 1.5f;
+                break;
             case "health":
                 this.effectValue = 1;
+                break;
             case "damageReduction":
                 this.effectValue = 2f;
-                default:
-                ;
+                break;
         }
     }
 
