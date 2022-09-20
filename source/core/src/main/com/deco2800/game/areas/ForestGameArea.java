@@ -79,6 +79,7 @@ public class ForestGameArea extends GameArea {
     "images/NPC/male_citizen/male_citizen.png",
     "images/level_1_tiledmap/32x32/rock.png",
     "images/level_1_tiledmap/32x32/column.png",
+    "images/Potions/health_potion.png",
     "images/Potions/defence_potion.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/playerTeleport.png",

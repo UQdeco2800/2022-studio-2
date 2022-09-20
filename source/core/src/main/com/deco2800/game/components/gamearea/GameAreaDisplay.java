@@ -134,7 +134,8 @@ public class GameAreaDisplay extends UIComponent {
                 float padding = 128 + 64;
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
-                Texture itemTexture = item.getComponent(TextureRenderComponent.class).getTexture();
+                Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
+//                Texture itemTexture = item.getComponent(TextureRenderComponent.class).getTexture();
                 TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
                 TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
                 ImageButton equippedItem = new ImageButton(itemTextureDrawable);
@@ -202,7 +203,8 @@ public class GameAreaDisplay extends UIComponent {
         items = inventory.getInventory();
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
-            Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
+            Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
+//            Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
             TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
             TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
             ImageButton item = new ImageButton(itemTextureDrawable);
@@ -265,7 +267,7 @@ public class GameAreaDisplay extends UIComponent {
                                                 case "Add to quick bar":
                                                     if (inventory.addQuickBarItems(currentItem))
                                                         inventoryGroup.removeActor(item);
-                                                        inventory.removeItem(currentItem);
+                                                    inventory.removeItem(currentItem);
                                                     break;
                                                 case "Add to crafting menu":
                                                     //Crafting team use this block to add items in crafting menu
