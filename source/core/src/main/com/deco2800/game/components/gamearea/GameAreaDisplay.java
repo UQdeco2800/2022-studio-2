@@ -109,6 +109,7 @@ public class GameAreaDisplay extends UIComponent {
 
   public String getGameAreaName() {
     return gameAreaName;
+
   }
 
     private void addActors() {
