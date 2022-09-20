@@ -777,7 +777,7 @@ public class ForestGameArea extends GameArea {
 
   @Override
   public void dispose() {
-    //super.dispose();
+    super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     logger.info("Unloading forest assets");
     this.unloadAssets();

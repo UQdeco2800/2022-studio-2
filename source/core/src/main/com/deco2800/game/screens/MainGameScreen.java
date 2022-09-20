@@ -52,7 +52,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] dialogueImg = {"images/NPC/Dialogue/dialogues2.png"};
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-  private final Entity player;
+  private Entity player;
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
@@ -164,7 +164,8 @@ public class MainGameScreen extends ScreenAdapter {
         return this.loadLevelOneMap();
       case 2:
         map.dispose();
-        return map = this.loadLevelTwoMap();
+        this.map = this.loadLevelTwoMap();
+        player = map.getPlayer();
       default:
     }
     return null;
