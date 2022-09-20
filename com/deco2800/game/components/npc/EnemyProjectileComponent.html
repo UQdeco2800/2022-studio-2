@@ -121,13 +121,19 @@ loadScripts(document, 'script');</script>
 <div class="block">Called when the entity is created and registered.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProjectileDirection(com.badlogic.gdx.math.Vector2)" class="member-name-link">setProjectileDirection</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;projectileDirection)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeProjectile(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)" class="member-name-link">removeProjectile</a><wbr>(com.badlogic.gdx.physics.box2d.Fixture&nbsp;me,
+ com.badlogic.gdx.physics.box2d.Fixture&nbsp;other)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the projectile's direction</div>
+<div class="block">Remove projectile from map</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setProjectileDirection(com.badlogic.gdx.math.Vector2)" class="member-name-link">setProjectileDirection</a><wbr>(com.badlogic.gdx.math.Vector2&nbsp;projectileDirection)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the projectile's direction</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the projectile to move in a certain direction at a certain speed
  and updates the projectile to keep moving at that speed.</div>
 </div>
@@ -199,6 +205,14 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>projectileDirection</code> - the vector direction of the projectile's movement</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="removeProjectile(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">
+<h3>removeProjectile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeProjectile</span><wbr><span class="parameters">(com.badlogic.gdx.physics.box2d.Fixture&nbsp;me,
+ com.badlogic.gdx.physics.box2d.Fixture&nbsp;other)</span></div>
+<div class="block">Remove projectile from map</div>
 </section>
 </li>
 </ul>
