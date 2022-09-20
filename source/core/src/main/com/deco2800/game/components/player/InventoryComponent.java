@@ -9,10 +9,10 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
-import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -137,13 +137,16 @@ public class InventoryComponent extends Component {
    * @param item item to remove
    * @requires getItemQuantity(item) >= 1
    */
-  public void removeItem(Entity item) {
+  public boolean removeItem(Entity item) {
+    boolean removed = false;
     int index = inventory.indexOf(item);
     --itemQuantity[index];
     if (getItemQuantity(item) == 0) {
       sortInventory(index, inventory, itemQuantity);
       inventory.remove(item);
+      removed = true;
     }
+    return removed;
   }
 
   /**
@@ -254,6 +257,27 @@ public class InventoryComponent extends Component {
     return equipables[index];
   }
 
+  /**
+   * Returns the items the player equipped
+   * @return the equipable array
+   */
+  public Entity[] getEquipables(){
+    return Arrays.copyOf(equipables,2);
+  }
+
+  /**
+   * Remove the item in the given itemSlot.
+   * @param itemSlot
+   * @return true if the item is correctly removed, false otherwise
+   */
+  public boolean removeEquipable(int itemSlot) {
+    boolean removed = false;
+    if (equipables[itemSlot] != null) {
+      equipables[itemSlot] = null;
+      removed = true;
+    }
+    return removed;
+  }
 
   /**
    * Equip the item and apply effect of the item to the player.
@@ -302,7 +326,7 @@ public class InventoryComponent extends Component {
       } else if (item.checkEntityType(EntityTypes.ARMOUR)){
         applyArmourEffect(item, unequipped);
       }
-      inventory.add(item);
+      addItem(item);
       equipables[itemSlot] = null;
       unequipped = true;
     }
@@ -317,7 +341,8 @@ public class InventoryComponent extends Component {
   public void toggleInventoryDisplay() {
     if (!inventoryIsOpened) {
       ServiceLocator.getInventoryArea().displayInventoryMenu();
-      ServiceLocator.getInventoryArea().showItem();
+      ServiceLocator.getInventoryArea().displayItems();
+      ServiceLocator.getInventoryArea().displayEquipables();
     } else {
       ServiceLocator.getInventoryArea().disposeInventoryMenu();
     }
