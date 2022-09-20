@@ -8,6 +8,7 @@ import com.deco2800.game.screens.DeathScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.screens.SettingsScreen;
+import com.deco2800.game.screens.SkillsTreeScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,6 +78,8 @@ public class GdxGame extends Game {
         return currentGameScreen;
       case SETTINGS:
         return new SettingsScreen(this);
+      case SkillsTree:
+        return new SkillsTreeScreen(this);
       case DEATH_SCREEN:
         DeathScreen deathScreen = new DeathScreen(this);
         return deathScreen;
@@ -86,7 +89,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN
+    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN, SkillsTree
   }
 
   /**

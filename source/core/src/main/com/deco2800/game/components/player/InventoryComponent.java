@@ -9,10 +9,10 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
-import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -137,13 +137,16 @@ public class InventoryComponent extends Component {
    * @param item item to remove
    * @requires getItemQuantity(item) >= 1
    */
-  public void removeItem(Entity item) {
+  public boolean removeItem(Entity item) {
+    boolean removed = false;
     int index = inventory.indexOf(item);
     --itemQuantity[index];
     if (getItemQuantity(item) == 0) {
       sortInventory(index, inventory, itemQuantity);
       inventory.remove(item);
+      removed = true;
     }
+    return removed;
   }
 
   /**
@@ -201,16 +204,43 @@ public class InventoryComponent extends Component {
    * Modify the player's stat according to the weapon stat.
    * Credit to Team 4
    * @param weapon the weapon that is going to be equipped on
+   * @param equip boolean to determine equip or unequip item
    */
-  private void applyWeaponEffect(Entity weapon) {
+  private void applyWeaponEffect(Entity weapon, boolean equip) {
     WeaponStatsComponent weaponStats;
+    PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
     if ((weaponStats = weapon.getComponent(MeleeStatsComponent.class)) != null) {
       MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
-      PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
-      //dk if requires dmg stat or not think about it
-      pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight()/15) //this would be < 1
-              , true, 0);
-      //for duration
+      if (equip) {
+        //Equip weapon
+        pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (meleeStats.getWeight()/15), true, 0);
+      } else {
+        //Unequip
+        pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (meleeStats.getWeight()*15), true, 0);
+      }
+    }
+  }
+
+  /**
+   * Modify the player's stat according to the armour stat.
+   *
+   * @param armour the armour that is equipped
+   * @param equip boolean to determine equip or unequip item
+   */
+  private void applyArmourEffect(Entity armour, boolean equip) {
+    ArmourStatsComponent armourStats;
+    PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
+    //Applying the weight of the armour to player
+    if ((armourStats = armour.getComponent(ArmourStatsComponent.class)) != null) {
+      if (equip) {
+        pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
+        pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float)armourStats.getPhyResistance(), true, 0);
+        pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float)armourStats.getVitality(), true, 0);
+      } else {
+        pmComponent.createModifier(PlayerModifier.MOVESPEED, 1 / (float)armourStats.getWeight(), true, 0);
+        pmComponent.createModifier(PlayerModifier.DMGREDUCTION, 1 / (float)armourStats.getPhyResistance(), true, 0);
+        pmComponent.createModifier(PlayerModifier.STAMINAMAX, 1 / (float)armourStats.getVitality(), true, 0);
+      }
     }
   }
 
@@ -225,23 +255,30 @@ public class InventoryComponent extends Component {
   }
 
   /**
-   * Waiting for stat modification implementation of armour
-   *
-   * @param armour the armour that is equipped
+   * Returns the items the player equipped
+   * @return the equipable array
    */
-  private void applyArmourEffect(Entity armour) {
-    ArmourStatsComponent armourStats = armour.getComponent(ArmourStatsComponent.class);
-    PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
-    //Applying the weight of the armour to player
-    pmComponent.createModifier(PlayerModifier.MOVESPEED, (float)armourStats.getWeight(), true, 0);
-    //Applying the physical resistance of the armour to player
-    pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float)armourStats.getPhyResistance(), true, 0);
-    pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float)armourStats.getVitality(), true, 0);
+  public Entity[] getEquipables(){
+    return Arrays.copyOf(equipables,2);
   }
 
   /**
-   * Assuming weapon's max quantity is one.
-   * PARTIALLY FINISHED
+   * Remove the item in the given itemSlot.
+   * @param itemSlot
+   * @return true if the item is correctly removed, false otherwise
+   */
+  public boolean removeEquipable(int itemSlot) {
+    boolean removed = false;
+    if (equipables[itemSlot] != null) {
+      equipables[itemSlot] = null;
+      removed = true;
+    }
+    return removed;
+  }
+
+  /**
+   * Equip the item and apply effect of the item to the player.
+   *
    * @param item the item to be equipped
    * NOTE: This should check if the player has equipped a weapon or amour.
    */
@@ -251,13 +288,15 @@ public class InventoryComponent extends Component {
       if (item.checkEntityType(EntityTypes.WEAPON) && equipables[0] == null) {
         equipables[0] = item;
         //Slot 1 - Reserved for combat items
-        applyWeaponEffect(item);
         equipped = true;
+        applyWeaponEffect(item, equipped);
       } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
         equipables[1] = item;
         //Slot 2 - Reserved for armour
-        applyArmourEffect(item);
         equipped = true;
+        applyArmourEffect(item, equipped);
+      } else {
+        logger.info("Slot is occupied");
       }
       if (equipped) removeItem(item);
     }
@@ -277,11 +316,16 @@ public class InventoryComponent extends Component {
     boolean unequipped = false;
     if (inventory.size() == inventorySize) {
       logger.info("Inventory if full, cannot unequip");
-    } else {
-      inventory.add(equipables[itemSlot]);
+    } else if (equipables[itemSlot] != null) {
+      Entity item = equipables[itemSlot];
+      if (item.checkEntityType(EntityTypes.WEAPON)){
+        applyWeaponEffect(item, unequipped);
+      } else if (item.checkEntityType(EntityTypes.ARMOUR)){
+        applyArmourEffect(item, unequipped);
+      }
+      addItem(item);
       equipables[itemSlot] = null;
       unequipped = true;
-      //Modify player stat
     }
     return unequipped;
   }
@@ -294,7 +338,8 @@ public class InventoryComponent extends Component {
   public void toggleInventoryDisplay() {
     if (!inventoryIsOpened) {
       ServiceLocator.getInventoryArea().displayInventoryMenu();
-      ServiceLocator.getInventoryArea().showItem();
+      ServiceLocator.getInventoryArea().displayItems();
+      ServiceLocator.getInventoryArea().displayEquipables();
     } else {
       ServiceLocator.getInventoryArea().disposeInventoryMenu();
     }

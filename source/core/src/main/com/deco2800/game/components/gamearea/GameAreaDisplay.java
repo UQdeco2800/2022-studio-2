@@ -31,6 +31,7 @@ import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.factories.ArmourFactory;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
@@ -128,10 +129,10 @@ public class GameAreaDisplay extends UIComponent {
    */
   public void displayInventoryMenu() {
       inventoryMenu = new Image(new Texture(Gdx.files.internal
-              ("images/Inventory/Inventory_Armor_V2.png")));
+              ("images/Inventory/Inventory_v3.png")));
       //Note: the position of the asset is at the bottom left.
-      inventoryMenu.setSize(768, 576 );
-      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth(),
+      inventoryMenu.setSize(1024, 768 );
+      inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
               Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
       inventoryGroup.addActor(inventoryMenu);
       stage.addActor(inventoryGroup);
@@ -139,13 +140,79 @@ public class GameAreaDisplay extends UIComponent {
   }
 
   /**
-   * Display each item in the inventory in the inventory storage blocks.
+   * Displays the items that the player has equipped.
+   */
+  public void displayEquipables(){
+    InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    for (Entity item: inventory.getEquipables()) {
+      if (item != null) {
+        int itemSlot;
+        float padding = 128 + 64;
+        final float horizontalPosition = (inventoryMenu.getX() + 696);
+        float verticalPosition;
+        Texture itemTexture = item.getComponent(TextureRenderComponent.class).getTexture();
+        TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
+        TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
+        ImageButton equippedItem = new ImageButton(itemTextureDrawable);
+        equippedItem.setSize(128, 128);
+
+        if (item.checkEntityType(EntityTypes.WEAPON)){
+          verticalPosition = inventoryMenu.getY() + 416;
+          itemSlot = 0;
+        } else {
+          verticalPosition = inventoryMenu.getY() + 416 - padding;
+          itemSlot = 1;
+        }
+        equippedItem.setPosition(horizontalPosition, verticalPosition);
+        equippedItem.addListener(new ChangeListener() {
+          @Override
+          public void changed(ChangeEvent event, Actor actor) {
+            TextButton unequipBtn = new TextButton("Unequip", skin);
+            TextButton dropItemBtn = new TextButton("Drop item", skin);
+            unequipBtn.setPosition(horizontalPosition, verticalPosition);
+            dropItemBtn.setPosition(horizontalPosition, verticalPosition - 50);
+            inventoryGroup.addActor(unequipBtn);
+            inventoryGroup.addActor(dropItemBtn);
+            unequipBtn.addListener(new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent event, Actor actor) {
+                if (inventory.unequipItem(itemSlot)) inventoryGroup.removeActor(equippedItem);
+                if (unequipBtn.isPressed() || dropItemBtn.isPressed()) {
+                  inventoryGroup.removeActor(unequipBtn);
+                  inventoryGroup.removeActor(dropItemBtn);
+                }
+              }
+            });
+            dropItemBtn.addListener(
+                    new ChangeListener() {
+                      @Override
+                      public void changed(ChangeEvent event, Actor actor) {
+                        if (inventory.removeEquipable(itemSlot)) inventoryGroup.removeActor(equippedItem);
+                        //Team 4, Call drop item function here
+                        if (unequipBtn.isPressed() || dropItemBtn.isPressed()) {
+                          inventoryGroup.removeActor(unequipBtn);
+                          inventoryGroup.removeActor(dropItemBtn);
+                        }
+                      }
+                    }
+            );
+            inventoryGroup.addActor(unequipBtn);
+            inventoryGroup.addActor(dropItemBtn);
+          }
+        });
+        inventoryGroup.addActor(equippedItem);
+      }
+    }
+  }
+
+  /**
+   * Displays each item in the inventory in the inventory storage blocks.
    * Implemented by Team 2.
    */
-  public void showItem() {
-    float padding = 12.5f;
-    InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-    System.out.println(inventory);
+
+  public void displayItems() {
+    float padding = 32f;
+    InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
     items = inventory.getInventory();
     for (int i = 0; i < items.size(); ++i) {
       Entity currentItem = items.get(i);
@@ -153,12 +220,11 @@ public class GameAreaDisplay extends UIComponent {
       TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
       TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
       ImageButton item = new ImageButton(itemTextureDrawable);
-      item.setSize(53, 53);
-      //187.5 and 360 are the magic numbers. DO NOT CHANGE!
+      item.setSize(64, 64);
       int row = i / 4;
       int column = i % 4;
-      float horizontalPosition = (inventoryMenu.getX() + 187.5f) + column * (padding + 53);
-      float verticalPosition = (inventoryMenu.getY() + 360) - row * (padding + 53);
+      float horizontalPosition = (inventoryMenu.getX() + 192) + column * (padding + 64);
+      float verticalPosition = (inventoryMenu.getY() + 496) - row * (padding + 64);
       item.setPosition(horizontalPosition, verticalPosition);
       // Triggers an event when the button is pressed.
       String buttonText;
@@ -175,9 +241,32 @@ public class GameAreaDisplay extends UIComponent {
           new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-              TextButton mainMenuBtn = new TextButton(buttonText, skin);
-              mainMenuBtn.setPosition(horizontalPosition, verticalPosition);
-              mainMenuBtn.addListener(
+//              Group dropDownMenuBtn = new Group();
+//              dropDownMenuBtn.addActor(itemOpBtn);
+//              dropDownMenuBtn.addActor(dropItemBtn);
+              TextButton itemOpBtn = new TextButton(buttonText, skin);
+              TextButton dropItemBtn = new TextButton("Drop item", skin);
+              itemOpBtn.setPosition(horizontalPosition, verticalPosition);
+              dropItemBtn.setPosition(horizontalPosition, verticalPosition - 50);
+              dropItemBtn.addListener(
+                      new ChangeListener() {
+                        @Override
+                        public void changed(ChangeEvent event, Actor actor) {
+                          if (inventory.removeItem(currentItem)) inventoryGroup.removeActor(item);
+                          //Team 4, Call drop item function here
+//                          Testing drop item function code
+//                          float x = inventory.getEntity().getPosition().x;
+//                          float y = inventory.getEntity().getPosition().y;
+//                          ServiceLocator.getEntityService().register(currentItem);
+//                          currentItem.setPosition(x , (float) (y - 1.2));
+                          if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
+                            inventoryGroup.removeActor(itemOpBtn);
+                            inventoryGroup.removeActor(dropItemBtn);
+                          }
+                        }
+                      }
+              );
+              itemOpBtn.addListener(
                       new ChangeListener() {
                         @Override
                         public void changed(ChangeEvent event, Actor actor) {
@@ -192,11 +281,16 @@ public class GameAreaDisplay extends UIComponent {
                               //Crafting team use this block to add items in crafting menu
                               break;
                           }
-                          if (mainMenuBtn.isChecked()) inventoryGroup.removeActor(mainMenuBtn);
+                          if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
+                            inventoryGroup.removeActor(itemOpBtn);
+                            inventoryGroup.removeActor(dropItemBtn);
+                          }
                         }
                       }
               );
-              inventoryGroup.addActor(mainMenuBtn);
+
+              inventoryGroup.addActor(itemOpBtn);
+              inventoryGroup.addActor(dropItemBtn);
             }
           });
       inventoryGroup.addActor(item);
@@ -205,10 +299,12 @@ public class GameAreaDisplay extends UIComponent {
 
   /**
    * Display each item in the inventory in the inventory storage blocks.
-   * Implemented by Team 2.
+   * Implemented by Peter.
    */
   public void displayItems(float padding, float pictureWidth, float pictureHeight) {
     InventoryComponent inventory =ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+    int craftingTableX = 0;
+    int craftingTableY = 0;
     items = inventory.getInventory();
     for (int i = 0; i < items.size(); ++i) {
       Entity currentItem = items.get(i);
@@ -220,8 +316,8 @@ public class GameAreaDisplay extends UIComponent {
       int row = i / 4;
       int column = i % 4;
       //These positions should be adjusted according to your crafting menu positions
-      float horizontalPosition = (inventoryMenu.getX() + 187.5f) + column * (padding + pictureWidth);
-      float verticalPosition = (inventoryMenu.getY() + 360) - row * (padding + pictureHeight);
+      float horizontalPosition = (inventoryMenu.getX() + craftingTableX) + column * (padding + pictureWidth);
+      float verticalPosition = (inventoryMenu.getY() + craftingTableY) - row * (padding + pictureHeight);
       item.setPosition(horizontalPosition, verticalPosition);
     }
   }

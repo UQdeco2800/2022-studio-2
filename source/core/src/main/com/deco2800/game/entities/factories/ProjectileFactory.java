@@ -5,20 +5,17 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.EnemyProjectileComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillProjectileComponent;
-import com.deco2800.game.components.tasks.ShootTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -33,6 +30,7 @@ public class ProjectileFactory {
      */
     public static Entity createBaseProjectile(Entity ownerEntity, Entity target) {
         EnemyProjectileComponent enemyProjectileComponent = new EnemyProjectileComponent();
+
         Entity projectile = new Entity()
                 .addComponent(new PhysicsComponent())
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
@@ -40,7 +38,6 @@ public class ProjectileFactory {
                 .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
                 .addComponent(new CombatStatsComponent(1, 1, 0, 0))
                 .addComponent(enemyProjectileComponent);
-        PhysicsUtils.setScaledCollider(projectile, 0.5f, 0.5f);
         projectile.setEntityType(EntityTypes.PROJECTILE);
         enemyProjectileComponent.setProjectileDirection(new Vector2(
                 target.getPosition().x - ownerEntity.getPosition().x,
@@ -60,6 +57,12 @@ public class ProjectileFactory {
         Entity poops = createBaseProjectile(ownerEntity, target);
         poops.addComponent(new TextureRenderComponent("images/Enemies/poopSludge.png"))
                 .getComponent(TextureRenderComponent.class).scaleEntity();
+
+        //Make hitbox and collider correct size.
+        //The size values come from dividing the poop sludge's actual size by the total 64x64 sprite size
+        //The alignment values come from 1/64 multiplied by the center point of the poop sludge (Since the poop sludge sprite is slightly off center)
+        poops.getComponent(ColliderComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
+        poops.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
         poops.setEntityType(EntityTypes.ENEMY);
 
         poops.setScale(2,2);
@@ -76,6 +79,15 @@ public class ProjectileFactory {
         Entity discus = createBaseProjectile(ownerEntity, target);
         discus.addComponent(new TextureRenderComponent("images/Enemies/discus.png"))
                 .getComponent(TextureRenderComponent.class).scaleEntity();
+
+        //Make hitbox and collider correct size
+        //The size values come from dividing the discus' actual size by the total 64x64 sprite size
+        //The alignment is center because the discus is in the center of its sprite
+        discus.getComponent(ColliderComponent.class).setAsBoxAligned(new Vector2(0.28f, 0.125f),
+                PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.CENTER);
+        discus.getComponent(HitboxComponent.class).setAsBoxAligned(new Vector2(0.28f, 0.125f),
+                PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.CENTER);
+
         discus.setEntityType(EntityTypes.ENEMY);
         discus.setScale(2,2);
         return discus;

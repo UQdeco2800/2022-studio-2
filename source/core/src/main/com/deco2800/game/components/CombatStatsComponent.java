@@ -359,7 +359,7 @@ public class CombatStatsComponent extends Component {
 
     if (getEntity().checkEntityType(EntityTypes.PLAYER)) {
 
-      // check equippable, which weapon is equipped and drop that one
+      // check equipable, which weapon is equipped and drop that one
 
       Entity newWeapon = WeaponFactory.createDagger();
 
