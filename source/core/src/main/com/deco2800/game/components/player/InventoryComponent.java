@@ -7,6 +7,7 @@ import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
@@ -87,7 +88,7 @@ public class InventoryComponent extends Component {
      */
     public boolean hasItem(Entity item, List<Entity> storage) {
         for (Entity other: storage) {
-            if (itemequals(item, other)) {
+            if (itemEquals(item, other)) {
                 return true;
             }
         }
@@ -104,7 +105,7 @@ public class InventoryComponent extends Component {
     public int getItemIndex(Entity item, List<Entity> storage) {
         int index = -1;
         for (int i = 0; i < storage.size(); ++i) {
-            if (itemequals(item, storage.get(i))) index = i;
+            if (itemEquals(item, storage.get(i))) index = i;
         }
         return index;
     }
@@ -307,7 +308,7 @@ public class InventoryComponent extends Component {
     /**
      * Remove the item in the given itemSlot.
      *
-     * @param itemSlot
+     * @param itemSlot int
      * @return true if the item is correctly removed, false otherwise
      */
     public boolean removeEquipable(int itemSlot) {
@@ -353,7 +354,6 @@ public class InventoryComponent extends Component {
      *
      * @param itemSlot the index of the item slot
      * @requires itemSlot >= 0 and itemSlot less than or equal to 1
-     * NOT FINISHED!!!!!
      */
     public boolean unequipItem(int itemSlot) {
         boolean unequipped = false;
@@ -401,23 +401,27 @@ public class InventoryComponent extends Component {
 
     /**
      * Check if two items are the same kind
+     *
      * @param item the item to be checked
      * @param other the comparison item
      * @return true if two items are the same type, false otherwise
      */
-    public boolean itemequals (Entity item, Entity other) {
+    public boolean itemEquals (Entity item, Entity other) {
         boolean equals = false;
         if (item.checkEntityType(EntityTypes.POTION)
         && other.checkEntityType(EntityTypes.POTION)){
             equals = item.getComponent(PotionEffectComponent.class).equals(other);
-            logger.info(String.format("%s", equals));
         } else if (item.checkEntityType(EntityTypes.ARMOUR)
         && other.checkEntityType(EntityTypes.ARMOUR)) {
             equals = item.getComponent(ArmourStatsComponent.class)
                     .equals(other.getComponent(ArmourStatsComponent.class));
-        } else if (item.checkEntityType(EntityTypes.WEAPON)) {
-            //Partially implemented since each weapon will be only spawned once
-            equals = item.getId() == other.getId();
+        } else if (item.checkEntityType(EntityTypes.WEAPON)
+        && other.checkEntityType(EntityTypes.WEAPON)) {
+//            Better for testing since there will be no render component
+//            equals = item.getComponent(MeleeStatsComponent.class)
+//                    .equals(other.getComponent(MeleeStatsComponent.class));
+            equals = item.getComponent(TextureRenderComponent.class).getTexturePath()
+                    .equals(other.getComponent(TextureRenderComponent.class).getTexturePath());
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
         && other.checkEntityType(EntityTypes.CRAFTABLE)){
             for (EntityTypes type: other.getEntityTypes()) {
@@ -431,6 +435,7 @@ public class InventoryComponent extends Component {
 
     /**
      * Adding potion to the quickbar.
+     *
      * @param potion the potion to be added
      */
     public boolean addQuickBarItems(Entity potion) {
@@ -458,6 +463,21 @@ public class InventoryComponent extends Component {
     }
 
     /**
+     * Returns the index of the potion in the quickbar.
+     *
+     * @param potion the potion in the quickbar.
+     * @return index of the potion, -1 if potion does not exist
+     */
+    public int getPotionIndex(Entity potion) {
+        for (int i = 0; i < quickBarItems.size(); ++i) {
+            if (quickBarItems.get(i).getComponent(PotionEffectComponent.class).equals(potion)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Removes the potion from the quickbar based on the input index
      *
      * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
@@ -470,9 +490,7 @@ public class InventoryComponent extends Component {
     /**
      * Consume the potion from quickbar based on the input index.
      *
-     * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
-     *                   NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
-     *                   ****STILL NEEDS TO BE FIXED.****
+     * @param inputIndex the index that is returned from user actions
      */
     public void consumePotion(int inputIndex) {
         //Does nothing if there is no potion on the selected slot or the quantity < 1

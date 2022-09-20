@@ -113,21 +113,22 @@ class InventoryComponentTest {
     assertEquals(player.getComponent(InventoryComponent.class).getQuickBarItems(), expectedList);
   }
 
-//  @Test
-//  void removePotion() {
-//    InventoryComponent testInventory6 = new InventoryComponent();
-//    List<Entity> expectedList = new ArrayList<>(16);
-//
-//    Entity testPotion = PotionFactory.createBasePotion();
-//
-//    expectedList.add(testPotion);
-//    testInventory6.addItem(testPotion);
-//
-//    expectedList.remove(testPotion);
-//    testInventory6.removePotion();
-//
-//    assertEquals(testInventory6.getInventory(), expectedList);
-//  }
+  @Test
+  void removePotion() {
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent testInventory6 = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+
+    expectedList.add(testSpeedPotion);
+    testInventory6.addQuickBarItems(testSpeedPotion);
+
+    expectedList.remove(testSpeedPotion);
+    testInventory6.removePotion(testInventory6.getPotionIndex(testSpeedPotion));
+
+    assertEquals(testInventory6.getInventory(), expectedList);
+  }
 //
 //  @Test
 //  void consumePotion() {
