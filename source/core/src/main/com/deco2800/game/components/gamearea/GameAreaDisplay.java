@@ -93,6 +93,10 @@ public class GameAreaDisplay extends UIComponent {
     ServiceLocator.registerPauseArea(this);
   }
 
+  public String getGameAreaName() {
+    return gameAreaName;
+  }
+
   @Override
   public void create() {
     super.create();
