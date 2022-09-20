@@ -3,11 +3,15 @@ package com.deco2800.game.entities;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
+import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.ComponentType;
 import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.events.EventHandler;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -257,8 +261,26 @@ public class Entity {
     if (!enabled) {
       return;
     }
+    boolean timeStopped = EntityService.isTimeStopped();
     for (Component component : createdComponents) {
-      component.triggerEarlyUpdate();
+      if (!timeStopped) {
+
+        component.triggerEarlyUpdate();
+      } else {
+
+        if (component instanceof CameraComponent ||
+            component instanceof CombatStatsComponent ||
+            component instanceof PlayerActions ||
+            component instanceof KeyboardPlayerInputComponent ||
+            component instanceof PlayerSkillProjectileComponent ||
+            component instanceof PlayerSkillAnimationController ||
+            component instanceof PlayerCombatAnimationController ||
+            component instanceof PlayerModifier ||
+            component instanceof PhysicsComponent ) {
+
+          component.triggerEarlyUpdate();
+        }
+      }
     }
   }
 
@@ -273,8 +295,56 @@ public class Entity {
     if (isDead) {
       dispose();
     }
+    boolean timeStopped = EntityService.isTimeStopped();
     for (Component component : createdComponents) {
-      component.triggerUpdate();
+      if (!timeStopped) {
+
+        component.triggerUpdate();
+
+      } else {
+        if (component instanceof CameraComponent ||
+                component instanceof CombatStatsComponent ||
+                component instanceof PlayerActions ||
+                component instanceof KeyboardPlayerInputComponent ||
+                component instanceof PlayerSkillProjectileComponent ||
+                component instanceof PlayerSkillAnimationController ||
+                component instanceof PlayerCombatAnimationController ||
+                component instanceof PlayerModifier ||
+                component instanceof PhysicsComponent) {
+
+          component.triggerUpdate();
+        }
+      }
+    }
+  }
+
+  /**
+   * Pauses all animations of registered entities. Can selectively
+   * pause the player entity and player related entities, on the following conditions of
+   * those entities:
+   * To Pause player entity - must have KeyBoardPlayerInput Component
+   * To Pause skill animator entity - must have PlayerSkillAnimationController
+   * To Pause combat animator entity - must have PlayerCombatAnimationController
+   * To Pause player projectile animator entity - must have PlayerSkillProjectileComponent
+   * @param pausePlayer true if the player and player related entities should be paused
+   *                    false if the player and player related entities should remain active
+   *                    while pausing other animations
+   */
+  public void togglePauseAnimations(boolean pausePlayer) {
+    if (!pausePlayer) {
+      for (Component component : createdComponents) {
+        if (component instanceof KeyboardPlayerInputComponent ||
+               component instanceof PlayerSkillAnimationController ||
+               component instanceof PlayerSkillProjectileComponent ||
+               component instanceof PlayerCombatAnimationController) {
+          return;
+        }
+      }
+    }
+    for (Component component : createdComponents) {
+      if (component instanceof AnimationRenderComponent) {
+        ((AnimationRenderComponent) component).togglePauseAnimation();
+      }
     }
   }
 
