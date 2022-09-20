@@ -306,6 +306,11 @@ public class ForestGameArea extends GameArea {
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
 
+  public static void removeProjectileOnMap(Entity entityToRemove) {
+    entityToRemove.setEnabled(false);
+    Gdx.app.postRunnable(() -> entityToRemove.dispose());
+  }
+
   /**
    * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
    */
