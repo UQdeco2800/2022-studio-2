@@ -106,9 +106,16 @@ public class GameAreaDisplay extends UIComponent {
         stage.addActor(title);
     }
 
+    public void updateInventoryDisplay() {
+        inventoryGroup.clear();
+        ServiceLocator.getInventoryArea().displayInventoryMenu();
+        ServiceLocator.getInventoryArea().displayItems();
+        ServiceLocator.getInventoryArea().displayEquipables();
+    }
+
     /**
      * Displays the inventory UI.
-     * <p>
+     *
      * INVENTORY_DISPLAY Self-made tag for the ease of searching
      */
     public void displayInventoryMenu() {
@@ -161,8 +168,10 @@ public class GameAreaDisplay extends UIComponent {
                         unequipBtn.addListener(new ChangeListener() {
                             @Override
                             public void changed(ChangeEvent event, Actor actor) {
-                                if (inventory.unequipItem(itemSlot))
+                                if (inventory.unequipItem(itemSlot)) {
                                     inventoryGroup.removeActor(equippedItem);
+                                    updateInventoryDisplay();
+                                }
                                 if (unequipBtn.isPressed() || dropItemBtn.isPressed()) {
                                     inventoryGroup.removeActor(unequipBtn);
                                     inventoryGroup.removeActor(dropItemBtn);
@@ -173,8 +182,10 @@ public class GameAreaDisplay extends UIComponent {
                                 new ChangeListener() {
                                     @Override
                                     public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.removeEquipable(itemSlot))
+                                        if (inventory.removeEquipable(itemSlot)) {
                                             inventoryGroup.removeActor(equippedItem);
+                                            updateInventoryDisplay();
+                                        }
                                         //Team 4, Call drop item function here
                                         if (unequipBtn.isPressed() || dropItemBtn.isPressed()) {
                                             inventoryGroup.removeActor(unequipBtn);
@@ -240,8 +251,10 @@ public class GameAreaDisplay extends UIComponent {
                                     new ChangeListener() {
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-                                            if (inventory.removeItem(currentItem))
+                                            if (inventory.removeItem(currentItem)) {
                                                 inventoryGroup.removeActor(item);
+                                                updateInventoryDisplay();
+                                            }
                                             //Team 4, Call drop item function here
 //                          Testing drop item function code
 //                          float x = inventory.getEntity().getPosition().x;
@@ -261,13 +274,15 @@ public class GameAreaDisplay extends UIComponent {
                                         public void changed(ChangeEvent event, Actor actor) {
                                             switch (buttonText) {
                                                 case "Equip item":
-                                                    if (inventory.equipItem(currentItem))
-                                                        inventoryGroup.removeActor(item);
+                                                    if (inventory.equipItem(currentItem)) {
+                                                        updateInventoryDisplay();
+                                                    }
                                                     break;
                                                 case "Add to quick bar":
-                                                    if (inventory.addQuickBarItems(currentItem))
-                                                        inventoryGroup.removeActor(item);
-                                                    inventory.removeItem(currentItem);
+                                                    if (inventory.addQuickBarItems(currentItem)) {
+                                                        inventory.removeItem(currentItem);
+                                                        updateInventoryDisplay();
+                                                    }
                                                     break;
                                                 case "Add to crafting menu":
                                                     //Crafting team use this block to add items in crafting menu

@@ -252,10 +252,10 @@ public class InventoryComponent extends Component {
             MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
             if (equip) {
                 //Equip weapon
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (meleeStats.getWeight() / 15), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0);
             } else {
                 //Unequip
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (meleeStats.getWeight() * 15), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) (meleeStats.getWeight() / 15), false, 0);
             }
         }
     }
@@ -272,15 +272,13 @@ public class InventoryComponent extends Component {
         //Applying the weight of the armour to player
         if ((armourStats = armour.getComponent(ArmourStatsComponent.class)) != null) {
             if (equip) {
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) armourStats.getWeight(), true
-                        , 0);
-                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), true, 0);
-                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, (-(float) armourStats.getWeight() / 10), true, 0);
+//                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
+//                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
             } else {
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, 15 / (float) armourStats.getWeight(),
-                        true, 0);
-                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, 1 / (float) armourStats.getPhyResistance(), true, 0);
-                pmComponent.createModifier(PlayerModifier.STAMINAMAX, 1 / (float) armourStats.getVitality(), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10,false, 0);
+//                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
+//                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
             }
         }
     }
@@ -444,10 +442,10 @@ public class InventoryComponent extends Component {
         boolean added = false;
 
         if (hasPotion) {
-            logger.info("Added 1 to an existing potion");
             if(quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
+                logger.info("Added 1 to an existing potion");
             }
         } else {
             if (quickBarItems.size() == quickBarSize)  // Check if inventory is full
