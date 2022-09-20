@@ -80,8 +80,6 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">InventoryComponent</span>
 <span class="extends-implements">extends <a href="../Component.html" title="class in com.deco2800.game.components">Component</a></span></div>
 <div class="block">A component intended to be used by the player to track their inventory.
-
- Currently only stores the items that implement the Buildable interface. IN_PROGRESS
  Can also be used as a more generic component for other entities.</div>
 </section>
 <section class="summary">
@@ -161,39 +159,42 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the current inventory</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemQuantity(int)" class="member-name-link">getItemQuantity</a><wbr>(int&nbsp;index)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemIndex(com.deco2800.game.entities.Entity,java.util.List)" class="member-name-link">getItemIndex</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;&nbsp;storage)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the item's quantity</div>
+<div class="block">Returns the index in the storage if there is one with the same Entity type</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemQuantity(com.deco2800.game.entities.Entity)" class="member-name-link">getItemQuantity</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemQuantity(int)" class="member-name-link">getItemQuantity</a><wbr>(int&nbsp;index)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the item's quantity</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotion(com.deco2800.game.entities.Entity)" class="member-name-link">getPotion</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the potion Entity with the same type of effect.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotion(java.lang.String)" class="member-name-link">getPotion</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the potion Entity with the same type of effect.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotionIndex(com.deco2800.game.entities.Entity)" class="member-name-link">getPotionIndex</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemQuantity(com.deco2800.game.entities.Entity)" class="member-name-link">getItemQuantity</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the index of the potion in the quickbar.</div>
+<div class="block">Returns the item's quantity</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotionIndex(java.lang.String)" class="member-name-link">getPotionIndex</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPotionIndex(com.deco2800.game.entities.Entity)" class="member-name-link">getPotionIndex</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the index of the potion if there exists a potion with the same effect.</div>
+<div class="block">Returns the index of the potion in the quickbar.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getQuickBarItems()" class="member-name-link">getQuickBarItems</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the current quick bar items</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hasItem(com.deco2800.game.entities.Entity,java.util.List)" class="member-name-link">hasItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;&nbsp;storage)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if there is an item with the same type in the storage</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#itemEquals(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)" class="member-name-link">itemEquals</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ <a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;other)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Check if two items are the same kind</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeEquipable(int)" class="member-name-link">removeEquipable</a><wbr>(int&nbsp;itemSlot)</code></div>
@@ -283,6 +284,36 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="hasItem(com.deco2800.game.entities.Entity,java.util.List)">
+<h3>hasItem</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">hasItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;&nbsp;storage)</span></div>
+<div class="block">Checks if there is an item with the same type in the storage</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>item</code> - the Entity to be checked</dd>
+<dd><code>storage</code> - the List of storage(e.g. can be quick bar, inventory)</dd>
+<dt>Returns:</dt>
+<dd>true if there is a same kind of Entity, false otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getItemIndex(com.deco2800.game.entities.Entity,java.util.List)">
+<h3>getItemIndex</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getItemIndex</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;&nbsp;storage)</span></div>
+<div class="block">Returns the index in the storage if there is one with the same Entity type</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>item</code> - item to be found</dd>
+<dd><code>storage</code> - the List of storage(e.g. can be quick bar, inventory)</dd>
+<dt>Returns:</dt>
+<dd>index of the item, or -1 if item is not in the storage</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="addItem(com.deco2800.game.entities.Entity)">
 <h3>addItem</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</span></div>
@@ -298,7 +329,7 @@ loadScripts(document, 'script');</script>
 <h3>addItem</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addItem</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
  int&nbsp;quantity)</span></div>
-<div class="block">Adds item to player's inventory with the specified quantity.</div>
+<div class="block">Adds item to player's inventory with the specified quantity. Use this for testing purposes</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>item</code> - item to add</dd>
@@ -312,7 +343,8 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sortInventory</span><wbr><span class="parameters">(int&nbsp;index,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&nbsp;list,
  int[]&nbsp;quantity)</span></div>
-<div class="block">Sort the item quantity array once an item is removed from the inventory.</div>
+<div class="block">Sort the item quantity array once an item is removed from the inventory.
+      *</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>index</code> - index of the item</dd>
@@ -422,7 +454,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Remove the item in the given itemSlot.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>itemSlot</code> - </dd>
+<dd><code>itemSlot</code> - int</dd>
 <dt>Returns:</dt>
 <dd>true if the item is correctly removed, false otherwise</dd>
 </dl>
@@ -436,7 +468,7 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>item</code> - the item to be equipped
- NOTE: This should check if the player has equipped a weapon or amour.</dd>
+             NOTE: This should check if the player has equipped a weapon or amour.</dd>
 </dl>
 </section>
 </li>
@@ -450,8 +482,7 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>itemSlot</code> - the index of the item slot</dd>
 <dt>Requires:</dt>
-<dd>itemSlot >= 0 and itemSlot less than or equal to 1
- NOT FINISHED!!!!!</dd>
+<dd>itemSlot >= 0 and itemSlot less than or equal to 1</dd>
 </dl>
 </section>
 </li>
@@ -478,41 +509,28 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getPotion(java.lang.String)">
-<h3>getPotion</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">getPotion</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</span></div>
-<div class="block">Returns the potion Entity with the same type of effect.</div>
+<section class="detail" id="itemEquals(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)">
+<h3>itemEquals</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">itemEquals</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item,
+ <a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;other)</span></div>
+<div class="block">Check if two items are the same kind</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>effectType</code> - the effect type of potion</dd>
+<dd><code>item</code> - the item to be checked</dd>
+<dd><code>other</code> - the comparison item</dd>
 <dt>Returns:</dt>
-<dd>potion with the specified effect, null if there is none</dd>
+<dd>true if two items are the same type, false otherwise</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="getPotion(com.deco2800.game.entities.Entity)">
-<h3>getPotion</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">getPotion</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
-<div class="block">Returns the potion Entity with the same type of effect.</div>
+<section class="detail" id="addQuickBarItems(com.deco2800.game.entities.Entity)">
+<h3>addQuickBarItems</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">addQuickBarItems</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
+<div class="block">Adding potion to the quickbar.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>potion</code> - </dd>
-<dt>Returns:</dt>
-<dd>potion with the same effect, null if there is none</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getPotionIndex(java.lang.String)">
-<h3>getPotionIndex</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getPotionIndex</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;effectType)</span></div>
-<div class="block">Returns the index of the potion if there exists a potion with the same effect.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>effectType</code> - the potion effect</dd>
-<dt>Returns:</dt>
-<dd>index of the potion, -1 if potion does not exist</dd>
+<dd><code>potion</code> - the potion to be added</dd>
 </dl>
 </section>
 </li>
@@ -527,14 +545,6 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>index of the potion, -1 if potion does not exist</dd>
 </dl>
-</section>
-</li>
-<li>
-<section class="detail" id="addQuickBarItems(com.deco2800.game.entities.Entity)">
-<h3>addQuickBarItems</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">addQuickBarItems</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;potion)</span></div>
-<div class="block">Adding potion to the quickbar.
- DEBUGGING</div>
 </section>
 </li>
 <li>
@@ -555,9 +565,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Consume the potion from quickbar based on the input index.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>inputIndex</code> - the index that is returned from user actions(TO BE IMPLEMENTED)
- NOTE: I have changed the accessor of applyEffect in PotionEffectComponent to make this compile.
-                   ****STILL NEEDS TO BE FIXED.****</dd>
+<dd><code>inputIndex</code> - the index that is returned from user actions</dd>
 </dl>
 </section>
 </li>
