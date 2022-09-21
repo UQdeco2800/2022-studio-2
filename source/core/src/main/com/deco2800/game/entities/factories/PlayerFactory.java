@@ -7,6 +7,7 @@ import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
+import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -68,7 +69,8 @@ public class PlayerFactory {
             .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
             .addComponent(animator)
-            .addComponent(new PlayerAnimationController());
+            .addComponent(new PlayerAnimationController())
+            .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER));
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
@@ -92,7 +94,8 @@ public class PlayerFactory {
                     .addComponent(new InventoryComponent())
                     .addComponent(new PlayerModifier())
                     .addComponent(new OpenCraftingComponent())
-                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER));
+                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER))
+                    .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER));
     return player;
   }
 
