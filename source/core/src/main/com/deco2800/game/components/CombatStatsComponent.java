@@ -97,6 +97,8 @@ public class CombatStatsComponent extends Component {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
+    System.out.println("Setting health " + this.health);
+
   }
 
   /**

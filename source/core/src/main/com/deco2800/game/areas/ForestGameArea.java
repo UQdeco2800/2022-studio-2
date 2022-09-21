@@ -79,6 +79,7 @@ public class ForestGameArea extends GameArea {
     "images/NPC/male_citizen/male_citizen.png",
     "images/level_1_tiledmap/32x32/rock.png",
     "images/level_1_tiledmap/32x32/column.png",
+    "images/Potions/health_potion.png",
     "images/Potions/defence_potion.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/playerTeleport.png",
@@ -218,12 +219,13 @@ public class ForestGameArea extends GameArea {
 //    spawnColumn(30, 20);
     playMusic();
     spawnSpeedPotion();
+    spawnHealthPotion();
 
 
     spawnDumbbell();
     spawnArmour(ArmourFactory.ArmourType.slowDiamond, 16, 16);
     spawnArmour(ArmourFactory.ArmourType.baseArmour, 5, 5);
-    spawnArmour(ArmourFactory.ArmourType.fastLeather, 36, 36);
+    spawnArmour(ArmourFactory.ArmourType.fastLeather, 7, 7);
     spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
 
     spawnSpeedDebuff();
@@ -238,7 +240,7 @@ public class ForestGameArea extends GameArea {
 
   private void displayUI() {
     Entity ui = new Entity();
-    ui.addComponent(new GameAreaDisplay("Box Forest"));
+    ui.addComponent(new GameAreaDisplay("Forest"));
     spawnEntity(ui);
   }
 
@@ -464,9 +466,15 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 23
    */
   private void spawnSpeedPotion() {
-    Entity speedPotion =PotionFactory.createSpeedPotion();
+    Entity speedPotion = PotionFactory.createSpeedPotion();
     ItemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(30, 23), true, false);
+    spawnEntityAt(speedPotion, new GridPoint2(20, 0), true, false);
+  }
+
+  private void spawnHealthPotion() {
+    Entity speedPotion = PotionFactory.createHealthPotion();
+    ItemsOnMap.add(speedPotion);
+    spawnEntityAt(speedPotion, new GridPoint2(10, 0), true, false);
   }
 
   /**
@@ -565,8 +573,10 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity potion = PotionFactory.createSpeedPotion();
-    this.spawnEntityAt(potion, randomPos, true, false);
+//    Entity potion = PotionFactory.createSpeedPotion();
+//    this.spawnEntityAt(potion, randomPos, true, false);
+    Entity potion = PotionFactory.createDamageReductionPotion();
+    this.spawnEntityAt(potion, new GridPoint2(5,5), true, false);
   }
 
   /**
@@ -611,6 +621,19 @@ public class ForestGameArea extends GameArea {
    */
   public void spawnPlayerProjectileSpray() {
     double[] sprayAngles = {0,0.25,0.5,0.75,1,1.25,1.5,1.75};
+    for (int i = 0; i < sprayAngles.length; ++i) {
+      Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
+      spawnEntityAt(newProjectile,
+              new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+              true, true);
+    }
+  }
+
+  /**
+   * Spawns a spray of projectiles at the player entity's coordinates.
+   */
+  public void spawnPlayerProjectileCone() {
+    double[] sprayAngles = {0,0.05,0.1,1.9,1.95};
     for (int i = 0; i < sprayAngles.length; ++i) {
       Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
       spawnEntityAt(newProjectile,
