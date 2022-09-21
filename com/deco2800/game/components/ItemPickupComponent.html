@@ -101,7 +101,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(short)" class="member-name-link">ItemPickupComponent</a><wbr>(short&nbsp;targetLayer)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a component which allows an entity to be picked up from the map and put in inventory</div>
+</div>
 </div>
 </section>
 </li>
@@ -120,6 +122,12 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called when the entity is created and registered.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pickUpJunit(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)" class="member-name-link">pickUpJunit</a><wbr>(com.badlogic.gdx.physics.box2d.Fixture&nbsp;me,
+ com.badlogic.gdx.physics.box2d.Fixture&nbsp;other)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Pickup function used purely for Junit testing only.</div>
 </div>
 </div>
 </div>
@@ -145,6 +153,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(short)">
 <h3>ItemPickupComponent</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ItemPickupComponent</span><wbr><span class="parameters">(short&nbsp;targetLayer)</span></div>
+<div class="block">Creates a component which allows an entity to be picked up from the map and put in inventory</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>targetLayer</code> - The physics layer of the target's collider.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -165,6 +178,19 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="Component.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="Component.html" title="class in com.deco2800.game.components">Component</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="pickUpJunit(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">
+<h3>pickUpJunit</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">pickUpJunit</span><wbr><span class="parameters">(com.badlogic.gdx.physics.box2d.Fixture&nbsp;me,
+ com.badlogic.gdx.physics.box2d.Fixture&nbsp;other)</span></div>
+<div class="block">Pickup function used purely for Junit testing only.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>me</code> - Fixture of the weapon that implements this component.</dd>
+<dd><code>other</code> - Fixture of the entity that is colliding with this weapon on the map.</dd>
 </dl>
 </section>
 </li>
