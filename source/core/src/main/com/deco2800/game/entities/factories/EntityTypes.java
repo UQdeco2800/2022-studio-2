@@ -22,4 +22,5 @@ public enum EntityTypes {
     PLATINUM,
     SILVER,
     NPC,
+    CRAFTINGTABLE,
 }

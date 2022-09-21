@@ -435,6 +435,7 @@ public class ForestGameArea extends GameArea {
 
   public void spawnCraftingTable() {
     Entity craftingTable = ObstacleFactory.createCraftingTable();
+    craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
     spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
   }
 

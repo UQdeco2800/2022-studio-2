@@ -53,6 +53,10 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
             logger.info("TEST KEY PROMPT NPC PRESS G TO CLOSE DIALOGUE");
         }
 
+        else if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.CRAFTINGTABLE)){
+            logger.info("TEST KEY PROMPT CRAFTING PRESS Q TO CRAFT");
+        }
+
     }
 
 }
