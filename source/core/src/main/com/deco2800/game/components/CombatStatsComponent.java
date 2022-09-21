@@ -97,6 +97,8 @@ public class CombatStatsComponent extends Component {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
+    System.out.println("Setting health " + this.health);
+
   }
 
   /**
@@ -359,7 +361,7 @@ public class CombatStatsComponent extends Component {
 
     if (getEntity().checkEntityType(EntityTypes.PLAYER)) {
 
-      // check equippable, which weapon is equipped and drop that one
+      // check equipable, which weapon is equipped and drop that one
 
       Entity newWeapon = WeaponFactory.createDagger();
 
