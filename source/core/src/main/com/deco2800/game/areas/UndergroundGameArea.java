@@ -42,14 +42,7 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/wall_edge.png",
             "images/level_2_tiledmap/wall_side.png",
             "images/level_2_tiledmap/water.png",
-            "images/ghost_king.png",
             "images/NPC/friendly_creature npc/Friendly_creature.png",
-            "images/ghost_1.png",
-            "images/grass_1.png",
-            "images/grass_2.png",
-            "images/grass_3.png",
-            "images/level_2_tiledmap/32x32/grass.png",
-            "images/level_2_tiledmap/32x32/purple_cobble.png",
             "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
             "images/Crafting-assets-sprint1/materials/gold.png",
             "images/Crafting-assets-sprint1/materials/platinum.png",
@@ -81,8 +74,7 @@ public class UndergroundGameArea extends GameArea {
     };
 
     public static String[] newTextures;
-    private static final String[] undergroundTextureAtlases = {
-            "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
+    private static final String[] undergroundTextureAtlases = {"images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas"
 
@@ -97,9 +89,10 @@ public class UndergroundGameArea extends GameArea {
     private static GridPoint2 craftingTablePos;
 
 
-    public UndergroundGameArea(TerrainFactory terrainFactory) {
+    public UndergroundGameArea(TerrainFactory terrainFactory, Entity player) {
         super();
         this.terrainFactory = terrainFactory;
+        this.player = player;
 
         ServiceLocator.registerGameArea(this);
     }
@@ -119,7 +112,6 @@ public class UndergroundGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         spawnCraftingTable();
-        player = spawnPlayer();
         playMusic();
     }
 
