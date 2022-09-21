@@ -173,7 +173,7 @@ public class MainGameScreen extends ScreenAdapter {
   private UndergroundGameArea loadLevelTwoMap() {
 
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
+    UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory, player);
 
     undergroundGameArea.create();
     return undergroundGameArea;
