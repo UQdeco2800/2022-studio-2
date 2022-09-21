@@ -127,7 +127,7 @@ public class UndergroundGameArea extends GameArea {
 
     private void displayUI() {
         Entity ui = new Entity();
-        ui.addComponent(new GameAreaDisplay("Box Underground"));
+        ui.addComponent(new GameAreaDisplay("Underground"));
         spawnEntity(ui);
     }
 

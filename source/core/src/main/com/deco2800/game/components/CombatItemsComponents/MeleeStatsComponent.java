@@ -61,5 +61,16 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
                            }
                        }
                 , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
-        }
+    }
+
+    /**
+     * Checks if two melee weapons are the same
+     * @param other other melee weapon
+     * @return true if they have the same stat, false otherwise
+     */
+    public boolean equals(MeleeStatsComponent other) {
+        return this.damage == other.getDamage()
+                && this.weight == other.getWeight()
+                && this.coolDown == other.getCoolDown();
+    }
 }

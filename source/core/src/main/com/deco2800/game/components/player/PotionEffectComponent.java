@@ -8,6 +8,7 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 
+import static com.deco2800.game.components.player.PlayerModifier.DMGREDUCTION;
 import static com.deco2800.game.components.player.PlayerModifier.MOVESPEED;
 import static java.util.Objects.isNull;
 
@@ -19,6 +20,7 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Component that affects entities on collision.
+     *
      * @param targetLayer The physics layer of the target's collider.
      */
 
@@ -28,8 +30,15 @@ public class PotionEffectComponent extends Component {
         switch (effectType) {
             case "speed":
                 this.effectValue = 1.5f;
+                break;
+            case "health":
+                this.effectValue = 1;
+                break;
+            case "damageReduction":
+                this.effectValue = 2f;
+                break;
             default:
-                ;
+                break;
         }
     }
 
@@ -43,7 +52,8 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Applies component effect on collision
-     * @param me - player entity
+     *
+     * @param me    - player entity
      * @param other - other entity
      */
     private void onCollisionStart(Fixture me, Fixture other) {
@@ -54,7 +64,10 @@ public class PotionEffectComponent extends Component {
             return;
         }
         Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-        if(!target.checkEntityType(EntityTypes.PLAYER)) applyEffect(target);
+//        if (!target.checkEntityType(EntityTypes.PLAYER)) {
+//            System.out.println("Not player pickup, applying effect");
+//            applyEffect(target);
+//        }
     }
 
     /**
@@ -66,29 +79,33 @@ public class PotionEffectComponent extends Component {
 
     /**
      * Returns if the two potion has the same effect
-     * @param potion the potion to be checked
+     *
+     * @param other the potion to be checked
      * @return true if both have the same effect type, false otherwise
      * @requires potion.checkEntityType(EntityTypes.POTION) == true
      */
-    public boolean equalTo(Entity potion) {
-        return this.effectType.equals(potion.getComponent(PotionEffectComponent.class).getPotionEffect());
+    public boolean equals(Entity other) {
+        return this.effectType.equals(other.getComponent(PotionEffectComponent.class).getPotionEffect());
     }
 
     /**
      * Returns if the two potion has the same effect
+     *
      * @param effectType the potion effect type
      * @return true if the effect type matches, false otherwise
      */
-    public boolean equalTo(String effectType) {
+    public boolean equals(String effectType) {
         return this.effectType.equals(effectType);
     }
 
     /**
      * Applies component effect
+     *
      * @param target - the target entity (player)
      */
     public void applyEffect(Entity target) {
         PlayerModifier playerModifier = target.getComponent(PlayerModifier.class);
+
         if (!isNull(playerModifier)) {
             switch (this.effectType) {
                 case "speed":
@@ -96,8 +113,18 @@ public class PotionEffectComponent extends Component {
                         // Modify does not exist
                         playerModifier.createModifier(MOVESPEED, this.effectValue, true, 3000);
                     }
+                    break;
+                case "health":
+                    playerModifier.createModifier("health", this.effectValue, false, 1);
+                    break;
+                case "damageReduction":
+                    if (!playerModifier.checkModifier(DMGREDUCTION, this.effectValue, true, 3000)) {
+                        // Modify does not exist
+                        playerModifier.createModifier(DMGREDUCTION, this.effectValue, true, 3000);
+                    }
+                    break;
                 default:
-                    ;
+                    break;
             }
         }
     }
