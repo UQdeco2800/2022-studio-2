@@ -33,17 +33,26 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
     }
 
     public void keyPrompt(Fixture me, Fixture other){
-        hitboxComponent = entity.getComponent(HitboxComponent.class);
-        Fixture f = ServiceLocator.getGameArea().getPlayer().getComponent(HitboxComponent.class).getFixture();
+//        hitboxComponent = entity.getComponent(HitboxComponent.class);
+//        Fixture f = ServiceLocator.getGameArea().getPlayer().getComponent(HitboxComponent.class).getFixture();
 //        if (other == f) {
 //            Entity entityOfComponent = getEntity();
 //            //insert into inventory
 //            ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(entityOfComponent);
 //            logger.info("KEY PROMPT");
 //        }
-        if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
-            logger.info("TEST KEY PROMPT");
+
+        if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.POTION)){
+            logger.info("TEST KEY PROMPT POTION");
         }
+//        else if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
+//            logger.info("TEST KEY PROMPT ENEMY");
+//        }
+        else if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.NPC)){
+            logger.info("TEST KEY PROMPT NPC PRESS F TO OPEN DIALOGUE");
+            logger.info("TEST KEY PROMPT NPC PRESS G TO CLOSE DIALOGUE");
+        }
+
     }
 
 }
