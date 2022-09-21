@@ -825,7 +825,7 @@ public class ForestGameArea extends GameArea {
 
   @Override
   public void dispose() {
-    //super.dispose();
+    super.dispose();
     // Dispose of all internal entities in the area
     for (Entity entity : areaEntities) {
       entity.dispose();
