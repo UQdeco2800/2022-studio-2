@@ -33,7 +33,7 @@ public class SkillsTreeDisplay extends UIComponent {
         /**
          * change your images here
          */
-        imgTexture = new Texture(Gdx.files.internal("images/box_boy.png"));
+        imgTexture = new Texture(Gdx.files.internal("images/Skill_tree/skill_tree_2.png"));
 
         /**
          * Set images status
