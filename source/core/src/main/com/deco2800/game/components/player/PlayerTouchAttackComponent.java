@@ -57,10 +57,11 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                 target.dispose();
                 target.getComponent(CombatStatsComponent.class).dropWeapon();
                 if (target.getComponent(AnimationRenderComponent.class) != null) {
+                    target.getComponent(CombatStatsComponent.class).dropMaterial();
                     target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
                 }
             }
-            entity.getEvents().trigger("hitEnemy", target);
+            entity.getEvents().trigger("hitEnemy", target); // for skill listener
         }
     }
 

@@ -68,8 +68,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("skill");
         // Temporary projectile shoot on skill activation
         if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
         }
+        ServiceLocator.getEntityService().toggleTimeStop();
         return true;
       case Keys.J:
         entity.getEvents().trigger("skill2");
@@ -81,10 +82,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("dash");
         return true;
       case Keys.EQUALS: // temp mapping for sprint 2 marking
-        entity.getEvents().trigger("rootTemp");
-        return true;
-      case Keys.MINUS: // temp mapping for sprint 2 marking
-        entity.getEvents().trigger("bleedTemp");
+        entity.getEvents().trigger("skillTemp");
         return true;
       case Keys.BACKSLASH:
         entity.getEvents().trigger("ultimateTemp");
@@ -131,6 +129,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
           entity.getEvents().trigger("nextMap");
         }
+        return true;
+      case Keys.L:
+        entity.getEvents().trigger("DeathScreen");
         return true;
       default:
         return false;

@@ -42,6 +42,7 @@ public class PlayerModifier extends Component{
     public static final String MANAMAX = "manaMax";
     public static final String STAMINAREGEN = "staminaRegen";
     public static final String STAMINAMAX = "staminaMax";
+    public static final String HEALTH = "health";
 
     // List of all components present in the parent entity
     private static PlayerActions playerActions;
@@ -296,6 +297,9 @@ public class PlayerModifier extends Component{
             case STAMINAMAX :
                 valChange = (scaling) ? (int)(refStaminaMax * value) : (int)value;
                 break;
+            case HEALTH:
+                combatStatsComponent.addHealth(1);
+                return true;
             default:
                 return false;
         }

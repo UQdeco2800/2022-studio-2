@@ -114,25 +114,25 @@ public class PlayerActions extends Component {
   /**
    * Pressing the '1' button toggles the inventory menu UI opening/closing.
    */
-  public void consumePotionSlot1(){
-    entity.getComponent(InventoryComponent.class).consumePotion(0);
+  public void consumePotionSlot1() {
+    entity.getComponent(InventoryComponent.class).consumePotion(1);
   }
 
   /**
    * Pressing the '2' button toggles the inventory menu UI opening/closing.
    */
-  public void consumePotionSlot2(){
-    entity.getComponent(InventoryComponent.class).consumePotion(1);
+  public void consumePotionSlot2() {
+    entity.getComponent(InventoryComponent.class).consumePotion(2);
   }
 
   /**
    * Pressing the '3' button toggles the inventory menu UI opening/closing.
    */
-  public void consumePotionSlot3(){
-    entity.getComponent(InventoryComponent.class).consumePotion(2);
+  public void consumePotionSlot3() {
+    entity.getComponent(InventoryComponent.class).consumePotion(3);
   }
 
-  public void killEnemy(){
+  public void killEnemy() {
     for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
       if (enemy.checkEntityType(EntityTypes.ENEMY)) {
         enemy.flagDead();
@@ -163,7 +163,7 @@ public class PlayerActions extends Component {
   /**
    * Pressing the 'M' button toggles the Minimap window being open.
    */
-  private void toggleMinimap(){
+  private void toggleMinimap() {
     miniMapOpen = !miniMapOpen;
 
     if (miniMapOpen) {
@@ -180,7 +180,7 @@ public class PlayerActions extends Component {
    *
    * @param direction direction to move in
    */
-  void walk(Vector2 direction) {
+  public void walk(Vector2 direction) {
     walkingSound.setLooping(true);
     walkingSound.play();
 
@@ -190,7 +190,7 @@ public class PlayerActions extends Component {
   /**
    * Stops the player from walking.
    */
-  void stopWalking() {
+  public void stopWalking() {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
     walkingSound.stop();

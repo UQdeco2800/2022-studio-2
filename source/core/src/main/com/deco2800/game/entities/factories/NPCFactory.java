@@ -9,10 +9,18 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.DialogueAnimationController;
 import com.deco2800.game.components.npc.GymBroAnimationController;
+
+import com.deco2800.game.components.npc.MaleAnimationController;
+
 import com.deco2800.game.components.npc.NPCAnimationController;
+
+
+
 import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
+
 import com.deco2800.game.components.tasks.ChaseTask;
+import com.deco2800.game.components.tasks.JumpTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -127,7 +135,6 @@ public class NPCFactory {
     guard.setScale(1, 1);
     return guard;
   }
-
   public static Entity createHumanGuard (Entity target) {
     Entity humanguard = createBaseNPC();
     HumanGuardConfig config = configs.humanguard;
@@ -176,6 +183,7 @@ public class NPCFactory {
    * @param target entity to stand
    * @return entity
    */
+
   public static Entity createFriendlyCreature (Entity target) {
     Entity friendlycreature = createBaseNPC();
     FriendlyCreatureConfig config = configs.friendlycreature;
@@ -205,27 +213,31 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createMale_citizen (Entity target) {
+
     Entity male_citizen = createBaseNPC();
     Male_citizenConfig config = configs.male_citizen;
-
     AnimationRenderComponent animator =
-            new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/male_citizen/male-atlas.atlas", TextureAtlas.class));
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/NPC/male_citizen/male-atlas.atlas", TextureAtlas.class));
     animator.addAnimation("MaleShake", 0.1f, Animation.PlayMode.LOOP);
-
 
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+
+            .addComponent(new MaleAnimationController())
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
-            ;
+    ;
+
 //images/NPC/male_citizen/male-atlas.atlas
+
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     male_citizen.setScale(1, 1);
     return male_citizen;
   }
-
 
   /**
    * Creates an atlantis citizen entity.
@@ -280,8 +292,9 @@ public class NPCFactory {
 
     heracles.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
+            .addTask(new JumpTask(target, 11, 8f,150, 0.5f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(

@@ -4,8 +4,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.inventory.InventoryActions;
-import com.deco2800.game.inventory.InventoryDisplay;
+import com.deco2800.game.components.deathscreen.DeathScreenActions;
+import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -30,15 +30,16 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
  */
-public class InventoryScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(InventoryScreen.class);
+public class DeathScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
 
+    /* Lol he said. Lmao. */
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
 
-    public InventoryScreen(GdxGame game) {
+    public DeathScreen(GdxGame game) {
         this.game = game;
 
         logger.debug("Initialising main game screen services");
@@ -112,8 +113,8 @@ public class InventoryScreen extends ScreenAdapter {
         Entity ui = new Entity();
         ui.addComponent(new InputDecorator(stage, 10))
                 .addComponent(new PerformanceDisplay())
-                .addComponent(new InventoryActions(this.game))
-                .addComponent(new InventoryDisplay())
+                .addComponent(new DeathScreenActions(this.game))
+                .addComponent(new DeathScreenDisplay())
                 .addComponent(new Terminal())
                 .addComponent(inputComponent)
                 .addComponent(new TerminalDisplay());

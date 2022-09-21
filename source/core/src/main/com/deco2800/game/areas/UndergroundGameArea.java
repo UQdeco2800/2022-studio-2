@@ -49,6 +49,28 @@ public class UndergroundGameArea extends GameArea {
             "images/Crafting-assets-sprint1/materials/silver.png",
             "images/Crafting-assets-sprint1/materials/steel.png",
             "images/Crafting-assets-sprint1/materials/wood.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_1.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_2.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_3.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_4.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
     };
 
     public static String[] newTextures;
@@ -73,8 +95,6 @@ public class UndergroundGameArea extends GameArea {
         this.player = player;
 
         ServiceLocator.registerGameArea(this);
-
-
     }
 
     /**
@@ -99,7 +119,7 @@ public class UndergroundGameArea extends GameArea {
 
     private void displayUI() {
         Entity ui = new Entity();
-        ui.addComponent(new GameAreaDisplay("Box Underground"));
+        ui.addComponent(new GameAreaDisplay("Underground"));
         spawnEntity(ui);
     }
 

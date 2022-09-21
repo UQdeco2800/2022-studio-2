@@ -1,9 +1,10 @@
-/**
+
 package com.deco2800.game.crafting;
 
 
 import com.deco2800.game.extensions.GameExtension;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,32 +13,38 @@ import java.util.*;
 
 @ExtendWith(GameExtension.class)
 public class CraftingSystemTest {
-
+    CraftingSystem testCraftingSystem;
+    @BeforeEach
+    void steUp(){
+        testCraftingSystem = new CraftingSystem();
+    }
     @Test
     void constructorTest() {
-        CraftingSystem testCraftingSystem = new CraftingSystem();
         assertNotNull(testCraftingSystem);
     }
 
     @Test
     void buildFaultyItemTest() {
-        CraftingSystem testCraftingSystem = new CraftingSystem();
         testCraftingSystem.buildItem("HungryJacks");
         assertEquals(CraftingLogic.getPossibleBuilds(), new ArrayList<>());
     }
 
     @Test
     void buildItemTest() {
-        CraftingSystem testCraftingSystem = new CraftingSystem();
         testCraftingSystem.buildItem("Sword");
         assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Wood)); // Wood is removed from the inventory after building a sword.
         assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Steel)); // Steel is removed from the inventory after building a sword.
+//        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Gold));
+//        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Iron));
+//        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Plastic));
+//        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Platinum));
+//        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Rubber));
+//        assertTrue(testCraftingSystem.getInventoryContents().contains(Materials.Silver));
     }
 
 
     @Test
     void getInventoryContentsTest() {
-        CraftingSystem testCraftingSystem = new CraftingSystem();
         for (int i = 0; i < Materials.values().length; i++) {
             assertEquals(testCraftingSystem.getInventoryContents().get(i),Materials.values()[i]);
         }
@@ -45,7 +52,6 @@ public class CraftingSystemTest {
 
     @Test
     void setInventoryContentsTest() {
-        CraftingSystem testCraftingSystem = new CraftingSystem();
         List<Materials> inputList = new ArrayList<>(Arrays.asList(Materials.values()));
         testCraftingSystem.setInventoryContents(inputList);
         assertEquals(testCraftingSystem.getInventoryContents(), inputList);
@@ -76,4 +82,3 @@ public class CraftingSystemTest {
 //        // check that the size of the inventory is twice the number of materials
 //    }
 }
-**/
