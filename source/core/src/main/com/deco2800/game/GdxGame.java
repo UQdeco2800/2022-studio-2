@@ -22,6 +22,7 @@ public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
 
   private static MainGameScreen currentGameScreen;
+  private static DeathScreen deathScreen;
 
   @Override
   public void create() {
@@ -77,8 +78,11 @@ public class GdxGame extends Game {
         return currentGameScreen;
       case SETTINGS:
         return new SettingsScreen(this);
-      case DEATH_SCREEN:
-        DeathScreen deathScreen = new DeathScreen(this);
+      case DEATH_SCREEN_L1:
+        deathScreen = new DeathScreen(this, 1);
+        return deathScreen;
+      case DEATH_SCREEN_L2:
+        deathScreen = new DeathScreen(this, 2);
         return deathScreen;
       default:
         return null;
@@ -86,7 +90,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN
+    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN_L1, DEATH_SCREEN_L2
   }
 
   /**

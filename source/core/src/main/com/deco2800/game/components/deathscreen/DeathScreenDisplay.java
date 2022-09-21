@@ -26,6 +26,10 @@ public class DeathScreenDisplay extends UIComponent {
     private Image deathBackground = new Image(ServiceLocator.getResourceService()
             .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
 
+    public DeathScreenDisplay(int level) {
+        levelBackground(level);
+    }
+
     @Override
     public void create() {
         super.create();
@@ -44,7 +48,6 @@ public class DeathScreenDisplay extends UIComponent {
 
         // Triggers an event when the button is pressed
         // For now it swtiches back to main game screen like in main menu.
-        // TODO check if I need to swap this to saved version
         yesBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -88,7 +91,6 @@ public class DeathScreenDisplay extends UIComponent {
      * Adjusts DeathScreens background image based on given level
      * @param level the games level
      */
-    // TODO workout where in the code i can set this, I am not sure how i check what the level is.
     public void levelBackground (int level) {
         switch (level){
             case 1:

@@ -33,7 +33,8 @@ public class DeathScreen extends ScreenAdapter {
     private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
     private static final String[] mainMenuMusic = {backgroundMusic};
 
-    public DeathScreen(GdxGame game) {
+
+    public DeathScreen(GdxGame game, int level) {
         this.game = game;
 
         logger.debug("Initialising main menu screen services");
@@ -45,7 +46,7 @@ public class DeathScreen extends ScreenAdapter {
         renderer = RenderFactory.createRenderer();
 
         loadAssets();
-        createUI();
+        createUI(level);
         playMusic();
     }
 
@@ -109,11 +110,11 @@ public class DeathScreen extends ScreenAdapter {
      * Creates the main menu's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
-    private void createUI() {
+    private void createUI(int level) {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new DeathScreenDisplay())
+        ui.addComponent(new DeathScreenDisplay(level))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new DeathScreenActions(game));
 

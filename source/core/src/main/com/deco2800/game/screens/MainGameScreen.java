@@ -61,6 +61,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static GameArea map;
   private static Component mainGameActions;
   private static Boolean dead;
+  private static Integer gameLevel;
 
 
 
@@ -90,7 +91,8 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    ForestGameArea map = (ForestGameArea) chooseMap(1);
+    gameLevel = 1;
+    ForestGameArea map = (ForestGameArea) chooseMap(gameLevel);
 //    UndergroundGameArea map = loadLevelTwoMap();
     this.map = map;
 //    GameArea map = loadLevelTwoMap();
@@ -117,7 +119,11 @@ public class MainGameScreen extends ScreenAdapter {
     if (dead) {
       // Could add further player cleanup functionality here
       player.getComponent(PlayerActions.class).stopWalking();
-      game.setScreen(GdxGame.ScreenType.DEATH_SCREEN);
+      if (gameLevel == 1) {
+        game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L1);
+      } else if (gameLevel == 2) {
+        game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
+      }
     }
   }
 
@@ -158,8 +164,10 @@ public class MainGameScreen extends ScreenAdapter {
   public GameArea chooseMap(int level) {
     switch (level) {
       case 1:
+        gameLevel = 1;
         return this.loadLevelOneMap();
       case 2:
+        gameLevel = 2;
         map.dispose();
         return map = this.loadLevelTwoMap();
       default:
