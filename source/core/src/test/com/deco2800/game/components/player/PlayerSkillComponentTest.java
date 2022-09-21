@@ -311,6 +311,7 @@ class PlayerSkillComponentTest {
         assertTrue(skillManager.bleedActive());
         skillManager.hitBleed(null);
         assertTrue(skillManager.isBleeding());
+        assertFalse(skillManager.bleedActive());
     }
 
     @Test
