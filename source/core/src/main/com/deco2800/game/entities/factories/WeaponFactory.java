@@ -173,4 +173,17 @@ public class WeaponFactory {
         return pipe;
     }
 
+    /**
+     * Creates a dagger for testing
+     * @return test weapon
+     */
+    public static Entity createTestDagger() {
+        Entity dagger = createBaseWeapon();
+        dagger.setEntityType(EntityTypes.WEAPON);
+        MeleeConfig config = configs.athenaDag;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        dagger.addComponent(weaponStats);
+        return dagger;
+    }
+
 }

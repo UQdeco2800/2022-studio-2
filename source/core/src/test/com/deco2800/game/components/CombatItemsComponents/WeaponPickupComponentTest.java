@@ -8,7 +8,9 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsService;
@@ -42,7 +44,13 @@ public class WeaponPickupComponentTest {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
-        Entity weapon = new Entity().addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
+//        Entity weapon = new Entity().addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
+//                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+//                .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
+        
+//        Added by Peter from team 2 just to get the test passed
+        Entity weapon = WeaponFactory.createTestDagger()
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
         weapon.setEntityType(EntityTypes.WEAPON);

@@ -79,6 +79,7 @@ public class ForestGameArea extends GameArea {
     "images/NPC/male_citizen/male_citizen.png",
     "images/level_1_tiledmap/32x32/rock.png",
     "images/level_1_tiledmap/32x32/column.png",
+    "images/Potions/health_potion.png",
     "images/Potions/defence_potion.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/playerTeleport.png",
@@ -177,10 +178,6 @@ public class ForestGameArea extends GameArea {
     loadAssets();
     displayUI();
     spawnTerrain();
-    spawnDagger();
-    spawnDaggerTwo();
-    spawnSwordLvl2();
-    spawnTridentLvl2();
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
@@ -202,12 +199,13 @@ public class ForestGameArea extends GameArea {
 //    spawnColumn(30, 20);
     playMusic();
     spawnSpeedPotion();
+    spawnHealthPotion();
 
 
     spawnDumbbell();
     spawnArmour(ArmourFactory.ArmourType.slowDiamond, 16, 16);
     spawnArmour(ArmourFactory.ArmourType.baseArmour, 5, 5);
-    spawnArmour(ArmourFactory.ArmourType.fastLeather, 36, 36);
+    spawnArmour(ArmourFactory.ArmourType.fastLeather, 7, 7);
     spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
 
     spawnSpeedDebuff();
@@ -215,9 +213,7 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
-    spawnHerraAndAthena();
-    spawnPlunger();
-    spawnPipe();
+
   }
 
 
@@ -303,6 +299,11 @@ public class ForestGameArea extends GameArea {
 
     entityToRemove.setEnabled(false);
     ItemsOnMap.remove(entityToRemove);
+    Gdx.app.postRunnable(() -> entityToRemove.dispose());
+  }
+
+  public static void removeProjectileOnMap(Entity entityToRemove) {
+    entityToRemove.setEnabled(false);
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
 
@@ -445,9 +446,15 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 23
    */
   private void spawnSpeedPotion() {
-    Entity speedPotion =PotionFactory.createSpeedPotion();
+    Entity speedPotion = PotionFactory.createSpeedPotion();
     ItemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(30, 23), true, false);
+    spawnEntityAt(speedPotion, new GridPoint2(20, 0), true, false);
+  }
+
+  private void spawnHealthPotion() {
+    Entity speedPotion = PotionFactory.createHealthPotion();
+    ItemsOnMap.add(speedPotion);
+    spawnEntityAt(speedPotion, new GridPoint2(10, 0), true, false);
   }
 
   /**
@@ -455,21 +462,21 @@ public class ForestGameArea extends GameArea {
    * Spawns x-pos 10
    * Spawns y-pos 10
    */
-  private void spawnDagger() {
-    Entity dagger = WeaponFactory.createDagger();
-    weaponOnMap.add(dagger);
-    spawnEntityAt(dagger, new GridPoint2(20, 20), true, false);
-  }
+  //private void spawnDagger() {
+   // Entity dagger = WeaponFactory.createDagger();
+   // weaponOnMap.add(dagger);
+   // spawnEntityAt(dagger, new GridPoint2(20, 20), true, false);
+ // }
   /**
    * Spawns second Level 2 dagger entity into the game
    * Spawns x-pos 18
    * Spawns y-pos 10
    */
-  private void spawnDaggerTwo() {
-    Entity daggerTwo = WeaponFactory.createDaggerTwo();
-    weaponOnMap.add(daggerTwo);
-    spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
-  }
+ // private void spawnDaggerTwo() {
+  //  Entity daggerTwo = WeaponFactory.createDaggerTwo();
+  //  weaponOnMap.add(daggerTwo);
+  //  spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
+  //}
   /**
    * Spawns dumbbell entity into the game
    * Spawns x-pos 5
@@ -487,53 +494,53 @@ public class ForestGameArea extends GameArea {
    * Spawns x-pos 10
    * Spawns y-pos 4
    */
-  private void spawnHerraAndAthena() {
-    Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
-    weaponOnMap.add(herraAthenaDag);
-    spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
-  }
+ // private void spawnHerraAndAthena() {
+  //  Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
+  //  weaponOnMap.add(herraAthenaDag);
+  //  spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
+ // }
 
   /**
    * Spawns basic plunger into game
    * Spawns x-pos 20
    * Spawns y-pos 4
    */
-  private void spawnPlunger() {
-    Entity plunger = WeaponFactory.createPlunger();
-    weaponOnMap.add(plunger);
-    spawnEntityAt(plunger, new GridPoint2(20,4), true, false);
-  }
+  //private void spawnPlunger() {
+  //  Entity plunger = WeaponFactory.createPlunger();
+  //  weaponOnMap.add(plunger);
+  //  spawnEntityAt(plunger, new GridPoint2(20,4), true, false);
+ // }
 
   /**
    * Spawns basic PVC pipe into game
    * Spawns x-pos 15
    * Spawns y-pos 10
    */
-  private void spawnPipe() {
-    Entity plunger = WeaponFactory.createPipe();
-    weaponOnMap.add(plunger);
-    spawnEntityAt(plunger, new GridPoint2(15,10), true, false);
-  }
+ // private void spawnPipe() {
+ //   Entity plunger = WeaponFactory.createPipe();
+ //   weaponOnMap.add(plunger);
+ //   spawnEntityAt(plunger, new GridPoint2(15,10), true, false);
+ // }
 
   /**
    * Spawns Level 2 Sword entity into the game
    * Spawns x-pos 20
    * Spawns y-pos 20
    */
-  private void spawnSwordLvl2() {
-    Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
-    weaponOnMap.add(SwordLvl2);
-    spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
-  }
+ // private void spawnSwordLvl2() {
+ //   Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
+  //  weaponOnMap.add(SwordLvl2);
+  //  spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
+ // }
 
   /**
    * Spawns Level 2 Trident entity into the game
    */
-  private void spawnTridentLvl2() {
-    Entity tridentLvl2 = WeaponFactory.createTridentLvl2();
-    weaponOnMap.add(tridentLvl2);
-    spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
-  }
+ // private void spawnTridentLvl2() {
+  //  Entity tridentLvl2 = WeaponFactory.createTridentLvl2();
+  //  weaponOnMap.add(tridentLvl2);
+  //  spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
+ // }
   public static GridPoint2 getCraftingTablePos() {
     return craftingTablePos;
   }
@@ -546,8 +553,10 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity potion = PotionFactory.createSpeedPotion();
-    this.spawnEntityAt(potion, randomPos, true, false);
+//    Entity potion = PotionFactory.createSpeedPotion();
+//    this.spawnEntityAt(potion, randomPos, true, false);
+    Entity potion = PotionFactory.createDamageReductionPotion();
+    this.spawnEntityAt(potion, new GridPoint2(5,5), true, false);
   }
 
   /**
@@ -592,6 +601,19 @@ public class ForestGameArea extends GameArea {
    */
   public void spawnPlayerProjectileSpray() {
     double[] sprayAngles = {0,0.25,0.5,0.75,1,1.25,1.5,1.75};
+    for (int i = 0; i < sprayAngles.length; ++i) {
+      Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
+      spawnEntityAt(newProjectile,
+              new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+              true, true);
+    }
+  }
+
+  /**
+   * Spawns a spray of projectiles at the player entity's coordinates.
+   */
+  public void spawnPlayerProjectileCone() {
+    double[] sprayAngles = {0,0.05,0.1,1.9,1.95};
     for (int i = 0; i < sprayAngles.length; ++i) {
       Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
       spawnEntityAt(newProjectile,
@@ -770,6 +792,8 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+
+
   private void unloadAssets() {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
@@ -781,7 +805,7 @@ public class ForestGameArea extends GameArea {
 
   @Override
   public void dispose() {
-    //super.dispose();
+    super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     logger.info("Unloading forest assets");
     this.unloadAssets();

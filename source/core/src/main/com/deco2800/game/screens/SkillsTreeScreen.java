@@ -4,8 +4,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.inventory.InventoryActions;
-import com.deco2800.game.inventory.InventoryDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -26,22 +24,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The game screen containing the main game.
- *
- * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
+ * The game screen containing the skills tree.
  */
-public class InventoryScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(InventoryScreen.class);
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-
+public class SkillsTreeScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(SkillsTreeScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
 
-    public InventoryScreen(GdxGame game) {
+    public SkillsTreeScreen(GdxGame game) {
         this.game = game;
 
-        logger.debug("Initialising main game screen services");
+        logger.debug("Initialising skills tree screen services");
         ServiceLocator.registerTimeSource(new GameTime());
 
         PhysicsService physicsService = new PhysicsService();
@@ -55,7 +49,6 @@ public class InventoryScreen extends ScreenAdapter {
         ServiceLocator.registerRenderService(new RenderService());
 
         renderer = RenderFactory.createRenderer();
-//    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
         createUI();
@@ -67,22 +60,6 @@ public class InventoryScreen extends ScreenAdapter {
         physicsEngine.update();
         ServiceLocator.getEntityService().update();
         renderer.render();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        renderer.resize(width, height);
-        logger.trace("Resized renderer: ({} x {})", width, height);
-    }
-
-    @Override
-    public void pause() {
-        logger.info("Game paused");
-    }
-
-    @Override
-    public void resume() {
-        logger.info("Game resumed");
     }
 
     @Override
@@ -98,11 +75,6 @@ public class InventoryScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
-
-    /**
-     * Creates the main game's ui including components for rendering ui elements to the screen and
-     * capturing and handling ui input.
-     */
     private void createUI() {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
@@ -112,8 +84,8 @@ public class InventoryScreen extends ScreenAdapter {
         Entity ui = new Entity();
         ui.addComponent(new InputDecorator(stage, 10))
                 .addComponent(new PerformanceDisplay())
-                .addComponent(new InventoryActions(this.game))
-                .addComponent(new InventoryDisplay())
+                .addComponent(new com.deco2800.game.SkillsTree.SkillsTreeActions(this.game))
+                .addComponent(new com.deco2800.game.SkillsTree.SkillsTreeDisplay())
                 .addComponent(new Terminal())
                 .addComponent(inputComponent)
                 .addComponent(new TerminalDisplay());

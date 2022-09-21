@@ -25,7 +25,7 @@ public class ItemPickupComponent extends Component{
 
     @Override
     public void create() {
-        logger = LoggerFactory.getLogger(WeaponPickupComponent.class);
+        logger = LoggerFactory.getLogger(ItemPickupComponent.class);
         entity.getEvents().addListener("collisionStart", this::pickUp);
     }
 

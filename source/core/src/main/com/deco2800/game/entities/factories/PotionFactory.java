@@ -51,8 +51,30 @@ public class PotionFactory {
         return speedPotion;
     }
 
+    public static Entity createHealthPotion() {
+        Entity healthPotion = createBasePotion()
+                .addComponent(new TextureRenderComponent("images/Potions/health_potion.png"
+                ))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "health"));
+        healthPotion.getComponent(TextureRenderComponent.class).scaleEntity();
+        healthPotion.scaleHeight(1.0f);
+        PhysicsUtils.setScaledCollider(healthPotion, 0.5f, 0.2f);
+        return healthPotion;
+    }
+
+    public static Entity createDamageReductionPotion() {
+        Entity damageReductionPotion = createBasePotion()
+                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
+                ))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "damageReduction"));
+        damageReductionPotion.getComponent(TextureRenderComponent.class).scaleEntity();
+        damageReductionPotion.scaleHeight(1.0f);
+        PhysicsUtils.setScaledCollider(damageReductionPotion, 0.5f, 0.2f);
+        return damageReductionPotion;
+    }
+
     /**
-     * Creates speed potion without rendering Compononet
+     * Creates speed potion without rendering Component.
      * @return speed potion for testing purposes
      */
     public static Entity createTestSpeedPotion() {
