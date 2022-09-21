@@ -79,6 +79,7 @@ public class ForestGameArea extends GameArea {
     "images/NPC/male_citizen/male_citizen.png",
     "images/level_1_tiledmap/32x32/rock.png",
     "images/level_1_tiledmap/32x32/column.png",
+    "images/Potions/health_potion.png",
     "images/Potions/defence_potion.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/playerTeleport.png",
@@ -142,6 +143,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
+  private Entity heracles;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
@@ -171,6 +173,25 @@ public class ForestGameArea extends GameArea {
     return player;
   }
 
+  /**
+   * Get Heracles the level 1 boss
+   * @return Heracles
+   */
+  public Entity getHeracles() {
+    return heracles;
+  }
+
+  /**
+   * Check if Heracles is placed on map
+   */
+  public boolean ifHeraclesOnMap() {
+    if (heracles.getPosition() == null) {
+      return false;
+    }
+    return true;
+  }
+
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
@@ -182,7 +203,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     //spawnEffectBlobs();
     spawnGymBro();
-    spawnHeracles();
+    heracles = spawnHeracles();
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
@@ -198,12 +219,13 @@ public class ForestGameArea extends GameArea {
 //    spawnColumn(30, 20);
     playMusic();
     spawnSpeedPotion();
+    spawnHealthPotion();
 
 
     spawnDumbbell();
     spawnArmour(ArmourFactory.ArmourType.slowDiamond, 16, 16);
     spawnArmour(ArmourFactory.ArmourType.baseArmour, 5, 5);
-    spawnArmour(ArmourFactory.ArmourType.fastLeather, 36, 36);
+    spawnArmour(ArmourFactory.ArmourType.fastLeather, 7, 7);
     spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
 
     spawnSpeedDebuff();
@@ -218,7 +240,7 @@ public class ForestGameArea extends GameArea {
 
   private void displayUI() {
     Entity ui = new Entity();
-    ui.addComponent(new GameAreaDisplay("Box Forest"));
+    ui.addComponent(new GameAreaDisplay("Forest"));
     spawnEntity(ui);
   }
 
@@ -444,9 +466,15 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 23
    */
   private void spawnSpeedPotion() {
-    Entity speedPotion =PotionFactory.createSpeedPotion();
+    Entity speedPotion = PotionFactory.createSpeedPotion();
     ItemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(30, 23), true, false);
+    spawnEntityAt(speedPotion, new GridPoint2(20, 0), true, false);
+  }
+
+  private void spawnHealthPotion() {
+    Entity speedPotion = PotionFactory.createHealthPotion();
+    ItemsOnMap.add(speedPotion);
+    spawnEntityAt(speedPotion, new GridPoint2(10, 0), true, false);
   }
 
   /**
@@ -545,8 +573,10 @@ public class ForestGameArea extends GameArea {
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity potion = PotionFactory.createSpeedPotion();
-    this.spawnEntityAt(potion, randomPos, true, false);
+//    Entity potion = PotionFactory.createSpeedPotion();
+//    this.spawnEntityAt(potion, randomPos, true, false);
+    Entity potion = PotionFactory.createDamageReductionPotion();
+    this.spawnEntityAt(potion, new GridPoint2(5,5), true, false);
   }
 
   /**
@@ -738,13 +768,14 @@ public class ForestGameArea extends GameArea {
   /**
    * Spawn Heracles in a random position.
    */
-  private void spawnHeracles() {
+  private Entity spawnHeracles() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity heracles = NPCFactory.createHeracles(player);
     spawnEntityAt(heracles, randomPos, true, true);
+    return heracles;
   }
 
   /**
