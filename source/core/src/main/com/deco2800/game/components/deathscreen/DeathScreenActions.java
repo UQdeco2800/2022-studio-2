@@ -43,7 +43,7 @@ public class DeathScreenActions extends Component {
     private void onExit() {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
         sound.play(1.0f);
-        logger.info("Exit game after death");
-        game.exit();
+        logger.info("Return to main menu");
+        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 }

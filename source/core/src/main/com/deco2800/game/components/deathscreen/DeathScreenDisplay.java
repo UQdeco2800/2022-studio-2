@@ -37,6 +37,9 @@ public class DeathScreenDisplay extends UIComponent {
     }
 
 
+    /**
+     * Adds items to the screen
+     */
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
@@ -47,7 +50,7 @@ public class DeathScreenDisplay extends UIComponent {
 
 
         // Triggers an event when the button is pressed
-        // For now it swtiches back to main game screen like in main menu.
+        // Restarts game
         yesBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -57,7 +60,7 @@ public class DeathScreenDisplay extends UIComponent {
                     }
                 });
 
-        //For now it exits the game when no is pressed
+        // Returns to main menu
         noBtn.addListener(
                 new ChangeListener() {
                     @Override
