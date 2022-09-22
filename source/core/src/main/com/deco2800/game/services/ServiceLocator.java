@@ -119,7 +119,7 @@ public class ServiceLocator {
   public static MainGameScreen getMainGameScreen() {
     return mainGameScreen;
   }
-  
+
   public static void registerCraftArea(GameAreaDisplay area){
     craftArea = area;
   }
