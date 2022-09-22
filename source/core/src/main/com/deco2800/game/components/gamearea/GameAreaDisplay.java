@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -402,8 +402,13 @@ public class GameAreaDisplay extends UIComponent {
             inventoryComponent.addItem(MaterialFactory.createIron());
             firstTime += 1;
         }
-        craftMenu = new Image(new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/crafting table/crafting_inventory.png")));
+        /*if (getGameAreaName().equals("Underground")) {
+            craftMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/crafting table/crafting_level2_inventory.png")));
+        } else {*/
+            craftMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/crafting table/crafting_inventory.png")));
+        //}
         craftMenu.setSize(883.26f, 500);
         craftMenu.setPosition(Gdx.graphics.getWidth() / 2 - craftMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - craftMenu.getHeight() / 2);
@@ -425,7 +430,7 @@ public class GameAreaDisplay extends UIComponent {
                 if (weapon != null) {
                     disposeFirstBox();
                     disposeSecondBox();
-                    ForestGameArea area = (ForestGameArea) ServiceLocator.getGameArea();
+                    GameArea area = ServiceLocator.getGameArea();
                     ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
                     inventoryComponent.addItem(currentWeapon);
                     weapon.remove();
@@ -717,10 +722,15 @@ public class GameAreaDisplay extends UIComponent {
 
     }
 
-    private void displayCatOne() {
+    public void displayCatOne() {
         disposeMaterials();
-        catOneMenu = new Image(new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_1.png")));
+        /*if (getGameAreaName().equals("Underground")) {
+            catOneMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/crafting table/crafting_level2_catalogue1.png")));
+        } else {*/
+            catOneMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_1.png")));
+        //}
         catOneMenu.setSize(883.26f, 500);
         catOneMenu.setPosition(Gdx.graphics.getWidth() / 2 - catOneMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - catOneMenu.getHeight() / 2);
@@ -760,8 +770,13 @@ public class GameAreaDisplay extends UIComponent {
 
     private void displayCatTwo() {
         disposeMaterials();
-        catTwoMenu = new Image(new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_2.png")));
+        /*if (getGameAreaName().equals("Underground")) {
+            catTwoMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/crafting table/crafting_level2_catalogue2.png")));
+        } else {*/
+            catTwoMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_2.png")));
+        //}
         catTwoMenu.setSize(883.26f, 500);
         catTwoMenu.setPosition(Gdx.graphics.getWidth() / 2 - catTwoMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - catTwoMenu.getHeight() / 2);

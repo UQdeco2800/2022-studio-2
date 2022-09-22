@@ -25,7 +25,6 @@ public abstract class GameArea implements Disposable {
 
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private Entity player;
-  private static GridPoint2 craftingTablePos;
 
   protected GameArea() {
     areaEntities = new ArrayList<>();
@@ -79,8 +78,4 @@ public abstract class GameArea implements Disposable {
     return player;
   }
 
-
-  public static GridPoint2 getCraftingTablePos() {
-    return craftingTablePos;
-  }
 }
