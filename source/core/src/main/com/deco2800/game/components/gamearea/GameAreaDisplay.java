@@ -383,6 +383,7 @@ public class GameAreaDisplay extends UIComponent {
             inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
             inventoryComponent.addItem(MaterialFactory.createGold());
             inventoryComponent.addItem(MaterialFactory.createSteel());
+            inventoryComponent.addItem(MaterialFactory.createPoop());
             firstTime += 1;
         }
         craftMenu = new Image(new Texture(Gdx.files.internal
@@ -409,7 +410,6 @@ public class GameAreaDisplay extends UIComponent {
                 if (weapon != null) {
                     disposeFirstBox();
                     disposeSecondBox();
-                    GameArea area = ServiceLocator.getGameArea();
                     ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
                     inventoryComponent.addItem(currentWeapon);
                     weapon.remove();
@@ -493,6 +493,7 @@ public class GameAreaDisplay extends UIComponent {
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
 
         inventory = inventoryComponent.getInventory();
+        System.out.println(inventory);
         //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
         for (Entity item : inventory) {
             if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
@@ -603,6 +604,10 @@ public class GameAreaDisplay extends UIComponent {
             result = EntityTypes.PLATINUM;
         } else if (entity.checkEntityType(EntityTypes.SILVER)) {
             result = EntityTypes.SILVER;
+        } else if (entity.checkEntityType(EntityTypes.POOP)) {
+            result = EntityTypes.POOP;
+        } else {
+            result = EntityTypes.WEAPON;
         }
         return result;
     }
@@ -624,6 +629,10 @@ public class GameAreaDisplay extends UIComponent {
             inventoryComponent.addItem(MaterialFactory.createPlatinum());
         } else if (type == EntityTypes.SILVER) {
             inventoryComponent.addItem(MaterialFactory.createSilver());
+        } else if (type == EntityTypes.POOP) {
+            inventoryComponent.addItem(MaterialFactory.createPoop());
+        } else {
+            inventoryComponent.addItem(WeaponFactory.createDaggerTwo());
         }
     }
 
@@ -645,7 +654,11 @@ public class GameAreaDisplay extends UIComponent {
             materials = Materials.Platinum;
         } else if (type == EntityTypes.SILVER) {
             materials = Materials.Silver;
-        } else {
+        } else if (type == EntityTypes.POOP) {
+            materials = Materials.Poop;
+        }
+
+        else {
             materials = Materials.HerraDag;
         }
         if (this.boxes[0] == null)

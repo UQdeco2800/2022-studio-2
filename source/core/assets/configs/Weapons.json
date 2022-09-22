@@ -38,7 +38,7 @@
     "damage": 35,
     "coolDown": 1000,
     "weight": 3,
-    "materials": {"gold": 1,"herraDag": 1}
+    "materials": {"herraDag": 1,"poop": 1}
   },
 
   "plunger": {
