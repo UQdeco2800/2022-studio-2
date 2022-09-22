@@ -234,7 +234,7 @@ public class GameAreaDisplay extends UIComponent {
             } else if (items.get(i).checkEntityType(EntityTypes.POTION)) {
                 buttonText = "Add to quick bar";
             } else {
-                buttonText = "Add to crafting menu";
+                buttonText = "Crafting";
             }
             item.addListener(
                     new ChangeListener() {
@@ -243,6 +243,7 @@ public class GameAreaDisplay extends UIComponent {
 //              Group dropDownMenuBtn = new Group();
 //              dropDownMenuBtn.addActor(itemOpBtn);
 //              dropDownMenuBtn.addActor(dropItemBtn);
+
                             TextButton itemOpBtn = new TextButton(buttonText, skin);
                             TextButton dropItemBtn = new TextButton("Drop item", skin);
                             itemOpBtn.setPosition(horizontalPosition, verticalPosition);
@@ -284,9 +285,6 @@ public class GameAreaDisplay extends UIComponent {
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
-                                                case "Add to crafting menu":
-                                                    //Crafting team use this block to add items in crafting menu
-                                                    break;
                                             }
                                             if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                                                 inventoryGroup.removeActor(itemOpBtn);
@@ -295,8 +293,9 @@ public class GameAreaDisplay extends UIComponent {
                                         }
                                     }
                             );
-
-                            inventoryGroup.addActor(itemOpBtn);
+                            if (!buttonText.equals("Crafting")) {
+                                inventoryGroup.addActor(itemOpBtn);
+                            }
                             inventoryGroup.addActor(dropItemBtn);
                         }
                     });
@@ -328,6 +327,7 @@ public class GameAreaDisplay extends UIComponent {
             item.setPosition(horizontalPosition, verticalPosition);
         }
     }
+
 
     /**
      * Disposes the inventory display group.

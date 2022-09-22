@@ -122,7 +122,6 @@ public class InventoryComponent extends Component {
             if (item.checkEntityType(EntityTypes.POTION)
                     || item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 inventory.add(item);
-                logger.info(String.format("Added %s", item.getEntityTypes().toString()));
             } else if (item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR)) {
                 inventory.add(item);
@@ -155,7 +154,7 @@ public class InventoryComponent extends Component {
 
     /**
      * Sort the item quantity array once an item is removed from the inventory.
-     *      *
+     *
      * @param index    index of the item
      * @param list     the list of the inventory storage
      * @param quantity the quantity array of corresponding inventory
