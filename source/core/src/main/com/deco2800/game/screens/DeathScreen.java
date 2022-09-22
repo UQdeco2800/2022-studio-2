@@ -34,6 +34,11 @@ public class DeathScreen extends ScreenAdapter {
     private static final String[] mainMenuMusic = {backgroundMusic};
 
 
+    /**
+     * DeathScreen constructor
+     * @param game
+     * @param level
+     */
     public DeathScreen(GdxGame game, int level) {
         this.game = game;
 

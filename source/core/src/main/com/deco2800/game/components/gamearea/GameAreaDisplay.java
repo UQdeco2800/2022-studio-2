@@ -81,10 +81,6 @@ public class GameAreaDisplay extends UIComponent {
   private Group inventoryGroup = new Group();
   private List<Entity> items;
 
-  // Janky fix for deathscreen, temp fix
-  private Image deathScreen;
-  private Image deathScreenTwo;
-  private Image deathScreenThree;
 
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
@@ -96,7 +92,6 @@ public class GameAreaDisplay extends UIComponent {
   @Override
   public void create() {
     super.create();
-    //deathScreenDisplay();
     addActors();
   }
 
@@ -215,31 +210,6 @@ public class GameAreaDisplay extends UIComponent {
     inventoryGroup.remove();
   }
 
-
-  /**
-   * Display deathscreen in game as a very temporary fix for grading purposes.
-   */
-//  public void deathScreenDisplay(){
-//    deathScreen = new Image(new Texture(Gdx.files.internal
-//            ("images/DeathScreens/lvl 1.PNG")));
-//    deathScreen.setSize(250,160);
-//    deathScreen.setPosition(0,0);
-//
-//    deathScreenTwo = new Image(new Texture(Gdx.files.internal
-//            ("images/DeathScreens/lvl 2.PNG")));
-//    deathScreenTwo.setSize(250,160);
-//    deathScreenTwo.setPosition(0,160);
-//
-//    deathScreenThree = new Image(new Texture(Gdx.files.internal
-//            ("images/DeathScreens/lvl3.PNG")));
-//    deathScreenThree.setSize(250,160);
-//    deathScreenThree.setPosition(0,320);
-//
-//    stage.addActor(deathScreen);
-//    stage.addActor(deathScreenTwo);
-//    stage.addActor(deathScreenThree);
-//
-//  }
 
   /**
    * Code that opens an overlay crafting menu when the craft button is pressed. Creates assets based on users inventory
