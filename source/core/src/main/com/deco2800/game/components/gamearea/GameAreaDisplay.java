@@ -19,7 +19,6 @@ import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseMenuActions;
-import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.components.player.OpenCraftingComponent;
@@ -49,6 +48,7 @@ import java.util.Map;
  * Displays the name of the current game area.
  */
 public class GameAreaDisplay extends UIComponent {
+
   private String gameAreaName = "";
   private Label title;
 
@@ -390,16 +390,10 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void openCraftingMenu() {
         if (firstTime == 0) {
-            inventoryComponent = new InventoryComponent();
+            inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
             inventoryComponent.addItem(MaterialFactory.createGold());
-            inventoryComponent.addItem(MaterialFactory.createGold());
-            inventoryComponent.addItem(MaterialFactory.createPlatinum());
-            inventoryComponent.addItem(MaterialFactory.createSilver());
             inventoryComponent.addItem(MaterialFactory.createSteel());
-            inventoryComponent.addItem(MaterialFactory.createWood());
-            inventoryComponent.addItem(MaterialFactory.createPlastic());
-            inventoryComponent.addItem(MaterialFactory.createRubber());
-            inventoryComponent.addItem(MaterialFactory.createIron());
+            inventoryComponent.addItem(MaterialFactory.createPoop());
             firstTime += 1;
         }
         /*if (getGameAreaName().equals("Underground")) {
@@ -430,7 +424,6 @@ public class GameAreaDisplay extends UIComponent {
                 if (weapon != null) {
                     disposeFirstBox();
                     disposeSecondBox();
-                    GameArea area = ServiceLocator.getGameArea();
                     ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
                     inventoryComponent.addItem(currentWeapon);
                     weapon.remove();
@@ -534,7 +527,6 @@ public class GameAreaDisplay extends UIComponent {
     resume_image.remove();
   }
 
-
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
             for (MeleeConfig item : possibleBuilds) {
@@ -563,17 +555,27 @@ public class GameAreaDisplay extends UIComponent {
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
 
         inventory = inventoryComponent.getInventory();
+        System.out.println(inventory);
         //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
         for (Entity item : inventory) {
             if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                 materialTextureRegion = new TextureRegion(materialTexture);
                 materialDrawable = new TextureRegionDrawable(materialTextureRegion);
-                material = new ImageButton(materialDrawable);
-                material.setSize(50, 50);
+                if (item.checkEntityType((EntityTypes.WEAPON))){
+                    materialDrawable.setMinSize(150, 150);
+                }
 
-                material.setPosition(craftMenu.getX() + 172 + ((index % 4) * 68),
-                        (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 208)));
+                material = new ImageButton(materialDrawable);
+                if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
+                    material.setSize(50, 50);
+
+                    material.setPosition(craftMenu.getX() + 172 + ((index % 4) * 68),
+                            (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 208)));
+                } else {
+                    material.setPosition(craftMenu.getX() + 125 + ((index % 4) * 68),
+                            (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 265)));
+                }
                 index++;
                 material.addListener(new ChangeListener() {
                     @Override
@@ -583,9 +585,18 @@ public class GameAreaDisplay extends UIComponent {
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                             materialTextureRegion = new TextureRegion(materialTexture);
                             materialDrawable = new TextureRegionDrawable(materialTextureRegion);
+                            if (item.checkEntityType((EntityTypes.WEAPON))){
+                                materialDrawable.setMinSize(150, 150);
+                            }
                             firstToCraft = new ImageButton(materialDrawable);
-                            firstToCraft.setSize(50, 50);
-                            firstToCraft.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+                            if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
+                                firstToCraft.setSize(50, 50);
+                                firstToCraft.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
+                            } else {
+                                firstToCraft.setSize(150, 150);
+                                firstToCraft.setPosition(craftMenu.getX() + 435, craftMenu.getY() + 175);
+                            }
+
                             stage.addActor(firstToCraft);
                             addToBoxes(checkType(item));
                             inventoryComponent.removeItem(checkType(item));
@@ -604,9 +615,17 @@ public class GameAreaDisplay extends UIComponent {
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                             materialTextureRegion = new TextureRegion(materialTexture);
                             materialDrawable = new TextureRegionDrawable(materialTextureRegion);
+                            if (item.checkEntityType((EntityTypes.WEAPON))){
+                                materialDrawable.setMinSize(150, 150);
+                            }
                             secondToCraft = new ImageButton(materialDrawable);
-                            secondToCraft.setSize(50, 50);
-                            secondToCraft.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
+                            if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
+                                secondToCraft.setSize(50, 50);
+                                secondToCraft.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
+                            } else {
+                                secondToCraft.setSize(150, 150);
+                                secondToCraft.setPosition(craftMenu.getX() + 505, craftMenu.getY() + 175);
+                            }
                             stage.addActor(secondToCraft);
                             addToBoxes(checkType(item));
                             inventoryComponent.removeItem(checkType(item));
@@ -647,6 +666,10 @@ public class GameAreaDisplay extends UIComponent {
             result = EntityTypes.PLATINUM;
         } else if (entity.checkEntityType(EntityTypes.SILVER)) {
             result = EntityTypes.SILVER;
+        } else if (entity.checkEntityType(EntityTypes.POOP)) {
+            result = EntityTypes.POOP;
+        } else {
+            result = EntityTypes.WEAPON;
         }
         return result;
     }
@@ -668,6 +691,10 @@ public class GameAreaDisplay extends UIComponent {
             inventoryComponent.addItem(MaterialFactory.createPlatinum());
         } else if (type == EntityTypes.SILVER) {
             inventoryComponent.addItem(MaterialFactory.createSilver());
+        } else if (type == EntityTypes.POOP) {
+            inventoryComponent.addItem(MaterialFactory.createPoop());
+        } else {
+            inventoryComponent.addItem(WeaponFactory.createDaggerTwo());
         }
     }
 
@@ -689,7 +716,11 @@ public class GameAreaDisplay extends UIComponent {
             materials = Materials.Platinum;
         } else if (type == EntityTypes.SILVER) {
             materials = Materials.Silver;
-        } else {
+        } else if (type == EntityTypes.POOP) {
+            materials = Materials.Poop;
+        }
+
+        else {
             materials = Materials.HerraDag;
         }
         if (this.boxes[0] == null)
@@ -706,6 +737,10 @@ public class GameAreaDisplay extends UIComponent {
         if (number == 0) {
             boxes[0] = null;
             boxes[1] = null;
+            if (weapon != null) {
+                weapon.remove();
+                weapon = null;
+            }
         } else if (number == 1) {
             boxes[0] = null;
             if (weapon != null) {

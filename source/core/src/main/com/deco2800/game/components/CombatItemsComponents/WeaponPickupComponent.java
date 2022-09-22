@@ -10,6 +10,7 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//this is useless
 public class WeaponPickupComponent extends Component {
     private static Logger logger;
     private HitboxComponent hitboxComponent;
