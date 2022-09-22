@@ -20,6 +20,9 @@ public class DeathScreenActions extends Component {
         this.game = game;
     }
 
+    /**
+     * Creates the event listeners relevant to DeathScreen
+     */
     @Override
     public void create() {
         entity.getEvents().addListener("continueGame", this::onContinue);
@@ -27,7 +30,7 @@ public class DeathScreenActions extends Component {
     }
 
     /**
-     * Swaps to the Main Game screen.
+     * Restarts the game by reloading Main Game screen.
      */
     private void onContinue() {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
