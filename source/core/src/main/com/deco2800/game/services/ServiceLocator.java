@@ -119,12 +119,7 @@ public class ServiceLocator {
   public static MainGameScreen getMainGameScreen() {
     return mainGameScreen;
   }
-
-  /**
-   * ISAAC LOOK AT THIS AND WORK OUT HOW IT WORKS
-   */
-  //public static DeathScreen getDeathScreen() {return }
-
+  
   public static void registerCraftArea(GameAreaDisplay area){
     craftArea = area;
   }
