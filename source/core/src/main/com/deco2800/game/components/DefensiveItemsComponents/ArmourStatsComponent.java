@@ -80,4 +80,17 @@ public class ArmourStatsComponent extends Component {
     public void setMaterials(HashMap<Materials, Integer> materials) {
         this.materials = materials;
     }
+
+    /**
+     * Checks if two ArmourStatsComponents have the same stat.
+     * @param other ArmourStatSComponent
+     * @return true if the stats are the same, false otherwise
+     */
+    public boolean equals (ArmourStatsComponent other) {
+        return phyResistance == other.getPhyResistance()
+                && durability == other.durability
+                && vitality == other.vitality
+                && dmgReturn == other.dmgReturn
+                && weight == other.weight;
+    }
 }

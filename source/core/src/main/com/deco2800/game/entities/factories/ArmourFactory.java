@@ -108,7 +108,7 @@ public class ArmourFactory {
                 config.weight,
                 config.materials);
         armour.getComponent(TextureRenderComponent.class).scaleEntity();
-        armour.scaleHeight(5f);
+        armour.scaleHeight(1f);
         return armour;
     }
 }

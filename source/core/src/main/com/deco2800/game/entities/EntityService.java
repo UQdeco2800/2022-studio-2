@@ -1,6 +1,7 @@
 package com.deco2800.game.entities;
 
 import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.components.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,9 @@ public class EntityService {
   private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
   private static final int INITIAL_CAPACITY = 16;
   private static boolean paused = false;
+  private static boolean pauseStartFlag = false;
+  private static boolean pauseEndFlag = false;
+  private static boolean entityTimeStop = false;
 
   private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
@@ -50,7 +54,12 @@ public class EntityService {
         entity.earlyUpdate();
         entity.update();
       }
+      if(pauseStartFlag || pauseEndFlag) {
+          entity.togglePauseAnimations(true);
+      }
     }
+    pauseStartFlag = false;
+    pauseEndFlag = false;
   }
 
   /**
@@ -58,6 +67,11 @@ public class EntityService {
    */
   public static void pauseAndResume() {
     paused = !paused;
+    if (paused) {
+      pauseStartFlag = true;
+    } else {
+      pauseEndFlag = true;
+    }
   }
 
   /**
@@ -65,6 +79,7 @@ public class EntityService {
    */
   public static void pauseGame() {
     paused = true;
+    pauseStartFlag = true;
   }
 
   /**
@@ -73,6 +88,18 @@ public class EntityService {
    */
   public static void unpauseGame() {
     paused = false;
+    pauseEndFlag = true;
+  }
+
+  public void toggleTimeStop() {
+    entityTimeStop = !entityTimeStop;
+    for (Entity entity : entities) {
+      entity.togglePauseAnimations(false);
+    }
+  }
+
+  public static boolean isTimeStopped() {
+    return entityTimeStop;
   }
 
   /**

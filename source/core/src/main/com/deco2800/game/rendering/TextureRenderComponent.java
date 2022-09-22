@@ -32,6 +32,7 @@ public class TextureRenderComponent extends RenderComponent {
   }
 
   /** Return the texture
+   * @return the texture of the component
    */
   public Texture getTexture() {
     return texture;
