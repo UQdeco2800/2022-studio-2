@@ -99,6 +99,10 @@ public class PlayerSkillComponent extends Component {
     private static final int BLEED_DAMAGE = 5;
     private boolean bleedEndEvent = false;
 
+    private boolean chargingUltimate;
+    private long ultimateChargeEnd;
+    private static final long ULTIMATE_CHARGE_LENGTH = 2600;
+
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
      * @param playerEntity the player entity this skill component is a subcomponent of
@@ -179,6 +183,20 @@ public class PlayerSkillComponent extends Component {
             } else {
                 this.bleeding = false;
                 this.bleedEndEvent = true;
+            }
+        }
+
+        // Check for ultimate end and screen animation triggers
+        if (this.chargingUltimate) {
+
+            if (System.currentTimeMillis() > this.ultimateChargeEnd) {
+                playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
+                skillAnimator.getEvents().trigger("regularAnimation");
+                this.chargingUltimate = false;
+            } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1500) {
+                playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
+            } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1800) {
+                playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
             }
         }
     }
@@ -502,6 +520,10 @@ public class PlayerSkillComponent extends Component {
      */
     public void startUltimate() {
         skillAnimator.getEvents().trigger("ultimateAnimation");
+        //playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
+        chargingUltimate = true;
+        long ultimateStart = System.currentTimeMillis();
+        this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
     }
 
     /**
