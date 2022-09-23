@@ -1,5 +1,6 @@
 package com.deco2800.game.components.levelTransition;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -21,13 +23,11 @@ import org.slf4j.LoggerFactory;
  */
 public class LevelTransitionDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LevelTransitionDisplay.class);
-    private static final float Z_INDEX = 2f;
+    private static final float Z_INDEX = 1f;
     private Table table;
     // The image of the deathBackground
     private Image transitionImage;
     // Global variable of game level
-    private Integer level;
-
 
     @Override
     public void create() {
@@ -44,9 +44,9 @@ public class LevelTransitionDisplay extends UIComponent {
         table.setFillParent(true);
 
         transitionImage = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/DeathScreens/lvl_3.png", Texture.class));
+                .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
 
-
+        entity.getEvents().addListener("nextMap", this::transitionDisplay);
 
         table.add(transitionImage);
         stage.addActor(table);
@@ -68,6 +68,12 @@ public class LevelTransitionDisplay extends UIComponent {
 //                        entity.getEvents().trigger("continueGame");
 //                    }
 //                });
+    }
+
+
+
+    public void transitionDisplay() {
+
     }
 
 

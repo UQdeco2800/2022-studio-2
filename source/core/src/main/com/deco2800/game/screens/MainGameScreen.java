@@ -1,5 +1,6 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -61,6 +62,9 @@ public class MainGameScreen extends ScreenAdapter {
   private static Component mainGameActions;
   private static Boolean dead;
   private static Integer gameLevel;
+  private static Boolean levelTransition;
+  private static final float STOP_TRANSITION = 5;
+  private static float transitionTime;
 
 
 
@@ -97,13 +101,24 @@ public class MainGameScreen extends ScreenAdapter {
 //    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
     dead = false;
+    levelTransition = false;
 
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
+    player.getEvents().addListener("levelChanged", this::levelTransitionStart);
 
   }
 
   public void deathScreenStart() { dead = true; }
+
+  private void levelTransitionStart() {
+    levelTransition = true;
+    transitionTime += Gdx.graphics.getDeltaTime();
+    if (transitionTime > STOP_TRANSITION) {
+      levelTransition = false;
+    }
+  }
+
 
   public GameArea getMap(){
     return map;
@@ -123,6 +138,12 @@ public class MainGameScreen extends ScreenAdapter {
       } else if (gameLevel == 2) {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
       }
+    }
+
+    // TODO WORKING ON TIMEING OF DISPLAY
+    if (levelTransition) {
+      player.getComponent(PlayerActions.class).stopWalking();
+      game.setScreen(GdxGame.ScreenType.LEVEL_TRANSITION);
     }
     if (PauseMenuActions.getQuitGameStatus()) {
       mainGameActions.getEntity().getEvents().trigger("exit");
@@ -197,7 +218,6 @@ public class MainGameScreen extends ScreenAdapter {
    * @return The game instance.
    */
   private UndergroundGameArea loadLevelTwoMap() {
-
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
 

@@ -4,6 +4,7 @@ package com.deco2800.game.components.deathscreen;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -21,11 +22,13 @@ import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.screens.DeathScreen;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
+
 import com.deco2800.game.ui.UIComponent;
 import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.awt.*;
@@ -36,6 +39,7 @@ public class DeathScreenDisplayTest {
     Integer level;
     DeathScreenDisplay deathScreenDisplay;
     Entity sockPuppet;
+    @Mock Entity entity;
 
 
     /**
@@ -44,7 +48,7 @@ public class DeathScreenDisplayTest {
     @BeforeEach
     void init() {
 
-        sockPuppet = new Entity();
+        Entity mockk = mock(Entity.class);
 
         deathScreenDisplay = new DeathScreenDisplay();
         AssetManager assetManager = spy(AssetManager.class);
@@ -59,7 +63,7 @@ public class DeathScreenDisplayTest {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerRenderService(new RenderService());
 
-        sockPuppet.addComponent(deathScreenDisplay);
+        mockk.addComponent(deathScreenDisplay);
 
     }
 
@@ -68,10 +72,10 @@ public class DeathScreenDisplayTest {
      */
     @Test
     void levelBackgroundOne() {
-        //level = 1;
-        //deathScreenDisplay = new DeathScreenDisplay(level);
-        //Texture tex = ServiceLocator.getResourceService().getAsset("images/DeathScreens/lvl_1.png", Texture.class);
-        //assertEquals(deathScreenDisplay.levelBackground(level), tex);
+//        level = 1;
+//        deathScreenDisplay = new DeathScreenDisplay(level);
+//        Texture tex = ServiceLocator.getResourceService().getAsset("images/DeathScreens/lvl_1.png", Texture.class);
+//        assertEquals(deathScreenDisplay.levelBackground(level), tex);
 
     }
 

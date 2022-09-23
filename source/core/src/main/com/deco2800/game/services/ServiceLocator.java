@@ -9,6 +9,7 @@ import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.screens.DeathScreen;
+import com.deco2800.game.screens.LevelTransitionScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,8 @@ public class ServiceLocator {
   private static GameArea gameArea;
 
   private static MainGameScreen mainGameScreen;
+
+  private static LevelTransitionScreen levelTransitionScreen;
 
   private static GameAreaDisplay craftArea;
   private static GameAreaDisplay pauseMenuArea;
@@ -119,6 +122,8 @@ public class ServiceLocator {
   public static MainGameScreen getMainGameScreen() {
     return mainGameScreen;
   }
+
+  public static LevelTransitionScreen getLevelTransitionScreen() {return levelTransitionScreen;}
 
   public static void registerCraftArea(GameAreaDisplay area){
     craftArea = area;

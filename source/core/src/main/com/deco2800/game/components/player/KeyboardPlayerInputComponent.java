@@ -127,11 +127,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         case Keys.ENTER:
         if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
                 (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
+          // TODO this is where we implement pause, show transition, and pause for loading level
+          entity.getEvents().trigger("levelChanged");
           entity.getEvents().trigger("nextMap");
         }
-        return true;
-      case Keys.L:
-        entity.getEvents().trigger("DeathScreen");
         return true;
       default:
         return false;
