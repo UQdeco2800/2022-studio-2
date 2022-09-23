@@ -15,6 +15,9 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
 
     private double weight;
 
+    private long auraEndTime;
+
+    Entity auraApplied;
     /**
      *
      * @param damage damage of the melee weapon
@@ -25,6 +28,13 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
     public MeleeStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight) {
        super(damage, coolDown, materials);
         setWeight(weight);
+    }
+
+    @Override
+    public void update() {
+        checkAuraEffect();
+        System.out.println(entity.getComponent(MeleeStatsComponent.class).getDamage());
+        System.out.println(auraApplied != null);
     }
 
     /**
@@ -43,24 +53,37 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
         this.weight = weight;
     }
 
+    public void checkAuraEffect() {
+        if (auraApplied != null) {
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            System.out.println("dasdad");
+            setDamage(getDamage() / auraApplied.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
+            setCoolDown(getCoolDown() / auraApplied.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+            setWeight(getWeight() / auraApplied.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
+            auraApplied = null;
+            auraEndTime = 0;
+        }
+    }
+
     @Override
     public void auraEffect(Entity auraToApply) {
+        auraEndTime = System.currentTimeMillis() + auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration();
+        auraApplied = auraToApply;
         setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
         setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
         setWeight(this.getWeight() * auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
-
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-                           @Override
-                           public void run() {
-                               setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-                               setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-                               setWeight(getWeight() / auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
-                               timer.cancel();
-                           }
-                       }
-                , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
     }
 
     /**

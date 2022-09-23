@@ -1,7 +1,6 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;

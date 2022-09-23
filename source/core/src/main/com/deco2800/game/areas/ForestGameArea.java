@@ -144,7 +144,7 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private Entity heracles;
-  private static List<Entity> weaponOnMap = new ArrayList<>();
+  //private static List<Entity> weaponOnMap = new ArrayList<>(); not necessary
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   private static GridPoint2 craftingTablePos;
@@ -307,10 +307,10 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(tree, new GridPoint2(x, y), true, false);
   }
 
-  public static void removeWeaponOnMap(Entity entityToRemove) {
+  public static void removeAuraOnMap(Entity entityToRemove) {
 
     entityToRemove.setEnabled(false);
-    weaponOnMap.remove(entityToRemove);
+    auraOnMap.remove(entityToRemove);
 
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
@@ -505,7 +505,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnDumbbell() {
     Entity dumbbell = WeaponFactory.createDumbbell();
-    weaponOnMap.add(dumbbell);
+    ItemsOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
 
