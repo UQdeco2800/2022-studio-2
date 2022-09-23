@@ -626,7 +626,7 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.SILVER) {
             materials = Materials.Silver;
         } else {
-            materials = Materials.HerraDag;
+            materials = Materials.HeraDag;
         }
         if (this.boxes[0] == null)
             boxes[0] = materials;

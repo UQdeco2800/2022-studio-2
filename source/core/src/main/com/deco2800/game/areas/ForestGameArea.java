@@ -510,14 +510,14 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawns level 3 Herra and Athena entity into the game
+   * Spawns level 3 Hera and Athena entity into the game
    * Spawns x-pos 10
    * Spawns y-pos 4
    */
- // private void spawnHerraAndAthena() {
-  //  Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
-  //  weaponOnMap.add(herraAthenaDag);
-  //  spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
+ // private void spawnHeraAndAthena() {
+  //  Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
+  //  weaponOnMap.add(heraAthenaDag);
+  //  spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
  // }
 
   /**

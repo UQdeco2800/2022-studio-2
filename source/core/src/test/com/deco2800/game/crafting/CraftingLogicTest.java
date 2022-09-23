@@ -43,11 +43,11 @@ public class CraftingLogicTest {
                 FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
         List<MeleeConfig> possibleWeaponsTest = new ArrayList<>();
         possibleWeaponsTest.add(configs.athenaDag);
-        possibleWeaponsTest.add(configs.herraDag);
+        possibleWeaponsTest.add(configs.heraDag);
         possibleWeaponsTest.add(configs.SwordLvl2);
         possibleWeaponsTest.add(configs.dumbbell);
         possibleWeaponsTest.add(configs.tridentLvl2);
-        possibleWeaponsTest.add(configs.herraAthenaDag);
+        possibleWeaponsTest.add(configs.heraAthenaDag);
         possibleWeaponsTest.add(configs.plunger);
 
         assertNotSame(possibleWeaponsTest,CraftingLogic.getPossibleWeapons());
@@ -59,7 +59,7 @@ public class CraftingLogicTest {
 //                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.athenaDag);
 //                    break;
 //                case 1:
-//                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.herraDag);
+//                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.heraDag);
 //                    break;
 //                case 2:
 //                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.SwordLvl2);
@@ -71,7 +71,7 @@ public class CraftingLogicTest {
 //                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.tridentLvl2);
 //                    break;
 //                case 5:
-//                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.herraAthenaDag);
+//                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.heraAthenaDag);
 //                    break;
 //                case 6:
 //                    assertEquals(CraftingLogic.getPossibleWeapons().get(i), configs.plunger);

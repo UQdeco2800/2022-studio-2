@@ -14,20 +14,22 @@ import java.util.TimerTask;
 public class MeleeStatsComponent extends WeaponStatsComponent {
 
     private double weight;
+    private String description;
 
     private long auraEndTime;
 
     Entity auraApplied;
     /**
-     *
-     * @param damage damage of the melee weapon
-     * @param coolDown duration before the next attack instance can be called
+     * @param damage    damage of the melee weapon
+     * @param coolDown  duration before the next attack instance can be called
      * @param materials materials needed to craft the weapon
-     * @param weight weight of the weapon (affects player's movement speed)
+     * @param weight    weight of the weapon (affects player's movement speed)
+     * @param description description of the weapon (used to target weapon animations more effectively)
      */
-    public MeleeStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight) {
+    public MeleeStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight, String description) {
        super(damage, coolDown, materials);
         setWeight(weight);
+        setDescription(description);
     }
 
     @Override
@@ -43,6 +45,14 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
      */
     public double getWeight() {
         return weight;
+    }
+
+    /**
+     * Returns the weapon description
+     * @return description of the weapon
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -76,6 +86,7 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
             auraEndTime = 0;
         }
     }
+    public void setDescription(String description) { this.description = description; }
 
     @Override
     public void auraEffect(Entity auraToApply) {

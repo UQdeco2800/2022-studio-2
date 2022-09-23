@@ -44,7 +44,7 @@ public class WeaponFactory {
         Entity dagger = createBaseWeapon();
         dagger.setEntityType(EntityTypes.CRAFTABLE);
         MeleeConfig config = configs.athenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dagger");
 
        dagger
                 .addComponent(weaponStats)
@@ -59,19 +59,18 @@ public class WeaponFactory {
      * Creates Level 2 dagger 2 - Hera's Dagger
      * @return Level 2 dagger 2 - Hera's Dagger
      */
-    public static Entity createDaggerTwo() {
-        Entity daggerTwo = createBaseWeapon();
-        daggerTwo.setEntityType(EntityTypes.CRAFTABLE);
-        MeleeConfig config = configs.herraDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
-
-        daggerTwo
+    public static Entity createHera() {
+        Entity hera = createBaseWeapon();
+        hera.setEntityType(EntityTypes.CRAFTABLE);
+        MeleeConfig config = configs.heraDag;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "hera");
+        hera
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"));
-        daggerTwo.getComponent(TextureRenderComponent.class).scaleEntity();
-        daggerTwo.scaleHeight(5f);
-        daggerTwo.setEntityType(EntityTypes.MELEE);
-        return daggerTwo;
+        hera.getComponent(TextureRenderComponent.class).scaleEntity();
+        hera.scaleHeight(5f);
+        hera.setEntityType(EntityTypes.MELEE);
+        return hera;
     }
 
     /**
@@ -81,7 +80,7 @@ public class WeaponFactory {
     public static Entity createDumbbell() {
         Entity dumbbell = createBaseWeapon();
         MeleeConfig config = configs.dumbbell;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dumbbell");
 
         dumbbell
                 .addComponent(weaponStats)
@@ -99,7 +98,7 @@ public class WeaponFactory {
     public static Entity createSwordLvl2() {
         Entity SwordLvl2 = createBaseWeapon();
         MeleeConfig config = configs.SwordLvl2;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "SwordLvl2");
 
         SwordLvl2
                 .addComponent(weaponStats)
@@ -117,7 +116,7 @@ public class WeaponFactory {
     public static Entity createTridentLvl2() {
         Entity TridentLvl2 = createBaseWeapon();
         MeleeConfig config = configs.tridentLvl2;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TridentLvl2");
 
         TridentLvl2
                 .addComponent(weaponStats)
@@ -129,13 +128,13 @@ public class WeaponFactory {
     }
 
     /**
-     * Creates Herra and Athena's Dagger
-     * @return Herra and Athena's Dagger
+     * Creates hera and Athena's Dagger
+     * @return hera and Athena's Dagger
      */
-    public static Entity createHerraAthenaDag() {
+    public static Entity createHeraAthenaDag() {
         Entity heraAthenaDag = createBaseWeapon();
-        MeleeConfig config = configs.herraAthenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeConfig config = configs.heraAthenaDag;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "heraAthenaDag");
 
         heraAthenaDag
                 .addComponent(weaponStats)
@@ -153,7 +152,7 @@ public class WeaponFactory {
     public static Entity createPlunger() {
         Entity plunger = createBaseWeapon();
         MeleeConfig config = configs.plunger;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "plunger");
 
         plunger
                 .addComponent(weaponStats)
@@ -170,8 +169,7 @@ public class WeaponFactory {
     public static Entity createPipe() {
         Entity pipe = createBaseWeapon();
         MeleeConfig config = configs.pipe;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
-
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "pipe");
         pipe
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/pipe.png"));
@@ -189,7 +187,7 @@ public class WeaponFactory {
         Entity dagger = createBaseWeapon();
         dagger.setEntityType(EntityTypes.WEAPON);
         MeleeConfig config = configs.athenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TestDagger");
         dagger.addComponent(weaponStats);
         dagger.setEntityType(EntityTypes.MELEE);
         return dagger;
