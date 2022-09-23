@@ -1,8 +1,11 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
@@ -30,7 +33,6 @@ import com.deco2800.game.services.ServiceLocator;
 public class PlayerFactory {
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
-
 
   /**
    * Create a player entity.
@@ -69,10 +71,8 @@ public class PlayerFactory {
             .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
             .addComponent(animator)
-            .addComponent(new PlayerAnimationController())
-            .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER));
-
-
+            .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
+            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();

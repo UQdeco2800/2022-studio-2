@@ -21,7 +21,7 @@ import java.security.Provider;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  private int keyPressedCounter = 1;
+  private static int keyPressedCounter = 1;
 
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
@@ -136,6 +136,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       default:
         return false;
     }
+  }
+
+  public static void incrementPauseCounter(){
+    keyPressedCounter++;
   }
 
   /**

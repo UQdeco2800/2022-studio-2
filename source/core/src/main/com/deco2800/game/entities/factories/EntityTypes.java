@@ -23,4 +23,6 @@ public enum EntityTypes {
     SILVER,
     NPC,
     CRAFTINGTABLE,
+    POOP,
+
 }
