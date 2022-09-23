@@ -32,6 +32,11 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
         entity.getEvents().addListener("collisionStart", this::keyPrompt);
     }
 
+    /**
+     * This function is used for guiding the user to press the relevant key to interact with the entity
+     * @param me
+     * @param other
+     */
     public void keyPrompt(Fixture me, Fixture other){
 //        hitboxComponent = entity.getComponent(HitboxComponent.class);
 //        Fixture f = ServiceLocator.getGameArea().getPlayer().getComponent(HitboxComponent.class).getFixture();
@@ -52,6 +57,7 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
             logger.info("TEST KEY PROMPT NPC PRESS F TO OPEN DIALOGUE");
             logger.info("TEST KEY PROMPT NPC PRESS G TO CLOSE DIALOGUE");
         }
+
 
         else if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.CRAFTINGTABLE)){
             logger.info("TEST KEY PROMPT CRAFTING PRESS Q TO CRAFT");
