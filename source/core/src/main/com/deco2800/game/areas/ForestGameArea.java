@@ -143,6 +143,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
+  private Entity heracles;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
@@ -172,6 +173,25 @@ public class ForestGameArea extends GameArea {
     return player;
   }
 
+  /**
+   * Get Heracles the level 1 boss
+   * @return Heracles
+   */
+  public Entity getHeracles() {
+    return heracles;
+  }
+
+  /**
+   * Check if Heracles is placed on map
+   */
+  public boolean ifHeraclesOnMap() {
+    if (heracles.getPosition() == null) {
+      return false;
+    }
+    return true;
+  }
+
+
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
   @Override
   public void create() {
@@ -183,7 +203,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     //spawnEffectBlobs();
     spawnGymBro();
-    spawnHeracles();
+    heracles = spawnHeracles();
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
@@ -748,13 +768,14 @@ public class ForestGameArea extends GameArea {
   /**
    * Spawn Heracles in a random position.
    */
-  private void spawnHeracles() {
+  private Entity spawnHeracles() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity heracles = NPCFactory.createHeracles(player);
     spawnEntityAt(heracles, randomPos, true, true);
+    return heracles;
   }
 
   /**

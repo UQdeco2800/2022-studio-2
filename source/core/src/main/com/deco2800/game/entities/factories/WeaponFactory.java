@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
+import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
@@ -31,7 +32,7 @@ public class WeaponFactory {
         Entity weapon = new Entity()
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-                .addComponent(new WeaponPickupComponent(PhysicsLayer.PLAYER));
+                .addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
         weapon.setEntityType(EntityTypes.WEAPON);
         return weapon;
     }
@@ -51,6 +52,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Level 2 Dagger 1.png"));
         dagger.getComponent(TextureRenderComponent.class).scaleEntity();
         dagger.scaleHeight(1f);
+        dagger.setEntityType(EntityTypes.MELEE);
         return dagger;
     }
 
@@ -68,6 +70,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"));
         hera.getComponent(TextureRenderComponent.class).scaleEntity();
         hera.scaleHeight(5f);
+        hera.setEntityType(EntityTypes.MELEE);
         return hera;
     }
 
@@ -85,6 +88,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Enemy_dumbbell.png"));
         dumbbell.getComponent(TextureRenderComponent.class).scaleEntity();
         dumbbell.scaleHeight(1f);
+        dumbbell.setEntityType(EntityTypes.MELEE);
         return dumbbell;
     }
 
@@ -102,6 +106,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Sword_Lvl2.png"));
         SwordLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
         SwordLvl2.scaleHeight(2f);
+        SwordLvl2.setEntityType(EntityTypes.MELEE);
         return SwordLvl2;
     }
 
@@ -119,6 +124,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/trident_Lvl2.png"));
         TridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
         TridentLvl2.scaleHeight(2f);
+        TridentLvl2.setEntityType(EntityTypes.MELEE);
         return TridentLvl2;
     }
 
@@ -136,6 +142,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/H&ADagger.png"));
         heraAthenaDag.getComponent(TextureRenderComponent.class).scaleEntity();
         heraAthenaDag.scaleHeight(2f);
+        heraAthenaDag.setEntityType(EntityTypes.MELEE);
         return heraAthenaDag;
     }
 
@@ -153,6 +160,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/Plunger.png"));
         plunger.getComponent(TextureRenderComponent.class).scaleEntity();
         plunger.scaleHeight(2f);
+        plunger.setEntityType(EntityTypes.MELEE);
         return plunger;
     }
     /**
@@ -168,6 +176,7 @@ public class WeaponFactory {
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/pipe.png"));
         pipe.getComponent(TextureRenderComponent.class).scaleEntity();
         pipe.scaleHeight(2f);
+        pipe.setEntityType(EntityTypes.MELEE);
         return pipe;
     }
 
@@ -181,6 +190,7 @@ public class WeaponFactory {
         MeleeConfig config = configs.athenaDag;
         MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TestDagger");
         dagger.addComponent(weaponStats);
+        dagger.setEntityType(EntityTypes.MELEE);
         return dagger;
     }
 
