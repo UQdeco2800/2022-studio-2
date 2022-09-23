@@ -7,14 +7,13 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -125,7 +124,12 @@ public class MainGameScreen extends ScreenAdapter {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
       }
     }
+    if (PauseMenuActions.getQuitGameStatus()) {
+      mainGameActions.getEntity().getEvents().trigger("exit");
+      PauseMenuActions.setQuitGameStatus();
+    }
   }
+
 
   @Override
   public void resize(int width, int height) {
@@ -253,7 +257,8 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent(new DialogueDisplay());
+        .addComponent(new DialogueDisplay())
+        .addComponent(new PauseMenuActions());
 
     ServiceLocator.getEntityService().register(ui);
   }
