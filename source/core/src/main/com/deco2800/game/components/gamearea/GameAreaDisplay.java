@@ -391,9 +391,9 @@ public class GameAreaDisplay extends UIComponent {
     public void openCraftingMenu() {
         if (firstTime == 0) {
             inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-            inventoryComponent.addItem(MaterialFactory.createGold());
-            inventoryComponent.addItem(MaterialFactory.createSteel());
-            inventoryComponent.addItem(MaterialFactory.createPoop());
+           // inventoryComponent.addItem(MaterialFactory.createGold());
+           // inventoryComponent.addItem(MaterialFactory.createSteel());
+           // inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             firstTime += 1;
         }
         /*if (getGameAreaName().equals("Underground")) {
@@ -677,7 +677,9 @@ public class GameAreaDisplay extends UIComponent {
             result = EntityTypes.SILVER;
         } else if (entity.checkEntityType(EntityTypes.POOP)) {
             result = EntityTypes.POOP;
-        } else {
+        } else if (entity.checkEntityType(EntityTypes.TOILETPAPER)) {
+            result = EntityTypes.TOILETPAPER;
+        }else {
             result = EntityTypes.WEAPON;
         }
         return result;
@@ -702,6 +704,8 @@ public class GameAreaDisplay extends UIComponent {
             inventoryComponent.addItem(MaterialFactory.createSilver());
         } else if (type == EntityTypes.POOP) {
             inventoryComponent.addItem(MaterialFactory.createPoop());
+        } else if (type == EntityTypes.TOILETPAPER) {
+            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
         } else {
             inventoryComponent.addItem(WeaponFactory.createHera());
         }

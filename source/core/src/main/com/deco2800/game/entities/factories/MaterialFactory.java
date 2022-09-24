@@ -42,6 +42,15 @@ public class MaterialFactory {
         return iron;
     }
 
+    public static Entity createToiletPaper() {
+        Entity iron = createBaseMaterial();
+        iron.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/toilet_paper.png"));
+        iron.setEntityType(EntityTypes.TOILETPAPER);
+        iron.setEntityType(EntityTypes.CRAFTABLE);
+        return iron;
+    }
+
+
     public static Entity createSteel() {
         Entity steel = createBaseMaterial();
         steel.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/steel.png"));

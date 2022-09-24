@@ -108,6 +108,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/H&ADagger.png",
     "images/CombatItems/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
+          "images/Crafting-assets-sprint1/materials/toilet_paper.png",
     "images/Crafting-assets-sprint1/materials/gold.png",
     "images/Crafting-assets-sprint1/materials/iron.png",
     "images/Crafting-assets-sprint1/materials/plastic.png",
