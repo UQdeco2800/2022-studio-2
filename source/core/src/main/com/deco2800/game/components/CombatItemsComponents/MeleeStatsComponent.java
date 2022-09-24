@@ -31,14 +31,14 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
         setWeight(weight);
         setDescription(description);
     }
-
+/*
     @Override
     public void update() {
         checkAuraEffect();
         System.out.println(entity.getComponent(MeleeStatsComponent.class).getDamage());
         System.out.println(auraApplied != null);
     }
-
+*/
     /**
      * Returns the weight of the weapon
      * @return weight of the weapon
