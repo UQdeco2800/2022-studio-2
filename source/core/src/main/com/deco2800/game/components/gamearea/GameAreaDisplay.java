@@ -426,7 +426,6 @@ public class GameAreaDisplay extends UIComponent {
                     disposeFirstBox();
                     disposeSecondBox();
                     ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
-                    inventoryComponent.addItem(currentWeapon);
                     weapon.remove();
                     weapon = null;
                     clearBoxes(0);
@@ -561,10 +560,13 @@ public class GameAreaDisplay extends UIComponent {
         for (Entity item : inventory) {
             if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
+                if (item.checkEntityType((EntityTypes.WEAPON))){
+                    materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
+                }
                 materialTextureRegion = new TextureRegion(materialTexture);
                 materialDrawable = new TextureRegionDrawable(materialTextureRegion);
                 if (item.checkEntityType((EntityTypes.WEAPON))){
-                    materialDrawable.setMinSize(150, 150);
+                    materialDrawable.setMinSize(35, 35);
                 }
 
                 material = new ImageButton(materialDrawable);
@@ -574,8 +576,8 @@ public class GameAreaDisplay extends UIComponent {
                     material.setPosition(craftMenu.getX() + 172 + ((index % 4) * 68),
                             (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 208)));
                 } else {
-                    material.setPosition(craftMenu.getX() + 125 + ((index % 4) * 68),
-                            (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 265)));
+                    material.setPosition(craftMenu.getX() + 180 + ((index % 4) * 68),
+                            (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 200)));
                 }
                 index++;
                 material.addListener(new ChangeListener() {
