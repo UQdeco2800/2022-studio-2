@@ -694,7 +694,7 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.POOP) {
             inventoryComponent.addItem(MaterialFactory.createPoop());
         } else {
-            inventoryComponent.addItem(WeaponFactory.createDaggerTwo());
+            inventoryComponent.addItem(WeaponFactory.createHera());
         }
     }
 
@@ -719,7 +719,6 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.POOP) {
             materials = Materials.Poop;
         }
-
         else {
             materials = Materials.HerraDag;
         }
