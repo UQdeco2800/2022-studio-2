@@ -186,4 +186,27 @@ public class WeaponFactory {
         return dagger;
     }
 
+    /**
+     * Creates the specified type of weapon for testing
+     * @return test weapon
+     */
+    public static Entity createTestWeapon(String weaponName) {
+        Entity weapon = createBaseWeapon();
+        weapon.setEntityType(EntityTypes.WEAPON);
+        MeleeConfig config;
+        config = switch (weaponName) {
+            case "Dumbbell" -> configs.dumbbell;
+            case "Dagger" -> configs.athenaDag;
+            case "Dagger2" -> configs.herraDag;
+            case "SwordLvl2" -> configs.SwordLvl2;
+            case "tridentLvl2" -> configs.tridentLvl2;
+            case "herraAthenaDag" -> configs.herraAthenaDag;
+            case "Plunger"-> configs.plunger;
+            case "Pipe" ->  configs.pipe;
+            default -> configs.athenaDag;
+        };
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        weapon.addComponent(weaponStats);
+        return weapon;
+    }
 }

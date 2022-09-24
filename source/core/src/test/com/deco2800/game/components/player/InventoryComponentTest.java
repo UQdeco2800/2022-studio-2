@@ -108,7 +108,7 @@ class InventoryComponentTest {
   @Test
   void equipItem() {
     Entity player = PlayerFactory.createTestPlayer();
-    Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity testWeapon = WeaponFactory.createTestWeapon("Dumbbell");
     Entity testArmour = ArmourFactory.createBaseArmour();
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
@@ -129,26 +129,45 @@ class InventoryComponentTest {
             checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
   }
 
-//  @Test
-//  void unequip() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testWeapon = WeaponFactory.createTestDagger();
-//    Entity testArmour = ArmourFactory.createBaseArmour();
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
-//    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
-//
-//    inventory.addItem(testWeapon);
-//    inventory.addItem(testArmour);
-//
-//    inventory.equipItem(testArmour);
-//    assertTrue(pmComponent.
-//            checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
-//
-//    inventory.equipItem(testWeapon);
-//
-//  }
+  @Test
+  void unequip() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestWeapon("Dumbbell");
+    Entity testArmour = ArmourFactory.createBaseArmour();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+
+    inventory.addItem(testWeapon);
+    inventory.addItem(testArmour);
+
+    final float refSpeed = pmComponent.getReference(PlayerModifier.MOVESPEED);
+
+    //Test case 1 and 2: unequip single item armour/weapon
+    inventory.equipItem(testArmour);
+    inventory.unequipItem(1);
+    assertEquals(refSpeed, pmComponent.getModified(PlayerModifier.MOVESPEED));
+
+    inventory.equipItem(testWeapon);
+    inventory.unequipItem(0);
+    assertEquals(refSpeed, pmComponent.getModified(PlayerModifier.MOVESPEED));
+
+    //Test case 3: unequip single item while equipping multiple items
+    inventory.equipItem(testArmour);
+    inventory.equipItem(testWeapon);
+    inventory.unequipItem(1);
+    assertEquals(refSpeed, pmComponent.getModified(PlayerModifier.MOVESPEED));
+
+    //Test case 4: unequip all items equipped while all item slots are full
+    inventory.equipItem(testArmour);
+    inventory.equipItem(testWeapon);
+    inventory.unequipItem(1);
+    inventory.unequipItem(0);
+    assertEquals(refSpeed, pmComponent.getModified(PlayerModifier.MOVESPEED));
+
+    //Test case 5: unequip while inventory is full
+    //Currently unavailable since the total number of items existing in this game is < 16
+  }
 
   @Test
   void addQuickBarItems() {
