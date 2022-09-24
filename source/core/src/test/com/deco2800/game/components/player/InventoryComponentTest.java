@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -106,21 +107,48 @@ class InventoryComponentTest {
 
   @Test
   void equipItem() {
-    Entity testArmour = ArmourFactory.createBaseArmour();
     Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity testArmour = ArmourFactory.createBaseArmour();
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+
     ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
+    MeleeStatsComponent meleeStats = testWeapon.getComponent(MeleeStatsComponent.class);
 
+    inventory.addItem(testWeapon);
     inventory.addItem(testArmour);
+
     inventory.equipItem(testArmour);
+    assertTrue(pmComponent.
+            checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
 
-    PlayerModifier pmComponent =
-            player.getComponent(PlayerModifier.class);
-
-     assertTrue(pmComponent.
-             checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
+    inventory.equipItem(testWeapon);
+    assertTrue(pmComponent.
+            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
   }
+
+//  @Test
+//  void unequip() {
+//    Entity player = PlayerFactory.createTestPlayer();
+//    Entity testWeapon = WeaponFactory.createTestDagger();
+//    Entity testArmour = ArmourFactory.createBaseArmour();
+//
+//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+//    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+//    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
+//
+//    inventory.addItem(testWeapon);
+//    inventory.addItem(testArmour);
+//
+//    inventory.equipItem(testArmour);
+//    assertTrue(pmComponent.
+//            checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
+//
+//    inventory.equipItem(testWeapon);
+//
+//  }
 
   @Test
   void addQuickBarItems() {
@@ -187,5 +215,7 @@ class InventoryComponentTest {
     inventory.getItemQuantity(testPotion);
     assertEquals(expectQuantity, inventory.getItemQuantity(testPotion));
   }
+
+
 
 }
