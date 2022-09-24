@@ -222,7 +222,7 @@ public class InventoryComponent extends Component {
      * @requires inventory.contains(item) == true
      */
     public int getItemQuantity(Entity item) {
-        return itemQuantity[inventory.indexOf(item)];
+        return itemQuantity[getItemIndex(item, inventory)];
     }
 
     /**

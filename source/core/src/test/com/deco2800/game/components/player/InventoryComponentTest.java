@@ -133,7 +133,7 @@ class InventoryComponentTest {
     inventory.addQuickBarItems(testPotion);
     expectedList.add(testPotion);
 
-    assertEquals(expectedList, inventory);
+    assertEquals(expectedList, inventory.getQuickBarItems());
   }
 
   @Test
@@ -170,22 +170,22 @@ class InventoryComponentTest {
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
   }
 
-//  @Test
-//  void testSortingAlgorithm() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testWeapon = WeaponFactory.createTestDagger();
-//    Entity testPotion = PotionFactory.createTestSpeedPotion();
-//    final int expectQuantity = 4;
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//
-//    inventory.addItem(testWeapon);
-//    //Add 4 potions to the inventory
-//    for (int i = 0; i < 4; ++i) inventory.addItem(testPotion);
-//
-//    inventory.removeItem(testWeapon);
-//    inventory.getItemQuantity(testPotion);
-//    assertEquals(4, );
-//  }
+  @Test
+  void testSortingAlgorithm() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+    final int expectQuantity = 4;
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+
+    inventory.addItem(testWeapon);
+    //Add 4 potions to the inventory
+    for (int i = 0; i < 4; ++i) inventory.addItem(testPotion);
+
+    inventory.removeItem(testWeapon);
+    inventory.getItemQuantity(testPotion);
+    assertEquals(expectQuantity, inventory.getItemQuantity(testPotion));
+  }
 
 }
