@@ -145,7 +145,7 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private Entity heracles;
-  private static List<Entity> weaponOnMap = new ArrayList<>();
+  //private static List<Entity> weaponOnMap = new ArrayList<>(); not necessary
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   public static GridPoint2 oneLegGirlPosition;
@@ -307,10 +307,10 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(tree, new GridPoint2(x, y), true, false);
   }
 
-  public static void removeWeaponOnMap(Entity entityToRemove) {
+  public static void removeAuraOnMap(Entity entityToRemove) {
 
     entityToRemove.setEnabled(false);
-    weaponOnMap.remove(entityToRemove);
+    auraOnMap.remove(entityToRemove);
 
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
@@ -505,19 +505,19 @@ public class ForestGameArea extends GameArea {
 
   private void spawnDumbbell() {
     Entity dumbbell = WeaponFactory.createDumbbell();
-    weaponOnMap.add(dumbbell);
+    ItemsOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
 
   /**
-   * Spawns level 3 Herra and Athena entity into the game
+   * Spawns level 3 Hera and Athena entity into the game
    * Spawns x-pos 10
    * Spawns y-pos 4
    */
- // private void spawnHerraAndAthena() {
-  //  Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
-  //  weaponOnMap.add(herraAthenaDag);
-  //  spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
+ // private void spawnHeraAndAthena() {
+  //  Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
+  //  weaponOnMap.add(heraAthenaDag);
+  //  spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
  // }
 
   /**

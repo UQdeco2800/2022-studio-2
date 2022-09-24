@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -74,7 +76,6 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
     entity.getEvents().addListener("attack", this::attackAnimation);
-    entity.getEvents().addListener("attack2", this::attackAnimation2);
 
 
     // Skills and Dash initialisation
@@ -357,16 +358,14 @@ public class PlayerActions extends Component {
   }
 
   /**
-   *  Makes the player attack with the hera combat item.
+   *  Sets the attack animation dependent on the weapon that is currently equipped
    */
   void attackAnimation(){
-    this.combatAnimator.getEvents().trigger("hera");
-  }
-
-  /**
-   *  Makes the player attack with the level3Dagger combat item.
-   */
-  void attackAnimation2(){
-    this.combatAnimator.getEvents().trigger("level3Dagger");
+    Entity playerWeapon;
+    if ((playerWeapon = entity.getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+      String description = playerWeapon.getComponent(MeleeStatsComponent.class).getDescription();
+      System.out.println(description);
+      combatAnimator.getEvents().trigger(description);
+    }
   }
 }

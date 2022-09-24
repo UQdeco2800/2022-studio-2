@@ -1,11 +1,16 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.deco2800.game.components.CombatItemsComponents.AuraPickupComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponAuraComponent;
+import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
 import com.deco2800.game.files.FileLoader;
 
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
@@ -25,7 +30,10 @@ public class AuraFactory {
      */
     public static Entity createBaseAura() {
         Entity aura = new Entity()
-                .addComponent(new PhysicsComponent());
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new AuraPickupComponent(PhysicsLayer.PLAYER));
+        aura.setEntityType(EntityTypes.AURA);
         aura.scaleHeight(5f);
 
         return aura;
