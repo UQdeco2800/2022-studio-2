@@ -421,6 +421,7 @@ public class GameAreaDisplay extends UIComponent {
             // Method to add item to players inventory
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Craft button pressed");
                 if (weapon != null) {
                     disposeFirstBox();
                     disposeSecondBox();
@@ -583,18 +584,21 @@ public class GameAreaDisplay extends UIComponent {
                         if (boxes[0] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
+                            if (item.checkEntityType((EntityTypes.WEAPON))){
+                                materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
+                            }
                             materialTextureRegion = new TextureRegion(materialTexture);
                             materialDrawable = new TextureRegionDrawable(materialTextureRegion);
                             if (item.checkEntityType((EntityTypes.WEAPON))){
-                                materialDrawable.setMinSize(150, 150);
+                                materialDrawable.setMinSize(35, 35);
                             }
                             firstToCraft = new ImageButton(materialDrawable);
                             if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
                                 firstToCraft.setSize(50, 50);
                                 firstToCraft.setPosition(craftMenu.getX() + 481, craftMenu.getY() + 230);
                             } else {
-                                firstToCraft.setSize(150, 150);
-                                firstToCraft.setPosition(craftMenu.getX() + 435, craftMenu.getY() + 175);
+                                firstToCraft.setSize(50, 50);
+                                firstToCraft.setPosition(craftMenu.getX() + 480, craftMenu.getY() + 225);
                             }
 
                             stage.addActor(firstToCraft);
@@ -613,18 +617,21 @@ public class GameAreaDisplay extends UIComponent {
                         } else if (boxes[1] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
+                            if (item.checkEntityType((EntityTypes.WEAPON))){
+                                materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
+                            }
                             materialTextureRegion = new TextureRegion(materialTexture);
                             materialDrawable = new TextureRegionDrawable(materialTextureRegion);
                             if (item.checkEntityType((EntityTypes.WEAPON))){
-                                materialDrawable.setMinSize(150, 150);
+                                materialDrawable.setMinSize(35, 35);
                             }
                             secondToCraft = new ImageButton(materialDrawable);
                             if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
                                 secondToCraft.setSize(50, 50);
                                 secondToCraft.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
                             } else {
-                                secondToCraft.setSize(150, 150);
-                                secondToCraft.setPosition(craftMenu.getX() + 505, craftMenu.getY() + 175);
+                                secondToCraft.setSize(50, 50);
+                                secondToCraft.setPosition(craftMenu.getX() + 545, craftMenu.getY() + 225);
                             }
                             stage.addActor(secondToCraft);
                             addToBoxes(checkType(item));
