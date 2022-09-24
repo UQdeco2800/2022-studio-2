@@ -119,6 +119,7 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/silver.png",
     "images/Crafting-assets-sprint1/materials/steel.png",
     "images/Crafting-assets-sprint1/materials/wood.png",
+    "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
     "images/Skills/projectileSprites.png",
     "images/CombatItems/animations/combatanimation.png",
     "images/CombatItems/Sprint-2/pipe.png"
@@ -150,7 +151,6 @@ public class ForestGameArea extends GameArea {
   //private static List<Entity> weaponOnMap = new ArrayList<>(); not necessary
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
-  private static GridPoint2 craftingTablePos;
   public static GridPoint2 oneLegGirlPosition;
   public static GridPoint2 HumanGuardPosition;
   public static GridPoint2 PlumberFriendPosition;
@@ -564,9 +564,6 @@ public class ForestGameArea extends GameArea {
   //  weaponOnMap.add(tridentLvl2);
   //  spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
  // }
-  public static GridPoint2 getCraftingTablePos() {
-    return craftingTablePos;
-  }
 
   /**
    * Spawn a potion in a random position.

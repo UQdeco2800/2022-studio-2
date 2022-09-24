@@ -26,6 +26,14 @@ public class MaterialFactory {
         return gold;
     }
 
+    public static Entity createPoop() {
+        Entity poop = createBaseMaterial();
+        poop.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/rainbow_poop.png"));
+        poop.setEntityType(EntityTypes.POOP);
+        poop.setEntityType(EntityTypes.CRAFTABLE);
+        return poop;
+    }
+
     public static Entity createIron() {
         Entity iron = createBaseMaterial();
         iron.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/iron.png"));
