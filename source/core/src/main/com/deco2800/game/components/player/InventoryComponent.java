@@ -30,6 +30,11 @@ public class InventoryComponent extends Component {
         this.combatAnimator = combatAnimator;
     }
 
+    //CANCEL_ANIMATION
+    private void cancelAnimation() {
+        ServiceLocator.getEntityService().unregister(combatAnimator);
+    }
+
     /**
      * The status of inventory display.
      */
@@ -368,6 +373,8 @@ public class InventoryComponent extends Component {
             Entity item = equipables[itemSlot];
             if (item.checkEntityType(EntityTypes.WEAPON)) {
                 applyWeaponEffect(item, unequipped);
+                //CANCEL_ANIMATION
+                cancelAnimation();
             } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
                 applyArmourEffect(item, unequipped);
             }
