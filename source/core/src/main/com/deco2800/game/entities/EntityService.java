@@ -51,10 +51,13 @@ public class EntityService {
   public void update() {
     for (Entity entity : entities) {
       if (!paused) {
+        if(pauseEndFlag) {
+          entity.togglePauseAnimations(false);
+        }
         entity.earlyUpdate();
         entity.update();
       }
-      if(pauseStartFlag || pauseEndFlag) {
+      if(pauseStartFlag) {
           entity.togglePauseAnimations(true);
       }
     }
