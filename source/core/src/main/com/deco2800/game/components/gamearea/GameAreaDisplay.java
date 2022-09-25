@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -298,6 +299,9 @@ public class GameAreaDisplay extends UIComponent {
                                             switch (buttonText) {
                                                 case "Equip item":
                                                     if (inventory.equipItem(currentItem)) {
+                                                        //animation
+                                                        String description = inventory.getEquipables()[0].getComponent(MeleeStatsComponent.class).getDescription();
+                                                        inventory.getCombatAnimator().getEvents().trigger(description);
                                                         updateInventoryDisplay();
                                                     }
                                                     break;

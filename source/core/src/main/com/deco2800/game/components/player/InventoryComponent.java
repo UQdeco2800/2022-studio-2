@@ -25,9 +25,26 @@ import java.util.List;
 public class InventoryComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
+
+    /**
+     * The animation handler for weapons
+     */
     private Entity combatAnimator;
+
+    /**
+     * Set the animator for weapons
+     * @param combatAnimator animation handler
+     */
     public void setCombatAnimator(Entity combatAnimator){
         this.combatAnimator = combatAnimator;
+    }
+
+    /**
+     * Get the animation handler
+     * @return animation handler
+     */
+    public Entity getCombatAnimator() {
+        return this.combatAnimator;
     }
 
     //CANCEL_ANIMATION
@@ -342,8 +359,9 @@ public class InventoryComponent extends Component {
                 equipped = true;
                 applyWeaponEffect(item, equipped);
                 //Make weapon appear in hand straight away
-                String description = equipables[0].getComponent(MeleeStatsComponent.class).getDescription();
-                combatAnimator.getEvents().trigger(description);
+//                String description = equipables[0].getComponent(MeleeStatsComponent.class).getDescription();
+//                combatAnimator.getEvents().trigger(description);
+//                The above code has been moved under GameAreaDisplay, search for animation to find the code
             } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
                 equipables[1] = item;
                 //Slot 2 - Reserved for armour

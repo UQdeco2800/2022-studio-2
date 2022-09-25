@@ -108,7 +108,7 @@ class InventoryComponentTest {
   @Test
   void equipItem() {
     Entity player = PlayerFactory.createTestPlayer();
-    Entity testWeapon = WeaponFactory.createTestWeapon("Dumbbell");
+    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
     Entity testArmour = ArmourFactory.createBaseArmour();
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);

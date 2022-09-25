@@ -210,7 +210,7 @@ public class WeaponFactory {
         Entity dagger = createBaseWeapon();
         dagger.setEntityType(EntityTypes.WEAPON);
         MeleeConfig config = configs.athenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TestDagger");
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "hera");
         dagger.addComponent(weaponStats);
         dagger.setEntityType(EntityTypes.MELEE);
         return dagger;
@@ -226,16 +226,15 @@ public class WeaponFactory {
         MeleeConfig config;
         config = switch (weaponName) {
             case "Dumbbell" -> configs.dumbbell;
-            case "Dagger" -> configs.athenaDag;
-            case "Dagger2" -> configs.herraDag;
+            case "Dagger2" -> configs.heraDag;
             case "SwordLvl2" -> configs.SwordLvl2;
             case "tridentLvl2" -> configs.tridentLvl2;
-            case "herraAthenaDag" -> configs.herraAthenaDag;
+            case "herraAthenaDag" -> configs.heraAthenaDag;
             case "Plunger"-> configs.plunger;
             case "Pipe" ->  configs.pipe;
             default -> configs.athenaDag;
         };
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight);
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight ,"hera");
         weapon.addComponent(weaponStats);
         return weapon;
     }
