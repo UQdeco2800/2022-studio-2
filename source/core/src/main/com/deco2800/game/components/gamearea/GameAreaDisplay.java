@@ -395,9 +395,9 @@ public class GameAreaDisplay extends UIComponent {
     public void openCraftingMenu() {
         if (firstTime == 0) {
             inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-           // inventoryComponent.addItem(MaterialFactory.createGold());
-           // inventoryComponent.addItem(MaterialFactory.createSteel());
-           // inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+            inventoryComponent.addItem(MaterialFactory.createWood());
+            inventoryComponent.addItem(MaterialFactory.createPoop());
+            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             firstTime += 1;
         }
         /*if (getGameAreaName().equals("Underground")) {
@@ -425,7 +425,7 @@ public class GameAreaDisplay extends UIComponent {
             // Method to add item to players inventory
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Craft button pressed");
+
                 if (weapon != null) {
                     disposeFirstBox();
                     disposeSecondBox();
@@ -533,6 +533,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
+            System.out.println(boxes[0] + " " + boxes[1]);
             for (MeleeConfig item : possibleBuilds) {
                 int numItems = 0;
                 for (Map.Entry entry : item.materials.entrySet()) {
@@ -709,6 +710,7 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.POOP) {
             inventoryComponent.addItem(MaterialFactory.createPoop());
         } else if (type == EntityTypes.TOILETPAPER) {
+
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
         } else {
             inventoryComponent.addItem(WeaponFactory.createHera());
@@ -735,6 +737,8 @@ public class GameAreaDisplay extends UIComponent {
             materials = Materials.Silver;
         } else if (type == EntityTypes.POOP) {
             materials = Materials.Poop;
+        }  else if (type == EntityTypes.TOILETPAPER) {
+            materials = Materials.ToiletPaper;
         }
         else {
             materials = Materials.HerraDag;
@@ -930,6 +934,9 @@ public class GameAreaDisplay extends UIComponent {
         } else if (Math.floor(item.damage) == 35) {
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
+        } else if (Math.floor(item.damage) == 20 || Math.floor(item.damage) == 70) {
+            weapon.setSize(50, 50);
+            weapon.setPosition(craftMenu.getX() + 665, craftMenu.getY() + 230);
         } else {
             weapon.setSize(200, 200);
             weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
