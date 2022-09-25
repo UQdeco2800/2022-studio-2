@@ -35,7 +35,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         entity.getEvents().addListener("collisionStart", this::playerCollidesEnemyStart);
         combatStats = entity.getComponent(CombatStatsComponent.class); //or just get the currently equipped weapon's damage
         entity.getEvents().addListener("collisionEnd", this::playerCollidesEnemyEnd);
-        //entity.getEvents().addListener("cooldownOver", this::cooldownOver);
     }
 
     @Override
