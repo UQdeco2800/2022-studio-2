@@ -128,7 +128,7 @@ public class PlayerFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/combatanimation.atlas", TextureAtlas.class));
     animator.addAnimation("noAnimation", 0.1f);
-    animator.addAnimation("level3Dagger", 0.1f);
+    animator.addAnimation("heraAthenaDag", 0.1f);
     animator.addAnimation("hera", 0.1f);
 
     Entity combatAnimator =

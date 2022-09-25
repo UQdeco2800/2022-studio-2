@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -256,7 +257,7 @@ public class GameAreaDisplay extends UIComponent {
             } else if (items.get(i).checkEntityType(EntityTypes.POTION)) {
                 buttonText = "Add to quick bar";
             } else {
-                buttonText = "Add to crafting menu";
+                buttonText = "Crafting";
             }
             item.addListener(
                     new ChangeListener() {
@@ -265,6 +266,7 @@ public class GameAreaDisplay extends UIComponent {
 //              Group dropDownMenuBtn = new Group();
 //              dropDownMenuBtn.addActor(itemOpBtn);
 //              dropDownMenuBtn.addActor(dropItemBtn);
+
                             TextButton itemOpBtn = new TextButton(buttonText, skin);
                             TextButton dropItemBtn = new TextButton("Drop item", skin);
                             itemOpBtn.setPosition(horizontalPosition, verticalPosition);
@@ -297,6 +299,9 @@ public class GameAreaDisplay extends UIComponent {
                                             switch (buttonText) {
                                                 case "Equip item":
                                                     if (inventory.equipItem(currentItem)) {
+                                                        //animation
+                                                        String description = inventory.getEquipables()[0].getComponent(MeleeStatsComponent.class).getDescription();
+                                                        inventory.getCombatAnimator().getEvents().trigger(description);
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
@@ -306,9 +311,6 @@ public class GameAreaDisplay extends UIComponent {
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
-                                                case "Add to crafting menu":
-                                                    //Crafting team use this block to add items in crafting menu
-                                                    break;
                                             }
                                             if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                                                 inventoryGroup.removeActor(itemOpBtn);
@@ -317,8 +319,9 @@ public class GameAreaDisplay extends UIComponent {
                                         }
                                     }
                             );
-
-                            inventoryGroup.addActor(itemOpBtn);
+                            if (!buttonText.equals("Crafting")) {
+                                inventoryGroup.addActor(itemOpBtn);
+                            }
                             inventoryGroup.addActor(dropItemBtn);
                         }
                     });
@@ -350,6 +353,7 @@ public class GameAreaDisplay extends UIComponent {
             item.setPosition(horizontalPosition, verticalPosition);
         }
     }
+
 
     /**
      * Disposes the inventory display group.
@@ -694,7 +698,7 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.POOP) {
             inventoryComponent.addItem(MaterialFactory.createPoop());
         } else {
-            inventoryComponent.addItem(WeaponFactory.createDaggerTwo());
+            inventoryComponent.addItem(WeaponFactory.createHera());
         }
     }
 
@@ -719,7 +723,6 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.POOP) {
             materials = Materials.Poop;
         }
-
         else {
             materials = Materials.HerraDag;
         }

@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.components.player.PlayerCombatAnimationController;
+import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -119,7 +122,9 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
     "images/Skills/projectileSprites.png",
     "images/CombatItems/animations/combatanimation.png",
-    "images/CombatItems/Sprint-2/pipe.png"
+    "images/CombatItems/Sprint-2/pipe.png",
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"
   };
 
   public static String[] newTextures;
@@ -145,7 +150,7 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private Entity heracles;
-  private static List<Entity> weaponOnMap = new ArrayList<>();
+  //private static List<Entity> weaponOnMap = new ArrayList<>(); not necessary
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   public static GridPoint2 oneLegGirlPosition;
@@ -307,10 +312,10 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(tree, new GridPoint2(x, y), true, false);
   }
 
-  public static void removeWeaponOnMap(Entity entityToRemove) {
+  public static void removeAuraOnMap(Entity entityToRemove) {
 
     entityToRemove.setEnabled(false);
-    weaponOnMap.remove(entityToRemove);
+    auraOnMap.remove(entityToRemove);
 
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
@@ -506,19 +511,19 @@ public class ForestGameArea extends GameArea {
 
   private void spawnDumbbell() {
     Entity dumbbell = WeaponFactory.createDumbbell();
-    weaponOnMap.add(dumbbell);
+    ItemsOnMap.add(dumbbell);
     spawnEntityAt(dumbbell, new GridPoint2(7,10), true, false);
   }
 
   /**
-   * Spawns level 3 Herra and Athena entity into the game
+   * Spawns level 3 Hera and Athena entity into the game
    * Spawns x-pos 10
    * Spawns y-pos 4
    */
- // private void spawnHerraAndAthena() {
-  //  Entity herraAthenaDag = WeaponFactory.createHerraAthenaDag();
-  //  weaponOnMap.add(herraAthenaDag);
-  //  spawnEntityAt(herraAthenaDag, new GridPoint2(10,4), true, false);
+ // private void spawnHeraAndAthena() {
+  //  Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
+  //  weaponOnMap.add(heraAthenaDag);
+  //  spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
  // }
 
   /**
@@ -599,8 +604,8 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
     spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
-    newPlayer.getComponent(PlayerActions.class).setCombatAnimator(newCombatAnimator);
-
+    newPlayer.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
+    newPlayer.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
     return newPlayer;
   }
 

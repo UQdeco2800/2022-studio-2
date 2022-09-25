@@ -57,9 +57,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
-      case Keys.N:
-        entity.getEvents().trigger("attack2");
-        return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
 //        EntityService.pauseGame();

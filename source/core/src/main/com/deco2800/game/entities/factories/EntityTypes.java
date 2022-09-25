@@ -24,5 +24,5 @@ public enum EntityTypes {
     NPC,
     CRAFTINGTABLE,
     POOP,
-
+    AURA,
 }

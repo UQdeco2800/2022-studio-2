@@ -2,7 +2,6 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -10,7 +9,8 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Generic pickup component for all items. Adpoted from Team 4's weapon pickup logic
+/** Generic pickup component for all items. Adpoted from Team 4's weapon pickup logic that is now
+ * deleted to merge with this component
  *
  */
 public class ItemPickupComponent extends Component{
