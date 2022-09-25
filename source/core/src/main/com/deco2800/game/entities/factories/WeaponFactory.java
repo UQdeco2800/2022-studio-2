@@ -178,6 +178,29 @@ public class WeaponFactory {
         pipe.setEntityType(EntityTypes.MELEE);
         return pipe;
     }
+    public static Entity createPlungerBow() {
+        Entity plungerBow = createBaseWeapon();
+        MeleeConfig config = configs.plungerBow;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "bow");
+        plungerBow
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png"));
+        plungerBow.getComponent(TextureRenderComponent.class).scaleEntity();
+        plungerBow.scaleHeight(2f);
+        plungerBow.setEntityType(EntityTypes.MELEE);
+        return plungerBow;
+    }    public static Entity createGoldenPlungerBow() {
+        Entity goldenPlungerBow = createBaseWeapon();
+        MeleeConfig config = configs.goldenPlungerBow;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "goldenBow");
+        goldenPlungerBow
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"));
+        goldenPlungerBow.getComponent(TextureRenderComponent.class).scaleEntity();
+        goldenPlungerBow.scaleHeight(2f);
+        goldenPlungerBow.setEntityType(EntityTypes.MELEE);
+        return goldenPlungerBow;
+    }
 
     /**
      * Creates a dagger for testing

@@ -53,5 +53,19 @@
     "coolDown": 1000,
     "weight": 2,
     "materials": {"plastic": 1, "rubber": 1}
+  },
+
+  "plungerBow": {
+    "damage": 20,
+    "coolDown": 500,
+    "weight": 3,
+    "materials": {"wood": 1, "poop": 1}
+  },
+
+  "goldenPlungerBow": {
+    "damage": 70,
+    "coolDown": 5000,
+    "weight": 3,
+    "materials": {"plastic": 1, "poop": 1}
   }
 }
