@@ -7,7 +7,6 @@ import com.deco2800.game.components.Component;
  */
 
 public class WeaponAuraComponent extends Component {
-    private double weightMultiplier;
     private double durationMultiplier;
     private double dmgMultiplier;
     private double cdMultiplier;
@@ -19,7 +18,6 @@ public class WeaponAuraComponent extends Component {
      * @param auraDuration how long the aura is activated for the weapon
      * @param dmgMultiplier damage multiplier effect on the weapon
      * @param cdMultiplier cooldown multiplier effect on the weapon
-     * @param weightMultiplier weight multiplier effect on the weapon
      */
     public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double cdMultiplier) {
         setAuraDuration(auraDuration);
