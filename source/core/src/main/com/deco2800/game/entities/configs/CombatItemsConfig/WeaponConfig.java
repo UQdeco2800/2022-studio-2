@@ -14,5 +14,7 @@ public class WeaponConfig {
     public MeleeConfig heraAthenaDag = new MeleeConfig();
     public MeleeConfig plunger = new MeleeConfig();
     public MeleeConfig pipe = new MeleeConfig();
+    public MeleeConfig plungerBow = new MeleeConfig();
+    public MeleeConfig goldenPlungerBow = new MeleeConfig();
 
 }

@@ -75,7 +75,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
-    entity.getEvents().addListener("attack", this::attackAnimation);
+    //entity.getEvents().addListener("attack", this::attackAnimation);
 
 
     // Skills and Dash initialisation
@@ -345,27 +345,5 @@ public class PlayerActions extends Component {
    */
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillManager.setSkillAnimator(skillAnimator);
-  }
-
-
-  /**
-   * Sets the combat item animator for this actions component
-   * @param combatAnimator the combat animator entity which has subcomponents
-   *                      PlayerSkillAnimationController and AnimationRenderer
-   */
-  public void setCombatAnimator(Entity combatAnimator){
-    this.combatAnimator = combatAnimator;
-  }
-
-  /**
-   *  Sets the attack animation dependent on the weapon that is currently equipped
-   */
-  void attackAnimation(){
-    Entity playerWeapon;
-    if ((playerWeapon = entity.getComponent(InventoryComponent.class).getEquipable(0)) != null) {
-      String description = playerWeapon.getComponent(MeleeStatsComponent.class).getDescription();
-      System.out.println(description);
-      combatAnimator.getEvents().trigger(description);
-    }
   }
 }

@@ -178,6 +178,29 @@ public class WeaponFactory {
         pipe.setEntityType(EntityTypes.MELEE);
         return pipe;
     }
+    public static Entity createPlungerBow() {
+        Entity plungerBow = createBaseWeapon();
+        MeleeConfig config = configs.plungerBow;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "bow");
+        plungerBow
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png"));
+        plungerBow.getComponent(TextureRenderComponent.class).scaleEntity();
+        plungerBow.scaleHeight(2f);
+        plungerBow.setEntityType(EntityTypes.MELEE);
+        return plungerBow;
+    }    public static Entity createGoldenPlungerBow() {
+        Entity goldenPlungerBow = createBaseWeapon();
+        MeleeConfig config = configs.goldenPlungerBow;
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "goldenBow");
+        goldenPlungerBow
+                .addComponent(weaponStats)
+                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"));
+        goldenPlungerBow.getComponent(TextureRenderComponent.class).scaleEntity();
+        goldenPlungerBow.scaleHeight(2f);
+        goldenPlungerBow.setEntityType(EntityTypes.MELEE);
+        return goldenPlungerBow;
+    }
 
     /**
      * Creates a dagger for testing
@@ -187,10 +210,32 @@ public class WeaponFactory {
         Entity dagger = createBaseWeapon();
         dagger.setEntityType(EntityTypes.WEAPON);
         MeleeConfig config = configs.athenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TestDagger");
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "hera");
         dagger.addComponent(weaponStats);
         dagger.setEntityType(EntityTypes.MELEE);
         return dagger;
     }
 
+    /**
+     * Creates the specified type of weapon for testing
+     * @return test weapon
+     */
+    public static Entity createTestWeapon(String weaponName) {
+        Entity weapon = createBaseWeapon();
+        weapon.setEntityType(EntityTypes.WEAPON);
+        MeleeConfig config;
+        config = switch (weaponName) {
+            case "Dumbbell" -> configs.dumbbell;
+            case "Dagger2" -> configs.heraDag;
+            case "SwordLvl2" -> configs.SwordLvl2;
+            case "tridentLvl2" -> configs.tridentLvl2;
+            case "herraAthenaDag" -> configs.heraAthenaDag;
+            case "Plunger"-> configs.plunger;
+            case "Pipe" ->  configs.pipe;
+            default -> configs.athenaDag;
+        };
+        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight ,"hera");
+        weapon.addComponent(weaponStats);
+        return weapon;
+    }
 }
