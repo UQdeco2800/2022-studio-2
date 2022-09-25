@@ -1,0 +1,60 @@
+{
+  "Keys" : [
+    { "Key" : "W",
+      "Description" : "Walk forward",
+      "Image" : ""
+    },
+    { "Key" : "A",
+      "Description" : "Walk left",
+      "Image" : ""
+    },
+    { "Key" :"S",
+      "Description" : "Walk backwards",
+      "Image" : ""
+    },
+    { "Key" :"D",
+      "Description" : "Walk right",
+      "Image" : ""
+    },
+    { "Key" : "Q",
+      "Description" : "Crafting",
+      "Image" : ""
+    },
+    { "Key" : "I",
+      "Description" : "Inventory",
+      "Image" : ""
+    },
+    { "Key" : "E",
+      "Description" : "Activate skill 1",
+      "Image" : ""
+    },
+    { "Key" : "J",
+      "Description" : "Activate skill 2",
+      "Image" : ""
+    },
+    { "Key" : "Shift",
+      "Description" : "Dodge",
+      "Image" : ""
+    },
+    { "Key" : "1",
+      "Description" : "Quickbar Slot 1",
+      "Image" : ""
+    },
+    { "Key" : "2",
+      "Description" : "Quickbar Slot 2",
+      "Image" : ""
+    },
+    { "Key" : "3",
+      "Description" : "Quickbar Slot 3",
+      "Image" : ""
+    },
+    { "Key" : "4",
+      "Description" : "Quickbar Slot 4",
+      "Image" : ""
+    },
+    { "Key" : "ESC",
+      "Description" : "Pause menu",
+      "Image" : ""
+    }
+  ]
+}
