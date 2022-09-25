@@ -598,13 +598,13 @@ public class ForestGameArea extends GameArea {
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
-    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
+//    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
-    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
+//    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
-    newPlayer.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
-    newPlayer.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
+//    newPlayer.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
+//    newPlayer.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
     return newPlayer;
   }
 

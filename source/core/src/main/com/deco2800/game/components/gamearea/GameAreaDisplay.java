@@ -20,10 +20,7 @@ import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseMenuActions;
-import com.deco2800.game.components.player.InventoryComponent;
-import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
-import com.deco2800.game.components.player.OpenCraftingComponent;
-import com.deco2800.game.components.player.OpenPauseComponent;
+import com.deco2800.game.components.player.*;
 import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
@@ -31,10 +28,7 @@ import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.factories.ArmourFactory;
-import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.entities.factories.MaterialFactory;
-import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -299,10 +293,18 @@ public class GameAreaDisplay extends UIComponent {
                                             switch (buttonText) {
                                                 case "Equip item":
                                                     if (inventory.equipItem(currentItem)) {
-                                                        //animation
-                                                        String description = inventory.getEquipables()[0].getComponent(MeleeStatsComponent.class).getDescription();
-                                                        inventory.getCombatAnimator().getEvents().trigger(description);
                                                         updateInventoryDisplay();
+                                                        //animation
+                                                        if (currentItem.checkEntityType(EntityTypes.WEAPON)) {
+                                                            Entity player = ServiceLocator.getGameArea().getPlayer();
+                                                            Entity newCombatAnimator = PlayerFactory.createCombatAnimator(player);
+                                                            player.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
+                                                            player.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
+                                                            ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
+//                                                        spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
+                                                            String description = inventory.getEquipables()[0].getComponent(MeleeStatsComponent.class).getDescription();
+                                                            inventory.getCombatAnimator().getEvents().trigger(description);
+                                                        }
                                                     }
                                                     break;
                                                 case "Add to quick bar":
@@ -328,32 +330,6 @@ public class GameAreaDisplay extends UIComponent {
             inventoryGroup.addActor(item);
         }
     }
-
-    /**
-     * Display each item in the inventory in the inventory storage blocks.
-     * Implemented by Peter.
-     */
-    public void displayItems(float padding, float pictureWidth, float pictureHeight) {
-        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        int craftingTableX = 0;
-        int craftingTableY = 0;
-        items = inventory.getInventory();
-        for (int i = 0; i < items.size(); ++i) {
-            Entity currentItem = items.get(i);
-            Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
-            TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
-            TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
-            ImageButton item = new ImageButton(itemTextureDrawable);
-            item.setSize(pictureWidth, pictureHeight);
-            int row = i / 4;
-            int column = i % 4;
-            //These positions should be adjusted according to your crafting menu positions
-            float horizontalPosition = (inventoryMenu.getX() + craftingTableX) + column * (padding + pictureWidth);
-            float verticalPosition = (inventoryMenu.getY() + craftingTableY) - row * (padding + pictureHeight);
-            item.setPosition(horizontalPosition, verticalPosition);
-        }
-    }
-
 
     /**
      * Disposes the inventory display group.
