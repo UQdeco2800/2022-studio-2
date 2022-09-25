@@ -7,6 +7,7 @@ import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -24,6 +25,10 @@ import java.util.List;
 public class InventoryComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
+    private Entity combatAnimator;
+    public void setCombatAnimator(Entity combatAnimator){
+        this.combatAnimator = combatAnimator;
+    }
 
     /**
      * The status of inventory display.
@@ -331,6 +336,9 @@ public class InventoryComponent extends Component {
                 //Slot 1 - Reserved for combat items
                 equipped = true;
                 applyWeaponEffect(item, equipped);
+                //Make weapon appear in hand straight away
+                String description = equipables[0].getComponent(MeleeStatsComponent.class).getDescription();
+                combatAnimator.getEvents().trigger(description);
             } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
                 equipables[1] = item;
                 //Slot 2 - Reserved for armour

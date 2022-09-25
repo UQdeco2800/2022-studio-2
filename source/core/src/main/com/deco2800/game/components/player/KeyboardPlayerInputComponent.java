@@ -21,7 +21,7 @@ import java.security.Provider;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  private int keyPressedCounter = 1;
+  private static int keyPressedCounter = 1;
 
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
@@ -56,9 +56,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
-        return true;
-      case Keys.N:
-        entity.getEvents().trigger("attack2");
         return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
@@ -136,6 +133,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       default:
         return false;
     }
+  }
+
+  public static void incrementPauseCounter(){
+    keyPressedCounter++;
   }
 
   /**
