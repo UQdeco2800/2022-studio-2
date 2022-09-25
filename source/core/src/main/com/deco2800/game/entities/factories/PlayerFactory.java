@@ -1,8 +1,11 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
@@ -29,7 +32,6 @@ import com.deco2800.game.services.ServiceLocator;
 public class PlayerFactory {
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
-
 
   /**
    * Create a player entity.
@@ -68,7 +70,7 @@ public class PlayerFactory {
             .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
             .addComponent(animator)
-            .addComponent(new PlayerAnimationController());
+            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
@@ -125,7 +127,7 @@ public class PlayerFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/combatanimation.atlas", TextureAtlas.class));
     animator.addAnimation("noAnimation", 0.1f);
-    animator.addAnimation("level3Dagger", 0.1f);
+    animator.addAnimation("heraAthenaDag", 0.1f);
     animator.addAnimation("hera", 0.1f);
 
     Entity combatAnimator =

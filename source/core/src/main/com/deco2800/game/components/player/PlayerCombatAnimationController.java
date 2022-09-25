@@ -43,9 +43,8 @@ public class PlayerCombatAnimationController extends Component {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         entity.getEvents().addListener("hera", this::animateHera);
-        entity.getEvents().addListener("level3Dagger", this::animateLevel3Dagger);
+        entity.getEvents().addListener("heraAthenaDag", this::animateheraAthenaDag);
         entity.getEvents().trigger("attack");
-        entity.getEvents().trigger("attack2");
     }
 
     /**
@@ -56,10 +55,10 @@ public class PlayerCombatAnimationController extends Component {
     }
 
     /**
-     * Triggers the level3Dagger item of the combat item animator.
+     * Triggers the Hera Athena item of the combat item animator.
      */
-    void animateLevel3Dagger() {
-        animator.startAnimation("level3Dagger");
+    void animateheraAthenaDag() {
+        animator.startAnimation("heraAthenaDag");
     }
 }
 
