@@ -84,6 +84,7 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegion materialTextureRegion;
   private TextureRegionDrawable materialDrawable;
 
+
   private String weaponType = "";
   private Image weapon;
   private Group craftingGroup = new Group();
@@ -334,6 +335,7 @@ public class GameAreaDisplay extends UIComponent {
      * Implemented by Peter.
      */
     public void displayItems(float padding, float pictureWidth, float pictureHeight) {
+
         InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         int craftingTableX = 0;
         int craftingTableY = 0;
@@ -393,6 +395,7 @@ public class GameAreaDisplay extends UIComponent {
      * and creates button event handlers to test for user clicks.
      */
     public void openCraftingMenu() {
+        logger.info("Opening Crafting Menu");
         if (firstTime == 0) {
             inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
             inventoryComponent.addItem(MaterialFactory.createWood());
@@ -425,10 +428,10 @@ public class GameAreaDisplay extends UIComponent {
             // Method to add item to players inventory
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
                 if (weapon != null) {
                     disposeFirstBox();
                     disposeSecondBox();
+                    logger.info("Weapon added to inventory");
                     ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(currentWeapon);
                     weapon.remove();
                     weapon = null;
@@ -448,8 +451,9 @@ public class GameAreaDisplay extends UIComponent {
         catalogueButton.setSize(146, 146);
         catalogueButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 302);
         catalogueButton.addListener(new ChangeListener() {
-            @Override
+
             public void changed(ChangeEvent event, Actor actor) {
+                logger.info("Catalogue button pressed");
                 displayCatOne();
             }
         });
@@ -478,6 +482,7 @@ public class GameAreaDisplay extends UIComponent {
    * Display the pause menu when ESC is clicked.
    */
   public void setPauseMenu() {
+    logger.info("Opening Pause Menu");
     pauseMenu = new Image(new Texture(Gdx.files.internal
             ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
     pauseMenu.setSize(1100, 1200);
@@ -533,7 +538,6 @@ public class GameAreaDisplay extends UIComponent {
 
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
-            System.out.println(boxes[0] + " " + boxes[1]);
             for (MeleeConfig item : possibleBuilds) {
                 int numItems = 0;
                 for (Map.Entry entry : item.materials.entrySet()) {
@@ -560,7 +564,6 @@ public class GameAreaDisplay extends UIComponent {
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
 
         inventory = inventoryComponent.getInventory();
-        System.out.println(inventory);
         //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
         for (Entity item : inventory) {
             if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
@@ -591,6 +594,7 @@ public class GameAreaDisplay extends UIComponent {
                         if (boxes[0] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
+                            logger.info(" item was added to box 1");
                             if (item.checkEntityType((EntityTypes.WEAPON))){
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
@@ -622,11 +626,14 @@ public class GameAreaDisplay extends UIComponent {
                             });
                             getInventory();
                         } else if (boxes[1] == null) {
+
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                             if (item.checkEntityType((EntityTypes.WEAPON))){
+
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
+                            logger.info(" item was added to box 2");
                             materialTextureRegion = new TextureRegion(materialTexture);
                             materialDrawable = new TextureRegionDrawable(materialTextureRegion);
                             if (item.checkEntityType((EntityTypes.WEAPON))){
@@ -637,6 +644,7 @@ public class GameAreaDisplay extends UIComponent {
                                 secondToCraft.setSize(50, 50);
                                 secondToCraft.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
                             } else {
+
                                 secondToCraft.setSize(50, 50);
                                 secondToCraft.setPosition(craftMenu.getX() + 545, craftMenu.getY() + 225);
                             }
