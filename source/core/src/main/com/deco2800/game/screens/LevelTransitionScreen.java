@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.deathscreen.DeathScreenActions;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
+import com.deco2800.game.components.levelTransition.LevelTransitionActions;
 import com.deco2800.game.components.levelTransition.LevelTransitionDisplay;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.BackgroundSoundComponent;
@@ -109,10 +110,12 @@ public class LevelTransitionScreen extends ScreenAdapter {
      */
     private void createUI() {
         logger.debug("Creating ui");
+        logger.info("UI for transitionScreen created");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         ui.addComponent(new LevelTransitionDisplay())
-                .addComponent(new InputDecorator(stage, 10));
+                .addComponent(new InputDecorator(stage, 10))
+                .addComponent(new LevelTransitionActions(game));
 
 
         ServiceLocator.getEntityService().register(ui);

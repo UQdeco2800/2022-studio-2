@@ -37,8 +37,6 @@ public class ServiceLocator {
 
   private static MainGameScreen mainGameScreen;
 
-  private static LevelTransitionScreen levelTransitionScreen;
-
   private static GameAreaDisplay craftArea;
   private static GameAreaDisplay pauseMenuArea;
   private static GameAreaDisplay inventoryArea;
@@ -122,8 +120,6 @@ public class ServiceLocator {
   public static MainGameScreen getMainGameScreen() {
     return mainGameScreen;
   }
-
-  public static LevelTransitionScreen getLevelTransitionScreen() {return levelTransitionScreen;}
 
   public static void registerCraftArea(GameAreaDisplay area){
     craftArea = area;

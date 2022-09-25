@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.TransitionMapComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * events is triggered.
  */
 public class LevelTransitionActions extends Component {
-    private static final Logger logger = LoggerFactory.getLogger(LevelTransitionActions.class);
+    private static Logger logger;
     private GdxGame game;
     private Sound sound;
 
@@ -25,8 +26,8 @@ public class LevelTransitionActions extends Component {
      */
     @Override
     public void create() {
-        entity.getEvents().addListener("levelChanges", this::levelChanged);
-        entity.getEvents().addListener("exit", this::onExit);
+        logger = LoggerFactory.getLogger(LevelTransitionActions.class);
+        entity.getEvents().addListener("levelChanged", this::levelChanged);
     }
 
     /**
@@ -37,18 +38,5 @@ public class LevelTransitionActions extends Component {
         sound.play(1.0f);
         logger.info("Level has changed, transition screen will now display");
         game.setScreen(GdxGame.ScreenType.LEVEL_TRANSITION);
-    }
-
-
-    /**
-     * Returns to main menu after death when exit is selected.
-     */
-    private void onExit() {
-        Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
-        sound.play(1.0f);
-        logger.info("Return to main menu");
-        entity.getEvents().trigger("nextMap");
-        //TODO I dont know if this works tbh
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 }

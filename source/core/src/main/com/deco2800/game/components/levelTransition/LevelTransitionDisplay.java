@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LevelTransitionDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LevelTransitionDisplay.class);
-    private static final float Z_INDEX = 1f;
+    private static final float Z_INDEX = 2f;
     private Table table;
     // The image of the deathBackground
     private Image transitionImage;
@@ -45,34 +45,10 @@ public class LevelTransitionDisplay extends UIComponent {
 
         transitionImage = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
-
-        entity.getEvents().addListener("nextMap", this::transitionDisplay);
-
         table.add(transitionImage);
         stage.addActor(table);
-        logger.debug("DeathScreenDisplay table has been added to the actor");
-
-
-
-        //Below is in case we need buttons for transition screen, although I doubt it.
-//        TextButton continueBtn = new TextButton("PLAY AGAIN", skin);
-//        logger.debug("Continue button and Exit button created");
-//
-//        // Triggers an event when the button is pressed
-//        // Restarts game
-//        continueBtn.addListener(
-//                new ChangeListener() {
-//                    @Override
-//                    public void changed(ChangeEvent changeEvent, Actor actor) {
-//                        logger.debug("The Continue button was clicked");
-//                        entity.getEvents().trigger("continueGame");
-//                    }
-//                });
-    }
-
-
-
-    public void transitionDisplay() {
+        logger.debug("levelTransitionDisplay table has been added to the actor");
+        logger.info("levelTransitionDisplay table has been added to the actor");
 
     }
 

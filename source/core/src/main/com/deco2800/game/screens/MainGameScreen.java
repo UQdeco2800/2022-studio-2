@@ -33,6 +33,7 @@ import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,9 +63,6 @@ public class MainGameScreen extends ScreenAdapter {
   private static Component mainGameActions;
   private static Boolean dead;
   private static Integer gameLevel;
-  private static Boolean levelTransition;
-  private static final float STOP_TRANSITION = 5;
-  private static float transitionTime;
 
 
 
@@ -101,24 +99,14 @@ public class MainGameScreen extends ScreenAdapter {
 //    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
     dead = false;
-    levelTransition = false;
 
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
-    player.getEvents().addListener("levelChanged", this::levelTransitionStart);
+
 
   }
 
   public void deathScreenStart() { dead = true; }
-
-  private void levelTransitionStart() {
-    levelTransition = true;
-    transitionTime += Gdx.graphics.getDeltaTime();
-    if (transitionTime > STOP_TRANSITION) {
-      levelTransition = false;
-    }
-  }
-
 
   public GameArea getMap(){
     return map;
@@ -140,11 +128,6 @@ public class MainGameScreen extends ScreenAdapter {
       }
     }
 
-    // TODO WORKING ON TIMEING OF DISPLAY
-    if (levelTransition) {
-      player.getComponent(PlayerActions.class).stopWalking();
-      game.setScreen(GdxGame.ScreenType.LEVEL_TRANSITION);
-    }
     if (PauseMenuActions.getQuitGameStatus()) {
       mainGameActions.getEntity().getEvents().trigger("exit");
       PauseMenuActions.setQuitGameStatus();
