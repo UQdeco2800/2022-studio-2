@@ -8,6 +8,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.components.player.PlayerCombatAnimationController;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
@@ -130,7 +131,7 @@ public class ForestGameArea extends GameArea {
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
 
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
+    "images/Skills/skillAnimations.atlas", "images/KeyPrompt/KEY_Q_!.atlas","images/Enemies/gym_bro.atlas",
     "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
     "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
@@ -599,11 +600,14 @@ public class ForestGameArea extends GameArea {
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
+    Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
     Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
     spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
+    newPlayer.getComponent(PlayerKeyPrompt.class)
+            .setKeyPromptAnimator(newKeyPromptAnimator);
     newPlayer.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
     newPlayer.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
     return newPlayer;

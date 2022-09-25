@@ -119,6 +119,21 @@ public class PlayerFactory {
     return skillAnimator;
   }
 
+  public static Entity createKeyPromptAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/KeyPrompt/KEY_Q_!.atlas", TextureAtlas.class));
+    animator.addAnimation("no_animation", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("Q!", 0.1f, Animation.PlayMode.LOOP);
+
+
+    Entity keyPromptAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerKPAnimationController(playerEntity));
+
+    keyPromptAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return keyPromptAnimator;
+  }
   /**
    * Create level 3 dagger and hera combat item animation.
    * @return entity

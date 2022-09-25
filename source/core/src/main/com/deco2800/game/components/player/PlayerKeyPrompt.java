@@ -2,7 +2,6 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -22,9 +21,15 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
     private static Logger logger;
     private HitboxComponent hitboxComponent;
     private short targetLayer;
+    private Entity keyPromptAnimator;
+
 
     public PlayerKeyPrompt(short targetLayer) {
         super(targetLayer);
+    }
+
+    public void setKeyPromptAnimator(Entity keyPromptAnimator) {
+        this.keyPromptAnimator = keyPromptAnimator;
     }
     @Override
     public void create() {
@@ -60,7 +65,10 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
 
 
         else if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.CRAFTINGTABLE)){
+            keyPromptAnimator.getEvents().trigger("KeyQAnimation");
             logger.info("TEST KEY PROMPT CRAFTING PRESS Q TO CRAFT");
+
+
         }
 
     }
