@@ -58,6 +58,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
+          "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
@@ -123,7 +124,9 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
     "images/Skills/projectileSprites.png",
     "images/CombatItems/animations/combatanimation.png",
-    "images/CombatItems/Sprint-2/pipe.png"
+    "images/CombatItems/Sprint-2/pipe.png",
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"
   };
 
   public static String[] newTextures;

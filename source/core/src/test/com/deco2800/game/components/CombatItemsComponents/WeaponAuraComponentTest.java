@@ -15,7 +15,7 @@ class WeaponAuraComponentTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        aura1 = new WeaponAuraComponent(5, 1.25, 0.75,2);
+        aura1 = new WeaponAuraComponent(5, 1.25, 0.75);
         aura2 = new WeaponAuraComponent(10, 2, 2,1, 5);
     }
 
@@ -65,11 +65,6 @@ class WeaponAuraComponentTest {
     public void testGetCdMultiplier() {
         assertEquals(0.75, aura1.getCdMultiplier(), "Incorrect value was returned.");
         assertEquals(5, aura2.getCdMultiplier(), "Incorrect value was returned.");
-    }
-
-    @Test
-    public void testGetWeightMultiplier() {
-        assertEquals(2, aura1.getWeightMultiplier(), "Incorrect value was returned.");
     }
 
     @Test
