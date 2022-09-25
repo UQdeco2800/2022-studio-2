@@ -105,6 +105,8 @@ public class GameAreaDisplay extends UIComponent {
   private Image deathScreenTwo;
   private Image deathScreenThree;
 
+  private Boolean currentScreenCrafting = false;
+
     @Override
     public void create() {
         super.create();
@@ -416,6 +418,7 @@ public class GameAreaDisplay extends UIComponent {
         craftingGroup.addActor(craftMenu);
 
         getInventory();
+        currentScreenCrafting = true;
         buttonTexture = new Texture(Gdx.files.internal
                 ("images/Crafting-assets-sprint1/widgets/craft_button.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -454,6 +457,7 @@ public class GameAreaDisplay extends UIComponent {
 
             public void changed(ChangeEvent event, Actor actor) {
                 logger.info("Catalogue button pressed");
+                currentScreenCrafting = false;
                 displayCatOne();
             }
         });
@@ -560,6 +564,7 @@ public class GameAreaDisplay extends UIComponent {
     //return the inventory for the user
 
     private void getInventory() {
+      currentScreenCrafting = true;
         index = 0;
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
 
@@ -618,10 +623,12 @@ public class GameAreaDisplay extends UIComponent {
                             firstToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    disposeFirstBox();
-                                    clearBoxes(1);
-                                    addToInventory(checkType(item));
-                                    getInventory();
+                                    if (currentScreenCrafting == true){
+                                        disposeFirstBox();
+                                        clearBoxes(1);
+                                        addToInventory(checkType(item));
+                                        getInventory();
+                                    }
                                 }
                             });
                             getInventory();
@@ -654,10 +661,12 @@ public class GameAreaDisplay extends UIComponent {
                             secondToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    disposeSecondBox();
-                                    clearBoxes(2);
-                                    addToInventory(checkType(item));
-                                    getInventory();
+                                    if (currentScreenCrafting == true) {
+                                        disposeSecondBox();
+                                        clearBoxes(2);
+                                        addToInventory(checkType(item));
+                                        getInventory();
+                                    }
                                 }
                             });
                             getInventory();
@@ -872,6 +881,7 @@ public class GameAreaDisplay extends UIComponent {
             public void changed(ChangeEvent event, Actor actor) {
                 disposeCatTwo();
                 displayCatOne();
+                currentScreenCrafting = false;
             }
         });
         craftingGroup.addActor(catOneButton);
