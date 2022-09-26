@@ -72,6 +72,7 @@ public class GameAreaDisplay extends UIComponent {
   private Image catOneMenu;
   private Image catTwoMenu;
   private Image pauseMenu;
+  private Image keyBindMenu;
   private ImageButton material;
   private ImageButton firstToCraft;
   private ImageButton secondToCraft;
@@ -90,6 +91,7 @@ public class GameAreaDisplay extends UIComponent {
   private Group materialsGroup = new Group();
   private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
+  private Group keyBindGroup = new Group();
 
   private int firstTime = 0;
   List<Entity> inventory;
@@ -116,6 +118,7 @@ public class GameAreaDisplay extends UIComponent {
     ServiceLocator.registerCraftArea(this);
     ServiceLocator.registerInventoryArea(this);
     ServiceLocator.registerPauseArea(this);
+    ServiceLocator.registerKeyBindArea(this);
   }
 
   public String getGameAreaName() {
@@ -472,7 +475,7 @@ public class GameAreaDisplay extends UIComponent {
         disposePauseMenu();
         EntityService.pauseAndResume();
         KeyboardPlayerInputComponent.incrementPauseCounter();
-        OpenPauseComponent.setPauseMenuStatus();
+        //OpenPauseComponent.setPauseMenuStatus();
       }
     });
     pausingGroup.addActor(resume);
@@ -491,10 +494,22 @@ public class GameAreaDisplay extends UIComponent {
         logger.debug("Exit button clicked");
         PauseMenuActions.setQuitGameStatus();
         KeyboardPlayerInputComponent.incrementPauseCounter();
-        OpenPauseComponent.setPauseMenuStatus();
+        OpenPauseComponent.closePauseMenu();
       }
     });
     pausingGroup.addActor(exit);
+
+    // Debug button to open keybind menu
+    TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
+      keyBindMenuBtn.addListener(
+        new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Key binding button things");
+                OpenPauseComponent.openKeyBindings();
+            }
+        });
+    pausingGroup.addActor(keyBindMenuBtn);
     stage.addActor(pausingGroup);
 
     stage.draw();
@@ -503,6 +518,18 @@ public class GameAreaDisplay extends UIComponent {
   public void disposeResumeButton() {
     resume_image.remove();
   }
+
+  public void setKeyBindMenu() {
+    keyBindMenu = new Image(new Texture(Gdx.files.internal("images/KeyBinds/blank.png")));
+    keyBindMenu.setSize(1920, 1080);
+    keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
+            Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
+    keyBindGroup.addActor(keyBindMenu);
+    stage.addActor(keyBindGroup);
+    stage.draw();
+  }
+
+  public void disposeKeyBindMenu () { keyBindGroup.remove(); }
 
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
