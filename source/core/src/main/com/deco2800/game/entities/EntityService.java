@@ -94,6 +94,10 @@ public class EntityService {
     pauseEndFlag = true;
   }
 
+  public static Boolean pauseCheck() {
+    return paused;
+  }
+
   public void toggleTimeStop() {
     entityTimeStop = !entityTimeStop;
     for (Entity entity : entities) {

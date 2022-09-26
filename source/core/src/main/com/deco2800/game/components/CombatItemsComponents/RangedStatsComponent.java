@@ -11,6 +11,7 @@ import java.util.TimerTask;
  * /**
  *  * Component used to store information and methods related to combat for ranged weapons.
  */
+//delapidated DO NOT USE THIS
 public class RangedStatsComponent extends WeaponStatsComponent {
 
     protected double weight;
@@ -23,8 +24,8 @@ public class RangedStatsComponent extends WeaponStatsComponent {
      * @param materials materials needed to craft the weapon
      * @param weight weight of the weapon (affects player's movement speed)
      */
-    public RangedStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight) {
-        super(damage, coolDown, materials);
+    public RangedStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight, String description) {
+        super(damage, coolDown, materials, description);
         setWeight(weight);
     }
 
@@ -44,22 +45,15 @@ public class RangedStatsComponent extends WeaponStatsComponent {
         this.weight = weight;
     }
 
-    @Override
-    public void auraEffect(Entity auraToApply) {
-        setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-        setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-        setWeight(this.getWeight() * auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
+    /**
+     * Checks if two ranged weapons are the same
+     * @param other other melee weapon
+     * @return true if they have the same stat, false otherwise //implemented by peter from team 02
+     */
+    public boolean equals(RangedStatsComponent other) {
+        return this.damage == other.getDamage()
+                && this.weight == other.getWeight()
+                && this.coolDown == other.getCoolDown();
+    }
 
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                               @Override
-                               public void run() {
-                                   setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-                                   setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-                                   setWeight(getWeight() / auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
-                                   timer.cancel();
-                               }
-                           }
-                    , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
-        }
 }

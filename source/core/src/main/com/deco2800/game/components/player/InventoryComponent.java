@@ -2,14 +2,11 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
@@ -38,6 +35,19 @@ public class InventoryComponent extends Component {
      */
     public void setCombatAnimator(Entity combatAnimator){
         this.combatAnimator = combatAnimator;
+    }
+
+    /**
+     * Register animation component for the weapon (IMPLEMENT ARMOUR ANIMATION)
+     * @param weapon Entity
+     */
+    public void registerAnimation(Entity weapon) {
+        Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);
+        setCombatAnimator(newCombatAnimator);
+        entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
+        ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
+        String description = weapon.getComponent(PhyiscalWeaponStatsComponent.class).getDescription();
+        combatAnimator.getEvents().trigger(description);
     }
 
     /**
@@ -199,7 +209,7 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * Removes an item to player's inventory.
+     * Removes an item from the player's inventory.
      *
      * @param item item to remove
      * @requires getItemQuantity(item) >= 1
@@ -275,16 +285,15 @@ public class InventoryComponent extends Component {
      * @param equip  boolean to determine equip or unequip item
      */
     private void applyWeaponEffect(Entity weapon, boolean equip) {
-        WeaponStatsComponent weaponStats;
+        PhyiscalWeaponStatsComponent weaponStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
-        if ((weaponStats = weapon.getComponent(MeleeStatsComponent.class)) != null) {
-            MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
+        if ((weaponStats = weapon.getComponent(PhyiscalWeaponStatsComponent.class)) != null) {
             if (equip) {
                 //Equip weapon
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-weaponStats.getWeight() / 15), true, 0);
             } else {
                 //Unequip
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) (meleeStats.getWeight() / 15), false, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) (weaponStats.getWeight() / 15), false, 0);
             }
         }
     }
@@ -358,20 +367,15 @@ public class InventoryComponent extends Component {
         int itemSlot = item.checkEntityType(EntityTypes.WEAPON)? 0 : 1;
         if (inventory.contains(item)) {
             if (equipables[itemSlot] != null) {
-                unequipItem(itemSlot);
+                swapItem(item);
+                return true;
             }
             if (item.checkEntityType(EntityTypes.WEAPON)) {
                 equipables[0] = item;
                 //Slot 1 - Reserved for combat items
                 equipped = true;
                 applyWeaponEffect(item, equipped);
-                //Make weapon appear in hand straight away
-                Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);
-                setCombatAnimator(newCombatAnimator);
-                entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
-                ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
-                String description = equipables[0].getComponent(MeleeStatsComponent.class).getDescription();
-                combatAnimator.getEvents().trigger(description);
+                registerAnimation(item);
             } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
                 equipables[1] = item;
                 //Slot 2 - Reserved for armour
@@ -394,13 +398,20 @@ public class InventoryComponent extends Component {
         Entity swappedItem = equipables[itemSlot];
         if (swappedItem != null) {
             if (itemSlot == 0) {
-                applyWeaponEffect(equipables[0], false);
+                applyWeaponEffect(swappedItem, false);
                 //CANCEL_ANIMATION
                 cancelAnimation();
+                //Swap
+                applyWeaponEffect(item, true);
+                registerAnimation(item);
+                equipables[0] = item;
             } else if (itemSlot == 1) {
-                applyArmourEffect(equipables[1], false);
+                applyArmourEffect(swappedItem, false);
+                //Swap
+                applyArmourEffect(item, true);
+                equipables[1] = item;
             }
-            equipItem(item);
+            removeItem(item);
             addItem(swappedItem);
         }
     }
@@ -476,8 +487,8 @@ public class InventoryComponent extends Component {
                     .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)
         && other.checkEntityType(EntityTypes.WEAPON)) {
-            equals = item.getComponent(MeleeStatsComponent.class)
-                    .equals(other.getComponent(MeleeStatsComponent.class));
+            equals = item.getComponent(PhyiscalWeaponStatsComponent.class)
+                    .equals(other.getComponent(PhyiscalWeaponStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
         && other.checkEntityType(EntityTypes.CRAFTABLE)){
             for (EntityTypes type: other.getEntityTypes()) {
