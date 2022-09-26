@@ -48,7 +48,6 @@ public class RangedStatsComponent extends WeaponStatsComponent {
     public void auraEffect(Entity auraToApply) {
         setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
         setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-        setWeight(this.getWeight() * auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
 
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -56,7 +55,6 @@ public class RangedStatsComponent extends WeaponStatsComponent {
                                public void run() {
                                    setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
                                    setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-                                   setWeight(getWeight() / auraToApply.getComponent(WeaponAuraComponent.class).getWeightMultiplier());
                                    timer.cancel();
                                }
                            }

@@ -53,6 +53,8 @@ public class CraftingLogic {
         possibleWeapons.add(configs.heraAthenaDag);
         possibleWeapons.add(configs.plunger);
         possibleWeapons.add(configs.pipe);
+        possibleWeapons.add(configs.goldenPlungerBow);
+        possibleWeapons.add(configs.plungerBow);
         return possibleWeapons;
 
     }
@@ -116,6 +118,12 @@ public class CraftingLogic {
 
             case 35:
                 return WeaponFactory.createHeraAthenaDag();
+
+            case 20:
+                return WeaponFactory.createPlungerBow();
+
+            case 70:
+                return WeaponFactory.createGoldenPlungerBow();
 
             default:
                 return WeaponFactory.createPlunger();

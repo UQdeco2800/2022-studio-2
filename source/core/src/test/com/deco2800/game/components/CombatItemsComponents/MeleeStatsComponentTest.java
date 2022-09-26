@@ -110,7 +110,7 @@ class MeleeStatsComponentTest {
         assertTrue(materialsTest2.equals(weapons1.getMaterials()));
     }
 
-    @Test
+   /* @Test
     public void testAuraInEffect() {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
@@ -124,5 +124,5 @@ class MeleeStatsComponentTest {
 
         weapons1.auraEffect(auraSpeedBuff);
         assertEquals(5.0, weapons1.getCoolDown(), "Incorrect value was returned.");
-    }
+    }*/
 }
