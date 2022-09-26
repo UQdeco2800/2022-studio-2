@@ -106,6 +106,6 @@ public class MeleeStatsComponent extends WeaponStatsComponent {
         return this.damage == other.getDamage()
                 && this.weight == other.getWeight()
                 && this.coolDown == other.getCoolDown()
-                && this.description == other.getDescription();
+                && this.description.equals(other.getDescription());
     }
 }

@@ -157,9 +157,7 @@ public class InventoryComponent extends Component {
                 inventory.add(item);
             }
         }
-        //Stacking Potions and Craftables NOT FINISHED
         if (getItemIndex(item, inventory) != -1
-                && hasItem(item, inventory)
                 && (item.checkEntityType(EntityTypes.POTION)
                 || (!item.checkEntityType(EntityTypes.WEAPON)
                 && item.checkEntityType(EntityTypes.CRAFTABLE)))
@@ -269,7 +267,6 @@ public class InventoryComponent extends Component {
     }
 
     /**
-     * add
      * Modify the player's stat according to the weapon stat.
      * Credit to Team 4
      *
@@ -452,12 +449,8 @@ public class InventoryComponent extends Component {
                     .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)
         && other.checkEntityType(EntityTypes.WEAPON)) {
-//            equals = item.getId() == other.getId();
-//            Better for testing since there will be no render component
             equals = item.getComponent(MeleeStatsComponent.class)
                     .equals(other.getComponent(MeleeStatsComponent.class));
-//            equals = item.getComponent(TextureRenderComponent.class).getTexturePath()
-//                    .equals(other.getComponent(TextureRenderComponent.class).getTexturePath());
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
         && other.checkEntityType(EntityTypes.CRAFTABLE)){
             for (EntityTypes type: other.getEntityTypes()) {
