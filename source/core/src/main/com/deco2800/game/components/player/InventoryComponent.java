@@ -155,11 +155,11 @@ public class InventoryComponent extends Component {
             } else if (item.checkEntityType(EntityTypes.POTION)
                     || item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 inventory.add(item);
-                ++itemQuantity[inventory.indexOf(item)];
             }
         }
         //Stacking Potions and Craftables NOT FINISHED
         if (getItemIndex(item, inventory) != -1
+                && hasItem(item, inventory)
                 && (item.checkEntityType(EntityTypes.POTION)
                 || (!item.checkEntityType(EntityTypes.WEAPON)
                 && item.checkEntityType(EntityTypes.CRAFTABLE)))
