@@ -9,12 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
-import com.deco2800.game.components.player.OpenPauseComponent;
-import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -25,13 +21,13 @@ public class MainMenuDisplayProMax extends UIComponent {
     private Table table;
 
     private Texture buttonTexture;
+    private Image mainMenu;
 
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
     private ImageButton startButton;
     private ImageButton exitButton;
-    private Image startButt;
-    private Image exitButt;
+
 
     private static final float Z_INDEX = 2f;
 
@@ -46,7 +42,7 @@ public class MainMenuDisplayProMax extends UIComponent {
     private void addActors() {
         table = new Table();
         table.setFillParent(true);
-        Image mainMenu =
+        mainMenu =
                 new Image(
                         ServiceLocator.getResourceService()
                                 .getAsset(
@@ -57,8 +53,6 @@ public class MainMenuDisplayProMax extends UIComponent {
         mainMenu.setPosition(0, 0);
         stage.addActor(mainMenu);
 
-//        startButt = new Image(new Texture(Gdx.files.internal
-//                ("images/Crafting-assets-sprint1/widgets/catalogue_button.png")));
 
         buttonTexture = new Texture(Gdx.files.internal
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
@@ -71,14 +65,13 @@ public class MainMenuDisplayProMax extends UIComponent {
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                logger.debug("Game starting...");
                 entity.getEvents().trigger("start");
             }
         });
         menuGroup.addActor(startButton);
         stage.addActor(menuGroup);
 
-//        exitButt = new Image(new Texture(Gdx.files.internal
-//                ("images/Crafting-assets-sprint1/widgets/catalogue_button.png")));
         buttonTexture = new Texture(Gdx.files.internal
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -90,6 +83,7 @@ public class MainMenuDisplayProMax extends UIComponent {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                logger.debug("Exiting game...");
                 entity.getEvents().trigger("exit");
             }
         });
