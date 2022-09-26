@@ -535,7 +535,6 @@ public class GameAreaDisplay extends UIComponent {
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
 
         inventory = inventoryComponent.getInventory();
-        System.out.println(inventory);
         //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
         for (Entity item : inventory) {
             if (item.checkEntityType(EntityTypes.CRAFTABLE)) {

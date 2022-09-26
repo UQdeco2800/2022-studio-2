@@ -49,7 +49,8 @@ public class InventoryComponent extends Component {
 
     //CANCEL_ANIMATION
     private void cancelAnimation() {
-        ServiceLocator.getEntityService().unregister(combatAnimator);
+        combatAnimator.dispose();
+//        ServiceLocator.getEntityService().unregister(combatAnimator);
     }
 
     /**
@@ -114,8 +115,8 @@ public class InventoryComponent extends Component {
      * @return true if there is a same kind of Entity, false otherwise
      */
     public boolean hasItem(Entity item, List<Entity> storage) {
-        for (Entity other: storage) {
-            if (itemEquals(item, other)) {
+        for (int i = 0; i < storage.size(); ++i) {
+            if (itemEquals(item, storage.get(i))) {
                 return true;
             }
         }
@@ -146,11 +147,13 @@ public class InventoryComponent extends Component {
         if (inventory.size() == inventorySize) {
             logger.info("Inventory if full");
         } else if (!hasItem(item, inventory)) {
-            if (item.checkEntityType(EntityTypes.POTION)
-                    || item.checkEntityType(EntityTypes.CRAFTABLE)) {
+            if ((item.checkEntityType(EntityTypes.WEAPON)
+                    || item.checkEntityType(EntityTypes.ARMOUR))
+                    && !hasItem(item, inventory)) {
                 inventory.add(item);
-            } else if (item.checkEntityType(EntityTypes.WEAPON)
-                    || item.checkEntityType(EntityTypes.ARMOUR)) {
+                ++itemQuantity[inventory.indexOf(item)];
+            } else if (item.checkEntityType(EntityTypes.POTION)
+                    || item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 inventory.add(item);
                 ++itemQuantity[inventory.indexOf(item)];
             }
@@ -158,7 +161,9 @@ public class InventoryComponent extends Component {
         //Stacking Potions and Craftables NOT FINISHED
         if (getItemIndex(item, inventory) != -1
                 && (item.checkEntityType(EntityTypes.POTION)
-                || item.checkEntityType(EntityTypes.CRAFTABLE))) {
+                || (!item.checkEntityType(EntityTypes.WEAPON)
+                && item.checkEntityType(EntityTypes.CRAFTABLE)))
+                && getItemQuantity(item) < 9) {
             ++itemQuantity[getItemIndex(item, inventory)];
         }
     }
