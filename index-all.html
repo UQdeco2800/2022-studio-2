@@ -515,15 +515,15 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#consumePotionSlot1()" class="member-name-link">consumePotionSlot1()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>
-<div class="block">Pressing the '1' button toggles the inventory menu UI opening/closing.</div>
+<div class="block">Pressing the '1' button triggers the player to consume potion slot 1</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#consumePotionSlot2()" class="member-name-link">consumePotionSlot2()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>
-<div class="block">Pressing the '2' button toggles the inventory menu UI opening/closing.</div>
+<div class="block">Pressing the '2' button triggers the player to consume potion slot 2</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerActions.html#consumePotionSlot3()" class="member-name-link">consumePotionSlot3()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerActions.html" title="class in com.deco2800.game.components.player">PlayerActions</a></dt>
 <dd>
-<div class="block">Pressing the '3' button toggles the inventory menu UI opening/closing.</div>
+<div class="block">Pressing the '3' button triggers the player to consume potion slot 3</div>
 </dd>
 <dt><a href="com/deco2800/game/physics/PhysicsLayer.html#contains(short,short)" class="member-name-link">contains(short, short)</a> - Static method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsLayer.html" title="class in com.deco2800.game.physics">PhysicsLayer</a></dt>
 <dd>&nbsp;</dd>
@@ -1119,10 +1119,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#displayItems()" class="member-name-link">displayItems()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
 <dd>
 <div class="block">Displays each item in the inventory in the inventory storage blocks.</div>
-</dd>
-<dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#displayItems(float,float,float)" class="member-name-link">displayItems(float, float, float)</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
-<dd>
-<div class="block">Display each item in the inventory in the inventory storage blocks.</div>
 </dd>
 <dt><a href="com/deco2800/game/files/UserSettings.Settings.html#displayMode" class="member-name-link">displayMode</a> - Variable in class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.Settings.html" title="class in com.deco2800.game.files">UserSettings.Settings</a></dt>
 <dd>&nbsp;</dd>
@@ -3042,6 +3038,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Register a new renderable.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#registerAnimation(com.deco2800.game.entities.Entity)" class="member-name-link">registerAnimation(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Register animation component for the weapon (IMPLEMENT ARMOUR ANIMATION)</div>
+</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerCraftArea(com.deco2800.game.components.gamearea.GameAreaDisplay)" class="member-name-link">registerCraftArea(GameAreaDisplay)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>
 <div class="block">ISAAC LOOK AT THIS AND WORK OUT HOW IT WORKS</div>
@@ -3090,7 +3090,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeItem(com.deco2800.game.entities.Entity)" class="member-name-link">removeItem(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
-<div class="block">Removes an item to player's inventory.</div>
+<div class="block">Removes an item from the player's inventory.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeItem(com.deco2800.game.entities.factories.EntityTypes)" class="member-name-link">removeItem(EntityTypes)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
@@ -3803,6 +3803,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/utils/StringDecorator.html#%3Cinit%3E(T,java.util.function.Function)" class="member-name-link">StringDecorator(T, Function&lt;T, String&gt;)</a> - Constructor for class com.deco2800.game.utils.<a href="com/deco2800/game/utils/StringDecorator.html" title="class in com.deco2800.game.utils">StringDecorator</a></dt>
 <dd>
 <div class="block">Create a string-decorated object.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#swapItem(com.deco2800.game.entities.Entity)" class="member-name-link">swapItem(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>
+<div class="block">Swap the item in equipable</div>
 </dd>
 <dt><a href="com/deco2800/game/entities/configs/CombatItemsConfig/WeaponConfigSetup.html#SwordLvl2" class="member-name-link">SwordLvl2</a> - Variable in class com.deco2800.game.entities.configs.CombatItemsConfig.<a href="com/deco2800/game/entities/configs/CombatItemsConfig/WeaponConfigSetup.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">WeaponConfigSetup</a></dt>
 <dd>&nbsp;</dd>
