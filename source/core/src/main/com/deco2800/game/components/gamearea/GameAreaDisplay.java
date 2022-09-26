@@ -481,10 +481,9 @@ public class GameAreaDisplay extends UIComponent {
     resume.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        disposePauseMenu();
-        EntityService.pauseAndResume();
+        logger.debug("Pause menu resume button clicked");
         KeyboardPlayerInputComponent.incrementPauseCounter();
-        //OpenPauseComponent.setPauseMenuStatus();
+        OpenPauseComponent.closePauseMenu();
       }
     });
     pausingGroup.addActor(resume);
@@ -500,10 +499,9 @@ public class GameAreaDisplay extends UIComponent {
     exit.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        logger.debug("Exit button clicked");
-        PauseMenuActions.setQuitGameStatus();
+          logger.debug("Pause menu exit button clicked");
         KeyboardPlayerInputComponent.incrementPauseCounter();
-        OpenPauseComponent.closePauseMenu();
+        PauseMenuActions.setQuitGameStatus();
       }
     });
     pausingGroup.addActor(exit);
