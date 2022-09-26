@@ -8,6 +8,7 @@ import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.BackgroundSoundComponent;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
+import com.deco2800.game.components.mainmenu.MainMenuDisplayProMax;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -111,7 +112,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
     Entity ui = new Entity();
-    ui.addComponent(new MainMenuDisplay())
+    ui.addComponent(new MainMenuDisplayProMax())
         .addComponent(new InputDecorator(stage, 10))
         .addComponent(new MainMenuActions(game));
 
