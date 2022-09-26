@@ -5,16 +5,14 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.EnemyProjectileComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillProjectileComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.RangedConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -158,8 +156,8 @@ public class ProjectileFactory {
      * @return the projectile entity
      */
     public static Entity createWeaponProjectile(Entity player, double angle) { //TEAM 04 WIP
-       WeaponConfig configs = FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
-        RangedConfig config = configs.plungerBow;
+       WeaponConfigSetup configs = FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
+        WeaponConfig config = configs.plungerBow;
 
         PhysicsComponent physicsComponent = new PhysicsComponent();
         PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();

@@ -24,7 +24,7 @@ import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
@@ -59,7 +59,7 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
-  private List<MeleeConfig> possibleBuilds;
+  private List<WeaponConfig> possibleBuilds;
   Entity currentWeapon;
   private Image catOneMenu;
   private Image catTwoMenu;
@@ -532,7 +532,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
-            for (MeleeConfig item : possibleBuilds) {
+            for (WeaponConfig item : possibleBuilds) {
                 int numItems = 0;
                 for (Map.Entry entry : item.materials.entrySet()) {
                     String entryString = entry.toString().split("=")[0];
@@ -920,7 +920,7 @@ public class GameAreaDisplay extends UIComponent {
         pausingGroup.remove();
     }
 
-    private void displayWeapon(MeleeConfig item) {
+    private void displayWeapon(WeaponConfig item) {
         Entity newItem = CraftingLogic.damageToWeapon(item);
         currentWeapon = newItem;
         String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();

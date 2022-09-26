@@ -144,9 +144,13 @@ public class CombatStatsComponent extends Component {
     }
 
     if (isDead() && entity.checkEntityType(EntityTypes.ENEMY)) {
-      Gdx.app.postRunnable(() -> entity.dispose());
-      Gdx.app.postRunnable(this::dropMaterial);
-      Gdx.app.postRunnable(this::dropWeapon);
+
+      Gdx.app.postRunnable(() -> {
+        dropMaterial();
+        dropWeapon();
+        entity.dispose();
+      });
+
       if (entity.getComponent(AnimationRenderComponent.class) != null) {
         Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
       }
@@ -368,7 +372,7 @@ public class CombatStatsComponent extends Component {
 
     if (getEntity().checkEntityType(EntityTypes.PLAYER)) {
 
-      // check equipable, which weapon is equipped and drop that one
+      // check equippable, which weapon is equipped and drop that one
 
       Entity newWeapon = WeaponFactory.createDagger();
 

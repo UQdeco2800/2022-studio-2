@@ -1,9 +1,8 @@
 package com.deco2800.game.crafting;
 
 //import com.deco2800.game.CombatItems.Weapon;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.files.FileLoader;
 import org.junit.Before;
@@ -23,14 +22,14 @@ public class CraftingLogicTest {
     }
     @Test
     void basicGetPossibleBuildsTest() {
-        List<MeleeConfig> imaginaryWeapons = new ArrayList<>();
+        List<WeaponConfig> imaginaryWeapons = new ArrayList<>();
         CraftingLogic.setPossibleBuilds(imaginaryWeapons);
         assertEquals(imaginaryWeapons, CraftingLogic.getPossibleBuilds());
     }
 
     @Test
     void basicSetPossibleBuildsTest() {
-        List<MeleeConfig> inputList = new ArrayList<>();
+        List<WeaponConfig> inputList = new ArrayList<>();
         CraftingLogic.setPossibleBuilds(inputList);
         assertEquals(inputList, CraftingLogic.getPossibleBuilds());
     }
@@ -39,9 +38,9 @@ public class CraftingLogicTest {
     void getWeaponsTest() {
 //        List<MeleeConfig> possibleWeaponsTest = CraftingLogic.getPossibleWeapons();
 //        assertEquals(possibleWeaponsTest, CraftingLogic.getPossibleWeapons());
-        WeaponConfig configs =
-                FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
-        List<MeleeConfig> possibleWeaponsTest = new ArrayList<>();
+        WeaponConfigSetup configs =
+                FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
+        List<WeaponConfig> possibleWeaponsTest = new ArrayList<>();
         possibleWeaponsTest.add(configs.athenaDag);
         possibleWeaponsTest.add(configs.heraDag);
         possibleWeaponsTest.add(configs.SwordLvl2);
@@ -84,7 +83,7 @@ public class CraftingLogicTest {
 
     @Test
     void canBuildTest() {
-        List<MeleeConfig> buildItemsTest = new ArrayList<>();
+        List<WeaponConfig> buildItemsTest = new ArrayList<>();
         List<Materials> inventoryContentsTest = new ArrayList<>();
         CraftingLogic.canBuild(inventoryContentsTest);
         assertEquals(CraftingLogic.canBuild(inventoryContentsTest), buildItemsTest);
