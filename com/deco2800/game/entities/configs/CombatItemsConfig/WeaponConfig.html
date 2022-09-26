@@ -73,7 +73,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">WeaponConfig</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Defines all weapon configs to be loaded by the Weapon Factory.</div>
+<div class="block">Defines a basic set of (melee weapon) properties stored in Weapon config files to be loaded by Weapon Factory.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -86,36 +86,21 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second even-row-color"><code><a href="#athenaDag" class="member-name-link">athenaDag</a></code></div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#coolDown" class="member-name-link">coolDown</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#dumbbell" class="member-name-link">dumbbell</a></code></div>
+<div class="col-first odd-row-color"><code>double</code></div>
+<div class="col-second odd-row-color"><code><a href="#damage" class="member-name-link">damage</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second even-row-color"><code><a href="#goldenPlungerBow" class="member-name-link">goldenPlungerBow</a></code></div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#materials" class="member-name-link">materials</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#heraAthenaDag" class="member-name-link">heraAthenaDag</a></code></div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#weapon" class="member-name-link">weapon</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second even-row-color"><code><a href="#heraDag" class="member-name-link">heraDag</a></code></div>
+<div class="col-first even-row-color"><code>double</code></div>
+<div class="col-second even-row-color"><code><a href="#weight" class="member-name-link">weight</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#pipe" class="member-name-link">pipe</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second even-row-color"><code><a href="#plunger" class="member-name-link">plunger</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#plungerBow" class="member-name-link">plungerBow</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second even-row-color"><code><a href="#SwordLvl2" class="member-name-link">SwordLvl2</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#tridentLvl2" class="member-name-link">tridentLvl2</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -151,63 +136,33 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="athenaDag">
-<h3>athenaDag</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">athenaDag</span></div>
+<section class="detail" id="weapon">
+<h3>weapon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">weapon</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="heraDag">
-<h3>heraDag</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">heraDag</span></div>
+<section class="detail" id="damage">
+<h3>damage</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">damage</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="dumbbell">
-<h3>dumbbell</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">dumbbell</span></div>
+<section class="detail" id="coolDown">
+<h3>coolDown</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">coolDown</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="SwordLvl2">
-<h3>SwordLvl2</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">SwordLvl2</span></div>
+<section class="detail" id="weight">
+<h3>weight</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">weight</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="tridentLvl2">
-<h3>tridentLvl2</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">tridentLvl2</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="heraAthenaDag">
-<h3>heraAthenaDag</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">heraAthenaDag</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="plunger">
-<h3>plunger</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">plunger</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="pipe">
-<h3>pipe</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">pipe</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="plungerBow">
-<h3>plungerBow</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">plungerBow</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="goldenPlungerBow">
-<h3>goldenPlungerBow</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MeleeConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">MeleeConfig</a></span>&nbsp;<span class="element-name">goldenPlungerBow</span></div>
+<section class="detail" id="materials">
+<h3>materials</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">materials</span></div>
 </section>
 </li>
 </ul>

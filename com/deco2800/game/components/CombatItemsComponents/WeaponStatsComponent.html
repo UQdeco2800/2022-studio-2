@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="AreaOfEffectStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">AreaOfEffectStatsComponent</a></code>, <code><a href="MeleeStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">MeleeStatsComponent</a></code>, <code><a href="RangedStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">RangedStatsComponent</a></code></dd>
+<dd><code><a href="AreaOfEffectStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">AreaOfEffectStatsComponent</a></code>, <code><a href="PhyiscalWeaponStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">PhyiscalWeaponStatsComponent</a></code>, <code><a href="RangedStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">RangedStatsComponent</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">WeaponStatsComponent</span>
@@ -123,9 +123,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>protected </code></div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,java.util.HashMap)" class="member-name-link">WeaponStatsComponent</a><wbr>(double&nbsp;damage,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,java.util.HashMap,java.lang.String)" class="member-name-link">WeaponStatsComponent</a><wbr>(double&nbsp;damage,
  double&nbsp;coolDown,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials)</code></div>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -135,26 +136,26 @@ loadScripts(document, 'script');</script>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#auraEffect(com.deco2800.game.entities.Entity)" class="member-name-link">auraEffect</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraToApply)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Applies the given aura to the weapon</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCoolDown()" class="member-name-link">getCoolDown</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCoolDown()" class="member-name-link">getCoolDown</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the cooldown of the weapon</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDamage()" class="member-name-link">getDamage</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDamage()" class="member-name-link">getDamage</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the damage of the weapon</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDescription()" class="member-name-link">getDescription</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the weapon description</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMaterials()" class="member-name-link">getMaterials</a>()</code></div>
@@ -172,8 +173,13 @@ loadScripts(document, 'script');</script>
 <div class="block">Sets the damage of the weapon</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setMaterials(java.util.HashMap)" class="member-name-link">setMaterials</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDescription(java.lang.String)" class="member-name-link">setDescription</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the description of the weapon</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setMaterials(java.util.HashMap)" class="member-name-link">setMaterials</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the materials required to craft the weapon</div>
 </div>
 </div>
@@ -223,11 +229,12 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(double,double,java.util.HashMap)">
+<section class="detail" id="&lt;init&gt;(double,double,java.util.HashMap,java.lang.String)">
 <h3>WeaponStatsComponent</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name">WeaponStatsComponent</span><wbr><span class="parameters">(double&nbsp;damage,
  double&nbsp;coolDown,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>damage</code> - damage of the weapon</dd>
@@ -289,6 +296,17 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="setDescription(java.lang.String)">
+<h3>setDescription</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDescription</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</span></div>
+<div class="block">Sets the description of the weapon</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>description</code> - description of the weapon</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="setMaterials(java.util.HashMap)">
 <h3>setMaterials</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setMaterials</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials)</span></div>
@@ -300,6 +318,17 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="getDescription()">
+<h3>getDescription</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getDescription</span>()</div>
+<div class="block">Returns the weapon description</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>description of the weapon</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="getMaterials()">
 <h3>getMaterials</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">getMaterials</span>()</div>
@@ -307,17 +336,6 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>materials needed to craft the weapon</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="auraEffect(com.deco2800.game.entities.Entity)">
-<h3>auraEffect</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">auraEffect</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraToApply)</span></div>
-<div class="block">Applies the given aura to the weapon</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>auraToApply</code> - aura (buff, debuff, curse) to implement to the weapon</dd>
 </dl>
 </section>
 </li>

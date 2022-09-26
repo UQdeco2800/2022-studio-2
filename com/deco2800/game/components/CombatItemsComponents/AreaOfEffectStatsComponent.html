@@ -105,11 +105,12 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,double,double,java.util.HashMap)" class="member-name-link">AreaOfEffectStatsComponent</a><wbr>(double&nbsp;damage,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,double,double,java.util.HashMap,java.lang.String)" class="member-name-link">AreaOfEffectStatsComponent</a><wbr>(double&nbsp;damage,
  double&nbsp;areaRange,
  double&nbsp;duration,
  double&nbsp;coolDown,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials)</code></div>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -125,29 +126,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#auraEffect(com.deco2800.game.entities.Entity)" class="member-name-link">auraEffect</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraToApply)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAreaRange()" class="member-name-link">getAreaRange</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Applies the given aura to the weapon</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAreaRange()" class="member-name-link">getAreaRange</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the radius the weapon can deal damage to</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDuration()" class="member-name-link">getDuration</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDuration()" class="member-name-link">getDuration</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns thr duration the aoe is activated</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAreaRange(double)" class="member-name-link">setAreaRange</a><wbr>(double&nbsp;areaRange)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAreaRange(double)" class="member-name-link">setAreaRange</a><wbr>(double&nbsp;areaRange)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the radius the weapon can deal damage to</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDuration(double)" class="member-name-link">setDuration</a><wbr>(double&nbsp;duration)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDuration(double)" class="member-name-link">setDuration</a><wbr>(double&nbsp;duration)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the duration the aoe weapon can be activated for at one attack instance</div>
 </div>
 </div>
@@ -155,7 +151,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent">Methods inherited from class&nbsp;com.deco2800.game.components.CombatItemsComponents.<a href="WeaponStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">WeaponStatsComponent</a></h3>
-<code><a href="WeaponStatsComponent.html#getCoolDown()">getCoolDown</a>, <a href="WeaponStatsComponent.html#getDamage()">getDamage</a>, <a href="WeaponStatsComponent.html#getMaterials()">getMaterials</a>, <a href="WeaponStatsComponent.html#setCoolDown(double)">setCoolDown</a>, <a href="WeaponStatsComponent.html#setDamage(double)">setDamage</a>, <a href="WeaponStatsComponent.html#setMaterials(java.util.HashMap)">setMaterials</a></code></div>
+<code><a href="WeaponStatsComponent.html#getCoolDown()">getCoolDown</a>, <a href="WeaponStatsComponent.html#getDamage()">getDamage</a>, <a href="WeaponStatsComponent.html#getDescription()">getDescription</a>, <a href="WeaponStatsComponent.html#getMaterials()">getMaterials</a>, <a href="WeaponStatsComponent.html#setCoolDown(double)">setCoolDown</a>, <a href="WeaponStatsComponent.html#setDamage(double)">setDamage</a>, <a href="WeaponStatsComponent.html#setDescription(java.lang.String)">setDescription</a>, <a href="WeaponStatsComponent.html#setMaterials(java.util.HashMap)">setMaterials</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.deco2800.game.components.Component">Methods inherited from class&nbsp;com.deco2800.game.components.<a href="../Component.html" title="class in com.deco2800.game.components">Component</a></h3>
 <code><a href="../Component.html#create()">create</a>, <a href="../Component.html#dispose()">dispose</a>, <a href="../Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../Component.html#getEntity()">getEntity</a>, <a href="../Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../Component.html#setEntity(com.deco2800.game.entities.Entity)">setEntity</a>, <a href="../Component.html#toString()">toString</a>, <a href="../Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../Component.html#triggerUpdate()">triggerUpdate</a>, <a href="../Component.html#update()">update</a></code></div>
@@ -174,13 +170,14 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(double,double,double,double,java.util.HashMap)">
+<section class="detail" id="&lt;init&gt;(double,double,double,double,java.util.HashMap,java.lang.String)">
 <h3>AreaOfEffectStatsComponent</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AreaOfEffectStatsComponent</span><wbr><span class="parameters">(double&nbsp;damage,
  double&nbsp;areaRange,
  double&nbsp;duration,
  double&nbsp;coolDown,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="../../crafting/Materials.html" title="enum class in com.deco2800.game.crafting">Materials</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;&nbsp;materials,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>damage</code> - damage of the weapon</dd>
@@ -240,20 +237,6 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>duration</code> - how long the aoe is activated</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="auraEffect(com.deco2800.game.entities.Entity)">
-<h3>auraEffect</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">auraEffect</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraToApply)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="WeaponStatsComponent.html#auraEffect(com.deco2800.game.entities.Entity)">WeaponStatsComponent</a></code></span></div>
-<div class="block">Applies the given aura to the weapon</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="WeaponStatsComponent.html#auraEffect(com.deco2800.game.entities.Entity)">auraEffect</a></code>&nbsp;in class&nbsp;<code><a href="WeaponStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">WeaponStatsComponent</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>auraToApply</code> - aura (buff, debuff, curse) to implement to the weapon</dd>
 </dl>
 </section>
 </li>
