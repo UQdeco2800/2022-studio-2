@@ -333,10 +333,10 @@ public class PlayerModifier extends Component{
     }
 
     /**
-     * Public function to return current reference value of a desired target.
+     * Public function to return current modified value of a desired target.
      *
      * @param target    Desired player statistic.
-     * @return Float value of the desired reference target statistic, else -1 on fail.
+     * @return Float value of the desired modified target statistic, else -1 on fail.
      */
     public float getModified (String target) {
 
@@ -352,10 +352,10 @@ public class PlayerModifier extends Component{
     }
 
     /**
-     * Public function to return current modified value of a desired target.
+     * Public function to return current reference value of a desired target.
      *
      * @param target    Desired player statistic.
-     * @return Float value of the desired modified target statistic, else -1 on fail.
+     * @return Float value of the desired reference target statistic, else -1 on fail.
      */
     public float getReference (String target) {
 

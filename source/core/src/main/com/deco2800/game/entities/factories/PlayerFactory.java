@@ -1,9 +1,8 @@
 package com.deco2800.game.entities.factories;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.deco2800.game.GdxGame;
+import com.deco2800.game.components.CombatItemsComponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
@@ -20,7 +19,6 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -69,6 +67,7 @@ public class PlayerFactory {
                 .addComponent(new DialogueDisplay())
             .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
+                .addComponent(new WeaponAuraManager())
             .addComponent(animator)
             .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
 
@@ -127,7 +126,7 @@ public class PlayerFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/combatanimation.atlas", TextureAtlas.class));
     animator.addAnimation("noAnimation", 0.1f);
-    animator.addAnimation("level3Dagger", 0.1f);
+    animator.addAnimation("heraAthenaDag", 0.1f);
     animator.addAnimation("hera", 0.1f);
 
     Entity combatAnimator =

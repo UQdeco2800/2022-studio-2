@@ -7,6 +7,7 @@ import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -24,6 +25,32 @@ import java.util.List;
 public class InventoryComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
+
+    /**
+     * The animation handler for weapons
+     */
+    private Entity combatAnimator;
+
+    /**
+     * Set the animator for weapons
+     * @param combatAnimator animation handler
+     */
+    public void setCombatAnimator(Entity combatAnimator){
+        this.combatAnimator = combatAnimator;
+    }
+
+    /**
+     * Get the animation handler
+     * @return animation handler
+     */
+    public Entity getCombatAnimator() {
+        return this.combatAnimator;
+    }
+
+    //CANCEL_ANIMATION
+    private void cancelAnimation() {
+        ServiceLocator.getEntityService().unregister(combatAnimator);
+    }
 
     /**
      * The status of inventory display.
@@ -122,7 +149,6 @@ public class InventoryComponent extends Component {
             if (item.checkEntityType(EntityTypes.POTION)
                     || item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 inventory.add(item);
-                logger.info(String.format("Added %s", item.getEntityTypes().toString()));
             } else if (item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR)) {
                 inventory.add(item);
@@ -155,7 +181,7 @@ public class InventoryComponent extends Component {
 
     /**
      * Sort the item quantity array once an item is removed from the inventory.
-     *      *
+     *
      * @param index    index of the item
      * @param list     the list of the inventory storage
      * @param quantity the quantity array of corresponding inventory
@@ -223,7 +249,7 @@ public class InventoryComponent extends Component {
      * @requires inventory.contains(item) == true
      */
     public int getItemQuantity(Entity item) {
-        return itemQuantity[inventory.indexOf(item)];
+        return itemQuantity[getItemIndex(item, inventory)];
     }
 
     /**
@@ -332,6 +358,10 @@ public class InventoryComponent extends Component {
                 //Slot 1 - Reserved for combat items
                 equipped = true;
                 applyWeaponEffect(item, equipped);
+                //Make weapon appear in hand straight away
+//                String description = equipables[0].getComponent(MeleeStatsComponent.class).getDescription();
+//                combatAnimator.getEvents().trigger(description);
+//                The above code has been moved under GameAreaDisplay, search for animation to find the code
             } else if (item.checkEntityType(EntityTypes.ARMOUR) && equipables[1] == null) {
                 equipables[1] = item;
                 //Slot 2 - Reserved for armour
@@ -361,6 +391,8 @@ public class InventoryComponent extends Component {
             Entity item = equipables[itemSlot];
             if (item.checkEntityType(EntityTypes.WEAPON)) {
                 applyWeaponEffect(item, unequipped);
+                //CANCEL_ANIMATION
+                cancelAnimation();
             } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
                 applyArmourEffect(item, unequipped);
             }

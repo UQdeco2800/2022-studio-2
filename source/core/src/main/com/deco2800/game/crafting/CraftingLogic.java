@@ -46,13 +46,15 @@ public class CraftingLogic {
     public static List<MeleeConfig> getPossibleWeapons() {
         ArrayList<MeleeConfig> possibleWeapons =  new ArrayList<>();
         possibleWeapons.add(configs.athenaDag);
-        possibleWeapons.add(configs.herraDag);
+        possibleWeapons.add(configs.heraDag);
         possibleWeapons.add(configs.SwordLvl2);
         possibleWeapons.add(configs.dumbbell);
         possibleWeapons.add(configs.tridentLvl2);
-        possibleWeapons.add(configs.herraAthenaDag);
+        possibleWeapons.add(configs.heraAthenaDag);
         possibleWeapons.add(configs.plunger);
         possibleWeapons.add(configs.pipe);
+        possibleWeapons.add(configs.goldenPlungerBow);
+        possibleWeapons.add(configs.plungerBow);
         return possibleWeapons;
 
     }
@@ -103,7 +105,7 @@ public class CraftingLogic {
                 return WeaponFactory.createDagger();
 
             case 9:
-                return WeaponFactory.createDaggerTwo();
+                return WeaponFactory.createHera();
 
             case 26:
                 return WeaponFactory.createSwordLvl2();
@@ -115,7 +117,13 @@ public class CraftingLogic {
                 return WeaponFactory.createTridentLvl2();
 
             case 35:
-                return WeaponFactory.createHerraAthenaDag();
+                return WeaponFactory.createHeraAthenaDag();
+
+            case 20:
+                return WeaponFactory.createPlungerBow();
+
+            case 70:
+                return WeaponFactory.createGoldenPlungerBow();
 
             default:
                 return WeaponFactory.createPlunger();

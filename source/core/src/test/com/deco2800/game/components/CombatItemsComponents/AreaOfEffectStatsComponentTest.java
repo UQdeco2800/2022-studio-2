@@ -103,7 +103,7 @@ class AreaOfEffectStatsComponentTest {
 
         assertTrue(materialsTest.equals(areaEffectOne.getMaterials()));
     }
-    @Test
+   /* @Test
     public void testAuraInEffect() {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
@@ -117,6 +117,6 @@ class AreaOfEffectStatsComponentTest {
 
         areaEffectOne.auraEffect(auraSpeedBuff);
         assertEquals(5.0, areaEffectOne.getCoolDown(), "Incorrect value was returned.");
-    }
+    }*/
 
 }

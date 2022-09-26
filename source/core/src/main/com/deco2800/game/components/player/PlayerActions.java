@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -73,8 +75,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
-    entity.getEvents().addListener("attack", this::attackAnimation);
-    entity.getEvents().addListener("attack2", this::attackAnimation2);
+    //entity.getEvents().addListener("attack", this::attackAnimation);
 
 
     // Skills and Dash initialisation
@@ -344,29 +345,5 @@ public class PlayerActions extends Component {
    */
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillManager.setSkillAnimator(skillAnimator);
-  }
-
-
-  /**
-   * Sets the combat item animator for this actions component
-   * @param combatAnimator the combat animator entity which has subcomponents
-   *                      PlayerSkillAnimationController and AnimationRenderer
-   */
-  public void setCombatAnimator(Entity combatAnimator){
-    this.combatAnimator = combatAnimator;
-  }
-
-  /**
-   *  Makes the player attack with the hera combat item.
-   */
-  void attackAnimation(){
-    this.combatAnimator.getEvents().trigger("hera");
-  }
-
-  /**
-   *  Makes the player attack with the level3Dagger combat item.
-   */
-  void attackAnimation2(){
-    this.combatAnimator.getEvents().trigger("level3Dagger");
   }
 }

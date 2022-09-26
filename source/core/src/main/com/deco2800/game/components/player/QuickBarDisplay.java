@@ -5,6 +5,8 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.services.ServiceLocator;
@@ -59,7 +61,6 @@ public class QuickBarDisplay extends UIComponent {
         stage.addActor(quickBar);
 
     }
-
     @Override
     public void draw(SpriteBatch batch) {
         //draw is handled by the stage

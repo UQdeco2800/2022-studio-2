@@ -2,9 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.utils.Null;
 import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.entities.Entity;
@@ -17,7 +15,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private CombatStatsComponent combatStats;
     private boolean enemyCollide = false;
     private Entity target;
-
+    private Entity combatAnimator;
     private boolean canAttack;
     private long  cooldownEnd;
 
@@ -35,7 +33,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         entity.getEvents().addListener("collisionStart", this::playerCollidesEnemyStart);
         combatStats = entity.getComponent(CombatStatsComponent.class); //or just get the currently equipped weapon's damage
         entity.getEvents().addListener("collisionEnd", this::playerCollidesEnemyEnd);
-        //entity.getEvents().addListener("cooldownOver", this::cooldownOver);
     }
 
     @Override
@@ -57,6 +54,15 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     }
 
     /**
+     * Sets the combat item animator for this actions component
+     * @param combatAnimator the combat animator entity which has subcomponents
+     *                      PlayerSkillAnimationController and AnimationRenderer
+     */
+    public void setCombatAnimator(Entity combatAnimator){
+        this.combatAnimator = combatAnimator;
+    }
+
+    /**
      * Method called when the player entity is attacking.
      */
     void attack() {
@@ -68,6 +74,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             Entity weaponEquipped = entity.getComponent(InventoryComponent.class).getEquipable(0);
             if (weaponEquipped != null) {
                 cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(MeleeStatsComponent.class).getCoolDown());
+                //Sets the attack animation dependent on the weapon that is currently equipped
+                String description = weaponEquipped.getComponent(MeleeStatsComponent.class).getDescription();
+                combatAnimator.getEvents().trigger(description);
             } else {
                 cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
             }
