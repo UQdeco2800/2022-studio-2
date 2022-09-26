@@ -239,6 +239,7 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
+    spawnPlungerBow(); //PLS RMOVE LASTER
 
   }
 
@@ -644,6 +645,22 @@ public class ForestGameArea extends GameArea {
               true, true);
     }
   }
+
+  /**
+   * Spawns a projectile at the player entity's coordinates.
+   */
+  public void spawnWeaponProjectile() { //TEAM 04 WIP
+    Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
+    spawnEntityAt(newProjectile,
+            new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+            true, true);
+  }
+
+   private void spawnPlungerBow() {
+    Entity c = WeaponFactory.createPlungerBow();
+    ItemsOnMap.add(c);
+    spawnEntityAt(c, new GridPoint2(5,4), true, false);
+   }
 
   /**
    * Spawn female NPC in random position. - Team 7 all-mid-npc

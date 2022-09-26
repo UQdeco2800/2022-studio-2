@@ -2,13 +2,11 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
@@ -272,16 +270,15 @@ public class InventoryComponent extends Component {
      * @param equip  boolean to determine equip or unequip item
      */
     private void applyWeaponEffect(Entity weapon, boolean equip) {
-        WeaponStatsComponent weaponStats;
+        PhyiscalWeaponStatsComponent weaponStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
-        if ((weaponStats = weapon.getComponent(MeleeStatsComponent.class)) != null) {
-            MeleeStatsComponent meleeStats = (MeleeStatsComponent) weaponStats;
+        if ((weaponStats = weapon.getComponent(PhyiscalWeaponStatsComponent.class)) != null) {
             if (equip) {
                 //Equip weapon
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-weaponStats.getWeight() / 15), true, 0);
             } else {
                 //Unequip
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) (meleeStats.getWeight() / 15), false, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) (weaponStats.getWeight() / 15), false, 0);
             }
         }
     }
@@ -449,8 +446,8 @@ public class InventoryComponent extends Component {
         && other.checkEntityType(EntityTypes.WEAPON)) {
 //            equals = item.getId() == other.getId();
 //            Better for testing since there will be no render component
-            equals = item.getComponent(MeleeStatsComponent.class)
-                    .equals(other.getComponent(MeleeStatsComponent.class));
+            equals = item.getComponent(PhyiscalWeaponStatsComponent.class)
+                    .equals(other.getComponent(PhyiscalWeaponStatsComponent.class));
 //            equals = item.getComponent(TextureRenderComponent.class).getTexturePath()
 //                    .equals(other.getComponent(TextureRenderComponent.class).getTexturePath());
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)

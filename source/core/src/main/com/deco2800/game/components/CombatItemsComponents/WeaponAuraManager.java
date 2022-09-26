@@ -9,7 +9,7 @@ public class WeaponAuraManager extends Component {
 
     Entity auraApplied;
     private long auraEndTime;
-    MeleeStatsComponent meleeStats;
+    WeaponStatsComponent weaponStats;
 
     @Override
     public void update() {
@@ -20,8 +20,8 @@ public class WeaponAuraManager extends Component {
 
     public void checkAuraEffect() {
         if (auraApplied != null && System.currentTimeMillis() > auraEndTime) {
-            meleeStats.setDamage(meleeStats.getDamage() / auraApplied.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-            meleeStats.setCoolDown(meleeStats.getCoolDown() / auraApplied.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+            weaponStats.setDamage(weaponStats.getDamage() / auraApplied.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
+            weaponStats.setCoolDown(weaponStats.getCoolDown() / auraApplied.getComponent(WeaponAuraComponent.class).getCdMultiplier());
             auraApplied = null;
             auraEndTime = 0;
         }
@@ -30,11 +30,10 @@ public class WeaponAuraManager extends Component {
     public void applyAura(Entity aura, Entity weapon) {
         auraEndTime = System.currentTimeMillis() + aura.getComponent(WeaponAuraComponent.class).getAuraDuration();
         auraApplied = aura;
-        meleeStats = weapon.getComponent(MeleeStatsComponent.class);
-        meleeStats.setDamage(meleeStats.getDamage() * aura.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-
-        meleeStats.setCoolDown(meleeStats.getCoolDown() * aura.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+        if (weapon.getComponent(PhyiscalWeaponStatsComponent.class) != null) {
+            weaponStats = weapon.getComponent(PhyiscalWeaponStatsComponent.class);
+            weaponStats.setDamage(weaponStats.getDamage() * aura.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
+            weaponStats.setCoolDown(weaponStats.getCoolDown() * aura.getComponent(WeaponAuraComponent.class).getCdMultiplier());
+        }
     }
-
-
 }

@@ -12,13 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
@@ -27,11 +23,8 @@ import com.deco2800.game.components.player.OpenPauseComponent;
 import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.factories.ArmourFactory;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
@@ -41,7 +34,6 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -300,7 +292,7 @@ public class GameAreaDisplay extends UIComponent {
                                                 case "Equip item":
                                                     if (inventory.equipItem(currentItem)) {
                                                         //animation
-                                                        String description = inventory.getEquipables()[0].getComponent(MeleeStatsComponent.class).getDescription();
+                                                        String description = inventory.getEquipables()[0].getComponent(PhyiscalWeaponStatsComponent.class).getDescription();
                                                         inventory.getCombatAnimator().getEvents().trigger(description);
                                                         updateInventoryDisplay();
                                                     }

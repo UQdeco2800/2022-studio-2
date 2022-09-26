@@ -36,8 +36,8 @@ class AreaOfEffectStatsComponentTest {
         HashMap<Materials, Integer> materials2 = new HashMap<>();
         materials2.put(Materials.Wood, 5);
 
-        areaEffectOne = new AreaOfEffectStatsComponent(20,10, 5.5, 10, materials);
-        areaEffectTwo = new AreaOfEffectStatsComponent(15,8.0, 2.0, 7.0, materials2);
+        areaEffectOne = new AreaOfEffectStatsComponent(20,10, 5.5, 10, materials, "area1");
+        areaEffectTwo = new AreaOfEffectStatsComponent(15,8.0, 2.0, 7.0, materials2, "area2");
 
     }
 
