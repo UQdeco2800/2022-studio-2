@@ -22,5 +22,6 @@ public enum EntityTypes {
     PLATINUM,
     SILVER,
     POOP,
-    AURA
+    AURA,
+    TOILETPAPER
 }

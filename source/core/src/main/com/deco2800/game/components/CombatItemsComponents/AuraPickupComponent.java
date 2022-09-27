@@ -2,7 +2,6 @@ package com.deco2800.game.components.CombatItemsComponents;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.Component;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
@@ -43,14 +42,16 @@ public class AuraPickupComponent extends ItemPickupComponent {
     private void pickUp(Fixture me, Fixture other) {
         hitboxComponent = entity.getComponent(HitboxComponent.class);
         Fixture f = ServiceLocator.getGameArea().getPlayer().getComponent(HitboxComponent.class).getFixture();
-
+        //aura is only picked up if weapon equipped
         if (other == f) {
-            Entity entityOfComponent = getEntity();
-            ForestGameArea.removeAuraOnMap(entityOfComponent);
-            logger.info("Aura picked up");
-            if (ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getEquipable(0) != null) {
-                ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getEquipable(0).getComponent(MeleeStatsComponent.class)
-                        .auraEffect(entity);
+            Entity weapon;
+            if ((weapon = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getEquipable(0)) != null
+            && ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied == null) { //if there is weapon equiped and there are no current buffs
+                Entity entityOfComponent = getEntity();
+                ForestGameArea.removeAuraOnMap(entityOfComponent);
+                logger.info("Aura picked up");
+                ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class)
+                        .applyAura(entity, weapon);
             }
         }
     }
