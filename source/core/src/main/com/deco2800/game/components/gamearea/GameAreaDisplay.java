@@ -29,6 +29,7 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +64,6 @@ public class GameAreaDisplay extends UIComponent {
   private ImageButton material;
   private ImageButton firstToCraft;
   private ImageButton secondToCraft;
-
   private Image resume_image;
   private ImageButton resume;
 
@@ -71,8 +71,7 @@ public class GameAreaDisplay extends UIComponent {
   private Texture materialTexture;
   private TextureRegion materialTextureRegion;
   private TextureRegionDrawable materialDrawable;
-
-
+  private Image matAmount;
   private String weaponType = "";
   private Image weapon;
   private Group craftingGroup = new Group();
@@ -522,9 +521,7 @@ public class GameAreaDisplay extends UIComponent {
       currentScreenCrafting = true;
         index = 0;
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
-
         inventory = inventoryComponent.getInventory();
-        //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
         for (Entity item : inventory) {
             if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -536,17 +533,16 @@ public class GameAreaDisplay extends UIComponent {
                 if (item.checkEntityType((EntityTypes.WEAPON))){
                     materialDrawable.setMinSize(35, 35);
                 }
-
                 material = new ImageButton(materialDrawable);
                 if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
                     material.setSize(50, 50);
-
                     material.setPosition(craftMenu.getX() + 172 + ((index % 4) * 68),
                             (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 208)));
                 } else {
                     material.setPosition(craftMenu.getX() + 180 + ((index % 4) * 68),
                             (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 200)));
                 }
+                displayAmount(inventoryComponent.getItemQuantity(item), index);
                 index++;
                 material.addListener(new ChangeListener() {
                     @Override
@@ -571,7 +567,6 @@ public class GameAreaDisplay extends UIComponent {
                                 firstToCraft.setSize(50, 50);
                                 firstToCraft.setPosition(craftMenu.getX() + 480, craftMenu.getY() + 225);
                             }
-
                             stage.addActor(firstToCraft);
                             addToBoxes(checkType(item));
                             inventoryComponent.removeItem(checkType(item));
@@ -588,11 +583,9 @@ public class GameAreaDisplay extends UIComponent {
                             });
                             getInventory();
                         } else if (boxes[1] == null) {
-
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                             if (item.checkEntityType((EntityTypes.WEAPON))){
-
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
                             logger.info(" item was added to box 2");
@@ -606,7 +599,6 @@ public class GameAreaDisplay extends UIComponent {
                                 secondToCraft.setSize(50, 50);
                                 secondToCraft.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
                             } else {
-
                                 secondToCraft.setSize(50, 50);
                                 secondToCraft.setPosition(craftMenu.getX() + 545, craftMenu.getY() + 225);
                             }
@@ -632,6 +624,15 @@ public class GameAreaDisplay extends UIComponent {
                 stage.addActor(materialsGroup);
             }
         }
+    }
+
+    private void displayAmount(int amount, int index) {
+      matAmount = new Image(new Texture(Gdx.files.internal
+              (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
+      matAmount.setSize(15, 15);
+      matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
+              (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
+      materialsGroup.addActor(matAmount);
     }
 
     private EntityTypes checkType(Entity entity) {
@@ -682,7 +683,6 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.POOP) {
             inventoryComponent.addItem(MaterialFactory.createPoop());
         } else if (type == EntityTypes.TOILETPAPER) {
-
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
         } else {
             inventoryComponent.addItem(WeaponFactory.createHera());
