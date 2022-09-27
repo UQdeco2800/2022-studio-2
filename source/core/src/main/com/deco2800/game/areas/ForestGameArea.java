@@ -240,7 +240,7 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
-    spawnPlungerBow(); //PLS RMOVE LASTER
+
 
   }
 
