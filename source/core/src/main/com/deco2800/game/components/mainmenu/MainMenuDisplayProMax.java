@@ -23,6 +23,8 @@ public class MainMenuDisplayProMax extends UIComponent {
     private Texture buttonTexture;
     private Image mainMenu;
 
+    private Image startBtn;
+
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
     private ImageButton startButton;
@@ -53,7 +55,8 @@ public class MainMenuDisplayProMax extends UIComponent {
         mainMenu.setPosition(0, 0);
         stage.addActor(mainMenu);
 
-
+//        startBtn = new Image(new Texture(Gdx.files.internal
+//                ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
         buttonTexture = new Texture(Gdx.files.internal
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
@@ -61,7 +64,7 @@ public class MainMenuDisplayProMax extends UIComponent {
         startButton = new ImageButton(buttonDrawable);
         startButton.setSize(290, 170);
         startButton.setPosition(Gdx.graphics.getWidth()/2 - 280,
-                Gdx.graphics.getHeight()/2 - 510);
+                Gdx.graphics.getHeight()/2 - 450);
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -79,7 +82,7 @@ public class MainMenuDisplayProMax extends UIComponent {
         exitButton = new ImageButton(buttonDrawable);
         exitButton.setSize(290, 170);
         exitButton.setPosition(Gdx.graphics.getWidth()/2 + 40,
-                Gdx.graphics.getHeight()/2 - 510);
+                Gdx.graphics.getHeight()/2 - 450);
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
