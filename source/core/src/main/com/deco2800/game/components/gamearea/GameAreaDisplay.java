@@ -491,9 +491,11 @@ public class GameAreaDisplay extends UIComponent {
                 Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
         keyBindGroup.addActor(keyBindMenu);
 
-        for (Actor actor : createKeyBindings(0)) {
+        for (Actor actor : createKeyBindings(1)) {
             System.out.println(actor);
-            keyBindGroup.addActor(actor);
+            if (actor != null) {
+                keyBindGroup.addActor(actor);
+            }
         }
 
         stage.addActor(keyBindGroup);
@@ -515,10 +517,9 @@ public class GameAreaDisplay extends UIComponent {
         keyBindTable.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
 
-        if (keyBinds[0] == null) {
-            System.out.println("Its null?");
-        }
-        while (index < keyBinds.length) {
+        logger.info(String.format("I expect to loop %d times", keyBinds.length));
+        while (index < keyBinds.length && keyBinds[index] != null) {
+            System.out.println(index);
             keyBind = keyBinds[index];
             keyTexture = new Image(new Texture(keyBind.image));
             keyTexture.setSize(1920, 1080);
@@ -530,7 +531,7 @@ public class GameAreaDisplay extends UIComponent {
             index++;
         }
 
-        keys[8] = keyBindTable;
+        keys[index] = keyBindTable;
 
         return keys;
     }
