@@ -2,6 +2,7 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.deco2800.game.components.CombatItemsComponents.BuffDisplayComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -69,7 +70,8 @@ public class PlayerFactory {
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
                 .addComponent(new WeaponAuraManager())
             .addComponent(animator)
-            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
+            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions())
+                .addComponent(new BuffDisplayComponent());
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
