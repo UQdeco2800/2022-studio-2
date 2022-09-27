@@ -608,6 +608,7 @@ public class ForestGameArea extends GameArea {
 //    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+    spawnEntityAt(newKeyPromptAnimator, PLAYER_SPAWN, true, true);
 //    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
     newPlayer.getComponent(PlayerKeyPrompt.class)
