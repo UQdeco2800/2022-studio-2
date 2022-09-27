@@ -247,7 +247,7 @@ public class NPCFactory {
    */
   public static Entity createGymBro(Entity target) {
     Entity gymBro = createBaseNPC();
-    GymBroConfig config = configs.gymBro;
+    GymBroConfig config = new NPCConfigs().gymBro;
 
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
@@ -286,7 +286,7 @@ public class NPCFactory {
    */
   public static Entity createHeracles(Entity target)  {
     Entity heracles = createBaseNPC();
-    HeraclesConfig config = configs.heracles;
+    HeraclesConfig config = new NPCConfigs().heracles;
     List<EntityTypes> types = heracles.getEntityTypes();
     String projectileType = "discus";
 
@@ -308,6 +308,10 @@ public class NPCFactory {
     animator.addAnimation("discus_attack_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("discus_attack_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("discus_attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     heracles
@@ -328,7 +332,7 @@ public class NPCFactory {
    */
   public static Entity createPoops(Entity target)  {
     Entity poops = createBaseNPC();
-    PoopsConfig config = configs.poops;
+    PoopsConfig config = new NPCConfigs().poops;
     String projectileType = "poopSludge";
     //List<EntityTypes> types = poops.getEntityTypes();
     poops.getComponent(AITaskComponent.class)

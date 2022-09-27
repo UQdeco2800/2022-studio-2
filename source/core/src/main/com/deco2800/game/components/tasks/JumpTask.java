@@ -80,8 +80,9 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     @Override
     public void update() {
+        animate();
         if (isAtTarget()) {
-            if (getDistanceToTarget() <= 2f) {
+            if (getDistanceToTarget() <= 1f) {
                 PlayerActions playerActions = target.getComponent(PlayerActions.class);
                 if (playerActions != null && !(playerActions.getSkillComponent().skillDamageTrigger())) {
                     target.getComponent(CombatStatsComponent.class)
@@ -151,15 +152,15 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
         if (Math.abs(y) > Math.abs(x)) {
             if (y >= 0) {
-                this.owner.getEntity().getEvents().trigger("walkFront");
+                this.owner.getEntity().getEvents().trigger("jumpFront");
             } else {
-                this.owner.getEntity().getEvents().trigger("walkBack");
+                this.owner.getEntity().getEvents().trigger("jumpBack");
             }
         } else {
             if (x >= 0) {
-                this.owner.getEntity().getEvents().trigger("walkLeft");
+                this.owner.getEntity().getEvents().trigger("jumpLeft");
             } else {
-                this.owner.getEntity().getEvents().trigger("walkRight");
+                this.owner.getEntity().getEvents().trigger("jumpRight");
             }
         }
     }
@@ -173,10 +174,10 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     }
 
     /**
-     * Check if entity at target
+     * Check if entity is at target.
      * @return true if entity is at target, else false.
      */
-    private boolean isAtTarget() {return owner.getEntity().getPosition().dst(targetPos) <= 0.1f;}
+    private boolean isAtTarget() {return owner.getEntity().getPosition().dst(targetPos) <= 2f;}
 
     /**
      * Get the priority of this task.
