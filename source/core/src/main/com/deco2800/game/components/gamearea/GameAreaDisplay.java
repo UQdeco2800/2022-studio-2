@@ -12,36 +12,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.PauseMenuActions;
-import com.deco2800.game.components.player.InventoryComponent;
-import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
-import com.deco2800.game.components.player.OpenCraftingComponent;
-import com.deco2800.game.components.player.OpenPauseComponent;
+import com.deco2800.game.components.player.*;
 import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.crafting.CraftingSystem;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.factories.ArmourFactory;
-import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.entities.factories.MaterialFactory;
-import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -67,11 +54,12 @@ public class GameAreaDisplay extends UIComponent {
   private TextureRegion buttonTextureRegion;
   private TextureRegionDrawable buttonDrawable;
   private Image craftMenu;
-  private List<MeleeConfig> possibleBuilds;
+  private List<WeaponConfig> possibleBuilds;
   Entity currentWeapon;
   private Image catOneMenu;
   private Image catTwoMenu;
   private Image pauseMenu;
+  private Image keyBindMenu;
   private ImageButton material;
   private ImageButton firstToCraft;
   private ImageButton secondToCraft;
@@ -91,6 +79,7 @@ public class GameAreaDisplay extends UIComponent {
   private Group materialsGroup = new Group();
   private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
+  private Group keyBindGroup = new Group();
 
   private int firstTime = 0;
   List<Entity> inventory;
@@ -110,7 +99,6 @@ public class GameAreaDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
-        deathScreenDisplay();
         addActors();
     }
 
@@ -120,6 +108,7 @@ public class GameAreaDisplay extends UIComponent {
     ServiceLocator.registerCraftArea(this);
     ServiceLocator.registerInventoryArea(this);
     ServiceLocator.registerPauseArea(this);
+    ServiceLocator.registerKeyBindArea(this);
   }
 
   public String getGameAreaName() {
@@ -302,9 +291,6 @@ public class GameAreaDisplay extends UIComponent {
                                             switch (buttonText) {
                                                 case "Equip item":
                                                     if (inventory.equipItem(currentItem)) {
-                                                        //animation
-                                                        String description = inventory.getEquipables()[0].getComponent(MeleeStatsComponent.class).getDescription();
-                                                        inventory.getCombatAnimator().getEvents().trigger(description);
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
@@ -333,63 +319,10 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     /**
-     * Display each item in the inventory in the inventory storage blocks.
-     * Implemented by Peter.
-     */
-    public void displayItems(float padding, float pictureWidth, float pictureHeight) {
-
-        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        int craftingTableX = 0;
-        int craftingTableY = 0;
-        items = inventory.getInventory();
-        for (int i = 0; i < items.size(); ++i) {
-            Entity currentItem = items.get(i);
-            Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
-            TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
-            TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
-            ImageButton item = new ImageButton(itemTextureDrawable);
-            item.setSize(pictureWidth, pictureHeight);
-            int row = i / 4;
-            int column = i % 4;
-            //These positions should be adjusted according to your crafting menu positions
-            float horizontalPosition = (inventoryMenu.getX() + craftingTableX) + column * (padding + pictureWidth);
-            float verticalPosition = (inventoryMenu.getY() + craftingTableY) - row * (padding + pictureHeight);
-            item.setPosition(horizontalPosition, verticalPosition);
-        }
-    }
-
-
-    /**
      * Disposes the inventory display group.
      */
     public void disposeInventoryMenu() {
         inventoryGroup.remove();
-    }
-
-
-    /**
-     * Display deathscreen in game as a very temporary fix for grading purposes.
-     */
-    public void deathScreenDisplay() {
-        deathScreen = new Image(new Texture(Gdx.files.internal
-                ("images/DeathScreens/lvl 1.PNG")));
-        deathScreen.setSize(250, 160);
-        deathScreen.setPosition(0, 0);
-
-        deathScreenTwo = new Image(new Texture(Gdx.files.internal
-                ("images/DeathScreens/lvl 2.PNG")));
-        deathScreenTwo.setSize(250, 160);
-        deathScreenTwo.setPosition(0, 160);
-
-        deathScreenThree = new Image(new Texture(Gdx.files.internal
-                ("images/DeathScreens/lvl3.PNG")));
-        deathScreenThree.setSize(250, 160);
-        deathScreenThree.setPosition(0, 320);
-
-        stage.addActor(deathScreen);
-        stage.addActor(deathScreenTwo);
-        stage.addActor(deathScreenThree);
-
     }
 
     /**
@@ -505,10 +438,9 @@ public class GameAreaDisplay extends UIComponent {
     resume.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        disposePauseMenu();
-        EntityService.pauseAndResume();
+        logger.debug("Pause menu resume button clicked");
         KeyboardPlayerInputComponent.incrementPauseCounter();
-        OpenPauseComponent.setPauseMenuStatus();
+        OpenPauseComponent.closePauseMenu();
       }
     });
     pausingGroup.addActor(resume);
@@ -524,13 +456,24 @@ public class GameAreaDisplay extends UIComponent {
     exit.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        logger.debug("Exit button clicked");
-        PauseMenuActions.setQuitGameStatus();
+          logger.debug("Pause menu exit button clicked");
         KeyboardPlayerInputComponent.incrementPauseCounter();
-        OpenPauseComponent.setPauseMenuStatus();
+        PauseMenuActions.setQuitGameStatus();
       }
     });
     pausingGroup.addActor(exit);
+
+    // Debug button to open keybind menu
+    TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
+      keyBindMenuBtn.addListener(
+        new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Key binding button things");
+                OpenPauseComponent.openKeyBindings();
+            }
+        });
+    pausingGroup.addActor(keyBindMenuBtn);
     stage.addActor(pausingGroup);
 
     stage.draw();
@@ -540,9 +483,21 @@ public class GameAreaDisplay extends UIComponent {
     resume_image.remove();
   }
 
+  public void setKeyBindMenu() {
+    keyBindMenu = new Image(new Texture(Gdx.files.internal("images/KeyBinds/blank.png")));
+    keyBindMenu.setSize(1920, 1080);
+    keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
+            Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
+    keyBindGroup.addActor(keyBindMenu);
+    stage.addActor(keyBindGroup);
+    stage.draw();
+  }
+
+  public void disposeKeyBindMenu () { keyBindGroup.remove(); }
+
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
-            for (MeleeConfig item : possibleBuilds) {
+            for (WeaponConfig item : possibleBuilds) {
                 int numItems = 0;
                 for (Map.Entry entry : item.materials.entrySet()) {
                     String entryString = entry.toString().split("=")[0];
@@ -930,7 +885,7 @@ public class GameAreaDisplay extends UIComponent {
         pausingGroup.remove();
     }
 
-    private void displayWeapon(MeleeConfig item) {
+    private void displayWeapon(WeaponConfig item) {
         Entity newItem = CraftingLogic.damageToWeapon(item);
         currentWeapon = newItem;
         String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();

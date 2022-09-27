@@ -16,6 +16,8 @@ public abstract class WeaponStatsComponent extends Component {
   protected double damage;
   protected double coolDown;
   protected HashMap<Materials, Integer> materials;
+  private String description;
+
 
   /**
    *
@@ -23,10 +25,11 @@ public abstract class WeaponStatsComponent extends Component {
    * @param coolDown duration before the next attack instance can be called
    * @param materials materials needed to craft the weapon
    */
-  protected WeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials) {
+  protected WeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, String description) {
     setDamage(damage);
     setCoolDown(coolDown);
     setMaterials(materials);
+    setDescription(description);
   }
 
   /**
@@ -62,11 +65,25 @@ public abstract class WeaponStatsComponent extends Component {
   }
 
   /**
+   * Sets the description of the weapon
+   * @param description description of the weapon
+   */
+  public void setDescription(String description) { this.description = description; }
+
+  /**
    * Sets the materials required to craft the weapon
    * @param materials materials needed to craft the weapon
    */
   public void setMaterials(HashMap<Materials, Integer> materials) {
     this.materials = materials;
+  }
+
+  /**
+   * Returns the weapon description
+   * @return description of the weapon
+   */
+  public String getDescription() {
+    return description;
   }
 
   /**
@@ -76,13 +93,6 @@ public abstract class WeaponStatsComponent extends Component {
   public HashMap<Materials, Integer> getMaterials() {
     return materials;
   }
-
-
-  /**
-   * Applies the given aura to the weapon
-   * @param auraToApply aura (buff, debuff, curse) to implement to the weapon
-   */
-  public abstract void auraEffect(Entity auraToApply);
 
 }
 

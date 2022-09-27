@@ -1,20 +1,16 @@
 package com.deco2800.game.entities.configs.CombatItemsConfig;
 
+import com.deco2800.game.crafting.Materials;
+
+import java.util.HashMap;
 
 /**
- * Defines all weapon configs to be loaded by the Weapon Factory.
+ * Defines a basic set of (melee weapon) properties stored in Weapon config files to be loaded by Weapon Factory.
  */
 public class WeaponConfig {
-    public MeleeConfig athenaDag = new MeleeConfig();
-    public MeleeConfig heraDag = new MeleeConfig();
-
-    public MeleeConfig dumbbell = new MeleeConfig();
-    public MeleeConfig SwordLvl2 = new MeleeConfig();
-    public MeleeConfig tridentLvl2 = new MeleeConfig();
-    public MeleeConfig heraAthenaDag = new MeleeConfig();
-    public MeleeConfig plunger = new MeleeConfig();
-    public MeleeConfig pipe = new MeleeConfig();
-    public MeleeConfig plungerBow = new MeleeConfig();
-    public MeleeConfig goldenPlungerBow = new MeleeConfig();
-
+    public String weapon = "pen15";
+    public double damage = 10;
+    public double coolDown = 2;
+    public double weight = 1;
+    public HashMap<Materials, Integer> materials;
 }
