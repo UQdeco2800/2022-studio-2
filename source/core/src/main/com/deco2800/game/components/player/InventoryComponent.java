@@ -216,12 +216,14 @@ public class InventoryComponent extends Component {
      */
     public boolean removeItem(Entity item) {
         boolean removed = false;
-        int index = inventory.indexOf(item);
-        --itemQuantity[index];
-        if (getItemQuantity(item) == 0) {
-            sortInventory(index, inventory, itemQuantity);
-            inventory.remove(item);
-            removed = true;
+        int index = getItemIndex(item, inventory);
+        if (index != -1) {
+            --itemQuantity[index];
+            if (getItemQuantity(item) == 0) {
+                sortInventory(index, inventory, itemQuantity);
+                inventory.remove(item);
+                removed = true;
+            }
         }
         return removed;
     }
