@@ -208,7 +208,6 @@ public class ForestGameArea extends GameArea {
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
-    //spawnEffectBlobs();
     spawnGymBro();
     heracles = spawnHeracles();
     spawnOneLegGirl();
@@ -240,6 +239,7 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
+    spawnSpeedBuff();
     spawnPlungerBow(); //PLS RMOVE LASTER
 
   }
@@ -366,6 +366,19 @@ public class ForestGameArea extends GameArea {
   }
   */
 
+  /**
+   * Spawns speed buff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
+  private void spawnSpeedBuff() {
+    Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+    auraOnMap.add(speedbuff);
+    spawnEntityAt(speedbuff, new GridPoint2(7,7), true, false);
+  }
+  /**
+   *
+   */
   /**
    * Spawns speed debuff entity into the game
    * Spawns x-pos 10
