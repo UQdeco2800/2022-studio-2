@@ -59,6 +59,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
     "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
+          "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
@@ -112,6 +113,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/H&ADagger.png",
     "images/CombatItems/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
+          "images/Crafting-assets-sprint1/materials/toilet_paper.png",
     "images/Crafting-assets-sprint1/materials/gold.png",
     "images/Crafting-assets-sprint1/materials/iron.png",
     "images/Crafting-assets-sprint1/materials/plastic.png",
@@ -239,6 +241,7 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
+    spawnPlungerBow(); //PLS RMOVE LASTER
 
   }
 
@@ -601,15 +604,17 @@ public class ForestGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
-    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
+
+//    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
-    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
+//    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
     newPlayer.getComponent(PlayerKeyPrompt.class)
             .setKeyPromptAnimator(newKeyPromptAnimator);
-    newPlayer.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
-    newPlayer.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
+//    newPlayer.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
+//    newPlayer.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
+
     return newPlayer;
   }
 
@@ -648,6 +653,22 @@ public class ForestGameArea extends GameArea {
               true, true);
     }
   }
+
+  /**
+   * Spawns a projectile at the player entity's coordinates.
+   */
+  public void spawnWeaponProjectile() { //TEAM 04 WIP
+    Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
+    spawnEntityAt(newProjectile,
+            new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+            true, true);
+  }
+
+   private void spawnPlungerBow() {
+    Entity c = WeaponFactory.createPlungerBow();
+    ItemsOnMap.add(c);
+    spawnEntityAt(c, new GridPoint2(5,4), true, false);
+   }
 
   /**
    * Spawn female NPC in random position. - Team 7 all-mid-npc

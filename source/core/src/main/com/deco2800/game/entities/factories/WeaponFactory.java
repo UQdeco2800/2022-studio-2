@@ -1,11 +1,11 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -20,8 +20,8 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  */
 public class WeaponFactory {
 
-    private static final WeaponConfig configs =
-            FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
+    private static final WeaponConfigSetup configs =
+            FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
 
     /**
      * Creates a generic Weapon to be used as a base Weapon entity by more specific aura creation methods.
@@ -43,8 +43,8 @@ public class WeaponFactory {
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
         dagger.setEntityType(EntityTypes.CRAFTABLE);
-        MeleeConfig config = configs.athenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dagger");
+        WeaponConfig config = configs.athenaDag;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dagger");
 
        dagger
                 .addComponent(weaponStats)
@@ -62,8 +62,8 @@ public class WeaponFactory {
     public static Entity createHera() {
         Entity hera = createBaseWeapon();
         hera.setEntityType(EntityTypes.CRAFTABLE);
-        MeleeConfig config = configs.heraDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "hera");
+        WeaponConfig config = configs.heraDag;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "hera");
         hera
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"));
@@ -79,8 +79,8 @@ public class WeaponFactory {
      */
     public static Entity createDumbbell() {
         Entity dumbbell = createBaseWeapon();
-        MeleeConfig config = configs.dumbbell;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dumbbell");
+        WeaponConfig config = configs.dumbbell;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dumbbell");
 
         dumbbell
                 .addComponent(weaponStats)
@@ -97,8 +97,8 @@ public class WeaponFactory {
      */
     public static Entity createSwordLvl2() {
         Entity SwordLvl2 = createBaseWeapon();
-        MeleeConfig config = configs.SwordLvl2;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "SwordLvl2");
+        WeaponConfig config = configs.SwordLvl2;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "SwordLvl2");
 
         SwordLvl2
                 .addComponent(weaponStats)
@@ -115,8 +115,8 @@ public class WeaponFactory {
      */
     public static Entity createTridentLvl2() {
         Entity TridentLvl2 = createBaseWeapon();
-        MeleeConfig config = configs.tridentLvl2;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TridentLvl2");
+        WeaponConfig config = configs.tridentLvl2;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TridentLvl2");
 
         TridentLvl2
                 .addComponent(weaponStats)
@@ -133,8 +133,8 @@ public class WeaponFactory {
      */
     public static Entity createHeraAthenaDag() {
         Entity heraAthenaDag = createBaseWeapon();
-        MeleeConfig config = configs.heraAthenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "heraAthenaDag");
+        WeaponConfig config = configs.heraAthenaDag;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "heraAthenaDag");
 
         heraAthenaDag
                 .addComponent(weaponStats)
@@ -151,8 +151,8 @@ public class WeaponFactory {
      */
     public static Entity createPlunger() {
         Entity plunger = createBaseWeapon();
-        MeleeConfig config = configs.plunger;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "plunger");
+        WeaponConfig config = configs.plunger;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "plunger");
 
         plunger
                 .addComponent(weaponStats)
@@ -164,12 +164,12 @@ public class WeaponFactory {
     }
     /**
      * Creates the PVC pipe weapon
-     * @return plunger weapon
+     * @return pipe weapon
      */
     public static Entity createPipe() {
         Entity pipe = createBaseWeapon();
-        MeleeConfig config = configs.pipe;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "pipe");
+        WeaponConfig config = configs.pipe;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "pipe");
         pipe
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-2/pipe.png"));
@@ -178,27 +178,38 @@ public class WeaponFactory {
         pipe.setEntityType(EntityTypes.MELEE);
         return pipe;
     }
+
+    /**
+     * Create plunger bow
+     * @return plunger bow
+     */
     public static Entity createPlungerBow() {
         Entity plungerBow = createBaseWeapon();
-        MeleeConfig config = configs.plungerBow;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "bow");
+        WeaponConfig config = configs.plungerBow;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "bow");
         plungerBow
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png"));
         plungerBow.getComponent(TextureRenderComponent.class).scaleEntity();
         plungerBow.scaleHeight(2f);
-        plungerBow.setEntityType(EntityTypes.MELEE);
+        plungerBow.setEntityType(EntityTypes.RANGED);
         return plungerBow;
-    }    public static Entity createGoldenPlungerBow() {
+    }
+
+    /**
+     * Create a golden plunger bow
+     * @return golden plunger bow
+     */
+    public static Entity createGoldenPlungerBow() {
         Entity goldenPlungerBow = createBaseWeapon();
-        MeleeConfig config = configs.goldenPlungerBow;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "goldenBow");
+        WeaponConfig config = configs.goldenPlungerBow;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "goldenBow");
         goldenPlungerBow
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"));
         goldenPlungerBow.getComponent(TextureRenderComponent.class).scaleEntity();
         goldenPlungerBow.scaleHeight(2f);
-        goldenPlungerBow.setEntityType(EntityTypes.MELEE);
+        goldenPlungerBow.setEntityType(EntityTypes.RANGED);
         return goldenPlungerBow;
     }
 
@@ -209,8 +220,8 @@ public class WeaponFactory {
     public static Entity createTestDagger() {
         Entity dagger = createBaseWeapon();
         dagger.setEntityType(EntityTypes.WEAPON);
-        MeleeConfig config = configs.athenaDag;
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "hera");
+        WeaponConfig config = configs.athenaDag;
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "hera");
         dagger.addComponent(weaponStats);
         dagger.setEntityType(EntityTypes.MELEE);
         return dagger;
@@ -223,7 +234,7 @@ public class WeaponFactory {
     public static Entity createTestWeapon(String weaponName) {
         Entity weapon = createBaseWeapon();
         weapon.setEntityType(EntityTypes.WEAPON);
-        MeleeConfig config;
+        WeaponConfig config;
         config = switch (weaponName) {
             case "Dumbbell" -> configs.dumbbell;
             case "Dagger2" -> configs.heraDag;
@@ -234,7 +245,7 @@ public class WeaponFactory {
             case "Pipe" ->  configs.pipe;
             default -> configs.athenaDag;
         };
-        MeleeStatsComponent weaponStats = new MeleeStatsComponent(config.damage, config.coolDown, config.materials, config.weight ,"hera");
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight ,"hera");
         weapon.addComponent(weaponStats);
         return weapon;
     }

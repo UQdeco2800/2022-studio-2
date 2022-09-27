@@ -15,7 +15,9 @@ public enum Materials {
 
     HerraDag("HerraDag", 1, "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"),
 
-    Poop("Poop", 1, "images/Crafting-assets-sprint1/materials/rainbow_poop.png");
+    Poop("Poop", 1, "images/Crafting-assets-sprint1/materials/rainbow_poop.png"),
+
+    ToiletPaper("ToiletPaper", 1, "images/Crafting-assets-sprint1/materials/toilet_paper.png");
 
     private final String material;
     private final int amount;

@@ -100,15 +100,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("consumePotionSlot3");
         return true;
       case Keys.ESCAPE:
-        if (!OpenCraftingComponent.getCraftingStatus()) {
-          keyPressedCounter++;
-        }
-        if (keyPressedCounter % 2 == 0) {
-          entity.getEvents().trigger("game paused");
-          return true;
-        }
-        entity.getEvents().trigger("game resumed");
+        entity.getEvents().trigger("escInput");
         return true;
+//        if (!OpenCraftingComponent.getCraftingStatus()) {
+//
+//        }
+//        if (keyPressedCounter % 2 == 0) {
+//          entity.getEvents().trigger("escape input");
+//          return true;
+//        }
+//        entity.getEvents().trigger("game resumed");
+//        return true;
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;
