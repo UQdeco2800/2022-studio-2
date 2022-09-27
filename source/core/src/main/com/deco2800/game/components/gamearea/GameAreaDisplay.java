@@ -7,14 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.crafting.CraftingLogic;
@@ -80,6 +78,8 @@ public class GameAreaDisplay extends UIComponent {
   private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
   private Group keyBindGroup = new Group();
+
+  private Table keyBindTable;
 
   private int firstTime = 0;
   List<Entity> inventory;
@@ -469,7 +469,7 @@ public class GameAreaDisplay extends UIComponent {
         new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                logger.debug("Key binding button things");
+                logger.info("Key binding button things");
                 OpenPauseComponent.openKeyBindings();
             }
         });
@@ -483,17 +483,57 @@ public class GameAreaDisplay extends UIComponent {
     resume_image.remove();
   }
 
-  public void setKeyBindMenu() {
-    keyBindMenu = new Image(new Texture(Gdx.files.internal("images/KeyBinds/blank.png")));
-    keyBindMenu.setSize(1920, 1080);
-    keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
-            Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
-    keyBindGroup.addActor(keyBindMenu);
-    stage.addActor(keyBindGroup);
-    stage.draw();
-  }
+    public void setKeyBindMenu() {
+        //keyBindMenu = new Image(new Texture("images/KeyBinds/blank.png"));
+        keyBindMenu = new Image(new Texture("images/KeyBinds/Lvl1.png"));
+        keyBindMenu.setSize(1920, 1080);
+        keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
+                Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
+        keyBindGroup.addActor(keyBindMenu);
 
-  public void disposeKeyBindMenu () { keyBindGroup.remove(); }
+        for (Actor actor : createKeyBindings(0)) {
+            System.out.println(actor);
+            keyBindGroup.addActor(actor);
+        }
+
+        stage.addActor(keyBindGroup);
+        stage.draw();
+
+    }
+
+    public void disposeKeyBindMenu() { keyBindGroup.remove(); }
+
+    public Actor[] createKeyBindings(int page) {
+        OpenKeyBinds.KeyBind[] keyBinds = OpenPauseComponent.openKeyBinds.getKeyBinds(page);
+        OpenKeyBinds.KeyBind keyBind;
+        Actor[] keys = new Actor[9];
+        Image keyTexture;
+        int index = 0;
+
+        keyBindTable = new Table();
+        keyBindTable.setSkin(skin);
+        keyBindTable.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+
+
+        if (keyBinds[0] == null) {
+            System.out.println("Its null?");
+        }
+        while (index < keyBinds.length) {
+            keyBind = keyBinds[index];
+            keyTexture = new Image(new Texture(keyBind.image));
+            keyTexture.setSize(1920, 1080);
+            keyTexture.setPosition(OpenKeyBinds.keyTexturePosLUT[index][0], OpenKeyBinds.keyTexturePosLUT[index][1]);
+            keys[index] = keyTexture;
+            System.out.println(keyTexture);
+            keyBindTable.add(keyBind.description).padTop(10);
+            keyBindTable.row();
+            index++;
+        }
+
+        keys[8] = keyBindTable;
+
+        return keys;
+    }
 
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
