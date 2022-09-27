@@ -1,8 +1,8 @@
 package com.deco2800.game.crafting;
 
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.files.FileLoader;
 
@@ -15,19 +15,19 @@ import java.util.*;
  */
 public class CraftingLogic {
 
-    public static final WeaponConfig configs =
-            FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
+    public static final WeaponConfigSetup configs =
+            FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
     /**
      * List containing the possible builds the user can make with their given inventory
      */
-    private static List<MeleeConfig> possibleBuilds =  new ArrayList<MeleeConfig>();
+    private static List<WeaponConfig> possibleBuilds =  new ArrayList<WeaponConfig>();
 
 
     /**
      * Returns the list of all possible builds the user can make with their given inventory.
      * @return list
      */
-    public static List<MeleeConfig> getPossibleBuilds(){
+    public static List<WeaponConfig> getPossibleBuilds(){
         return new ArrayList<>(possibleBuilds);
     }
 
@@ -35,7 +35,7 @@ public class CraftingLogic {
      * Sets a list of all the possible builds the user can make with the items contained in their inventory
      * @param weapons, a list of the items they can craft
      */
-    public static void setPossibleBuilds(List<MeleeConfig> weapons){
+    public static void setPossibleBuilds(List<WeaponConfig> weapons){
         possibleBuilds = weapons;
     }
 
@@ -43,8 +43,8 @@ public class CraftingLogic {
      * Returns the list of all possible builds the user can make with their given inventory.
      * @return list
      */
-    public static List<MeleeConfig> getPossibleWeapons() {
-        ArrayList<MeleeConfig> possibleWeapons =  new ArrayList<>();
+    public static List<WeaponConfig> getPossibleWeapons() {
+        ArrayList<WeaponConfig> possibleWeapons =  new ArrayList<>();
         possibleWeapons.add(configs.athenaDag);
         possibleWeapons.add(configs.heraDag);
         possibleWeapons.add(configs.SwordLvl2);
@@ -68,9 +68,9 @@ public class CraftingLogic {
      * @param inventoryContents, the contents of the users' inventory
      * @return List of the buildable items
      */
-    public static List<MeleeConfig> canBuild(List<Materials> inventoryContents){
-        List<MeleeConfig> possibleWeapons = getPossibleWeapons();
-        List<MeleeConfig> buildables = new ArrayList<>();
+    public static List<WeaponConfig> canBuild(List<Materials> inventoryContents){
+        List<WeaponConfig> possibleWeapons = getPossibleWeapons();
+        List<WeaponConfig> buildables = new ArrayList<>();
         List<String> inventory = new ArrayList<>();
 
         for (Materials materials: inventoryContents){
@@ -98,7 +98,7 @@ public class CraftingLogic {
         return buildables;
     }
 
-    public static Entity damageToWeapon(MeleeConfig weapon){
+    public static Entity damageToWeapon(WeaponConfig weapon){
         double dam = weapon.damage;
         switch ((int) Math.floor(dam)){
             case 7:

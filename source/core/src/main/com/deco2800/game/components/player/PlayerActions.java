@@ -1,20 +1,11 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
-import com.deco2800.game.input.InputComponent;
-import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.ColliderComponent;
-import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -22,11 +13,6 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -113,21 +99,21 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Pressing the '1' button toggles the inventory menu UI opening/closing.
+   * Pressing the '1' button triggers the player to consume potion slot 1
    */
   public void consumePotionSlot1() {
     entity.getComponent(InventoryComponent.class).consumePotion(1);
   }
 
   /**
-   * Pressing the '2' button toggles the inventory menu UI opening/closing.
+   * Pressing the '2' button triggers the player to consume potion slot 2
    */
   public void consumePotionSlot2() {
     entity.getComponent(InventoryComponent.class).consumePotion(2);
   }
 
   /**
-   * Pressing the '3' button toggles the inventory menu UI opening/closing.
+   * Pressing the '3' button triggers the player to consume potion slot 3
    */
   public void consumePotionSlot3() {
     entity.getComponent(InventoryComponent.class).consumePotion(3);

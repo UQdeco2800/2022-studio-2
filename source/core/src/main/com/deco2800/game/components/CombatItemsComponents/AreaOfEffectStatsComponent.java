@@ -27,8 +27,9 @@ public class AreaOfEffectStatsComponent extends WeaponStatsComponent {
                                       double areaRange,
                                       double duration,
                                       double coolDown,
-                                      HashMap<Materials, Integer> materials) {
-        super(damage, coolDown, materials);
+                                      HashMap<Materials, Integer> materials,
+                                      String description) {
+        super(damage, coolDown, materials, description);
         setAreaRange(areaRange);
         setDuration(duration);
     }
@@ -65,23 +66,4 @@ public class AreaOfEffectStatsComponent extends WeaponStatsComponent {
         this.duration = duration;
     }
 
-    @Override
-    public void auraEffect(Entity auraToApply) {
-        setDamage(this.getDamage() * auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-        setCoolDown(this.getCoolDown() * auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-        setDuration(this.getDuration() * auraToApply.getComponent(WeaponAuraComponent.class).getDurationMultiplier());
-        setAreaRange(this.getAreaRange() * auraToApply.getComponent(WeaponAuraComponent.class).getAreaMultiplier());
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-                               @Override
-                               public void run() {setDamage(getDamage() / auraToApply.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
-                                   setCoolDown(getCoolDown() / auraToApply.getComponent(WeaponAuraComponent.class).getCdMultiplier());
-                                   setDuration(getDuration() / auraToApply.getComponent(WeaponAuraComponent.class).getDurationMultiplier());
-                                   setAreaRange(getAreaRange() / auraToApply.getComponent(WeaponAuraComponent.class).getAreaMultiplier());
-                                   timer.cancel();
-                               }
-                           }
-                    , auraToApply.getComponent(WeaponAuraComponent.class).getAuraDuration());
-    }
 }
