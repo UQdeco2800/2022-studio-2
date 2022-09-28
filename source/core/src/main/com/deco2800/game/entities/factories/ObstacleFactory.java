@@ -7,6 +7,7 @@ import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.screens.MainGameScreen;
 
 /**
  * Factory to create obstacle entities.

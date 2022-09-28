@@ -13,9 +13,11 @@ public enum Materials {
     Platinum("Platinum", 1, "images/Crafting-assets-sprint1/materials/platinum.png"),
     Silver("Silver", 1, "images/Crafting-assets-sprint1/materials/silver.png"),
 
-    AthenaDag("AthenaDag",1,"images/CombatItems/Sprint-1/Level 2 Dagger 1.png"),
+    HerraDag("HerraDag", 1, "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"),
 
-    HerraDag("HerraDag",1,"images/CombatItems/Sprint-1/Level 2 Dagger 2png.png");
+    Poop("Poop", 1, "images/Crafting-assets-sprint1/materials/rainbow_poop.png"),
+
+    ToiletPaper("ToiletPaper", 1, "images/Crafting-assets-sprint1/materials/toilet_paper.png");
 
     private final String material;
     private final int amount;

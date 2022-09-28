@@ -4,8 +4,14 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.ProjectileFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +25,9 @@ import java.util.List;
 public abstract class GameArea implements Disposable {
   protected TerrainComponent terrain;
   protected List<Entity> areaEntities;
+
+  private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private Entity player;
-  private static GridPoint2 craftingTablePos;
 
   protected GameArea() {
     areaEntities = new ArrayList<>();
@@ -33,6 +40,10 @@ public abstract class GameArea implements Disposable {
   public void dispose() {
     for (Entity entity : areaEntities) {
       entity.dispose();
+      if (entity.getComponent(AnimationRenderComponent.class) != null) {
+//        entity.getComponent(CombatStatsComponent.class).dropMaterial();
+        entity.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
+      }
     }
   }
 
@@ -74,8 +85,4 @@ public abstract class GameArea implements Disposable {
     return player;
   }
 
-
-  public static GridPoint2 getCraftingTablePos() {
-    return craftingTablePos;
-  }
 }

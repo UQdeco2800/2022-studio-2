@@ -41,6 +41,9 @@ public class AnimationRenderComponent extends RenderComponent {
   private Animation<TextureRegion> currentAnimation;
   private String currentAnimationName;
   private float animationPlayTime;
+  private float animationPauseStart;
+  private float animationPauseTime;
+  private boolean animationPaused = false;
 
   /**
    * Create the component for a given texture atlas.
@@ -149,6 +152,16 @@ public class AnimationRenderComponent extends RenderComponent {
     return true;
   }
 
+  public void togglePauseAnimation() {
+    if (currentAnimation == null) {
+      return;
+    }
+    animationPaused = !animationPaused;
+    if (animationPaused) {
+      animationPauseStart = animationPlayTime;
+    }
+  }
+
   /**
    * Get the name of the animation currently being played.
    * @return current animation name, or null if not playing.
@@ -170,11 +183,17 @@ public class AnimationRenderComponent extends RenderComponent {
     if (currentAnimation == null) {
       return;
     }
-    TextureRegion region = currentAnimation.getKeyFrame(animationPlayTime);
+    TextureRegion region;
+    if(!animationPaused) {
+      region = currentAnimation.getKeyFrame(animationPlayTime);
+      animationPlayTime += timeSource.getDeltaTime();
+    } else {
+      region = currentAnimation.getKeyFrame(animationPauseStart);
+    }
     Vector2 pos = entity.getPosition();
     Vector2 scale = entity.getScale();
     batch.draw(region, pos.x, pos.y, scale.x, scale.y);
-    animationPlayTime += timeSource.getDeltaTime();
+
   }
 
   @Override
