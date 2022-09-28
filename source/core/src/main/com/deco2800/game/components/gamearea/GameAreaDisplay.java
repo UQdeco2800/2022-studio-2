@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
+import static com.badlogic.gdx.math.MathUtils.ceil;
+
 /**
  * Displays the name of the current game area.
  */
@@ -78,8 +80,9 @@ public class GameAreaDisplay extends UIComponent {
   private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
   private Group keyBindGroup = new Group();
-
   private Table keyBindTable;
+  private int keyBindPage = 0;
+  private int keyBindMod = 0;
 
   private int firstTime = 0;
   List<Entity> inventory;
@@ -483,55 +486,84 @@ public class GameAreaDisplay extends UIComponent {
     resume_image.remove();
   }
 
+    /**
+     * Creates the keybinding menu.
+     * Adds the background images, key images, key texts, and next button to navigate the menu.
+     * Utilises modulo technique to ensure page changing simply loops.
+     */
     public void setKeyBindMenu() {
-        //keyBindMenu = new Image(new Texture("images/KeyBinds/blank.png"));
-        keyBindMenu = new Image(new Texture("images/KeyBinds/Lvl1.png"));
+        keyBindMenu = new Image(new Texture("images/KeyBinds/ControlPage.png"));
         keyBindMenu.setSize(1920, 1080);
         keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
                 Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
         keyBindGroup.addActor(keyBindMenu);
 
-        for (Actor actor : createKeyBindings(1)) {
-            System.out.println(actor);
+        for (Actor actor : createKeyBindings()) {
             if (actor != null) {
                 keyBindGroup.addActor(actor);
             }
         }
 
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        ImageButton keyBindNextBtn = new ImageButton(buttonDrawable);
+        keyBindNextBtn.setPosition(1325, 290);
+        keyBindNextBtn.setSize(200, 65);
+        keyBindNextBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("Moving to next keybinding page");
+                        keyBindPage++;
+                        keyBindMod = ceil((float)OpenKeyBinds.getNumKeys() / (float)OpenKeyBinds.numKeysPerPage);
+                        keyBindPage = keyBindPage % keyBindMod;
+                        disposeKeyBindMenu();
+                        OpenPauseComponent.openKeyBindings();
+                    }
+                });
+        keyBindGroup.addActor(keyBindNextBtn);
+
         stage.addActor(keyBindGroup);
         stage.draw();
-
     }
 
+    /**
+     * Dispose the keybinding menu group
+     */
     public void disposeKeyBindMenu() { keyBindGroup.remove(); }
 
-    public Actor[] createKeyBindings(int page) {
-        OpenKeyBinds.KeyBind[] keyBinds = OpenPauseComponent.openKeyBinds.getKeyBinds(page);
+    /**
+     * Creates the appropriate image and label entries for key labelling
+     * as actors then returns them.
+     * @return Actor[]  Key images and label actors
+     */
+    public Actor[] createKeyBindings() {
+        OpenKeyBinds.KeyBind[] keyBinds = OpenPauseComponent.openKeyBinds.getKeyBinds(keyBindPage);
         OpenKeyBinds.KeyBind keyBind;
-        Actor[] keys = new Actor[9];
+        Actor[] keys = new Actor[OpenKeyBinds.numKeysPerPage * 2]; // x2, one for label, one for image
         Image keyTexture;
-        int index = 0;
+        Label keyText;
+        int keyIndex = 0, pos = 0;
 
-        keyBindTable = new Table();
-        keyBindTable.setSkin(skin);
-        keyBindTable.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-
-
-        logger.info(String.format("I expect to loop %d times", keyBinds.length));
-        while (index < keyBinds.length && keyBinds[index] != null) {
-            System.out.println(index);
-            keyBind = keyBinds[index];
+        while (keyIndex < keyBinds.length && keyBinds[keyIndex] != null) {
+            // Create our key image
+            keyBind = keyBinds[keyIndex];
             keyTexture = new Image(new Texture(keyBind.image));
-            keyTexture.setSize(1920, 1080);
-            keyTexture.setPosition(OpenKeyBinds.keyTexturePosLUT[index][0], OpenKeyBinds.keyTexturePosLUT[index][1]);
-            keys[index] = keyTexture;
-            System.out.println(keyTexture);
-            keyBindTable.add(keyBind.description).padTop(10);
-            keyBindTable.row();
-            index++;
-        }
+            keyTexture.setSize(128, 72);
+            keyTexture.setPosition(OpenKeyBinds.keyTexturePosLUT[keyIndex][0],
+                    OpenKeyBinds.keyTexturePosLUT[keyIndex][1]);
+            keys[pos++] = keyTexture;
 
-        keys[index] = keyBindTable;
+            // Create our label
+            keyText = new Label(keyBind.description, skin);
+            keyText.setPosition(OpenKeyBinds.keyTexturePosLUT[keyIndex][0] + OpenKeyBinds.keyLabelOffsetX,
+                    OpenKeyBinds.keyTexturePosLUT[keyIndex][1] + OpenKeyBinds.keyLabelOffsetY);
+            keys[pos++] = keyText;
+
+            keyIndex++;
+        }
 
         return keys;
     }

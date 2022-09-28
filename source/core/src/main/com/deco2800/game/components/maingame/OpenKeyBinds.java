@@ -29,8 +29,9 @@ public class OpenKeyBinds extends Component {
         }
     }
 
+    // Variables for component functionality
     private static final Logger logger = LoggerFactory.getLogger(OpenKeyBinds.class);
-    private static final int numKeysPerPage = 8;
+    public static final int numKeysPerPage = 10;
     private static JsonReader json;
     private static ArrayList<KeyBind> keys = new ArrayList<>();
     private static String[] keyTextures;
@@ -38,12 +39,13 @@ public class OpenKeyBinds extends Component {
 
     // Reading left to right of this LUT is equates to reading top to bottom, then left to right
     // This is the LUT for the pure keybinding textures
-//    public final int[][] keyTexturePosLUT = {{408, 306}, {408, 420}, {408, 534}, {408, 648},
-//            {948, 306}, {948, 420}, {948, 534}, {948, 648}};
+    public static final int[][] keyTexturePosLUT = {{372, 680}, {372, 595}, {372, 510}, {372, 425}, {372, 340},
+            {912, 680}, {912, 595}, {912, 510}, {912, 425}, {912, 340}};
 
-    // This is the LUT for the FULLSCREEN keybind textures
-    public static final int[][] keyTexturePosLUT = {{408 - 918, 306 - 120}, {408 - 918, 420- 120}, {408 - 918, 534- 120}, {408 - 918, 648- 120},
-            {948- 378, 306- 120}, {948- 378, 420- 120}, {948- 378, 534- 120}, {948- 378, 648- 120}};
+    // Label offset values
+    public static final int keyLabelOffsetX = 100;
+    public static final int keyLabelOffsetY = 25;
+
 
     public OpenKeyBinds() {
 
@@ -99,13 +101,13 @@ public class OpenKeyBinds extends Component {
      * @param page          Page number of the keybinding menu
      * @return KeyBind[]    Array of keybindings to display
      */
-    public KeyBind[] getKeyBinds (int page) {
+    public static KeyBind[] getKeyBinds (int page) {
 
-        KeyBind[] keyBinds = new KeyBind[8];
+        KeyBind[] keyBinds = new KeyBind[numKeysPerPage];
         int index = numKeysPerPage * page;
         int loop = 0;
 
-        while (index < numKeys && loop < 8) {
+        while (index < numKeys && loop < numKeysPerPage) {
             keyBinds[loop] = keys.get(index);
             index++;
             loop++;
@@ -113,4 +115,10 @@ public class OpenKeyBinds extends Component {
 
         return keyBinds;
     }
+
+    /**
+     * Get the number of keys initialised.
+     * @return int  Number of initialised keys
+     */
+    public static int getNumKeys () { return numKeys; }
 }
