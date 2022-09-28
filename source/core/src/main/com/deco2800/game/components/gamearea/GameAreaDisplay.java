@@ -7,14 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.crafting.CraftingLogic;
@@ -29,8 +27,11 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.badlogic.gdx.math.MathUtils.ceil;
 
 /**
  * Displays the name of the current game area.
@@ -63,7 +64,6 @@ public class GameAreaDisplay extends UIComponent {
   private ImageButton material;
   private ImageButton firstToCraft;
   private ImageButton secondToCraft;
-
   private Image resume_image;
   private ImageButton resume;
 
@@ -71,8 +71,7 @@ public class GameAreaDisplay extends UIComponent {
   private Texture materialTexture;
   private TextureRegion materialTextureRegion;
   private TextureRegionDrawable materialDrawable;
-
-
+  private Image matAmount;
   private String weaponType = "";
   private Image weapon;
   private Group craftingGroup = new Group();
@@ -80,6 +79,9 @@ public class GameAreaDisplay extends UIComponent {
   private Materials[] boxes = new Materials[2];
   private Group pausingGroup = new Group();
   private Group keyBindGroup = new Group();
+  private Table keyBindTable;
+  private int keyBindPage = 0;
+  private int keyBindMod = 0;
 
   private int firstTime = 0;
   List<Entity> inventory;
@@ -99,13 +101,13 @@ public class GameAreaDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
+        ServiceLocator.registerCraftArea(this);
         addActors();
     }
 
   public GameAreaDisplay(String gameAreaName) {
     this.gameAreaName = gameAreaName;
     logger.info("The current map is {}", this.gameAreaName);
-    ServiceLocator.registerCraftArea(this);
     ServiceLocator.registerInventoryArea(this);
     ServiceLocator.registerPauseArea(this);
     ServiceLocator.registerKeyBindArea(this);
@@ -338,13 +340,13 @@ public class GameAreaDisplay extends UIComponent {
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             firstTime += 1;
         }
-        /*if (getGameAreaName().equals("Underground")) {
+        if (getGameAreaName().equals("Underground")) {
             craftMenu = new Image(new Texture(Gdx.files.internal
                     ("images/Crafting-assets-sprint1/crafting table/crafting_level2_inventory.png")));
-        } else {*/
+        } else {
             craftMenu = new Image(new Texture(Gdx.files.internal
                     ("images/Crafting-assets-sprint1/crafting table/crafting_inventory.png")));
-        //}
+        }
         craftMenu.setSize(883.26f, 500);
         craftMenu.setPosition(Gdx.graphics.getWidth() / 2 - craftMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - craftMenu.getHeight() / 2);
@@ -463,13 +465,13 @@ public class GameAreaDisplay extends UIComponent {
     });
     pausingGroup.addActor(exit);
 
-    // Debug button to open keybind menu
+    // Debug button to open keybind menu - hey Rey this is for you!
     TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
       keyBindMenuBtn.addListener(
         new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                logger.debug("Key binding button things");
+                logger.info("Key binding button things");
                 OpenPauseComponent.openKeyBindings();
             }
         });
@@ -483,17 +485,88 @@ public class GameAreaDisplay extends UIComponent {
     resume_image.remove();
   }
 
-  public void setKeyBindMenu() {
-    keyBindMenu = new Image(new Texture(Gdx.files.internal("images/KeyBinds/blank.png")));
-    keyBindMenu.setSize(1920, 1080);
-    keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
-            Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
-    keyBindGroup.addActor(keyBindMenu);
-    stage.addActor(keyBindGroup);
-    stage.draw();
-  }
+    /**
+     * Creates the keybinding menu.
+     * Adds the background images, key images, key texts, and next button to navigate the menu.
+     * Utilises modulo technique to ensure page changing simply loops.
+     */
+    public void setKeyBindMenu() {
+        keyBindMenu = new Image(new Texture("images/KeyBinds/ControlPage.png"));
+        keyBindMenu.setSize(1920, 1080);
+        keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
+                Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
+        keyBindGroup.addActor(keyBindMenu);
 
-  public void disposeKeyBindMenu () { keyBindGroup.remove(); }
+        for (Actor actor : createKeyBindings()) {
+            if (actor != null) {
+                keyBindGroup.addActor(actor);
+            }
+        }
+
+        // Invisible next button
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        ImageButton keyBindNextBtn = new ImageButton(buttonDrawable);
+        keyBindNextBtn.setPosition(1325, 290);
+        keyBindNextBtn.setSize(200, 65);
+        keyBindNextBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("Moving to next keybinding page");
+                        keyBindPage++;
+                        keyBindMod = ceil((float)OpenKeyBinds.getNumKeys() / (float)OpenKeyBinds.numKeysPerPage);
+                        keyBindPage = keyBindPage % keyBindMod;
+                        disposeKeyBindMenu();
+                        OpenPauseComponent.openKeyBindings();
+                    }
+                });
+        keyBindGroup.addActor(keyBindNextBtn);
+
+        stage.addActor(keyBindGroup);
+        stage.draw();
+    }
+
+    /**
+     * Dispose the keybinding menu group
+     */
+    public void disposeKeyBindMenu() { keyBindGroup.remove(); }
+
+    /**
+     * Creates the appropriate image and label entries for key labelling
+     * as actors then returns them.
+     * @return Actor[]  Key images and label actors
+     */
+    public Actor[] createKeyBindings() {
+        OpenKeyBinds.KeyBind[] keyBinds = OpenPauseComponent.openKeyBinds.getKeyBinds(keyBindPage);
+        OpenKeyBinds.KeyBind keyBind;
+        Actor[] keys = new Actor[OpenKeyBinds.numKeysPerPage * 2]; // x2, one for label, one for image
+        Image keyTexture;
+        Label keyText;
+        int keyIndex = 0, pos = 0;
+
+        while (keyIndex < keyBinds.length && keyBinds[keyIndex] != null) {
+            // Create our key image
+            keyBind = keyBinds[keyIndex];
+            keyTexture = new Image(new Texture(keyBind.image));
+            keyTexture.setSize(128, 72);
+            keyTexture.setPosition(OpenKeyBinds.keyTexturePosLUT[keyIndex][0],
+                    OpenKeyBinds.keyTexturePosLUT[keyIndex][1]);
+            keys[pos++] = keyTexture;
+
+            // Create our label
+            keyText = new Label(keyBind.description, skin);
+            keyText.setPosition(OpenKeyBinds.keyTexturePosLUT[keyIndex][0] + OpenKeyBinds.keyLabelOffsetX,
+                    OpenKeyBinds.keyTexturePosLUT[keyIndex][1] + OpenKeyBinds.keyLabelOffsetY);
+            keys[pos++] = keyText;
+
+            keyIndex++;
+        }
+
+        return keys;
+    }
 
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
@@ -522,9 +595,7 @@ public class GameAreaDisplay extends UIComponent {
       currentScreenCrafting = true;
         index = 0;
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
-
         inventory = inventoryComponent.getInventory();
-        //ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class)
         for (Entity item : inventory) {
             if (item.checkEntityType(EntityTypes.CRAFTABLE)) {
                 materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -536,17 +607,16 @@ public class GameAreaDisplay extends UIComponent {
                 if (item.checkEntityType((EntityTypes.WEAPON))){
                     materialDrawable.setMinSize(35, 35);
                 }
-
                 material = new ImageButton(materialDrawable);
                 if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
                     material.setSize(50, 50);
-
                     material.setPosition(craftMenu.getX() + 172 + ((index % 4) * 68),
                             (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 208)));
                 } else {
                     material.setPosition(craftMenu.getX() + 180 + ((index % 4) * 68),
                             (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 200)));
                 }
+                displayAmount(inventoryComponent.getItemQuantity(item), index);
                 index++;
                 material.addListener(new ChangeListener() {
                     @Override
@@ -571,7 +641,6 @@ public class GameAreaDisplay extends UIComponent {
                                 firstToCraft.setSize(50, 50);
                                 firstToCraft.setPosition(craftMenu.getX() + 480, craftMenu.getY() + 225);
                             }
-
                             stage.addActor(firstToCraft);
                             addToBoxes(checkType(item));
                             inventoryComponent.removeItem(checkType(item));
@@ -588,11 +657,9 @@ public class GameAreaDisplay extends UIComponent {
                             });
                             getInventory();
                         } else if (boxes[1] == null) {
-
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                             if (item.checkEntityType((EntityTypes.WEAPON))){
-
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
                             logger.info(" item was added to box 2");
@@ -606,7 +673,6 @@ public class GameAreaDisplay extends UIComponent {
                                 secondToCraft.setSize(50, 50);
                                 secondToCraft.setPosition(craftMenu.getX() + 548, craftMenu.getY() + 230);
                             } else {
-
                                 secondToCraft.setSize(50, 50);
                                 secondToCraft.setPosition(craftMenu.getX() + 545, craftMenu.getY() + 225);
                             }
@@ -632,6 +698,15 @@ public class GameAreaDisplay extends UIComponent {
                 stage.addActor(materialsGroup);
             }
         }
+    }
+
+    private void displayAmount(int amount, int index) {
+      matAmount = new Image(new Texture(Gdx.files.internal
+              (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
+      matAmount.setSize(15, 15);
+      matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
+              (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
+      materialsGroup.addActor(matAmount);
     }
 
     private EntityTypes checkType(Entity entity) {
@@ -682,7 +757,6 @@ public class GameAreaDisplay extends UIComponent {
         } else if (type == EntityTypes.POOP) {
             inventoryComponent.addItem(MaterialFactory.createPoop());
         } else if (type == EntityTypes.TOILETPAPER) {
-
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
         } else {
             inventoryComponent.addItem(WeaponFactory.createHera());
@@ -751,13 +825,13 @@ public class GameAreaDisplay extends UIComponent {
 
     public void displayCatOne() {
         disposeMaterials();
-        /*if (getGameAreaName().equals("Underground")) {
+        if (getGameAreaName().equals("Underground")) {
             catOneMenu = new Image(new Texture(Gdx.files.internal
                     ("images/Crafting-assets-sprint1/crafting table/crafting_level2_catalogue1.png")));
-        } else {*/
+        } else {
             catOneMenu = new Image(new Texture(Gdx.files.internal
                     ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_1.png")));
-        //}
+        }
         catOneMenu.setSize(883.26f, 500);
         catOneMenu.setPosition(Gdx.graphics.getWidth() / 2 - catOneMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - catOneMenu.getHeight() / 2);
@@ -797,13 +871,13 @@ public class GameAreaDisplay extends UIComponent {
 
     private void displayCatTwo() {
         disposeMaterials();
-        /*if (getGameAreaName().equals("Underground")) {
+        if (getGameAreaName().equals("Underground")) {
             catTwoMenu = new Image(new Texture(Gdx.files.internal
                     ("images/Crafting-assets-sprint1/crafting table/crafting_level2_catalogue2.png")));
-        } else {*/
+        } else {
             catTwoMenu = new Image(new Texture(Gdx.files.internal
                     ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_2.png")));
-        //}
+        }
         catTwoMenu.setSize(883.26f, 500);
         catTwoMenu.setPosition(Gdx.graphics.getWidth() / 2 - catTwoMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - catTwoMenu.getHeight() / 2);

@@ -250,8 +250,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
         .addComponent(new DialogueDisplay())
-        .addComponent(new PauseMenuActions())
-        .addComponent(new OpenKeyBinds());
+        .addComponent(new PauseMenuActions());
 
     ServiceLocator.getEntityService().register(ui);
   }
