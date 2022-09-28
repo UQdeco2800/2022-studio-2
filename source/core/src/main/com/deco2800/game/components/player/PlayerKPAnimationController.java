@@ -54,7 +54,7 @@ public class PlayerKPAnimationController extends Component {
      * Triggers the regular state animation of the skill animator.
      */
     void animateRegular() {
-        animator.startAnimation("no_animation");
+        animator.startAnimation("default");
     }
 
     /**

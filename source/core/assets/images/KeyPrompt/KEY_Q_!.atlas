@@ -1,5 +1,5 @@
 KEY_Q_!.png
-size: 160, 32
+size: 192, 32
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -9,32 +9,39 @@ default
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: -1
+  index: 0
 Q
   rotate: false
   xy: 32, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: -1
+  index: 1
 Q
   rotate: false
   xy: 64, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: -1
+  index: 2
 Q
   rotate: false
   xy: 96, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: -1
+  index: 3
 Q
   rotate: false
   xy: 128, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: -1
+  index: 4
+Q
+  rotate: false
+  xy: 160, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5

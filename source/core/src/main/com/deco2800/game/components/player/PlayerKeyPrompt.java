@@ -35,8 +35,12 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
     public void create() {
         logger = LoggerFactory.getLogger(PlayerKeyPrompt.class);
         entity.getEvents().addListener("collisionStart", this::keyPrompt);
+        entity.getEvents().addListener("collisionEnd", this::playerCollisionEnd);
     }
-
+//    @Override
+//    public void update() {
+//        keyPromptAnimator.getEvents().trigger("regularAnimation");
+//    }
     /**
      * This function is used for guiding the user to press the relevant key to interact with the entity
      * @param me
@@ -69,8 +73,17 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
             logger.info("TEST KEY PROMPT CRAFTING PRESS Q TO CRAFT");
 
 
+
         }
+//        else {
+//            keyPromptAnimator.getEvents().trigger("regularAnimation");
+//        }
 
     }
+
+    public void playerCollisionEnd(Fixture me, Fixture other){
+        keyPromptAnimator.getEvents().trigger("regularAnimation");
+    }
+
 
 }
