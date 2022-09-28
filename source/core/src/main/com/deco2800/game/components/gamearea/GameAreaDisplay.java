@@ -465,7 +465,7 @@ public class GameAreaDisplay extends UIComponent {
     });
     pausingGroup.addActor(exit);
 
-    // Debug button to open keybind menu
+    // Debug button to open keybind menu - hey Rey this is for you!
     TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
       keyBindMenuBtn.addListener(
         new ChangeListener() {
@@ -503,6 +503,7 @@ public class GameAreaDisplay extends UIComponent {
             }
         }
 
+        // Invisible next button
         buttonTexture = new Texture(Gdx.files.internal
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
