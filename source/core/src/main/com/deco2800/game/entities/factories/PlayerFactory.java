@@ -122,8 +122,12 @@ public class PlayerFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/KeyPrompt/KEY_Q_!.atlas", TextureAtlas.class));
+//    AnimationRenderComponent animator =
+//            new AnimationRenderComponent(
+//                    ServiceLocator.getResourceService().getAsset("images/Skills/skillAnimations.atlas", TextureAtlas.class));
+
     animator.addAnimation("no_animation", 0.1f);
-    animator.addAnimation("Q!", 0.1f);
+    animator.addAnimation("Q", 0.1f,Animation.PlayMode.LOOP);
 
 
     Entity keyPromptAnimator =

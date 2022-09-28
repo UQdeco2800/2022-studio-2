@@ -33,7 +33,7 @@ public class PlayerKPAnimationController extends Component {
     @Override
     public void update() {
         // Set the position of the animator to the player position on every frame update
-        this.entity.setPosition(playerEntity.getPosition().x, playerEntity.getPosition().y+32);
+        this.entity.setPosition(playerEntity.getPosition().x, playerEntity.getPosition().y+1);
     }
 
     /**
@@ -54,7 +54,7 @@ public class PlayerKPAnimationController extends Component {
      * Triggers the regular state animation of the skill animator.
      */
     void animateRegular() {
-        animator.startAnimation("default");
+        animator.startAnimation("no_animation");
     }
 
     /**
@@ -62,7 +62,7 @@ public class PlayerKPAnimationController extends Component {
      */
     void animateKeyQ() {
         logger.info("TEST KEY PROMPT ANIMATION CALL");
-        animator.startAnimation("Q!");
+        animator.startAnimation("Q");
     }
 
 }
