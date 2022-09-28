@@ -56,6 +56,8 @@ public class UndergroundGameArea extends GameArea {
             "images/Crafting-assets-sprint1/materials/silver.png",
             "images/Crafting-assets-sprint1/materials/steel.png",
             "images/Crafting-assets-sprint1/materials/wood.png",
+            "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
+            "images/Crafting-assets-sprint1/materials/toilet_paper.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png",
