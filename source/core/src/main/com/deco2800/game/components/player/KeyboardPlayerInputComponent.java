@@ -58,9 +58,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
-      case Keys.N:
-        entity.getEvents().trigger("attack2");
-        return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
 //        EntityService.pauseGame();
@@ -104,15 +101,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("consumePotionSlot3");
         return true;
       case Keys.ESCAPE:
-        if (!OpenCraftingComponent.getCraftingStatus()) {
-          keyPressedCounter++;
-        }
-        if (keyPressedCounter % 2 == 0) {
-          entity.getEvents().trigger("game paused");
-          return true;
-        }
-        entity.getEvents().trigger("game resumed");
+        entity.getEvents().trigger("escInput");
         return true;
+//        if (!OpenCraftingComponent.getCraftingStatus()) {
+//
+//        }
+//        if (keyPressedCounter % 2 == 0) {
+//          entity.getEvents().trigger("escape input");
+//          return true;
+//        }
+//        entity.getEvents().trigger("game resumed");
+//        return true;
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;

@@ -12,6 +12,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.PlayerActions;

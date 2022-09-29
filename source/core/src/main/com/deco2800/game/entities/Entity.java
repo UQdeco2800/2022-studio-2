@@ -274,6 +274,7 @@ public class Entity {
             component instanceof KeyboardPlayerInputComponent ||
             component instanceof PlayerSkillProjectileComponent ||
             component instanceof PlayerSkillAnimationController ||
+            component instanceof PlayerKPAnimationController ||
             component instanceof PlayerCombatAnimationController ||
             component instanceof PlayerModifier ||
             component instanceof PhysicsComponent ) {
@@ -308,6 +309,7 @@ public class Entity {
                 component instanceof KeyboardPlayerInputComponent ||
                 component instanceof PlayerSkillProjectileComponent ||
                 component instanceof PlayerSkillAnimationController ||
+                component instanceof PlayerKPAnimationController ||
                 component instanceof PlayerCombatAnimationController ||
                 component instanceof PlayerModifier ||
                 component instanceof PhysicsComponent) {
@@ -336,7 +338,9 @@ public class Entity {
         if (component instanceof KeyboardPlayerInputComponent ||
                component instanceof PlayerSkillAnimationController ||
                component instanceof PlayerSkillProjectileComponent ||
-               component instanceof PlayerCombatAnimationController) {
+               component instanceof PlayerCombatAnimationController ||
+               component instanceof PlayerKPAnimationController
+                ) {
           return;
         }
       }

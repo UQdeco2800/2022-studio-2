@@ -21,6 +21,10 @@ public enum EntityTypes {
     RUBBER,
     PLATINUM,
     SILVER,
-
+    NPC,
+    CRAFTINGTABLE,
     POOP,
+    AURA,
+    TOILETPAPER
+
 }

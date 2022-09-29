@@ -1,7 +1,6 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatItemsComponents.WeaponPickupComponent;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
@@ -42,6 +41,15 @@ public class MaterialFactory {
         iron.setEntityType(EntityTypes.CRAFTABLE);
         return iron;
     }
+
+    public static Entity createToiletPaper() {
+        Entity iron = createBaseMaterial();
+        iron.addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/materials/toilet_paper.png"));
+        iron.setEntityType(EntityTypes.TOILETPAPER);
+        iron.setEntityType(EntityTypes.CRAFTABLE);
+        return iron;
+    }
+
 
     public static Entity createSteel() {
         Entity steel = createBaseMaterial();
