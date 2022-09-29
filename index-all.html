@@ -421,6 +421,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/gamearea/package-summary.html">com.deco2800.game.components.gamearea</a> - package com.deco2800.game.components.gamearea</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/package-summary.html">com.deco2800.game.components.levelTransition</a> - package com.deco2800.game.components.levelTransition</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/package-summary.html">com.deco2800.game.components.maingame</a> - package com.deco2800.game.components.maingame</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/mainmenu/package-summary.html">com.deco2800.game.components.mainmenu</a> - package com.deco2800.game.components.mainmenu</dt>
@@ -592,16 +594,22 @@ loadScripts(document, 'script');</script>
 <div class="block">Called when the entity is created and registered.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/deathscreen/DeathScreenActions.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.deathscreen.<a href="com/deco2800/game/components/deathscreen/DeathScreenActions.html" title="class in com.deco2800.game.components.deathscreen">DeathScreenActions</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.deathscreen.<a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html" title="class in com.deco2800.game.components.deathscreen">DeathScreenDisplay</a></dt>
 <dd>
-<div class="block">Creates an event listener to listen for 'DeathScreen' action</div>
+<div class="block">Creates the event listeners relevant to DeathScreen</div>
 </dd>
+<dt><a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.deathscreen.<a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html" title="class in com.deco2800.game.components.deathscreen">DeathScreenDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html" title="class in com.deco2800.game.components.gamearea">PerformanceDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/ItemPickupComponent.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/ItemPickupComponent.html" title="class in com.deco2800.game.components">ItemPickupComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionActions.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.levelTransition.<a href="com/deco2800/game/components/levelTransition/LevelTransitionActions.html" title="class in com.deco2800.game.components.levelTransition">LevelTransitionActions</a></dt>
+<dd>
+<div class="block">Creates the event listeners relevant to DeathScreen</div>
+</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.levelTransition.<a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html" title="class in com.deco2800.game.components.levelTransition">LevelTransitionDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/DialogueDisplay.html#create()" class="member-name-link">create()</a> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/DialogueDisplay.html" title="class in com.deco2800.game.components.maingame">DialogueDisplay</a></dt>
 <dd>&nbsp;</dd>
@@ -1031,27 +1039,37 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html#DASH" class="member-name-link">DASH</a> - Enum constant in enum class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.SkillTypes.html" title="enum class in com.deco2800.game.components.player">PlayerSkillComponent.SkillTypes</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/GdxGame.ScreenType.html#DEATH_SCREEN" class="member-name-link">DEATH_SCREEN</a> - Enum constant in enum class com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum class in com.deco2800.game">GdxGame.ScreenType</a></dt>
+<dt><a href="com/deco2800/game/GdxGame.ScreenType.html#DEATH_SCREEN_L1" class="member-name-link">DEATH_SCREEN_L1</a> - Enum constant in enum class com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum class in com.deco2800.game">GdxGame.ScreenType</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/GdxGame.ScreenType.html#DEATH_SCREEN_L2" class="member-name-link">DEATH_SCREEN_L2</a> - Enum constant in enum class com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum class in com.deco2800.game">GdxGame.ScreenType</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/DeathScreen.html" class="type-name-link" title="class in com.deco2800.game.screens">DeathScreen</a> - Class in <a href="com/deco2800/game/screens/package-summary.html">com.deco2800.game.screens</a></dt>
 <dd>
-<div class="block">The game screen containing the main game.</div>
+<div class="block">The game screen containing the death screen.</div>
 </dd>
-<dt><a href="com/deco2800/game/screens/DeathScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">DeathScreen(GdxGame)</a> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/DeathScreen.html" title="class in com.deco2800.game.screens">DeathScreen</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/DeathScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame,int)" class="member-name-link">DeathScreen(GdxGame, int)</a> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/DeathScreen.html" title="class in com.deco2800.game.screens">DeathScreen</a></dt>
+<dd>
+<div class="block">DeathScreen constructor</div>
+</dd>
 <dt><a href="com/deco2800/game/components/deathscreen/DeathScreenActions.html" class="type-name-link" title="class in com.deco2800.game.components.deathscreen">DeathScreenActions</a> - Class in <a href="com/deco2800/game/components/deathscreen/package-summary.html">com.deco2800.game.components.deathscreen</a></dt>
 <dd>
-<div class="block">This class listens to events relevant to the Main Game Screen and does something when one of the
+<div class="block">This class listens to events relevant to the Main Menu Screen and does something when one of the
  events is triggered.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/deathscreen/DeathScreenActions.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">DeathScreenActions(GdxGame)</a> - Constructor for class com.deco2800.game.components.deathscreen.<a href="com/deco2800/game/components/deathscreen/DeathScreenActions.html" title="class in com.deco2800.game.components.deathscreen">DeathScreenActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html" class="type-name-link" title="class in com.deco2800.game.components.deathscreen">DeathScreenDisplay</a> - Class in <a href="com/deco2800/game/components/deathscreen/package-summary.html">com.deco2800.game.components.deathscreen</a></dt>
 <dd>
-<div class="block">Displays a button to exit the Main Game screen to the Main Menu screen.</div>
+<div class="block">A ui component for displaying the Death Screen.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html#%3Cinit%3E()" class="member-name-link">DeathScreenDisplay()</a> - Constructor for class com.deco2800.game.components.deathscreen.<a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html" title="class in com.deco2800.game.components.deathscreen">DeathScreenDisplay</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Constructor of DeathScreenDisplay, default empty</div>
+</dd>
+<dt><a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html#%3Cinit%3E(int)" class="member-name-link">DeathScreenDisplay(int)</a> - Constructor for class com.deco2800.game.components.deathscreen.<a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html" title="class in com.deco2800.game.components.deathscreen">DeathScreenDisplay</a></dt>
+<dd>
+<div class="block">Constructor of DeathScreenDisplay, instantiates the varibles given</div>
+</dd>
 <dt><a href="com/deco2800/game/screens/MainGameScreen.html#deathScreenStart()" class="member-name-link">deathScreenStart()</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/services/commands/DebugCommand.html" class="type-name-link" title="class in com.deco2800.game.services.commands">DebugCommand</a> - Class in <a href="com/deco2800/game/services/commands/package-summary.html">com.deco2800.game.services.commands</a></dt>
@@ -1170,6 +1188,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html" title="class in com.deco2800.game.components.gamearea">PerformanceDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.components.levelTransition.<a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html" title="class in com.deco2800.game.components.levelTransition">LevelTransitionDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/DialogueDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/DialogueDisplay.html" title="class in com.deco2800.game.components.maingame">DialogueDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/MainGameExitDisplay.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.components.maingame">MainGameExitDisplay</a></dt>
@@ -1215,6 +1235,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/rendering/RenderService.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/RenderService.html" title="class in com.deco2800.game.rendering">RenderService</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/DeathScreen.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/DeathScreen.html" title="class in com.deco2800.game.screens">DeathScreen</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/LevelTransitionScreen.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTransitionScreen.html" title="class in com.deco2800.game.screens">LevelTransitionScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/MainGameScreen.html#dispose()" class="member-name-link">dispose()</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
@@ -1265,6 +1287,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/GameAreaDisplay.html" title="class in com.deco2800.game.components.gamearea">GameAreaDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html" title="class in com.deco2800.game.components.gamearea">PerformanceDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.components.levelTransition.<a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html" title="class in com.deco2800.game.components.levelTransition">LevelTransitionDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/DialogueDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)" class="member-name-link">draw(SpriteBatch)</a> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/DialogueDisplay.html" title="class in com.deco2800.game.components.maingame">DialogueDisplay</a></dt>
 <dd>&nbsp;</dd>
@@ -1996,6 +2020,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html#getZIndex()" class="member-name-link">getZIndex()</a> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html" title="class in com.deco2800.game.components.gamearea">PerformanceDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html#getZIndex()" class="member-name-link">getZIndex()</a> - Method in class com.deco2800.game.components.levelTransition.<a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html" title="class in com.deco2800.game.components.levelTransition">LevelTransitionDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/DialogueDisplay.html#getZIndex()" class="member-name-link">getZIndex()</a> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/DialogueDisplay.html" title="class in com.deco2800.game.components.maingame">DialogueDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/maingame/MainGameExitDisplay.html#getZIndex()" class="member-name-link">getZIndex()</a> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.components.maingame">MainGameExitDisplay</a></dt>
@@ -2425,8 +2451,36 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html#LEVEL_ONE" class="member-name-link">LEVEL_ONE</a> - Enum constant in enum class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html" title="enum class in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/GdxGame.ScreenType.html#LEVEL_TRANSITION" class="member-name-link">LEVEL_TRANSITION</a> - Enum constant in enum class com.deco2800.game.<a href="com/deco2800/game/GdxGame.ScreenType.html" title="enum class in com.deco2800.game">GdxGame.ScreenType</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html#LEVEL_TWO" class="member-name-link">LEVEL_TWO</a> - Enum constant in enum class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainFactory.TerrainType.html" title="enum class in com.deco2800.game.areas.terrain">TerrainFactory.TerrainType</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html#levelBackground(int)" class="member-name-link">levelBackground(int)</a> - Method in class com.deco2800.game.components.deathscreen.<a href="com/deco2800/game/components/deathscreen/DeathScreenDisplay.html" title="class in com.deco2800.game.components.deathscreen">DeathScreenDisplay</a></dt>
+<dd>
+<div class="block">Adjusts DeathScreens background image based on given level, it checks what value the level is and outputs the
+ appropriate level background image</div>
+</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionActions.html" class="type-name-link" title="class in com.deco2800.game.components.levelTransition">LevelTransitionActions</a> - Class in <a href="com/deco2800/game/components/levelTransition/package-summary.html">com.deco2800.game.components.levelTransition</a></dt>
+<dd>
+<div class="block">This class listens to events relevant to the Main Menu Screen and does something when one of the
+ events is triggered.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionActions.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">LevelTransitionActions(GdxGame)</a> - Constructor for class com.deco2800.game.components.levelTransition.<a href="com/deco2800/game/components/levelTransition/LevelTransitionActions.html" title="class in com.deco2800.game.components.levelTransition">LevelTransitionActions</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html" class="type-name-link" title="class in com.deco2800.game.components.levelTransition">LevelTransitionDisplay</a> - Class in <a href="com/deco2800/game/components/levelTransition/package-summary.html">com.deco2800.game.components.levelTransition</a></dt>
+<dd>
+<div class="block">A ui component for displaying the Death Screen.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html#%3Cinit%3E()" class="member-name-link">LevelTransitionDisplay()</a> - Constructor for class com.deco2800.game.components.levelTransition.<a href="com/deco2800/game/components/levelTransition/LevelTransitionDisplay.html" title="class in com.deco2800.game.components.levelTransition">LevelTransitionDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/LevelTransitionScreen.html" class="type-name-link" title="class in com.deco2800.game.screens">LevelTransitionScreen</a> - Class in <a href="com/deco2800/game/screens/package-summary.html">com.deco2800.game.screens</a></dt>
+<dd>
+<div class="block">The game screen containing the main menu.</div>
+</dd>
+<dt><a href="com/deco2800/game/screens/LevelTransitionScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">LevelTransitionScreen(GdxGame)</a> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTransitionScreen.html" title="class in com.deco2800.game.screens">LevelTransitionScreen</a></dt>
+<dd>
+<div class="block">Level Transition constructor</div>
+</dd>
 <dt><a href="com/deco2800/game/services/ResourceService.html#loadAll()" class="member-name-link">loadAll()</a> - Method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ResourceService.html" title="class in com.deco2800.game.services">ResourceService</a></dt>
 <dd>
 <div class="block">Blocking call to load all assets.</div>
@@ -3112,9 +3166,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Register animation component for the weapon (IMPLEMENT ARMOUR ANIMATION)</div>
 </dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerCraftArea(com.deco2800.game.components.gamearea.GameAreaDisplay)" class="member-name-link">registerCraftArea(GameAreaDisplay)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
-<dd>
-<div class="block">ISAAC LOOK AT THIS AND WORK OUT HOW IT WORKS</div>
-</dd>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerEntityService(com.deco2800.game.entities.EntityService)" class="member-name-link">registerEntityService(EntityService)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/services/ServiceLocator.html#registerGameArea(com.deco2800.game.areas.GameArea)" class="member-name-link">registerGameArea(GameArea)</a> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
@@ -3183,6 +3235,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/screens/DeathScreen.html#render(float)" class="member-name-link">render(float)</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/DeathScreen.html" title="class in com.deco2800.game.screens">DeathScreen</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/LevelTransitionScreen.html#render(float)" class="member-name-link">render(float)</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTransitionScreen.html" title="class in com.deco2800.game.screens">LevelTransitionScreen</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/MainGameScreen.html#render(float)" class="member-name-link">render(float)</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/MainMenuScreen.html#render(float)" class="member-name-link">render(float)</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainMenuScreen.html" title="class in com.deco2800.game.screens">MainMenuScreen</a></dt>
@@ -3248,6 +3302,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Resize the renderer to a new screen size.</div>
 </dd>
 <dt><a href="com/deco2800/game/screens/DeathScreen.html#resize(int,int)" class="member-name-link">resize(int, int)</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/DeathScreen.html" title="class in com.deco2800.game.screens">DeathScreen</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/LevelTransitionScreen.html#resize(int,int)" class="member-name-link">resize(int, int)</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/LevelTransitionScreen.html" title="class in com.deco2800.game.screens">LevelTransitionScreen</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/MainGameScreen.html#resize(int,int)" class="member-name-link">resize(int, int)</a> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/MainGameScreen.html" title="class in com.deco2800.game.screens">MainGameScreen</a></dt>
 <dd>&nbsp;</dd>
