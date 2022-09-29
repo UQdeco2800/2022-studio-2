@@ -86,7 +86,7 @@ public class DeathScreenDisplay extends UIComponent {
                 });
 
 
-        // TODO adjust layout of table to make it align with what we planed for death screen
+        //  adjust layout of table to make it align with what we planed for death screen
 
         // Creates a stack of items, this allows you to overlay them and 'stack' them on top of eachother
         Stack background = new Stack();
