@@ -16,6 +16,8 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * A ui component for displaying the Death Screen.
  */
@@ -27,6 +29,7 @@ public class DeathScreenDisplay extends UIComponent {
     private Image deathBackground;
     // Global variable of game level
     private Integer level;
+    //private List<String> deathBackgrounds = new List<String>();
 
     /**
      * Constructor of DeathScreenDisplay, default empty
@@ -66,6 +69,8 @@ public class DeathScreenDisplay extends UIComponent {
 
         // Triggers an event when the button is pressed
         // Restarts game
+        // TODO add win screen logic
+        //if (!(deathBackground.getName() == deathBackgrounds.))
         continueBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -124,6 +129,11 @@ public class DeathScreenDisplay extends UIComponent {
                 logger.info("setting level 2 deathscreen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
+                // TODO change this out to win screen.
+            case 3:
+                logger.info("setting level 3 deathScreen from DeathScreenDisplay");
+                return deathBackground = new Image(ServiceLocator.getResourceService()
+                        .getAsset("images/DeathScreens/lvl_23.png", Texture.class));
         }
         return deathBackground = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/DeathScreens/lvl_1.png", Texture.class));

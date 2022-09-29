@@ -126,6 +126,8 @@ public class MainGameScreen extends ScreenAdapter {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L1);
       } else if (gameLevel == 2) {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
+      } else if (gameLevel == 3) {
+        game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
       }
     }
 
