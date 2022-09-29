@@ -41,6 +41,10 @@ public class PlayerActions extends Component {
   private long restEnd;
   private Music walkingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/walk_on_sand.wav"));
   private Music teleportSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/teleport_sound.wav"));
+  private Music dashSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dash.mp3"));
+  private Music blockSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/block.mp3"));
+  private Music dodgeSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dodge.mp3"));
+  private Music invulnerabilitySound= Gdx.audio.newMusic(Gdx.files.internal("sounds/invulnerability.mp3"));
 
   @Override
   public void create() {
@@ -203,7 +207,8 @@ public class PlayerActions extends Component {
    */
   void dash() {
     if(stamina >=20){
-      teleportSound.play();
+//      teleportSound.play();
+      dashSound.play();
       skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
     }
@@ -291,6 +296,7 @@ public class PlayerActions extends Component {
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
+    dodgeSound.play();
     skillManager.startDodge(this.walkDirection.cpy());
   }
 
@@ -298,6 +304,7 @@ public class PlayerActions extends Component {
    * Makes the player block. Registers call of the block function to the skill manager component.
    */
   void block() {
+    blockSound.play();
     skillManager.startBlock();
   }
 
