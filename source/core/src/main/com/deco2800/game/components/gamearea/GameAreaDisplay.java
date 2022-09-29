@@ -38,77 +38,85 @@ import static com.badlogic.gdx.math.MathUtils.ceil;
  */
 public class GameAreaDisplay extends UIComponent {
 
-  private String gameAreaName = "";
-  private Label title;
+    private String gameAreaName = "";
+    private Label title;
 
-  private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
-  private static Component mainGameActions;
-  private int numcrafted = 0;
-  private ImageButton craftButton;
-  private ImageButton catalogueButton;
-  private ImageButton catOneButton;
-  private ImageButton catTwoButton;
-  private ImageButton inventoryButton;
-  private ImageButton exitButton;
-  private Texture buttonTexture;
+    private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
+    private static Component mainGameActions;
+    private int numcrafted = 0;
+    private ImageButton craftButton;
+    private ImageButton catalogueButton;
+    private ImageButton catOneButton;
+    private ImageButton catTwoButton;
+    private ImageButton inventoryButton;
+    private ImageButton exitButton;
+    private Texture buttonTexture;
 
-  private TextureRegion buttonTextureRegion;
-  private TextureRegionDrawable buttonDrawable;
-  private Image craftMenu;
-  private List<WeaponConfig> possibleBuilds;
-  Entity currentWeapon;
-  private Image catOneMenu;
-  private Image catTwoMenu;
-  private Image pauseMenu;
-  private Image keyBindMenu;
-  private ImageButton material;
-  private ImageButton firstToCraft;
-  private ImageButton secondToCraft;
-  private Image resume_image;
-  private ImageButton resume;
+    private TextureRegion buttonTextureRegion;
+    private TextureRegionDrawable buttonDrawable;
+    private Image craftMenu;
+    private List<WeaponConfig> possibleBuilds;
+    Entity currentWeapon;
+    private Image catOneMenu;
+    private Image catTwoMenu;
+    private Image pauseMenu;
+    private Image keyBindMenu;
+    private ImageButton material;
+    private ImageButton firstToCraft;
+    private ImageButton secondToCraft;
+    private Image resume_image;
+    private ImageButton resume;
 
-  private ImageButton exit;
-  private Texture materialTexture;
-  private TextureRegion materialTextureRegion;
-  private TextureRegionDrawable materialDrawable;
-  private Image matAmount;
-  private String weaponType = "";
-  private Image weapon;
-  private Group craftingGroup = new Group();
-  private Group materialsGroup = new Group();
-  private Materials[] boxes = new Materials[2];
-  private Group pausingGroup = new Group();
-  private Group keyBindGroup = new Group();
-  private Table keyBindTable;
-  private int keyBindPage = 0;
-  private int keyBindMod = 0;
+    private ImageButton exit;
+    private Texture materialTexture;
+    private TextureRegion materialTextureRegion;
+    private TextureRegionDrawable materialDrawable;
+    private Image matAmount;
+    private String weaponType = "";
+    private Image weapon;
+    private Group craftingGroup = new Group();
+    private Group materialsGroup = new Group();
+    private Materials[] boxes = new Materials[2];
+    private Group pausingGroup = new Group();
+    private Group keyBindGroup = new Group();
+    private Table keyBindTable;
+    private int keyBindPage = 0;
+    private int keyBindMod = 0;
 
-  private int firstTime = 0;
-  List<Entity> inventory;
-  InventoryComponent inventoryComponent;
-  private int index;
-  private Image inventoryMenu;
-  private Group inventoryGroup = new Group();
-  private List<Entity> items;
+    private int firstTime = 0;
+    List<Entity> inventory;
+    InventoryComponent inventoryComponent;
+    private int index;
+    private Image inventoryMenu;
+    private Group inventoryGroup = new Group();
+    private List<Entity> items;
+
+    // Janky fix for deathscreen, temp fix
+    private Image deathScreen;
+    private Image deathScreenTwo;
+    private Image deathScreenThree;
+
+    private Boolean currentScreenCrafting = false;
 
     @Override
     public void create() {
         super.create();
+        ServiceLocator.registerCraftArea(this);
         addActors();
     }
 
-  public GameAreaDisplay(String gameAreaName) {
-    this.gameAreaName = gameAreaName;
-    logger.info("The current map is {}", this.gameAreaName);
-    ServiceLocator.registerInventoryArea(this);
-    ServiceLocator.registerPauseArea(this);
-    ServiceLocator.registerKeyBindArea(this);
-  }
+    public GameAreaDisplay(String gameAreaName) {
+        this.gameAreaName = gameAreaName;
+        logger.info("The current map is {}", this.gameAreaName);
+        ServiceLocator.registerInventoryArea(this);
+        ServiceLocator.registerPauseArea(this);
+        ServiceLocator.registerKeyBindArea(this);
+    }
 
-  public String getGameAreaName() {
-    return gameAreaName;
+    public String getGameAreaName() {
+        return gameAreaName;
 
-  }
+    }
 
     private void addActors() {
         title = new Label(this.gameAreaName, skin, "large");
@@ -409,73 +417,73 @@ public class GameAreaDisplay extends UIComponent {
         stage.draw();
     }
 
-  /**
-   * Display the pause menu when ESC is clicked.
-   */
-  public void setPauseMenu() {
-    logger.info("Opening Pause Menu");
-    pauseMenu = new Image(new Texture(Gdx.files.internal
-            ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
-    pauseMenu.setSize(1100, 1200);
-    pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
-            Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
-    pausingGroup.addActor(pauseMenu);
-    stage.addActor(pausingGroup);
+    /**
+     * Display the pause menu when ESC is clicked.
+     */
+    public void setPauseMenu() {
+        logger.info("Opening Pause Menu");
+        pauseMenu = new Image(new Texture(Gdx.files.internal
+                ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
+        pauseMenu.setSize(1100, 1200);
+        pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
+                Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
+        pausingGroup.addActor(pauseMenu);
+        stage.addActor(pausingGroup);
 
-    buttonTexture = new Texture(Gdx.files.internal
-            ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
-    buttonTextureRegion = new TextureRegion(buttonTexture);
-    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-    resume = new ImageButton(buttonDrawable);
-    resume.setSize(386, 122.4f);
-    resume.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 600);
-    resume.addListener(new ChangeListener() {
-      @Override
-      public void changed(ChangeEvent event, Actor actor) {
-        logger.debug("Pause menu resume button clicked");
-        KeyboardPlayerInputComponent.incrementPauseCounter();
-        OpenPauseComponent.closePauseMenu();
-      }
-    });
-    pausingGroup.addActor(resume);
-    stage.addActor(pausingGroup);
-
-    buttonTexture = new Texture(Gdx.files.internal
-            ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
-    buttonTextureRegion = new TextureRegion(buttonTexture);
-    buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-    exit = new ImageButton(buttonDrawable);
-    exit.setSize(386, 122.4f);
-    exit.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 432);
-    exit.addListener(new ChangeListener() {
-      @Override
-      public void changed(ChangeEvent event, Actor actor) {
-          logger.debug("Pause menu exit button clicked");
-        KeyboardPlayerInputComponent.incrementPauseCounter();
-        PauseMenuActions.setQuitGameStatus();
-      }
-    });
-    pausingGroup.addActor(exit);
-
-    // Debug button to open keybind menu - hey Rey this is for you!
-    TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
-      keyBindMenuBtn.addListener(
-        new ChangeListener() {
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        resume = new ImageButton(buttonDrawable);
+        resume.setSize(386, 122.4f);
+        resume.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 600);
+        resume.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                logger.info("Key binding button things");
-                OpenPauseComponent.openKeyBindings();
+            public void changed(ChangeEvent event, Actor actor) {
+                logger.debug("Pause menu resume button clicked");
+                KeyboardPlayerInputComponent.incrementPauseCounter();
+                OpenPauseComponent.closePauseMenu();
             }
         });
-    pausingGroup.addActor(keyBindMenuBtn);
-    stage.addActor(pausingGroup);
+        pausingGroup.addActor(resume);
+        stage.addActor(pausingGroup);
 
-    stage.draw();
-  }
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        exit = new ImageButton(buttonDrawable);
+        exit.setSize(386, 122.4f);
+        exit.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 432);
+        exit.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                logger.debug("Pause menu exit button clicked");
+                KeyboardPlayerInputComponent.incrementPauseCounter();
+                PauseMenuActions.setQuitGameStatus();
+            }
+        });
+        pausingGroup.addActor(exit);
 
-  public void disposeResumeButton() {
-    resume_image.remove();
-  }
+        // Debug button to open keybind menu - hey Rey this is for you!
+        TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
+        keyBindMenuBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("Key binding button things");
+                        OpenPauseComponent.openKeyBindings();
+                    }
+                });
+        pausingGroup.addActor(keyBindMenuBtn);
+        stage.addActor(pausingGroup);
+
+        stage.draw();
+    }
+
+    public void disposeResumeButton() {
+        resume_image.remove();
+    }
 
     /**
      * Creates the keybinding menu.
@@ -584,7 +592,7 @@ public class GameAreaDisplay extends UIComponent {
     //return the inventory for the user
 
     private void getInventory() {
-      currentScreenCrafting = true;
+        currentScreenCrafting = true;
         index = 0;
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
         inventory = inventoryComponent.getInventory();
@@ -693,12 +701,12 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     private void displayAmount(int amount, int index) {
-      matAmount = new Image(new Texture(Gdx.files.internal
-              (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
-      matAmount.setSize(15, 15);
-      matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
-              (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
-      materialsGroup.addActor(matAmount);
+        matAmount = new Image(new Texture(Gdx.files.internal
+                (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
+        matAmount.setSize(15, 15);
+        matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
+                (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
+        materialsGroup.addActor(matAmount);
     }
 
     private EntityTypes checkType(Entity entity) {
