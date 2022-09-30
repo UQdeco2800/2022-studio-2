@@ -2,6 +2,10 @@ package com.deco2800.game.components.deathscreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.rendering.TextureRenderComponent;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -68,7 +72,9 @@ public class DeathScreenDisplay extends UIComponent {
         table.setFillParent(true);
 
         //Exit Button texture set up
-        exitBtnTexture = getBtnTexture("exit");
+        //exitBtnTexture = getBtnTexture("exit");
+        exitBtnTexture = new Texture(Gdx.files
+                .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
         buttonTextureRegion = new TextureRegion(exitBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
 
@@ -87,7 +93,9 @@ public class DeathScreenDisplay extends UIComponent {
                 });
 
         //Play Again/ Continue Button
-        continueBtnTexture = getBtnTexture("continue");;
+        //continueBtnTexture = getBtnTexture("continue");
+        continueBtnTexture = new Texture(Gdx.files
+                .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
         buttonTextureRegion = new TextureRegion(continueBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
 
@@ -173,6 +181,8 @@ public class DeathScreenDisplay extends UIComponent {
     public Texture getBtnTexture(String btnName) {
         Texture btnTexture = new Texture(Gdx.files
                 .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
+        Image img = new Image(ServiceLocator.getResourceService().getAsset("images/DeathScreens/widgets/main_menu_lvl_1.png", Texture.class));
+        //Texture btnTexture = new Texture(ServiceLocator.getResourceService().getAsset("images/DeathScreens/widgets/main_menu_lvl_1.png", Texture.class));
         switch (btnName){
             case "exit":
                 if (getLevel() == 1) {
