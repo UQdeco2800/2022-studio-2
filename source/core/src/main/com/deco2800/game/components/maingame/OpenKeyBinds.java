@@ -5,12 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.PlayerModifier;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class OpenKeyBinds extends Component {
@@ -27,11 +29,23 @@ public class OpenKeyBinds extends Component {
         }
     }
 
+    // Variables for component functionality
     private static final Logger logger = LoggerFactory.getLogger(OpenKeyBinds.class);
+    public static final int numKeysPerPage = 10;
     private static JsonReader json;
     private static ArrayList<KeyBind> keys = new ArrayList<>();
     private static String[] keyTextures;
-    //private static String[] backgroundTextures = {"images/KeyBinds/blank.png"};
+    private static int numKeys;
+
+    // Reading left to right of this LUT is equates to reading top to bottom, then left to right
+    // This is the LUT for the pure keybinding textures
+    public static final int[][] keyTexturePosLUT = {{372, 680}, {372, 595}, {372, 510}, {372, 425}, {372, 340},
+            {912, 680}, {912, 595}, {912, 510}, {912, 425}, {912, 340}};
+
+    // Label offset values
+    public static final int keyLabelOffsetX = 100;
+    public static final int keyLabelOffsetY = 25;
+
 
     public OpenKeyBinds() {
 
@@ -39,6 +53,7 @@ public class OpenKeyBinds extends Component {
         ArrayList<String> keyTexturesArray = new ArrayList<>();
         KeyBind dummy;
         String image, key, description;
+        numKeys = 0;
 
         json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.getFileHandle("configs/keybinds.json", Files.FileType.Local));
@@ -52,6 +67,7 @@ public class OpenKeyBinds extends Component {
                 key = component.getString("Key");
 
                 /* Create a keybinding entry */
+                numKeys++;
                 dummy = new KeyBind(key, description, image);
                 keys.add(dummy);
                 logger.info(String.format("%s key bound to action %s", component.getString("Key"),
@@ -63,11 +79,11 @@ public class OpenKeyBinds extends Component {
         }
 
         /* Load our textures! */
+        System.out.println(keyTexturesArray);
         keyTextures = new String[keyTexturesArray.size()];
         keyTextures = keyTexturesArray.toArray(keyTextures);
         logger.debug("Loading keybinding key assets");
         resourceService.loadTextures(keyTextures);
-        //resourceService.loadTextures(backgroundTextures);
     }
 
     /**
@@ -77,6 +93,32 @@ public class OpenKeyBinds extends Component {
         logger.debug("Unloading keybinding key assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(keyTextures);
-        //resourceService.unloadAssets(backgroundTextures);
     }
+
+    /**
+     * Gets the KeyBinds associated with the keybinding pause menu page number.
+     * Returns up to a maximum of 8 KeyBind types.
+     * @param page          Page number of the keybinding menu
+     * @return KeyBind[]    Array of keybindings to display
+     */
+    public static KeyBind[] getKeyBinds (int page) {
+
+        KeyBind[] keyBinds = new KeyBind[numKeysPerPage];
+        int index = numKeysPerPage * page;
+        int loop = 0;
+
+        while (index < numKeys && loop < numKeysPerPage) {
+            keyBinds[loop] = keys.get(index);
+            index++;
+            loop++;
+        }
+
+        return keyBinds;
+    }
+
+    /**
+     * Get the number of keys initialised.
+     * @return int  Number of initialised keys
+     */
+    public static int getNumKeys () { return numKeys; }
 }

@@ -1,11 +1,14 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.deathscreen.DeathScreenActions;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
+import com.deco2800.game.components.levelTransition.LevelTransitionActions;
+import com.deco2800.game.components.levelTransition.LevelTransitionDisplay;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.BackgroundSoundComponent;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
@@ -23,26 +26,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The game screen containing the death screen.
+ * The game screen containing the main menu.
  */
-public class DeathScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
+// TODO listen for the plug and cue the screen transition, waiting on team 5.
+public class LevelTransitionScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(LevelTransitionScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
+    // TODO Swap out deathscreen with loading texture when its complete.
+    private static final String[] transitionTextures = {"images/DeathScreens/lvl_2.png"};
     private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
-    private static final String[] deathMusic = {backgroundMusic};
-
+    private static final String[] transitionMusic = {backgroundMusic};
 
     /**
-     * DeathScreen constructor
-     * @param game
-     * @param level
+     * Level Transition constructor
+     * @param game active state of the game
      */
-    public DeathScreen(GdxGame game, int level) {
+    public LevelTransitionScreen(GdxGame game) {
         this.game = game;
 
-        logger.debug("Initialising death screen screen services");
+        logger.debug("Initialising transition screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -51,7 +54,7 @@ public class DeathScreen extends ScreenAdapter {
         renderer = RenderFactory.createRenderer();
 
         loadAssets();
-        createUI(level);
+        createUI();
         playMusic();
     }
 
@@ -75,18 +78,8 @@ public class DeathScreen extends ScreenAdapter {
     }
 
     @Override
-    public void pause() {
-        logger.info("Game paused");
-    }
-
-    @Override
-    public void resume() {
-        logger.info("Game resumed");
-    }
-
-    @Override
     public void dispose() {
-        logger.debug("Disposing death screen");
+        logger.debug("Disposing transition screen");
 
         renderer.dispose();
         unloadAssets();
@@ -100,30 +93,32 @@ public class DeathScreen extends ScreenAdapter {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(deathTextures);
-        resourceService.loadMusic(deathMusic);
+        resourceService.loadTextures(transitionTextures);
+        resourceService.loadMusic(transitionMusic);
         ServiceLocator.getResourceService().loadAll();
     }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(deathTextures);
+        resourceService.unloadAssets(transitionTextures);
     }
 
     /**
-     * Creates the death screens's ui including components for rendering ui elements to the screen and
+     * Creates the level tranistion's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
-    private void createUI(int level) {
+    private void createUI() {
         logger.debug("Creating ui");
+        logger.info("UI for transitionScreen created");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new DeathScreenDisplay(level))
+        ui.addComponent(new LevelTransitionDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new DeathScreenActions(game));
+                .addComponent(new LevelTransitionActions(game));
 
 
         ServiceLocator.getEntityService().register(ui);
     }
 }
+
