@@ -1,6 +1,7 @@
 package com.deco2800.game.components.deathscreen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -71,37 +72,19 @@ public class DeathScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
-        //Exit Button texture set up
-        //exitBtnTexture = getBtnTexture("exit");
-        exitBtnTexture = new Texture(Gdx.files
-                .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
-        buttonTextureRegion = new TextureRegion(exitBtnTexture);
-        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-
-        exitButton = new ImageButton(buttonDrawable);
-        exitButton.setSize(146, 146);
-        exitButton.setPosition(table.getX() + 527, table.getY() + 110.5f);
-
-        // Exit button listener, returns to main menu
-        exitButton.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("The No button was clicked");
-                        entity.getEvents().trigger("exit");
-                    }
-                });
 
         //Play Again/ Continue Button
-        //continueBtnTexture = getBtnTexture("continue");
-        continueBtnTexture = new Texture(Gdx.files
-                .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
+        if (getLevel() == 1) {
+            continueBtnTexture = new Texture(Gdx.files
+                    .internal("images/DeathScreens/widgets/play_again_lvl_1.png"));
+        } else if (getLevel() == 2) {
+            new Texture(Gdx.files
+                    .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
+        }
         buttonTextureRegion = new TextureRegion(continueBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-
         continueButton = new ImageButton(buttonDrawable);
-        continueButton.setSize(146, 146);
-        continueButton.setPosition(table.getX() + 720, table.getY() + 365);
+
 
 
         // Play Again/ continue button listener - Restarts game
@@ -114,26 +97,55 @@ public class DeathScreenDisplay extends UIComponent {
                     }
                 });
 
+        //Exit Button texture set up
+        if (getLevel() == 1) {
+            exitBtnTexture = new Texture(Gdx.files
+                    .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
+
+        } else if (getLevel() == 2) {
+            exitBtnTexture = new Texture(Gdx.files
+                    .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
+        }
+        buttonTextureRegion = new TextureRegion(exitBtnTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        exitButton = new ImageButton(buttonDrawable);
+
+
+        // Exit button listener, returns to main menu
+        exitButton.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("The No button was clicked");
+                        entity.getEvents().trigger("exit");
+                    }
+                });
+
         logger.debug("Continue button and Exit button created");
 
 
-        // TODO adjust layout of table to make it align with what we planed for death screen
-
         // Creates a stack of items, this allows you to overlay them and 'stack' them on top of eachother
         Stack background = new Stack();
+        background.setFillParent(true);
         background.add(levelBackground(level));
+
         logger.debug("Stack created and level background image added");
 
         // Creates a table within the stack for the buttons
         Table btnTable = new Table();
+        btnTable.setFillParent(true);
         btnTable.bottom().right();
-        btnTable.add(continueButton).pad(35).right();
+        btnTable.add(continueButton).padTop(35).padLeft(200).left().height(100);
         btnTable.row();
-        btnTable.add(exitButton).pad(35).right();
+        btnTable.add(exitButton).padBottom(35).padLeft(200).left().height(100);
+
+        background.setPosition(table.getX() + 1600, table.getY() + 900);
+        //background.set
         background.add(btnTable);
 
         // Adds the stack to the parent table
         table.add(background);
+        table.right().bottom();
         stage.addActor(table);
         logger.debug("DeathScreenDisplay table has been added to the actor");
     }
@@ -173,36 +185,6 @@ public class DeathScreenDisplay extends UIComponent {
         return level;
     }
 
-    /**
-     * Sets the textures for the buttons to be displayed in death and win screens
-     * @param btnName
-     * @return
-     */
-    public Texture getBtnTexture(String btnName) {
-        Texture btnTexture = new Texture(Gdx.files
-                .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
-        Image img = new Image(ServiceLocator.getResourceService().getAsset("images/DeathScreens/widgets/main_menu_lvl_1.png", Texture.class));
-        //Texture btnTexture = new Texture(ServiceLocator.getResourceService().getAsset("images/DeathScreens/widgets/main_menu_lvl_1.png", Texture.class));
-        switch (btnName){
-            case "exit":
-                if (getLevel() == 1) {
-                    btnTexture = new Texture(Gdx.files
-                                            .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
-                } else if (getLevel() == 2) {
-                    btnTexture = new Texture(Gdx.files
-                            .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
-                }
-            case "continue":
-                if (getLevel() == 1) {
-                    btnTexture = new Texture(Gdx.files
-                            .internal("images/DeathScreens/widgets/play_again_lvl_1.png"));
-                } else if (getLevel() == 2) {
-                    btnTexture = new Texture(Gdx.files
-                            .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
-                }
-        }
-        return btnTexture;
-    }
 
     @Override
     public void draw(SpriteBatch batch) {
