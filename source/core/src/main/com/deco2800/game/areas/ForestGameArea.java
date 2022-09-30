@@ -646,7 +646,7 @@ public class ForestGameArea extends GameArea {
    * Spawn guard NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnGuard() {
-    GuardPosition = new GridPoint2(4, 8);
+    GuardPosition = new GridPoint2(10, 8);
 
     Entity guard = NPCFactory.createGuard(player);
     spawnEntityAt(guard, GuardPosition, true, true);
