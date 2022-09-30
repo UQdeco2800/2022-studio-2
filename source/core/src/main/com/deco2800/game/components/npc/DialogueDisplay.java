@@ -187,10 +187,6 @@ public class DialogueDisplay extends UIComponent {
 
     public void openDialogue() {
 
-
-
-
-
         if (state) {
             if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
                 stage.addActor(dialogueContainerFemale);

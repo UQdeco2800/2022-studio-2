@@ -6,11 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.DialogueAnimationController;
 import com.deco2800.game.components.npc.GymBroAnimationController;
-
-import com.deco2800.game.components.npc.MaleAnimationController;
 
 import com.deco2800.game.components.npc.NPCAnimationController;
 
@@ -36,9 +32,6 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import java.util.*;
-
-import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
-
 
 
 /**
@@ -226,8 +219,6 @@ public class NPCFactory {
 
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-
-            .addComponent(new MaleAnimationController())
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
     ;
