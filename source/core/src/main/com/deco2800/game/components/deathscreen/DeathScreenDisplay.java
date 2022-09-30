@@ -94,7 +94,7 @@ public class DeathScreenDisplay extends UIComponent {
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("The Continue button was clicked");
+                        logger.debug("The continue/play again button was clicked");
                         entity.getEvents().trigger("continueGame");
                     }
                 });
@@ -120,7 +120,7 @@ public class DeathScreenDisplay extends UIComponent {
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("The No button was clicked");
+                        logger.debug("The exit button was clicked");
                         entity.getEvents().trigger("exit");
                     }
                 });
