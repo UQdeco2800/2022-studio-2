@@ -43,6 +43,7 @@ public class WeaponAuraManager extends Component {
         auraApplied = aura;
         if (weapon.getComponent(PhyiscalWeaponStatsComponent.class) != null) {
             weaponStats = weapon.getComponent(PhyiscalWeaponStatsComponent.class);
+
             weaponStats.setDamage(weaponStats.getDamage() * aura.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
             weaponStats.setCoolDown(weaponStats.getCoolDown() * aura.getComponent(WeaponAuraComponent.class).getCdMultiplier());
             //shows the applied buff in the game
