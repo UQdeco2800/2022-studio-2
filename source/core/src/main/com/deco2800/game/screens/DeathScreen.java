@@ -6,10 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.deathscreen.DeathScreenActions;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
-import com.deco2800.game.components.npc.DialogueDisplay;
-import com.deco2800.game.components.BackgroundSoundComponent;
-import com.deco2800.game.components.mainmenu.MainMenuActions;
-import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -31,9 +27,9 @@ public class DeathScreen extends ScreenAdapter {
     private final Renderer renderer;
     private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
     private static final String[] deathBtnTextures = {"images/DeathScreens/widgets/main_menu_lvl_1.png",
-                                                        "images/DeathScreens/widgets/main_menu_lvl_2.png",
-                                                        "images/DeathScreens/widgets/continue_lvl_1.png",
-                                                        "images/DeathScreens/widgets/continue_lvl_1.png"};
+                                                    "images/DeathScreens/widgets/main_menu_lvl_2.png",
+                                                    "images/DeathScreens/widgets/play_again_lvl_1.png",
+                                                    "images/DeathScreens/widgets/play_again_lvl_2.png"};
     private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
     private static final String[] deathMusic = {backgroundMusic};
 
@@ -60,6 +56,8 @@ public class DeathScreen extends ScreenAdapter {
     }
 
     private void playMusic() {
+        // Unsure why the load is needed here (a second time too), but otherwise it doesn't play
+        ServiceLocator.getResourceService().loadMusic(deathMusic);
         Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
         music.setLooping(true);
         music.setVolume(0.3f);
@@ -114,7 +112,8 @@ public class DeathScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(deathTextures);
-        resourceService.loadTextures(deathBtnTextures);
+        resourceService.unloadAssets(deathBtnTextures);
+        resourceService.unloadAssets(deathMusic);
     }
 
     /**

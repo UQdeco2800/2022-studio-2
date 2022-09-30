@@ -71,7 +71,6 @@ public class GdxGame extends Game {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        //MainGameScreen mainGame = new MainGameScreen(this);
         currentGameScreen = new MainGameScreen(this);
         return currentGameScreen;
       case SETTINGS:
