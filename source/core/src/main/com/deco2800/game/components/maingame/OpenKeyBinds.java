@@ -86,7 +86,6 @@ public class OpenKeyBinds extends Component {
         }
 
         /* Load our textures! */
-        System.out.println(keyTexturesArray);
         keyTextures = new String[keyTexturesArray.size()];
         keyTextures = keyTexturesArray.toArray(keyTextures);
         logger.debug("Loading keybinding key assets");
