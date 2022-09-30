@@ -232,6 +232,7 @@ public class Entity {
         component.dispose();
       } //this prevents the other entities using the same animation from having their atlases disposed (black box)
     }
+    this.flagDead();
     ServiceLocator.getEntityService().unregister(this);
   }
 
@@ -274,6 +275,7 @@ public class Entity {
             component instanceof KeyboardPlayerInputComponent ||
             component instanceof PlayerSkillProjectileComponent ||
             component instanceof PlayerSkillAnimationController ||
+            component instanceof PlayerKPAnimationController ||
             component instanceof PlayerCombatAnimationController ||
             component instanceof PlayerModifier ||
             component instanceof PhysicsComponent ) {
@@ -308,6 +310,7 @@ public class Entity {
                 component instanceof KeyboardPlayerInputComponent ||
                 component instanceof PlayerSkillProjectileComponent ||
                 component instanceof PlayerSkillAnimationController ||
+                component instanceof PlayerKPAnimationController ||
                 component instanceof PlayerCombatAnimationController ||
                 component instanceof PlayerModifier ||
                 component instanceof PhysicsComponent) {
@@ -336,7 +339,9 @@ public class Entity {
         if (component instanceof KeyboardPlayerInputComponent ||
                component instanceof PlayerSkillAnimationController ||
                component instanceof PlayerSkillProjectileComponent ||
-               component instanceof PlayerCombatAnimationController) {
+               component instanceof PlayerCombatAnimationController ||
+               component instanceof PlayerKPAnimationController
+                ) {
           return;
         }
       }
