@@ -6,11 +6,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
-import com.deco2800.game.components.player.PlayerCombatAnimationController;
-import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -61,7 +58,6 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
           "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
-    "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
     "images/gold_cobble.png",
     "images/gold_drain.png",
@@ -113,7 +109,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/H&ADagger.png",
     "images/CombatItems/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
-          "images/Crafting-assets-sprint1/materials/toilet_paper.png",
+    "images/Crafting-assets-sprint1/materials/toilet_paper.png",
     "images/Crafting-assets-sprint1/materials/gold.png",
     "images/Crafting-assets-sprint1/materials/iron.png",
     "images/Crafting-assets-sprint1/materials/plastic.png",
@@ -465,7 +461,7 @@ public class ForestGameArea extends GameArea {
   }
 
   public void spawnCraftingTable() {
-    Entity craftingTable = ObstacleFactory.createCraftingTable();
+    Entity craftingTable = ObstacleFactory.createCraftingTableForest();
     craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
     spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
   }

@@ -51,9 +51,12 @@ public class UndergroundGameArea extends GameArea {
             "images/grass_3.png",
             "images/level_2_tiledmap/32x32/grass.png",
             "images/level_2_tiledmap/32x32/purple_cobble.png",
-            "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+            "images/Crafting-assets-sprint1/crafting table/craftingTable2.png",
             "images/Crafting-assets-sprint1/materials/gold.png",
+            "images/Crafting-assets-sprint1/materials/iron.png",
+            "images/Crafting-assets-sprint1/materials/plastic.png",
             "images/Crafting-assets-sprint1/materials/platinum.png",
+            "images/Crafting-assets-sprint1/materials/rubber.png",
             "images/Crafting-assets-sprint1/materials/silver.png",
             "images/Crafting-assets-sprint1/materials/steel.png",
             "images/Crafting-assets-sprint1/materials/wood.png",
@@ -81,6 +84,15 @@ public class UndergroundGameArea extends GameArea {
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Athena.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/heraAthena.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Pipe.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Plunger.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Sword.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
     };
 
     public static String[] newTextures;
@@ -189,7 +201,7 @@ public class UndergroundGameArea extends GameArea {
     }
 
     public void spawnCraftingTable() {
-        Entity craftingTable = ObstacleFactory.createCraftingTable();
+        Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
         spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
     }
 
