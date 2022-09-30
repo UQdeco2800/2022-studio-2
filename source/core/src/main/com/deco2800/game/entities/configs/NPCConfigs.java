@@ -16,5 +16,7 @@ public class NPCConfigs {
   public Male_citizenConfig male_citizen = new Male_citizenConfig();
   public HeraclesConfig heracles = new HeraclesConfig();
   public PoopsConfig poops = new PoopsConfig();
+
+  public MegaPoopConfig megaPoop = new MegaPoopConfig();
   public FriendPetConfig pet = new FriendPetConfig();
 }
