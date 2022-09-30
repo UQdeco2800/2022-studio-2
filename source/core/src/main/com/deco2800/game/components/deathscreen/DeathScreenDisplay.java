@@ -1,13 +1,11 @@
 package com.deco2800.game.components.deathscreen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -16,7 +14,6 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 
 /**
  * A ui component for displaying the Death Screen.
@@ -30,6 +27,13 @@ public class DeathScreenDisplay extends UIComponent {
     // Global variable of game level
     private Integer level;
     //private List<String> deathBackgrounds = new List<String>();
+    private Texture continueBtnTexture;
+    private Texture exitBtnTexture;
+    private TextureRegion buttonTextureRegion;
+    private TextureRegionDrawable buttonDrawable;
+    private ImageButton exitButton;
+    private ImageButton continueButton;
+
 
     /**
      * Constructor of DeathScreenDisplay, default empty
@@ -45,6 +49,7 @@ public class DeathScreenDisplay extends UIComponent {
     public DeathScreenDisplay(int level) {
         this.level = level;
         //levelBackground(level);
+
     }
 
     @Override
@@ -62,16 +67,37 @@ public class DeathScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
+        //Exit Button texture set up
+        exitBtnTexture = getBtnTexture("exit");
+        buttonTextureRegion = new TextureRegion(exitBtnTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
 
-        TextButton continueBtn = new TextButton("PLAY AGAIN", skin);
-        TextButton exitBtn = new TextButton("EXIT", skin);
-        logger.debug("Continue button and Exit button created");
+        exitButton = new ImageButton(buttonDrawable);
+        exitButton.setSize(146, 146);
+        exitButton.setPosition(table.getX() + 527, table.getY() + 110.5f);
 
-        // Triggers an event when the button is pressed
-        // Restarts game
-        // TODO add win screen logic
-        //if (!(deathBackground.getName() == deathBackgrounds.))
-        continueBtn.addListener(
+        // Exit button listener, returns to main menu
+        exitButton.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("The No button was clicked");
+                        entity.getEvents().trigger("exit");
+                    }
+                });
+
+        //Play Again/ Continue Button
+        continueBtnTexture = getBtnTexture("continue");;
+        buttonTextureRegion = new TextureRegion(continueBtnTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+
+        continueButton = new ImageButton(buttonDrawable);
+        continueButton.setSize(146, 146);
+        continueButton.setPosition(table.getX() + 720, table.getY() + 365);
+
+
+        // Play Again/ continue button listener - Restarts game
+        continueButton.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -80,15 +106,7 @@ public class DeathScreenDisplay extends UIComponent {
                     }
                 });
 
-        // Returns to main menu
-        exitBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("The No button was clicked");
-                        entity.getEvents().trigger("exit");
-                    }
-                });
+        logger.debug("Continue button and Exit button created");
 
 
         // TODO adjust layout of table to make it align with what we planed for death screen
@@ -101,9 +119,9 @@ public class DeathScreenDisplay extends UIComponent {
         // Creates a table within the stack for the buttons
         Table btnTable = new Table();
         btnTable.bottom().right();
-        btnTable.add(continueBtn).pad(35).right();
+        btnTable.add(continueButton).pad(35).right();
         btnTable.row();
-        btnTable.add(exitBtn).pad(35).right();
+        btnTable.add(exitButton).pad(35).right();
         background.add(btnTable);
 
         // Adds the stack to the parent table
@@ -131,12 +149,49 @@ public class DeathScreenDisplay extends UIComponent {
                         .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
                 // TODO change this out to win screen.
             case 3:
-                logger.info("setting level 3 deathScreen from DeathScreenDisplay");
+                logger.info("setting win screen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_23.png", Texture.class));
+                        .getAsset("images/DeathScreens/lvl_3.png", Texture.class));
         }
         return deathBackground = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
+    }
+
+    /**
+     * Gets current level of game as passed in to the contructor
+     * @return level - the games current level
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * Sets the textures for the buttons to be displayed in death and win screens
+     * @param btnName
+     * @return
+     */
+    public Texture getBtnTexture(String btnName) {
+        Texture btnTexture = new Texture(Gdx.files
+                .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
+        switch (btnName){
+            case "exit":
+                if (getLevel() == 1) {
+                    btnTexture = new Texture(Gdx.files
+                                            .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
+                } else if (getLevel() == 2) {
+                    btnTexture = new Texture(Gdx.files
+                            .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
+                }
+            case "continue":
+                if (getLevel() == 1) {
+                    btnTexture = new Texture(Gdx.files
+                            .internal("images/DeathScreens/widgets/play_again_lvl_1.png"));
+                } else if (getLevel() == 2) {
+                    btnTexture = new Texture(Gdx.files
+                            .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
+                }
+        }
+        return btnTexture;
     }
 
     @Override

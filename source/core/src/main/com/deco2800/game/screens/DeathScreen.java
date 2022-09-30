@@ -30,6 +30,10 @@ public class DeathScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
+    private static final String[] deathBtnTextures = {"images/DeathScreens/widgets/main_menu_lvl_1.png",
+                                                        "images/DeathScreens/widgets/main_menu_lvl_2.png",
+                                                        "images/DeathScreens/widgets/continue_lvl_1.png",
+                                                        "images/DeathScreens/widgets/continue_lvl_1.png"};
     private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
     private static final String[] deathMusic = {backgroundMusic};
 
@@ -101,6 +105,7 @@ public class DeathScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(deathTextures);
+        resourceService.loadTextures(deathBtnTextures);
         resourceService.loadMusic(deathMusic);
         ServiceLocator.getResourceService().loadAll();
     }
@@ -109,6 +114,7 @@ public class DeathScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(deathTextures);
+        resourceService.loadTextures(deathBtnTextures);
     }
 
     /**
@@ -122,7 +128,6 @@ public class DeathScreen extends ScreenAdapter {
         ui.addComponent(new DeathScreenDisplay(level))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new DeathScreenActions(game));
-
 
         ServiceLocator.getEntityService().register(ui);
     }
