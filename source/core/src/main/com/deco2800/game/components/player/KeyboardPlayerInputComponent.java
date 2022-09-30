@@ -10,6 +10,8 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,7 +128,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         // Determines if the player is near the plug when enter is hit, transitions to next map
         case Keys.ENTER:
         if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
-                (entity.getPosition().y > 16 && entity.getPosition().y < 18)) {
+            (entity.getPosition().y > 16 && entity.getPosition().y < 18) &&
+            (ServiceLocator.getGameArea().getClass() == ForestGameArea.class)) {
+
+          for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
+              if (enemy.checkEntityType(EntityTypes.BOSS)) {
+                return true;
+              }
+          }
           entity.getEvents().trigger("nextMap");
         }
         return true;
