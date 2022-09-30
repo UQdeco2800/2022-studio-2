@@ -6,10 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.npc.NPCAnimationController;
+import com.deco2800.game.components.npc.PoopAnimationController;
+import com.deco2800.game.components.npc.HeraclesAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.*;
-
-
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.JumpTask;
 import com.deco2800.game.components.tasks.ProjectileTask;
@@ -27,9 +29,6 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import java.util.*;
-
-import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
-
 
 
 /**
@@ -183,8 +182,7 @@ public class NPCFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/friendly_creature npc/friendly_creature.atlas", TextureAtlas.class));
-    animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
-
+            animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
 
     friendlycreature
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
@@ -218,8 +216,6 @@ public class NPCFactory {
 
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-
-            .addComponent(new MaleAnimationController())
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
     ;

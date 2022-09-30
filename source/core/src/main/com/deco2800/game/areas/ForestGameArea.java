@@ -6,11 +6,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
-import com.deco2800.game.components.player.PlayerCombatAnimationController;
-import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -61,7 +58,6 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
           "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
-    "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
     "images/gold_cobble.png",
     "images/gold_drain.png",
@@ -113,7 +109,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/H&ADagger.png",
     "images/CombatItems/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
-          "images/Crafting-assets-sprint1/materials/toilet_paper.png",
+    "images/Crafting-assets-sprint1/materials/toilet_paper.png",
     "images/Crafting-assets-sprint1/materials/gold.png",
     "images/Crafting-assets-sprint1/materials/iron.png",
     "images/Crafting-assets-sprint1/materials/plastic.png",
@@ -158,6 +154,7 @@ public class ForestGameArea extends GameArea {
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   public static GridPoint2 oneLegGirlPosition;
+  public static GridPoint2 oneLegGirlDialoguePosition;
   public static GridPoint2 HumanGuardPosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 friendlycreaturePosition;
@@ -210,7 +207,6 @@ public class ForestGameArea extends GameArea {
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
-    //spawnEffectBlobs();
     spawnGymBro();
     heracles = spawnHeracles();
     megaPoop = spawnMegaPoop();
@@ -223,7 +219,6 @@ public class ForestGameArea extends GameArea {
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
-    spawnfriendlycreature();
 //    spawnDialogue();
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
@@ -243,6 +238,8 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
+    spawnSpeedBuff();
+    spawnPlungerBow(); //PLS RMOVE LASTER
 
 
   }
@@ -370,6 +367,19 @@ public class ForestGameArea extends GameArea {
   */
 
   /**
+   * Spawns speed buff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
+  private void spawnSpeedBuff() {
+    Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+    auraOnMap.add(speedbuff);
+    spawnEntityAt(speedbuff, new GridPoint2(7,7), true, false);
+  }
+  /**
+   *
+   */
+  /**
    * Spawns speed debuff entity into the game
    * Spawns x-pos 10
    * Spawns y-pos 10
@@ -467,7 +477,7 @@ public class ForestGameArea extends GameArea {
   }
 
   public void spawnCraftingTable() {
-    Entity craftingTable = ObstacleFactory.createCraftingTable();
+    Entity craftingTable = ObstacleFactory.createCraftingTableForest();
     craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
     spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
   }
@@ -679,13 +689,14 @@ public class ForestGameArea extends GameArea {
   private void spawnOneLegGirl() {
 
     oneLegGirlPosition = new GridPoint2(20, 20);
+    oneLegGirlDialoguePosition = new GridPoint2(20, 21);
 
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, oneLegGirlPosition, true, true);
 
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, oneLegGirlPosition, true, true);
+    spawnEntityAt(dialogue, oneLegGirlDialoguePosition, true, true);
   }
   public static GridPoint2 getOneLegGirlPosition() {
     return oneLegGirlPosition;
@@ -720,7 +731,7 @@ public class ForestGameArea extends GameArea {
    * Spawn guard NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnGuard() {
-    GuardPosition = new GridPoint2(4, 8);
+    GuardPosition = new GridPoint2(10, 8);
 
     Entity guard = NPCFactory.createGuard(player);
     spawnEntityAt(guard, GuardPosition, true, true);
