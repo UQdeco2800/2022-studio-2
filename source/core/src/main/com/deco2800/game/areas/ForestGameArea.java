@@ -137,7 +137,7 @@ public class ForestGameArea extends GameArea {
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
-    "images/Enemies/heracles.atlas",
+    "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
     "images/Enemies/poop.atlas"
 
   };
@@ -149,7 +149,8 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private Entity heracles;
-  //private static List<Entity> weaponOnMap = new ArrayList<>(); not necessary
+  private Entity megaPoop;
+  private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   public static GridPoint2 oneLegGirlPosition;
@@ -208,6 +209,7 @@ public class ForestGameArea extends GameArea {
     //spawnEffectBlobs();
     spawnGymBro();
     heracles = spawnHeracles();
+    megaPoop = spawnMegaPoop();
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
@@ -801,6 +803,19 @@ public class ForestGameArea extends GameArea {
     Entity heracles = NPCFactory.createHeracles(player);
     spawnEntityAt(heracles, randomPos, true, true);
     return heracles;
+  }
+
+  /**
+   * Spawn Heracles in a random position.
+   */
+  private Entity spawnMegaPoop() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity megaPoop = NPCFactory.createMegaPoop(player);
+    spawnEntityAt(megaPoop, randomPos, true, true);
+    return megaPoop;
   }
 
   /**
