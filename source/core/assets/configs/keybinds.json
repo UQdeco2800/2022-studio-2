@@ -1,0 +1,136 @@
+{
+  "Keys" : [
+    { "Key" : "W",
+      "Description" : "Walk forward",
+      "Image" : "images/KeyBinds/individual_letters/w.png"
+    },
+    { "Key" : "A",
+      "Description" : "Walk left",
+      "Image" : "images/KeyBinds/individual_letters/a.png"
+    },
+    { "Key" :"S",
+      "Description" : "Walk backwards",
+      "Image" : "images/KeyBinds/individual_letters/s.png"
+    },
+    { "Key" :"D",
+      "Description" : "Walk right",
+      "Image" : "images/KeyBinds/individual_letters/d.png"
+    },
+    { "Key" : "Q",
+      "Description" : "Crafting",
+      "Image" : "images/KeyBinds/individual_letters/q.png"
+    },
+    { "Key" : "I",
+      "Description" : "Inventory",
+      "Image" : "images/KeyBinds/individual_letters/i.png"
+    },
+    { "Key" : "E",
+      "Description" : "Activate skill 1",
+      "Image" : "images/KeyBinds/individual_letters/e.png"
+    },
+    { "Key" : "J",
+      "Description" : "Activate skill 2",
+      "Image" : "images/KeyBinds/individual_letters/j.png"
+    },
+    { "Key" : "Shift",
+      "Description" : "Dodge",
+      "Image" : "images/KeyBinds/individual_letters/shift.png"
+    },
+    { "Key" : "1",
+      "Description" : "Quickbar Slot 1",
+      "Image" : "images/KeyBinds/individual_letters/1.png"
+    },
+    { "Key" : "2",
+      "Description" : "Quickbar Slot 2",
+      "Image" : "images/KeyBinds/individual_letters/2.png"
+    },
+    { "Key" : "3",
+      "Description" : "Quickbar Slot 3",
+      "Image" : "images/KeyBinds/individual_letters/3.png"
+    },
+    { "Key" : "4",
+      "Description" : "Quickbar Slot 4",
+      "Image" : "images/KeyBinds/individual_letters/4.png"
+    },
+    { "Key" : "ESC",
+      "Description" : "Pause menu",
+      "Image" : "images/KeyBinds/individual_letters/esc.png"
+    },
+    { "Key" : "Spacebar",
+      "Description" : "Attack",
+      "Image" : "images/KeyBinds/individual_letters/space.png"
+    },
+    { "Key" : "B",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/b.png"
+    },
+    { "Key" : "C",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/c.png"
+    },
+    { "Key" : "F",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/f.png"
+    },
+    { "Key" : "G",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/g.png"
+    },
+    { "Key" : "H",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/h.png"
+    },
+    { "Key" : "K",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/k.png"
+    },
+    { "Key" : "L",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/l.png"
+    },
+    { "Key" : "M",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/m.png"
+    },
+    { "Key" : "N",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/n.png"
+    },
+    { "Key" : "O",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/o.png"
+    },
+    { "Key" : "P",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/p.png"
+    },
+    { "Key" : "R",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/r.png"
+    },
+    { "Key" : "T",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/t.png"
+    },
+    { "Key" : "U",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/u.png"
+    },
+    { "Key" : "V",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/v.png"
+    },
+    { "Key" : "X",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/x.png"
+    },
+    { "Key" : "Y",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/y.png"
+    },
+    { "Key" : "Z",
+      "Description" : "",
+      "Image" : "images/KeyBinds/individual_letters/z.png"
+    }
+  ]
+}

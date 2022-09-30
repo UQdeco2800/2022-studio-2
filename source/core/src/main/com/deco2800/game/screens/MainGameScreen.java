@@ -7,12 +7,13 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.OpenKeyBinds;
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -58,13 +59,14 @@ public class MainGameScreen extends ScreenAdapter {
   };
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-  private final Entity player;
-
+  private Entity player;
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-
   private static GameArea map;
+  private static Component mainGameActions;
+  private static Boolean dead;
+
 
 
 
@@ -98,9 +100,14 @@ public class MainGameScreen extends ScreenAdapter {
     this.map = map;
 //    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
+    dead = false;
 
+    // Add a death listener to the player
+    player.getEvents().addListener("death", this::deathScreenStart);
 
   }
+
+  public void deathScreenStart() { dead = true; }
 
   public GameArea getMap(){
     return map;
@@ -112,7 +119,17 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().update();
     cameraTracePlayer();
     renderer.render();
+    if (dead) {
+      // Could add further player cleanup functionality here
+      player.getComponent(PlayerActions.class).stopWalking();
+      mainGameActions.getEntity().getEvents().trigger("exit");
+    }
+    if (PauseMenuActions.getQuitGameStatus()) {
+      mainGameActions.getEntity().getEvents().trigger("exit");
+      PauseMenuActions.setQuitGameStatus();
+    }
   }
+
 
   @Override
   public void resize(int width, int height) {
@@ -154,7 +171,8 @@ public class MainGameScreen extends ScreenAdapter {
         return this.loadLevelOneMap();
       case 2:
         map.dispose();
-        return map = this.loadLevelTwoMap();
+        this.map = this.loadLevelTwoMap();
+        player = map.getPlayer();
       default:
     }
     return null;
@@ -223,6 +241,7 @@ public class MainGameScreen extends ScreenAdapter {
    */
   private void createUI() {
     logger.debug("Creating ui");
+    mainGameActions = new MainGameActions(this.game);
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
@@ -231,12 +250,14 @@ public class MainGameScreen extends ScreenAdapter {
     ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new QuickBarDisplay())
         .addComponent(new PerformanceDisplay())
-        .addComponent(new MainGameActions(this.game))
+        .addComponent(mainGameActions)
         .addComponent(new MainGameExitDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent(new DialogueDisplay());
+        .addComponent(new DialogueDisplay())
+        .addComponent(new PauseMenuActions())
+        .addComponent(new OpenKeyBinds());
 
     ServiceLocator.getEntityService().register(ui);
   }

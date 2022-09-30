@@ -42,6 +42,7 @@ public class PlayerModifier extends Component{
     public static final String MANAMAX = "manaMax";
     public static final String STAMINAREGEN = "staminaRegen";
     public static final String STAMINAMAX = "staminaMax";
+    public static final String HEALTH = "health";
 
     // List of all components present in the parent entity
     private static PlayerActions playerActions;
@@ -296,6 +297,9 @@ public class PlayerModifier extends Component{
             case STAMINAMAX :
                 valChange = (scaling) ? (int)(refStaminaMax * value) : (int)value;
                 break;
+            case HEALTH:
+                combatStatsComponent.addHealth(1);
+                return true;
             default:
                 return false;
         }
@@ -329,10 +333,10 @@ public class PlayerModifier extends Component{
     }
 
     /**
-     * Public function to return current reference value of a desired target.
+     * Public function to return current modified value of a desired target.
      *
      * @param target    Desired player statistic.
-     * @return Float value of the desired reference target statistic, else -1 on fail.
+     * @return Float value of the desired modified target statistic, else -1 on fail.
      */
     public float getModified (String target) {
 
@@ -348,10 +352,10 @@ public class PlayerModifier extends Component{
     }
 
     /**
-     * Public function to return current modified value of a desired target.
+     * Public function to return current reference value of a desired target.
      *
      * @param target    Desired player statistic.
-     * @return Float value of the desired modified target statistic, else -1 on fail.
+     * @return Float value of the desired reference target statistic, else -1 on fail.
      */
     public float getReference (String target) {
 

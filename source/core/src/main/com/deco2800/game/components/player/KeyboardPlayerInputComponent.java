@@ -21,7 +21,7 @@ import java.security.Provider;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  private int keyPressedCounter = 1;
+  private static int keyPressedCounter = 1;
 
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
@@ -57,9 +57,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
-      case Keys.N:
-        entity.getEvents().trigger("attack2");
-        return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");
 //        EntityService.pauseGame();
@@ -68,8 +65,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("skill");
         // Temporary projectile shoot on skill activation
         if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+          ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
         }
+        ServiceLocator.getEntityService().toggleTimeStop();
         return true;
       case Keys.J:
         entity.getEvents().trigger("skill2");
@@ -102,15 +100,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("consumePotionSlot3");
         return true;
       case Keys.ESCAPE:
-        if (!OpenCraftingComponent.getCraftingStatus()) {
-          keyPressedCounter++;
-        }
-        if (keyPressedCounter % 2 == 0) {
-          entity.getEvents().trigger("game paused");
-          return true;
-        }
-        entity.getEvents().trigger("game resumed");
+        entity.getEvents().trigger("escInput");
         return true;
+//        if (!OpenCraftingComponent.getCraftingStatus()) {
+//
+//        }
+//        if (keyPressedCounter % 2 == 0) {
+//          entity.getEvents().trigger("escape input");
+//          return true;
+//        }
+//        entity.getEvents().trigger("game resumed");
+//        return true;
       case Keys.K:
         entity.getEvents().trigger("kill switch");
         return true;
@@ -135,6 +135,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       default:
         return false;
     }
+  }
+
+  public static void incrementPauseCounter(){
+    keyPressedCounter++;
   }
 
   /**

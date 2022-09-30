@@ -1,13 +1,19 @@
 package com.deco2800.game.components;
 
-import com.deco2800.game.components.CombatItemsComponents.MeleeStatsComponent;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.entities.factories.WeaponFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
  * Component used to store information related to combat such as health, attack, etc. Any entities
@@ -93,6 +99,8 @@ public class CombatStatsComponent extends Component {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
+    System.out.println("Setting health " + this.health);
+
   }
 
   /**
@@ -126,17 +134,29 @@ public class CombatStatsComponent extends Component {
   public void hit(CombatStatsComponent attacker) {
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
             (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
-      //this is how we would equip a weapon manually, given that a working equip function has not yet been coded by the inventory team
-      /*Entity wep = WeaponFactory.createPlunger();
-      attacker.getEntity().getComponent(InventoryComponent.class).addItem(wep); //adding the weapon to inventory
-      attacker.getEntity().getComponent(InventoryComponent.class).equipItem(wep); //equipping the weapon*/
-        attackDmg = (int) playerWeapon.getComponent(MeleeStatsComponent.class).getDamage();
+
+        attackDmg = (int) playerWeapon.getComponent(PhyiscalWeaponStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
-      }
-    else { //if it's not a player, or if it is a player without a weapon
-      int newHealth = getHealth() - (int)((1 - damageReduction) * attacker.getBaseAttack());
+      } else { //if it's not a player, or if it is a player without a weapon
+      int newHealth = getHealth() - (int) ((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
+    }
+
+    if (isDead() && entity.checkEntityType(EntityTypes.ENEMY)) {
+
+      Gdx.app.postRunnable(() -> {
+        dropMaterial();
+        dropWeapon();
+        entity.dispose();
+      });
+
+      if (entity.getComponent(AnimationRenderComponent.class) != null) {
+        Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
+      }
+    }
+    if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+      entity.getEvents().trigger("death");
     }
   }
 
@@ -369,5 +389,44 @@ public class CombatStatsComponent extends Component {
     }
 
   }
+
+  public void dropMaterial() {
+
+    float x = getEntity().getPosition().x;
+    float y = getEntity().getPosition().y;
+
+    int randomnum = random.nextInt(100);
+
+    Entity material;
+
+    if (randomnum < 10) {
+      material = MaterialFactory.createSilver();
+    } else if (randomnum < 30 && randomnum >= 10) {
+      material = MaterialFactory.createGold();
+    } else if (randomnum < 40 && randomnum >= 30) {
+      material = MaterialFactory.createPlastic();
+    } else if (randomnum < 50 && randomnum >= 40) {
+      material = MaterialFactory.createRubber();
+    } else if (randomnum < 60 && randomnum >= 50) {
+      material = MaterialFactory.createIron();
+    } else if (randomnum < 70 && randomnum >= 60) {
+      material = MaterialFactory.createPlatinum();
+    } else if (randomnum < 80 && randomnum >= 70) {
+      material = MaterialFactory.createWood();
+    } else if (randomnum < 90 && randomnum >= 80) {
+      material = MaterialFactory.createSteel();
+    } else {
+      material = MaterialFactory.createWood();
+    }
+
+    if (!(randomnum > 90)) {
+      material.setScale(new Vector2(0.6f, 0.6f));
+
+      ServiceLocator.getEntityService().register(material);
+
+      material.setPosition((x), (y - 2));
+    }
+  }
+
 
 }

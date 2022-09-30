@@ -56,6 +56,28 @@ public class UndergroundGameArea extends GameArea {
             "images/Crafting-assets-sprint1/materials/silver.png",
             "images/Crafting-assets-sprint1/materials/steel.png",
             "images/Crafting-assets-sprint1/materials/wood.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png",
+            "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png",
+            "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_1.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_2.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_3.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_4.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
+            "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
     };
 
     public static String[] newTextures;
@@ -72,7 +94,6 @@ public class UndergroundGameArea extends GameArea {
     private final TerrainFactory terrainFactory;
 
     private Entity player;
-    private static GridPoint2 craftingTablePos;
 
 
     public UndergroundGameArea(TerrainFactory terrainFactory) {
@@ -105,7 +126,7 @@ public class UndergroundGameArea extends GameArea {
 
     private void displayUI() {
         Entity ui = new Entity();
-        ui.addComponent(new GameAreaDisplay("Box Underground"));
+        ui.addComponent(new GameAreaDisplay("Underground"));
         spawnEntity(ui);
     }
 
@@ -162,18 +183,8 @@ public class UndergroundGameArea extends GameArea {
     }
 
     public void spawnCraftingTable() {
-        GridPoint2 minPos = new GridPoint2(2, 2);
-        GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-        GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-        craftingTablePos = randomPos;
         Entity craftingTable = ObstacleFactory.createCraftingTable();
-        spawnEntityAt(craftingTable, randomPos, true, false);
-    }
-
-    public static GridPoint2 getCraftingTablePos() {
-        return craftingTablePos;
+        spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
     }
 
     private GridPoint2 randomPositon() {

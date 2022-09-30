@@ -8,6 +8,7 @@ import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.BackgroundSoundComponent;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
 import com.deco2800.game.components.mainmenu.MainMenuDisplay;
+import com.deco2800.game.components.mainmenu.MainMenuDisplayProMax;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -27,7 +28,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final GdxGame game;
   private final Renderer renderer;
-  private static final String[] mainMenuTextures = {"images/box_boy_title.png"};
+  private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/atlantis sinks main menu.png"};
   private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
   private static final String[] mainMenuMusic = {backgroundMusic};
 
@@ -111,7 +112,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
     Entity ui = new Entity();
-    ui.addComponent(new MainMenuDisplay())
+    ui.addComponent(new MainMenuDisplayProMax())
         .addComponent(new InputDecorator(stage, 10))
         .addComponent(new MainMenuActions(game));
 

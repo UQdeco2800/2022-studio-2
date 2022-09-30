@@ -10,7 +10,6 @@ public class AuraConfig {
     public int auraDuration;
     public double damageMultiplier;
     public double coolDownMultiplier;
-    public double weightMultiplier;
     public double areaMultiplier;
     public double durationMultiplier;
 }

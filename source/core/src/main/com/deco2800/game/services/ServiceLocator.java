@@ -8,6 +8,7 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.screens.DeathScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ public class ServiceLocator {
   private static GameAreaDisplay craftArea;
   private static GameAreaDisplay pauseMenuArea;
   private static GameAreaDisplay inventoryArea;
+  private static GameAreaDisplay keyBindArea;
 
   public static GameArea getGameArea() {return gameArea;}
   public static EntityService getEntityService() {
@@ -119,6 +121,11 @@ public class ServiceLocator {
     return mainGameScreen;
   }
 
+  /**
+   * ISAAC LOOK AT THIS AND WORK OUT HOW IT WORKS
+   */
+  //public static DeathScreen getDeathScreen() {return }
+
   public static void registerCraftArea(GameAreaDisplay area){
     craftArea = area;
   }
@@ -128,6 +135,12 @@ public class ServiceLocator {
   public static void registerInventoryArea(GameAreaDisplay area){
     inventoryArea = area;
   }
+
+  /**
+   * Register the display area the keybinding area will now exist in.
+   * @param area  GameAreaDisplay to introduce the keybinding area to
+   */
+  public static void registerKeyBindArea(GameAreaDisplay area) { keyBindArea = area;}
 
   public static GameAreaDisplay getCraftArea() {
     return craftArea;
@@ -140,5 +153,11 @@ public class ServiceLocator {
   public static GameAreaDisplay getInventoryArea() {
     return inventoryArea;
   }
+
+  /**
+   * Returns the keybinding GameAreaDisplay element.
+   * @return GameAreaDisplay  Associated GameAreaDisplay element
+   */
+  public static GameAreaDisplay getKeyBindArea() { return keyBindArea; }
 }
 
