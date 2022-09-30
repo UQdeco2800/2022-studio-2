@@ -80,6 +80,8 @@ public class DeathScreenDisplay extends UIComponent {
         } else if (getLevel() == 2) {
             new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
+        } else if (getLevel() == 3) {
+            exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         }
         buttonTextureRegion = new TextureRegion(continueBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
@@ -105,6 +107,8 @@ public class DeathScreenDisplay extends UIComponent {
         } else if (getLevel() == 2) {
             exitBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
+        } else if (getLevel() == 3) {
+            exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         }
         buttonTextureRegion = new TextureRegion(exitBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
@@ -157,24 +161,25 @@ public class DeathScreenDisplay extends UIComponent {
      * @return deathBackground if level is 1 it returns level 1 image, if level is 2 it reyurns level 2, else level 1
      */
     public Image levelBackground (int level) {
-        switch (level){
-            case 1:
+        switch (level) {
+            case 1 -> {
                 logger.info("setting level 1 deathscreen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
-
-            case 2:
+            }
+            case 2 -> {
                 logger.info("setting level 2 deathscreen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
-                // TODO change this out to win screen.
-            case 3:
+            }
+            // TODO change this out to win screen.
+            case 3 -> {
                 logger.info("setting win screen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_3.png", Texture.class));
+            }
         }
-        return deathBackground = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
+        return null;
     }
 
     /**
