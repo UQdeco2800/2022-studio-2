@@ -152,7 +152,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity heracles;
+  private static Entity heracles;
   private Entity megaPoop;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
@@ -191,13 +191,13 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Check if Heracles is placed on map
+   * Check if Heracles is alive on map
    */
-  public boolean ifHeraclesOnMap() {
-    if (heracles.getPosition() == null) {
-      return false;
+  public static boolean ifHeraclesOnMap() {
+    if (heracles.isDead()) {
+      return true;
     }
-    return true;
+    return false;
   }
 
 
