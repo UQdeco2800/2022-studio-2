@@ -53,7 +53,13 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] blockImg = {"images/Skills/block.png"};
   private static final String[] dodgeImg = {"images/Skills/dodge.png"};
   private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
-  private static final String[] dialogueImg = {"images/NPC/Dialogue/dialogues2.png"};
+  private static final String[] dialogueImg = {
+          "images/NPC/Dialogue/dialoguesboxmale.png",
+          "images/NPC/Dialogue/dialoguesboxguard.png",
+          "images/NPC/Dialogue/dialoguesboxchild.png",
+          "images/NPC/Dialogue/dialoguesboxfemale.png"
+
+  };
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity player;
