@@ -8,5 +8,7 @@ import com.deco2800.game.entities.factories.WeaponFactory;
  */
 public class GymBroConfig extends BaseEntityConfig {
     public float speed = 100f;
+    public int baseAttack = 5;
+    public int health = 70;
     public Entity weapon = WeaponFactory.createDumbbell();
 }

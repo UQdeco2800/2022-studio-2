@@ -42,7 +42,7 @@ public class ProjectileFactory {
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-                .addComponent(new CombatStatsComponent(1, 1, 0, 0))
+                .addComponent(new CombatStatsComponent(1, 3, 0, 0))
                 .addComponent(enemyProjectileComponent);
         projectile.setEntityType(EntityTypes.PROJECTILE);
         enemyProjectileComponent.setProjectileDirection(new Vector2(

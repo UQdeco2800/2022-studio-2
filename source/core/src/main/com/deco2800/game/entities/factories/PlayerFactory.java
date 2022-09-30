@@ -10,6 +10,7 @@ import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
+import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -70,9 +71,9 @@ public class PlayerFactory {
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
                 .addComponent(new WeaponAuraManager())
             .addComponent(animator)
-            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions())
-                .addComponent(new BuffDisplayComponent());
-
+                .addComponent(new BuffDisplayComponent())
+            .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
+            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
@@ -95,7 +96,8 @@ public class PlayerFactory {
                     .addComponent(new InventoryComponent())
                     .addComponent(new PlayerModifier())
                     .addComponent(new OpenCraftingComponent())
-                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER));
+                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER))
+                    .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER));
     return player;
   }
 
@@ -119,6 +121,23 @@ public class PlayerFactory {
     return skillAnimator;
   }
 
+  public static Entity createKeyPromptAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/KeyPrompt/KEY_Q_!.atlas", TextureAtlas.class));
+//    AnimationRenderComponent animator =
+//            new AnimationRenderComponent(
+//                    ServiceLocator.getResourceService().getAsset("images/Skills/skillAnimations.atlas", TextureAtlas.class));
+
+    animator.addAnimation("default", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("Q", 0.1f, Animation.PlayMode.LOOP);
+    Entity keyPromptAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerKPAnimationController(playerEntity));
+
+    keyPromptAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return keyPromptAnimator;
+  }
   /**
    * Create level 3 dagger and hera combat item animation.
    * @return entity
