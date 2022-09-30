@@ -81,7 +81,7 @@ public class DialogueDisplay extends UIComponent {
             "male\n",
             "1",
             "2",
-            "3",
+            "I will give you something",
             "4",
             "5",
             "6"
@@ -173,7 +173,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaMale = new TextArea(textMale[countMale], skin);
             textAreaMale.setWidth(400);
             dialogueContainerMale.addActor(textAreaMale);
-            if (countMale >= textMale.length) {
+            if (countMale >= textMale.length - 1) {
                 countMale = 0;
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {

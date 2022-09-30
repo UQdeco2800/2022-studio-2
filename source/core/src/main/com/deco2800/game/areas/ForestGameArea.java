@@ -157,6 +157,7 @@ public class ForestGameArea extends GameArea {
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   public static GridPoint2 oneLegGirlPosition;
+  public static GridPoint2 oneLegGirlDialoguePosition;
   public static GridPoint2 HumanGuardPosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 friendlycreaturePosition;
@@ -676,13 +677,14 @@ public class ForestGameArea extends GameArea {
   private void spawnOneLegGirl() {
 
     oneLegGirlPosition = new GridPoint2(20, 20);
+    oneLegGirlDialoguePosition = new GridPoint2(20, 21);
 
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, oneLegGirlPosition, true, true);
 
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, oneLegGirlPosition, true, true);
+    spawnEntityAt(dialogue, oneLegGirlDialoguePosition, true, true);
   }
   public static GridPoint2 getOneLegGirlPosition() {
     return oneLegGirlPosition;
