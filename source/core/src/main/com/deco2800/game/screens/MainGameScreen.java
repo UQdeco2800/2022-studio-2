@@ -1,5 +1,6 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -7,13 +8,14 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.OpenKeyBinds;
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -32,6 +34,7 @@ import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
+import net.dermetfan.gdx.physics.box2d.PositionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +63,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static GameArea map;
   private static Component mainGameActions;
   private static Boolean dead;
+  private static Integer gameLevel;
 
 
 
@@ -89,7 +93,8 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    ForestGameArea map = (ForestGameArea) chooseMap(1);
+    gameLevel = 1;
+    ForestGameArea map = (ForestGameArea) chooseMap(gameLevel);
 //    UndergroundGameArea map = loadLevelTwoMap();
     this.map = map;
 //    GameArea map = loadLevelTwoMap();
@@ -98,6 +103,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
+
 
   }
 
@@ -116,9 +122,19 @@ public class MainGameScreen extends ScreenAdapter {
     if (dead) {
       // Could add further player cleanup functionality here
       player.getComponent(PlayerActions.class).stopWalking();
+      if (gameLevel == 1) {
+        game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L1);
+      } else if (gameLevel == 2) {
+        game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
+      }
+    }
+
+    if (PauseMenuActions.getQuitGameStatus()) {
       mainGameActions.getEntity().getEvents().trigger("exit");
+      PauseMenuActions.setQuitGameStatus();
     }
   }
+
 
   @Override
   public void resize(int width, int height) {
@@ -157,8 +173,10 @@ public class MainGameScreen extends ScreenAdapter {
   public GameArea chooseMap(int level) {
     switch (level) {
       case 1:
+        gameLevel = 1;
         return this.loadLevelOneMap();
       case 2:
+        gameLevel = 2;
         map.dispose();
         this.map = this.loadLevelTwoMap();
         player = map.getPlayer();
@@ -184,7 +202,6 @@ public class MainGameScreen extends ScreenAdapter {
    * @return The game instance.
    */
   private UndergroundGameArea loadLevelTwoMap() {
-
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
 
@@ -244,7 +261,8 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent(new DialogueDisplay());
+        .addComponent(new DialogueDisplay())
+        .addComponent(new PauseMenuActions());
 
     ServiceLocator.getEntityService().register(ui);
   }

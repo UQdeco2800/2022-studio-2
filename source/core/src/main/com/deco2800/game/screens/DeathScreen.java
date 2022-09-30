@@ -1,71 +1,69 @@
 package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.deathscreen.DeathScreenActions;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
+import com.deco2800.game.components.npc.DialogueDisplay;
+import com.deco2800.game.components.BackgroundSoundComponent;
+import com.deco2800.game.components.mainmenu.MainMenuActions;
+import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
-import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
-import com.deco2800.game.physics.PhysicsEngine;
-import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
-import com.deco2800.game.ui.terminal.Terminal;
-import com.deco2800.game.ui.terminal.TerminalDisplay;
-import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The game screen containing the main game.
- *
- * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
+ * The game screen containing the death screen.
  */
 public class DeathScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
-    private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-
-    /* Lol he said. Lmao. */
     private final GdxGame game;
     private final Renderer renderer;
-    private final PhysicsEngine physicsEngine;
+    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
+    private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
+    private static final String[] deathMusic = {backgroundMusic};
 
-    public DeathScreen(GdxGame game) {
+
+    /**
+     * DeathScreen constructor
+     * @param game
+     * @param level
+     */
+    public DeathScreen(GdxGame game, int level) {
         this.game = game;
 
-        logger.debug("Initialising main game screen services");
-        ServiceLocator.registerTimeSource(new GameTime());
-
-        PhysicsService physicsService = new PhysicsService();
-        ServiceLocator.registerPhysicsService(physicsService);
-        physicsEngine = physicsService.getPhysics();
-
+        logger.debug("Initialising death screen screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
-
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
         renderer = RenderFactory.createRenderer();
-//    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
-        renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
-        createUI();
+        loadAssets();
+        createUI(level);
+        playMusic();
+    }
 
+    private void playMusic() {
+        Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+        music.setLooping(true);
+        music.setVolume(0.3f);
+        music.play();
     }
 
     @Override
     public void render(float delta) {
-        physicsEngine.update();
         ServiceLocator.getEntityService().update();
         renderer.render();
     }
@@ -88,38 +86,44 @@ public class DeathScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing main game screen");
+        logger.debug("Disposing death screen");
 
         renderer.dispose();
-
-        ServiceLocator.getEntityService().dispose();
+        unloadAssets();
         ServiceLocator.getRenderService().dispose();
-        ServiceLocator.getResourceService().dispose();
+        ServiceLocator.getEntityService().dispose();
+        ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
 
         ServiceLocator.clear();
     }
 
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(deathTextures);
+        resourceService.loadMusic(deathMusic);
+        ServiceLocator.getResourceService().loadAll();
+    }
+
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(deathTextures);
+    }
 
     /**
-     * Creates the main game's ui including components for rendering ui elements to the screen and
+     * Creates the death screens's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
-    private void createUI() {
+    private void createUI(int level) {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
-        InputComponent inputComponent =
-                ServiceLocator.getInputService().getInputFactory().createForTerminal();
-
         Entity ui = new Entity();
-        ui.addComponent(new InputDecorator(stage, 10))
-                .addComponent(new PerformanceDisplay())
-                .addComponent(new DeathScreenActions(this.game))
-                .addComponent(new DeathScreenDisplay())
-                .addComponent(new Terminal())
-                .addComponent(inputComponent)
-                .addComponent(new TerminalDisplay());
+        ui.addComponent(new DeathScreenDisplay(level))
+                .addComponent(new InputDecorator(stage, 10))
+                .addComponent(new DeathScreenActions(game));
+
 
         ServiceLocator.getEntityService().register(ui);
     }
-
 }

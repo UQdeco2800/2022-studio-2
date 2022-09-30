@@ -2,7 +2,9 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.utils.Null;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.RangedStatsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.entities.Entity;
@@ -15,6 +17,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private CombatStatsComponent combatStats;
     private boolean enemyCollide = false;
     private Entity target;
+    private Entity combatAnimator;
+    private boolean canAttack;
+    private long  cooldownEnd;
 
     /**
      * Create a component which attacks enemy entities on collision, without knockback.
@@ -32,6 +37,11 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         entity.getEvents().addListener("collisionEnd", this::playerCollidesEnemyEnd);
     }
 
+    @Override
+    public void update() {
+        checkCanAttack();
+    }
+
     /**
      * Method called when collision is detected between the hitbox of the entity that implements this component (player)
      * and another entity (enemy).
@@ -46,22 +56,61 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     }
 
     /**
+     * Sets the combat item animator for this actions component
+     * @param combatAnimator the combat animator entity which has subcomponents
+     *                      PlayerSkillAnimationController and AnimationRenderer
+     */
+    public void setCombatAnimator(Entity combatAnimator){
+        this.combatAnimator = combatAnimator;
+    }
+
+    /**
      * Method called when the player entity is attacking.
      */
     void attack() {
-        Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-        attackSound.play();
-        if (enemyCollide) {
-            applyDamageToTarget(target);
-            if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
-                target.dispose();
-                target.getComponent(CombatStatsComponent.class).dropWeapon();
-                if (target.getComponent(AnimationRenderComponent.class) != null) {
-                    target.getComponent(CombatStatsComponent.class).dropMaterial();
-                    target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
+        if (canAttack) {
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
+            attackSound.play();
+            canAttack = false;
+
+            Entity weaponEquipped = entity.getComponent(InventoryComponent.class).getEquipable(0);
+            if (weaponEquipped != null) {
+                if (weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class) != null) {
+                    cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class).getCoolDown());
+                    //Sets the attack animation dependent on the weapon that is currently equipped
+                    String description = weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class).getDescription();
+                    combatAnimator.getEvents().trigger(description);
+                }
+
+            } else {
+                cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
+            }
+
+            if (enemyCollide) {
+                applyDamageToTarget(target);
+              /*  if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
+                    target.dispose();
+                    target.getComponent(CombatStatsComponent.class).dropWeapon();
+                    if (target.getComponent(AnimationRenderComponent.class) != null) {
+                        target.getComponent(CombatStatsComponent.class).dropMaterial();
+                        target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
+                    }
+                }*/
+                entity.getEvents().trigger("hitEnemy", target); // for skill listener
+            }
+
+            else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
+                if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
+                    ((ForestGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
                 }
             }
-            entity.getEvents().trigger("hitEnemy", target); // for skill listener
+        }
+    }
+
+    public void checkCanAttack() {
+        if (System.currentTimeMillis() > cooldownEnd) {
+            canAttack = true;
+            cooldownEnd = 0;
         }
     }
 

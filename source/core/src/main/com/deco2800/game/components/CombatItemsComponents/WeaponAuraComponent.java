@@ -7,7 +7,6 @@ import com.deco2800.game.components.Component;
  */
 
 public class WeaponAuraComponent extends Component {
-    private double weightMultiplier;
     private double durationMultiplier;
     private double dmgMultiplier;
     private double cdMultiplier;
@@ -19,14 +18,11 @@ public class WeaponAuraComponent extends Component {
      * @param auraDuration how long the aura is activated for the weapon
      * @param dmgMultiplier damage multiplier effect on the weapon
      * @param cdMultiplier cooldown multiplier effect on the weapon
-     * @param weightMultiplier weight multiplier effect on the weapon
      */
-    public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double cdMultiplier,
-                double weightMultiplier) {
+    public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double cdMultiplier) {
         setAuraDuration(auraDuration);
         setDmgMultiplier(dmgMultiplier);
         setCdMultiplier(cdMultiplier);
-        setWeightMultiplier(weightMultiplier);
     }
 
     /**
@@ -75,9 +71,6 @@ public class WeaponAuraComponent extends Component {
      * Set the weight multiplier on the weapon
      * @param weightMultiplier weight multiplier on the weapon
      */
-    public void setWeightMultiplier(double weightMultiplier) {
-        this.weightMultiplier = weightMultiplier;
-    }
 
     /**
      * Set the multiplier on the duration before the next attack instance can be called
@@ -135,14 +128,6 @@ public class WeaponAuraComponent extends Component {
      */
     public int getAuraDuration() {
         return auraDuration;
-    }
-
-    /**
-     * Return the weight multiplier on the weapon
-     * @return weight multiplier on the weapon
-     */
-    public double getWeightMultiplier() {
-        return weightMultiplier;
     }
 
 }

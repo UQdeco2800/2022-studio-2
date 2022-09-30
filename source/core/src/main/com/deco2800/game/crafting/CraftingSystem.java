@@ -1,7 +1,7 @@
 package com.deco2800.game.crafting;
 
-import com.deco2800.game.entities.configs.CombatItemsConfig.MeleeConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 
 import java.util.*;
@@ -12,8 +12,8 @@ import java.util.*;
  */
 public class CraftingSystem implements Runnable{
 
-    public static final WeaponConfig configs =
-            FileLoader.readClass(WeaponConfig.class, "configs/Weapons.json");
+    public static final WeaponConfigSetup configs =
+            FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
 
     /**
      * List of all the items the user has built
@@ -35,7 +35,7 @@ public class CraftingSystem implements Runnable{
          builtItems = new ArrayList<>();
 
          //Set Possible Builds by finding all weapons that implement Buildable component
-        ArrayList<MeleeConfig> possibleWeapons = new ArrayList<>();
+        ArrayList<WeaponConfig> possibleWeapons = new ArrayList<>();
     //    possibleWeapons.add(configs.Sword);
   //      possibleWeapons.add(configs.dagger);
 //        possibleWeapons.add(configs.daggerTwo);
