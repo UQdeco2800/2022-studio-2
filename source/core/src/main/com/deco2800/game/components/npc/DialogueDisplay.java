@@ -28,12 +28,19 @@ public class DialogueDisplay extends UIComponent {
     private static Image dialogueimageguard;
     private static Image dialogueimgchild;
     private static Image dialogueimagemale;
+    private static Image dialogueimagehumanguard;
+    private static Image dialogueimagefriendlycreature;
+    private static Image dialogueimageplumberfriend;
+
 
 
     public int dialogueImageFemale = 0;
     public int dialogueImageChild = 1;
     public int dialogueImageGuard = 2;
     public int dialogueImageMale = 3;
+    public int dialogueImageHumanGuard = 4;
+    public int dialogueImageFriendlyCreature = 5;
+    public int dialogueImagePlumberFriend = 6;
 
     private HashMap<Integer, String> dialogueMap = new HashMap<Integer, String>() {
         {
@@ -41,30 +48,43 @@ public class DialogueDisplay extends UIComponent {
             put(1, "images/NPC/Dialogue/dialoguesboxchild.png");
             put(2, "images/NPC/Dialogue/dialoguesboxguard.png");
             put(3, "images/NPC/Dialogue/dialoguesboxmale.png");
+            put(4, "images/NPC/Dialogue/HumanGuardDialogue.png");
+            put(5, "images/NPC/Dialogue/FriendlyCreatureDialogue.png");
+            put(6, "images/NPC/Dialogue/PlumberFriend.png");
         }
     };
     static int countFemale = 0;
     static int countGuard = 0;
     static int countChild = 0;
     static int countMale = 0;
+    static int countHumanGuard = 0;
+    static int countFriendlyCreature = 0;
+    static int countPlumberFriend = 0;
 
 
     public static Table dialogueContainerFemale;
     public static Table dialogueContainerGuard;
     public static Table dialogueContainerMale;
     public static Table dialogueContainerChild;
+    public static Table dialogueContainerHumanGuard;
+    public static Table dialogueContainerFriendlyCreature;
+    public static Table dialogueContainerPlumberFriend;
 
     public static TextArea textAreaFemale;
     public static TextArea textAreaGuard;
     public static TextArea textAreaMale;
     public static TextArea textAreaChild;
+    public static TextArea textAreaHumanGuard;
+    public static TextArea textAreaFriendlyCreature;
+    public static TextArea textAreaPlumberFriend;
 
     public static Boolean state = false;
 
     public static String[] textFemale = {
-            "Alice:\n",
+            "Nat:\n",
             "Are you still going ahead with your plan? \n",
-            "Me? Come with you? Hmm…maybe it’s best I don’t go since I’m a bit out of shape.\n",
+            "Me? Come with you? \n",
+            "Hmm…maybe it’s best I don’t go since I’m a bit out of shape.\n",
             "Instead I’ll help by keeping you out of any suspicions \n",
     };
 
@@ -78,7 +98,7 @@ public class DialogueDisplay extends UIComponent {
     };
 
     public static String[] textMale = {
-            "male\n",
+            "Richard: \n",
             "1",
             "2",
             "I will give you something",
@@ -98,6 +118,30 @@ public class DialogueDisplay extends UIComponent {
             "7"
     };
 
+    public static String[] textHumanGuard = {
+            "George\n",
+            "1",
+            "2",
+            "3",
+            "4"
+    };
+
+    public static String[] textFriendlyCreature = {
+            "FriendlyCreature\n",
+            "1",
+            "2",
+            "3",
+            "4"
+    };
+
+    public static String[] textPlumberFriend = {
+            "PlumberFriend\n",
+            "1",
+            "2",
+            "3",
+            "4"
+    };
+
 
     @Override
     public void create() {
@@ -109,6 +153,12 @@ public class DialogueDisplay extends UIComponent {
         dialogueContainerMale.setFillParent(true);
         dialogueContainerChild = new Table();
         dialogueContainerChild.setFillParent(true);
+        dialogueContainerHumanGuard = new Table();
+        dialogueContainerHumanGuard.setFillParent(true);
+        dialogueContainerFriendlyCreature = new Table();
+        dialogueContainerFriendlyCreature.setFillParent(true);
+        dialogueContainerPlumberFriend = new Table();
+        dialogueContainerPlumberFriend.setFillParent(true);
 
         dialogueImagefemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFemale), Texture.class));
@@ -118,6 +168,13 @@ public class DialogueDisplay extends UIComponent {
                 .getAsset(dialogueMap.get(dialogueImageMale), Texture.class));
         dialogueimgchild = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageChild), Texture.class));
+        dialogueimagehumanguard = new Image(ServiceLocator.getResourceService()
+                .getAsset(dialogueMap.get(dialogueImageHumanGuard), Texture.class));
+        dialogueimagefriendlycreature = new Image(ServiceLocator.getResourceService()
+                .getAsset(dialogueMap.get(dialogueImageFriendlyCreature), Texture.class));
+        dialogueimageplumberfriend = new Image(ServiceLocator.getResourceService()
+                .getAsset(dialogueMap.get(dialogueImagePlumberFriend), Texture.class));
+
 
         textAreaFemale = new TextArea(textFemale[countFemale], skin);
         textAreaFemale.setWidth(400);
@@ -131,6 +188,15 @@ public class DialogueDisplay extends UIComponent {
         textAreaChild = new TextArea(textChild[countChild], skin);
         textAreaChild.setWidth(400);
         textAreaChild.setHeight(50);
+        textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
+        textAreaHumanGuard.setWidth(400);
+        textAreaHumanGuard.setHeight(50);
+        textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
+        textAreaFriendlyCreature.setWidth(400);
+        textAreaFriendlyCreature.setHeight(50);
+        textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
+        textAreaPlumberFriend.setWidth(400);
+        textAreaPlumberFriend.setHeight(50);
 
 
         dialogueContainerFemale.addActor(dialogueImagefemale);
@@ -141,6 +207,12 @@ public class DialogueDisplay extends UIComponent {
         dialogueContainerMale.addActor(textAreaMale);
         dialogueContainerChild.addActor(dialogueimgchild);
         dialogueContainerChild.addActor(textAreaChild);
+        dialogueContainerHumanGuard.addActor(dialogueimagehumanguard);
+        dialogueContainerHumanGuard.addActor(textAreaHumanGuard);
+        dialogueContainerFriendlyCreature.addActor(dialogueimagefriendlycreature);
+        dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreature);
+        dialogueContainerPlumberFriend.addActor(dialogueimageplumberfriend);
+        dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
 
         super.create();
         entity.getEvents().addListener("openDialogue", this::openDialogue);
@@ -156,8 +228,9 @@ public class DialogueDisplay extends UIComponent {
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
             textAreaFemale.setWidth(400);
             dialogueContainerFemale.addActor(textAreaFemale);
-            if (countFemale >= 3) {
+            if (countFemale == textFemale.length - 1) {
                 countFemale = 0;
+                dialogueContainerFemale.remove();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
             countGuard++;
@@ -165,34 +238,65 @@ public class DialogueDisplay extends UIComponent {
             textAreaGuard.setWidth(400);
             dialogueContainerGuard.addActor(textAreaGuard);
 
-            if (countGuard >= 4) {
+            if (countGuard == textGuard.length - 1) {
                 countGuard = 0;
+                dialogueContainerGuard.remove();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
             countMale++;
             textAreaMale = new TextArea(textMale[countMale], skin);
             textAreaMale.setWidth(400);
             dialogueContainerMale.addActor(textAreaMale);
-            if (countMale >= textMale.length - 1) {
+            if (countMale == textMale.length - 1) {
                 countMale = 0;
+                dialogueContainerMale.remove();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
             countChild++;
             textAreaChild = new TextArea(textChild[countChild], skin);
             textAreaChild.setWidth(400);
             dialogueContainerChild.addActor(textAreaChild);
-            if (countChild >= textChild.length - 1) {
+            if (countChild == textChild.length - 1) {
                 countChild = 0;
                 dialogueContainerChild.remove();
             } else if (countChild >= 4) {
                 TextButton childButton = new TextButton("yes", skin);
-                dialogueContainerChild.add(childButton);
+                dialogueContainerChild.addActor(childButton);
 
             }
+
+        } else if (entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
+            countHumanGuard++;
+            textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
+            textAreaHumanGuard.setWidth(400);
+            dialogueContainerHumanGuard.addActor(textAreaHumanGuard);
+            if (countHumanGuard == textHumanGuard.length - 1) {
+                countHumanGuard = 0;
+                dialogueContainerHumanGuard.remove();
+            }
+
+        } else if (entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
+            countFriendlyCreature++;
+            textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
+            textAreaFriendlyCreature.setWidth(400);
+            dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreature);
+            if (countFriendlyCreature == textFriendlyCreature.length - 1) {
+                countFriendlyCreature = 0;
+                dialogueContainerFriendlyCreature.remove();
+            }
+
+        } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
+            countPlumberFriend++;
+            textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
+            textAreaPlumberFriend.setWidth(400);
+            dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
+            if (countPlumberFriend == textPlumberFriend.length - 1) {
+                countPlumberFriend = 0;
+                dialogueContainerPlumberFriend.remove();
+            }
+
         }
     }
-
-
     public void openDialogue() {
 
         if (state) {
@@ -201,7 +305,6 @@ public class DialogueDisplay extends UIComponent {
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
                 stage.addActor(dialogueContainerGuard);
-
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
                 stage.addActor(dialogueContainerMale);
@@ -209,22 +312,18 @@ public class DialogueDisplay extends UIComponent {
             } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
                 stage.addActor(dialogueContainerChild);
                 state = false;
+            } else if (entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
+                stage.addActor(dialogueContainerHumanGuard);
+                state = false;
+            } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
+                stage.addActor(dialogueContainerPlumberFriend);
+                state = false;
+            } else if (entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
+                stage.addActor(dialogueContainerFriendlyCreature);
+                state = false;
             }
 
         }
-
-
-//        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(HumanGuardPosition)) < 2) {
-//            stage.addActor(dialogueImage);
-//            state = false;
-//        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) < 2) {
-//            stage.addActor(dialogueImage);
-//            state = false;
-//        } else if (state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(friendlycreaturePosition)) < 2) {
-//            stage.addActor(dialogueImage);
-//            state = false;
-//        }
-
     }
 
 
@@ -232,42 +331,28 @@ public class DialogueDisplay extends UIComponent {
 
     //hide dialogue function
     public void hideDialogue() {
-        if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) < 2) {
+        if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) < 1.5) {
             dialogueContainerFemale.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) < 2) {
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) < 1.5) {
             dialogueContainerGuard.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) < 2) {
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) < 1.5) {
             dialogueContainerMale.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) < 2) {
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) < 1.5) {
             dialogueContainerChild.remove();
             state = true;
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(HumanGuardPosition)) < 1.5) {
+            dialogueContainerHumanGuard.remove();
+            state = true;
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) < 1.5) {
+            dialogueContainerPlumberFriend.remove();
+            state = true;
+        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(friendlycreaturePosition)) < 1.5) {
+            dialogueContainerFriendlyCreature.remove();
+            state = true;
         }
-//        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) > 2) {
-//            dialogueImage.remove();
-//            state = true;
-//        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) > 2) {
-//            dialogueImage.remove();
-//            state = true;
-//        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) > 2) {
-//            dialogueImage.remove();
-//            state = true;
-//        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) > 2) {
-//            dialogueImage.remove();
-//            state = true;
-//        }
-//        else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(HumanGuardPosition)) > 2) {
-//            dialogueImage.remove();
-//            state = true;
-//        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) > 2) {
-//            dialogueImage.remove();
-//            state = true;
-//        } else if (entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(friendlycreaturePosition)) > 2) {
-//            dialogueImage.remove();
-//            state = true;
-//        }
 
     }
 
