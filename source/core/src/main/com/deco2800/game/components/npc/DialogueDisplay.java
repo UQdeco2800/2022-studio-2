@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.FloatArray;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -27,9 +28,6 @@ public class DialogueDisplay extends UIComponent {
     private static Image dialogueimageguard;
     private static Image dialogueimgchild;
     private static Image dialogueimagemale;
-
-    private static Dialog dialog;
-
 
 
     public int dialogueImageFemale = 0;
@@ -64,7 +62,7 @@ public class DialogueDisplay extends UIComponent {
     public static Boolean state = false;
 
     public static String[] textFemale = {
-            "Hey! I have not seen you in forever.\n",
+            "Alice:\n",
             "Are you still going ahead with your plan? \n",
             "Me? Come with you? Hmm…maybe it’s best I don’t go since I’m a bit out of shape.\n",
             "Instead I’ll help by keeping you out of any suspicions \n",
@@ -99,6 +97,7 @@ public class DialogueDisplay extends UIComponent {
             "6",
             "7"
     };
+
 
     @Override
     public void create() {
@@ -155,6 +154,7 @@ public class DialogueDisplay extends UIComponent {
         if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
             countFemale++;
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
+            textAreaFemale.setWidth(400);
             dialogueContainerFemale.addActor(textAreaFemale);
             if (countFemale >= 3) {
                 countFemale = 0;
@@ -162,6 +162,7 @@ public class DialogueDisplay extends UIComponent {
         } else if (entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
             countGuard++;
             textAreaGuard = new TextArea(textGuard[countGuard], skin);
+            textAreaGuard.setWidth(400);
             dialogueContainerGuard.addActor(textAreaGuard);
 
             if (countGuard >= 4) {
@@ -170,6 +171,7 @@ public class DialogueDisplay extends UIComponent {
         } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
             countMale++;
             textAreaMale = new TextArea(textMale[countMale], skin);
+            textAreaMale.setWidth(400);
             dialogueContainerMale.addActor(textAreaMale);
             if (countMale >= textMale.length) {
                 countMale = 0;
@@ -177,9 +179,15 @@ public class DialogueDisplay extends UIComponent {
         } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
             countChild++;
             textAreaChild = new TextArea(textChild[countChild], skin);
+            textAreaChild.setWidth(400);
             dialogueContainerChild.addActor(textAreaChild);
-            if (countChild >= textChild.length) {
+            if (countChild >= textChild.length - 1) {
                 countChild = 0;
+                dialogueContainerChild.remove();
+            } else if (countChild >= 4) {
+                TextButton childButton = new TextButton("yes", skin);
+                dialogueContainerChild.add(childButton);
+
             }
         }
     }
