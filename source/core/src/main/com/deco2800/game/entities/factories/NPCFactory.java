@@ -7,17 +7,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.DialogueAnimationController;
-import com.deco2800.game.components.npc.GymBroAnimationController;
+import com.deco2800.game.components.npc.*;
 
-import com.deco2800.game.components.npc.MaleAnimationController;
-
-import com.deco2800.game.components.npc.NPCAnimationController;
-
-
-
-import com.deco2800.game.components.npc.PoopAnimationController;
-import com.deco2800.game.components.npc.HeraclesAnimationController;
 
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.JumpTask;
@@ -352,6 +343,41 @@ public class NPCFactory {
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
     return poops;
+  }
+
+  /**
+   * Creates Mega Poop, the boss of the second level.
+   *
+   * @return entity
+   */
+  public static Entity createMegaPoop(Entity target)  {
+    Entity megaPoop = createBaseNPC();
+    MegaPoopConfig config = configs.megaPoop;
+    List<EntityTypes> types = megaPoop.getEntityTypes();
+    String projectileType = "discus";
+
+    megaPoop.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Enemies/mega_poop.atlas", TextureAtlas.class));
+    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+
+
+    megaPoop
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new MegaPoopAnimationController());
+
+    megaPoop.setEntityType(EntityTypes.ENEMY);
+    megaPoop.setEntityType(EntityTypes.BOSS);
+    megaPoop.setScale(3f, 3f);
+    return megaPoop;
   }
 
   /**

@@ -4,14 +4,14 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 
 /**
- * This class listens to events relevant to a gym bro entity's state and plays the animation when one
+ * This class listens to events relevant to Heracles' state and plays the animation when one
  * of the events is triggered.
  */
 public class HeraclesAnimationController extends Component {
     AnimationRenderComponent animator;
 
     /**
-     * Creates the gym bro animation controller
+     * Creates the Heracles animation controller
      */
     @Override
     public void create() {
@@ -29,7 +29,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing right
+     * Animates the Heracles walking when facing right
      */
     private void animateWalkRight() {
         if (!"walk_right".equals(animator.getCurrentAnimation())) {
@@ -38,7 +38,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing left
+     * Animates Heracles walking when facing left
      */
     private void animateWalkLeft() {
         if (!"walk_left".equals(animator.getCurrentAnimation())) {
@@ -47,7 +47,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing backwards
+     * Animates Heracles walking when facing backwards
      */
     private void animateWalkBack() {
         if (!"walk_back".equals(animator.getCurrentAnimation())) {
@@ -56,7 +56,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing forwards
+     * Animates Heracles walking when facing forwards
      */
     private void animateWalkFront() {
         if (!"walk_front".equals(animator.getCurrentAnimation())) {
@@ -65,7 +65,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro attacking when facing right
+     * Animates Heracles attacking when facing right
      */
     private void animateDiscusAttackRight() {
         if (!"discus_attack_right".equals(animator.getCurrentAnimation())) {
@@ -74,7 +74,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro attacking when facing left
+     * Animates Heracles attacking when facing left
      */
     private void animateDiscusAttackLeft() {
         if (!"discus_attack_left".equals(animator.getCurrentAnimation())) {
@@ -83,7 +83,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro attacking when facing forwards
+     * Animates Heracles attacking when facing forwards
      */
     private void animateDiscusAttackFront() {
         if (!"discus_attack_front".equals(animator.getCurrentAnimation())) {
@@ -92,7 +92,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro attacking when facing backwards
+     * Animates Heracles attacking when facing backwards
      */
     private void animateDiscusAttackBack() {
         if (!"discus_attack_back".equals(animator.getCurrentAnimation())) {
