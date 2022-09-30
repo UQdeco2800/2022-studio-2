@@ -153,6 +153,7 @@ public class NPCFactory {
     humanguard.getComponent(AnimationRenderComponent.class).scaleEntity();
     humanguard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     humanguard.setScale(1, 1);
+    humanguard.setEntityType(EntityTypes.NPC);
     return humanguard;
   }
 
@@ -174,6 +175,7 @@ public class NPCFactory {
     plumberfriend.getComponent(AnimationRenderComponent.class).scaleEntity();
     plumberfriend.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     plumberfriend.setScale(1, 1);
+    plumberfriend.setEntityType(EntityTypes.NPC);
     return plumberfriend;
   }
 
@@ -202,6 +204,7 @@ public class NPCFactory {
     friendlycreature.getComponent(AnimationRenderComponent.class).scaleEntity();
     friendlycreature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     friendlycreature.setScale(1, 1);
+    friendlycreature.setEntityType(EntityTypes.NPC);
     return friendlycreature;
 
   }
