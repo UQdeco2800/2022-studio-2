@@ -82,19 +82,22 @@ public class DialogueDisplay extends UIComponent {
 
     public static String[] textFemale = {
             "Nat:\n",
-            "Are you still going ahead with your plan? \n",
-            "Me? Come with you? \n",
-            "Hmm…maybe it’s best I don’t go since I’m a bit out of shape.\n",
-            "Instead I’ll help by keeping you out of any suspicions \n",
+            "Oh good heavens, are you balding?\n",
+            "That's quite horrific.",
+            "But I guess it does not matter,",
+            "For a plumber like you.",
+            "Now go away and fix some toilets.",
     };
 
     public static String[] textGuard = {
             "Guard\n",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"
+            "Have you seen anyone suspicious? ",
+            "No? Okay then...",
+            "Would you mind telling me your name?",
+            "Hmm...okay",
+            "A bit strange for a plumber to be",
+            "roaming around right now..",
+
     };
 
     public static String[] textMale = {
@@ -177,25 +180,25 @@ public class DialogueDisplay extends UIComponent {
 
 
         textAreaFemale = new TextArea(textFemale[countFemale], skin);
-        textAreaFemale.setWidth(400);
+        textAreaFemale.setWidth(480);
         textAreaFemale.setHeight(50);
         textAreaGuard = new TextArea(textGuard[countGuard], skin);
-        textAreaGuard.setWidth(400);
+        textAreaGuard.setWidth(480);
         textAreaGuard.setHeight(50);
         textAreaMale = new TextArea(textMale[countMale], skin);
-        textAreaMale.setWidth(400);
+        textAreaMale.setWidth(480);
         textAreaMale.setHeight(50);
         textAreaChild = new TextArea(textChild[countChild], skin);
-        textAreaChild.setWidth(400);
+        textAreaChild.setWidth(480);
         textAreaChild.setHeight(50);
         textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
-        textAreaHumanGuard.setWidth(400);
+        textAreaHumanGuard.setWidth(480);
         textAreaHumanGuard.setHeight(50);
         textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
-        textAreaFriendlyCreature.setWidth(400);
+        textAreaFriendlyCreature.setWidth(480);
         textAreaFriendlyCreature.setHeight(50);
         textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
-        textAreaPlumberFriend.setWidth(400);
+        textAreaPlumberFriend.setWidth(480);
         textAreaPlumberFriend.setHeight(50);
 
 
@@ -226,7 +229,7 @@ public class DialogueDisplay extends UIComponent {
         if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
             countFemale++;
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
-            textAreaFemale.setWidth(400);
+            textAreaFemale.setWidth(480);
             dialogueContainerFemale.addActor(textAreaFemale);
             if (countFemale == textFemale.length - 1) {
                 countFemale = 0;
