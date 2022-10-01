@@ -1,6 +1,8 @@
 package com.deco2800.game.components.npc;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -244,6 +246,9 @@ public class DialogueDisplay extends UIComponent {
             if (countGuard == textGuard.length - 1) {
                 countGuard = 0;
                 dialogueContainerGuard.remove();
+            } else if (countGuard == 2) {
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Female Audio 1.wav"));
+                music.play();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
             countMale++;
