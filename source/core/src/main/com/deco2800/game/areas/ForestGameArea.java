@@ -148,7 +148,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity heracles;
+  private static Entity heracles;
   private Entity megaPoop;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
@@ -188,13 +188,13 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Check if Heracles is placed on map
+   * Check if Heracles is alive on map
    */
-  public boolean ifHeraclesOnMap() {
-    if (heracles.getPosition() == null) {
-      return false;
+  public static boolean ifHeraclesOnMap() {
+    if (heracles.isDead()) {
+      return true;
     }
-    return true;
+    return false;
   }
 
 
@@ -207,7 +207,6 @@ public class ForestGameArea extends GameArea {
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
-    //spawnEffectBlobs();
     spawnGymBro();
     heracles = spawnHeracles();
     megaPoop = spawnMegaPoop();
@@ -239,6 +238,8 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
+    spawnSpeedBuff();
+    spawnPlungerBow(); //PLS RMOVE LASTER
 
 
   }
@@ -365,6 +366,19 @@ public class ForestGameArea extends GameArea {
   }
   */
 
+  /**
+   * Spawns speed buff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
+  private void spawnSpeedBuff() {
+    Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+    auraOnMap.add(speedbuff);
+    spawnEntityAt(speedbuff, new GridPoint2(7,7), true, false);
+  }
+  /**
+   *
+   */
   /**
    * Spawns speed debuff entity into the game
    * Spawns x-pos 10
