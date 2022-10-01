@@ -5,19 +5,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.player.PlayerModifier;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class OpenKeyBinds extends Component {
 
-    public class KeyBind {
+    public static class KeyBind {
         public String key;
         public String description;
         public String imagelvl1;
