@@ -1,19 +1,14 @@
 package com.deco2800.game.components.deathscreen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.rendering.TextureRenderComponent;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -31,13 +26,18 @@ public class DeathScreenDisplay extends UIComponent {
     private Image deathBackground;
     // Global variable of game level
     private Integer level;
-    //private List<String> deathBackgrounds = new List<String>();
+    // Texture of continue button
     private Texture continueBtnTexture;
+    // Texture of exit button
     private Texture exitBtnTexture;
+    // Texture Region of a given texture
     private TextureRegion buttonTextureRegion;
+    // Texture drawable of a given texture region
     private TextureRegionDrawable buttonDrawable;
-    private ImageButton exitButton;
+    // Image button of continue button
     private ImageButton continueButton;
+    // Image button of exit button
+    private ImageButton exitButton;
 
 
     /**
@@ -127,7 +127,6 @@ public class DeathScreenDisplay extends UIComponent {
 
         logger.debug("Continue button and Exit button created");
 
-        //  adjust layout of table to make it align with what we planed for death screen
 
         // Creates a stack of items, this allows you to overlay them and 'stack' them on top of eachother
         Stack background = new Stack();
@@ -173,11 +172,10 @@ public class DeathScreenDisplay extends UIComponent {
                 return deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
             }
-            // TODO change this out to win screen.
             case 3 -> {
                 logger.info("setting win screen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_3.png", Texture.class));
+                        .getAsset("images/WinScreen/Win.png", Texture.class));
             }
         }
         return null;

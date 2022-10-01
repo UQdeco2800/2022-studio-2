@@ -25,7 +25,7 @@ public class DeathScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
+    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png", "images/WinScreen/Win.png"};
     private static final String[] deathBtnTextures = {"images/DeathScreens/widgets/main_menu_lvl_1.png",
                                                     "images/DeathScreens/widgets/main_menu_lvl_2.png",
                                                     "images/DeathScreens/widgets/play_again_lvl_1.png",

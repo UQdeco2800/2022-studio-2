@@ -80,6 +80,7 @@ public class GdxGame extends Game {
         return deathScreen;
       case DEATH_SCREEN_L2:
         deathScreen = new DeathScreen(this, 2);
+        return deathScreen;
       case SkillsTree:
         return new SkillsTreeScreen(this);
       case LEVEL_TRANSITION:

@@ -140,7 +140,9 @@ public class MainGameScreen extends ScreenAdapter {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L1);
       } else if (gameLevel == 2) {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
-      } else if (gameLevel == 3) {
+        // TODO implement win case of player being on level 2 plug.
+      } else if (gameLevel == 2 && (map.getPlayer().getPosition().x > 11 && map.getPlayer().getPosition().x < 13) &&
+      (map.getPlayer().getPosition().y > 16 && map.getPlayer().getPosition().y < 18)) {
         game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
       }
     }
@@ -180,6 +182,22 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getResourceService().dispose();
 
     ServiceLocator.clear();
+  }
+
+  /**
+   * Gets game level
+   * @return gameLevel - integer value of current game level
+   */
+  public int getGameLevel() {
+    return gameLevel;
+  }
+
+  /**
+   * Sets game level
+   * @param gameLevel - the game level you want to change the level to.
+   */
+  public void setGameLevel(int gameLevel) {
+    this.gameLevel = gameLevel;
   }
 
   /**

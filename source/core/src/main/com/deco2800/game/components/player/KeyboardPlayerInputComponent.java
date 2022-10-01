@@ -129,11 +129,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 (entity.getPosition().y > 16 && entity.getPosition().y < 18) &&
                 (!transitionScreenDisplayed) &&
                 (ForestGameArea.ifHeraclesOnMap())) {
-          //logger.info("Transition level screen triggered");
-          entity.getEvents().trigger("transition");
+          logger.info("Transition level screen triggered");
+          entity.getEvents().trigger("levelChanged");
           transitionScreenDisplayed = true;
         } else if (transitionScreenDisplayed){
-          //logger.info("NEXT MAP call");
+          logger.info("NEXT MAP call");
           entity.getEvents().trigger("nextMap");
         }
         return true;
@@ -141,6 +141,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return false;
     }
   }
+
 
   public static void incrementPauseCounter(){
     keyPressedCounter++;
