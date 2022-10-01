@@ -1,6 +1,7 @@
 package com.deco2800.game.components.npc;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.AudioDevice;
 import com.badlogic.gdx.audio.AudioRecorder;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -147,17 +148,7 @@ public class DialogueDisplay extends UIComponent {
             "4"
     };
 
-    public AudioRecorder recorder = new AudioRecorder() {
-        @Override
-        public void read(short[] samples, int offset, int numSamples) {
 
-        }
-
-        @Override
-        public void dispose() {
-
-        }
-    };
 
     @Override
     public void create() {
@@ -231,6 +222,14 @@ public class DialogueDisplay extends UIComponent {
         dialogueContainerPlumberFriend.addActor(dialogueimageplumberfriend);
         dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
 
+//        AudioRecorder recorder = Gdx.audio.newAudioRecorder(44100,true);
+//        short[] audioBuffer = new short[44100 * 5];
+//
+//        recorder.read(audioBuffer, 0, audioBuffer.length);
+//
+//        AudioDevice audioDevice = Gdx.audio.newAudioDevice(44100, true);
+//        audioDevice.writeSamples(audioBuffer, 0, audioBuffer.length);
+
         super.create();
         entity.getEvents().addListener("openDialogue", this::openDialogue);
         entity.getEvents().addListener("nextText", this::nextText);
@@ -259,10 +258,21 @@ public class DialogueDisplay extends UIComponent {
             if (countGuard == textGuard.length - 1) {
                 countGuard = 0;
                 dialogueContainerGuard.remove();
+            } else if (countGuard == 1) {
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 1.wav"));
+                music.play();
             } else if (countGuard == 2) {
-
-//                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 1.wav"));
-//                music.play();
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 2.wav"));
+                music.play();
+            } else if (countGuard == 3) {
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 3.wav"));
+                music.play();
+            } else if (countGuard == 4) {
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 4.wav"));
+                music.play();
+            } else if (countGuard == 5) {
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 5.wav"));
+                music.play();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
             countMale++;
