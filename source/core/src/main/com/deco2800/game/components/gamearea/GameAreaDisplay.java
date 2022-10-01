@@ -94,6 +94,7 @@ public class GameAreaDisplay extends UIComponent {
     private Image deathScreenThree;
 
     private Boolean currentScreenCrafting = false;
+    private int gameLevel;
 
     @Override
     public void create() {
@@ -105,6 +106,7 @@ public class GameAreaDisplay extends UIComponent {
     public GameAreaDisplay(String gameAreaName) {
         this.gameAreaName = gameAreaName;
         logger.info("The current map is {}", this.gameAreaName);
+        gameLevel = (this.gameAreaName.equals("Underground"))? 2 : 1;
         ServiceLocator.registerInventoryArea(this);
         ServiceLocator.registerPauseArea(this);
         ServiceLocator.registerKeyBindArea(this);
@@ -337,13 +339,8 @@ public class GameAreaDisplay extends UIComponent {
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             firstTime += 1;
         }
-        if (getGameAreaName().equals("Underground")) {
-            craftMenu = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/crafting table/crafting_level2_inventory.png")));
-        } else {
-            craftMenu = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/crafting table/crafting_inventory.png")));
-        }
+        craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
+                "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
         craftMenu.setPosition(Gdx.graphics.getWidth() / 2 - craftMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - craftMenu.getHeight() / 2);
@@ -352,7 +349,7 @@ public class GameAreaDisplay extends UIComponent {
         getInventory();
         currentScreenCrafting = true;
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/craft_button.png"));
+                (String.format("images/Crafting-assets-sprint1/widgets/craft_button_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         craftButton = new ImageButton(buttonDrawable);
@@ -379,7 +376,7 @@ public class GameAreaDisplay extends UIComponent {
         craftingGroup.addActor(craftButton);
         entity.getEvents().addListener("check", this::checkBuildables);
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/catalogue_button.png"));
+                (String.format("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         catalogueButton = new ImageButton(buttonDrawable);
@@ -395,7 +392,7 @@ public class GameAreaDisplay extends UIComponent {
         });
         craftingGroup.addActor(catalogueButton);
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/exit_button.png"));
+                (String.format("images/Crafting-assets-sprint1/widgets/exit_button_lvl1.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exitButton = new ImageButton(buttonDrawable);
@@ -832,20 +829,15 @@ public class GameAreaDisplay extends UIComponent {
 
     public void displayCatOne() {
         disposeMaterials();
-        if (getGameAreaName().equals("Underground")) {
-            catOneMenu = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/crafting table/crafting_level2_catalogue1.png")));
-        } else {
-            catOneMenu = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_1.png")));
-        }
+        catOneMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
+                "crafting table/crafting_catalogue_1_lvl%d.png", gameLevel))));
         catOneMenu.setSize(883.26f, 500);
         catOneMenu.setPosition(Gdx.graphics.getWidth() / 2 - catOneMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - catOneMenu.getHeight() / 2);
         craftingGroup.addActor(catOneMenu);
         exitButton.setZIndex(catOneMenu.getZIndex() + 1);
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/inventory_button.png"));
+                (String.format("images/Crafting-assets-sprint1/widgets/inventory_button_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         inventoryButton = new ImageButton(buttonDrawable);
@@ -860,7 +852,7 @@ public class GameAreaDisplay extends UIComponent {
         });
         craftingGroup.addActor(inventoryButton);
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/catalogue_2_button.png"));
+                (String.format("images/Crafting-assets-sprint1/widgets/catalogue_page2_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         catTwoButton = new ImageButton(buttonDrawable);
@@ -878,20 +870,15 @@ public class GameAreaDisplay extends UIComponent {
 
     private void displayCatTwo() {
         disposeMaterials();
-        if (getGameAreaName().equals("Underground")) {
-            catTwoMenu = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/crafting table/crafting_level2_catalogue2.png")));
-        } else {
-            catTwoMenu = new Image(new Texture(Gdx.files.internal
-                    ("images/Crafting-assets-sprint1/crafting table/crafting_catalogue_2.png")));
-        }
+        catTwoMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
+                "crafting table/crafting_catalogue_2_lvl%d.png", gameLevel))));
         catTwoMenu.setSize(883.26f, 500);
         catTwoMenu.setPosition(Gdx.graphics.getWidth() / 2 - catTwoMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - catTwoMenu.getHeight() / 2);
         craftingGroup.addActor(catTwoMenu);
         exitButton.setZIndex(catTwoMenu.getZIndex() + 1);
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/inventory_button.png"));
+                (String.format("images/Crafting-assets-sprint1/widgets/inventory_button_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         inventoryButton = new ImageButton(buttonDrawable);
@@ -906,7 +893,7 @@ public class GameAreaDisplay extends UIComponent {
         });
         craftingGroup.addActor(inventoryButton);
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/catalogue_1_button.png"));
+                (String.format("images/Crafting-assets-sprint1/widgets/catalogue_page1_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         catOneButton = new ImageButton(buttonDrawable);
