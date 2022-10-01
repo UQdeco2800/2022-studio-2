@@ -6,11 +6,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
-import com.deco2800.game.components.player.PlayerCombatAnimationController;
-import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -61,7 +58,6 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
           "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
-    "images/Crafting-assets-sprint1/crafting table/craftingUI.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
     "images/gold_cobble.png",
     "images/gold_drain.png",
@@ -113,7 +109,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/H&ADagger.png",
     "images/CombatItems/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
-          "images/Crafting-assets-sprint1/materials/toilet_paper.png",
+    "images/Crafting-assets-sprint1/materials/toilet_paper.png",
     "images/Crafting-assets-sprint1/materials/gold.png",
     "images/Crafting-assets-sprint1/materials/iron.png",
     "images/Crafting-assets-sprint1/materials/plastic.png",
@@ -141,7 +137,7 @@ public class ForestGameArea extends GameArea {
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
-    "images/Enemies/heracles.atlas",
+    "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
     "images/Enemies/poop.atlas"
 
   };
@@ -153,10 +149,12 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private Entity heracles;
-  //private static List<Entity> weaponOnMap = new ArrayList<>(); not necessary
+  private Entity megaPoop;
+  private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   public static GridPoint2 oneLegGirlPosition;
+  public static GridPoint2 oneLegGirlDialoguePosition;
   public static GridPoint2 HumanGuardPosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 friendlycreaturePosition;
@@ -212,6 +210,7 @@ public class ForestGameArea extends GameArea {
     //spawnEffectBlobs();
     spawnGymBro();
     heracles = spawnHeracles();
+    megaPoop = spawnMegaPoop();
     spawnOneLegGirl();
     spawnPlug();
     spawnPoops();
@@ -464,7 +463,7 @@ public class ForestGameArea extends GameArea {
   }
 
   public void spawnCraftingTable() {
-    Entity craftingTable = ObstacleFactory.createCraftingTable();
+    Entity craftingTable = ObstacleFactory.createCraftingTableForest();
     craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
     spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
   }
@@ -676,13 +675,14 @@ public class ForestGameArea extends GameArea {
   private void spawnOneLegGirl() {
 
     oneLegGirlPosition = new GridPoint2(20, 20);
+    oneLegGirlDialoguePosition = new GridPoint2(20, 21);
 
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, oneLegGirlPosition, true, true);
 
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, oneLegGirlPosition, true, true);
+    spawnEntityAt(dialogue, oneLegGirlDialoguePosition, true, true);
   }
   public static GridPoint2 getOneLegGirlPosition() {
     return oneLegGirlPosition;
@@ -804,6 +804,19 @@ public class ForestGameArea extends GameArea {
     Entity heracles = NPCFactory.createHeracles(player);
     spawnEntityAt(heracles, randomPos, true, true);
     return heracles;
+  }
+
+  /**
+   * Spawn Heracles in a random position.
+   */
+  private Entity spawnMegaPoop() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity megaPoop = NPCFactory.createMegaPoop(player);
+    spawnEntityAt(megaPoop, randomPos, true, true);
+    return megaPoop;
   }
 
   /**

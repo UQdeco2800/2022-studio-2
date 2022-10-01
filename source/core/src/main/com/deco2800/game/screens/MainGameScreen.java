@@ -57,8 +57,10 @@ public class MainGameScreen extends ScreenAdapter {
           "images/NPC/Dialogue/dialoguesboxmale.png",
           "images/NPC/Dialogue/dialoguesboxguard.png",
           "images/NPC/Dialogue/dialoguesboxchild.png",
-          "images/NPC/Dialogue/dialoguesboxfemale.png"
-
+          "images/NPC/Dialogue/dialoguesboxfemale.png",
+          "images/NPC/Dialogue/HumanGuardDialogue.png",
+          "images/NPC/Dialogue/FriendlyCreatureDialogue.png",
+          "images/NPC/Dialogue/PlumberFriend.png"
   };
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
