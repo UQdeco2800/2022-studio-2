@@ -71,6 +71,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static GameArea map;
   private static Component mainGameActions;
   private static Boolean dead;
+  private static Boolean win;
   private static Integer gameLevel;
 
 
@@ -108,15 +109,25 @@ public class MainGameScreen extends ScreenAdapter {
 //    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
     dead = false;
+    win = false;
 
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
+    player.getEvents().addListener("win", this::winScreenStart);
   }
 
   /**
    * Sets dead to true, changing the render of the game
    */
   public void deathScreenStart() { dead = true; }
+
+  /**
+   * Sets win to true, changing the render of the game
+   */
+  public void winScreenStart() {
+    logger.info("Win state set to true");
+    win = true;
+  }
 
 
   /**
@@ -140,11 +151,13 @@ public class MainGameScreen extends ScreenAdapter {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L1);
       } else if (gameLevel == 2) {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
-        // TODO implement win case of player being on level 2 plug.
-      } else if (gameLevel == 2 && (map.getPlayer().getPosition().x > 11 && map.getPlayer().getPosition().x < 13) &&
-      (map.getPlayer().getPosition().y > 16 && map.getPlayer().getPosition().y < 18)) {
-        game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
       }
+    }
+    if (win) {
+      logger.info("Win screen screen type set");
+      player.getComponent(PlayerActions.class).stopWalking();
+      game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
+
     }
 
     if (PauseMenuActions.getQuitGameStatus()) {

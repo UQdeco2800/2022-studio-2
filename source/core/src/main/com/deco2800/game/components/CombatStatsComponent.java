@@ -2,6 +2,7 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
@@ -149,6 +150,8 @@ public class CombatStatsComponent extends Component {
         dropMaterial();
         dropWeapon();
         entity.dispose();
+        logger.info("Win state triggered");
+        entity.getEvents().trigger("win");
       });
 
       if (entity.getComponent(AnimationRenderComponent.class) != null) {
