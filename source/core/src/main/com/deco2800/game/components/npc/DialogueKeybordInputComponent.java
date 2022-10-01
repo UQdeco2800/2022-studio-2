@@ -22,11 +22,7 @@ public class DialogueKeybordInputComponent extends InputComponent {
             DialogueDisplay.state = false;
             return true;
         }
-//        else if (keycode == Keys.V) {
-//            DialogueDisplay.state = true;
-//            entity.getEvents().trigger("nextText");
-//            return true;
-//        }
+
         return false;
     }
 

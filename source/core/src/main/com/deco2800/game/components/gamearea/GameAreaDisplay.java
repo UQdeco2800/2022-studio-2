@@ -85,7 +85,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private int firstTime = 0;
     List<Entity> inventory;
-    InventoryComponent inventoryComponent;
+    public static InventoryComponent inventoryComponent;
     private int index;
     private Image inventoryMenu;
     private Group inventoryGroup = new Group();

@@ -1,20 +1,22 @@
 package com.deco2800.game.components.npc;
 
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.AudioRecorder;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.FloatArray;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.areas.ForestGameArea;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
 
@@ -24,6 +26,7 @@ import static com.deco2800.game.areas.ForestGameArea.*;
  */
 public class DialogueDisplay extends UIComponent {
 
+    private Sound femaleSound;
     private static Image dialogueImagefemale;
     private static Image dialogueimageguard;
     private static Image dialogueimgchild;
@@ -31,8 +34,6 @@ public class DialogueDisplay extends UIComponent {
     private static Image dialogueimagehumanguard;
     private static Image dialogueimagefriendlycreature;
     private static Image dialogueimageplumberfriend;
-
-
 
     public int dialogueImageFemale = 0;
     public int dialogueImageChild = 1;
@@ -42,7 +43,7 @@ public class DialogueDisplay extends UIComponent {
     public int dialogueImageFriendlyCreature = 5;
     public int dialogueImagePlumberFriend = 6;
 
-    private HashMap<Integer, String> dialogueMap = new HashMap<Integer, String>() {
+    private final HashMap<Integer, String> dialogueMap = new HashMap<Integer, String>() {
         {
             put(0, "images/NPC/Dialogue/dialoguesboxfemale.png");
             put(1, "images/NPC/Dialogue/dialoguesboxchild.png");
@@ -80,6 +81,7 @@ public class DialogueDisplay extends UIComponent {
 
     public static Boolean state = false;
 
+    public static TextButton childButton = new TextButton("yes", skin);
     public static String[] textFemale = {
             "Nat:\n",
             "Oh good heavens, are you balding?\n",
@@ -145,6 +147,17 @@ public class DialogueDisplay extends UIComponent {
             "4"
     };
 
+    public AudioRecorder recorder = new AudioRecorder() {
+        @Override
+        public void read(short[] samples, int offset, int numSamples) {
+
+        }
+
+        @Override
+        public void dispose() {
+
+        }
+    };
 
     @Override
     public void create() {
@@ -202,6 +215,7 @@ public class DialogueDisplay extends UIComponent {
         textAreaPlumberFriend.setHeight(50);
 
 
+
         dialogueContainerFemale.addActor(dialogueImagefemale);
         dialogueContainerFemale.addActor(textAreaFemale);
         dialogueContainerGuard.addActor(dialogueimageguard);
@@ -221,6 +235,7 @@ public class DialogueDisplay extends UIComponent {
         entity.getEvents().addListener("openDialogue", this::openDialogue);
         entity.getEvents().addListener("nextText", this::nextText);
         entity.getEvents().addListener("hideDialogue", this::hideDialogue);
+        
     }
 
     public void nextText() {
@@ -244,6 +259,10 @@ public class DialogueDisplay extends UIComponent {
             if (countGuard == textGuard.length - 1) {
                 countGuard = 0;
                 dialogueContainerGuard.remove();
+            } else if (countGuard == 2) {
+
+//                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 1.wav"));
+//                music.play();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
             countMale++;
@@ -262,10 +281,21 @@ public class DialogueDisplay extends UIComponent {
             if (countChild == textChild.length - 1) {
                 countChild = 0;
                 dialogueContainerChild.remove();
-            } else if (countChild >= 4) {
-                TextButton childButton = new TextButton("yes", skin);
+            } else if (countChild == 4) {
                 dialogueContainerChild.addActor(childButton);
+//                GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
+//                childButton.addListener(new ClickListener() {
+//                    void getGold() {
+//                        GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
+//                    }
+//
+//                });
 
+            } else if (countChild == 5) {
+                dialogueContainerChild.removeActor(childButton);
+            } else if (countChild == 6) {
+                Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
+                sound.play(1.0f);
             }
 
         } else if (entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
@@ -360,6 +390,9 @@ public class DialogueDisplay extends UIComponent {
     }
 
 
+//    private void getGold() {
+//        GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
+//    }
     @Override
     public void draw(SpriteBatch batch) {
 
