@@ -404,6 +404,7 @@ public class GameAreaDisplay extends UIComponent {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                logger.info("Exit Crafting menu");
                 disposeCraftingMenu();
                 EntityService.pauseAndResume();
                 OpenCraftingComponent.setCraftingStatus();
@@ -621,7 +622,7 @@ public class GameAreaDisplay extends UIComponent {
                         if (boxes[0] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
-                            logger.info(" item was added to box 1");
+                            logger.info(String.format(" item: %s added to box 1", item.getEntityTypes().get(0)));
                             if (item.checkEntityType((EntityTypes.WEAPON))){
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
@@ -659,7 +660,7 @@ public class GameAreaDisplay extends UIComponent {
                             if (item.checkEntityType((EntityTypes.WEAPON))){
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
-                            logger.info(" item was added to box 2");
+                            logger.info(String.format(" item: %s added to box 2", item.getEntityTypes().get(0)));
                             materialTextureRegion = new TextureRegion(materialTexture);
                             materialDrawable = new TextureRegionDrawable(materialTextureRegion);
                             if (item.checkEntityType((EntityTypes.WEAPON))){
