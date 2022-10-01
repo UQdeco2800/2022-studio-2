@@ -127,8 +127,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.ENTER:
         if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
                 (entity.getPosition().y > 16 && entity.getPosition().y < 18) &&
-                (!transitionScreenDisplayed) &&
-                (ForestGameArea.ifHeraclesOnMap())) {
+                (!transitionScreenDisplayed) //below stops the levels from changing, rendering ENTER key useless
+                // && (ForestGameArea.ifHeraclesOnMap()))
+        ) {
           //logger.info("Transition level screen triggered");
           entity.getEvents().trigger("transition");
           transitionScreenDisplayed = true;
