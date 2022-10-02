@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.CombatItemsComponents.*;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
@@ -113,6 +114,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
                 if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
                     ((ForestGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
+                }
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
+                    ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
                 }
             }
         }

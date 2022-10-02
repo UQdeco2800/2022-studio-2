@@ -10,6 +10,7 @@ import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.ProjectileFactory;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -119,7 +120,7 @@ public class UndergroundGameArea extends GameArea {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
-            "images/CombatItems/animations/combatanimation.atlas"
+            "images/CombatItems/animations/combatanimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBow.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
@@ -250,6 +251,16 @@ public class UndergroundGameArea extends GameArea {
             // This could be upgraded to a loading screen
             logger.info("Loading... {}%", resourceService.getProgress());
         }
+    }
+
+    /**
+     * Spawns a projectile at the player entity's coordinates.
+     */
+    public void spawnWeaponProjectile() { //TEAM 04 WIP
+        Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
+        spawnEntityAt(newProjectile,
+                new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+                true, true);
     }
 
     private void unloadAssets() {
