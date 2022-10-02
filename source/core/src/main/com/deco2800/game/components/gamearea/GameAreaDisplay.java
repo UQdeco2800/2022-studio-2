@@ -66,6 +66,7 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton resume;
 
     private ImageButton exit;
+    private ImageButton controls;
     private Texture materialTexture;
     private TextureRegion materialTextureRegion;
     private TextureRegionDrawable materialDrawable;
@@ -450,8 +451,8 @@ public class GameAreaDisplay extends UIComponent {
     public void setPauseMenu() {
         logger.info("Opening Pause Menu");
         pauseMenu = new Image(new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
-        pauseMenu.setSize(1100, 1200);
+                ("images/PauseMenu/newPauseScreen.png")));
+        pauseMenu.setSize(2200, 1200);
         pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
                 Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
         pausingGroup.addActor(pauseMenu);
@@ -462,8 +463,8 @@ public class GameAreaDisplay extends UIComponent {
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         resume = new ImageButton(buttonDrawable);
-        resume.setSize(386, 122.4f);
-        resume.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 600);
+        resume.setSize(386f, 122.4f);
+        resume.setPosition(pauseMenu.getX() + 900f, pauseMenu.getY() + 640);
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -481,7 +482,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exit = new ImageButton(buttonDrawable);
         exit.setSize(386, 122.4f);
-        exit.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 432);
+        exit.setPosition(pauseMenu.getX() + 900f, pauseMenu.getY() + 390);
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -493,8 +494,14 @@ public class GameAreaDisplay extends UIComponent {
         pausingGroup.addActor(exit);
 
         // Debug button to open keybind menu - hey Rey this is for you!
-        TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
-        keyBindMenuBtn.addListener(
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        controls = new ImageButton(buttonDrawable);
+        controls.setSize(386, 122.4f);
+        controls.setPosition(pauseMenu.getX() + 900f, pauseMenu.getY() + 520);
+        controls.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -502,7 +509,7 @@ public class GameAreaDisplay extends UIComponent {
                         OpenPauseComponent.openKeyBindings();
                     }
                 });
-        pausingGroup.addActor(keyBindMenuBtn);
+        pausingGroup.addActor(controls);
         stage.addActor(pausingGroup);
 
         stage.draw();
@@ -540,7 +547,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         ImageButton keyBindNextBtn = new ImageButton(buttonDrawable);
-        keyBindNextBtn.setPosition(1325, 290);
+        keyBindNextBtn.setPosition(1325, 360);
         keyBindNextBtn.setSize(200, 65);
         keyBindNextBtn.addListener(
                 new ChangeListener() {
