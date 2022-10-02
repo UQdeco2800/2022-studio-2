@@ -5,6 +5,8 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.services.ServiceLocator;
@@ -37,7 +39,7 @@ public class QuickBarDisplay extends UIComponent {
         quickBar.padBottom(0f).padLeft(50f);
 
         quickImage = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/Inventory/quickbar.png", Texture.class));
+                .getAsset("images/Inventory/quickbar_sprint3.png", Texture.class));
         image1 = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/Skills/dash.png", Texture.class));
         image2 = new Image(ServiceLocator.getResourceService()
@@ -53,13 +55,12 @@ public class QuickBarDisplay extends UIComponent {
         quickBar.add(image1).size(100,100).pad(5);
         quickBar.add(image2).size(100,100).pad(5);
         quickBar.add(image3).size(100,100).pad(5);
-        quickBar.add(quickImage).size(600,100).pad(5);
+        quickBar.add(quickImage).size(382,175).pad(5);
         quickBar.add(image4).size(100,100).pad(5);
         quickBar.add(image5).size(100,100).pad(5);
         stage.addActor(quickBar);
 
     }
-
     @Override
     public void draw(SpriteBatch batch) {
         //draw is handled by the stage
