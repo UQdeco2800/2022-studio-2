@@ -281,7 +281,7 @@ public class NPCFactory {
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            .addTask(new JumpTask(target, 11, 8f,180, 1.5f));
+            .addTask(new JumpTask(target, 11, 8f,25, 1.5f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
