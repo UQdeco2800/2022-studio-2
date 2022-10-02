@@ -79,6 +79,7 @@ public class PlayerFactory {
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setEntityType(EntityTypes.PLAYER);
+
     return player;
   }
 

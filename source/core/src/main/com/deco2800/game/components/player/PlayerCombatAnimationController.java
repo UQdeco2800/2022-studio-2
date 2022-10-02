@@ -44,6 +44,12 @@ public class PlayerCombatAnimationController extends Component {
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         entity.getEvents().addListener("hera", this::animateHera);
         entity.getEvents().addListener("heraAthenaDag", this::animateheraAthenaDag);
+        entity.getEvents().addListener("athena", this::animateAthena);
+        entity.getEvents().addListener("swordLvl2", this::animateSwordLvl2);
+        entity.getEvents().addListener("tridentLvl2", this::animateTridentLvl2);
+        entity.getEvents().addListener("animatePlunger", this::animatePlunger);
+        entity.getEvents().addListener("animatePipe", this::animatePipe);
+        entity.getEvents().addListener("animatePlungerBow", this::animatePlungerBow);
         entity.getEvents().trigger("attack");
     }
 
@@ -60,5 +66,30 @@ public class PlayerCombatAnimationController extends Component {
     void animateheraAthenaDag() {
         animator.startAnimation("heraAthenaDag");
     }
+
+    void animateAthena() {
+        animator.startAnimation("athena");
+    }
+
+    void animateSwordLvl2() {
+        animator.startAnimation("swordLvl2");
+    }
+
+    void animateTridentLvl2() {
+        animator.startAnimation("tridentLvl2");
+    }
+
+    void animatePlunger() {
+        animator.startAnimation("plunger");
+    }
+
+    void animatePipe() {
+        animator.startAnimation("pipe");
+    }
+
+    void animatePlungerBow() {
+        animator.startAnimation("plungerBow");
+    }
+
 }
 

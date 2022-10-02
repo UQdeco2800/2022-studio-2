@@ -44,7 +44,7 @@ public class WeaponFactory {
         Entity dagger = createBaseWeapon();
         dagger.setEntityType(EntityTypes.CRAFTABLE);
         WeaponConfig config = configs.athenaDag;
-        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dagger");
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "athena");
 
        dagger
                 .addComponent(weaponStats)
@@ -98,7 +98,7 @@ public class WeaponFactory {
     public static Entity createSwordLvl2() {
         Entity SwordLvl2 = createBaseWeapon();
         WeaponConfig config = configs.SwordLvl2;
-        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "SwordLvl2");
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "swordLvl2");
 
         SwordLvl2
                 .addComponent(weaponStats)
@@ -116,7 +116,7 @@ public class WeaponFactory {
     public static Entity createTridentLvl2() {
         Entity TridentLvl2 = createBaseWeapon();
         WeaponConfig config = configs.tridentLvl2;
-        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "TridentLvl2");
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "tridentLvl2");
 
         TridentLvl2
                 .addComponent(weaponStats)
@@ -186,7 +186,7 @@ public class WeaponFactory {
     public static Entity createPlungerBow() {
         Entity plungerBow = createBaseWeapon();
         WeaponConfig config = configs.plungerBow;
-        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "bow");
+        PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "plungerBow");
         plungerBow
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png"));

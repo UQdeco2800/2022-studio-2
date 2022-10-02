@@ -336,37 +336,6 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
-   */
-  /*
-  private void spawnEffectBlobs() {
-
-    GridPoint2 minPos = new GridPoint2(2, 2);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-    for (int i = 0; i < 10; i++) {
-      Entity speedBuff1 = AuraFactory.createWeaponSpeedBuff();
-      auraOnMap.add(speedBuff1);
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      this.spawnEntityAt(speedBuff1, randomPos, true, false);
-
-      Timer timer = new Timer();
-      timer.schedule(new TimerTask() {
-                       @Override
-                       public void run() {
-                         logger.info("EffectBlobs disappear");
-                         speedBuff1.dispose();
-                         auraOnMap.remove(speedBuff1);
-                         timer.cancel();
-                       }
-                     }
-              , 7000, 5000);
-    }
-  }
-  */
-
-  /**
    * Spawns speed buff entity into the game
    * Spawns x-pos 10
    * Spawns y-pos 10
