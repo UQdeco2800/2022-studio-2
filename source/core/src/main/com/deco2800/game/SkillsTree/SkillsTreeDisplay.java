@@ -66,14 +66,14 @@ public class SkillsTreeDisplay extends UIComponent {
 
         stage.addActor(table);
         stage.addActor(Img);
-        addSkillTreeButton(810, 644, "invulnerability");
+        addSkillTreeButton(810, 644, "dash");
         // Row 1
-        addSkillTreeButton(698, 532, "invulnerability");
-        addSkillTreeButton(774, 532, "invulnerability");
+        addSkillTreeButton(698, 532, "dodge");
+        addSkillTreeButton(774, 532, "teleport");
         addSkillTreeButton(920, 532, "invulnerability");
         addSkillTreeButton(844, 532, "invulnerability");
         // Row 2
-        addSkillTreeButton(736, 436, "invulnerability");
+        addSkillTreeButton(736, 436, "block");
         addSkillTreeButton(882, 436, "invulnerability");
         // Row 3
         addSkillTreeButton(736, 344, "invulnerability");
@@ -81,7 +81,7 @@ public class SkillsTreeDisplay extends UIComponent {
         addSkillTreeButton(844, 344, "invulnerability");
         // Row 4
         addSkillTreeButton(781, 210, "invulnerability");
-        addSkillTreeButton(850, 210, "invulnerability");
+        addSkillTreeButton(850, 210, "fireballUltimate");
 
     }
 

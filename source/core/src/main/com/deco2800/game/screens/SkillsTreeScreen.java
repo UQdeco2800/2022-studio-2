@@ -36,6 +36,8 @@ public class SkillsTreeScreen extends ScreenAdapter {
     private static final String[] blockImg = {"images/Skills/block.png"};
     private static final String[] dodgeImg = {"images/Skills/dodge.png"};
     private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+    private static final String[] teleportImg = {"images/Skills/teleport.png"};
+    private static final String[] fireballUltimateImg = {"images/Skills/fireballUltimate.png"};
 
     public SkillsTreeScreen(GdxGame game) {
         this.game = game;
@@ -105,6 +107,8 @@ public class SkillsTreeScreen extends ScreenAdapter {
         resourceService.loadTextures(blockImg);
         resourceService.loadTextures(dodgeImg);
         resourceService.loadTextures(invulnerabilityImg);
+        resourceService.loadTextures(teleportImg);
+        resourceService.loadTextures(fireballUltimateImg);
         ServiceLocator.getResourceService().loadAll();
     }
 
