@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /** Underground area for the demo game with trees, a player, and some enemies. */
 public class UndergroundGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(UndergroundGameArea.class);
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(32, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
@@ -43,7 +43,14 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/wall_side.png",
             "images/level_2_tiledmap/water.png",
             "images/NPC/friendly_creature npc/Friendly_creature.png",
-            "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+
+            "images/ghost_1.png",
+            "images/grass_1.png",
+            "images/grass_2.png",
+            "images/grass_3.png",
+//            "images/level_2_tiledmap/32x32/grass.png",
+//            "images/level_2_tiledmap/32x32/purple_cobble.png",
+            "images/Crafting-assets-sprint1/crafting table/craftingTable2.png",
             "images/Crafting-assets-sprint1/materials/gold.png",
             "images/Crafting-assets-sprint1/materials/platinum.png",
             "images/Crafting-assets-sprint1/materials/silver.png",
@@ -71,6 +78,18 @@ public class UndergroundGameArea extends GameArea {
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Athena.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/heraAthena.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Pipe.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Plunger.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Sword.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/level_2_tiledmap/pipe1.png",
+            "images/level_2_tiledmap/pipe2.png",
+            "images/level_2_tiledmap/statues.jpg"
     };
 
     public static String[] newTextures;
@@ -176,18 +195,8 @@ public class UndergroundGameArea extends GameArea {
     }
 
     public void spawnCraftingTable() {
-        GridPoint2 minPos = new GridPoint2(2, 2);
-        GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-        GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-        craftingTablePos = randomPos;
-        Entity craftingTable = ObstacleFactory.createCraftingTable();
-        spawnEntityAt(craftingTable, randomPos, true, false);
-    }
-
-    public static GridPoint2 getCraftingTablePos() {
-        return craftingTablePos;
+        Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
+        spawnEntityAt(craftingTable, new GridPoint2(36, 10), true, false);
     }
 
     private GridPoint2 randomPositon() {
