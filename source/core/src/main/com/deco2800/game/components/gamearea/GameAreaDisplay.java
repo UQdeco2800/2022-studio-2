@@ -919,6 +919,7 @@ public class GameAreaDisplay extends UIComponent {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 disposeCatOne();
+                clearMaterials();
                 getInventory();
             }
         });
@@ -960,6 +961,7 @@ public class GameAreaDisplay extends UIComponent {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 disposeCatTwo();
+                clearMaterials();
                 getInventory();
             }
         });
