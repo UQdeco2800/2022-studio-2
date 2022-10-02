@@ -83,11 +83,7 @@ public class PlayerFactory {
     player.setEntityType(EntityTypes.PLAYER);
 
     //FOR TESTING
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createSwordLvl2());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createDagger());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHeraAthenaDag());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHera());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
     return player;
   }
 

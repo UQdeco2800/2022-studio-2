@@ -21,9 +21,9 @@
   },
 
   "dumbbell": {
-    "damage": 5,
+    "damage": 19,
     "coolDown": 1000,
-    "weight": 10,
+    "weight": 5,
     "materials": {"steel": 1, "plastic": 1}
   },
 
