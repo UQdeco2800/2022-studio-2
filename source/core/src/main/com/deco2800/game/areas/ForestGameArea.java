@@ -148,12 +148,13 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity heracles;
+  private static Entity heracles;
   private Entity megaPoop;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
   public static GridPoint2 oneLegGirlPosition;
+  public static GridPoint2 oneLegGirlDialoguePosition;
   public static GridPoint2 HumanGuardPosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 friendlycreaturePosition;
@@ -187,13 +188,13 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Check if Heracles is placed on map
+   * Check if Heracles is alive on map
    */
-  public boolean ifHeraclesOnMap() {
-    if (heracles.getPosition() == null) {
-      return false;
+  public static boolean ifHeraclesOnMap() {
+    if (heracles.isDead()) {
+      return true;
     }
-    return true;
+    return false;
   }
 
 
@@ -206,7 +207,6 @@ public class ForestGameArea extends GameArea {
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
-    //spawnEffectBlobs();
     spawnGymBro();
     heracles = spawnHeracles();
     megaPoop = spawnMegaPoop();
@@ -219,7 +219,6 @@ public class ForestGameArea extends GameArea {
     spawnChild();
     spawnGuard();
     spawnMaleCitizen();
-    spawnfriendlycreature();
 //    spawnDialogue();
 //    spawnColumn(20, 20);
 //    spawnColumn(30, 20);
@@ -239,6 +238,8 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
+    spawnSpeedBuff();
+    spawnPlungerBow(); //PLS RMOVE LASTER
 
 
   }
@@ -365,6 +366,19 @@ public class ForestGameArea extends GameArea {
   }
   */
 
+  /**
+   * Spawns speed buff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
+  private void spawnSpeedBuff() {
+    Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+    auraOnMap.add(speedbuff);
+    spawnEntityAt(speedbuff, new GridPoint2(7,7), true, false);
+  }
+  /**
+   *
+   */
   /**
    * Spawns speed debuff entity into the game
    * Spawns x-pos 10
@@ -675,13 +689,14 @@ public class ForestGameArea extends GameArea {
   private void spawnOneLegGirl() {
 
     oneLegGirlPosition = new GridPoint2(20, 20);
+    oneLegGirlDialoguePosition = new GridPoint2(20, 21);
 
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, oneLegGirlPosition, true, true);
 
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, oneLegGirlPosition, true, true);
+    spawnEntityAt(dialogue, oneLegGirlDialoguePosition, true, true);
   }
   public static GridPoint2 getOneLegGirlPosition() {
     return oneLegGirlPosition;
@@ -716,7 +731,7 @@ public class ForestGameArea extends GameArea {
    * Spawn guard NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnGuard() {
-    GuardPosition = new GridPoint2(4, 8);
+    GuardPosition = new GridPoint2(10, 8);
 
     Entity guard = NPCFactory.createGuard(player);
     spawnEntityAt(guard, GuardPosition, true, true);
