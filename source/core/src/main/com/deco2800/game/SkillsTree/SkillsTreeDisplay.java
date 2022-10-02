@@ -39,7 +39,7 @@ public class SkillsTreeDisplay extends UIComponent {
          * Set images status
          */
         Img = new Image(imgTexture);
-        Img.setSize(500f, 500f);
+        Img.setSize(800f, 800f);
         Img.setPosition(400,200);
 
         TextButton mainMenuBtn = new TextButton("Exit", skin);

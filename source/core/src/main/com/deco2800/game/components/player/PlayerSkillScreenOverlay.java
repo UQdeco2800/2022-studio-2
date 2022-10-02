@@ -3,9 +3,13 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -31,15 +35,12 @@ public class PlayerSkillScreenOverlay extends UIComponent {
 
     private void addActors() {
 
-
         fullscreenOverlay = new Table();
         fullscreenOverlay.bottom();
         fullscreenOverlay.setFillParent(true);
 
         fullscreenOverlay.add(fullscreenDisplay).size(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         stage.addActor(fullscreenOverlay);
-
-
 
     }
 
@@ -50,7 +51,9 @@ public class PlayerSkillScreenOverlay extends UIComponent {
 
     @Override
     public void dispose() {
-        fullscreenDisplay.remove();
+        if(fullscreenDisplay != null) {
+            fullscreenDisplay.remove();
+        }
         fullscreenDisplay = null;
         super.dispose();
     }
