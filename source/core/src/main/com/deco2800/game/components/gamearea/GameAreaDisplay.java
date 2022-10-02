@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -72,6 +74,7 @@ public class GameAreaDisplay extends UIComponent {
     private TextureRegion materialTextureRegion;
     private TextureRegionDrawable materialDrawable;
     private Image matAmount;
+    private Image popUp;
     private String weaponType = "";
     private Image weapon;
     private Group craftingGroup = new Group();
@@ -371,8 +374,10 @@ public class GameAreaDisplay extends UIComponent {
                     weapon.remove();
                     weapon = null;
                     clearBoxes(0);
+                    displayPopUp();
                 }
                 ;
+                clearMaterials();
                 getInventory();
             }
         });
@@ -645,6 +650,7 @@ public class GameAreaDisplay extends UIComponent {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
                                     if (currentScreenCrafting == true){
+                                        clearMaterials();
                                         disposeFirstBox();
                                         clearBoxes(1);
                                         addToInventory(checkType(item));
@@ -680,6 +686,7 @@ public class GameAreaDisplay extends UIComponent {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
                                     if (currentScreenCrafting == true) {
+                                        clearMaterials();
                                         disposeSecondBox();
                                         clearBoxes(2);
                                         addToInventory(checkType(item));
@@ -703,7 +710,26 @@ public class GameAreaDisplay extends UIComponent {
         matAmount.setSize(15, 15);
         matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
                 (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
+        Action upDown = Actions.forever(Actions.sequence(Actions.moveTo(matAmount.getX(), matAmount.getY()+4.5f,
+                0.5f), Actions.moveTo(matAmount.getX(), matAmount.getY()-4.5f, 0.5f)));
+        matAmount.addAction(upDown);
         materialsGroup.addActor(matAmount);
+    }
+
+    private void displayPopUp() {
+        popUp = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
+        popUp.setHeight(5);
+        popUp.setPosition(Gdx.graphics.getWidth()/2-51.3f, Gdx.graphics.getHeight()/2-17.1f);
+        Action popUpAction = Actions.sequence(Actions.sizeTo(102.6f, 34.2f, 0.5f),
+                Actions.delay(0.5f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                popUp.remove();
+            }
+        }));
+        popUp.addAction(popUpAction);
+        stage.addActor(popUp);
     }
 
     private EntityTypes checkType(Entity entity) {
@@ -981,6 +1007,7 @@ public class GameAreaDisplay extends UIComponent {
 
     @Override
     public void draw(SpriteBatch batch) {
+
         int screenHeight = Gdx.graphics.getHeight();
         float offsetX = 10f;
         float offsetY = 30f;
