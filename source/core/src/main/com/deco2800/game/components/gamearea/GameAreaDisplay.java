@@ -457,7 +457,7 @@ public class GameAreaDisplay extends UIComponent {
             pauseMenu = new Image(new Texture(Gdx.files.internal
                     ("images/PauseMenu/newPauseScreen.png")));
         }
-        pauseMenu.setSize(2200, 1200);
+        pauseMenu.setSize(1920, 1080);
         pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
                 Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
         pausingGroup.addActor(pauseMenu);
@@ -469,7 +469,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         resume = new ImageButton(buttonDrawable);
         resume.setSize(386f, 122.4f);
-        resume.setPosition(pauseMenu.getX() + 900f, pauseMenu.getY() + 640);
+        resume.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 570);
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -487,7 +487,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exit = new ImageButton(buttonDrawable);
         exit.setSize(386, 122.4f);
-        exit.setPosition(pauseMenu.getX() + 900f, pauseMenu.getY() + 390);
+        exit.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 340);
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -506,7 +506,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         controls = new ImageButton(buttonDrawable);
         controls.setSize(386, 122.4f);
-        controls.setPosition(pauseMenu.getX() + 900f, pauseMenu.getY() + 520);
+        controls.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 460);
         controls.addListener(
                 new ChangeListener() {
                     @Override
