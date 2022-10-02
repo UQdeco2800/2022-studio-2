@@ -171,7 +171,11 @@ class InventoryComponentTest {
 
   @Test
   void getEquipables() {
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    Entity[] expectedList = new Entity[2];
 
+    assertEquals(expectedList, inventory.getEquipables());
   }
 
   @Test
@@ -274,7 +278,15 @@ class InventoryComponentTest {
 
   @Test
   void itemEquals () {
+    InventoryComponent inventory = new InventoryComponent();
+    Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
 
+    assertTrue(inventory.itemEquals(testArmour, testArmour));
+    assertFalse(inventory.itemEquals(testWeapon, testArmour));
+    assertFalse(inventory.itemEquals(testWeapon, testPotion));
+    assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
 
   @Test
@@ -293,7 +305,14 @@ class InventoryComponentTest {
 
   @Test
   void getPotionIndex() {
-    
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    inventory.addQuickBarItems(testSpeedPotion);
+    int expectedIndex =  0;
+
+    assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
   }
 
   @Test
