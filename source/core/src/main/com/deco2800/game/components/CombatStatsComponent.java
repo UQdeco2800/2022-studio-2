@@ -150,8 +150,6 @@ public class CombatStatsComponent extends Component {
         dropMaterial();
         dropWeapon();
         entity.dispose();
-        logger.info("Win state triggered");
-        entity.getEvents().trigger("win");
       });
 
       if (entity.getComponent(AnimationRenderComponent.class) != null) {

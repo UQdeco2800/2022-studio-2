@@ -78,10 +78,13 @@ public class DeathScreenDisplay extends UIComponent {
             continueBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/play_again_lvl_1.png"));
         } else if (getLevel() == 2) {
-            new Texture(Gdx.files
+            continueBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
+        //} else if (getLevel() == 3) {
+          //  continueBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         } else if (getLevel() == 3) {
-            exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+            continueBtnTexture = new Texture(Gdx.files
+                    .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
         }
         buttonTextureRegion = new TextureRegion(continueBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
@@ -107,8 +110,11 @@ public class DeathScreenDisplay extends UIComponent {
         } else if (getLevel() == 2) {
             exitBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
-        } else if (getLevel() == 3) {
-            exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        //} else if (getLevel() == 3) {
+          //  exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        }  else if (getLevel() == 3) {
+            exitBtnTexture = new Texture(Gdx.files
+                    .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
         }
         buttonTextureRegion = new TextureRegion(exitBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
@@ -175,10 +181,11 @@ public class DeathScreenDisplay extends UIComponent {
             case 3 -> {
                 logger.info("setting win screen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/WinScreen/Win.png", Texture.class));
+                        .getAsset("images/WinScreen/atlantis_sinks_no_island_win.png", Texture.class));
             }
         }
-        return null;
+        return deathBackground = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
     }
 
     /**

@@ -76,6 +76,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   private static Boolean transition;
   private static Integer gameLevel;
+  private static Boolean win;
 
 
 
@@ -118,10 +119,13 @@ public class MainGameScreen extends ScreenAdapter {
     // Management components for death and transition screen
     dead = false;
     transition = false;
+    win = false;
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
     // Add screen transition listener to player
     player.getEvents().addListener("mapTransition", this::transitionScreenStart);
+    // Add win screen listener to player
+    player.getEvents().addListener("win", this::winScreenStart);
   }
 
   /**
@@ -129,7 +133,15 @@ public class MainGameScreen extends ScreenAdapter {
    */
   public void deathScreenStart() { dead = true; }
 
+  /**
+   * Sets transition to true
+   */
   public void transitionScreenStart() { transition = true; }
+
+  /**
+   * Sets win to true
+   */
+  public void winScreenStart() { win = true;}
 
 
   /**

@@ -132,6 +132,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
           entity.getEvents().trigger("nextMap");
         }
         return true;
+      case Keys.N:
+        entity.getEvents().trigger("win");
+        return true;
       default:
         return false;
     }
