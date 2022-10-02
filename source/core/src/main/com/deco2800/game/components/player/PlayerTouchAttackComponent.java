@@ -3,15 +3,12 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.RangedStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.*;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 public class PlayerTouchAttackComponent extends TouchAttackComponent {
@@ -75,12 +72,25 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             canAttack = false;
 
             Entity weaponEquipped = entity.getComponent(InventoryComponent.class).getEquipable(0);
+            Entity auraEquipped = ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied;
             if (weaponEquipped != null) {
-                if (weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class) != null) {
-                    cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class).getCoolDown());
+                if (weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class) != null) {
+                    cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getCoolDown());
                     //Sets the attack animation dependent on the weapon that is currently equipped
-                    String description = weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class).getDescription();
-                    combatAnimator.getEvents().trigger(description);
+                    String description = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
+                    //When an aura is applied, play the respective aura animation
+                    if (auraEquipped != null) {
+                        String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
+                        String animationToApply = description+current_aura;
+                        System.out.println(animationToApply);
+                        combatAnimator.getEvents().trigger(animationToApply);
+                    }
+                    else {
+                        String animationToApply = description;
+                        System.out.println(animationToApply);
+                        combatAnimator.getEvents().trigger(animationToApply);
+                    }
+
                 }
 
             } else {

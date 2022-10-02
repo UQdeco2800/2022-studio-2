@@ -146,7 +146,7 @@ public class PlayerFactory {
     return keyPromptAnimator;
   }
   /**
-   * Create level 3 dagger and hera combat item animation.
+   * Create combat item animator
    * @return entity
    */
   public static Entity createCombatAnimator(Entity playerEntity) {

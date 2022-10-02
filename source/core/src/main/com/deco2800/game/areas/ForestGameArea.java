@@ -123,7 +123,9 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/animations/combatanimation.png",
     "images/CombatItems/Sprint-2/pipe.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
-    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+          "images/CombatItems/animations/Pipe/pipeBuffs.png",
+          "images/CombatItems/animations/PlungerBow/swordBuffs.png"
   };
 
   public static String[] newTextures;
@@ -138,7 +140,7 @@ public class ForestGameArea extends GameArea {
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
-    "images/Enemies/poop.atlas"
+    "images/Enemies/poop.atlas","images/CombatItems/animations/Pipe/pipeBuffs.atlas","images/CombatItems/animations/Sword/swordBuffs.atlas"
 
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};

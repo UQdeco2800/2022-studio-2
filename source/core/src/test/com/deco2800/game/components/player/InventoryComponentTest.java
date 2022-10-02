@@ -1,7 +1,5 @@
 package com.deco2800.game.components.player;
 
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
-import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
