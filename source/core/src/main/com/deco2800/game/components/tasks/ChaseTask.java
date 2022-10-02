@@ -57,6 +57,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     this.priority = priority;
     this.viewDistance = viewDistance;
     this.maxChaseDistance = maxChaseDistance;
+
     this.speed = speed;
     physics = ServiceLocator.getPhysicsService().getPhysics();
     debugRenderer = ServiceLocator.getRenderService().getDebug();
