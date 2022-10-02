@@ -240,6 +240,7 @@ public class ForestGameArea extends GameArea {
     spawnPoisonBuff();
     spawnSpeedBuff();
     spawnPlungerBow(); //PLS RMOVE LASTER
+    spawnHeraAndAthena();
 
 
   }
@@ -536,11 +537,11 @@ public class ForestGameArea extends GameArea {
    * Spawns x-pos 10
    * Spawns y-pos 4
    */
- // private void spawnHeraAndAthena() {
-  //  Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
+  private void spawnHeraAndAthena() {
+    Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
   //  weaponOnMap.add(heraAthenaDag);
-  //  spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
- // }
+    spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
+  }
 
   /**
    * Spawns basic plunger into game

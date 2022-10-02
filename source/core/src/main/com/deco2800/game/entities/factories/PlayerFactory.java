@@ -79,6 +79,13 @@ public class PlayerFactory {
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setEntityType(EntityTypes.PLAYER);
+
+    //FOR TESTING
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createSwordLvl2());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createDagger());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHeraAthenaDag());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHera());
     return player;
   }
 
