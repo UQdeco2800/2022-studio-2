@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.screens.LevelTransitionScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -27,7 +28,6 @@ public class TransitionMapComponent extends Component {
     private boolean nextMap() {
         int mapLevel;
         MainGameScreen gameScreen = ServiceLocator.getMainGameScreen();
-
         if (gameScreen.getClass() == MainGameScreen.class) {
             logger.info("class of current map: " + gameScreen.getMap().toString());
             switch (gameScreen.getMap().toString()) {

@@ -5,9 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,7 @@ import org.slf4j.LoggerFactory;
 public class SkillsTreeDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(com.deco2800.game.SkillsTree.SkillsTreeDisplay.class);
     private static final float Z_INDEX = 2f;
+    private static final int SKILL_ICON_BUTTON_SIZE = 50;
     private Table table;
 
     @Override
@@ -39,8 +43,8 @@ public class SkillsTreeDisplay extends UIComponent {
          * Set images status
          */
         Img = new Image(imgTexture);
-        Img.setSize(800f, 800f);
-        Img.setPosition(400,200);
+        Img.setSize(850f, 850f);
+        Img.setPosition(250,0);
 
         TextButton mainMenuBtn = new TextButton("Exit", skin);
 
@@ -62,6 +66,23 @@ public class SkillsTreeDisplay extends UIComponent {
 
         stage.addActor(table);
         stage.addActor(Img);
+        addSkillTreeButton(810, 644, "invulnerability");
+        // Row 1
+        addSkillTreeButton(698, 532, "invulnerability");
+        addSkillTreeButton(774, 532, "invulnerability");
+        addSkillTreeButton(920, 532, "invulnerability");
+        addSkillTreeButton(844, 532, "invulnerability");
+        // Row 2
+        addSkillTreeButton(736, 436, "invulnerability");
+        addSkillTreeButton(882, 436, "invulnerability");
+        // Row 3
+        addSkillTreeButton(736, 344, "invulnerability");
+        addSkillTreeButton(920, 344, "invulnerability");
+        addSkillTreeButton(844, 344, "invulnerability");
+        // Row 4
+        addSkillTreeButton(781, 210, "invulnerability");
+        addSkillTreeButton(850, 210, "invulnerability");
+
     }
 
     @Override
@@ -78,5 +99,39 @@ public class SkillsTreeDisplay extends UIComponent {
     public void dispose() {
         table.clear();
         super.dispose();
+    }
+
+    private void addSkillToTree(int skillNumber, String imageFileName) {
+        switch (skillNumber) {
+            case 1 -> addSkillTreeButton(803, 618, imageFileName);
+            case 2 -> addSkillTreeButton(698, 532, imageFileName);
+            case 3 -> addSkillTreeButton(774, 532, imageFileName);
+            case 4 -> addSkillTreeButton(920, 532, imageFileName);
+            case 5 -> addSkillTreeButton(844, 532, imageFileName);
+            case 6 -> addSkillTreeButton(736, 436, imageFileName);
+            case 7 -> addSkillTreeButton(882, 436, imageFileName);
+            case 8 -> addSkillTreeButton(736, 344, imageFileName);
+            case 9 -> addSkillTreeButton(920, 344, imageFileName);
+            case 10 -> addSkillTreeButton(844, 344, imageFileName);
+            case 11 -> addSkillTreeButton(781, 210, imageFileName);
+            case 12 -> addSkillTreeButton(850, 210, imageFileName);
+        }
+    }
+
+    private void addSkillTreeButton(int xCoord, int yCoord, String imageFilePath) {
+        TextureRegionDrawable texture = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/" + imageFilePath + ".png", Texture.class));
+        TextureRegionDrawable texture2 = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/block.png", Texture.class));
+        ImageButton button = new ImageButton(texture);
+        ImageButton.ImageButtonStyle style = button.getStyle();
+        style.imageDown = texture2;
+        style.imageUp = texture;
+        button.getImage().setFillParent(true);
+
+        button.setPosition(xCoord, yCoord);
+        button.setSize(SKILL_ICON_BUTTON_SIZE, SKILL_ICON_BUTTON_SIZE);
+
+        stage.addActor(button);
     }
 }

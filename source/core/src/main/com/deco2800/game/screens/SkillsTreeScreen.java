@@ -32,6 +32,11 @@ public class SkillsTreeScreen extends ScreenAdapter {
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
 
+    private static final String[] dashImg = {"images/Skills/dash.png"};
+    private static final String[] blockImg = {"images/Skills/block.png"};
+    private static final String[] dodgeImg = {"images/Skills/dodge.png"};
+    private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+
     public SkillsTreeScreen(GdxGame game) {
         this.game = game;
 
@@ -51,6 +56,7 @@ public class SkillsTreeScreen extends ScreenAdapter {
         renderer = RenderFactory.createRenderer();
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
+        loadAssets();
         createUI();
 
     }
@@ -91,6 +97,15 @@ public class SkillsTreeScreen extends ScreenAdapter {
                 .addComponent(new TerminalDisplay());
 
         ServiceLocator.getEntityService().register(ui);
+    }
+
+    private void loadAssets() {
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(dashImg);
+        resourceService.loadTextures(blockImg);
+        resourceService.loadTextures(dodgeImg);
+        resourceService.loadTextures(invulnerabilityImg);
+        ServiceLocator.getResourceService().loadAll();
     }
 
 }
