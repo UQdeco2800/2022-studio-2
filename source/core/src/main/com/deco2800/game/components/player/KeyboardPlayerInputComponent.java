@@ -112,9 +112,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 //        }
 //        entity.getEvents().trigger("game resumed");
 //        return true;
-      case Keys.K:
-        entity.getEvents().trigger("kill switch");
-        return true;
       case Keys.M:
         entity.getEvents().trigger("toggleMinimap");
         return true;
