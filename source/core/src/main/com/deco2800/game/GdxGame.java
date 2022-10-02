@@ -73,6 +73,7 @@ public class GdxGame extends Game {
   private Screen newScreen(ScreenType screenType) {
     switch (screenType) {
       case MAIN_MENU:
+        level = 1;
         return new MainMenuScreen(this);
       case MAIN_GAME:
         currentGameScreen = new MainGameScreen(this, level);
@@ -80,16 +81,18 @@ public class GdxGame extends Game {
       case SETTINGS:
         return new SettingsScreen(this);
       case DEATH_SCREEN_L1:
+        level = 1;
         deathScreen = new DeathScreen(this, 1);
         return deathScreen;
       case DEATH_SCREEN_L2:
+        level = 2;
         deathScreen = new DeathScreen(this, 2);
         return deathScreen;
       case SkillsTree:
         return new SkillsTreeScreen(this);
       case LEVEL_TRANSITION:
+        level = 2;
         levelTransitionScreen = new LevelTransitionScreen(this);
-        level++;
         return levelTransitionScreen;
       case WIN_SCREEN:
         deathScreen = new DeathScreen(this, 3);
