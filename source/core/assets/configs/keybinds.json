@@ -1,0 +1,109 @@
+{
+  "PATH_LVL1" : "images/keybind/level_1/letters/",
+  "PATH_LVL2" : "images/keybind/level_2/letters/",
+  "Keys" : [
+    { "Key" : "w",
+      "Description" : "Walk forward"
+    },
+    { "Key" : "a",
+      "Description" : "Walk left"
+    },
+    { "Key" : "s",
+      "Description" : "Walk backwards"
+    },
+    { "Key" : "d",
+      "Description" : "Walk right"
+    },
+    { "Key" : "q",
+      "Description" : "Crafting"
+    },
+    { "Key" : "i",
+      "Description" : "Inventory"
+    },
+    { "Key" : "e",
+      "Description" : "Activate skill 1"
+    },
+    { "Key" : "j",
+      "Description" : "Activate skill 2"
+    },
+    { "Key" : "shift",
+      "Description" : "Dodge"
+    },
+    { "Key" : "1",
+      "Description" : "Quickbar Slot 1"
+    },
+    { "Key" : "2",
+      "Description" : "Quickbar Slot 2"
+    },
+    { "Key" : "3",
+      "Description" : "Quickbar Slot 3"
+    },
+    { "Key" : "4",
+      "Description" : "Quickbar Slot 4"
+    },
+    { "Key" : "esc",
+      "Description" : "Pause menu"
+    },
+    { "Key" : "space",
+      "Description" : "Attack"
+    },
+    {
+      "Key" : "enter",
+      "Description" : "Enter plughole"
+    },
+    { "Key" : "b",
+      "Description" : ""
+    },
+    { "Key" : "c",
+      "Description" : ""
+    },
+    { "Key" : "f",
+      "Description" : ""
+    },
+    { "Key" : "g",
+      "Description" : ""
+    },
+    { "Key" : "h",
+      "Description" : ""
+    },
+    { "Key" : "k",
+      "Description" : ""
+    },
+    { "Key" : "l",
+      "Description" : ""
+    },
+    { "Key" : "m",
+      "Description" : ""
+    },
+    { "Key" : "n",
+      "Description" : ""
+    },
+    { "Key" : "o",
+      "Description" : ""
+    },
+    { "Key" : "p",
+      "Description" : ""
+    },
+    { "Key" : "r",
+      "Description" : ""
+    },
+    { "Key" : "t",
+      "Description" : ""
+    },
+    { "Key" : "u",
+      "Description" : ""
+    },
+    { "Key" : "v",
+      "Description" : ""
+    },
+    { "Key" : "x",
+      "Description" : ""
+    },
+    { "Key" : "y",
+      "Description" : ""
+    },
+    { "Key" : "z",
+      "Description" : ""
+    }
+  ]
+}

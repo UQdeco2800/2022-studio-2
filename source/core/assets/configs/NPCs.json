@@ -1,12 +1,12 @@
 {
   "gymBro": {
     "health": 70,
-    "baseAttack": 20,
+    "baseAttack": 5,
     "speed": 120
   },
   "heracles": {
-    "health": 70,
-    "baseAttack": 20,
+    "health": 130,
+    "baseAttack": 10,
     "speed": 120
   },
 

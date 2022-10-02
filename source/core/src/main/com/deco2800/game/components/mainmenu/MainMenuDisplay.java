@@ -1,5 +1,6 @@
 package com.deco2800.game.components.mainmenu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -30,10 +31,18 @@ public class MainMenuDisplay extends UIComponent {
   private void addActors() {
     table = new Table();
     table.setFillParent(true);
+//    table.setHeight(400);
+//    table.setWidth(400);
     Image title =
         new Image(
             ServiceLocator.getResourceService()
-                .getAsset("images/box_boy_title.png", Texture.class));
+                .getAsset("images/Crafting-assets-sprint1/screens/atlantis sinks main menu.png", Texture.class));
+//    title.setScale(4f);
+    title.setWidth(Gdx.graphics.getWidth());
+    title.setHeight(Gdx.graphics.getHeight());
+    title.setPosition(0, 0);
+
+
 
     TextButton startBtn = new TextButton("Start", skin);
     TextButton loadBtn = new TextButton("Load", skin);
@@ -78,16 +87,14 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
-    table.add(title);
+   // table.add(title);
     table.row();
-    table.add(startBtn).padTop(30f);
-    table.row();
-    table.add(loadBtn).padTop(15f);
-    table.row();
-    table.add(settingsBtn).padTop(15f);
-    table.row();
-    table.add(exitBtn).padTop(15f);
+    table.add(startBtn).padTop(650f);
+    table.add(exitBtn).padTop(650f);
+    table.add(settingsBtn).padTop(650f);
 
+
+    stage.addActor(title);
     stage.addActor(table);
   }
 

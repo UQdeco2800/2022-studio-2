@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -52,10 +53,15 @@ public class UndergroundGameArea extends GameArea {
 //            "images/level_2_tiledmap/32x32/purple_cobble.png",
             "images/Crafting-assets-sprint1/crafting table/craftingTable2.png",
             "images/Crafting-assets-sprint1/materials/gold.png",
+            "images/Crafting-assets-sprint1/materials/iron.png",
+            "images/Crafting-assets-sprint1/materials/plastic.png",
             "images/Crafting-assets-sprint1/materials/platinum.png",
+            "images/Crafting-assets-sprint1/materials/rubber.png",
             "images/Crafting-assets-sprint1/materials/silver.png",
             "images/Crafting-assets-sprint1/materials/steel.png",
             "images/Crafting-assets-sprint1/materials/wood.png",
+            "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
+            "images/Crafting-assets-sprint1/materials/toilet_paper.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png",
@@ -90,22 +96,22 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg"
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
     };
 
     public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {"images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-            "images/Movement/movement.atlas"
+            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
-    private static final String[] undergroundMusic = {backgroundMusic};
+    private final String[] undergroundMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
 
     private Entity player;
-    private static GridPoint2 craftingTablePos;
 
 
     public UndergroundGameArea(TerrainFactory terrainFactory, Entity player) {
@@ -188,9 +194,12 @@ public class UndergroundGameArea extends GameArea {
     private Entity spawnPlayer() {
         Entity newPlayer = PlayerFactory.createPlayer();
         Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
+        Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
+        newPlayer.getComponent(PlayerKeyPrompt.class)
+                .setKeyPromptAnimator(newKeyPromptAnimator);
         return newPlayer;
     }
 
