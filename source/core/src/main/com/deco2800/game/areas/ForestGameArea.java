@@ -148,7 +148,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity heracles;
+  private static Entity heracles;
   private Entity megaPoop;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
@@ -188,13 +188,13 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Check if Heracles is placed on map
+   * Check if Heracles is alive on map
    */
-  public boolean ifHeraclesOnMap() {
-    if (heracles.getPosition() == null) {
-      return false;
+  public static boolean ifHeraclesOnMap() {
+    if (heracles.isDead()) {
+      return true;
     }
-    return true;
+    return false;
   }
 
 
@@ -335,37 +335,6 @@ public class ForestGameArea extends GameArea {
     entityToRemove.setEnabled(false);
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
   }
-
-  /**
-   * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
-   */
-  /*
-  private void spawnEffectBlobs() {
-
-    GridPoint2 minPos = new GridPoint2(2, 2);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-    for (int i = 0; i < 10; i++) {
-      Entity speedBuff1 = AuraFactory.createWeaponSpeedBuff();
-      auraOnMap.add(speedBuff1);
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      this.spawnEntityAt(speedBuff1, randomPos, true, false);
-
-      Timer timer = new Timer();
-      timer.schedule(new TimerTask() {
-                       @Override
-                       public void run() {
-                         logger.info("EffectBlobs disappear");
-                         speedBuff1.dispose();
-                         auraOnMap.remove(speedBuff1);
-                         timer.cancel();
-                       }
-                     }
-              , 7000, 5000);
-    }
-  }
-  */
 
   /**
    * Spawns speed buff entity into the game

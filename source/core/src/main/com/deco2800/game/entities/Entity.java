@@ -232,6 +232,7 @@ public class Entity {
         component.dispose();
       } //this prevents the other entities using the same animation from having their atlases disposed (black box)
     }
+    this.flagDead();
     ServiceLocator.getEntityService().unregister(this);
   }
 

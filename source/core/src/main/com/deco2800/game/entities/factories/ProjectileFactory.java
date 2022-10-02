@@ -160,7 +160,6 @@ public class ProjectileFactory {
      */
     public static Entity createWeaponProjectile(Entity player, double angle) { //TEAM 04 WIP
        WeaponConfigSetup configs = FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
-        //WeaponConfig config = configs.plungerBow;
         double dmg = player.getComponent(InventoryComponent.class).getEquipable(0).getComponent(PhyiscalWeaponStatsComponent.class).getDamage();
 
         PhysicsComponent physicsComponent = new PhysicsComponent();
