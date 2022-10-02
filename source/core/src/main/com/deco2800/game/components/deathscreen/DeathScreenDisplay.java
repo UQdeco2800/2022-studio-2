@@ -72,7 +72,6 @@ public class DeathScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
-
         //Play Again/ Continue Button
         if (getLevel() == 1) {
             continueBtnTexture = new Texture(Gdx.files
@@ -80,16 +79,19 @@ public class DeathScreenDisplay extends UIComponent {
         } else if (getLevel() == 2) {
             continueBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
-        //} else if (getLevel() == 3) {
-          //  continueBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         } else if (getLevel() == 3) {
+            continueBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        } else if (getLevel() == 4) {
             continueBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
         }
         buttonTextureRegion = new TextureRegion(continueBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         continueButton = new ImageButton(buttonDrawable);
-
+        if (getLevel() == 3) {
+            continueButton.setPosition(1325, 290);
+            continueButton.setSize(200, 65);
+        }
 
 
         // Play Again/ continue button listener - Restarts game
@@ -110,15 +112,19 @@ public class DeathScreenDisplay extends UIComponent {
         } else if (getLevel() == 2) {
             exitBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
-        //} else if (getLevel() == 3) {
-          //  exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
-        }  else if (getLevel() == 3) {
+        } else if (getLevel() == 3) {
+            exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        }  else if (getLevel() == 4) {
             exitBtnTexture = new Texture(Gdx.files
                     .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
         }
         buttonTextureRegion = new TextureRegion(exitBtnTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exitButton = new ImageButton(buttonDrawable);
+        if (getLevel() == 3) {
+            exitButton.setPosition(1000, 100);
+            exitButton.setSize(200, 65);
+        }
 
 
         // Exit button listener, returns to main menu
@@ -149,15 +155,20 @@ public class DeathScreenDisplay extends UIComponent {
         btnTable.row();
         btnTable.add(exitButton).padBottom(35).padLeft(200).left().height(100);
 
-        background.setPosition(table.getX() + 1600, table.getY() + 900);
+        //background.setPosition(table.getX() + 1600, table.getY() + 900);
         //background.set
         background.add(btnTable);
 
         // Adds the stack to the parent table
         table.add(background);
-        table.right().bottom();
+        table.bottom().left();
         stage.addActor(table);
+        logger.info("Stage height: " + stage.getHeight() + " And Stage width: " + stage.getWidth());
         logger.debug("DeathScreenDisplay table has been added to the actor");
+    }
+
+    public void setDisplay(){
+
     }
 
     /**
