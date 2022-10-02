@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 /** Underground area for the demo game with trees, a player, and some enemies. */
 public class UndergroundGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(UndergroundGameArea.class);
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
@@ -43,14 +43,13 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/wall_edge.png",
             "images/level_2_tiledmap/wall_side.png",
             "images/level_2_tiledmap/water.png",
-            "images/ghost_king.png",
             "images/NPC/friendly_creature npc/Friendly_creature.png",
             "images/ghost_1.png",
             "images/grass_1.png",
             "images/grass_2.png",
             "images/grass_3.png",
-            "images/level_2_tiledmap/32x32/grass.png",
-            "images/level_2_tiledmap/32x32/purple_cobble.png",
+//            "images/level_2_tiledmap/32x32/grass.png",
+//            "images/level_2_tiledmap/32x32/purple_cobble.png",
             "images/Crafting-assets-sprint1/crafting table/craftingTable2.png",
             "images/Crafting-assets-sprint1/materials/gold.png",
             "images/Crafting-assets-sprint1/materials/iron.png",
@@ -92,6 +91,10 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Pipe.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Plunger.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Sword.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/level_2_tiledmap/pipe1.png",
+            "images/level_2_tiledmap/pipe2.png",
+            "images/level_2_tiledmap/statues.jpg",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
     };
 
@@ -104,7 +107,7 @@ public class UndergroundGameArea extends GameArea {
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
-    private static final String[] undergroundMusic = {backgroundMusic};
+    private final String[] undergroundMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
 
@@ -202,7 +205,7 @@ public class UndergroundGameArea extends GameArea {
 
     public void spawnCraftingTable() {
         Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
-        spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
+        spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
     }
 
     private GridPoint2 randomPositon() {
@@ -248,4 +251,3 @@ public class UndergroundGameArea extends GameArea {
         this.unloadAssets();
     }
 }
-

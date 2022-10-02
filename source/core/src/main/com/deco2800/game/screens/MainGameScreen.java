@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
@@ -45,7 +46,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png","images/Inventory/quickbar.png"};
+  private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String[] quickBar = {"images/Inventory/quickbar_sprint3.png"};
   private static final String[] healthBar = {"images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png","images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png"};
   private static final String[] staminaBar = {"images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png","images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png" };
   private static final String[] manaBar = {"images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_1.png","images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_2.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_3.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_4.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png"};
@@ -71,12 +73,15 @@ public class MainGameScreen extends ScreenAdapter {
   private static GameArea map;
   private static Component mainGameActions;
   private static Boolean dead;
+
+  private static Boolean transition;
   private static Integer gameLevel;
+  private static Boolean win;
 
 
 
 
-  public MainGameScreen(GdxGame game) {
+  public MainGameScreen(GdxGame game, int level) {
 
     this.game = game;
     logger.debug("Initialising main game screen services");
@@ -101,22 +106,48 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    gameLevel = 1;
-    ForestGameArea map = (ForestGameArea) chooseMap(gameLevel);
-//    UndergroundGameArea map = loadLevelTwoMap();
-    this.map = map;
-//    GameArea map = loadLevelTwoMap();
-    player = map.getPlayer();
-    dead = false;
+    gameLevel = level;
 
+    this.map = chooseMap(gameLevel);
+
+    if (this.map == null) {
+      logger.error("INCORRECT LEVEL SELECTED. ERROR TIME!");
+    }
+
+    player = map.getPlayer();
+
+    // Management components for death and transition screen
+    dead = false;
+    transition = false;
+    win = false;
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
-
-
+    // Add screen transition listener to player
+    player.getEvents().addListener("mapTransition", this::transitionScreenStart);
+    // Add win screen listener to player
+    player.getEvents().addListener("win", this::winScreenStart);
   }
 
+  /**
+   * Sets dead to true, changing the render of the game
+   */
   public void deathScreenStart() { dead = true; }
 
+  /**
+   * Sets transition to true
+   */
+  public void transitionScreenStart() { transition = true; }
+
+  /**
+   * Sets win to true
+   */
+  public void winScreenStart() { win = true;}
+
+
+  /**
+   * Gets the games current map
+   * @return map - current map
+   */
   public GameArea getMap(){
     return map;
   }
@@ -135,6 +166,16 @@ public class MainGameScreen extends ScreenAdapter {
       } else if (gameLevel == 2) {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
       }
+    }
+    if (win) {
+      logger.info("Win screen screen type set");
+      player.getComponent(PlayerActions.class).stopWalking();
+      game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
+
+    }
+
+    if (transition) {
+      game.setScreen(GdxGame.ScreenType.LEVEL_TRANSITION);
     }
 
     if (PauseMenuActions.getQuitGameStatus()) {
@@ -175,19 +216,31 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   /**
+   * Gets game level
+   * @return gameLevel - integer value of current game level
+   */
+  public int getGameLevel() {
+    return gameLevel;
+  }
+
+  /**
+   * Sets game level
+   * @param gameLevel - the game level you want to change the level to.
+   */
+  public void setGameLevel(int gameLevel) {
+    this.gameLevel = gameLevel;
+  }
+
+  /**
    * Disposes of the current level and loads the next one - Team 5 1map4all @otili9890
    * @param level (int) - The int describing which map to load (1-3)
    */
   public GameArea chooseMap(int level) {
     switch (level) {
       case 1:
-        gameLevel = 1;
-        return this.loadLevelOneMap();
+        return this.map = loadLevelOneMap();
       case 2:
-        gameLevel = 2;
-        map.dispose();
-        this.map = this.loadLevelTwoMap();
-        player = map.getPlayer();
+        return this.map = loadLevelTwoMap();
       default:
     }
     return null;
@@ -221,6 +274,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextures(quickBar);
     resourceService.loadTextures(healthBar);
     resourceService.loadTextures(staminaBar);
     resourceService.loadTextures(manaBar);
@@ -238,6 +292,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(quickBar);
     resourceService.unloadAssets(healthBar);
     resourceService.unloadAssets(staminaBar);
     resourceService.unloadAssets(manaBar);
@@ -258,19 +313,19 @@ public class MainGameScreen extends ScreenAdapter {
     mainGameActions = new MainGameActions(this.game);
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent =
-        ServiceLocator.getInputService().getInputFactory().createForTerminal();
+            ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
-        .addComponent(new QuickBarDisplay())
-        .addComponent(new PerformanceDisplay())
-        .addComponent(mainGameActions)
-        .addComponent(new MainGameExitDisplay())
-        .addComponent(new Terminal())
-        .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay())
-        .addComponent(new DialogueDisplay())
-        .addComponent(new PauseMenuActions());
+            .addComponent(new QuickBarDisplay())
+            .addComponent(new PerformanceDisplay())
+            .addComponent(mainGameActions)
+            .addComponent(new MainGameExitDisplay())
+            .addComponent(new Terminal())
+            .addComponent(inputComponent)
+            .addComponent(new TerminalDisplay())
+            .addComponent(new DialogueDisplay())
+            .addComponent(new PauseMenuActions());
 
     ServiceLocator.getEntityService().register(ui);
   }
