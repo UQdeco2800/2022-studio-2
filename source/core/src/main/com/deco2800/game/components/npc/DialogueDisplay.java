@@ -7,19 +7,23 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.areas.ForestGameArea;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
+import static com.deco2800.game.components.gamearea.GameAreaDisplay.inventoryComponent;
 
 
 /**
@@ -243,7 +247,7 @@ public class DialogueDisplay extends UIComponent {
         if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
             countFemale++;
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
-            textAreaFemale.setWidth(480);
+            textAreaFemale.setWidth(400);
             dialogueContainerFemale.addActor(textAreaFemale);
             if (countFemale == textFemale.length - 1) {
                 countFemale = 0;
@@ -291,15 +295,32 @@ public class DialogueDisplay extends UIComponent {
             if (countChild == textChild.length - 1) {
                 countChild = 0;
                 dialogueContainerChild.remove();
+            } else if (countChild == 3) {
+                dialogueContainerChild.add(new TextButton("Start", skin));
+                AudioRecorder recorder = Gdx.audio.newAudioRecorder(44100,true);
+                short[] audioBuffer = new short[44100 * 5];
+                recorder.read(audioBuffer, 0, audioBuffer.length);
+
+                AudioDevice audioDevice = Gdx.audio.newAudioDevice(44100, true);
+                audioDevice.writeSamples(audioBuffer, 0, audioBuffer.length);
+                System.out.println(Arrays.toString(audioBuffer));
+                recorder.dispose();
+                audioDevice.dispose();
             } else if (countChild == 4) {
                 dialogueContainerChild.addActor(childButton);
-//                GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
-//                childButton.addListener(new ClickListener() {
-//                    void getGold() {
-//                        GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
-//                    }
-//
-//                });
+
+
+                childButton.addListener( new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
+                        sound.play(1.0f);
+                        inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                        inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+                    };
+                });
+
+
 
             } else if (countChild == 5) {
                 dialogueContainerChild.removeActor(childButton);
