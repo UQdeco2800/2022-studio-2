@@ -27,12 +27,15 @@ public class DeathScreen extends ScreenAdapter {
     private final int level;
     private final Renderer renderer;
     private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png",
-                                                    "images/WinScreen/atlantis_sinks_no_island.png", "images/WinScreen/Win.png",
-                                                    "images/WinScreen/atlantis_sinks_no_island_win.png"};
+            "images/WinScreen/atlantis_sinks_no_island.png", "images/WinScreen/Win.png",
+            "images/WinScreen/atlantis_sinks_no_island_win.png",
+            "images/DeathScreens/lvl_2_w_buttons.png", "images/DeathScreens/lvl_1_w_buttons.png"
+    };
     private static final String[] deathBtnTextures = {"images/DeathScreens/widgets/main_menu_lvl_1.png",
                                                     "images/DeathScreens/widgets/main_menu_lvl_2.png",
                                                     "images/DeathScreens/widgets/play_again_lvl_1.png",
-                                                    "images/DeathScreens/widgets/play_again_lvl_2.png"};
+                                                    "images/DeathScreens/widgets/play_again_lvl_2.png",
+                                                    "images/WinScreen/winbtn.png"};
     private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
     private static final String buzzDeathMusic = "sounds/buzz_death.mp3";
     private static final String flushWinSound = "sounds/flush_win.mp3";
