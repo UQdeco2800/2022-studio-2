@@ -82,6 +82,12 @@ public class PlayerFactory {
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setEntityType(EntityTypes.PLAYER);
 
+    //FOR TESTING
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createSwordLvl2());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createDagger());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHeraAthenaDag());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHera());
     return player;
   }
 
@@ -142,7 +148,7 @@ public class PlayerFactory {
     return keyPromptAnimator;
   }
   /**
-   * Create level 3 dagger and hera combat item animation.
+   * Create combat item animator
    * @return entity
    */
   public static Entity createCombatAnimator(Entity playerEntity) {

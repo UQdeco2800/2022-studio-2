@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.CombatItemsComponents.WeaponArrowProjectileComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.EnemyProjectileComponent;
@@ -15,7 +14,6 @@ import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillProjectileComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -161,7 +159,7 @@ public class ProjectileFactory {
      */
     public static Entity createWeaponProjectile(Entity player, double angle) { //TEAM 04 WIP
        WeaponConfigSetup configs = FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
-        double dmg = player.getComponent(InventoryComponent.class).getEquipable(0).getComponent(PhyiscalWeaponStatsComponent.class).getDamage();
+        double dmg = player.getComponent(InventoryComponent.class).getEquipable(0).getComponent(PhysicalWeaponStatsComponent.class).getDamage();
 
         PhysicsComponent physicsComponent = new PhysicsComponent();
         WeaponArrowProjectileComponent weaponArrowProjectileComponent = new WeaponArrowProjectileComponent();

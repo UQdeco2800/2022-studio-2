@@ -45,7 +45,8 @@ public class PlayerCombatAnimationController extends Component {
         entity.getEvents().addListener("hera", this::animateHera);
         entity.getEvents().addListener("heraAthenaDag", this::animateheraAthenaDag);
         entity.getEvents().addListener("athena", this::animateAthena);
-        entity.getEvents().addListener("swordLvl2", this::animateSwordLvl2);
+        entity.getEvents().addListener("sword", this::animateSword);
+        entity.getEvents().addListener("swordFire", this::animateSwordFire);
         entity.getEvents().addListener("tridentLvl2", this::animateTridentLvl2);
         entity.getEvents().addListener("animatePlunger", this::animatePlunger);
         entity.getEvents().addListener("animatePipe", this::animatePipe);
@@ -71,12 +72,16 @@ public class PlayerCombatAnimationController extends Component {
         animator.startAnimation("athena");
     }
 
-    void animateSwordLvl2() {
-        animator.startAnimation("swordLvl2");
+    void animateSword() {
+        animator.startAnimation("sword");
+    }
+
+    void animateSwordFire() {
+        animator.startAnimation("swordFire");
     }
 
     void animateTridentLvl2() {
-        animator.startAnimation("tridentLvl2");
+        animator.startAnimation("trident");
     }
 
     void animatePlunger() {
