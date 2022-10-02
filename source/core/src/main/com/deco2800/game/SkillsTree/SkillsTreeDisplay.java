@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.components.player.PlayerSkillComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -19,7 +20,12 @@ public class SkillsTreeDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(com.deco2800.game.SkillsTree.SkillsTreeDisplay.class);
     private static final float Z_INDEX = 2f;
     private static final int SKILL_ICON_BUTTON_SIZE = 50;
-    private Table table;
+    private Table exitTable;
+    private Table equipTable;
+
+    private PlayerSkillComponent.SkillTypes skill1Type = PlayerSkillComponent.SkillTypes.NONE;
+    private PlayerSkillComponent.SkillTypes skill2Type = PlayerSkillComponent.SkillTypes.TELEPORT;
+    private PlayerSkillComponent.SkillTypes skill3Type = PlayerSkillComponent.SkillTypes.BLOCK;
 
     @Override
     public void create() {
@@ -28,9 +34,12 @@ public class SkillsTreeDisplay extends UIComponent {
     }
 
     private void addActors() {
-        table = new Table();
-        table.top().right();
-        table.setFillParent(true);
+        exitTable = new Table();
+        equipTable = new Table();
+        equipTable.bottom().left();
+        exitTable.top().right();
+        exitTable.setFillParent(true);
+        equipTable.setFillParent(true);
         Texture imgTexture;
         Image Img;
 
@@ -38,12 +47,14 @@ public class SkillsTreeDisplay extends UIComponent {
          * change your images here
          */
         imgTexture = new Texture(Gdx.files.internal("images/Skill_tree/skill_tree_2.png"));
+        Image equipText = new Image(new Texture(Gdx.files.internal("images/Skills/EquippedSkillsText.png")));
 
         /**
          * Set images status
          */
         Img = new Image(imgTexture);
         Img.setSize(850f, 850f);
+        equipText.setSize(210f, 64f);
         Img.setPosition(250,0);
 
         TextButton mainMenuBtn = new TextButton("Exit", skin);
@@ -62,26 +73,41 @@ public class SkillsTreeDisplay extends UIComponent {
                     }
                 });
 
-        table.add(mainMenuBtn).padTop(10f).padRight(10f);
+        exitTable.add(mainMenuBtn).padTop(10f).padRight(10f);
+        equipTable.add(equipText).padLeft(20f).padBottom(5f);
 
-        stage.addActor(table);
+        refreshEquippedSkillsUI();
+
+        TextureRegionDrawable texture = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/clearSkillsButton.png", Texture.class));
+        TextureRegionDrawable texture2 = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/clearSkillsButton_down.png", Texture.class));
+        ImageButton button = new ImageButton(texture);
+        ImageButton.ImageButtonStyle style = button.getStyle();
+        style.imageDown = texture2;
+        style.imageUp = texture;
+        equipTable.add(button).pad(10f);
+
+        stage.addActor(exitTable);
         stage.addActor(Img);
-        addSkillTreeButton(810, 644, "dash");
+        stage.addActor(equipTable);
+
+        addSkillToTree(1, "dash");
         // Row 1
-        addSkillTreeButton(698, 532, "dodge");
-        addSkillTreeButton(774, 532, "teleport");
-        addSkillTreeButton(920, 532, "invulnerability");
-        addSkillTreeButton(844, 532, "invulnerability");
+        addSkillToTree(2, "dodge");
+        addSkillToTree(3, "teleport");
+        addSkillToTree(4, "invulnerability");
+        addSkillToTree(5, "invulnerability");
         // Row 2
-        addSkillTreeButton(736, 436, "block");
-        addSkillTreeButton(882, 436, "invulnerability");
+        addSkillToTree(6, "block");
+        addSkillToTree(7, "invulnerability");
         // Row 3
-        addSkillTreeButton(736, 344, "invulnerability");
-        addSkillTreeButton(920, 344, "invulnerability");
-        addSkillTreeButton(844, 344, "invulnerability");
+        addSkillToTree(8, "invulnerability");
+        addSkillToTree(9, "invulnerability");
+        addSkillToTree(10, "invulnerability");
         // Row 4
-        addSkillTreeButton(781, 210, "invulnerability");
-        addSkillTreeButton(850, 210, "fireballUltimate");
+        addSkillToTree(11, "invulnerability");
+        addSkillToTree(12, "fireballUltimate");
 
     }
 
@@ -97,13 +123,37 @@ public class SkillsTreeDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        table.clear();
+        exitTable.clear();
+        equipTable.clear();
         super.dispose();
+    }
+
+    private void refreshEquippedSkillsUI() {
+        addEquippedSkill(PlayerSkillComponent.SkillTypes.DASH);
+        addEquippedSkill(skill1Type);
+        addEquippedSkill(skill2Type);
+        addEquippedSkill(skill3Type);
+    }
+
+    private void addEquippedSkill(PlayerSkillComponent.SkillTypes skillType) {
+        switch (skillType) {
+            case NONE -> addEquipImage("blankSkillIcon");
+            case DASH -> addEquipImage("dash");
+            case TELEPORT -> addEquipImage("teleport");
+            case BLOCK -> addEquipImage("block");
+            case DODGE -> addEquipImage("dodge");
+        }
+    }
+
+    private void addEquipImage(String imageName) {
+        Image skillIcon = new Image(new Texture(Gdx.files.internal(
+                                "images/Skills/" + imageName + ".png")));
+        equipTable.add(skillIcon).pad(10f);
     }
 
     private void addSkillToTree(int skillNumber, String imageFileName) {
         switch (skillNumber) {
-            case 1 -> addSkillTreeButton(803, 618, imageFileName);
+            case 1 -> addSkillTreeButton(808, 642, imageFileName);
             case 2 -> addSkillTreeButton(698, 532, imageFileName);
             case 3 -> addSkillTreeButton(774, 532, imageFileName);
             case 4 -> addSkillTreeButton(920, 532, imageFileName);
@@ -134,4 +184,6 @@ public class SkillsTreeDisplay extends UIComponent {
 
         stage.addActor(button);
     }
+
+
 }
