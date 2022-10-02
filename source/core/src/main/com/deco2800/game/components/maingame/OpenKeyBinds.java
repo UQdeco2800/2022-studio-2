@@ -5,27 +5,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.player.PlayerModifier;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class OpenKeyBinds extends Component {
 
-    public class KeyBind {
+    public static class KeyBind {
         public String key;
         public String description;
-        public String image;
+        public String imagelvl1;
+        public String imagelvl2;
 
-        public KeyBind(String in_key, String in_desc, String in_image) {
+        public KeyBind(String in_key, String in_desc, String lvl_1, String lvl_2) {
             key = in_key;
             description = in_desc;
-            image = in_image;
+            imagelvl1 = lvl_1;
+            imagelvl2 = lvl_2;
         }
     }
 
@@ -52,34 +52,38 @@ public class OpenKeyBinds extends Component {
         ResourceService resourceService = ServiceLocator.getResourceService();
         ArrayList<String> keyTexturesArray = new ArrayList<>();
         KeyBind dummy;
-        String image, key, description;
+        String image_lvl1, image_lvl2, key, description, path_lvl1, path_lvl2;
         numKeys = 0;
 
         json = new JsonReader();
         JsonValue base = json.parse(Gdx.files.getFileHandle("configs/keybinds.json", Files.FileType.Local));
+
+        path_lvl1 = base.getString("PATH_LVL1");
+        path_lvl2 = base.getString("PATH_LVL2");
 
         for (JsonValue component : base.get("Keys")) {
 
             description = component.getString("Description");
             if (!description.isEmpty()) { /* If description is empty, key is unbound, we don't want it */
                 /* Get the JSON values we want */
-                image = component.getString("Image");
                 key = component.getString("Key");
+                image_lvl1 = path_lvl1 + key + ".png";
+                image_lvl2 = path_lvl2 + key + ".png";
 
                 /* Create a keybinding entry */
                 numKeys++;
-                dummy = new KeyBind(key, description, image);
+                dummy = new KeyBind(key, description, image_lvl1, image_lvl2);
                 keys.add(dummy);
                 logger.info(String.format("%s key bound to action %s", component.getString("Key"),
                         component.getString("Description")));
 
                 /* Add the key texture to be loaded */
-                keyTexturesArray.add(image);
+                keyTexturesArray.add(image_lvl1);
+                keyTexturesArray.add(image_lvl2);
             }
         }
 
         /* Load our textures! */
-        System.out.println(keyTexturesArray);
         keyTextures = new String[keyTexturesArray.size()];
         keyTextures = keyTexturesArray.toArray(keyTextures);
         logger.debug("Loading keybinding key assets");

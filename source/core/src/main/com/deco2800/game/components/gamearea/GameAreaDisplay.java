@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -27,7 +26,6 @@ import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +77,6 @@ public class GameAreaDisplay extends UIComponent {
     private Materials[] boxes = new Materials[2];
     private Group pausingGroup = new Group();
     private Group keyBindGroup = new Group();
-    private Table keyBindTable;
     private int keyBindPage = 0;
     private int keyBindMod = 0;
 
@@ -178,10 +175,26 @@ public class GameAreaDisplay extends UIComponent {
                 equippedItem.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        TextButton unequipBtn = new TextButton("Unequip", skin);
-                        TextButton dropItemBtn = new TextButton("Drop item", skin);
-                        unequipBtn.setPosition(horizontalPosition, verticalPosition);
-                        dropItemBtn.setPosition(horizontalPosition, verticalPosition - 50);
+                        //TextButton unequipBtn = new TextButton("Unequip", skin);
+                        //TextButton dropItemBtn = new TextButton("Drop item", skin);
+                        Button.ButtonStyle unequip = new Button.ButtonStyle();
+                        unequip.up= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/unequip_up.png"))));
+                        unequip.over= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/unequip_down.png"))));
+                        Button unequipBtn = new Button(unequip);
+                        unequipBtn.setSize(96,36);
+
+                        Button.ButtonStyle drop = new Button.ButtonStyle();
+                        drop.up= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/drop_up.png"))));
+                        drop.over= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/drop_down.png"))));
+                        Button dropItemBtn = new Button(drop);
+                        dropItemBtn.setSize(96,36);
+
+                        unequipBtn.setPosition(horizontalPosition + 63, verticalPosition);
+                        dropItemBtn.setPosition(horizontalPosition + 63, verticalPosition - 40);
                         inventoryGroup.addActor(unequipBtn);
                         inventoryGroup.addActor(dropItemBtn);
                         unequipBtn.addListener(new ChangeListener() {
@@ -263,10 +276,26 @@ public class GameAreaDisplay extends UIComponent {
 //              dropDownMenuBtn.addActor(itemOpBtn);
 //              dropDownMenuBtn.addActor(dropItemBtn);
 
-                            TextButton itemOpBtn = new TextButton(buttonText, skin);
-                            TextButton dropItemBtn = new TextButton("Drop item", skin);
-                            itemOpBtn.setPosition(horizontalPosition, verticalPosition);
-                            dropItemBtn.setPosition(horizontalPosition, verticalPosition - 50);
+                            //TextButton itemOpBtn = new TextButton(buttonText, skin);
+                            //TextButton dropItemBtn = new TextButton("Drop item", skin);
+                            Button.ButtonStyle equip = new Button.ButtonStyle();
+                            equip.up= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/equip_up.png"))));
+                            equip.over= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/equip_down.png"))));
+                            Button itemOpBtn = new Button(equip);
+                            itemOpBtn.setSize(96,36);
+
+                            Button.ButtonStyle drop = new Button.ButtonStyle();
+                            drop.up= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/drop_up.png"))));
+                            drop.over= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/drop_down.png"))));
+                            Button dropItemBtn = new Button(drop);
+                            dropItemBtn.setSize(96,36);
+
+                            itemOpBtn.setPosition(horizontalPosition + 48, verticalPosition);
+                            dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 40);
                             dropItemBtn.addListener(
                                     new ChangeListener() {
                                         @Override
@@ -488,10 +517,14 @@ public class GameAreaDisplay extends UIComponent {
      * Utilises modulo technique to ensure page changing simply loops.
      */
     public void setKeyBindMenu() {
-        keyBindMenu = new Image(new Texture("images/KeyBinds/ControlPage.png"));
+        if (getGameAreaName().equals("Underground")) {
+            keyBindMenu = new Image(new Texture("images/keybind/level_2/ControlPage.png"));
+        } else {
+            keyBindMenu = new Image(new Texture("images/keybind/level_1/ControlPage.png"));
+        }
         keyBindMenu.setSize(1920, 1080);
-        keyBindMenu.setPosition(Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
-                Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
+        keyBindMenu.setPosition((float)Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
+                (float)Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
         keyBindGroup.addActor(keyBindMenu);
 
         for (Actor actor : createKeyBindings()) {
@@ -537,17 +570,23 @@ public class GameAreaDisplay extends UIComponent {
      * @return Actor[]  Key images and label actors
      */
     public Actor[] createKeyBindings() {
-        OpenKeyBinds.KeyBind[] keyBinds = OpenPauseComponent.openKeyBinds.getKeyBinds(keyBindPage);
+        OpenKeyBinds.KeyBind[] keyBinds = OpenKeyBinds.getKeyBinds(keyBindPage);
         OpenKeyBinds.KeyBind keyBind;
         Actor[] keys = new Actor[OpenKeyBinds.numKeysPerPage * 2]; // x2, one for label, one for image
         Image keyTexture;
         Label keyText;
-        int keyIndex = 0, pos = 0;
+        int keyIndex = 0;
+        int pos = 0;
 
         while (keyIndex < keyBinds.length && keyBinds[keyIndex] != null) {
             // Create our key image
             keyBind = keyBinds[keyIndex];
-            keyTexture = new Image(new Texture(keyBind.image));
+            // Select image depending on level
+            if (getGameAreaName().equals("Underground")) {
+                keyTexture = new Image(new Texture(keyBind.imagelvl2));
+            } else {
+                keyTexture = new Image(new Texture(keyBind.imagelvl1));
+            }
             keyTexture.setSize(128, 72);
             keyTexture.setPosition(OpenKeyBinds.keyTexturePosLUT[keyIndex][0],
                     OpenKeyBinds.keyTexturePosLUT[keyIndex][1]);
@@ -555,8 +594,8 @@ public class GameAreaDisplay extends UIComponent {
 
             // Create our label
             keyText = new Label(keyBind.description, skin);
-            keyText.setPosition(OpenKeyBinds.keyTexturePosLUT[keyIndex][0] + OpenKeyBinds.keyLabelOffsetX,
-                    OpenKeyBinds.keyTexturePosLUT[keyIndex][1] + OpenKeyBinds.keyLabelOffsetY);
+            keyText.setPosition((float)(OpenKeyBinds.keyTexturePosLUT[keyIndex][0] + OpenKeyBinds.keyLabelOffsetX),
+                    (float)(OpenKeyBinds.keyTexturePosLUT[keyIndex][1] + OpenKeyBinds.keyLabelOffsetY));
             keys[pos++] = keyText;
 
             keyIndex++;

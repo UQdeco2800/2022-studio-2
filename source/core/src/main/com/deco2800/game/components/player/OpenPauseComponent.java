@@ -80,7 +80,7 @@ public class OpenPauseComponent extends Component {
      */
     public static void openKeyBindings() {
         logger.info("Opening key binding window");
-        ServiceLocator.getPauseMenuArea().setKeyBindMenu();
+        ServiceLocator.getKeyBindArea().setKeyBindMenu();
         keyBindOpen = true;
     }
 
@@ -89,7 +89,7 @@ public class OpenPauseComponent extends Component {
      */
     private static void closeKeyBindings() {
         logger.info("Closing key binding window");
-        ServiceLocator.getPauseMenuArea().disposeKeyBindMenu();
+        ServiceLocator.getKeyBindArea().disposeKeyBindMenu();
         keyBindOpen = false;
     }
 
