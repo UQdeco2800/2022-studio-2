@@ -37,8 +37,6 @@ public class ForestGameArea extends GameArea {
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/Enemies/gym_bro.png",
-    "images/Enemies/poops.png",
-    "images/Enemies/poopSludge.png",
     "images/Enemies/discus.png",
     "images/grass_1.png",
     "images/grass_2.png",
@@ -131,14 +129,13 @@ public class ForestGameArea extends GameArea {
 
           "images/Skills/skillAnimations.atlas", "images/KeyPrompt/KEY_Q_!.atlas","images/Enemies/gym_bro.atlas",
           "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-          "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
+          "images/Skills/skillAnimations.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
           "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
           "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
-          "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
-          "images/Enemies/poop.atlas"
+          "images/Enemies/heracles.atlas"
 
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -149,7 +146,6 @@ public class ForestGameArea extends GameArea {
 
   private Entity player;
   private static Entity heracles;
-  private Entity megaPoop;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
@@ -210,10 +206,8 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     spawnGymBro();
     heracles = spawnHeracles();
-    megaPoop = spawnMegaPoop();
     spawnOneLegGirl();
     spawnPlug();
-    spawnPoops();
     spawnHumanGuard();
     spawnPlumberFriend();
     spawnfriendlycreature();
@@ -835,34 +829,6 @@ public class ForestGameArea extends GameArea {
     areaEntities.add(heracles);
     spawnEntityAt(heracles, randomPos, true, true);
     return heracles;
-  }
-
-  /**
-   * Spawn Heracles in a random position.
-   */
-  private Entity spawnMegaPoop() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity megaPoop = NPCFactory.createMegaPoop(player);
-    spawnEntityAt(megaPoop, randomPos, true, true);
-    return megaPoop;
-  }
-
-  /**
-   * Spawn poops in random positions.
-   */
-  private void spawnPoops() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < 3; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity poops = NPCFactory.createPoops(player);
-      areaEntities.add(poops);
-      spawnEntityAt(poops, randomPos, true, true);
-    }
   }
 
   private void playMusic() {
