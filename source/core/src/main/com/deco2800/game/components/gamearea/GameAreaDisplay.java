@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -66,10 +68,12 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton resume;
 
     private ImageButton exit;
+    private ImageButton controls;
     private Texture materialTexture;
     private TextureRegion materialTextureRegion;
     private TextureRegionDrawable materialDrawable;
     private Image matAmount;
+    private Image popUp;
     private String weaponType = "";
     private Image weapon;
     private Group craftingGroup = new Group();
@@ -395,8 +399,10 @@ public class GameAreaDisplay extends UIComponent {
                     weapon.remove();
                     weapon = null;
                     clearBoxes(0);
+                    displayPopUp();
                 }
                 ;
+                clearMaterials();
                 getInventory();
             }
         });
@@ -428,6 +434,7 @@ public class GameAreaDisplay extends UIComponent {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                logger.info("Exit Crafting menu");
                 disposeCraftingMenu();
                 EntityService.pauseAndResume();
                 OpenCraftingComponent.setCraftingStatus();
@@ -443,9 +450,14 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void setPauseMenu() {
         logger.info("Opening Pause Menu");
-        pauseMenu = new Image(new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/screens/pauseScreen.png")));
-        pauseMenu.setSize(1100, 1200);
+        if (getGameAreaName().equals("Underground")) {
+            pauseMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/PauseMenu/lvl2PauseScreen.png")));
+        } else {
+            pauseMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/PauseMenu/newPauseScreen.png")));
+        }
+        pauseMenu.setSize(1920, 1080);
         pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
                 Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
         pausingGroup.addActor(pauseMenu);
@@ -456,8 +468,8 @@ public class GameAreaDisplay extends UIComponent {
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         resume = new ImageButton(buttonDrawable);
-        resume.setSize(386, 122.4f);
-        resume.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 600);
+        resume.setSize(386f, 122.4f);
+        resume.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 570);
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -475,7 +487,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exit = new ImageButton(buttonDrawable);
         exit.setSize(386, 122.4f);
-        exit.setPosition(pauseMenu.getX() + 356.8f, pauseMenu.getY() + 432);
+        exit.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 340);
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -487,8 +499,15 @@ public class GameAreaDisplay extends UIComponent {
         pausingGroup.addActor(exit);
 
         // Debug button to open keybind menu - hey Rey this is for you!
-        TextButton keyBindMenuBtn = new TextButton("Keybinds", skin);
-        keyBindMenuBtn.addListener(
+        // thanks!:) -Rey
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        controls = new ImageButton(buttonDrawable);
+        controls.setSize(386, 122.4f);
+        controls.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 460);
+        controls.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -496,7 +515,7 @@ public class GameAreaDisplay extends UIComponent {
                         OpenPauseComponent.openKeyBindings();
                     }
                 });
-        pausingGroup.addActor(keyBindMenuBtn);
+        pausingGroup.addActor(controls);
         stage.addActor(pausingGroup);
 
         stage.draw();
@@ -534,7 +553,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         ImageButton keyBindNextBtn = new ImageButton(buttonDrawable);
-        keyBindNextBtn.setPosition(1325, 290);
+        keyBindNextBtn.setPosition(1325, 360);
         keyBindNextBtn.setSize(200, 65);
         keyBindNextBtn.addListener(
                 new ChangeListener() {
@@ -655,7 +674,7 @@ public class GameAreaDisplay extends UIComponent {
                         if (boxes[0] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
-                            logger.info(" item was added to box 1");
+                            logger.info(String.format(" item: %s added to box 1", item.getEntityTypes().get(0)));
                             if (item.checkEntityType((EntityTypes.WEAPON))){
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
@@ -679,6 +698,7 @@ public class GameAreaDisplay extends UIComponent {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
                                     if (currentScreenCrafting == true){
+                                        clearMaterials();
                                         disposeFirstBox();
                                         clearBoxes(1);
                                         addToInventory(checkType(item));
@@ -693,7 +713,7 @@ public class GameAreaDisplay extends UIComponent {
                             if (item.checkEntityType((EntityTypes.WEAPON))){
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
                             }
-                            logger.info(" item was added to box 2");
+                            logger.info(String.format(" item: %s added to box 2", item.getEntityTypes().get(0)));
                             materialTextureRegion = new TextureRegion(materialTexture);
                             materialDrawable = new TextureRegionDrawable(materialTextureRegion);
                             if (item.checkEntityType((EntityTypes.WEAPON))){
@@ -714,6 +734,7 @@ public class GameAreaDisplay extends UIComponent {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
                                     if (currentScreenCrafting == true) {
+                                        clearMaterials();
                                         disposeSecondBox();
                                         clearBoxes(2);
                                         addToInventory(checkType(item));
@@ -734,10 +755,29 @@ public class GameAreaDisplay extends UIComponent {
     private void displayAmount(int amount, int index) {
         matAmount = new Image(new Texture(Gdx.files.internal
                 (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
-        matAmount.setSize(15, 15);
+        matAmount.setSize(18, 18);
         matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
                 (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
+        Action upDown = Actions.forever(Actions.sequence(Actions.moveTo(matAmount.getX(), matAmount.getY()+4.5f,
+                0.5f), Actions.moveTo(matAmount.getX(), matAmount.getY()-4.5f, 0.5f)));
+        matAmount.addAction(upDown);
         materialsGroup.addActor(matAmount);
+    }
+
+    private void displayPopUp() {
+        popUp = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
+        popUp.setHeight(5);
+        popUp.setPosition(Gdx.graphics.getWidth()/2-71.25f, Gdx.graphics.getHeight()/2-23.75f);
+        Action popUpAction = Actions.sequence(Actions.sizeTo(142.5f, 47.5f, 0.5f),
+                Actions.delay(0.5f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                popUp.remove();
+            }
+        }));
+        popUp.addAction(popUpAction);
+        stage.addActor(popUp);
     }
 
     private EntityTypes checkType(Entity entity) {
@@ -874,6 +914,7 @@ public class GameAreaDisplay extends UIComponent {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 disposeCatOne();
+                clearMaterials();
                 getInventory();
             }
         });
@@ -915,6 +956,7 @@ public class GameAreaDisplay extends UIComponent {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 disposeCatTwo();
+                clearMaterials();
                 getInventory();
             }
         });
@@ -1015,6 +1057,7 @@ public class GameAreaDisplay extends UIComponent {
 
     @Override
     public void draw(SpriteBatch batch) {
+
         int screenHeight = Gdx.graphics.getHeight();
         float offsetX = 10f;
         float offsetY = 30f;
