@@ -63,6 +63,7 @@ public class InventoryComponent extends Component {
     //CANCEL_ANIMATION
     private void cancelAnimation() {
         combatAnimator.dispose();
+        combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
 //        ServiceLocator.getEntityService().unregister(combatAnimator);
     }
 
@@ -354,6 +355,7 @@ public class InventoryComponent extends Component {
         if (equipables[itemSlot] != null) {
             equipables[itemSlot] = null;
             removed = true;
+            cancelAnimation();
         }
         return removed;
     }
