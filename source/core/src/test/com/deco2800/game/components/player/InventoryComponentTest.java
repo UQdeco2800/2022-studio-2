@@ -174,8 +174,8 @@ class InventoryComponentTest {
     Entity player = PlayerFactory.createTestPlayer();
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     Entity[] expectedList = new Entity[2];
-
-    assertEquals(expectedList, inventory.getEquipables());
+    
+    assertArrayEquals(expectedList, inventory.getEquipables());
   }
 
   @Test
