@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
@@ -174,10 +171,26 @@ public class GameAreaDisplay extends UIComponent {
                 equippedItem.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        TextButton unequipBtn = new TextButton("Unequip", skin);
-                        TextButton dropItemBtn = new TextButton("Drop item", skin);
-                        unequipBtn.setPosition(horizontalPosition, verticalPosition);
-                        dropItemBtn.setPosition(horizontalPosition, verticalPosition - 50);
+                        //TextButton unequipBtn = new TextButton("Unequip", skin);
+                        //TextButton dropItemBtn = new TextButton("Drop item", skin);
+                        Button.ButtonStyle unequip = new Button.ButtonStyle();
+                        unequip.up= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/unequip_up.png"))));
+                        unequip.over= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/unequip_down.png"))));
+                        Button unequipBtn = new Button(unequip);
+                        unequipBtn.setSize(96,36);
+
+                        Button.ButtonStyle drop = new Button.ButtonStyle();
+                        drop.up= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/drop_up.png"))));
+                        drop.over= new TextureRegionDrawable(new TextureRegion(
+                                new Texture(Gdx.files.internal("images/Inventory/button/drop_down.png"))));
+                        Button dropItemBtn = new Button(drop);
+                        dropItemBtn.setSize(96,36);
+
+                        unequipBtn.setPosition(horizontalPosition + 63, verticalPosition);
+                        dropItemBtn.setPosition(horizontalPosition + 63, verticalPosition - 40);
                         inventoryGroup.addActor(unequipBtn);
                         inventoryGroup.addActor(dropItemBtn);
                         unequipBtn.addListener(new ChangeListener() {
@@ -259,10 +272,27 @@ public class GameAreaDisplay extends UIComponent {
 //              dropDownMenuBtn.addActor(itemOpBtn);
 //              dropDownMenuBtn.addActor(dropItemBtn);
 
-                            TextButton itemOpBtn = new TextButton(buttonText, skin);
-                            TextButton dropItemBtn = new TextButton("Drop item", skin);
-                            itemOpBtn.setPosition(horizontalPosition, verticalPosition);
-                            dropItemBtn.setPosition(horizontalPosition, verticalPosition - 50);
+                            //TextButton itemOpBtn = new TextButton(buttonText, skin);
+                            //TextButton dropItemBtn = new TextButton("Drop item", skin);
+
+                            Button.ButtonStyle equip = new Button.ButtonStyle();
+                            equip.up= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/equip_up.png"))));
+                            equip.over= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/equip_down.png"))));
+                            Button itemOpBtn = new Button(equip);
+                            itemOpBtn.setSize(96,36);
+
+                            Button.ButtonStyle drop = new Button.ButtonStyle();
+                            drop.up= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/drop_up.png"))));
+                            drop.over= new TextureRegionDrawable(new TextureRegion(
+                                    new Texture(Gdx.files.internal("images/Inventory/button/drop_down.png"))));
+                            Button dropItemBtn = new Button(drop);
+                            dropItemBtn.setSize(96,36);
+
+                            itemOpBtn.setPosition(horizontalPosition + 48, verticalPosition);
+                            dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 42);
                             dropItemBtn.addListener(
                                     new ChangeListener() {
                                         @Override
