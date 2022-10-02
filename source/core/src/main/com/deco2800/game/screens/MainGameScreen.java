@@ -264,7 +264,7 @@ public class MainGameScreen extends ScreenAdapter {
    */
   private UndergroundGameArea loadLevelTwoMap() {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory, player);
+    UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
 
     undergroundGameArea.create();
     return undergroundGameArea;
@@ -313,19 +313,19 @@ public class MainGameScreen extends ScreenAdapter {
     mainGameActions = new MainGameActions(this.game);
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent =
-        ServiceLocator.getInputService().getInputFactory().createForTerminal();
+            ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
-        .addComponent(new QuickBarDisplay())
-        .addComponent(new PerformanceDisplay())
-        .addComponent(mainGameActions)
-        .addComponent(new MainGameExitDisplay())
-        .addComponent(new Terminal())
-        .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay())
-        .addComponent(new DialogueDisplay())
-        .addComponent(new PauseMenuActions());
+            .addComponent(new QuickBarDisplay())
+            .addComponent(new PerformanceDisplay())
+            .addComponent(mainGameActions)
+            .addComponent(new MainGameExitDisplay())
+            .addComponent(new Terminal())
+            .addComponent(inputComponent)
+            .addComponent(new TerminalDisplay())
+            .addComponent(new DialogueDisplay())
+            .addComponent(new PauseMenuActions());
 
     ServiceLocator.getEntityService().register(ui);
   }

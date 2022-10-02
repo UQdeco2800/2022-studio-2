@@ -129,20 +129,16 @@ public class ForestGameArea extends GameArea {
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
 
-<<<<<<< HEAD
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/playerTeleport.atlas",
-=======
-    "images/Skills/skillAnimations.atlas", "images/KeyPrompt/KEY_Q_!.atlas","images/Enemies/gym_bro.atlas",
-    "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
->>>>>>> main
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
+          "images/Skills/skillAnimations.atlas", "images/KeyPrompt/KEY_Q_!.atlas","images/Enemies/gym_bro.atlas",
+          "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
+          "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
           "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
-    "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
-    "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
-    "images/Enemies/poop.atlas"
+          "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
+          "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
+          "images/Enemies/poop.atlas"
 
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -157,12 +153,6 @@ public class ForestGameArea extends GameArea {
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
-<<<<<<< HEAD
-
-  protected List<Entity> areaEntities;
-  private static GridPoint2 craftingTablePos;
-=======
->>>>>>> main
   public static GridPoint2 oneLegGirlPosition;
   public static GridPoint2 oneLegGirlDialoguePosition;
   public static GridPoint2 HumanGuardPosition;

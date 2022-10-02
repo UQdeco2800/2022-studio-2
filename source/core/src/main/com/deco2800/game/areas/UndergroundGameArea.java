@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 /** Underground area for the demo game with trees, a player, and some enemies. */
 public class UndergroundGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(UndergroundGameArea.class);
-    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(32, 10);
+    private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
@@ -44,7 +44,6 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/wall_side.png",
             "images/level_2_tiledmap/water.png",
             "images/NPC/friendly_creature npc/Friendly_creature.png",
-
             "images/ghost_1.png",
             "images/grass_1.png",
             "images/grass_2.png",
@@ -95,12 +94,13 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
-            "images/level_2_tiledmap/statues.jpg"
+            "images/level_2_tiledmap/statues.jpg",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
     };
 
     public static String[] newTextures;
-    private static final String[] undergroundTextureAtlases = {"images/playerTeleport.atlas",
+    private static final String[] undergroundTextureAtlases = {
+            "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas"
 
@@ -114,10 +114,9 @@ public class UndergroundGameArea extends GameArea {
     private Entity player;
 
 
-    public UndergroundGameArea(TerrainFactory terrainFactory, Entity player) {
+    public UndergroundGameArea(TerrainFactory terrainFactory) {
         super();
         this.terrainFactory = terrainFactory;
-        this.player = player;
 
         ServiceLocator.registerGameArea(this);
     }
@@ -137,6 +136,7 @@ public class UndergroundGameArea extends GameArea {
         displayUI();
         spawnTerrain();
         spawnCraftingTable();
+        player = spawnPlayer();
         playMusic();
     }
 
@@ -205,7 +205,7 @@ public class UndergroundGameArea extends GameArea {
 
     public void spawnCraftingTable() {
         Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
-        spawnEntityAt(craftingTable, new GridPoint2(36, 10), true, false);
+        spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
     }
 
     private GridPoint2 randomPositon() {
@@ -251,4 +251,3 @@ public class UndergroundGameArea extends GameArea {
         this.unloadAssets();
     }
 }
-
