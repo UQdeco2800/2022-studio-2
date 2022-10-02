@@ -1,9 +1,12 @@
 package com.deco2800.game.components.tasks;
 
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -12,7 +15,7 @@ public class TransportTask extends DefaultTask implements PriorityTask {
     private Entity target;
     private int priority;
     private float effectiveRange;
-    private Vector2 targetPos;
+    private Vector2 castPos;
     private GameTime gameTime;
     private final long castingTime = 2000L;
     private long startTime;
@@ -29,7 +32,7 @@ public class TransportTask extends DefaultTask implements PriorityTask {
         this.priority = priority;
         this.effectiveRange = effectiveRange;
         gameTime = ServiceLocator.getTimeSource();
-        lastTransportTime = gameTime.getTime() + 5000L;
+        lastTransportTime = gameTime.getTime() + 4000L;
     }
 
     /**
@@ -39,6 +42,8 @@ public class TransportTask extends DefaultTask implements PriorityTask {
     public void start() {
         super.start();
         startTime = gameTime.getTime();
+        castAnimate();
+        castPos = owner.getEntity().getPosition();
     }
 
     /**
@@ -46,9 +51,9 @@ public class TransportTask extends DefaultTask implements PriorityTask {
      */
     @Override
     public void update() {
+        owner.getEntity().setPosition(owner.getEntity().getPosition());
         if (gameTime.getTime() > startTime + castingTime) {
             owner.getEntity().setPosition(target.getPosition());
-            status = Status.FINISHED;
             stop();
         }
     }
@@ -60,6 +65,13 @@ public class TransportTask extends DefaultTask implements PriorityTask {
     public void stop() {
         lastTransportTime = gameTime.getTime();
         super.stop();
+    }
+
+    /**
+     * Animate the casting action.
+     */
+    private void castAnimate() {
+        this.owner.getEntity().getEvents().trigger("cast");
     }
 
     /**
@@ -88,7 +100,7 @@ public class TransportTask extends DefaultTask implements PriorityTask {
      */
     private int getActivePriority() {
         float dst = getDistanceToTarget();
-        if (dst > effectiveRange || (gameTime.getTime() - lastTransportTime < 1500L)) {
+        if (dst > effectiveRange || (gameTime.getTime() - lastTransportTime < 2000L)) {
             return -1;
         }
         return priority;
@@ -100,7 +112,7 @@ public class TransportTask extends DefaultTask implements PriorityTask {
      */
     private int getInactivePriority() {
         float dst = getDistanceToTarget();
-        if (dst < effectiveRange && (gameTime.getTime() - lastTransportTime > 1500L)) {
+        if (dst < effectiveRange && (gameTime.getTime() - lastTransportTime > 2000L)) {
             return priority;
         }
         return -1;

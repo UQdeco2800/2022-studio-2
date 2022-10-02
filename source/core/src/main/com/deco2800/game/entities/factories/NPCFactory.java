@@ -368,6 +368,7 @@ public class NPCFactory {
     animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cast", 0.2f, Animation.PlayMode.LOOP);
 
 
     megaPoop
