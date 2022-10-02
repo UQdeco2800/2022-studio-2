@@ -1,136 +1,109 @@
 {
+  "PATH_LVL1" : "images/keybind/level_1/letters/",
+  "PATH_LVL2" : "images/keybind/level_2/letters/",
   "Keys" : [
-    { "Key" : "W",
-      "Description" : "Walk forward",
-      "Image" : "images/KeyBinds/individual_letters/w.png"
+    { "Key" : "w",
+      "Description" : "Walk forward"
     },
-    { "Key" : "A",
-      "Description" : "Walk left",
-      "Image" : "images/KeyBinds/individual_letters/a.png"
+    { "Key" : "a",
+      "Description" : "Walk left"
     },
-    { "Key" :"S",
-      "Description" : "Walk backwards",
-      "Image" : "images/KeyBinds/individual_letters/s.png"
+    { "Key" : "s",
+      "Description" : "Walk backwards"
     },
-    { "Key" :"D",
-      "Description" : "Walk right",
-      "Image" : "images/KeyBinds/individual_letters/d.png"
+    { "Key" : "d",
+      "Description" : "Walk right"
     },
-    { "Key" : "Q",
-      "Description" : "Crafting",
-      "Image" : "images/KeyBinds/individual_letters/q.png"
+    { "Key" : "q",
+      "Description" : "Crafting"
     },
-    { "Key" : "I",
-      "Description" : "Inventory",
-      "Image" : "images/KeyBinds/individual_letters/i.png"
+    { "Key" : "i",
+      "Description" : "Inventory"
     },
-    { "Key" : "E",
-      "Description" : "Activate skill 1",
-      "Image" : "images/KeyBinds/individual_letters/e.png"
+    { "Key" : "e",
+      "Description" : "Activate skill 1"
     },
-    { "Key" : "J",
-      "Description" : "Activate skill 2",
-      "Image" : "images/KeyBinds/individual_letters/j.png"
+    { "Key" : "j",
+      "Description" : "Activate skill 2"
     },
-    { "Key" : "Shift",
-      "Description" : "Dodge",
-      "Image" : "images/KeyBinds/individual_letters/shift.png"
+    { "Key" : "shift",
+      "Description" : "Dodge"
     },
     { "Key" : "1",
-      "Description" : "Quickbar Slot 1",
-      "Image" : "images/KeyBinds/individual_letters/1.png"
+      "Description" : "Quickbar Slot 1"
     },
     { "Key" : "2",
-      "Description" : "Quickbar Slot 2",
-      "Image" : "images/KeyBinds/individual_letters/2.png"
+      "Description" : "Quickbar Slot 2"
     },
     { "Key" : "3",
-      "Description" : "Quickbar Slot 3",
-      "Image" : "images/KeyBinds/individual_letters/3.png"
+      "Description" : "Quickbar Slot 3"
     },
     { "Key" : "4",
-      "Description" : "Quickbar Slot 4",
-      "Image" : "images/KeyBinds/individual_letters/4.png"
+      "Description" : "Quickbar Slot 4"
     },
-    { "Key" : "ESC",
-      "Description" : "Pause menu",
-      "Image" : "images/KeyBinds/individual_letters/esc.png"
+    { "Key" : "esc",
+      "Description" : "Pause menu"
     },
-    { "Key" : "Spacebar",
-      "Description" : "Attack",
-      "Image" : "images/KeyBinds/individual_letters/space.png"
+    { "Key" : "space",
+      "Description" : "Attack"
     },
-    { "Key" : "B",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/b.png"
+    {
+      "Key" : "enter",
+      "Description" : "Enter plughole"
     },
-    { "Key" : "C",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/c.png"
+    { "Key" : "b",
+      "Description" : ""
     },
-    { "Key" : "F",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/f.png"
+    { "Key" : "c",
+      "Description" : ""
     },
-    { "Key" : "G",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/g.png"
+    { "Key" : "f",
+      "Description" : ""
     },
-    { "Key" : "H",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/h.png"
+    { "Key" : "g",
+      "Description" : ""
     },
-    { "Key" : "K",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/k.png"
+    { "Key" : "h",
+      "Description" : ""
     },
-    { "Key" : "L",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/l.png"
+    { "Key" : "k",
+      "Description" : ""
     },
-    { "Key" : "M",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/m.png"
+    { "Key" : "l",
+      "Description" : ""
     },
-    { "Key" : "N",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/n.png"
+    { "Key" : "m",
+      "Description" : ""
     },
-    { "Key" : "O",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/o.png"
+    { "Key" : "n",
+      "Description" : ""
     },
-    { "Key" : "P",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/p.png"
+    { "Key" : "o",
+      "Description" : ""
     },
-    { "Key" : "R",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/r.png"
+    { "Key" : "p",
+      "Description" : ""
     },
-    { "Key" : "T",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/t.png"
+    { "Key" : "r",
+      "Description" : ""
     },
-    { "Key" : "U",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/u.png"
+    { "Key" : "t",
+      "Description" : ""
     },
-    { "Key" : "V",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/v.png"
+    { "Key" : "u",
+      "Description" : ""
     },
-    { "Key" : "X",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/x.png"
+    { "Key" : "v",
+      "Description" : ""
     },
-    { "Key" : "Y",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/y.png"
+    { "Key" : "x",
+      "Description" : ""
     },
-    { "Key" : "Z",
-      "Description" : "",
-      "Image" : "images/KeyBinds/individual_letters/z.png"
+    { "Key" : "y",
+      "Description" : ""
+    },
+    { "Key" : "z",
+      "Description" : ""
     }
   ]
 }
