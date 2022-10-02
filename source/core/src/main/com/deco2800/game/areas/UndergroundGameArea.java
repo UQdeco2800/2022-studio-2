@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -50,12 +51,17 @@ public class UndergroundGameArea extends GameArea {
             "images/grass_3.png",
             "images/level_2_tiledmap/32x32/grass.png",
             "images/level_2_tiledmap/32x32/purple_cobble.png",
-            "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
+            "images/Crafting-assets-sprint1/crafting table/craftingTable2.png",
             "images/Crafting-assets-sprint1/materials/gold.png",
+            "images/Crafting-assets-sprint1/materials/iron.png",
+            "images/Crafting-assets-sprint1/materials/plastic.png",
             "images/Crafting-assets-sprint1/materials/platinum.png",
+            "images/Crafting-assets-sprint1/materials/rubber.png",
             "images/Crafting-assets-sprint1/materials/silver.png",
             "images/Crafting-assets-sprint1/materials/steel.png",
             "images/Crafting-assets-sprint1/materials/wood.png",
+            "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
+            "images/Crafting-assets-sprint1/materials/toilet_paper.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png",
             "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png",
@@ -78,13 +84,22 @@ public class UndergroundGameArea extends GameArea {
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Athena.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/heraAthena.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Pipe.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Plunger.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Sword.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
     };
 
     public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-            "images/Movement/movement.atlas"
+            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
@@ -94,7 +109,6 @@ public class UndergroundGameArea extends GameArea {
     private final TerrainFactory terrainFactory;
 
     private Entity player;
-    private static GridPoint2 craftingTablePos;
 
 
     public UndergroundGameArea(TerrainFactory terrainFactory) {
@@ -127,7 +141,7 @@ public class UndergroundGameArea extends GameArea {
 
     private void displayUI() {
         Entity ui = new Entity();
-        ui.addComponent(new GameAreaDisplay("Box Underground"));
+        ui.addComponent(new GameAreaDisplay("Underground"));
         spawnEntity(ui);
     }
 
@@ -177,25 +191,18 @@ public class UndergroundGameArea extends GameArea {
     private Entity spawnPlayer() {
         Entity newPlayer = PlayerFactory.createPlayer();
         Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
+        Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
+        newPlayer.getComponent(PlayerKeyPrompt.class)
+                .setKeyPromptAnimator(newKeyPromptAnimator);
         return newPlayer;
     }
 
     public void spawnCraftingTable() {
-        GridPoint2 minPos = new GridPoint2(2, 2);
-        GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-        GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-        craftingTablePos = randomPos;
-        Entity craftingTable = ObstacleFactory.createCraftingTable();
-        spawnEntityAt(craftingTable, randomPos, true, false);
-    }
-
-    public static GridPoint2 getCraftingTablePos() {
-        return craftingTablePos;
+        Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
+        spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
     }
 
     private GridPoint2 randomPositon() {

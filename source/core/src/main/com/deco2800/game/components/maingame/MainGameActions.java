@@ -21,17 +21,22 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
-
+    entity.getEvents().addListener("openSkillsTree", this::openSkillsTree);
   }
 
   /**
    * Swaps to the Main Menu screen and clears the pause game status.
    */
-  private void onExit() {
+  public void onExit() {
     logger.info("Exiting main game screen");
     EntityService.unpauseGame();
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 
+  private void openSkillsTree() {
+    logger.info("Open Skills Tree screen");
+    EntityService.unpauseGame();
+    game.setScreen(GdxGame.ScreenType.SkillsTree);
+  }
 
 }

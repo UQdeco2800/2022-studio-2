@@ -2,11 +2,15 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.deco2800.game.components.CombatItemsComponents.BuffDisplayComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.npc.DialogueKeybordInputComponent;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
+import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -17,7 +21,6 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 /**
@@ -29,7 +32,6 @@ import com.deco2800.game.services.ServiceLocator;
 public class PlayerFactory {
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
-
 
   /**
    * Create a player entity.
@@ -67,9 +69,11 @@ public class PlayerFactory {
                 .addComponent(new DialogueDisplay())
             .addComponent(new OpenPauseComponent())
             .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER)) //team4
+                .addComponent(new WeaponAuraManager())
             .addComponent(animator)
-            .addComponent(new PlayerAnimationController());
-
+                .addComponent(new BuffDisplayComponent())
+            .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
+            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
@@ -92,7 +96,8 @@ public class PlayerFactory {
                     .addComponent(new InventoryComponent())
                     .addComponent(new PlayerModifier())
                     .addComponent(new OpenCraftingComponent())
-                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER));
+                    .addComponent(new PlayerTouchAttackComponent(PhysicsLayer.PLAYER))
+                    .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER));
     return player;
   }
 
@@ -116,6 +121,23 @@ public class PlayerFactory {
     return skillAnimator;
   }
 
+  public static Entity createKeyPromptAnimator(Entity playerEntity) {
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/KeyPrompt/KEY_Q_!.atlas", TextureAtlas.class));
+//    AnimationRenderComponent animator =
+//            new AnimationRenderComponent(
+//                    ServiceLocator.getResourceService().getAsset("images/Skills/skillAnimations.atlas", TextureAtlas.class));
+
+    animator.addAnimation("default", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("Q", 0.1f, Animation.PlayMode.LOOP);
+    Entity keyPromptAnimator =
+            new Entity().addComponent(animator)
+                    .addComponent(new PlayerKPAnimationController(playerEntity));
+
+    keyPromptAnimator.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return keyPromptAnimator;
+  }
   /**
    * Create level 3 dagger and hera combat item animation.
    * @return entity
@@ -125,7 +147,7 @@ public class PlayerFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/combatanimation.atlas", TextureAtlas.class));
     animator.addAnimation("noAnimation", 0.1f);
-    animator.addAnimation("level3Dagger", 0.1f);
+    animator.addAnimation("heraAthenaDag", 0.1f);
     animator.addAnimation("hera", 0.1f);
 
     Entity combatAnimator =
