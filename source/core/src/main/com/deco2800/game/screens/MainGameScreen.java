@@ -7,13 +7,13 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.OpenKeyBinds;
+import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -42,7 +42,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/heart.png","images/Inventory/quickbar.png"};
+  private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String[] quickBar = {"images/Inventory/quickbar_sprint3.png"};
   private static final String[] healthBar = {"images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png","images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png"};
   private static final String[] staminaBar = {"images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png","images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png" };
   private static final String[] manaBar = {"images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_1.png","images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_2.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_3.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_4.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png"};
@@ -118,7 +119,12 @@ public class MainGameScreen extends ScreenAdapter {
       player.getComponent(PlayerActions.class).stopWalking();
       mainGameActions.getEntity().getEvents().trigger("exit");
     }
+    if (PauseMenuActions.getQuitGameStatus()) {
+      mainGameActions.getEntity().getEvents().trigger("exit");
+      PauseMenuActions.setQuitGameStatus();
+    }
   }
+
 
   @Override
   public void resize(int width, int height) {
@@ -196,6 +202,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadTextures(quickBar);
     resourceService.loadTextures(healthBar);
     resourceService.loadTextures(staminaBar);
     resourceService.loadTextures(manaBar);
@@ -213,6 +220,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(quickBar);
     resourceService.unloadAssets(healthBar);
     resourceService.unloadAssets(staminaBar);
     resourceService.unloadAssets(manaBar);
@@ -244,7 +252,9 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay())
-        .addComponent(new DialogueDisplay());
+        .addComponent(new DialogueDisplay())
+        .addComponent(new PauseMenuActions())
+        .addComponent(new OpenKeyBinds());
 
     ServiceLocator.getEntityService().register(ui);
   }
