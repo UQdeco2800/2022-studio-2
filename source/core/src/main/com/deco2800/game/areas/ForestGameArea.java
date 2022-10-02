@@ -724,7 +724,7 @@ public class ForestGameArea extends GameArea {
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, childPosition, true, true);
-    areaEntities.add(dialogue);
+    //areaEntities.add(dialogue);
   }
 
   public static GridPoint2 getChildPosition() {
