@@ -160,7 +160,8 @@ public class InventoryComponent extends Component {
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR))
-                    && !hasItem(item, inventory)) {
+//                    && !hasItem(item, inventory)) {
+                    ) {
                 inventory.add(item);
                 ++itemQuantity[inventory.indexOf(item)];
             } else if (item.checkEntityType(EntityTypes.POTION)
@@ -169,27 +170,11 @@ public class InventoryComponent extends Component {
             }
         }
         if (getItemIndex(item, inventory) != -1
+                && getItemQuantity(item) < 9
                 && (item.checkEntityType(EntityTypes.POTION)
                 || (!item.checkEntityType(EntityTypes.WEAPON)
-                && item.checkEntityType(EntityTypes.CRAFTABLE)))
-                && getItemQuantity(item) < 9) {
+                && item.checkEntityType(EntityTypes.CRAFTABLE)))) {
             ++itemQuantity[getItemIndex(item, inventory)];
-        }
-    }
-
-    /**
-     * Adds item to player's inventory with the specified quantity. Use this for testing purposes
-     *
-     * @param item     item to add
-     * @param quantity item's quantity
-     */
-    public void addItem (Entity item, int quantity) {
-        if (inventory.size() == inventorySize) {
-            logger.info("Inventory if full");
-            //Error should end this block of code
-        } else if (!inventory.contains(item)) {
-            inventory.add(item);
-            itemQuantity[inventory.indexOf(item)] = quantity;
         }
     }
 
