@@ -44,6 +44,7 @@ public class PlayerActions extends Component {
   private Music dashSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dash.mp3"));
   private Music blockSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/block.mp3"));
   private Music dodgeSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dodge.mp3"));
+  private Music projectileSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/projectile.mp3"));
   private Music invulnerabilitySound= Gdx.audio.newMusic(Gdx.files.internal("sounds/invulnerability.mp3"));
   private Music oraSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/ora.mp3"));
   private Music zawarudoSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/zawarudo.mp3"));
@@ -315,6 +316,8 @@ public class PlayerActions extends Component {
    * Registers call of the ultimate function to the skill manager component.
    */
   void ultimate() {
+    oraSound.play();
+    zawarudoSound.play();
     skillManager.startUltimate();
   }
 
