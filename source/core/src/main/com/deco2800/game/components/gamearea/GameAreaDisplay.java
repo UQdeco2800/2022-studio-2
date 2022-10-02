@@ -760,7 +760,7 @@ public class GameAreaDisplay extends UIComponent {
     private void displayAmount(int amount, int index) {
         matAmount = new Image(new Texture(Gdx.files.internal
                 (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
-        matAmount.setSize(15, 15);
+        matAmount.setSize(18, 18);
         matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
                 (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
         Action upDown = Actions.forever(Actions.sequence(Actions.moveTo(matAmount.getX(), matAmount.getY()+4.5f,
@@ -773,8 +773,8 @@ public class GameAreaDisplay extends UIComponent {
         popUp = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
         popUp.setHeight(5);
-        popUp.setPosition(Gdx.graphics.getWidth()/2-51.3f, Gdx.graphics.getHeight()/2-17.1f);
-        Action popUpAction = Actions.sequence(Actions.sizeTo(102.6f, 34.2f, 0.5f),
+        popUp.setPosition(Gdx.graphics.getWidth()/2-71.25f, Gdx.graphics.getHeight()/2-23.75f);
+        Action popUpAction = Actions.sequence(Actions.sizeTo(142.5f, 47.5f, 0.5f),
                 Actions.delay(0.5f), Actions.run(new Runnable() {
             @Override
             public void run() {
