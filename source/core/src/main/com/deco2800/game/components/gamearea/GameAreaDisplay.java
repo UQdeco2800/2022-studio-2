@@ -450,8 +450,13 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void setPauseMenu() {
         logger.info("Opening Pause Menu");
-        pauseMenu = new Image(new Texture(Gdx.files.internal
-                ("images/PauseMenu/newPauseScreen.png")));
+        if (getGameAreaName().equals("Underground")) {
+            pauseMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/PauseMenu/lvl2PauseScreen.png")));
+        } else {
+            pauseMenu = new Image(new Texture(Gdx.files.internal
+                    ("images/PauseMenu/newPauseScreen.png")));
+        }
         pauseMenu.setSize(2200, 1200);
         pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
                 Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
@@ -494,6 +499,7 @@ public class GameAreaDisplay extends UIComponent {
         pausingGroup.addActor(exit);
 
         // Debug button to open keybind menu - hey Rey this is for you!
+        // thanks!:) -Rey
         buttonTexture = new Texture(Gdx.files.internal
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
