@@ -1,12 +1,14 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -34,6 +36,7 @@ public class PlayerSkillComponent extends Component {
         DODGE,
         BLEED,
         ROOT,
+        CHARGE,
         ATTACKSPEED,
         ULTIMATE
     }
@@ -99,6 +102,14 @@ public class PlayerSkillComponent extends Component {
     private static final int BLEED_DAMAGE = 5;
     private boolean bleedEndEvent = false;
 
+    // Charge variables
+    private boolean enemyDead = false;
+    private boolean chargeFirstHit = false;
+    private Vector2 chargeDirection = Vector2.Zero.cpy();
+    private boolean charging;
+    private long chargeEnd;
+    private static final Vector2 CHARGE_SPEED = new Vector2(20f, 20f);
+
     private boolean chargingUltimate;
     private long ultimateChargeEnd;
     private static final long ULTIMATE_CHARGE_LENGTH = 2600;
@@ -128,6 +139,15 @@ public class PlayerSkillComponent extends Component {
     @Override
     public void update() {
 
+        // Check if dead enemy needs to be removed
+        if (this.enemyDead) {
+            this.enemyDead = false;
+            this.enemy.dispose();
+            if (this.enemy.getComponent(AnimationRenderComponent.class) != null) {
+                this.enemy.getComponent(AnimationRenderComponent.class).stopAnimation();
+            }
+        }
+
         // Check if player should still be invulnerable
         if (this.isInvulnerable && System.currentTimeMillis() > this.invulnerableEnd) {
             this.isInvulnerable = false;
@@ -143,11 +163,21 @@ public class PlayerSkillComponent extends Component {
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
             // Only end animation if not interrupting another skill
-            if (!this.teleporting && !this.blocking && !this.dodging) {
+            if (!this.teleporting && !this.blocking && !this.dodging && !this.charging) {
                 skillAnimator.getEvents().trigger("regularAnimation");
             }
             this.dashing = false;
             this.dashEndEvent = true;
+        }
+
+        // Check if the player is in a charge and waiting for the charge to end
+        if (this.charging && System.currentTimeMillis() > this.chargeEnd) {
+            // Only end animation if not interrupting another skill
+            if (!this.teleporting && !this.blocking && !this.dodging) {
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
+            this.charging = false;
+            //this.dashEndEvent = true;
         }
 
         // Check if the player is waiting to teleport from charging
@@ -235,6 +265,9 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener("attackspeedTemp", playerActionsComponent::attackSpeedUp);
         } else if (skillName == SkillTypes.ULTIMATE) {
             entity.getEvents().addListener("ultimateTemp", playerActionsComponent::ultimate);
+        } else if (skillName == SkillTypes.CHARGE) { // change back to skillEvent after sprint 2
+            entity.getEvents().addListener("skillTemp", playerActionsComponent::charge);
+            entity.getEvents().addListener("enemyCollision", this::chargeHit);
         }
     }
 
@@ -252,7 +285,7 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean movementIsModified() {
 
-        return (isDashing() || isTeleporting() || isDodging() || this.dodgeSpeedBoost);
+        return (isDashing() || isTeleporting() || isDodging() || isCharging() || this.dodgeSpeedBoost);
     }
 
     /**
@@ -282,6 +315,13 @@ public class PlayerSkillComponent extends Component {
         if (this.dodgeSpeedBoost) { // Flat speed boost from mitigating damage from dodge
             modifiedMovementVector = new Vector2(modifiedMovementVector.x * DODGE_SPEED_BOOST,
                     modifiedMovementVector.y * DODGE_SPEED_BOOST);
+        }
+
+        else if (isCharging()) {
+            Vector2 dashVelocity = chargeDirection.cpy().scl(CHARGE_SPEED);
+            Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * DASH_MOVEMENT_RESTRICTION,
+                    modifiedMovementVector.y * DASH_MOVEMENT_RESTRICTION);
+            modifiedMovementVector = addVectors(reducedMovement, dashVelocity);
         }
 
         if (isTeleporting()) {
@@ -378,6 +418,15 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean isDashing() {
         return this.dashing;
+    }
+
+    /**
+     * Checks if the player is in the charge skill state
+     * @return true - if the player is charging
+     *         false - otherwise
+     */
+    public boolean isCharging() {
+        return this.charging;
     }
 
     /**
@@ -710,14 +759,67 @@ public class PlayerSkillComponent extends Component {
     private void changeSpeed(Entity target, long slowLength, boolean slow) {
         if (slow) {
             target.getComponent(AITaskComponent.class).addTask
-                    (new ChaseTask(playerEntity, 11, 5f, 6f, 1f));
+                    (new ChaseTask(playerEntity, 50, 5f, 6f, 1f));
             this.rooted = true;
             this.rootApplied = false;
             this.rootEnd = System.currentTimeMillis() + slowLength;
-        } else {
-            target.getComponent(AITaskComponent.class).dispose();
+        } else if (target != null){
+            //target.getComponent(AITaskComponent.class).dispose();
             target.getComponent(AITaskComponent.class).getPriorityTasks().remove
                     (target.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
+        }
+    }
+
+    /**
+     * The functional start of the charge.
+     * Should be called when player actions component registers charge event.
+     * @param moveDirection the direction of the players movement at the start of the charge event.
+     */
+    public void startCharge(Vector2 moveDirection) {
+        if (1 < 2) {//cooldown
+            this.chargeDirection = moveDirection;
+            this.charging = true;
+            this.chargeFirstHit = true;
+            skillAnimator.getEvents().trigger("dashAnimation");
+            this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
+            setInvulnerable(DASH_LENGTH / 2);
+            //setSkillCooldown("dash");
+        }
+    }
+
+    /**
+     * Ensures enemy is not a projectile then sets entity enemy variable
+     * @param target the first enemy the player collides with
+     */
+    private void chargeHit(Entity target) {
+        if (this.charging && this.chargeFirstHit && !(target.checkEntityType(EntityTypes.PROJECTILE))) {
+            this.chargeFirstHit = false;
+            this.enemy = target;
+            this.chargeEnd = 0;
+            chargeAttack(this.enemy);
+        }
+    }
+
+    /**
+     * Apply damage to enemy then knockback.
+     * @param target the first enemy the player collides with during charge skill
+     */
+    private void chargeAttack(Entity target) {
+        CombatStatsComponent enemyStats = target.getComponent(CombatStatsComponent.class);
+        enemyStats.setHealth(enemyStats.getHealth() - 30);
+
+        // enemy dead
+        if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
+            this.enemyDead = true;
+            return;
+        }
+
+        PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class);
+        if (physicsComponent != null) {
+            Body targetBody = physicsComponent.getBody();
+            Vector2 direction = target.getCenterPosition().sub(playerEntity.getCenterPosition());
+            Vector2 impulse = direction.setLength(40f);
+            targetBody.applyLinearImpulse(impulse, targetBody.getWorldCenter(), true);
         }
     }
 }

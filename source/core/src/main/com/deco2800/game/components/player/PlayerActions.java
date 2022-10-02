@@ -86,6 +86,7 @@ public class PlayerActions extends Component {
     // temp skill bindings for sprint 2 marking
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.CHARGE, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
 
@@ -219,6 +220,18 @@ public class PlayerActions extends Component {
       teleportSound.play();
       skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
+    }
+
+    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
+  }
+
+  /**
+   *  Makes the player charge. Registers call of the charge function to the skill manager component.
+   */
+  void charge() {
+    if(mana >= 2){
+      skillManager.startCharge(this.walkDirection.cpy());
+      entity.getEvents().trigger("decreaseStamina", -2);
     }
 
     playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
