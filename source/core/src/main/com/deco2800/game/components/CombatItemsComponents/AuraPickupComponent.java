@@ -1,5 +1,6 @@
 package com.deco2800.game.components.CombatItemsComponents;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.ItemPickupComponent;
@@ -32,6 +33,7 @@ public class AuraPickupComponent extends ItemPickupComponent {
         logger = LoggerFactory.getLogger(AuraPickupComponent.class);
         entity.getEvents().addListener("collisionStart", this::pickUp);
     }
+
     /**
      * Method called when collision starts between the weapon on the map that implements this component and the player.
      * Removes the weapon from the map and inserts the weapon into the inventory.
@@ -46,8 +48,10 @@ public class AuraPickupComponent extends ItemPickupComponent {
         if (other == f) {
             Entity weapon;
             if ((weapon = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getEquipable(0)) != null
-            && ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied == null) { //if there is weapon equiped and there are no current buffs
+            && ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied == null) { //if there is weapon equipped and there are no current buffs
                 Entity entityOfComponent = getEntity();
+                Sound pickupSound = ServiceLocator.getResourceService().getAsset("sounds/buffPickupSound.wav", Sound.class);
+                pickupSound.play();
                 ForestGameArea.removeAuraOnMap(entityOfComponent);
                 logger.info("Aura picked up");
                 ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class)

@@ -14,6 +14,7 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.entities.factories.PotionFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -123,7 +124,8 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/animations/combatanimation.png",
     "images/CombatItems/Sprint-2/pipe.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
-    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+          "images/CombatItems/animations/PlungerBow/plungerBow.png"
   };
 
   public static String[] newTextures;
@@ -138,10 +140,10 @@ public class ForestGameArea extends GameArea {
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
-    "images/Enemies/poop.atlas"
+    "images/Enemies/poop.atlas", "images/CombatItems/animations/PlungerBow/plungerBow.atlas"
 
   };
-  private static final String[] forestSounds = {"sounds/Impact4.ogg"};
+  private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
@@ -239,7 +241,6 @@ public class ForestGameArea extends GameArea {
     spawnFireBuff();
     spawnPoisonBuff();
     spawnSpeedBuff();
-    spawnPlungerBow(); //PLS RMOVE LASTER
 
 
   }
@@ -333,6 +334,9 @@ public class ForestGameArea extends GameArea {
   public static void removeProjectileOnMap(Entity entityToRemove) {
     entityToRemove.setEnabled(false);
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
+    if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+      entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation();
+    }
   }
 
   /**
@@ -646,11 +650,13 @@ public class ForestGameArea extends GameArea {
             true, true);
   }
 
+/*
    private void spawnPlungerBow() {
     Entity c = WeaponFactory.createPlungerBow();
     ItemsOnMap.add(c);
     spawnEntityAt(c, new GridPoint2(5,4), true, false);
    }
+*/
 
   /**
    * Spawn female NPC in random position. - Team 7 all-mid-npc

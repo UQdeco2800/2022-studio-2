@@ -75,6 +75,8 @@ public class PlayerFactory {
             .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
             .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
 
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
+
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
