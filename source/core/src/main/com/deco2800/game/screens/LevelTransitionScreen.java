@@ -9,6 +9,7 @@ import com.deco2800.game.components.deathscreen.DeathScreenActions;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.components.levelTransition.LevelTransitionActions;
 import com.deco2800.game.components.levelTransition.LevelTransitionDisplay;
+import com.deco2800.game.components.levelTransition.TransitionInputComponent;
 import com.deco2800.game.components.npc.DialogueDisplay;
 import com.deco2800.game.components.BackgroundSoundComponent;
 import com.deco2800.game.components.mainmenu.MainMenuActions;
@@ -16,12 +17,15 @@ import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.ui.terminal.Terminal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,11 +116,16 @@ public class LevelTransitionScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         logger.info("UI for transitionScreen created");
         Stage stage = ServiceLocator.getRenderService().getStage();
+        InputComponent inputComponent =
+                ServiceLocator.getInputService().getInputFactory().createForTerminal();
+
         Entity ui = new Entity();
         ui.addComponent(new LevelTransitionDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new LevelTransitionActions(game));
-
+                .addComponent(new LevelTransitionActions(game))
+                .addComponent(new Terminal())
+                .addComponent(inputComponent)
+                .addComponent(new TransitionInputComponent());
 
         ServiceLocator.getEntityService().register(ui);
     }

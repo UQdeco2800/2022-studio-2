@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.player.TransitionMapComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,28 +14,27 @@ import org.slf4j.LoggerFactory;
 public class LevelTransitionActions extends Component {
     private static Logger logger;
     private GdxGame game;
-    private Sound sound;
 
     public LevelTransitionActions(GdxGame game) {
         this.game = game;
     }
 
     /**
-     * Creates the event listeners relevant to DeathScreen
+     * Creates the event listeners relevant to the transition screen
      */
     @Override
     public void create() {
         logger = LoggerFactory.getLogger(LevelTransitionActions.class);
-        entity.getEvents().addListener("levelChanged", this::levelChanged);
+        entity.getEvents().addListener("mapTransition", this::mapTransition);
     }
 
     /**
-     * Changes screen type to level transition screen.
+     * Changes from the transition screen back to the main game.
      */
-    private void levelChanged() {
+    private void mapTransition() {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
         sound.play(1.0f);
-        logger.info("Level has changed, transition screen will now display");
-        game.setScreen(GdxGame.ScreenType.LEVEL_TRANSITION);
+        logger.info("Enter key has beeen presssed, changing to next level");
+        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 }

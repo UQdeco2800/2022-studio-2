@@ -19,22 +19,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A ui component for displaying the Death Screen.
+ * A ui component for displaying the Transition Screen.
  */
 public class LevelTransitionDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LevelTransitionDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    // The image of the deathBackground
     private Image transitionImage;
-    // Global variable of game level
 
     @Override
     public void create() {
         super.create();
         addActors();
     }
-
 
     /**
      * Adds table to the screen, specifically adds the image of the transition screen
@@ -51,8 +48,6 @@ public class LevelTransitionDisplay extends UIComponent {
         logger.info("levelTransitionDisplay table has been added to the actor");
 
     }
-
-
 
     @Override
     public void draw(SpriteBatch batch) {

@@ -71,6 +71,8 @@ public class MainGameScreen extends ScreenAdapter {
   private static GameArea map;
   private static Component mainGameActions;
   private static Boolean dead;
+
+  private static Boolean transition;
   private static Integer gameLevel;
 
 
@@ -108,15 +110,20 @@ public class MainGameScreen extends ScreenAdapter {
 //    GameArea map = loadLevelTwoMap();
     player = map.getPlayer();
     dead = false;
+    transition = false;
 
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
+    // Add screen transition listener to player
+    player.getEvents().addListener("mapTransition", this::transitionScreenStart);
   }
 
   /**
    * Sets dead to true, changing the render of the game
    */
   public void deathScreenStart() { dead = true; }
+
+  public void transitionScreenStart() { transition = true; }
 
 
   /**
@@ -143,6 +150,12 @@ public class MainGameScreen extends ScreenAdapter {
       } else if (gameLevel == 3) {
         game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
       }
+    }
+
+    if (transition) {
+      game.setScreen(GdxGame.ScreenType.LEVEL_TRANSITION);
+//      transition = false;
+//      logger.info("Would normally call our transition screen");
     }
 
     if (PauseMenuActions.getQuitGameStatus()) {
