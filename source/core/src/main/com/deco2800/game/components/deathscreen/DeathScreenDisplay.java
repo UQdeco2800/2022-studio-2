@@ -30,9 +30,7 @@ public class DeathScreenDisplay extends UIComponent {
     /**
      * Constructor of DeathScreenDisplay, default empty
      */
-    public DeathScreenDisplay(){
-
-    }
+    public DeathScreenDisplay(){ }
 
     /**
      * Constructor of DeathScreenDisplay, instantiates the varibles given
@@ -48,8 +46,7 @@ public class DeathScreenDisplay extends UIComponent {
         super.create();
         addActors();
     }
-
-
+    
     /**
      * Sets 'background' to the appropriate image depedning on levelBackground, stages the image, and then
      * adds the buttons using setButtonDisplay.
