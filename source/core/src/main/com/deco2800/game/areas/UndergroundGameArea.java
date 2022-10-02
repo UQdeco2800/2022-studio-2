@@ -92,14 +92,34 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Pipe.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Plunger.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Sword.png",
-            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+            "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
+            "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
+            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+            "images/CombatItems/Sprint-1/Damage Increase Buff.png",
+            "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+            "images/CombatItems/Sprint-1/AttackDamageDebuff.png",
+            "images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png",
+            "images/CombatItems/Sprint-1/poisonBuff.png",
+            "images/CombatItems/animations/combatanimation.png",
+            "images/CombatItems/Sprint-2/pipe.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+            "images/CombatItems/animations/PlungerBow/plungerBow.png",
+            "images/CombatItems/Sprint-1/trident_Lvl2.png",
+            "images/CombatItems/Sprint-2/H&ADagger.png",
+            "images/CombatItems/Sprint-2/Plunger.png"
     };
 
     public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas"
+            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
+            "images/CombatItems/animations/combatanimation.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
