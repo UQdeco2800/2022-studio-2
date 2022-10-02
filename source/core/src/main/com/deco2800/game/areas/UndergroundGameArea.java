@@ -104,7 +104,7 @@ public class UndergroundGameArea extends GameArea {
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
-    private static final String[] undergroundMusic = {backgroundMusic};
+    private final String[] undergroundMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
 

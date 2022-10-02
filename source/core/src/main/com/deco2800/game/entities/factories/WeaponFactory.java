@@ -42,7 +42,7 @@ public class WeaponFactory {
      */
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
-        dagger.setEntityType(EntityTypes.CRAFTABLE);
+        //dagger.setEntityType(EntityTypes.CRAFTABLE);
         WeaponConfig config = configs.athenaDag;
         PhyiscalWeaponStatsComponent weaponStats = new PhyiscalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "dagger");
 
