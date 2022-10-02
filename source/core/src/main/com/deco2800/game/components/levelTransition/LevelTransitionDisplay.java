@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.screens.LevelTransitionScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
@@ -26,27 +27,50 @@ public class LevelTransitionDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private Table table;
     private Image transitionImage;
+    private int fps = 15;
+    private long frameDuration =  (long)(1000 / fps);
+    private int frame;
+    private long lastFrameTime;
 
     @Override
     public void create() {
+        frame = 0;
         super.create();
         addActors();
     }
 
     /**
-     * Adds table to the screen, specifically adds the image of the transition screen
+     * Adds table to the screen, specifically adds the image of the transition screen. Given
+     * the transition screen frames are too large, they must be manually displayed by this function.
      */
     private void addActors() {
-        table = new Table();
-        table.setFillParent(true);
 
-        transitionImage = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
-        table.add(transitionImage);
-        stage.addActor(table);
-        logger.debug("levelTransitionDisplay table has been added to the actor");
-        logger.info("levelTransitionDisplay table has been added to the actor");
+        if (frame < LevelTransitionScreen.frameCount) {
+            // Clear the stage before doing anything
+            stage.clear();
 
+            // Create table for display
+            table = new Table();
+            table.setFillParent(true);
+
+            // Load the new frame
+            transitionImage = new Image(ServiceLocator.getResourceService()
+                    .getAsset(LevelTransitionScreen.transitionTextures[frame], Texture.class));
+
+            // Update variables for pseudo-animation management and then display it
+            frame++;
+            table.add(transitionImage);
+            stage.addActor(table);
+            lastFrameTime = System.currentTimeMillis();
+            logger.debug("Updating transition display animation");
+        }
+    }
+
+    @Override
+    public void update() {
+        if (System.currentTimeMillis() - lastFrameTime > frameDuration) {
+            addActors();
+        }
     }
 
     @Override

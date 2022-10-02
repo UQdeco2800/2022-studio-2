@@ -1,26 +1,18 @@
 package com.deco2800.game.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.components.deathscreen.DeathScreenActions;
-import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.components.levelTransition.LevelTransitionActions;
 import com.deco2800.game.components.levelTransition.LevelTransitionDisplay;
 import com.deco2800.game.components.levelTransition.TransitionInputComponent;
-import com.deco2800.game.components.npc.DialogueDisplay;
-import com.deco2800.game.components.BackgroundSoundComponent;
-import com.deco2800.game.components.mainmenu.MainMenuActions;
-import com.deco2800.game.components.mainmenu.MainMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.ResourceService;
@@ -32,15 +24,16 @@ import org.slf4j.LoggerFactory;
 /**
  * The game screen containing the main menu.
  */
-// TODO listen for the plug and cue the screen transition, waiting on team 5.
 public class LevelTransitionScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LevelTransitionScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    // TODO Swap out deathscreen with loading texture when its complete.
-    private static final String[] transitionTextures = {"images/DeathScreens/lvl_2.png"};
     private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
     private static final String[] transitionMusic = {backgroundMusic};
+    private static final String transitionPrefix = "images/loadingScreen/loadingscreenAnimation-";
+    public static final int frameCount = 55;
+    public static String[] transitionTextures = new String[frameCount];
+
 
     /**
      * Level Transition constructor
@@ -97,6 +90,13 @@ public class LevelTransitionScreen extends ScreenAdapter {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
+
+        for (int i = 0; i < frameCount; i++) {
+            transitionTextures[i] = transitionPrefix + (i + 1) + ".png";
+        }
+
+        //System.out.println(transitionTextures);
+
         resourceService.loadTextures(transitionTextures);
         resourceService.loadMusic(transitionMusic);
         ServiceLocator.getResourceService().loadAll();
