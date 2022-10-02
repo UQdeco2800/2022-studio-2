@@ -234,6 +234,7 @@ public class InventoryComponent extends Component {
      *             NOTE: Currently only work with crafting materials EntityTypes
      */
     public void removeItem(EntityTypes type) {
+        if (type != EntityTypes.CRAFTABLE) return;
         for (int i = 0; i < inventory.size(); ++i) {
             if (inventory.get(i).checkEntityType(type)) {
                 removeItem(i);

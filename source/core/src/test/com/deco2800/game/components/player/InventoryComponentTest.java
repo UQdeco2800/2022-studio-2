@@ -23,6 +23,7 @@ import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -94,12 +95,13 @@ class InventoryComponentTest {
     List<Entity> expectedList = new ArrayList<>(16);
 
     Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity testArmour = ArmourFactory.createBaseArmour();
 
-    expectedList.add(testWeapon);
     testInventory3.addItem(testWeapon);
+    testInventory3.addItem(testArmour);
 
-    expectedList.remove(testWeapon);
-    testInventory3.removeItem(EntityTypes.WEAPON);
+    testInventory3.removeItem(testWeapon);
+    testInventory3.removeItem(0);
 
     assertEquals(expectedList, testInventory3.getInventory());
   }
@@ -205,10 +207,8 @@ class InventoryComponentTest {
     InventoryComponent testInventory6 = player.getComponent(InventoryComponent.class);
     List<Entity> expectedList = new ArrayList<>(3);
 
-    expectedList.add(testSpeedPotion);
     testInventory6.addQuickBarItems(testSpeedPotion);
 
-    expectedList.remove(testSpeedPotion);
     testInventory6.removePotion(testInventory6.getPotionIndex(testSpeedPotion));
 
     assertEquals(expectedList, testInventory6.getInventory());
