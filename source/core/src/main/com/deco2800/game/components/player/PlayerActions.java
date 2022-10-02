@@ -59,7 +59,6 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
     entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
     entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
-    entity.getEvents().addListener("kill switch", this::killEnemy);
     entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
     //entity.getEvents().addListener("attack", this::attackAnimation);
 
@@ -117,14 +116,6 @@ public class PlayerActions extends Component {
    */
   public void consumePotionSlot3() {
     entity.getComponent(InventoryComponent.class).consumePotion(3);
-  }
-
-  public void killEnemy() {
-    for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
-      if (enemy.checkEntityType(EntityTypes.ENEMY)) {
-        enemy.flagDead();
-      }
-    }
   }
 
 
