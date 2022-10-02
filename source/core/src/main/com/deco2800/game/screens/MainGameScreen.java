@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
@@ -78,7 +79,7 @@ public class MainGameScreen extends ScreenAdapter {
 
 
 
-  public MainGameScreen(GdxGame game) {
+  public MainGameScreen(GdxGame game, int level) {
 
     this.game = game;
     logger.debug("Initialising main game screen services");
@@ -103,15 +104,19 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    gameLevel = 1;
-    ForestGameArea map = (ForestGameArea) chooseMap(gameLevel);
-//    UndergroundGameArea map = loadLevelTwoMap();
-    this.map = map;
-//    GameArea map = loadLevelTwoMap();
+    gameLevel = level;
+
+    this.map = chooseMap(gameLevel);
+
+    if (this.map == null) {
+      logger.error("INCORRECT LEVEL SELECTED. ERROR TIME!");
+    }
+
     player = map.getPlayer();
+
+    // Management components for death and transition screen
     dead = false;
     transition = false;
-
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
     // Add screen transition listener to player
@@ -154,8 +159,6 @@ public class MainGameScreen extends ScreenAdapter {
 
     if (transition) {
       game.setScreen(GdxGame.ScreenType.LEVEL_TRANSITION);
-//      transition = false;
-//      logger.info("Would normally call our transition screen");
     }
 
     if (PauseMenuActions.getQuitGameStatus()) {
@@ -202,13 +205,9 @@ public class MainGameScreen extends ScreenAdapter {
   public GameArea chooseMap(int level) {
     switch (level) {
       case 1:
-        gameLevel = 1;
-        return this.loadLevelOneMap();
+        return this.map = loadLevelOneMap();
       case 2:
-        gameLevel = 2;
-        map.dispose();
-        this.map = this.loadLevelTwoMap();
-        player = map.getPlayer();
+        return this.map = loadLevelTwoMap();
       default:
     }
     return null;

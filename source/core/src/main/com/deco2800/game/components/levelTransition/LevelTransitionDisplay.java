@@ -28,7 +28,7 @@ public class LevelTransitionDisplay extends UIComponent {
     private Table table;
     private Image transitionImage;
     private int fps = 15;
-    private long frameDuration =  (long)(1000 / fps);
+    private final long frameDuration =  (long)(1000 / fps);
     private int frame;
     private long lastFrameTime;
 
@@ -66,6 +66,9 @@ public class LevelTransitionDisplay extends UIComponent {
         }
     }
 
+    /**
+     * Custom update function to work as a pseudo-animation controller.
+     */
     @Override
     public void update() {
         if (System.currentTimeMillis() - lastFrameTime > frameDuration) {
@@ -86,7 +89,6 @@ public class LevelTransitionDisplay extends UIComponent {
     @Override
     public void dispose() {
     // Remove the image here
-
         table.clear();
         super.dispose();
     }

@@ -22,6 +22,8 @@ public class GdxGame extends Game {
   private static DeathScreen deathScreen;
   private static LevelTransitionScreen levelTransitionScreen;
 
+  private static int level;
+
   @Override
   public void create() {
     logger.info("Creating game");
@@ -31,6 +33,8 @@ public class GdxGame extends Game {
     Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
 
     setScreen(ScreenType.MAIN_MENU);
+
+    level = 1;
   }
 
   /**
@@ -71,7 +75,7 @@ public class GdxGame extends Game {
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        currentGameScreen = new MainGameScreen(this);
+        currentGameScreen = new MainGameScreen(this, level);
         return currentGameScreen;
       case SETTINGS:
         return new SettingsScreen(this);
@@ -85,6 +89,7 @@ public class GdxGame extends Game {
         return new SkillsTreeScreen(this);
       case LEVEL_TRANSITION:
         levelTransitionScreen = new LevelTransitionScreen(this);
+        level++;
         return levelTransitionScreen;
       case WIN_SCREEN:
         deathScreen = new DeathScreen(this, 3);

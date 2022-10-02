@@ -55,6 +55,9 @@ public class LevelTransitionScreen extends ScreenAdapter {
         playMusic();
     }
 
+    /**
+     * Play music for the transition screen.
+     */
     private void playMusic() {
         Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
         music.setLooping(true);
@@ -87,6 +90,9 @@ public class LevelTransitionScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
+    /**
+     * Load individual animation screens for the level transition.
+     */
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
@@ -95,13 +101,14 @@ public class LevelTransitionScreen extends ScreenAdapter {
             transitionTextures[i] = transitionPrefix + (i + 1) + ".png";
         }
 
-        //System.out.println(transitionTextures);
-
         resourceService.loadTextures(transitionTextures);
         resourceService.loadMusic(transitionMusic);
         ServiceLocator.getResourceService().loadAll();
     }
 
+    /**
+     * Unload all assets.
+     */
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
@@ -109,7 +116,7 @@ public class LevelTransitionScreen extends ScreenAdapter {
     }
 
     /**
-     * Creates the level tranistion's ui including components for rendering ui elements to the screen and
+     * Creates the level transition's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
     private void createUI() {

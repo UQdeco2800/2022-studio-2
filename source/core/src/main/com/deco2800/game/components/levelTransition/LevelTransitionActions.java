@@ -35,6 +35,6 @@ public class LevelTransitionActions extends Component {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
         sound.play(1.0f);
         logger.info("Enter key has beeen presssed, changing to next level");
-        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 }
