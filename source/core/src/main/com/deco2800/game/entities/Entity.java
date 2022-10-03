@@ -46,6 +46,7 @@ public class Entity {
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
   private boolean isDead = false;
+  private boolean playerWin = false;
   private List<EntityTypes> entityType;
   public Entity() {
     id = nextId;
@@ -232,6 +233,7 @@ public class Entity {
         component.dispose();
       } //this prevents the other entities using the same animation from having their atlases disposed (black box)
     }
+    this.flagDead();
     ServiceLocator.getEntityService().unregister(this);
   }
 
@@ -294,6 +296,9 @@ public class Entity {
       return;
     }
     if (isDead) {
+      dispose();
+    }
+    if (playerWin) {
       dispose();
     }
     boolean timeStopped = EntityService.isTimeStopped();
@@ -364,6 +369,13 @@ public class Entity {
 
   public void flagDead(){
     isDead = true;
+  }
+
+  /**
+   * Updates the playerWin variable to true, used to flag a win
+   */
+  public void flagWin() {
+    playerWin = true;
   }
 
   /**

@@ -21,6 +21,7 @@ public class MegaPoopAnimationController extends Component {
         entity.getEvents().addListener("walkBack", this::animateWalkBack);
         entity.getEvents().addListener("walkLeft", this::animateWalkLeft);
         entity.getEvents().addListener("walkRight", this::animateWalkRight);
+        entity.getEvents().addListener("cast", this::animateCast);
         entity.getEvents().trigger("walkFront");
     }
 
@@ -57,6 +58,15 @@ public class MegaPoopAnimationController extends Component {
     private void animateWalkFront() {
         if (!"walk_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_front");
+        }
+    }
+
+    /**
+     * Animates Mega Poop casting
+     */
+    private void animateCast() {
+        if (!"cast".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("cast");
         }
     }
 }

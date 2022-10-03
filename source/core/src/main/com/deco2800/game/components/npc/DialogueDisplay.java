@@ -12,19 +12,24 @@ import com.badlogic.gdx.audio.Sound;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.factories.MaterialFactory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.areas.ForestGameArea;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
+import static com.deco2800.game.components.gamearea.GameAreaDisplay.inventoryComponent;
 
 
 /**
@@ -32,7 +37,7 @@ import static com.deco2800.game.areas.ForestGameArea.*;
  */
 public class DialogueDisplay extends UIComponent {
 
-    private Sound femaleSound;
+    private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
     private static Image dialogueImagefemale;
     private static Image dialogueimageguard;
     private static Image dialogueimgchild;
@@ -40,7 +45,6 @@ public class DialogueDisplay extends UIComponent {
     private static Image dialogueimagehumanguard;
     private static Image dialogueimagefriendlycreature;
     private static Image dialogueimageplumberfriend;
-
     public int dialogueImageFemale = 0;
     public int dialogueImageChild = 1;
     public int dialogueImageGuard = 2;
@@ -48,7 +52,6 @@ public class DialogueDisplay extends UIComponent {
     public int dialogueImageHumanGuard = 4;
     public int dialogueImageFriendlyCreature = 5;
     public int dialogueImagePlumberFriend = 6;
-
     private final HashMap<Integer, String> dialogueMap = new HashMap<Integer, String>() {
         {
             put(0, "images/NPC/Dialogue/dialoguesboxfemale.png");
@@ -67,8 +70,6 @@ public class DialogueDisplay extends UIComponent {
     static int countHumanGuard = 0;
     static int countFriendlyCreature = 0;
     static int countPlumberFriend = 0;
-
-
     public static Table dialogueContainerFemale;
     public static Table dialogueContainerGuard;
     public static Table dialogueContainerMale;
@@ -76,7 +77,6 @@ public class DialogueDisplay extends UIComponent {
     public static Table dialogueContainerHumanGuard;
     public static Table dialogueContainerFriendlyCreature;
     public static Table dialogueContainerPlumberFriend;
-
     public static TextArea textAreaFemale;
     public static TextArea textAreaGuard;
     public static TextArea textAreaMale;
@@ -84,9 +84,7 @@ public class DialogueDisplay extends UIComponent {
     public static TextArea textAreaHumanGuard;
     public static TextArea textAreaFriendlyCreature;
     public static TextArea textAreaPlumberFriend;
-
     public static Boolean state = false;
-
     public static TextButton childButton = new TextButton("yes", skin);
     public static String[] textFemale = {
             "Nat:\n",
@@ -95,8 +93,8 @@ public class DialogueDisplay extends UIComponent {
             "But I guess it does not matter,",
             "For a plumber like you.",
             "Now go away and fix some toilets.",
+            ""
     };
-
     public static String[] textGuard = {
             "Guard\n",
             "Have you seen anyone suspicious? ",
@@ -107,36 +105,32 @@ public class DialogueDisplay extends UIComponent {
             "roaming around right now..",
 
     };
-
     public static String[] textMale = {
             "Richard: \n",
-            "1",
-            "2",
-            "I will give you something",
-            "4",
-            "5",
-            "6"
+            "What on Atlantis are you wearing?",
+            "There’s a public restroom which probably needs fixing",
+            "How about fixing that up instead of roaming around",
+            ""
     };
-
     public static String[] textChild = {
             "child\n",
-            "1",
-            "2",
-            "3",
-            "4",
+            "Hello…Rabbit says he has not seen you around before\n",
+            "Your..hands..they are stained…brown\n",
+            "I know someone who can help you \n",
+            "You might want to speak to crocodile, they live in the drains of the city\n",
             "5",
             "6",
             "7"
     };
-
     public static String[] textHumanGuard = {
-            "George\n",
-            "1",
-            "2",
-            "3",
-            "4"
+            "George",
+            "Oh good, you are here!",
+            "My hands are a bit full right now",
+            "Would you mind holding onto this for me?",
+            "There was a special mission today… Wait…",
+            "….Mission…I can’t remember what it was",
+            ""
     };
-
     public static String[] textFriendlyCreature = {
             "FriendlyCreature\n",
             "1",
@@ -144,19 +138,22 @@ public class DialogueDisplay extends UIComponent {
             "3",
             "4"
     };
-
     public static String[] textPlumberFriend = {
             "PlumberFriend\n",
-            "1",
-            "2",
-            "3",
-            "4"
+            "Hey! I have not seen you in forever.",
+            "Are you still going ahead with your plan?",
+            "What do you mean ‘what plan’?",
+            "You were gonna sink Atlantis",
+            "Me? Come with you?",
+            "Hmm…maybe it’s best I don’t go..",
+            "Instead I’ll help by keeping you out of any suspicions",
+            "Also I found some poop after fixing a toilet",
+            "I don’t have any use for it so you can have it.",
+            ""
     };
-
-
-
     @Override
     public void create() {
+        //initialize the dialogue container for each NPCs
         dialogueContainerFemale = new Table();
         dialogueContainerFemale.setFillParent(true);
         dialogueContainerGuard = new Table();
@@ -172,6 +169,7 @@ public class DialogueDisplay extends UIComponent {
         dialogueContainerPlumberFriend = new Table();
         dialogueContainerPlumberFriend.setFillParent(true);
 
+        // initialize the dialogue image for each NPCs
         dialogueImagefemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFemale), Texture.class));
         dialogueimageguard = new Image(ServiceLocator.getResourceService()
@@ -187,7 +185,7 @@ public class DialogueDisplay extends UIComponent {
         dialogueimageplumberfriend = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImagePlumberFriend), Texture.class));
 
-
+        // initialize the text area for each NPCs
         textAreaFemale = new TextArea(textFemale[countFemale], skin);
         textAreaFemale.setWidth(480);
         textAreaFemale.setHeight(50);
@@ -210,8 +208,7 @@ public class DialogueDisplay extends UIComponent {
         textAreaPlumberFriend.setWidth(480);
         textAreaPlumberFriend.setHeight(50);
 
-
-
+        // add dialogue image and dialogue text area to the container
         dialogueContainerFemale.addActor(dialogueImagefemale);
         dialogueContainerFemale.addActor(textAreaFemale);
         dialogueContainerGuard.addActor(dialogueimageguard);
@@ -227,34 +224,25 @@ public class DialogueDisplay extends UIComponent {
         dialogueContainerPlumberFriend.addActor(dialogueimageplumberfriend);
         dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
 
-//        AudioRecorder recorder = Gdx.audio.newAudioRecorder(44100,true);
-//        short[] audioBuffer = new short[44100 * 5];
-//
-//        recorder.read(audioBuffer, 0, audioBuffer.length);
-//
-//        AudioDevice audioDevice = Gdx.audio.newAudioDevice(44100, true);
-//        audioDevice.writeSamples(audioBuffer, 0, audioBuffer.length);
-
         super.create();
         entity.getEvents().addListener("openDialogue", this::openDialogue);
         entity.getEvents().addListener("nextText", this::nextText);
         entity.getEvents().addListener("hideDialogue", this::hideDialogue);
-        
     }
 
     public void nextText() {
-
-
         if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
+            logger.info("new text loaded");
             countFemale++;
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
-            textAreaFemale.setWidth(480);
+            textAreaFemale.setWidth(400);
             dialogueContainerFemale.addActor(textAreaFemale);
             if (countFemale == textFemale.length - 1) {
                 countFemale = 0;
                 dialogueContainerFemale.remove();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
+            logger.info("new text loaded");
             countGuard++;
             textAreaGuard = new TextArea(textGuard[countGuard], skin);
             textAreaGuard.setWidth(400);
@@ -268,23 +256,29 @@ public class DialogueDisplay extends UIComponent {
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Female Audio 1.wav"));
 
             } else if (countGuard == 1) {
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 1.wav"));
+                logger.info("Guard1 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 1.wav"));
                 music.play();
             } else if (countGuard == 2) {
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 2.wav"));
+                logger.info("Guard2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 2.wav"));
                 music.play();
             } else if (countGuard == 3) {
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 3.wav"));
+                logger.info("Guard3 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 3.wav"));
                 music.play();
             } else if (countGuard == 4) {
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 4.wav"));
+                logger.info("Guard4 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 4.wav"));
                 music.play();
             } else if (countGuard == 5) {
+                logger.info("Guard5 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 5.wav"));
 
                 music.play();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
+            logger.info("new text loaded");
             countMale++;
             textAreaMale = new TextArea(textMale[countMale], skin);
             textAreaMale.setWidth(400);
@@ -292,33 +286,75 @@ public class DialogueDisplay extends UIComponent {
             if (countMale == textMale.length - 1) {
                 countMale = 0;
                 dialogueContainerMale.remove();
+            } else if (countMale == 1) {
+                logger.info("Male1 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Male Citizen Audio/Male Citizen 1.wav"));
+                music.play();
+            } else if (countMale == 2) {
+                logger.info("Male2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Male Citizen Audio/Male Citizen 2.wav"));
+                music.play();
+            } else if (countMale == 3) {
+                logger.info("Male3 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Male Citizen Audio/Male Citizen 3.wav"));
+                music.play();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
+            logger.info("new text loaded");
             countChild++;
             textAreaChild = new TextArea(textChild[countChild], skin);
-            textAreaChild.setWidth(400);
+            textAreaChild.setWidth(480);
             dialogueContainerChild.addActor(textAreaChild);
             if (countChild == textChild.length - 1) {
                 countChild = 0;
                 dialogueContainerChild.remove();
+            } else if (countChild == 1) {
+                Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Dialogue/ChildLines/ChildLine10 (2).wav"));
+                sound.play(1.0f);
+            } else if (countChild == 2) {
+                Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Dialogue/ChildLines/ChildLine11.wav"));
+                sound.play(1.0f);
+            } else if (countChild == 3) {
+                Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Dialogue/ChildLines/ChildLine12.wav"));
+                sound.play(1.0f);
             } else if (countChild == 4) {
-                dialogueContainerChild.addActor(childButton);
-//                GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
-//                childButton.addListener(new ClickListener() {
-//                    void getGold() {
-//                        GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
-//                    }
-//
-//                });
-
+                Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Dialogue/ChildLines/ChildLine13.wav"));
+                sound.play(1.0f);
             } else if (countChild == 5) {
                 dialogueContainerChild.removeActor(childButton);
+                TextButton startButton = new TextButton("Start", skin);
+                dialogueContainerChild.addActor(startButton);
+                startButton.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        AudioRecorder recorder = Gdx.audio.newAudioRecorder(44100,true);
+                        short[] audioBuffer = new short[44100 * 5];
+                        recorder.read(audioBuffer, 0, audioBuffer.length);
+
+                        AudioDevice audioDevice = Gdx.audio.newAudioDevice(44100, true);
+                        audioDevice.writeSamples(audioBuffer, 0, audioBuffer.length);
+                        System.out.println(Arrays.toString(audioBuffer));
+                        recorder.dispose();
+                        audioDevice.dispose();
+                    };
+                });
+
+
             } else if (countChild == 6) {
-                Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
-                sound.play(1.0f);
+                dialogueContainerChild.addActor(childButton);
+                childButton.addListener( new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
+                        sound.play(1.0f);
+                        inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                        inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+                    };
+                });
             }
 
         } else if (entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
+            logger.info("new text loaded");
             countHumanGuard++;
             textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
             textAreaHumanGuard.setWidth(400);
@@ -326,9 +362,30 @@ public class DialogueDisplay extends UIComponent {
             if (countHumanGuard == textHumanGuard.length - 1) {
                 countHumanGuard = 0;
                 dialogueContainerHumanGuard.remove();
+            } else if (countHumanGuard == 1) {
+                logger.info("HumanGuard1 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human Guard 1.wav"));
+                music.play();
+            } else if (countHumanGuard == 2) {
+                logger.info("HumanGuard2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_2.wav"));
+                music.play();
+            } else if (countHumanGuard == 3) {
+                logger.info("HumanGuard3 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_3.wav"));
+                music.play();
+            } else if (countHumanGuard == 4) {
+                logger.info("HumanGuard4 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_4.wav"));
+                music.play();
+            } else if (countHumanGuard == 5) {
+                logger.info("HumanGuard5 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_5.wav"));
+                music.play();
             }
 
         } else if (entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
+            logger.info("new text loaded");
             countFriendlyCreature++;
             textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
             textAreaFriendlyCreature.setWidth(400);
@@ -339,6 +396,7 @@ public class DialogueDisplay extends UIComponent {
             }
 
         } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
+            logger.info("new text loaded");
             countPlumberFriend++;
             textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
             textAreaPlumberFriend.setWidth(400);
@@ -346,6 +404,42 @@ public class DialogueDisplay extends UIComponent {
             if (countPlumberFriend == textPlumberFriend.length - 1) {
                 countPlumberFriend = 0;
                 dialogueContainerPlumberFriend.remove();
+            } else if (countPlumberFriend == 1) {
+                logger.info("PlumberFriend1 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 1.wav"));
+                music.play();
+            } else if (countPlumberFriend == 2) {
+                logger.info("PlumberFriend2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 2.wav"));
+                music.play();
+            } else if (countPlumberFriend == 3) {
+                logger.info("PlumberFriend3 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 3.wav"));
+                music.play();
+            } else if (countPlumberFriend == 4) {
+                logger.info("PlumberFriend4 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 4.wav"));
+                music.play();
+            } else if (countPlumberFriend == 5) {
+                logger.info("PlumberFriend5 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 5.wav"));
+                music.play();
+            } else if (countPlumberFriend == 6) {
+                logger.info("PlumberFriend6 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 6.wav"));
+                music.play();
+            } else if (countPlumberFriend == 7) {
+                logger.info("PlumberFriend7 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 7.wav"));
+                music.play();
+            } else if (countPlumberFriend == 8) {
+                logger.info("PlumberFriend8 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 8.wav"));
+                music.play();
+            } else if (countPlumberFriend == 9) {
+                logger.info("PlumberFriend9 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 9.wav"));
+                music.play();
             }
 
         }
@@ -354,34 +448,37 @@ public class DialogueDisplay extends UIComponent {
 
         if (state) {
             if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
+                logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerFemale);
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
+                logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerGuard);
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
+                logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerMale);
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
+                logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerChild);
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
+                logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerHumanGuard);
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
+                logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerPlumberFriend);
                 state = false;
             } else if (entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
+                logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerFriendlyCreature);
                 state = false;
             }
 
         }
     }
-
-
-
-
     //hide dialogue function
     public void hideDialogue() {
         if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) < 1.5) {
@@ -408,18 +505,10 @@ public class DialogueDisplay extends UIComponent {
         }
 
     }
-
-
-//    private void getGold() {
-//        GameAreaDisplay.inventoryComponent.addItem(MaterialFactory.createGold());
-//    }
     @Override
     public void draw(SpriteBatch batch) {
 
     }
-
-
-
     @Override
     public void dispose() {
 

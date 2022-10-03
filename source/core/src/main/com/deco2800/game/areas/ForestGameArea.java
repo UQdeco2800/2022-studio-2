@@ -37,8 +37,6 @@ public class ForestGameArea extends GameArea {
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/Enemies/gym_bro.png",
-    "images/Enemies/poops.png",
-    "images/Enemies/poopSludge.png",
     "images/Enemies/discus.png",
     "images/grass_1.png",
     "images/grass_2.png",
@@ -129,16 +127,15 @@ public class ForestGameArea extends GameArea {
   public static String[] newTextures;
   private static final String[] forestTextureAtlases = {
 
-    "images/Skills/skillAnimations.atlas", "images/KeyPrompt/KEY_Q_!.atlas","images/Enemies/gym_bro.atlas",
-    "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
-    "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas", "images/Movement/movement.atlas",
+          "images/Skills/skillAnimations.atlas", "images/KeyPrompt/KEY_Q_!.atlas","images/Enemies/gym_bro.atlas",
+          "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
+          "images/Skills/skillAnimations.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
           "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
-    "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
-    "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
-    "images/Enemies/poop.atlas"
+          "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
+          "images/Enemies/heracles.atlas"
 
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -148,8 +145,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity heracles;
-  private Entity megaPoop;
+  private static Entity heracles;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
@@ -166,6 +162,7 @@ public class ForestGameArea extends GameArea {
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
+    areaEntities = new ArrayList<>();
 
     ServiceLocator.registerGameArea(this);
 
@@ -188,13 +185,13 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Check if Heracles is placed on map
+   * Check if Heracles is alive on map
    */
-  public boolean ifHeraclesOnMap() {
-    if (heracles.getPosition() == null) {
-      return false;
+  public static boolean ifHeraclesOnMap() {
+    if (heracles.isDead()) {
+      return true;
     }
-    return true;
+    return false;
   }
 
 
@@ -207,13 +204,10 @@ public class ForestGameArea extends GameArea {
     spawnCraftingTable();
     spawnPotion();
     player = spawnPlayer();
-    //spawnEffectBlobs();
     spawnGymBro();
     heracles = spawnHeracles();
-    megaPoop = spawnMegaPoop();
     spawnOneLegGirl();
     spawnPlug();
-    spawnPoops();
     spawnHumanGuard();
     spawnPlumberFriend();
     spawnfriendlycreature();
@@ -239,6 +233,8 @@ public class ForestGameArea extends GameArea {
     spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
+    spawnSpeedBuff();
+    spawnPlungerBow(); //PLS RMOVE LASTER
 
 
   }
@@ -365,6 +361,19 @@ public class ForestGameArea extends GameArea {
   }
   */
 
+  /**
+   * Spawns speed buff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
+   */
+  private void spawnSpeedBuff() {
+    Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+    auraOnMap.add(speedbuff);
+    spawnEntityAt(speedbuff, new GridPoint2(7,7), true, false);
+  }
+  /**
+   *
+   */
   /**
    * Spawns speed debuff entity into the game
    * Spawns x-pos 10
@@ -590,6 +599,7 @@ public class ForestGameArea extends GameArea {
   private void spawnPlug() {
     GridPoint2 plugPosition = new GridPoint2(12, 17);
     Entity plug = NPCFactory.createPlug(player);
+    areaEntities.add(plug);
 
     spawnEntityAt(plug, plugPosition, true, true);
   }
@@ -679,11 +689,12 @@ public class ForestGameArea extends GameArea {
 
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, oneLegGirlPosition, true, true);
-
+    areaEntities.add(oneLegGirl);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, oneLegGirlDialoguePosition, true, true);
   }
+
   public static GridPoint2 getOneLegGirlPosition() {
     return oneLegGirlPosition;
   }
@@ -703,9 +714,11 @@ public class ForestGameArea extends GameArea {
 
     Entity child = NPCFactory.createChild(player);
     spawnEntityAt(child, childPosition, true, true);
+    areaEntities.add(child);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, childPosition, true, true);
+    //areaEntities.add(dialogue);
   }
 
   public static GridPoint2 getChildPosition() {
@@ -721,9 +734,11 @@ public class ForestGameArea extends GameArea {
 
     Entity guard = NPCFactory.createGuard(player);
     spawnEntityAt(guard, GuardPosition, true, true);
+    areaEntities.add(guard);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, GuardPosition, true, true);
+    areaEntities.add(dialogue);
   }
   public static GridPoint2 getGuardPosition() {
     return GuardPosition;
@@ -734,9 +749,11 @@ public class ForestGameArea extends GameArea {
 
     Entity humanguard = NPCFactory.createHumanGuard(player);
     spawnEntityAt(humanguard, HumanGuardPosition, true, true);
+    areaEntities.add(humanguard);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, HumanGuardPosition, true, true);
+    areaEntities.add(dialogue);
   }
 
   private void spawnPlumberFriend() {
@@ -744,9 +761,11 @@ public class ForestGameArea extends GameArea {
 
     Entity plumberfriend = NPCFactory.createPlumberFriend(player);
     spawnEntityAt(plumberfriend, PlumberFriendPosition, true, true);
+    areaEntities.add(plumberfriend);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, PlumberFriendPosition, true, true);
+    areaEntities.add(dialogue);
   }
 
   /**
@@ -757,9 +776,11 @@ public class ForestGameArea extends GameArea {
 
     Entity male_citizen = NPCFactory.createMale_citizen(player);
     spawnEntityAt(male_citizen, maleCitizenPosition, true, true);
+    areaEntities.add(male_citizen);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, maleCitizenPosition, true, true);
+    areaEntities.add(dialogue);
   }
   public static GridPoint2 getMaleCitizenPosition() {
     return maleCitizenPosition;
@@ -774,9 +795,11 @@ public class ForestGameArea extends GameArea {
 
     Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
     spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+    areaEntities.add(friendlycreature);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+    areaEntities.add(dialogue);
   }
 
   /**
@@ -789,6 +812,7 @@ public class ForestGameArea extends GameArea {
     for (int i = 0; i < 3; i++) {
       GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
       Entity gymBro = NPCFactory.createGymBro(player);
+      areaEntities.add(gymBro);
       spawnEntityAt(gymBro, randomPos, true, true);
     }
   }
@@ -802,35 +826,9 @@ public class ForestGameArea extends GameArea {
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity heracles = NPCFactory.createHeracles(player);
+    areaEntities.add(heracles);
     spawnEntityAt(heracles, randomPos, true, true);
     return heracles;
-  }
-
-  /**
-   * Spawn Heracles in a random position.
-   */
-  private Entity spawnMegaPoop() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity megaPoop = NPCFactory.createMegaPoop(player);
-    spawnEntityAt(megaPoop, randomPos, true, true);
-    return megaPoop;
-  }
-
-  /**
-   * Spawn poops in random positions.
-   */
-  private void spawnPoops() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < 3; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity poops = NPCFactory.createPoops(player);
-      spawnEntityAt(poops, randomPos, true, true);
-    }
   }
 
   private void playMusic() {
@@ -863,11 +861,18 @@ public class ForestGameArea extends GameArea {
     resourceService.unloadAssets(forestTextureAtlases);
     resourceService.unloadAssets(forestSounds);
     resourceService.unloadAssets(forestMusic);
+
   }
 
   @Override
   public void dispose() {
     super.dispose();
+    // Dispose of all internal entities in the area
+    for (Entity entity : areaEntities) {
+      entity.dispose();
+    }
+    logger.info("Disposed of ForestAreaEntities");
+
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     logger.info("Unloading forest assets");
     this.unloadAssets();
