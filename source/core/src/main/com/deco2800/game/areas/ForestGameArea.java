@@ -678,7 +678,6 @@ public class ForestGameArea extends GameArea {
 
   /**
    * Spawns an AOE attack at the player entity's coordinates.
-   * @param damage true for damage AOE, false for knockback
    */
   public Entity spawnPlayerAOE() {
     Entity newProjectile = ProjectileFactory.createPlayerAOE(player, 0);

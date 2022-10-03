@@ -86,13 +86,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("skillTemp");
         return true;
       case Keys.MINUS:
-        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-          Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
-          ForestGameArea.removeProjectileOnMap(projectile);
-          if (projectile.getComponent(AnimationRenderComponent.class) != null) {
-            projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
-          }
-        }
+        entity.getEvents().trigger("aoeTemp");
         return true;
       case Keys.BACKSLASH:
         entity.getEvents().trigger("ultimateTemp");

@@ -336,7 +336,7 @@ public class ProjectileFactory {
                 .addComponent(physicsComponent)
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 10.0f))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 100.0f))
                 .addComponent(new CombatStatsComponent(100000, 10, 0, 0))
                 .addComponent(projectileAnimator)
                 .addComponent(playerSkillProjectileComponent);

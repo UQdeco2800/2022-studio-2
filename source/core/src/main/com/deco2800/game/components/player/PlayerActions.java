@@ -82,6 +82,7 @@ public class PlayerActions extends Component {
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.CHARGE, entity,this);
+    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.AOE, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
     skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
 
@@ -297,6 +298,16 @@ public class PlayerActions extends Component {
     if (mana>=10) {
       entity.getEvents().trigger("decreaseMana", -10);
       skillManager.startRoot();
+    }
+  }
+
+  /**
+   * Does an aoe attack around the player. Registers call of the aoe function to the skill manager component.
+   */
+  void aoe() {
+    if (mana>=2) {
+      entity.getEvents().trigger("decreaseMana", -2);
+      skillManager.aoeAttack();
     }
   }
 

@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
@@ -38,6 +39,7 @@ public class PlayerSkillComponent extends Component {
         BLEED,
         ROOT,
         CHARGE,
+        AOE,
         ATTACKSPEED,
         ULTIMATE,
         FIREBALLULTIMATE
@@ -267,9 +269,11 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener("attackspeedTemp", playerActionsComponent::attackSpeedUp);
         } else if (skillName == SkillTypes.ULTIMATE) {
             entity.getEvents().addListener("ultimateTemp", playerActionsComponent::ultimate);
-        } else if (skillName == SkillTypes.CHARGE) { // change back to skillEvent after sprint 2
+        } else if (skillName == SkillTypes.CHARGE) {
             entity.getEvents().addListener("skillTemp", playerActionsComponent::charge);
             entity.getEvents().addListener("enemyCollision", this::chargeHit);
+        } else if (skillName == SkillTypes.AOE) {
+            entity.getEvents().addListener("aoeTemp", playerActionsComponent::aoe);
         }
     }
 
@@ -822,6 +826,21 @@ public class PlayerSkillComponent extends Component {
             Vector2 direction = target.getCenterPosition().sub(playerEntity.getCenterPosition());
             Vector2 impulse = direction.setLength(40f);
             targetBody.applyLinearImpulse(impulse, targetBody.getWorldCenter(), true);
+        }
+    }
+
+    /**
+     * Damages all enemies around player and knocks them back.
+     *
+     * TODO: cooldowns
+     */
+    public void aoeAttack() {
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+            Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+            ForestGameArea.removeProjectileOnMap(projectile);
+            if (projectile.getComponent(AnimationRenderComponent.class) != null) {
+                projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
+            }
         }
     }
 }
