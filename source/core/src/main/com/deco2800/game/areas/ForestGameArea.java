@@ -678,6 +678,18 @@ public class ForestGameArea extends GameArea {
             true, true);
   }
 
+  /**
+   * Spawns an AOE attack at the player entity's coordinates.
+   * @param damage true for damage AOE, false for knockback
+   */
+  public Entity spawnPlayerAOE() {
+    Entity newProjectile = ProjectileFactory.createPlayerAOE(player, 0);
+    spawnEntityAt(newProjectile,
+            new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+            true, true);
+    return newProjectile;
+  }
+
    private void spawnPlungerBow() {
     Entity c = WeaponFactory.createPlungerBow();
     ItemsOnMap.add(c);

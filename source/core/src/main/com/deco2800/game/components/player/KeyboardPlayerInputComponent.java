@@ -6,8 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
@@ -80,6 +82,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         return true;
       case Keys.EQUALS: // temp mapping for sprint 2 marking
         entity.getEvents().trigger("skillTemp");
+        return true;
+      case Keys.MINUS:
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+          Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+          ForestGameArea.removeProjectileOnMap(projectile);
+          if (projectile.getComponent(AnimationRenderComponent.class) != null) {
+            projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
+          }
+        }
         return true;
       case Keys.BACKSLASH:
         entity.getEvents().trigger("ultimateTemp");
