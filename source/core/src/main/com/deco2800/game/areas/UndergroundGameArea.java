@@ -293,4 +293,13 @@ public class UndergroundGameArea extends GameArea {
         ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
         this.unloadAssets();
     }
+
+    /**
+     * toString returning a string of the classes name
+     * @return (String) class name
+     */
+    @Override
+    public String toString() {
+        return "UndergroundGameArea";
+    }
 }

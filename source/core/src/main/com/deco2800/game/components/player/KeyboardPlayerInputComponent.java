@@ -128,7 +128,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                  && (ForestGameArea.ifHeraclesOnMap())) {
 
           entity.getEvents().trigger("mapTransition");
-          entity.getEvents().trigger("nextMap");
         }
         return true;
       case Keys.N:
