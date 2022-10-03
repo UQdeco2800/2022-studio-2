@@ -14,6 +14,7 @@ import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.entities.factories.PotionFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -112,6 +113,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/H&ADagger.png",
     "images/CombatItems/Sprint-2/Plunger.png",
     "images/Skills/skillAnimations.png",
+    "images/Skills/invulnerability.png",
     "images/Crafting-assets-sprint1/materials/toilet_paper.png",
     "images/Crafting-assets-sprint1/materials/gold.png",
     "images/Crafting-assets-sprint1/materials/iron.png",
@@ -123,10 +125,17 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/wood.png",
     "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
     "images/Skills/projectileSprites.png",
-    "images/CombatItems/animations/combatanimation.png",
+    "images/CombatItems/animations/combatItemsAnimation.png",
     "images/CombatItems/Sprint-2/pipe.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
-    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+    "images/Skills/WrenchAnimation.png",
+    "images/countdown/1.png",
+    "images/countdown/2.png",
+    "images/countdown/3.png",
+    "images/countdown/4.png",
+    "images/countdown/5.png",
+    "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png"
   };
 
   public static String[] newTextures;
@@ -139,11 +148,15 @@ public class ForestGameArea extends GameArea {
           "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
-          "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
-          "images/Enemies/heracles.atlas"
+    "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
+    "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
+    "images/Enemies/poop.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
+    "images/Enemies/poop.atlas",
+          "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
+          "images/Enemies/heracles.atlas", "images/Skills/WrenchAnimation.atlas"
 
   };
-  private static final String[] forestSounds = {"sounds/Impact4.ogg"};
+  private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
@@ -245,8 +258,6 @@ public class ForestGameArea extends GameArea {
     spawnFireBuff();
     spawnPoisonBuff();
     spawnSpeedBuff();
-    spawnPlungerBow(); //PLS RMOVE LASTER
-
 
   }
 
@@ -339,38 +350,10 @@ public class ForestGameArea extends GameArea {
   public static void removeProjectileOnMap(Entity entityToRemove) {
     entityToRemove.setEnabled(false);
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
-  }
-
-  /**
-   * Spawns attack speed buff for the first 7 seconds and removes these buffs after the given time
-   */
-  /*
-  private void spawnEffectBlobs() {
-
-    GridPoint2 minPos = new GridPoint2(2, 2);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(4, 4);
-
-
-    for (int i = 0; i < 10; i++) {
-      Entity speedBuff1 = AuraFactory.createWeaponSpeedBuff();
-      auraOnMap.add(speedBuff1);
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      this.spawnEntityAt(speedBuff1, randomPos, true, false);
-
-      Timer timer = new Timer();
-      timer.schedule(new TimerTask() {
-                       @Override
-                       public void run() {
-                         logger.info("EffectBlobs disappear");
-                         speedBuff1.dispose();
-                         auraOnMap.remove(speedBuff1);
-                         timer.cancel();
-                       }
-                     }
-              , 7000, 5000);
+    if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+      entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation();
     }
   }
-  */
 
   /**
    * Spawns speed buff entity into the game
@@ -545,11 +528,11 @@ public class ForestGameArea extends GameArea {
    * Spawns x-pos 10
    * Spawns y-pos 4
    */
- // private void spawnHeraAndAthena() {
-  //  Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
+  private void spawnHeraAndAthena() {
+    Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
   //  weaponOnMap.add(heraAthenaDag);
-  //  spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
- // }
+    spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
+  }
 
   /**
    * Spawns basic plunger into game
@@ -668,9 +651,9 @@ public class ForestGameArea extends GameArea {
    * Spawns a spray of projectiles at the player entity's coordinates.
    */
   public void spawnPlayerProjectileCone() {
-    double[] sprayAngles = {0,0.05,0.1,1.9,1.95};
+    double[] sprayAngles = {0,0.06,0.11,1.89,1.94};
     for (int i = 0; i < sprayAngles.length; ++i) {
-      Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
+      Entity newProjectile = ProjectileFactory.createWrenchPlayerProjectile(player,sprayAngles[i]);
       spawnEntityAt(newProjectile,
               new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
               true, true);
@@ -687,11 +670,26 @@ public class ForestGameArea extends GameArea {
             true, true);
   }
 
+
+  /**
+   * Spawns an AOE attack at the player entity's coordinates.
+   */
+  public Entity spawnPlayerAOE() {
+    Entity newProjectile = ProjectileFactory.createPlayerAOE(player, 0);
+    spawnEntityAt(newProjectile,
+            new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+            true, true);
+    return newProjectile;
+  }
+
+/*
+>>>>>>> e73afe5ba69f8264e7bb25c687ce9c6feaba9d20
    private void spawnPlungerBow() {
     Entity c = WeaponFactory.createPlungerBow();
     ItemsOnMap.add(c);
     spawnEntityAt(c, new GridPoint2(5,4), true, false);
    }
+*/
 
   /**
    * Spawn female NPC in random position. - Team 7 all-mid-npc

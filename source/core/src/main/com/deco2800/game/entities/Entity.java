@@ -7,6 +7,7 @@ import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.ComponentType;
+import com.deco2800.game.components.npc.EnemyExperienceComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -230,6 +231,9 @@ public class Entity {
   public void dispose() {
     for (Component component : createdComponents) {
       if (!(component instanceof AnimationRenderComponent)) {
+        if (component instanceof EnemyExperienceComponent) {
+          ((EnemyExperienceComponent) component).triggerExperienceGain();
+        }
         component.dispose();
       } //this prevents the other entities using the same animation from having their atlases disposed (black box)
     }
@@ -278,6 +282,7 @@ public class Entity {
             component instanceof PlayerSkillAnimationController ||
             component instanceof PlayerKPAnimationController ||
             component instanceof PlayerCombatAnimationController ||
+            component instanceof PlayerTouchAttackComponent ||
             component instanceof PlayerModifier ||
             component instanceof PhysicsComponent ) {
 
@@ -302,7 +307,8 @@ public class Entity {
       dispose();
     }
     boolean timeStopped = EntityService.isTimeStopped();
-    for (Component component : createdComponents) {
+    for (int i = 0; i < createdComponents.size; ++i) {
+      Component component = createdComponents.get(i);
       if (!timeStopped) {
 
         component.triggerUpdate();
@@ -316,6 +322,7 @@ public class Entity {
                 component instanceof PlayerSkillAnimationController ||
                 component instanceof PlayerKPAnimationController ||
                 component instanceof PlayerCombatAnimationController ||
+                component instanceof PlayerTouchAttackComponent ||
                 component instanceof PlayerModifier ||
                 component instanceof PhysicsComponent) {
 
@@ -344,10 +351,16 @@ public class Entity {
                component instanceof PlayerSkillAnimationController ||
                component instanceof PlayerSkillProjectileComponent ||
                component instanceof PlayerCombatAnimationController ||
+               component instanceof PlayerTouchAttackComponent ||
                component instanceof PlayerKPAnimationController
                 ) {
           return;
         }
+      }
+    }
+    for (Component component : createdComponents) {
+      if (component instanceof PlayerCombatAnimationController) {
+        return;
       }
     }
     for (Component component : createdComponents) {
