@@ -193,10 +193,7 @@ public class ForestGameArea extends GameArea {
    * Check if Heracles is alive on map
    */
   public static boolean ifHeraclesOnMap() {
-    if (heracles.isDead()) {
-      return true;
-    }
-    return false;
+    return heracles.isDead();
   }
 
 
