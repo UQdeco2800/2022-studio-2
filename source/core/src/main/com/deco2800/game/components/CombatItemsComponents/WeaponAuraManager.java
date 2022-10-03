@@ -71,7 +71,6 @@ public class WeaponAuraManager extends Component {
             Entity auraEquipped = ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied;
             String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
             String animationToApply = description+current_aura+"Static";
-            System.out.println(animationToApply);
             combatAnimator.getEvents().trigger(animationToApply);
         }
     }

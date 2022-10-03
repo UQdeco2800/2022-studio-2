@@ -233,7 +233,6 @@ public class PlayerCombatAnimationController extends Component {
     }
     void animateHeraAthenaFireStatic() {
         animator.startAnimation("heraAthenaFireStatic");
-        System.out.println("Hera Athena Fire Static Animated");
     }
     void animateHeraAthenaPoison() {
         animator.startAnimation("heraAthenaPoison");
@@ -251,7 +250,6 @@ public class PlayerCombatAnimationController extends Component {
 
     void animateHeraAthenaStatic() {
         animator.startAnimation("heraAthenaStatic");
-        System.out.println("Hera Athena Static Animated");
     }
 
     /**

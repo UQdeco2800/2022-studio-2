@@ -200,13 +200,13 @@ public class PlayerFactory {
     /*pipe animations*/
     animator.addAnimation("pipe", 0.1f);
     animator.addAnimation("pipeDamage", 0.1f);
-    //animator.addAnimation("pipeDamageStatic", 0.1f);
+    animator.addAnimation("pipeDamageStatic", 0.1f);
     animator.addAnimation("pipeFire", 0.1f);
     animator.addAnimation("pipeFireStatic", 0.1f);
     animator.addAnimation("pipePoison", 0.1f);
     animator.addAnimation("pipePoisonStatic", 0.1f);
     animator.addAnimation("pipeSpeed", 0.1f);
-    //animator.addAnimation("pipeSpeedStatic", 0.1f);
+    animator.addAnimation("pipeSpeedStatic", 0.1f);
     animator.addAnimation("pipeStatic", 0.1f);
 
     /*plunger animations*/

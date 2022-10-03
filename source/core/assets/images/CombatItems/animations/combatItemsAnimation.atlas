@@ -1,4 +1,4 @@
-combatItemsAnimations.png
+combatItemsAnimation.png
 size: 2048, 1280
 format: RGBA8888
 filter: Linear,Linear
@@ -59,7 +59,7 @@ athenaDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaDamage
+athenaDamage 
   rotate: false
   xy: 512, 0
   size: 64, 64
@@ -136,7 +136,7 @@ athenaDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaDamageStatic
+athenaDamageStatic 
   rotate: false
   xy: 1216, 0
   size: 64, 64
@@ -164,7 +164,7 @@ athenaFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaFire
+athenaFire 
   rotate: false
   xy: 1472, 0
   size: 64, 64
@@ -241,7 +241,7 @@ athenaFireStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaFireStatic
+athenaFireStatic 
   rotate: false
   xy: 128, 64
   size: 64, 64
@@ -269,7 +269,7 @@ athenaPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaPoison
+athenaPoison 
   rotate: false
   xy: 384, 64
   size: 64, 64
@@ -311,7 +311,7 @@ athenaPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaPoisonStatic
+athenaPoisonStatic 
   rotate: false
   xy: 768, 64
   size: 64, 64
@@ -353,7 +353,7 @@ athenaSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaSpeed
+athenaSpeed 
   rotate: false
   xy: 1152, 64
   size: 64, 64
@@ -402,7 +402,7 @@ athenaSpeedStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-athenaSpeedStatic
+athenaSpeedStatic 
   rotate: false
   xy: 1600, 64
   size: 64, 64
@@ -432,13 +432,6 @@ default
   index: -1
 hera
   rotate: false
-  xy: 1792, 64
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-hera
-  rotate: false
   xy: 1856, 64
   size: 64, 64
   orig: 64, 64
@@ -451,7 +444,7 @@ hera
   orig: 64, 64
   offset: 0, 0
   index: -1
-hera
+hera 
   rotate: false
   xy: 1984, 64
   size: 64, 64
@@ -500,7 +493,7 @@ hera
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthena
+hera
   rotate: false
   xy: 384, 128
   size: 64, 64
@@ -521,7 +514,7 @@ heraAthena
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthena
+heraAthena 
   rotate: false
   xy: 576, 128
   size: 64, 64
@@ -563,210 +556,210 @@ heraAthena
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage (0)
+heraAthena
   rotate: false
   xy: 960, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1024, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1088, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1152, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage 
   rotate: false
   xy: 1216, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1280, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1344, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1408, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1472, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamage
   rotate: false
   xy: 1536, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1600, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1664, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic 
   rotate: false
   xy: 1728, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1792, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1856, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaFireStatic
   rotate: false
   xy: 1920, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaFireStatic
   rotate: false
   xy: 1984, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaFireStatic 
   rotate: false
   xy: 0, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaFireStatic
   rotate: false
   xy: 64, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 128, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 192, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic 
   rotate: false
   xy: 256, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 320, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 384, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 448, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 512, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 576, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaSpeedStatic 
   rotate: false
   xy: 640, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 704, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaFire
+heraAthenaStatic
   rotate: false
   xy: 768, 192
   size: 64, 64
@@ -787,7 +780,7 @@ heraAthenaFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaFire
+heraAthenaFire 
   rotate: false
   xy: 960, 192
   size: 64, 64
@@ -829,7 +822,7 @@ heraAthenaFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaPoison
+heraAthenaFire
   rotate: false
   xy: 1344, 192
   size: 64, 64
@@ -850,7 +843,7 @@ heraAthenaPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaPoison
+heraAthenaPoison 
   rotate: false
   xy: 1536, 192
   size: 64, 64
@@ -892,7 +885,7 @@ heraAthenaPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaSpeed
+heraAthenaPoison
   rotate: false
   xy: 1920, 192
   size: 64, 64
@@ -913,7 +906,7 @@ heraAthenaSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaSpeed
+heraAthenaSpeed 
   rotate: false
   xy: 64, 256
   size: 64, 64
@@ -955,7 +948,7 @@ heraAthenaSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraDamage
+heraAthenaSpeed
   rotate: false
   xy: 448, 256
   size: 64, 64
@@ -976,7 +969,7 @@ heraDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraDamage
+heraDamage 
   rotate: false
   xy: 640, 256
   size: 64, 64
@@ -1032,7 +1025,7 @@ heraDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraDamageStatic
+heraDamage
   rotate: false
   xy: 1152, 256
   size: 64, 64
@@ -1053,14 +1046,14 @@ heraDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraDamageStatic
+heraDamageStatic 
   rotate: false
   xy: 1344, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraFire
+heraDamageStatic
   rotate: false
   xy: 1408, 256
   size: 64, 64
@@ -1081,7 +1074,7 @@ heraFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraFire
+heraFire 
   rotate: false
   xy: 1600, 256
   size: 64, 64
@@ -1137,7 +1130,7 @@ heraFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraFireStatic
+heraFire
   rotate: false
   xy: 64, 320
   size: 64, 64
@@ -1158,14 +1151,14 @@ heraFireStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraFireStatic
+heraFireStatic 
   rotate: false
   xy: 256, 320
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraPoison
+heraFireStatic
   rotate: false
   xy: 320, 320
   size: 64, 64
@@ -1186,7 +1179,7 @@ heraPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraPoison
+heraPoison 
   rotate: false
   xy: 512, 320
   size: 64, 64
@@ -1214,7 +1207,7 @@ heraPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraPoisonStatic
+heraPoison
   rotate: false
   xy: 768, 320
   size: 64, 64
@@ -1235,7 +1228,7 @@ heraPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraPoisonStatic
+heraPoisonStatic 
   rotate: false
   xy: 960, 320
   size: 64, 64
@@ -1256,7 +1249,7 @@ heraPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraSpeed
+heraPoisonStatic
   rotate: false
   xy: 1152, 320
   size: 64, 64
@@ -1277,7 +1270,7 @@ heraSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraSpeed
+heraSpeed 
   rotate: false
   xy: 1344, 320
   size: 64, 64
@@ -1305,7 +1298,7 @@ heraSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraSpeedStatic
+heraSpeed
   rotate: false
   xy: 1600, 320
   size: 64, 64
@@ -1326,21 +1319,21 @@ heraSpeedStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraSpeedStatic
+heraSpeedStatic 
   rotate: false
   xy: 1792, 320
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraStatic
+heraSpeedStatic
   rotate: false
   xy: 1856, 320
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipe
+heraStatic
   rotate: false
   xy: 1920, 320
   size: 64, 64
@@ -1361,7 +1354,7 @@ pipe
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipe
+pipe 
   rotate: false
   xy: 64, 384
   size: 64, 64
@@ -1382,7 +1375,7 @@ pipe
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeDamage
+pipe
   rotate: false
   xy: 256, 384
   size: 64, 64
@@ -1403,7 +1396,7 @@ pipeDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeDamage
+pipeDamage 
   rotate: false
   xy: 448, 384
   size: 64, 64
@@ -1424,7 +1417,7 @@ pipeDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeDamageStatic
+pipeDamage
   rotate: false
   xy: 640, 384
   size: 64, 64
@@ -1445,14 +1438,14 @@ pipeDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeDamageStatic
+pipeDamageStatic 
   rotate: false
   xy: 832, 384
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeFire
+pipeDamageStatic
   rotate: false
   xy: 896, 384
   size: 64, 64
@@ -1473,7 +1466,7 @@ pipeFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeFire
+pipeFire 
   rotate: false
   xy: 1088, 384
   size: 64, 64
@@ -1494,7 +1487,7 @@ pipeFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeFireStatic
+pipeFire
   rotate: false
   xy: 1280, 384
   size: 64, 64
@@ -1515,14 +1508,14 @@ pipeFireStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeFireStatic
+pipeFireStatic 
   rotate: false
   xy: 1472, 384
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipePoison
+pipeFireStatic
   rotate: false
   xy: 1536, 384
   size: 64, 64
@@ -1543,7 +1536,7 @@ pipePoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipePoison
+pipePoison 
   rotate: false
   xy: 1728, 384
   size: 64, 64
@@ -1564,7 +1557,7 @@ pipePoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipePoisonStatic
+pipePoison
   rotate: false
   xy: 1920, 384
   size: 64, 64
@@ -1585,7 +1578,7 @@ pipePoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipePoisonStatic
+pipePoisonStatic 
   rotate: false
   xy: 64, 448
   size: 64, 64
@@ -1599,7 +1592,7 @@ pipePoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeSpeed
+pipePoisonStatic
   rotate: false
   xy: 192, 448
   size: 64, 64
@@ -1620,7 +1613,7 @@ pipeSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeSpeed
+pipeSpeed 
   rotate: false
   xy: 384, 448
   size: 64, 64
@@ -1641,7 +1634,7 @@ pipeSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeSpeedStatic
+pipeSpeed
   rotate: false
   xy: 576, 448
   size: 64, 64
@@ -1662,21 +1655,21 @@ pipeSpeedStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeSpeedStatic
+pipeSpeedStatic 
   rotate: false
   xy: 768, 448
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-pipeStatic
+pipeSpeedStatic
   rotate: false
   xy: 832, 448
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plunger
+pipeStatic
   rotate: false
   xy: 896, 448
   size: 64, 64
@@ -1697,7 +1690,7 @@ plunger
   orig: 64, 64
   offset: 0, 0
   index: -1
-plunger
+plunger 
   rotate: false
   xy: 1088, 448
   size: 64, 64
@@ -1767,7 +1760,7 @@ plunger
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBow
+plunger
   rotate: false
   xy: 1728, 448
   size: 64, 64
@@ -1788,7 +1781,7 @@ plungerBow
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBow
+plungerBow 
   rotate: false
   xy: 1920, 448
   size: 64, 64
@@ -1823,7 +1816,7 @@ plungerBow
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowDamage
+plungerBow
   rotate: false
   xy: 192, 512
   size: 64, 64
@@ -1844,7 +1837,7 @@ plungerBowDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowDamage
+plungerBowDamage 
   rotate: false
   xy: 384, 512
   size: 64, 64
@@ -1879,7 +1872,7 @@ plungerBowDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowDamageStatic
+plungerBowDamage
   rotate: false
   xy: 704, 512
   size: 64, 64
@@ -1900,14 +1893,14 @@ plungerBowDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowDamageStatic
+plungerBowDamageStatic 
   rotate: false
   xy: 896, 512
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowFire
+plungerBowDamageStatic
   rotate: false
   xy: 960, 512
   size: 64, 64
@@ -1928,7 +1921,7 @@ plungerBowFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowFire
+plungerBowFire 
   rotate: false
   xy: 1152, 512
   size: 64, 64
@@ -1963,7 +1956,7 @@ plungerBowFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowFireStatic
+plungerBowFire
   rotate: false
   xy: 1472, 512
   size: 64, 64
@@ -1984,14 +1977,14 @@ plungerBowFireStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowFireStatic
+plungerBowFireStatic 
   rotate: false
   xy: 1664, 512
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowPoison
+plungerBowFireStatic
   rotate: false
   xy: 1728, 512
   size: 64, 64
@@ -2012,7 +2005,7 @@ plungerBowPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowPoison
+plungerBowPoison 
   rotate: false
   xy: 1920, 512
   size: 64, 64
@@ -2047,7 +2040,7 @@ plungerBowPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowPoisonStatic
+plungerBowPoison
   rotate: false
   xy: 192, 576
   size: 64, 64
@@ -2068,14 +2061,14 @@ plungerBowPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowPoisonStatic
+plungerBowPoisonStatic 
   rotate: false
   xy: 384, 576
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowSpeed
+plungerBowPoisonStatic
   rotate: false
   xy: 448, 576
   size: 64, 64
@@ -2096,7 +2089,7 @@ plungerBowSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowSpeed
+plungerBowSpeed 
   rotate: false
   xy: 640, 576
   size: 64, 64
@@ -2131,7 +2124,7 @@ plungerBowSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowSpeedStatic
+plungerBowSpeed
   rotate: false
   xy: 960, 576
   size: 64, 64
@@ -2152,21 +2145,21 @@ plungerBowSpeedStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowSpeedStatic
+plungerBowSpeedStatic 
   rotate: false
   xy: 1152, 576
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerBowStatic
+plungerBowSpeedStatic
   rotate: false
   xy: 1216, 576
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerDamage
+plungerBowStatic
   rotate: false
   xy: 1280, 576
   size: 64, 64
@@ -2187,7 +2180,7 @@ plungerDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerDamage
+plungerDamage 
   rotate: false
   xy: 1472, 576
   size: 64, 64
@@ -2257,7 +2250,7 @@ plungerDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerDamageStatic
+plungerDamage
   rotate: false
   xy: 64, 640
   size: 64, 64
@@ -2278,14 +2271,14 @@ plungerDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerDamageStatic
+plungerDamageStatic 
   rotate: false
   xy: 256, 640
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerFire
+plungerDamageStatic
   rotate: false
   xy: 320, 640
   size: 64, 64
@@ -2306,7 +2299,7 @@ plungerFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerFire
+plungerFire 
   rotate: false
   xy: 512, 640
   size: 64, 64
@@ -2376,7 +2369,7 @@ plungerFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerFireStatic
+plungerFire
   rotate: false
   xy: 1152, 640
   size: 64, 64
@@ -2397,14 +2390,14 @@ plungerFireStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerFireStatic
+plungerFireStatic 
   rotate: false
   xy: 1344, 640
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerPoison
+plungerFireStatic
   rotate: false
   xy: 1408, 640
   size: 64, 64
@@ -2425,7 +2418,7 @@ plungerPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerPoison
+plungerPoison 
   rotate: false
   xy: 1600, 640
   size: 64, 64
@@ -2495,7 +2488,7 @@ plungerPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerPoisonStatic
+plungerPoison
   rotate: false
   xy: 192, 704
   size: 64, 64
@@ -2516,7 +2509,7 @@ plungerPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerPoisonStatic
+plungerPoisonStatic 
   rotate: false
   xy: 384, 704
   size: 64, 64
@@ -2537,7 +2530,7 @@ plungerPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerSpeed
+plungerPoisonStatic
   rotate: false
   xy: 576, 704
   size: 64, 64
@@ -2558,7 +2551,7 @@ plungerSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerSpeed
+plungerSpeed 
   rotate: false
   xy: 768, 704
   size: 64, 64
@@ -2628,7 +2621,7 @@ plungerSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerSpeedStatic
+plungerSpeed
   rotate: false
   xy: 1408, 704
   size: 64, 64
@@ -2649,21 +2642,21 @@ plungerSpeedStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerSpeedStatic
+plungerSpeedStatic 
   rotate: false
   xy: 1600, 704
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-plungerStatic
+plungerSpeedStatic
   rotate: false
   xy: 1664, 704
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-sword
+plungerStatic
   rotate: false
   xy: 1728, 704
   size: 64, 64
@@ -2684,7 +2677,7 @@ sword
   orig: 64, 64
   offset: 0, 0
   index: -1
-sword
+sword 
   rotate: false
   xy: 1920, 704
   size: 64, 64
@@ -2852,7 +2845,7 @@ sword
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordDamage
+sword
   rotate: false
   xy: 1408, 768
   size: 64, 64
@@ -2873,7 +2866,7 @@ swordDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordDamage
+swordDamage 
   rotate: false
   xy: 1600, 768
   size: 64, 64
@@ -3041,7 +3034,7 @@ swordDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordDamageStatic
+swordDamage
   rotate: false
   xy: 1088, 832
   size: 64, 64
@@ -3062,14 +3055,14 @@ swordDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordDamageStatic
+swordDamageStatic 
   rotate: false
   xy: 1280, 832
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordFire
+swordDamageStatic
   rotate: false
   xy: 1344, 832
   size: 64, 64
@@ -3090,7 +3083,7 @@ swordFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordFire
+swordFire 
   rotate: false
   xy: 1536, 832
   size: 64, 64
@@ -3258,7 +3251,7 @@ swordFire
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordFireStatic
+swordFire
   rotate: false
   xy: 1024, 896
   size: 64, 64
@@ -3279,14 +3272,14 @@ swordFireStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordFireStatic
+swordFireStatic 
   rotate: false
   xy: 1216, 896
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordPoison
+swordFireStatic
   rotate: false
   xy: 1280, 896
   size: 64, 64
@@ -3307,7 +3300,7 @@ swordPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordPoison
+swordPoison 
   rotate: false
   xy: 1472, 896
   size: 64, 64
@@ -3468,7 +3461,7 @@ swordPoison
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordPoisonStatic
+swordPoison
   rotate: false
   xy: 896, 960
   size: 64, 64
@@ -3489,14 +3482,14 @@ swordPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordPoisonStatic
+swordPoisonStatic 
   rotate: false
   xy: 1088, 960
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordSpeed
+swordPoisonStatic
   rotate: false
   xy: 1152, 960
   size: 64, 64
@@ -3517,7 +3510,7 @@ swordSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordSpeed
+swordSpeed 
   rotate: false
   xy: 1344, 960
   size: 64, 64
@@ -3685,7 +3678,7 @@ swordSpeed
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordSpeedStatic
+swordSpeed
   rotate: false
   xy: 832, 1024
   size: 64, 64
@@ -3706,93 +3699,93 @@ swordSpeedStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordSpeedStatic
+swordSpeedStatic 
   rotate: false
   xy: 1024, 1024
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-swordStatic
+swordSpeedStatic
   rotate: false
   xy: 1088, 1024
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-trident
+swordStatic
   rotate: false
   xy: 1152, 1024
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+trident
+  rotate: false
+  xy: 1216, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1232, 1024
+  xy: 1296, 1024
+  size: 80, 64
+  orig: 80, 64
+  offset: 0, 0
+  index: -1
+trident 
+  rotate: false
+  xy: 1376, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1312, 1024
+  xy: 1456, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1392, 1024
+  xy: 1536, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1472, 1024
+  xy: 1616, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1552, 1024
+  xy: 1696, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1632, 1024
+  xy: 1776, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1712, 1024
+  xy: 1856, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
 trident
   rotate: false
-  xy: 1792, 1024
-  size: 80, 64
-  orig: 80, 64
-  offset: 0, 0
-  index: -1
-trident
-  rotate: false
-  xy: 1872, 1024
-  size: 80, 64
-  orig: 80, 64
-  offset: 0, 0
-  index: -1
-trident
-  rotate: false
-  xy: 1952, 1024
+  xy: 1936, 1024
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
@@ -3804,7 +3797,7 @@ trident
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentDamage
+trident
   rotate: false
   xy: 80, 1088
   size: 80, 64
@@ -3825,7 +3818,7 @@ tridentDamage
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentDamage
+tridentDamage 
   rotate: false
   xy: 320, 1088
   size: 80, 64
@@ -3888,7 +3881,7 @@ tridentDamage
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentDamageStatic
+tridentDamage
   rotate: false
   xy: 1040, 1088
   size: 80, 64
@@ -3909,14 +3902,14 @@ tridentDamageStatic
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentDamageStatic
+tridentDamageStatic 
   rotate: false
   xy: 1280, 1088
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentFire
+tridentDamageStatic
   rotate: false
   xy: 1360, 1088
   size: 80, 64
@@ -3937,7 +3930,7 @@ tridentFire
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentFire
+tridentFire 
   rotate: false
   xy: 1600, 1088
   size: 80, 64
@@ -4000,7 +3993,7 @@ tridentFire
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentFireStatic
+tridentFire
   rotate: false
   xy: 320, 1152
   size: 80, 64
@@ -4021,14 +4014,14 @@ tridentFireStatic
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentFireStatic
+tridentFireStatic 
   rotate: false
   xy: 560, 1152
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentPoison
+tridentFireStatic
   rotate: false
   xy: 640, 1152
   size: 80, 64
@@ -4049,7 +4042,7 @@ tridentPoison
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentPoison
+tridentPoison 
   rotate: false
   xy: 880, 1152
   size: 80, 64
@@ -4112,7 +4105,7 @@ tridentPoison
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentPoisonStatic
+tridentPoison
   rotate: false
   xy: 1600, 1152
   size: 80, 64
@@ -4133,7 +4126,7 @@ tridentPoisonStatic
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentPoisonStatic
+tridentPoisonStatic 
   rotate: false
   xy: 1840, 1152
   size: 80, 64
@@ -4147,7 +4140,7 @@ tridentPoisonStatic
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentSpeed
+tridentPoisonStatic
   rotate: false
   xy: 0, 1216
   size: 80, 64
@@ -4168,7 +4161,7 @@ tridentSpeed
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentSpeed
+tridentSpeed 
   rotate: false
   xy: 240, 1216
   size: 80, 64
@@ -4231,7 +4224,7 @@ tridentSpeed
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentSpeedStatic
+tridentSpeed
   rotate: false
   xy: 960, 1216
   size: 80, 64
@@ -4259,9 +4252,16 @@ tridentSpeedStatic
   orig: 80, 64
   offset: 0, 0
   index: -1
-tridentStatic
+tridentSpeedStatic
   rotate: false
   xy: 1280, 1216
+  size: 80, 64
+  orig: 80, 64
+  offset: 0, 0
+  index: -1
+tridentStatic
+  rotate: false
+  xy: 1360, 1216
   size: 80, 64
   orig: 80, 64
   offset: 0, 0
