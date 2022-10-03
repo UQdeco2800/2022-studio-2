@@ -96,10 +96,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Adds an item to player's inventory.</div>
 </dd>
-<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#addItem(com.deco2800.game.entities.Entity,int)" class="member-name-link">addItem(Entity, int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
-<dd>
-<div class="block">Adds item to player's inventory with the specified quantity.</div>
-</dd>
 <dt><a href="com/deco2800/game/events/EventHandler.html#addListener(java.lang.String,com.deco2800.game.events.listeners.EventListener0)" class="member-name-link">addListener(String, EventListener0)</a> - Method in class com.deco2800.game.events.<a href="com/deco2800/game/events/EventHandler.html" title="class in com.deco2800.game.events">EventHandler</a></dt>
 <dd>
 <div class="block">Add a listener to an event with zero arguments</div>
@@ -876,6 +872,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/entities/factories/PotionFactory.html#createHealthPotion()" class="member-name-link">createHealthPotion()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PotionFactory.html" title="class in com.deco2800.game.entities.factories">PotionFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/entities/factories/PotionFactory.html#createHealthRegenPotion()" class="member-name-link">createHealthRegenPotion()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PotionFactory.html" title="class in com.deco2800.game.entities.factories">PotionFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/WeaponFactory.html#createHera()" class="member-name-link">createHera()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/WeaponFactory.html" title="class in com.deco2800.game.entities.factories">WeaponFactory</a></dt>
 <dd>
 <div class="block">Creates Level 2 dagger 2 - Hera's Dagger</div>
@@ -988,6 +986,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/deco2800/game/entities/factories/WeaponFactory.html#createTestDagger()" class="member-name-link">createTestDagger()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/WeaponFactory.html" title="class in com.deco2800.game.entities.factories">WeaponFactory</a></dt>
 <dd>
 <div class="block">Creates a dagger for testing</div>
+</dd>
+<dt><a href="com/deco2800/game/entities/factories/PotionFactory.html#createTestHealthPotion()" class="member-name-link">createTestHealthPotion()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PotionFactory.html" title="class in com.deco2800.game.entities.factories">PotionFactory</a></dt>
+<dd>
+<div class="block">Creates health potion without rendering Component.</div>
 </dd>
 <dt><a href="com/deco2800/game/entities/factories/PlayerFactory.html#createTestPlayer()" class="member-name-link">createTestPlayer()</a> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PlayerFactory.html" title="class in com.deco2800.game.entities.factories">PlayerFactory</a></dt>
 <dd>
@@ -1725,8 +1727,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Return the damage multiplier on the weapon</div>
 </dd>
-<dt><a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html#getDmgReturn()" class="member-name-link">getDmgReturn()</a> - Method in class com.deco2800.game.components.DefensiveItemsComponents.<a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html" title="class in com.deco2800.game.components.DefensiveItemsComponents">ArmourStatsComponent</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html#getDurability()" class="member-name-link">getDurability()</a> - Method in class com.deco2800.game.components.DefensiveItemsComponents.<a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html" title="class in com.deco2800.game.components.DefensiveItemsComponents">ArmourStatsComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/AreaOfEffectStatsComponent.html#getDuration()" class="member-name-link">getDuration()</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/AreaOfEffectStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">AreaOfEffectStatsComponent</a></dt>
@@ -1811,6 +1811,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the instance of inventory contents made and used by the class.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getInventorySize()" class="member-name-link">getInventorySize()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#getItemIndex(com.deco2800.game.entities.Entity,java.util.List)" class="member-name-link">getItemIndex(Entity, List&lt;Entity&gt;)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
 <div class="block">Returns the index in the storage if there is one with the same Entity type</div>
@@ -3583,8 +3585,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html#setDmgReturn(double)" class="member-name-link">setDmgReturn(double)</a> - Method in class com.deco2800.game.components.DefensiveItemsComponents.<a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html" title="class in com.deco2800.game.components.DefensiveItemsComponents">ArmourStatsComponent</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html#setDurability(double)" class="member-name-link">setDurability(double)</a> - Method in class com.deco2800.game.components.DefensiveItemsComponents.<a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html" title="class in com.deco2800.game.components.DefensiveItemsComponents">ArmourStatsComponent</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/AreaOfEffectStatsComponent.html#setDuration(double)" class="member-name-link">setDuration(double)</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/AreaOfEffectStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">AreaOfEffectStatsComponent</a></dt>
 <dd>
 <div class="block">Sets the duration the aoe weapon can be activated for at one attack instance</div>
@@ -3804,8 +3804,6 @@ loadScripts(document, 'script');</script>
 <div class="block">The game screen containing the settings.</div>
 </dd>
 <dt><a href="com/deco2800/game/screens/SettingsScreen.html#%3Cinit%3E(com.deco2800.game.GdxGame)" class="member-name-link">SettingsScreen(GdxGame)</a> - Constructor for class com.deco2800.game.screens.<a href="com/deco2800/game/screens/SettingsScreen.html" title="class in com.deco2800.game.screens">SettingsScreen</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html#setVitality(double)" class="member-name-link">setVitality(double)</a> - Method in class com.deco2800.game.components.DefensiveItemsComponents.<a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html" title="class in com.deco2800.game.components.DefensiveItemsComponents">ArmourStatsComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/PhyiscalWeaponStatsComponent.html#setWeight(double)" class="member-name-link">setWeight(double)</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/PhyiscalWeaponStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">PhyiscalWeaponStatsComponent</a></dt>
 <dd>
