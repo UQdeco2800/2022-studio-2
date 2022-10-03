@@ -113,13 +113,13 @@ public class SkillsTreeDisplay extends UIComponent {
         if (playerSkillPoints >= 0) {
             row1Lock = false;
         }
-        if (playerSkillPoints > 4) {
+        if (playerSkillPoints >= 0) {
             row2Lock = false;
         }
-        if (playerSkillPoints > 6) {
+        if (playerSkillPoints >= 0) {
             row3Lock = false;
         }
-        if (playerSkillPoints > 8) {
+        if (playerSkillPoints >= 0) {
             row4Lock = false;
         }
 
