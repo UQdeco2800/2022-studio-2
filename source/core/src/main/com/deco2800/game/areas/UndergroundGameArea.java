@@ -36,6 +36,7 @@ public class UndergroundGameArea extends GameArea {
             "images/Enemies/gym_bro.png",
             "images/Enemies/poops.png",
             "images/Enemies/poopSludge.png",
+            "images/level_1_tiledmap/32x32/wall_tile.png",
             "images/level_2_tiledmap/dirt.png",
             "images/level_2_tiledmap/drain_empty.png",
             "images/level_2_tiledmap/columns.png",
@@ -196,30 +197,310 @@ public class UndergroundGameArea extends GameArea {
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
 
+        // create the world borders
+
         // Left
         spawnEntityAt(
-                ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+                ObstacleFactory.createWall(WALL_WIDTH, 117), new GridPoint2(5,
+                        2), false,
+                false);
         // Right
         spawnEntityAt(
-                ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-                new GridPoint2(tileBounds.x, 0),
+                ObstacleFactory.createWall(WALL_WIDTH, 117),
+                new GridPoint2(tileBounds.x - 6, 2),
                 false,
                 false);
         // Top
         spawnEntityAt(
-                ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-                new GridPoint2(0, tileBounds.y),
+                ObstacleFactory.createWall(89, WALL_WIDTH),
+                new GridPoint2(5, tileBounds.y - 6),
                 false,
                 false);
         // Bottom
         spawnEntityAt(
-                ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+                ObstacleFactory.createWall(42, WALL_WIDTH), new GridPoint2(5, 2), false
+                , false);
+
+        spawnBottomRoomBorders();
+        spawnTopRoomBorders();
+        spawnRightTunnelBorders();
+        spawnRightRoomBorders();
+        spawnMiddleHallBorders();
     }
 
-    private void spawnTrees(int x, int y) {
-        Entity tree = ObstacleFactory.createTree();
-        spawnEntityAt(tree, new GridPoint2(x, y), true, false);
+    private void spawnBottomRoomBorders() {
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 15), new GridPoint2(24,
+                        2), false,
+                false);
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(8, WALL_WIDTH),
+                new GridPoint2(24, 17),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(8, WALL_WIDTH),
+                new GridPoint2(39, 17),
+                false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 15),
+                new GridPoint2(47, 2),
+                false,
+                false);
+
+        // Tunnel
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 19), new GridPoint2(32,
+                        17), false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 19),
+                new GridPoint2(39, 17),
+                false,
+                false);
     }
+
+    private void spawnTopRoomBorders() {
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 9), new GridPoint2(31,
+                        93), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 17), new GridPoint2(25,
+                        102), false,
+                false);
+//        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 17),
+                new GridPoint2(54, 102),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 9),
+                new GridPoint2(48, 93),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(5, WALL_WIDTH), new GridPoint2(31, 93), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(42, 93), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(25, 102), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(48, 102), false
+                , false);
+        // Tunnel
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 8), new GridPoint2(36,
+                        85), false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 8),
+                new GridPoint2(42, 85),
+                false,
+                false);
+    }
+
+    private void spawnRightTunnelBorders() {
+        // Top Tunnel
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(35, WALL_WIDTH),
+                new GridPoint2(53, 72),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(30, WALL_WIDTH), new GridPoint2(53, 67), false
+                , false);
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(83, 62),
+                false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 10),
+                new GridPoint2(88, 62),
+                false,
+                false);
+        // Bottom Tunnel
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH),
+                new GridPoint2(49, 50),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH), new GridPoint2(49, 45), false
+                , false);
+    }
+
+    private void spawnRightRoomBorders() {
+        // Left Room
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(12, WALL_WIDTH),
+                new GridPoint2(59, 55),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH),
+                new GridPoint2(71, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH),
+                new GridPoint2(77, 62),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH),
+                new GridPoint2(88, 62),
+                false,
+                false);
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(59, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 2),
+                new GridPoint2(59, 43),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 12),
+                new GridPoint2(77, 50),
+                false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(71, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 2),
+                new GridPoint2(71, 43),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(12, WALL_WIDTH), new GridPoint2(59, 43), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(23, WALL_WIDTH), new GridPoint2(71, 45), false
+                , false);
+    }
+
+    private void spawnMiddleHallBorders() {
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 19), new GridPoint2(22,
+                        36), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 10), new GridPoint2(16,
+                        55), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 13), new GridPoint2(10,
+                        73), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 4), new GridPoint2(14,
+                        91), false,
+                false);
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(5, WALL_WIDTH),
+                new GridPoint2(5, 73),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(9, WALL_WIDTH),
+                new GridPoint2(5, 91),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(13, WALL_WIDTH),
+                new GridPoint2(14, 95),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(9, WALL_WIDTH),
+                new GridPoint2(27, 85),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(11, WALL_WIDTH),
+                new GridPoint2(42, 85),
+                false,
+                false);
+//        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 10),
+                new GridPoint2(27, 85),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 13),
+                new GridPoint2(53, 72),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 12),
+                new GridPoint2(53, 55),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(49, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 9),
+                new GridPoint2(49, 36),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH), new GridPoint2(22, 36), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH), new GridPoint2(39, 36), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(16, 55), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(11, WALL_WIDTH), new GridPoint2(5, 65), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(5, WALL_WIDTH), new GridPoint2(5, 86), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(4, WALL_WIDTH), new GridPoint2(49, 55), false
+                , false);
+    }
+
 
     public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
         spawnEntityAt(entity, position, centreX, centreY);
