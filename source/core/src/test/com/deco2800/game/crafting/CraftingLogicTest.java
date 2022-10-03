@@ -1,8 +1,11 @@
 package com.deco2800.game.crafting;
 
 //import com.deco2800.game.CombatItems.Weapon;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.files.FileLoader;
 import org.junit.Before;
@@ -20,6 +23,7 @@ public class CraftingLogicTest {
     @Before
     public void setup() {
     }
+
     @Test
     void basicGetPossibleBuildsTest() {
         List<WeaponConfig> imaginaryWeapons = new ArrayList<>();
@@ -48,8 +52,11 @@ public class CraftingLogicTest {
         possibleWeaponsTest.add(configs.tridentLvl2);
         possibleWeaponsTest.add(configs.heraAthenaDag);
         possibleWeaponsTest.add(configs.plunger);
+        possibleWeaponsTest.add(configs.pipe);
+        possibleWeaponsTest.add(configs.goldenPlungerBow);
+        possibleWeaponsTest.add(configs.plungerBow);
 
-        assertNotSame(possibleWeaponsTest,CraftingLogic.getPossibleWeapons());
+        assertNotSame(possibleWeaponsTest, CraftingLogic.getPossibleWeapons());
 
 //        for (int i = 0; i < CraftingLogic.getPossibleWeapons().size(); i++){
 //
@@ -85,21 +92,34 @@ public class CraftingLogicTest {
     void canBuildTest() {
         List<WeaponConfig> buildItemsTest = new ArrayList<>();
         List<Materials> inventoryContentsTest = new ArrayList<>();
+        inventoryContentsTest.add(Materials.Steel);
+        inventoryContentsTest.add(Materials.Wood);
+        inventoryContentsTest.add(Materials.Gold);
+        inventoryContentsTest.add(Materials.Iron);
+        inventoryContentsTest.add(Materials.Poop);
         CraftingLogic.canBuild(inventoryContentsTest);
         assertEquals(CraftingLogic.canBuild(inventoryContentsTest), buildItemsTest);
     }
 
 //    @Test
 //    void damageToWeaponTest() {
-//
+//        WeaponConfigSetup configs =
+//                FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
+//        WeaponConfig athenaDag = configs.athenaDag;
+//        WeaponConfig heraDag = configs.heraDag;
+//        WeaponConfig dumbbell = configs.dumbbell;
+//        WeaponConfig swordLvl2 = configs.SwordLvl2;
+//        WeaponConfig tridentLvl2 = configs.tridentLvl2;
+//        WeaponConfig heraAthenaDag = configs.heraAthenaDag;
+//        WeaponConfig plunger = configs.plunger;
+//        WeaponConfig pipe = configs.pipe;
+//        WeaponConfig plungerBow = configs.plungerBow;
+//        WeaponConfig goldenPlungerBow = configs.goldenPlungerBow;
+//        assertTrue(CraftingLogic.damageToWeapon(athenaDag).checkEntityType(EntityTypes.WEAPON));
+//        assertEquals(WeaponFactory.createDagger() ,CraftingLogic.damageToWeapon(athenaDag));
 //        MeleeConfig daggerConfig = new MeleeConfig();
 //        daggerConfig.damage = 7;
 //        double damage = daggerConfig.damage;
 //        assertEquals(CraftingLogic.damageToWeapon(daggerConfig), WeaponFactory.createDagger());
-//
-//    }
-
-
-
-
+//        }
 }
