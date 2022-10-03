@@ -21,6 +21,10 @@ public class MegaPoopAnimationController extends Component {
         entity.getEvents().addListener("walkBack", this::animateWalkBack);
         entity.getEvents().addListener("walkLeft", this::animateWalkLeft);
         entity.getEvents().addListener("walkRight", this::animateWalkRight);
+        entity.getEvents().addListener("projectileAttackFront", this::animateAttackFront);
+        entity.getEvents().addListener("projectileAttackBack", this::animateAttackBack);
+        entity.getEvents().addListener("projectileAttackLeft", this::animateAttackLeft);
+        entity.getEvents().addListener("projectileAttackRight", this::animateAttackRight);
         entity.getEvents().addListener("cast", this::animateCast);
         entity.getEvents().trigger("walkFront");
     }
@@ -69,4 +73,41 @@ public class MegaPoopAnimationController extends Component {
             animator.startAnimation("cast");
         }
     }
+
+    /**
+     * Animates Mega Poop walking when attacking right
+     */
+    private void animateAttackRight() {
+        if (!"projectile_attack_right".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("projectile_attack_right");
+        }
+    }
+
+    /**
+     * Animates Mega Poop walking when attacking left
+     */
+    private void animateAttackLeft() {
+        if (!"projectile_attack_left".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("projectile_attack_left");
+        }
+    }
+
+    /**
+     * Animates Mega Poop walking when attacking backwards
+     */
+    private void animateAttackBack() {
+        if (!"projectile_attack_back".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("projectile_attack_back");
+        }
+    }
+
+    /**
+     * Animates Mega Poop walking when attacking forwards
+     */
+    private void animateAttackFront() {
+        if (!"projectile_attack_front".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("projectile_attack_front");
+        }
+    }
+
 }

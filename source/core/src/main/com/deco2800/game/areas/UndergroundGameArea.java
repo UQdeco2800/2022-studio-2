@@ -230,7 +230,7 @@ public class UndergroundGameArea extends GameArea {
     }
 
     /**
-     * Spawn Heracles in a random position.
+     * Spawn Mega Poop in a random position.
      */
     private Entity spawnMegaPoop() {
         GridPoint2 position = new GridPoint2(35, 98);
