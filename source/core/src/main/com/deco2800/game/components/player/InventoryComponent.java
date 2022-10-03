@@ -156,7 +156,7 @@ public class InventoryComponent extends Component {
      */
     public void addItem(Entity item) {
         if (inventory.size() == inventorySize) {
-            logger.info("Inventory if full");
+            logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR))
@@ -177,7 +177,6 @@ public class InventoryComponent extends Component {
             ++itemQuantity[getItemIndex(item, inventory)];
         }
     }
-
     /**
      * Sort the item quantity array once an item is removed from the inventory.
      *
