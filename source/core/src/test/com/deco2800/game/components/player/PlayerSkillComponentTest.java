@@ -363,6 +363,40 @@ class PlayerSkillComponentTest {
     }
 
     @Test
+    void testStartCharge() {
+        Vector2 vec = new Vector2(1f, 1f);
+        assertFalse(skillManager.isCharging());
+        skillManager.startCharge(vec);
+        assertTrue(skillManager.isCharging());
+        customWait(301);
+        skillManager.update();
+        assertFalse(skillManager.isCharging());
+    }
+
+    @Test
+    void testChargeHit() {
+        Vector2 vec = new Vector2(1f, 1f);
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        Entity enemy =
+                new Entity()
+                        .addComponent(new CombatStatsComponent(60, 1, 1, 1))
+                        .addComponent(new PhysicsComponent());
+
+        enemy.create();
+
+        skillManager.chargeHit(enemy);
+        skillManager.startCharge(vec);
+        skillManager.chargeHit(enemy);
+        assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        skillManager.chargeHit(enemy);
+        assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        skillManager.startCharge(vec);
+        skillManager.chargeHit(enemy);
+        assertEquals(0, enemy.getComponent(CombatStatsComponent.class).getHealth());
+    }
+
+    @Test
     void testTeleportPlayer1() {
         player.getComponent(PlayerActions.class).walk(new Vector2(1,1));
         Vector2 beforePos = player.getPosition();

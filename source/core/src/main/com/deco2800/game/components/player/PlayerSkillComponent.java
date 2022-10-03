@@ -113,6 +113,7 @@ public class PlayerSkillComponent extends Component {
     private boolean charging;
     private long chargeEnd;
     private static final Vector2 CHARGE_SPEED = new Vector2(20f, 20f);
+    private int CHARGE_DAMAGE = 30;
 
     private boolean chargingUltimate;
     private long ultimateChargeEnd;
@@ -797,7 +798,7 @@ public class PlayerSkillComponent extends Component {
      * Ensures enemy is not a projectile then sets entity enemy variable
      * @param target the first enemy the player collides with
      */
-    private void chargeHit(Entity target) {
+    public void chargeHit(Entity target) {
         if (this.charging && this.chargeFirstHit && !(target.checkEntityType(EntityTypes.PROJECTILE))) {
             this.chargeFirstHit = false;
             this.enemy = target;
@@ -812,7 +813,7 @@ public class PlayerSkillComponent extends Component {
      */
     private void chargeAttack(Entity target) {
         CombatStatsComponent enemyStats = target.getComponent(CombatStatsComponent.class);
-        enemyStats.setHealth(enemyStats.getHealth() - 30);
+        enemyStats.setHealth(enemyStats.getHealth() - CHARGE_DAMAGE);
 
         // enemy dead
         if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
@@ -824,7 +825,12 @@ public class PlayerSkillComponent extends Component {
         if (physicsComponent != null) {
             Body targetBody = physicsComponent.getBody();
             Vector2 direction = target.getCenterPosition().sub(playerEntity.getCenterPosition());
-            Vector2 impulse = direction.setLength(40f);
+            Vector2 impulse;
+            if (target.checkEntityType(EntityTypes.MELEE)) {
+                impulse = direction.setLength(100f); // knockback strength (gymbro)
+            } else {
+                impulse = direction.setLength(40f); // knockback strength (not gymbro)
+            }
             targetBody.applyLinearImpulse(impulse, targetBody.getWorldCenter(), true);
         }
     }
