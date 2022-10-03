@@ -96,8 +96,6 @@ public class QuickBarDisplay extends UIComponent {
     @Override
     public void draw(SpriteBatch batch) {
         //draw is handled by the stage
-        //TODO work in progress below
-        System.out.println(potionEQ);
         updatePotionTable();
 
     }
