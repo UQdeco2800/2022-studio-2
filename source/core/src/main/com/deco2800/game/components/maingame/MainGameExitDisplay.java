@@ -28,18 +28,18 @@ public class MainGameExitDisplay extends UIComponent {
     table.top().right();
     table.setFillParent(true);
 
-    TextButton mainMenuBtn = new TextButton("Exit", skin);
+//    TextButton mainMenuBtn = new TextButton("Exit", skin);
     TextButton skillsTreeBtn = new TextButton("SkillsTree", skin);
 
     // Triggers an event when the button is pressed.
-    mainMenuBtn.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent changeEvent, Actor actor) {
-          logger.debug("Exit button clicked");
-          entity.getEvents().trigger("exit");
-        }
-      });
+//    mainMenuBtn.addListener(
+//      new ChangeListener() {
+//        @Override
+//        public void changed(ChangeEvent changeEvent, Actor actor) {
+//          logger.debug("Exit button clicked");
+//          entity.getEvents().trigger("exit");
+//        }
+//      });
 
     skillsTreeBtn.addListener(
       new ChangeListener() {
@@ -50,7 +50,7 @@ public class MainGameExitDisplay extends UIComponent {
         }
       });
 
-    table.add(mainMenuBtn).padTop(10f).padRight(10f);
+//    table.add(mainMenuBtn).padTop(10f).padRight(10f);
     table.add(skillsTreeBtn).padTop(11f).padRight(11f);
 
     stage.addActor(table);

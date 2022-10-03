@@ -2,18 +2,12 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.components.player.PlayerAnimationController;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
 
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.junit.jupiter.api.BeforeEach;
