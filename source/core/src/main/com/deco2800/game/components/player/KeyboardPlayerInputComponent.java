@@ -113,9 +113,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 //        }
 //        entity.getEvents().trigger("game resumed");
 //        return true;
-      case Keys.K:
-        entity.getEvents().trigger("kill switch");
-        return true;
       case Keys.M:
         entity.getEvents().trigger("toggleMinimap");
         return true;
@@ -131,7 +128,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                  && (ForestGameArea.ifHeraclesOnMap())) {
 
           entity.getEvents().trigger("mapTransition");
-          entity.getEvents().trigger("nextMap");
         }
         return true;
       case Keys.N:

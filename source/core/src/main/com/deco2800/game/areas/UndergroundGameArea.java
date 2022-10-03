@@ -8,6 +8,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.utils.math.GridPoint2Utils;
@@ -18,15 +19,21 @@ import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /** Underground area for the demo game with trees, a player, and some enemies. */
 public class UndergroundGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(UndergroundGameArea.class);
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
+    private Entity megaPoop;
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
+            "images/Enemies/poops.png",
+            "images/Enemies/poopSludge.png",
             "images/level_2_tiledmap/dirt.png",
             "images/level_2_tiledmap/drain_empty.png",
             "images/level_2_tiledmap/columns.png",
@@ -83,6 +90,7 @@ public class UndergroundGameArea extends GameArea {
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
+            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Athena.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
@@ -102,8 +110,8 @@ public class UndergroundGameArea extends GameArea {
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas"
-
+            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
+            "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas"
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -137,6 +145,8 @@ public class UndergroundGameArea extends GameArea {
         spawnTerrain();
         spawnCraftingTable();
         player = spawnPlayer();
+        spawnPoops();
+        megaPoop = spawnMegaPoop();
         playMusic();
     }
 
@@ -208,6 +218,34 @@ public class UndergroundGameArea extends GameArea {
         spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
     }
 
+    /**
+     * Spawn Heracles in a random position.
+     */
+    private Entity spawnMegaPoop() {
+        GridPoint2 position = new GridPoint2(35, 98);
+        Entity megaPoop = NPCFactory.createMegaPoop(player);
+        spawnEntityAt(megaPoop, position, true, true);
+        return megaPoop;
+    }
+
+    /**
+     * Spawn poops in random positions.
+     */
+    private void spawnPoops() {
+        ArrayList<GridPoint2> positions = new ArrayList<>();
+        positions.add(new GridPoint2(37, 47));
+        positions.add(new GridPoint2(32, 67));
+        positions.add(new GridPoint2(20, 80));
+        positions.add(new GridPoint2(65, 47));
+        positions.add(new GridPoint2(85, 54));
+        for (GridPoint2 position: positions) {
+            Entity poops = NPCFactory.createPoops(player);
+            areaEntities.add(poops);
+            spawnEntityAt(poops, position, true, true);
+        }
+    }
+
+
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);
         GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -249,5 +287,14 @@ public class UndergroundGameArea extends GameArea {
         super.dispose();
         ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
         this.unloadAssets();
+    }
+
+    /**
+     * toString returning a string of the classes name
+     * @return (String) class name
+     */
+    @Override
+    public String toString() {
+        return "UndergroundGameArea";
     }
 }

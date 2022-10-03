@@ -40,7 +40,7 @@ public class MainMenuTransitionAnimation extends UIComponent {
 
             transitionFrames.setWidth(Gdx.graphics.getWidth());
             transitionFrames.setHeight(Gdx.graphics.getHeight());
-            frame+=1;
+            frame++;
             logger.info("frame = " + frame);
             stage.addActor(transitionFrames);
             lastFrameTime = System.currentTimeMillis();
@@ -53,6 +53,11 @@ public class MainMenuTransitionAnimation extends UIComponent {
             addActors();
         }
     }
+//
+//    @Override
+//    public void update() {
+//        addActors();
+//    }
 
     @Override
     public void draw(SpriteBatch batch) {

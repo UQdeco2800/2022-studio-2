@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -40,7 +41,6 @@ public class GameAreaDisplay extends UIComponent {
 
     private String gameAreaName = "";
     private Label title;
-
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
     private static Component mainGameActions;
     private int numcrafted = 0;
@@ -51,7 +51,6 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton inventoryButton;
     private ImageButton exitButton;
     private Texture buttonTexture;
-
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
     private Image craftMenu;
@@ -89,7 +88,12 @@ public class GameAreaDisplay extends UIComponent {
     InventoryComponent inventoryComponent;
     private int index;
     private Image inventoryMenu;
+
     private Group inventoryGroup = new Group();
+
+    private Image minimapImage;
+
+    private Group minimapGroup = new Group();
     private List<Entity> items;
 
     private Boolean currentScreenCrafting = false;
@@ -145,6 +149,37 @@ public class GameAreaDisplay extends UIComponent {
         stage.draw();
     }
 
+    public void displayMinimap() {
+        GameArea gameArea = ServiceLocator.getGameArea();
+        logger.info("Displaying minimap, area is " + gameArea.getClass().getSimpleName());
+        if (gameArea.getClass().getSimpleName().equals("ForestGameArea")) {
+            minimapImage = new Image(new Texture(Gdx.files.internal
+                    ("images/level_1_tiledmap/minimap1.png")));
+        } else if (gameArea.getClass().getSimpleName().equals("UndergroundGameArea")) {
+            minimapImage = new Image(new Texture(Gdx.files.internal
+                    ("images/level_2_tiledmap/minimap2.png")));
+        } else {
+            logger.info("Game area invalid for minimap");
+            return;
+        }
+
+        //Note: the position of the asset is at the bottom left.
+        minimapImage.setSize(1200, 1465);
+        minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
+        minimapGroup.addActor(minimapImage);
+        stage.addActor(minimapGroup);
+        stage.draw();
+    }
+
+    /**
+     * Disposes of the minimap when it is open and M is pressed.
+     */
+    public void disposeMinimap() {
+        minimapGroup.remove();
+        logger.info("removing minimap");
+    }
+
     /**
      * Displays the items that the player has equipped.
      */
@@ -157,7 +192,6 @@ public class GameAreaDisplay extends UIComponent {
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
                 Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
-//                Texture itemTexture = item.getComponent(TextureRenderComponent.class).getTexture();
                 TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
                 TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
                 ImageButton equippedItem = new ImageButton(itemTextureDrawable);
@@ -246,7 +280,6 @@ public class GameAreaDisplay extends UIComponent {
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
-//            Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
             TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
             TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
             ImageButton item = new ImageButton(itemTextureDrawable);
@@ -271,12 +304,6 @@ public class GameAreaDisplay extends UIComponent {
                     new ChangeListener() {
                         @Override
                         public void changed(ChangeEvent changeEvent, Actor actor) {
-//              Group dropDownMenuBtn = new Group();
-//              dropDownMenuBtn.addActor(itemOpBtn);
-//              dropDownMenuBtn.addActor(dropItemBtn);
-
-                            //TextButton itemOpBtn = new TextButton(buttonText, skin);
-                            //TextButton dropItemBtn = new TextButton("Drop item", skin);
                             Button.ButtonStyle equip = new Button.ButtonStyle();
                             equip.up= new TextureRegionDrawable(new TextureRegion(
                                     new Texture(Gdx.files.internal("images/Inventory/button/equip_up.png"))));
@@ -294,7 +321,7 @@ public class GameAreaDisplay extends UIComponent {
                             dropItemBtn.setSize(96,36);
 
                             itemOpBtn.setPosition(horizontalPosition + 48, verticalPosition);
-                            dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 40);
+                            dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 42);
                             dropItemBtn.addListener(
                                     new ChangeListener() {
                                         @Override
@@ -303,12 +330,6 @@ public class GameAreaDisplay extends UIComponent {
                                                 inventoryGroup.removeActor(item);
                                                 updateInventoryDisplay();
                                             }
-                                            //Team 4, Call drop item function here
-//                          Testing drop item function code
-//                          float x = inventory.getEntity().getPosition().x;
-//                          float y = inventory.getEntity().getPosition().y;
-//                          ServiceLocator.getEntityService().register(currentItem);
-//                          currentItem.setPosition(x , (float) (y - 1.2));
                                             if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                                                 inventoryGroup.removeActor(itemOpBtn);
                                                 inventoryGroup.removeActor(dropItemBtn);
@@ -771,11 +792,11 @@ public class GameAreaDisplay extends UIComponent {
         popUp.setPosition(Gdx.graphics.getWidth()/2-71.25f, Gdx.graphics.getHeight()/2-23.75f);
         Action popUpAction = Actions.sequence(Actions.sizeTo(142.5f, 47.5f, 0.5f),
                 Actions.delay(0.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                popUp.remove();
-            }
-        }));
+                    @Override
+                    public void run() {
+                        popUp.remove();
+                    }
+                }));
         popUp.addAction(popUpAction);
         stage.addActor(popUp);
     }
@@ -1028,23 +1049,29 @@ public class GameAreaDisplay extends UIComponent {
         String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
         weapon = new Image(new Texture(Gdx.files.internal(image)));
 
-        if (Math.floor(item.damage) == 25) {
+        if (Math.floor(item.damage) == 35) {
             weapon.setSize(60, 60);
             weaponType = "Trident";
+            //trident
             weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
-        } else if (Math.floor(item.damage) == 26) {
+        } else if (Math.floor(item.damage) == 30) {
+            //sword
             weapon.setSize(60, 60);
             weapon.setPosition(craftMenu.getX() + 675, craftMenu.getY() + 235);
-        } else if (Math.floor(item.damage) == 5) {
+        } else if (Math.floor(item.damage) == 15) {
+            //pipe
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 210);
-        } else if (Math.floor(item.damage) == 3) {
+        } else if (Math.floor(item.damage) == 10) {
+            //plunger
             weapon.setSize(110, 110);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 35) {
+        } else if (Math.floor(item.damage) == 40) {
+            //herathena
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
         } else if (Math.floor(item.damage) == 20 || Math.floor(item.damage) == 70) {
+            //bows
             weapon.setSize(50, 50);
             weapon.setPosition(craftMenu.getX() + 665, craftMenu.getY() + 230);
         } else {
