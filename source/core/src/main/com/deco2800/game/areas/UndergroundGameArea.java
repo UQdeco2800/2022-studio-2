@@ -116,10 +116,10 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/Sprint-2/pipe.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
-            "images/CombatItems/animations/PlungerBow/plungerBow.png",
             "images/CombatItems/Sprint-1/trident_Lvl2.png",
             "images/CombatItems/Sprint-2/H&ADagger.png",
             "images/CombatItems/Sprint-2/Plunger.png",
+            "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
@@ -131,10 +131,10 @@ public class UndergroundGameArea extends GameArea {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
-            "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBow.atlas",
+            "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas"
     };
-    private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
+    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 

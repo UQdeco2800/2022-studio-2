@@ -10,6 +10,7 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
 public class PlayerTouchAttackComponent extends TouchAttackComponent {
@@ -19,6 +20,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private Entity combatAnimator;
     private boolean canAttack;
     private long  cooldownEnd;
+    private String animationDesc;
 
     /**
      * Create a component which attacks enemy entities on collision, without knockback.
@@ -64,6 +66,14 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     }
 
     /**
+     * Returns the combat item animator
+     * @return combat item animator
+     */
+    public Entity getCombatAnimator() {
+        return combatAnimator;
+    }
+
+    /**
      * Method called when the player entity is attacking.
      */
     void attack() {
@@ -86,10 +96,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                         combatAnimator.getEvents().trigger(animationToApply);
                     }
                     else {
-                        String animationToApply = description;
-                        combatAnimator.getEvents().trigger(animationToApply);
+                        animationDesc = description;
                     }
-
+                    combatAnimator.getEvents().trigger(animationDesc);
                 }
 
             } else {
@@ -98,14 +107,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
 
             if (enemyCollide) {
                 applyDamageToTarget(target);
-              /*  if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
-                    target.dispose();
-                    target.getComponent(CombatStatsComponent.class).dropWeapon();
-                    if (target.getComponent(AnimationRenderComponent.class) != null) {
-                        target.getComponent(CombatStatsComponent.class).dropMaterial();
-                        target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
-                    }
-                }*/
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
             }
 
