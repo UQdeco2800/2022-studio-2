@@ -17,7 +17,7 @@ athena
   orig: 64, 64
   offset: 0, 0
   index: -1
-athena
+athena 
   rotate: false
   xy: 128, 0
   size: 64, 64
@@ -556,7 +556,7 @@ heraAthena
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDamage
+heraAthena
   rotate: false
   xy: 960, 128
   size: 64, 64
@@ -584,7 +584,7 @@ heraAthenaDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDamage
+heraAthenaDamage 
   rotate: false
   xy: 1216, 128
   size: 64, 64
@@ -619,7 +619,7 @@ heraAthenaDamage
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDamageStatic
+heraAthenaDamage
   rotate: false
   xy: 1536, 128
   size: 64, 64
@@ -640,7 +640,7 @@ heraAthenaDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDamageStatic
+heraAthenaDamageStatic 
   rotate: false
   xy: 1728, 128
   size: 64, 64
@@ -654,7 +654,7 @@ heraAthenaDamageStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaFireStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1856, 128
   size: 64, 64
@@ -675,14 +675,14 @@ heraAthenaFireStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaFireStatic
+heraAthenaFireStatic 
   rotate: false
   xy: 0, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaPoisonStatic
+heraAthenaFireStatic
   rotate: false
   xy: 64, 192
   size: 64, 64
@@ -703,7 +703,7 @@ heraAthenaPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaPoisonStatic
+heraAthenaPoisonStatic 
   rotate: false
   xy: 256, 192
   size: 64, 64
@@ -724,7 +724,7 @@ heraAthenaPoisonStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaSpeedStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 448, 192
   size: 64, 64
@@ -745,14 +745,14 @@ heraAthenaSpeedStatic
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaSpeedStatic
+heraAthenaSpeedStatic 
   rotate: false
   xy: 640, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 704, 192
   size: 64, 64
