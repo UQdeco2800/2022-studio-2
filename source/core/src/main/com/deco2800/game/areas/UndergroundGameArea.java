@@ -8,6 +8,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -219,8 +220,12 @@ public class UndergroundGameArea extends GameArea {
         return newPlayer;
     }
 
+    /**
+     * Spawns the crafting table entity on the underground map
+     */
     public void spawnCraftingTable() {
         Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
         spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
     }
 
@@ -293,5 +298,14 @@ public class UndergroundGameArea extends GameArea {
         super.dispose();
         ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
         this.unloadAssets();
+    }
+
+    /**
+     * toString returning a string of the classes name
+     * @return (String) class name
+     */
+    @Override
+    public String toString() {
+        return "UndergroundGameArea";
     }
 }
