@@ -13,12 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.SerializedLambda;
 import java.util.ArrayList;
 
 public class SkillsTreeDisplay extends UIComponent {
@@ -79,12 +81,6 @@ public class SkillsTreeDisplay extends UIComponent {
 
 
         TextButton mainMenuBtn = new TextButton("Exit", skin);
-
-        /**
-         * Currently clicking exit button will start a new game,
-         * but I think someone was fixing this in GdxGame and I
-         * have no idea about how to fix this  XD
-         */
         mainMenuBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -102,24 +98,45 @@ public class SkillsTreeDisplay extends UIComponent {
         stage.addActor(exitTable);
         stage.addActor(skillTreeImage);
         stage.addActor(equipTable);
+        addAllSkillsToTree();
+    }
 
+    private void addAllSkillsToTree() {
+        int playerSkillPoints = ServiceLocator.getGameArea().getPlayer()
+                .getComponent(PlayerActions.class).getSkillComponent().getSkillPoints();
 
-        addSkillToTree(1, "dash", PlayerSkillComponent.SkillTypes.NONE);
+        boolean row1Lock = true;
+        boolean row2Lock = true;
+        boolean row3Lock = true;
+        boolean row4Lock = true;
+        if (playerSkillPoints > -1) { // Placeholder checks
+            row1Lock = false;
+        }
+        if (playerSkillPoints > -1) {
+            row2Lock = false;
+        }
+        if (playerSkillPoints > -1) {
+            row3Lock = false;
+        }
+        if (playerSkillPoints > -1) {
+            row4Lock = false;
+        }
+        addSkillToTree(1, "dash", PlayerSkillComponent.SkillTypes.NONE, false);
         // Row 1
-        addSkillToTree(2, "dodge", PlayerSkillComponent.SkillTypes.DODGE);
-        addSkillToTree(3, "teleport", PlayerSkillComponent.SkillTypes.TELEPORT);
-        addSkillToTree(4, "invulnerability", PlayerSkillComponent.SkillTypes.NONE);
-        addSkillToTree(5, "invulnerability", PlayerSkillComponent.SkillTypes.NONE);
+        addSkillToTree(2, "dodge", PlayerSkillComponent.SkillTypes.DODGE, row1Lock);
+        addSkillToTree(3, "teleport", PlayerSkillComponent.SkillTypes.TELEPORT, row1Lock);
+        addSkillToTree(4, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row1Lock);
+        addSkillToTree(5, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row1Lock);
         // Row 2
-        addSkillToTree(6, "block", PlayerSkillComponent.SkillTypes.BLOCK);
-        addSkillToTree(7, "invulnerability", PlayerSkillComponent.SkillTypes.NONE);
+        addSkillToTree(6, "block", PlayerSkillComponent.SkillTypes.BLOCK, row2Lock);
+        addSkillToTree(7, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row2Lock);
         // Row 3
-        addSkillToTree(8, "invulnerability", PlayerSkillComponent.SkillTypes.NONE);
-        addSkillToTree(9, "invulnerability", PlayerSkillComponent.SkillTypes.NONE);
-        addSkillToTree(10, "invulnerability", PlayerSkillComponent.SkillTypes.NONE);
+        addSkillToTree(8, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
+        addSkillToTree(9, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
+        addSkillToTree(10, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
         // Row 4
-        addSkillToTree(11, "invulnerability", PlayerSkillComponent.SkillTypes.NONE);
-        addSkillToTree(12, "fireballUltimate", PlayerSkillComponent.SkillTypes.FIREBALLULTIMATE);
+        addSkillToTree(11, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row4Lock);
+        addSkillToTree(12, "fireballUltimate", PlayerSkillComponent.SkillTypes.FIREBALLULTIMATE, row4Lock);
     }
 
     @Override
@@ -233,10 +250,17 @@ public class SkillsTreeDisplay extends UIComponent {
      * @param skillNumber the number of the skill, from top to bottom left to right.
      *                    Top skill is row 1, second skill is row 1 far left in tree,
      *                    3rd skill is row 1, one to the right. etc.
-     * @param imageFileName The name of the skill icon file
+     * @param baseImageFileName The name of the skill icon file, has a '_disabled' trailing
+     *                          file name for disabled version of icon when disabled is true
      * @param skillType the skill type from PlayerSkillComponent.SkillTypes
      */
-    private void addSkillToTree(int skillNumber, String imageFileName, PlayerSkillComponent.SkillTypes skillType) {
+    private void addSkillToTree(int skillNumber, String baseImageFileName, PlayerSkillComponent.SkillTypes skillType, boolean disabled) {
+        String imageFileName;
+        if (disabled) { // Based on player skill points
+            imageFileName = baseImageFileName + "_disabled";
+        } else {
+            imageFileName = baseImageFileName;
+        }
         switch (skillNumber) {
             case 1 -> addSkillTreeButton(808, 642, imageFileName, skillType);
             case 2 -> addSkillTreeButton(698, 532, imageFileName, skillType);

@@ -76,8 +76,8 @@ public class PlayerFactory {
             .addComponent(animator)
                 .addComponent(new BuffDisplayComponent())
             .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions())
-                .addComponent(new Countdown());
+            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
+                //.addComponent(new Countdown());
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);

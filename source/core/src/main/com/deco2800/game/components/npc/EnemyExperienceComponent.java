@@ -1,11 +1,12 @@
 package com.deco2800.game.components.npc;
 
+import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 
-public class EnemyExperienceComponent {
+public class EnemyExperienceComponent extends Component {
 
     private int experiencePointsOnDeath = 0;
 

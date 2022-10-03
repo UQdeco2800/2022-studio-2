@@ -242,6 +242,10 @@ public class PlayerSkillComponent extends Component {
         playerSkillPoints += skillPoints;
     }
 
+    public int getSkillPoints() {
+        return playerSkillPoints;
+    }
+
     /**
      * Sets a listener to the skill event
      * @param skillName the skill name:
