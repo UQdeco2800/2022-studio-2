@@ -29,6 +29,7 @@ public class PlayerSkillComponent extends Component {
     private Entity playerEntity;
     private static final String SKILL1_LISTENER = "skill";
     private static final String SKILL2_LISTENER = "skill2";
+    private static final String SKILL3_LISTENER = "skill3";
 
     public enum SkillTypes {
         NONE,
@@ -44,6 +45,8 @@ public class PlayerSkillComponent extends Component {
         ULTIMATE,
         FIREBALLULTIMATE
     }
+
+    private int playerSkillPoints = 0;
 
     private boolean isInvulnerable;
     private long invulnerableEnd;
@@ -233,6 +236,10 @@ public class PlayerSkillComponent extends Component {
                 playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
             }
         }
+    }
+
+    public void addSkillPoints(int skillPoints) {
+        playerSkillPoints += skillPoints;
     }
 
     /**
