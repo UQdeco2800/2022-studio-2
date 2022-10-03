@@ -307,22 +307,29 @@ public class DialogueDisplay extends UIComponent {
             } else if (countChild == 3) {
                 Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Dialogue/ChildLines/ChildLine12.wav"));
                 sound.play(1.0f);
-                dialogueContainerChild.add(new TextButton("Start", skin));
-//                AudioRecorder recorder = Gdx.audio.newAudioRecorder(44100,true);
-//                short[] audioBuffer = new short[44100 * 5];
-//                recorder.read(audioBuffer, 0, audioBuffer.length);
-//
-//                AudioDevice audioDevice = Gdx.audio.newAudioDevice(44100, true);
-//                audioDevice.writeSamples(audioBuffer, 0, audioBuffer.length);
-//                System.out.println(Arrays.toString(audioBuffer));
-//                recorder.dispose();
-//                audioDevice.dispose();
             } else if (countChild == 4) {
                 Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Dialogue/ChildLines/ChildLine13.wav"));
                 sound.play(1.0f);
-
             } else if (countChild == 5) {
                 dialogueContainerChild.removeActor(childButton);
+                TextButton startButton = new TextButton("Start", skin);
+                dialogueContainerChild.addActor(startButton);
+                startButton.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        AudioRecorder recorder = Gdx.audio.newAudioRecorder(44100,true);
+                        short[] audioBuffer = new short[44100 * 5];
+                        recorder.read(audioBuffer, 0, audioBuffer.length);
+
+                        AudioDevice audioDevice = Gdx.audio.newAudioDevice(44100, true);
+                        audioDevice.writeSamples(audioBuffer, 0, audioBuffer.length);
+                        System.out.println(Arrays.toString(audioBuffer));
+                        recorder.dispose();
+                        audioDevice.dispose();
+                    };
+                });
+
+
             } else if (countChild == 6) {
                 dialogueContainerChild.addActor(childButton);
                 childButton.addListener( new ClickListener() {
