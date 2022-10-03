@@ -1,12 +1,15 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -26,17 +29,25 @@ public class PlayerSkillComponent extends Component {
     private Entity playerEntity;
     private static final String SKILL1_LISTENER = "skill";
     private static final String SKILL2_LISTENER = "skill2";
+    private static final String SKILL3_LISTENER = "skill3";
 
     public enum SkillTypes {
+        NONE,
         DASH,
         TELEPORT,
         BLOCK,
         DODGE,
         BLEED,
         ROOT,
-        ATTACKSPEED,
-        ULTIMATE
+        CHARGE,
+        AOE,
+        ULTIMATE,
+        FIREBALLULTIMATE,
+        INVULNERABILITY,
+        PROJECTILE
     }
+
+    private int playerSkillPoints = 0;
 
     private boolean isInvulnerable;
     private long invulnerableEnd;
@@ -99,6 +110,22 @@ public class PlayerSkillComponent extends Component {
     private static final int BLEED_DAMAGE = 5;
     private boolean bleedEndEvent = false;
 
+    // Charge variables
+    private boolean enemyDead = false;
+    private boolean chargeFirstHit = false;
+    private Vector2 chargeDirection = Vector2.Zero.cpy();
+    private boolean charging;
+    private long chargeEnd;
+    private static final Vector2 CHARGE_SPEED = new Vector2(20f, 20f);
+    private int CHARGE_DAMAGE = 30;
+
+    private boolean chargingUltimate;
+    private long ultimateChargeEnd;
+    private static final long ULTIMATE_CHARGE_LENGTH = 2600;
+    private static final long ULTIMATE_TIMESTOP_LENGTH = 6000;
+    private long ultimateTimeStopEnd;
+    private boolean timeStopped;
+
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
      * @param playerEntity the player entity this skill component is a subcomponent of
@@ -124,6 +151,15 @@ public class PlayerSkillComponent extends Component {
     @Override
     public void update() {
 
+        // Check if dead enemy needs to be removed
+        if (this.enemyDead) {
+            this.enemyDead = false;
+            this.enemy.dispose();
+            if (this.enemy.getComponent(AnimationRenderComponent.class) != null) {
+                this.enemy.getComponent(AnimationRenderComponent.class).stopAnimation();
+            }
+        }
+
         // Check if player should still be invulnerable
         if (this.isInvulnerable && System.currentTimeMillis() > this.invulnerableEnd) {
             this.isInvulnerable = false;
@@ -139,11 +175,20 @@ public class PlayerSkillComponent extends Component {
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
             // Only end animation if not interrupting another skill
-            if (!this.teleporting && !this.blocking && !this.dodging) {
+            if (!this.teleporting && !this.blocking && !this.dodging && !this.charging) {
                 skillAnimator.getEvents().trigger("regularAnimation");
             }
             this.dashing = false;
             this.dashEndEvent = true;
+        }
+
+        // Check if the player is in a charge and waiting for the charge to end
+        if (this.charging && System.currentTimeMillis() > this.chargeEnd) {
+            // Only end animation if not interrupting another skill
+            if (!this.teleporting && !this.blocking && !this.dodging) {
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
+            this.charging = false;
         }
 
         // Check if the player is waiting to teleport from charging
@@ -181,6 +226,36 @@ public class PlayerSkillComponent extends Component {
                 this.bleedEndEvent = true;
             }
         }
+
+        // Check for ultimate end and screen animation triggers
+        if (this.chargingUltimate) {
+
+            if (System.currentTimeMillis() > this.ultimateChargeEnd) {
+                playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
+                skillAnimator.getEvents().trigger("regularAnimation");
+                this.chargingUltimate = false;
+                ServiceLocator.getEntityService().toggleTimeStop();
+                this.timeStopped = true;
+            } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1500) {
+                playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
+            } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1800) {
+                playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
+            }
+        }
+        if (this.timeStopped) {
+            if (System.currentTimeMillis() > this.ultimateTimeStopEnd) {
+                this.timeStopped = false;
+                ServiceLocator.getEntityService().toggleTimeStop();
+            }
+        }
+    }
+
+    public void addSkillPoints(int skillPoints) {
+        playerSkillPoints += skillPoints;
+    }
+
+    public int getSkillPoints() {
+        return playerSkillPoints;
     }
 
     /**
@@ -199,24 +274,34 @@ public class PlayerSkillComponent extends Component {
         } else if (skillNum == 2) {
             skillEvent = SKILL2_LISTENER;
         } else {
-            skillEvent = SKILL1_LISTENER;
+            skillEvent = SKILL3_LISTENER;
         }
+
         if (skillName == SkillTypes.TELEPORT) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::teleport);
         } else if (skillName == SkillTypes.DODGE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
         } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
-        } else if (skillName == SkillTypes.BLEED) { // change back to skillEvent after sprint 2
-            entity.getEvents().addListener("skillTemp", playerActionsComponent::bleed);
+        } else if (skillName == SkillTypes.BLEED) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::bleed);
             entity.getEvents().addListener("hitEnemy", this::hitBleed);
-        }  else if (skillName == SkillTypes.ROOT) { // change back to skillEvent after sprint 2
-            entity.getEvents().addListener("skillTemp", playerActionsComponent::root);
+        }  else if (skillName == SkillTypes.ROOT) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::root);
             entity.getEvents().addListener("hitEnemy", this::hitRoot);
-        } else if (skillName == SkillTypes.ATTACKSPEED) {
-            entity.getEvents().addListener("attackspeedTemp", playerActionsComponent::attackSpeedUp);
+        } else if (skillName == SkillTypes.FIREBALLULTIMATE) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::fireballUltimate);
         } else if (skillName == SkillTypes.ULTIMATE) {
-            entity.getEvents().addListener("ultimateTemp", playerActionsComponent::ultimate);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::ultimate);
+        } else if (skillName == SkillTypes.CHARGE) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::charge);
+            entity.getEvents().addListener("enemyCollision", this::chargeHit);
+        } else if (skillName == SkillTypes.AOE) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
+        } else if (skillName == SkillTypes.INVULNERABILITY) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
+        } else if (skillName == SkillTypes.PROJECTILE) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::coneProjectile);
         }
     }
 
@@ -226,6 +311,8 @@ public class PlayerSkillComponent extends Component {
      */
     public void resetSkills(Entity entity) {
         entity.getEvents().removeAllListeners(SKILL1_LISTENER);
+        entity.getEvents().removeAllListeners(SKILL2_LISTENER);
+        entity.getEvents().removeAllListeners(SKILL3_LISTENER);
     }
 
     /**
@@ -234,7 +321,7 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean movementIsModified() {
 
-        return (isDashing() || isTeleporting() || isDodging() || this.dodgeSpeedBoost);
+        return (isDashing() || isTeleporting() || isDodging() || isCharging() || this.dodgeSpeedBoost);
     }
 
     /**
@@ -264,6 +351,13 @@ public class PlayerSkillComponent extends Component {
         if (this.dodgeSpeedBoost) { // Flat speed boost from mitigating damage from dodge
             modifiedMovementVector = new Vector2(modifiedMovementVector.x * DODGE_SPEED_BOOST,
                     modifiedMovementVector.y * DODGE_SPEED_BOOST);
+        }
+
+        else if (isCharging()) {
+            Vector2 dashVelocity = chargeDirection.cpy().scl(CHARGE_SPEED);
+            Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * DASH_MOVEMENT_RESTRICTION,
+                    modifiedMovementVector.y * DASH_MOVEMENT_RESTRICTION);
+            modifiedMovementVector = addVectors(reducedMovement, dashVelocity);
         }
 
         if (isTeleporting()) {
@@ -360,6 +454,15 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean isDashing() {
         return this.dashing;
+    }
+
+    /**
+     * Checks if the player is in the charge skill state
+     * @return true - if the player is charging
+     *         false - otherwise
+     */
+    public boolean isCharging() {
+        return this.charging;
     }
 
     /**
@@ -497,11 +600,32 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
-     * The functional start of the ultimate skill.
+     * The functional start of the timestop ultimate skill.
      * Should be called when player actions component registers ultimate event.
      */
     public void startUltimate() {
         skillAnimator.getEvents().trigger("ultimateAnimation");
+        //playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
+        chargingUltimate = true;
+        long ultimateStart = System.currentTimeMillis();
+        this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
+        this.ultimateTimeStopEnd = ultimateChargeEnd + ULTIMATE_TIMESTOP_LENGTH;
+    }
+
+    public void startProjectileSkill() {
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+            ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
+        }
+    }
+
+    /**
+     * The functional start of the fireball ultimate skill.
+     * Should be called when player actions component registers ultimate event.
+     */
+    public void startFireballUltimate() {
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+            ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+        }
     }
 
     /**
@@ -688,14 +812,87 @@ public class PlayerSkillComponent extends Component {
     private void changeSpeed(Entity target, long slowLength, boolean slow) {
         if (slow) {
             target.getComponent(AITaskComponent.class).addTask
-                    (new ChaseTask(playerEntity, 11, 5f, 6f, 1f));
+                    (new ChaseTask(playerEntity, 50, 5f, 6f, 1f));
             this.rooted = true;
             this.rootApplied = false;
             this.rootEnd = System.currentTimeMillis() + slowLength;
-        } else {
-            target.getComponent(AITaskComponent.class).dispose();
+        } else if (target != null){
+            //target.getComponent(AITaskComponent.class).dispose();
             target.getComponent(AITaskComponent.class).getPriorityTasks().remove
                     (target.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
+        }
+    }
+
+    /**
+     * The functional start of the charge.
+     * Should be called when player actions component registers charge event.
+     * @param moveDirection the direction of the players movement at the start of the charge event.
+     */
+    public void startCharge(Vector2 moveDirection) {
+        if (1 < 2) {//cooldown
+            this.chargeDirection = moveDirection;
+            this.charging = true;
+            this.chargeFirstHit = true;
+            skillAnimator.getEvents().trigger("dashAnimation");
+            this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
+            setInvulnerable(DASH_LENGTH / 2);
+            //setSkillCooldown("dash");
+        }
+    }
+
+    /**
+     * Ensures enemy is not a projectile then sets entity enemy variable
+     * @param target the first enemy the player collides with
+     */
+    public void chargeHit(Entity target) {
+        if (this.charging && this.chargeFirstHit && !(target.checkEntityType(EntityTypes.PROJECTILE))) {
+            this.chargeFirstHit = false;
+            this.enemy = target;
+            this.chargeEnd = 0;
+            chargeAttack(this.enemy);
+        }
+    }
+
+    /**
+     * Apply damage to enemy then knockback.
+     * @param target the first enemy the player collides with during charge skill
+     */
+    private void chargeAttack(Entity target) {
+        CombatStatsComponent enemyStats = target.getComponent(CombatStatsComponent.class);
+        enemyStats.setHealth(enemyStats.getHealth() - CHARGE_DAMAGE);
+
+        // enemy dead
+        if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
+            this.enemyDead = true;
+            return;
+        }
+
+        PhysicsComponent physicsComponent = target.getComponent(PhysicsComponent.class);
+        if (physicsComponent != null) {
+            Body targetBody = physicsComponent.getBody();
+            Vector2 direction = target.getCenterPosition().sub(playerEntity.getCenterPosition());
+            Vector2 impulse;
+            if (target.checkEntityType(EntityTypes.MELEE)) {
+                impulse = direction.setLength(100f); // knockback strength (gymbro)
+            } else {
+                impulse = direction.setLength(40f); // knockback strength (not gymbro)
+            }
+            targetBody.applyLinearImpulse(impulse, targetBody.getWorldCenter(), true);
+        }
+    }
+
+    /**
+     * Damages all enemies around player and knocks them back.
+     *
+     * TODO: cooldowns
+     */
+    public void aoeAttack() {
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+            Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+            ForestGameArea.removeProjectileOnMap(projectile);
+            if (projectile.getComponent(AnimationRenderComponent.class) != null) {
+                projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
+            }
         }
     }
 }

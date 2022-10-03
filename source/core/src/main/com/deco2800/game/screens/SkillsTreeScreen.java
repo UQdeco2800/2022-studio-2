@@ -32,6 +32,16 @@ public class SkillsTreeScreen extends ScreenAdapter {
     private final Renderer renderer;
     private final PhysicsEngine physicsEngine;
 
+    private static final String[] dashImg = {"images/Skills/dash.png"};
+    private static final String[] blockImg = {"images/Skills/block.png"};
+    private static final String[] dodgeImg = {"images/Skills/dodge.png"};
+    private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+    private static final String[] teleportImg = {"images/Skills/teleport.png"};
+    private static final String[] fireballUltimateImg = {"images/Skills/fireballUltimate.png"};
+    private static final String[] equippedTextImg = {"images/Skills/EquippedSkillsText.png"};
+    private static final String[] clearSkillsImg = {"images/Skills/clearSkillsButton.png", "images/Skills/clearSkillsButton_down.png"};
+    private static final String[] blankSkillImg = {"images/Skills/blankSkillIcon.png"};
+
     public SkillsTreeScreen(GdxGame game) {
         this.game = game;
 
@@ -51,6 +61,7 @@ public class SkillsTreeScreen extends ScreenAdapter {
         renderer = RenderFactory.createRenderer();
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
+        loadAssets();
         createUI();
 
     }
@@ -91,6 +102,20 @@ public class SkillsTreeScreen extends ScreenAdapter {
                 .addComponent(new TerminalDisplay());
 
         ServiceLocator.getEntityService().register(ui);
+    }
+
+    private void loadAssets() {
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(dashImg);
+        resourceService.loadTextures(blockImg);
+        resourceService.loadTextures(dodgeImg);
+        resourceService.loadTextures(invulnerabilityImg);
+        resourceService.loadTextures(teleportImg);
+        resourceService.loadTextures(fireballUltimateImg);
+        resourceService.loadTextures(equippedTextImg);
+        resourceService.loadTextures(clearSkillsImg);
+        resourceService.loadTextures(blankSkillImg);
+        ServiceLocator.getResourceService().loadAll();
     }
 
 }

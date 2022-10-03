@@ -257,7 +257,8 @@ public class NPCFactory {
     gymBro
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new GymBroAnimationController());
+            .addComponent(new GymBroAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
     gymBro.setScale(2f, 2f);
     gymBro.setEntityType(EntityTypes.ENEMY);
     gymBro.setEntityType(EntityTypes.MELEE);
@@ -304,7 +305,8 @@ public class NPCFactory {
     heracles
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new HeraclesAnimationController());
+            .addComponent(new HeraclesAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
 
     heracles.setEntityType(EntityTypes.ENEMY);
     heracles.setEntityType(EntityTypes.BOSS);
@@ -337,7 +339,8 @@ public class NPCFactory {
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new PoopAnimationController());
+            .addComponent(new PoopAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
     poops.setEntityType(EntityTypes.ENEMY);
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
@@ -378,7 +381,8 @@ public class NPCFactory {
     megaPoop
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new MegaPoopAnimationController());
+            .addComponent(new MegaPoopAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
 
     megaPoop.setEntityType(EntityTypes.ENEMY);
     megaPoop.setEntityType(EntityTypes.BOSS);
