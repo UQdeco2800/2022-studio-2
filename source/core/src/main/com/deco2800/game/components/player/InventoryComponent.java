@@ -1,6 +1,7 @@
 package com.deco2800.game.components.player;
 
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
@@ -9,6 +10,7 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +22,7 @@ import java.util.List;
  * A component intended to be used by the player to track their inventory.
  * Can also be used as a more generic component for other entities.
  */
-public class InventoryComponent extends Component {
+public class InventoryComponent extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
@@ -568,9 +570,16 @@ public class InventoryComponent extends Component {
             if (quickBarQuantity[inputIndex] == 1) {
                 removePotion(inputIndex);
                 sortInventory(inputIndex, quickBarItems, quickBarQuantity);
+                //TODO
+                potionEQ = 0;
             } else if (quickBarQuantity[inputIndex] > 1) {
                 --quickBarQuantity[inputIndex];
             }
         }
+    }
+
+    @Override
+    protected void draw(SpriteBatch batch) {
+
     }
 }

@@ -1,10 +1,10 @@
 package com.deco2800.game.components.gamearea;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -26,6 +26,7 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,8 @@ import java.util.Map;
  * Displays the name of the current game area.
  */
 public class GameAreaDisplay extends UIComponent {
+
+    public int potionEquipped = 0;
 
   private String gameAreaName = "";
   private Label title;
@@ -298,12 +301,16 @@ public class GameAreaDisplay extends UIComponent {
                                                     if (inventory.addQuickBarItems(currentItem)) {
                                                         inventory.removeItem(currentItem);
                                                         updateInventoryDisplay();
+
                                                     }
                                                     break;
                                             }
                                             if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                                                 inventoryGroup.removeActor(itemOpBtn);
                                                 inventoryGroup.removeActor(dropItemBtn);
+                                                //TODO visualizePotion();
+                                                potionEQ = 1;
+                                                potionTex = itemTexture;
                                             }
                                         }
                                     }
@@ -317,6 +324,7 @@ public class GameAreaDisplay extends UIComponent {
             inventoryGroup.addActor(item);
         }
     }
+
 
     /**
      * Disposes the inventory display group.
