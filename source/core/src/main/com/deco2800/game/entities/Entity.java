@@ -46,6 +46,7 @@ public class Entity {
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
   private boolean isDead = false;
+  private boolean playerWin = false;
   private List<EntityTypes> entityType;
   public Entity() {
     id = nextId;
@@ -298,6 +299,9 @@ public class Entity {
     if (isDead) {
       dispose();
     }
+    if (playerWin) {
+      dispose();
+    }
     boolean timeStopped = EntityService.isTimeStopped();
     for (Component component : createdComponents) {
       if (!timeStopped) {
@@ -373,6 +377,13 @@ public class Entity {
 
   public void flagDead(){
     isDead = true;
+  }
+
+  /**
+   * Updates the playerWin variable to true, used to flag a win
+   */
+  public void flagWin() {
+    playerWin = true;
   }
 
   /**

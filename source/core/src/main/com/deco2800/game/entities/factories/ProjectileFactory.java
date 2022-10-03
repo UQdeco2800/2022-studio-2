@@ -165,18 +165,16 @@ public class ProjectileFactory {
         WeaponArrowProjectileComponent weaponArrowProjectileComponent = new WeaponArrowProjectileComponent();
 
         AnimationRenderComponent projectileAnimator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/PlungerBow/plungerBow.atlas",
+                ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
                         TextureAtlas.class));
-        projectileAnimator.addAnimation("projectile",0.05f);
-/*
-        projectileAnimator.addAnimation("right",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("downright",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("down",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("downleft",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("left",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("upleft",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("up",0.2f, Animation.PlayMode.LOOP);
-*/
+        projectileAnimator.addAnimation("upright",0.05f,  Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("right",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("downright",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("down",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("downleft",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("left",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("upleft",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("up",0.05f, Animation.PlayMode.LOOP);
 
         Entity projectile = new Entity()
                 .addComponent(physicsComponent)
@@ -194,7 +192,7 @@ public class ProjectileFactory {
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
         if(playerActions.getWalkDirection().cpy().x == 0 && playerActions.getWalkDirection().cpy().y == 0) {
             weaponArrowProjectileComponent.setProjectileDirection(new Vector2(1, 0));
-            projectileAnimator.startAnimation("projectile");
+            projectileAnimator.startAnimation("right");
         } else {
             double angleRadians = angle * Math.PI;
             Vector2 rotatedVector = rotateVector(playerActions.getWalkDirection().cpy(), angleRadians);

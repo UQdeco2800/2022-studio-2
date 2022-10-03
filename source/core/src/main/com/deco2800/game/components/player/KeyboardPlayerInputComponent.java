@@ -10,6 +10,8 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,9 +113,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 //        }
 //        entity.getEvents().trigger("game resumed");
 //        return true;
-      case Keys.K:
-        entity.getEvents().trigger("kill switch");
-        return true;
       case Keys.M:
         entity.getEvents().trigger("toggleMinimap");
         return true;
@@ -124,18 +123,22 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("dropWeapon");
         // Determines if the player is near the plug when enter is hit, transitions to next map
       case Keys.ENTER:
-        if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
-                (entity.getPosition().y > 16 && entity.getPosition().y < 18)
-                 && (ForestGameArea.ifHeraclesOnMap()))
-        {
+        // The coordinates below are for the new plug hole to go to forest game area
+//        if ((entity.getPosition().x > 174 && entity.getPosition().x < 176) &&
+//                (entity.getPosition().y > 54 && entity.getPosition().y < 55)
+//                 && (ForestGameArea.ifHeraclesOnMap())) {
+
           entity.getEvents().trigger("mapTransition");
-          entity.getEvents().trigger("nextMap");
-        }
+//        }
+        return true;
+      case Keys.N:
+        entity.getEvents().trigger("win");
         return true;
       default:
         return false;
     }
   }
+
 
   public static void incrementPauseCounter(){
     keyPressedCounter++;
