@@ -476,6 +476,9 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(entity, position, centreX, centreY);
   }
 
+  /**
+   * Spawns the crafting table entity on the forest map
+   */
   public void spawnCraftingTable() {
     Entity craftingTable = ObstacleFactory.createCraftingTableForest();
     craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
