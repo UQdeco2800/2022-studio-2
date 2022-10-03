@@ -189,7 +189,7 @@ public class NPCFactory {
     friendlycreature.getComponent(AITaskComponent.class);
     friendlycreature.getComponent(AnimationRenderComponent.class).scaleEntity();
     friendlycreature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    friendlycreature.setScale(3, 3);
+    friendlycreature.setScale(1, 1);
     friendlycreature.setEntityType(EntityTypes.NPC);
     return friendlycreature;
 
@@ -222,7 +222,7 @@ public class NPCFactory {
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    male_citizen.setScale(3, 3);
+    male_citizen.setScale(1, 1);
     return male_citizen;
   }
 

@@ -699,7 +699,7 @@ public class ForestGameArea extends GameArea {
   private void spawnOneLegGirl() {
 
     oneLegGirlPosition = new GridPoint2(87, 28);
-    oneLegGirlDialoguePosition = new GridPoint2(87, 29);
+    oneLegGirlDialoguePosition = new GridPoint2(87, 30);
 
     Entity oneLegGirl = NPCFactory.createOneLegGirl(player);
     spawnEntityAt(oneLegGirl, oneLegGirlPosition, true, true);
