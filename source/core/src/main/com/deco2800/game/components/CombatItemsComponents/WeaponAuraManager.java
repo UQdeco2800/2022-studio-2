@@ -36,7 +36,7 @@ public class WeaponAuraManager extends Component {
     }
 
     /**
-     * Check if the aura is expired, if it is reverts the damage stat to default and remove the aura.
+     * Check if the aura is expired, if it is reverts the weapon stats to default and remove the aura.
      */
     public void checkAuraEffect() {
         if (auraApplied != null && System.currentTimeMillis() > auraEndTime) {
@@ -76,6 +76,10 @@ public class WeaponAuraManager extends Component {
         }
     }
 
+    /**
+     * Returns the aura currently applied to the equipped weapon of the player
+     * @return Aura currently applied to the equipped weapon of the player.
+     */
     public Entity getAura(){
         return auraApplied;
     }

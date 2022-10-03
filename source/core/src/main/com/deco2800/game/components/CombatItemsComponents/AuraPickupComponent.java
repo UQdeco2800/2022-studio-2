@@ -3,6 +3,7 @@ package com.deco2800.game.components.CombatItemsComponents;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerCombatAnimationController;
@@ -20,8 +21,7 @@ public class AuraPickupComponent extends ItemPickupComponent {
     private short targetLayer;
 
     /**
-     * Creates a component which allows a (weapon) entity to be picked up from the map and put in inventory
-     *
+     * Creates a component which allows an aura entity to be picked up from the map
      * @param targetLayer The physics layer of the target's collider.
      */
     public AuraPickupComponent(short targetLayer) {
@@ -35,11 +35,11 @@ public class AuraPickupComponent extends ItemPickupComponent {
     }
 
     /**
-     * Method called when collision starts between the weapon on the map that implements this component and the player.
-     * Removes the weapon from the map and inserts the weapon into the inventory.
+     * Method called when collision starts between the aura on the map that implements this component and the player.
+     * Removes the aura from the map
      *
-     * @param me    Fixture of the weapon that implements this component.
-     * @param other Fixture of the entity that is colliding with this weapon on the map.
+     * @param me    Fixture of the aura that implements this component.
+     * @param other Fixture of the entity that is colliding with this aura on the map.
      */
     private void pickUp(Fixture me, Fixture other) {
         hitboxComponent = entity.getComponent(HitboxComponent.class);
@@ -52,7 +52,12 @@ public class AuraPickupComponent extends ItemPickupComponent {
                 Entity entityOfComponent = getEntity();
                 Sound pickupSound = ServiceLocator.getResourceService().getAsset("sounds/buffPickupSound.wav", Sound.class);
                 pickupSound.play();
-                ForestGameArea.removeAuraOnMap(entityOfComponent);
+                if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
+                    ((ForestGameArea) ServiceLocator.getGameArea()).removeAuraOnMap(entityOfComponent);
+                }
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
+                    ((UndergroundGameArea) ServiceLocator.getGameArea()).removeAuraOnMap(entityOfComponent);
+                }
                 logger.info("Aura picked up");
                 ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class)
                         .applyAura(entity, weapon);

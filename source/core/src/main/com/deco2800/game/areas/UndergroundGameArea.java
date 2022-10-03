@@ -1,5 +1,6 @@
 package com.deco2800.game.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -31,6 +32,8 @@ public class UndergroundGameArea extends GameArea {
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static Entity megaPoop;
+    private static List<Entity> ItemsOnMap = new ArrayList<>();
+    private static List<Entity> auraOnMap = new ArrayList<>();
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
@@ -131,7 +134,7 @@ public class UndergroundGameArea extends GameArea {
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
+            "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas"
     };
@@ -153,13 +156,16 @@ public class UndergroundGameArea extends GameArea {
 
     /**
      * Get the player entity from the map.
+     *
      * @return player entity.
      */
     public Entity getPlayer() {
         return player;
     }
 
-    /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
+    /**
+     * Create the game area, including terrain, static entities (trees), dynamic entities (player)
+     */
     @Override
     public void create() {
         loadAssets();
@@ -221,18 +227,19 @@ public class UndergroundGameArea extends GameArea {
         spawnEntityAt(tree, new GridPoint2(x, y), true, false);
     }
 
-    public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
+    public void spawnEntityOnMap(Entity entity, GridPoint2 position, Boolean centreX, Boolean centreY) {
         spawnEntityAt(entity, position, centreX, centreY);
     }
 
     /**
      * Spawns the player entity, with a skill animator overlaid above the player.
+     *
      * @return the player entity
      */
     private Entity spawnPlayer() {
         Entity newPlayer = PlayerFactory.createPlayer();
         Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
-        Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
+        Entity newKeyPromptAnimator = PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
@@ -270,7 +277,7 @@ public class UndergroundGameArea extends GameArea {
         positions.add(new GridPoint2(20, 80));
         positions.add(new GridPoint2(65, 47));
         positions.add(new GridPoint2(85, 54));
-        for (GridPoint2 position: positions) {
+        for (GridPoint2 position : positions) {
             Entity poops = NPCFactory.createPoops(player);
             areaEntities.add(poops);
             spawnEntityAt(poops, position, true, true);
@@ -308,7 +315,7 @@ public class UndergroundGameArea extends GameArea {
     /**
      * Spawns a projectile at the player entity's coordinates.
      */
-    public void spawnWeaponProjectile() { //TEAM 04 WIP
+    public void spawnWeaponProjectile() { //TEAM 04
         Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
         spawnEntityAt(newProjectile,
                 new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
@@ -333,10 +340,26 @@ public class UndergroundGameArea extends GameArea {
 
     /**
      * toString returning a string of the classes name
+     *
      * @return (String) class name
      */
     @Override
     public String toString() {
         return "UndergroundGameArea";
+    }
+
+    public static void removeAuraOnMap(Entity entityToRemove) {
+
+        entityToRemove.setEnabled(false);
+        auraOnMap.remove(entityToRemove);
+
+        Gdx.app.postRunnable(() -> entityToRemove.dispose());
+    }
+
+    public static void removeItemOnMap(Entity entityToRemove) {
+
+        entityToRemove.setEnabled(false);
+        ItemsOnMap.remove(entityToRemove);
+        Gdx.app.postRunnable(() -> entityToRemove.dispose());
     }
 }
