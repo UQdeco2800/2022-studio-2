@@ -41,10 +41,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     @Override
     public void update() {
         checkCanAttack();
-
-        if (combatAnimator!=null) {
-            System.out.println(combatAnimator.getComponent(AnimationRenderComponent.class).getCurrentAnimation());
-        }
     }
 
     /**

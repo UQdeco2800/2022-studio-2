@@ -125,7 +125,7 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/pipe.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
-          "images/CombatItems/animations/PlungerBow/plungerBow.png"
+          "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png"
   };
 
   public static String[] newTextures;
@@ -140,7 +140,7 @@ public class ForestGameArea extends GameArea {
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
-    "images/Enemies/poop.atlas", "images/CombatItems/animations/PlungerBow/plungerBow.atlas"
+    "images/Enemies/poop.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas"
 
 
   };

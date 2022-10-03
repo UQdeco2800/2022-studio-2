@@ -22,7 +22,7 @@ public class WeaponArrowProjectileComponent extends Component {
 
     private PhysicsComponent physicsComponent;
     private Vector2 projectileVector;
-    private final Vector2 projectileVelocity = new Vector2(8, 8);
+    private final Vector2 projectileVelocity = new Vector2(6, 6);
 
     @Override
     public void create() {
