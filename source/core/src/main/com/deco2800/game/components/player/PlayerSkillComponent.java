@@ -36,7 +36,8 @@ public class PlayerSkillComponent extends Component {
         BLEED,
         ROOT,
         ATTACKSPEED,
-        ULTIMATE
+        ULTIMATE,
+        FIREBALLULTIMATE
     }
 
     private boolean isInvulnerable;

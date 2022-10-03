@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -1016,6 +1017,16 @@ public class GameAreaDisplay extends UIComponent {
         }
         numcrafted += 1;
         craftingGroup.addActor(weapon);
+    }
+
+    /**
+     * Toggles the skill tree display
+     */
+    public void toggleSkillTree() {
+        SkillsTreeDisplay skillsTree = ServiceLocator.getGameArea().getPlayer().getComponent(SkillsTreeDisplay.class);
+        if (skillsTree != null) {
+            skillsTree.toggleSkillTreeDisplay();
+        }
     }
 
     @Override

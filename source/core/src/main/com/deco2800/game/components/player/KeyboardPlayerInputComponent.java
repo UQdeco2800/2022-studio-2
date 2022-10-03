@@ -67,7 +67,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
           ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
         }
-        ServiceLocator.getEntityService().toggleTimeStop();
+        //ServiceLocator.getEntityService().toggleTimeStop();
         return true;
       case Keys.J:
         entity.getEvents().trigger("skill2");

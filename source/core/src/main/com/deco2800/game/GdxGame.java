@@ -88,8 +88,6 @@ public class GdxGame extends Game {
         level = 2;
         deathScreen = new DeathScreen(this, 2);
         return deathScreen;
-      case SkillsTree:
-        return new SkillsTreeScreen(this);
       case LEVEL_TRANSITION:
         level = 2;
         levelTransitionScreen = new LevelTransitionScreen(this);

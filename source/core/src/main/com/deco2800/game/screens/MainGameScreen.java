@@ -51,10 +51,15 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] healthBar = {"images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png","images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png"};
   private static final String[] staminaBar = {"images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png","images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png" };
   private static final String[] manaBar = {"images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_1.png","images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_2.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_3.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_4.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png", "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png"};
-  private static final String[] dashImg = {"images/Skills/dash.png"};
-  private static final String[] blockImg = {"images/Skills/block.png"};
-  private static final String[] dodgeImg = {"images/Skills/dodge.png"};
-  private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
+  private static final String[] skillIcons = {
+          "images/Skills/blankSkillIcon.png",
+          "images/Skills/dash.png",
+          "images/Skills/block.png",
+          "images/Skills/dodge.png",
+          "images/Skills/invulnerability.png",
+          "images/Skills/teleport.png",
+          "images/Skills/fireballUltimate.png"
+  };
   private static final String[] dialogueImg = {
           "images/NPC/Dialogue/dialoguesboxmale.png",
           "images/NPC/Dialogue/dialoguesboxguard.png",
@@ -65,7 +70,14 @@ public class MainGameScreen extends ScreenAdapter {
           "images/NPC/Dialogue/PlumberFriend.png"
   };
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
-  private static final String[] skillScreenOverlays = {"images/Skills/white-flash.png", "images/Skills/blank-screen.png"};
+  private static final String[] skillScreenOverlays = {
+          "images/Skills/white-flash.png",
+          "images/Skills/blank-screen.png",
+          "images/Skills/EquippedSkillsText.png",
+          "images/Skills/clearSkillsButton.png",
+          "images/Skills/clearSkillsButton_down.png",
+          "images/Skills/skill-tree-icon.png"
+  };
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity player;
   private final GdxGame game;
@@ -247,10 +259,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.loadTextures(healthBar);
     resourceService.loadTextures(staminaBar);
     resourceService.loadTextures(manaBar);
-    resourceService.loadTextures(dashImg);
-    resourceService.loadTextures(blockImg);
-    resourceService.loadTextures(dodgeImg);
-    resourceService.loadTextures(invulnerabilityImg);
+    resourceService.loadTextures(skillIcons);
     resourceService.loadTextures(teleportImg);
     resourceService.loadTextures(dialogueImg);
     resourceService.loadTextures(skillScreenOverlays);
@@ -266,10 +275,7 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(healthBar);
     resourceService.unloadAssets(staminaBar);
     resourceService.unloadAssets(manaBar);
-    resourceService.unloadAssets(dashImg);
-    resourceService.unloadAssets(blockImg);
-    resourceService.unloadAssets(dodgeImg);
-    resourceService.unloadAssets(invulnerabilityImg);
+    resourceService.unloadAssets(skillIcons);
     resourceService.unloadAssets(teleportImg);
     resourceService.loadTextures(dialogueImg);
     resourceService.unloadAssets(skillScreenOverlays);
