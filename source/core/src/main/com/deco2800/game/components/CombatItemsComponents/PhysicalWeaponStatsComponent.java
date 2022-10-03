@@ -44,7 +44,7 @@ public class PhysicalWeaponStatsComponent extends WeaponStatsComponent {
      * @param other other melee weapon
      * @return true if they have the same stat, false otherwise //implemented by peter from team 02
      */
-    public boolean equals(PhysicalWeaponStatsComponent other) {
+    public boolean equalsOther(PhysicalWeaponStatsComponent other) {
         return this.damage == other.getDamage()
                 && this.weight == other.getWeight()
                 && this.coolDown == other.getCoolDown();
