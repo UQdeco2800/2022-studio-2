@@ -361,13 +361,13 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void openCraftingMenu() {
         logger.info("Opening Crafting Menu");
-        if (firstTime == 0) {
-            inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        /*if (firstTime == 0) {
             inventoryComponent.addItem(MaterialFactory.createWood());
             inventoryComponent.addItem(MaterialFactory.createPoop());
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             firstTime += 1;
-        }
+        }*/
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
