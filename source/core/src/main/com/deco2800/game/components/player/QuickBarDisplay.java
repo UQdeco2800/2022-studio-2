@@ -99,8 +99,6 @@ public class QuickBarDisplay extends UIComponent {
     @Override
     public void draw(SpriteBatch batch) {
         //draw is handled by the stage
-        //TODO work in progress below
-        System.out.println(potionEQ);
         updatePotionTable();
 
     }
@@ -137,8 +135,8 @@ public class QuickBarDisplay extends UIComponent {
                         (String.valueOf(potionTex))));
                 texCheck = potionTex;
             }
-            potionTable.add(healthPotion).size(150, 150);
-            healthPotion.setPosition(498, -45);
+            potionTable.add(healthPotion).size(64, 64);
+            healthPotion.setPosition(580, 60);
 
             stage.addActor(potionTable);
         } else {
