@@ -1,5 +1,5 @@
 dialogue_indicator_sprite_sheet.png
-size: 128, 128
+size: 256, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -10,30 +10,30 @@ default
   orig: 64, 64
   offset: 0, 0
   index: 0
-dialogueShake
+childShake
   rotate: false
   xy: 0, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-dialogueShake
+childShake
   rotate: false
   xy: 64, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 1
-dialogueShake
+childShake
   rotate: false
-  xy: 0, 64
+  xy: 128, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 2
-dialogueShake
+childShake
   rotate: false
-  xy: 64, 64
+  xy: 192, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
