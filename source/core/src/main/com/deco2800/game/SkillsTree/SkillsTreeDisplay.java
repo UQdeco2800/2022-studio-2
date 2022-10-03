@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillComponent;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -135,7 +136,7 @@ public class SkillsTreeDisplay extends UIComponent {
         addSkillToTree(9, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
         addSkillToTree(10, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
         // Row 4
-        addSkillToTree(11, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row4Lock);
+        addSkillToTree(11, "invulnerability", PlayerSkillComponent.SkillTypes.ULTIMATE, row4Lock);
         addSkillToTree(12, "fireballUltimate", PlayerSkillComponent.SkillTypes.FIREBALLULTIMATE, row4Lock);
     }
 
@@ -151,17 +152,31 @@ public class SkillsTreeDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        skillTreeBackground.clear();
-        skillTreeBackground.remove();
-        exitTable.clear();
-        exitTable.remove();
-        equipTable.clear();
-        equipTable.remove();
-        skillTreeImage.clear();
-        skillTreeImage.remove();
-        for (ImageButton button: skillTreeIcons) {
-            button.clear();
-            button.remove();
+        if(skillTreeBackground != null) {
+            skillTreeBackground.clear();
+            skillTreeBackground.remove();
+        }
+
+        if(exitTable != null) {
+            exitTable.clear();
+            exitTable.remove();
+        }
+
+        if (equipTable != null) {
+            equipTable.clear();
+            equipTable.remove();
+        }
+
+        if (skillTreeImage != null) {
+            skillTreeImage.clear();
+            skillTreeImage.remove();
+        }
+
+        if (!skillTreeIcons.isEmpty()) {
+            for (ImageButton button : skillTreeIcons) {
+                button.clear();
+                button.remove();
+            }
         }
         skillTreeIcons.clear();
         super.dispose();
@@ -218,6 +233,8 @@ public class SkillsTreeDisplay extends UIComponent {
         skill2Type = PlayerSkillComponent.SkillTypes.NONE;
         skill3Type = PlayerSkillComponent.SkillTypes.NONE;
         refreshEquippedSkillsUI();
+        ServiceLocator.getGameArea().getPlayer().getComponent(PlayerActions.class)
+                .getSkillComponent().resetSkills(ServiceLocator.getGameArea().getPlayer());
     }
 
     /**
@@ -232,6 +249,7 @@ public class SkillsTreeDisplay extends UIComponent {
             case BLOCK -> addEquipImage("block");
             case DODGE -> addEquipImage("dodge");
             case FIREBALLULTIMATE -> addEquipImage("fireballUltimate");
+            case ULTIMATE -> addEquipImage("fireballUltimate");
         }
     }
 
@@ -288,11 +306,8 @@ public class SkillsTreeDisplay extends UIComponent {
     private void addSkillTreeButton(int xCoord, int yCoord, String imageFilePath, PlayerSkillComponent.SkillTypes skillType) {
         TextureRegionDrawable texture = new TextureRegionDrawable(ServiceLocator.getResourceService()
                 .getAsset("images/Skills/" + imageFilePath + ".png", Texture.class));
-        TextureRegionDrawable texture2 = new TextureRegionDrawable(ServiceLocator.getResourceService()
-                .getAsset("images/Skills/block.png", Texture.class));
         ImageButton button = new ImageButton(texture);
         ImageButton.ImageButtonStyle style = button.getStyle();
-        style.imageDown = texture2;
         style.imageUp = texture;
         button.getImage().setFillParent(true);
 
@@ -317,15 +332,21 @@ public class SkillsTreeDisplay extends UIComponent {
         if (skillType == PlayerSkillComponent.SkillTypes.NONE || isDuplicateSkillEquip(skillType)) {
             return; // Can't equip no skill as a valid skill
         }
+        Entity playerEntity = ServiceLocator.getGameArea().getPlayer();
+        PlayerActions playerActions = playerEntity.getComponent(PlayerActions.class);
+        PlayerSkillComponent skillComponent = playerActions.getSkillComponent();
 
         if (skill1Type == PlayerSkillComponent.SkillTypes.NONE) {
             skill1Type = skillType;
+            skillComponent.setSkill(1, skillType, playerEntity, playerActions);
             refreshEquippedSkillsUI();
         } else if (skill2Type == PlayerSkillComponent.SkillTypes.NONE) {
             skill2Type = skillType;
+            skillComponent.setSkill(2, skillType, playerEntity, playerActions);
             refreshEquippedSkillsUI();
         } else if (skill3Type == PlayerSkillComponent.SkillTypes.NONE) {
             skill3Type = skillType;
+            skillComponent.setSkill(3, skillType, playerEntity, playerActions);
             refreshEquippedSkillsUI();
         } // Else too many skills trying to be equipped and do nothing
     }

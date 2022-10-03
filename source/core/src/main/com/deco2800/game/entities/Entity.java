@@ -306,7 +306,8 @@ public class Entity {
       dispose();
     }
     boolean timeStopped = EntityService.isTimeStopped();
-    for (Component component : createdComponents) {
+    for (int i = 0; i < createdComponents.size; ++i) {
+      Component component = createdComponents.get(i);
       if (!timeStopped) {
 
         component.triggerUpdate();

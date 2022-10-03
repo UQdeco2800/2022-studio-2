@@ -74,18 +74,7 @@ public class PlayerActions extends Component {
 
     // Skills and Dash initialisation
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
-    skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
-
-    // temp skill bindings for sprint 2 marking
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.CHARGE, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.AOE, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
-
   }
 
   @Override
@@ -337,6 +326,10 @@ public class PlayerActions extends Component {
     skillManager.startUltimate();
   }
 
+  public void fireballUltimate() {
+    skillManager.startFireballUltimate();
+  }
+
   /**
    * Makes the player cast their attackspeed skill.
    * Registers call of the attackspeed skill function to the skill manager component.
@@ -360,4 +353,5 @@ public class PlayerActions extends Component {
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillManager.setSkillAnimator(skillAnimator);
   }
+
 }
