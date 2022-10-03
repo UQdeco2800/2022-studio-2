@@ -102,4 +102,36 @@ public class MaterialFactory {
         silver.setEntityType(EntityTypes.CRAFTABLE);
         return silver;
     }
+
+    /**
+     * Crate a gold for testing
+     * @return test material
+     */
+    public static Entity testCreateGold() {
+        Entity gold = createBaseMaterial();
+        gold.setEntityType(EntityTypes.GOLD);
+        gold.setEntityType(EntityTypes.CRAFTABLE);
+        return gold;
+    }
+
+    /**
+     * Creates the specified type of material for testing
+     * @return test material
+     */
+    public static Entity creatTestMaterial(String materialName) {
+        Entity material = createBaseMaterial();
+        material.setEntityType(EntityTypes.CRAFTABLE);
+        switch (materialName) {
+            case "gold" -> material.setEntityType(EntityTypes.GOLD);
+            case "poop" -> material.setEntityType(EntityTypes.POOP);
+            case "iron" -> material.setEntityType(EntityTypes.IRON);
+            case "toiletPaper" -> material.setEntityType(EntityTypes.TOILETPAPER);
+            case "wood" -> material.setEntityType(EntityTypes.WOOD);
+            case "plastic" -> material.setEntityType(EntityTypes.PLASTIC);
+            case "rubber" -> material.setEntityType(EntityTypes.RUBBER);
+            case "platinum" -> material.setEntityType(EntityTypes.PLATINUM);
+            case "silver" -> material.setEntityType(EntityTypes.SILVER);
+        }
+        return material;
+    }
 }
