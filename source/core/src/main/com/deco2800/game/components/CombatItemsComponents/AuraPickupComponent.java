@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 public class AuraPickupComponent extends ItemPickupComponent {
     private static Logger logger;
     private HitboxComponent hitboxComponent;
-    private short targetLayer;
 
     /**
      * Creates a component which allows a (weapon) entity to be picked up from the map and put in inventory
