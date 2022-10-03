@@ -90,11 +90,6 @@ public class GameAreaDisplay extends UIComponent {
     private Group inventoryGroup = new Group();
     private List<Entity> items;
 
-    // Janky fix for deathscreen, temp fix
-    private Image deathScreen;
-    private Image deathScreenTwo;
-    private Image deathScreenThree;
-
     private Boolean currentScreenCrafting = false;
     private int gameLevel;
 
@@ -1031,23 +1026,29 @@ public class GameAreaDisplay extends UIComponent {
         String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
         weapon = new Image(new Texture(Gdx.files.internal(image)));
 
-        if (Math.floor(item.damage) == 25) {
+        if (Math.floor(item.damage) == 35) {
             weapon.setSize(60, 60);
             weaponType = "Trident";
+            //trident
             weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
-        } else if (Math.floor(item.damage) == 26) {
+        } else if (Math.floor(item.damage) == 30) {
+            //sword
             weapon.setSize(60, 60);
             weapon.setPosition(craftMenu.getX() + 675, craftMenu.getY() + 235);
-        } else if (Math.floor(item.damage) == 5) {
+        } else if (Math.floor(item.damage) == 15) {
+            //pipe
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 210);
-        } else if (Math.floor(item.damage) == 3) {
+        } else if (Math.floor(item.damage) == 10) {
+            //plunger
             weapon.setSize(110, 110);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 35) {
+        } else if (Math.floor(item.damage) == 40) {
+            //herathena
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
         } else if (Math.floor(item.damage) == 20 || Math.floor(item.damage) == 70) {
+            //bows
             weapon.setSize(50, 50);
             weapon.setPosition(craftMenu.getX() + 665, craftMenu.getY() + 230);
         } else {

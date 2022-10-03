@@ -111,8 +111,8 @@ public class TerrainFactory {
   }
 
   private TerrainComponent createLevelTwo(
-          float tileWorldSize, TextureRegion purple_cobble) {
-    GridPoint2 tilePixelSize = new GridPoint2(purple_cobble.getRegionWidth(), purple_cobble.getRegionHeight());
+          float tileWorldSize, TextureRegion floor1) {
+    GridPoint2 tilePixelSize = new GridPoint2(floor1.getRegionWidth(), floor1.getRegionHeight());
     TiledMap tiledMap =   new TmxMapLoader().load("images/level_2_tiledmap/level_2.tmx");
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, tileWorldSize);

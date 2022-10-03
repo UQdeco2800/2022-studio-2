@@ -8,6 +8,6 @@ import com.deco2800.game.entities.factories.WeaponFactory;
  */
 public class PoopsConfig extends BaseEntityConfig {
     public int health = 60;
-    public float speed = 60f;
+    public float speed = 1f;
 }
 
