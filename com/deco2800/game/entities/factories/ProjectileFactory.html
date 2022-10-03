@@ -124,16 +124,29 @@ loadScripts(document, 'script');</script>
 <div class="block">Create discus projectile</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createPoopsSludge(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)" class="member-name-link">createPoopsSludge</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;ownerEntity,
- <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createPlayerAOE(com.deco2800.game.entities.Entity,double)" class="member-name-link">createPlayerAOE</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
+ double&nbsp;angle)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Create poop sludge projectile</div>
+<div class="block">Creates an AOE attack.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createWeaponProjectile(com.deco2800.game.entities.Entity,double)" class="member-name-link">createWeaponProjectile</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createPoopsSludge(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)" class="member-name-link">createPoopsSludge</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;ownerEntity,
+ <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Create poop sludge projectile</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createWeaponProjectile(com.deco2800.game.entities.Entity,double)" class="member-name-link">createWeaponProjectile</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
+ double&nbsp;angle)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a non-colliding projectile shooting in the walk direction of the player (thank YOU TEAM 08 KURT)
+ which damages enemies.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createWrenchPlayerProjectile(com.deco2800.game.entities.Entity,double)" class="member-name-link">createWrenchPlayerProjectile</a><wbr>(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
  double&nbsp;angle)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates a non-colliding projectile shooting in the walk direction of the player (thank YOU TEAM 08 KURT)
+<div class="block">Creates a non-colliding wrench projectile shooting in the walk direction of the player
  which damages enemies.</div>
 </div>
 </div>
@@ -213,12 +226,29 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="createWrenchPlayerProjectile(com.deco2800.game.entities.Entity,double)">
+<h3>createWrenchPlayerProjectile</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createWrenchPlayerProjectile</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
+ double&nbsp;angle)</span></div>
+<div class="block">Creates a non-colliding wrench projectile shooting in the walk direction of the player
+ which damages enemies.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>player</code> - the player entity</dd>
+<dd><code>angle</code> - the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
+              from the walk direction of the player</dd>
+<dt>Returns:</dt>
+<dd>the projectile entity</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="createBasePlayerProjectile(com.deco2800.game.entities.Entity,double)">
 <h3>createBasePlayerProjectile</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBasePlayerProjectile</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
  double&nbsp;angle)</span></div>
 <div class="block">Creates a non-colliding projectile shooting in the walk direction of the player
- which damages enemies.</div>
+ which damages enemies. Uses animations from images/Skills/projectileSprites.png</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>player</code> - the player entity</dd>
@@ -236,6 +266,22 @@ loadScripts(document, 'script');</script>
  double&nbsp;angle)</span></div>
 <div class="block">Creates a non-colliding projectile shooting in the walk direction of the player (thank YOU TEAM 08 KURT)
  which damages enemies.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>player</code> - the player entity</dd>
+<dd><code>angle</code> - the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
+              from the walk direction of the player</dd>
+<dt>Returns:</dt>
+<dd>the projectile entity</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createPlayerAOE(com.deco2800.game.entities.Entity,double)">
+<h3>createPlayerAOE</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createPlayerAOE</span><wbr><span class="parameters">(<a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player,
+ double&nbsp;angle)</span></div>
+<div class="block">Creates an AOE attack. It is functionally a projectile with no movement.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>player</code> - the player entity</dd>
