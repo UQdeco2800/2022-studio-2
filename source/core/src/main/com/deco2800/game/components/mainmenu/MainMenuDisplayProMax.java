@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -22,8 +23,6 @@ public class MainMenuDisplayProMax extends UIComponent {
 
     private Texture buttonTexture;
     private Image mainMenu;
-
-    private Image startBtn;
 
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
@@ -70,7 +69,7 @@ public class MainMenuDisplayProMax extends UIComponent {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 logger.debug("Game starting...");
-                entity.getEvents().trigger("start");
+                entity.getEvents().trigger("load");
             }
         });
         menuGroup.addActor(startButton);

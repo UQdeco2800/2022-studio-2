@@ -26,64 +26,141 @@ walk_front
   index: 2
 walk_front
   rotate: false
-  xy: 0, 64
+  xy: 192, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 3
+walk_back
+  rotate: false
+  xy: 256, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+walk_back
+  rotate: false
+  xy: 0, 64
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
 walk_back
   rotate: false
   xy: 64, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
+  index: 2
 walk_back
   rotate: false
   xy: 128, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
+  index: 3
+walk_left
+  rotate: false
+  xy: 192, 64
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+walk_left
+  rotate: false
+  xy: 256, 64
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
   index: 1
-walk_back
+walk_right
   rotate: false
   xy: 0, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-walk_back
+  index: 0
+walk_right
   rotate: false
   xy: 64, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-walk_left
+  index: 1
+cast
   rotate: false
   xy: 128, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-walk_left
+cast
+  rotate: false
+  xy: 192, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+cast
+  rotate: false
+  xy: 256, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+cast
   rotate: false
   xy: 0, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-walk_right
+  index: 3
+cast
   rotate: false
   xy: 64, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-walk_right
+  index: 4
+cast
   rotate: false
   xy: 128, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
+  index: 5
+cast
+  rotate: false
+  xy: 192, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 6
+cast
+  rotate: false
+  xy: 256, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 7
+cast
+  rotate: false
+  xy: 0, 256
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 8
+cast
+  rotate: false
+  xy: 64, 256
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 9
+cast
+  rotate: false
+  xy: 128, 256
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 10

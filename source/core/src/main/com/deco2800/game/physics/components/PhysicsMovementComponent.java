@@ -6,13 +6,15 @@ import com.deco2800.game.ai.movement.MovementController;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
+import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.Entity;
 import org.slf4j.LoggerFactory;
 
 /** Movement controller for a physics-based entity. */
 public class PhysicsMovementComponent extends Component implements MovementController {
   private static final Logger logger = LoggerFactory.getLogger(PhysicsMovementComponent.class);
-  private static final Vector2 maxSpeed = Vector2Utils.ONE;
-  private float speed = 1;
+  private Vector2 maxSpeed = Vector2Utils.ONE;
+  //private static Vector2 maxSpeed = new Vector2(1f, 1f);
 
   private PhysicsComponent physicsComponent;
   private Vector2 targetPosition;
@@ -41,7 +43,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     this.movementEnabled = movementEnabled;
     if (!movementEnabled) {
       Body body = physicsComponent.getBody();
-      setToVelocity(body, Vector2.Zero);
+      setToVelocity(body, maxSpeed);
     }
   }
 
@@ -76,13 +78,17 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   private void setToVelocity(Body body, Vector2 desiredVelocity) {
     // impulse force = (desired velocity - current velocity) * mass
     Vector2 velocity = body.getLinearVelocity();
-    Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass()).scl(speed);
-    //body.applyLinearImpulse(impulse, body.getWorldCenter(),true);
-    body.applyForce(impulse, body.getWorldCenter(), true);
+    Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass());
+    body.applyLinearImpulse(impulse, body.getWorldCenter(),true);
+    //body.applyForce(impulse, body.getWorldCenter(), true);
   }
 
   public void setSpeed(float speed) {
-    this.speed = speed;
+
+
+    this.maxSpeed = new Vector2(speed, speed);
+
+
   }
 
   private Vector2 getDirection() {
