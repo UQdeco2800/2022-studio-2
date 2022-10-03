@@ -1,7 +1,9 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.Game;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
@@ -15,8 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.services.ServiceLocator;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(GameExtension.class)
@@ -166,7 +168,14 @@ class InventoryComponentTest {
 
   @Test
   void getEquipable() {
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    Entity[] expectedList = new Entity[2];
+    Entity testWeapon = WeaponFactory.createTestDagger();
 
+    inventory.equipItem(testWeapon);
+
+    assertEquals(expectedList[0], inventory.getEquipable(0));
   }
 
   @Test
@@ -180,7 +189,15 @@ class InventoryComponentTest {
 
   @Test
   void removeEquipable() {
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity[] expectedList = new Entity[2];
 
+    inventory.equipItem(testWeapon);
+    inventory.removeEquipable(0);
+
+    assertArrayEquals(expectedList, inventory.getEquipables());
   }
 
 
@@ -260,7 +277,40 @@ class InventoryComponentTest {
 
   @Test
   void toggleInventoryDisplay() {
+    /*
+    not working but trying to fix it.
+    if anyone can make it, just delete all the comment :)
+     */
 
+////    ServiceLocator serviceLocator = spy(ServiceLocator.class);
+//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
+//    Entity player = PlayerFactory.createTestPlayer();
+//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+//
+//    GameAreaDisplay gameArea = mock(GameAreaDisplay.class);
+////    GameAreaDisplay gameArea = new GameAreaDisplay("1");
+//
+////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea);
+//    doThrow(new Exception("null")).when(serviceLocator.getInventoryArea());
+//
+////    GameAreaDisplay gameArea1 = mock(GameAreaDisplay.class);
+////    GameAreaDisplay gameArea2 = mock(GameAreaDisplay.class);
+////    GameAreaDisplay gameArea3 = mock(GameAreaDisplay.class);
+////
+////    String gameAreaName1 = "one";
+////    String gameAreaName2 = "two";
+////    String gameAreaName3 = "three";
+////    gameArea1.setGameAreaName(gameAreaName1);
+////    gameArea2.setGameAreaName(gameAreaName2);
+////    gameArea3.setGameAreaName(gameAreaName3);
+////
+////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea1)
+////            .thenReturn(gameArea2)
+////            .thenReturn(gameArea3);
+//
+//    inventory.toggleInventoryDisplay();
+//
+//    verify(serviceLocator.getInventoryArea()).displayInventoryMenu();
   }
 
   @Test
