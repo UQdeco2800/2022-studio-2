@@ -123,7 +123,12 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-2/pipe.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
-    "images/Skills/WrenchAnimation.png"
+    "images/Skills/WrenchAnimation.png",
+    "images/countdown/1.png",
+    "images/countdown/2.png",
+    "images/countdown/3.png",
+    "images/countdown/4.png",
+    "images/countdown/5.png",
   };
 
   public static String[] newTextures;
