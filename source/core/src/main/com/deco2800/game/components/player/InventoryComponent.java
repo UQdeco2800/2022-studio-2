@@ -549,6 +549,7 @@ public class InventoryComponent extends Component {
     public void consumePotion(int inputIndex) {
         //Does nothing if there is no potion on the selected slot or the quantity < 1
         if (quickBarItems.size() >= inputIndex) {
+            logger.info("Consuming potion yum");
             quickBarItems.get(--inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
             if (quickBarQuantity[inputIndex] == 1) {
                 removePotion(inputIndex);
@@ -557,5 +558,9 @@ public class InventoryComponent extends Component {
                 --quickBarQuantity[inputIndex];
             }
         }
+    }
+
+    public int getInventorySize(){
+        return inventory.size();
     }
 }

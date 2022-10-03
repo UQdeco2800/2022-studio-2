@@ -45,21 +45,21 @@ public class ArmourStatsComponent extends Component {
         return durability;
     }
 
-    public void setDurability(double durability) {
-        this.durability = durability;
-    }
+//    public void setDurability(double durability) {
+//        this.durability = durability;
+//    }
 
     public double getVitality() {
         return vitality;
     }
 
-    public void setVitality(double vitality) {
-        this.vitality = vitality;
-    }
-
-    public double getDmgReturn() {
-        return dmgReturn;
-    }
+//    public void setVitality(double vitality) {
+//        this.vitality = vitality;
+//    }
+//
+//    public double getDmgReturn() {
+//        return dmgReturn;
+//    }
 
     public void setDmgReturn(double dmgReturn) {
         this.dmgReturn = dmgReturn;

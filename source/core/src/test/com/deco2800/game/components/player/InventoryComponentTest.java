@@ -161,7 +161,7 @@ class InventoryComponentTest {
 
   @Test
   void applyArmourEffect() {
-
+      
   }
 
   @Test
@@ -334,6 +334,7 @@ class InventoryComponentTest {
   void consumePotion() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testPotion1 = PotionFactory.createTestSpeedPotion();
+    List<Entity> expectedList = new ArrayList<>(3);
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
@@ -345,6 +346,6 @@ class InventoryComponentTest {
     inventory.consumePotion(1);
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
+    assertEquals(expectedList, inventory.getQuickBarItems());
   }
-
 }
