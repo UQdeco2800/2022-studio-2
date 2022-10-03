@@ -155,7 +155,6 @@ public class GameAreaDisplay extends UIComponent {
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
                 Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
-//                Texture itemTexture = item.getComponent(TextureRenderComponent.class).getTexture();
                 TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
                 TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
                 ImageButton equippedItem = new ImageButton(itemTextureDrawable);
@@ -244,7 +243,6 @@ public class GameAreaDisplay extends UIComponent {
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
-//            Texture itemTexture = currentItem.getComponent(TextureRenderComponent.class).getTexture();
             TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
             TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
             ImageButton item = new ImageButton(itemTextureDrawable);
@@ -269,12 +267,6 @@ public class GameAreaDisplay extends UIComponent {
                     new ChangeListener() {
                         @Override
                         public void changed(ChangeEvent changeEvent, Actor actor) {
-//              Group dropDownMenuBtn = new Group();
-//              dropDownMenuBtn.addActor(itemOpBtn);
-//              dropDownMenuBtn.addActor(dropItemBtn);
-
-                            //TextButton itemOpBtn = new TextButton(buttonText, skin);
-                            //TextButton dropItemBtn = new TextButton("Drop item", skin);
                             Button.ButtonStyle equip = new Button.ButtonStyle();
                             equip.up= new TextureRegionDrawable(new TextureRegion(
                                     new Texture(Gdx.files.internal("images/Inventory/button/equip_up.png"))));
@@ -292,7 +284,7 @@ public class GameAreaDisplay extends UIComponent {
                             dropItemBtn.setSize(96,36);
 
                             itemOpBtn.setPosition(horizontalPosition + 48, verticalPosition);
-                            dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 40);
+                            dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 42);
                             dropItemBtn.addListener(
                                     new ChangeListener() {
                                         @Override
@@ -301,12 +293,6 @@ public class GameAreaDisplay extends UIComponent {
                                                 inventoryGroup.removeActor(item);
                                                 updateInventoryDisplay();
                                             }
-                                            //Team 4, Call drop item function here
-//                          Testing drop item function code
-//                          float x = inventory.getEntity().getPosition().x;
-//                          float y = inventory.getEntity().getPosition().y;
-//                          ServiceLocator.getEntityService().register(currentItem);
-//                          currentItem.setPosition(x , (float) (y - 1.2));
                                             if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                                                 inventoryGroup.removeActor(itemOpBtn);
                                                 inventoryGroup.removeActor(dropItemBtn);
@@ -769,11 +755,11 @@ public class GameAreaDisplay extends UIComponent {
         popUp.setPosition(Gdx.graphics.getWidth()/2-71.25f, Gdx.graphics.getHeight()/2-23.75f);
         Action popUpAction = Actions.sequence(Actions.sizeTo(142.5f, 47.5f, 0.5f),
                 Actions.delay(0.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                popUp.remove();
-            }
-        }));
+                    @Override
+                    public void run() {
+                        popUp.remove();
+                    }
+                }));
         popUp.addAction(popUpAction);
         stage.addActor(popUp);
     }

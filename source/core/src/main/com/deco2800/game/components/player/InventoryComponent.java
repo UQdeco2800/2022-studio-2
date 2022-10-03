@@ -156,11 +156,12 @@ public class InventoryComponent extends Component {
      */
     public void addItem(Entity item) {
         if (inventory.size() == inventorySize) {
-            logger.info("Inventory if full");
+            logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR))
-                    && !hasItem(item, inventory)) {
+//                    && !hasItem(item, inventory)) {
+                    ) {
                 inventory.add(item);
                 ++itemQuantity[inventory.indexOf(item)];
             } else if (item.checkEntityType(EntityTypes.POTION)
@@ -169,30 +170,13 @@ public class InventoryComponent extends Component {
             }
         }
         if (getItemIndex(item, inventory) != -1
+                && getItemQuantity(item) < 9
                 && (item.checkEntityType(EntityTypes.POTION)
                 || (!item.checkEntityType(EntityTypes.WEAPON)
-                && item.checkEntityType(EntityTypes.CRAFTABLE)))
-                && getItemQuantity(item) < 9) {
+                && item.checkEntityType(EntityTypes.CRAFTABLE)))) {
             ++itemQuantity[getItemIndex(item, inventory)];
         }
     }
-
-    /**
-     * Adds item to player's inventory with the specified quantity. Use this for testing purposes
-     *
-     * @param item     item to add
-     * @param quantity item's quantity
-     */
-    public void addItem (Entity item, int quantity) {
-        if (inventory.size() == inventorySize) {
-            logger.info("Inventory if full");
-            //Error should end this block of code
-        } else if (!inventory.contains(item)) {
-            inventory.add(item);
-            itemQuantity[inventory.indexOf(item)] = quantity;
-        }
-    }
-
     /**
      * Sort the item quantity array once an item is removed from the inventory.
      *
@@ -216,12 +200,14 @@ public class InventoryComponent extends Component {
      */
     public boolean removeItem(Entity item) {
         boolean removed = false;
-        int index = inventory.indexOf(item);
-        --itemQuantity[index];
-        if (getItemQuantity(item) == 0) {
-            sortInventory(index, inventory, itemQuantity);
-            inventory.remove(item);
-            removed = true;
+        int index = getItemIndex(item, inventory);
+        if (index != -1) {
+            --itemQuantity[index];
+            if (getItemQuantity(item) == 0) {
+                sortInventory(index, inventory, itemQuantity);
+                inventory.remove(item);
+                removed = true;
+            }
         }
         return removed;
     }
@@ -562,6 +548,7 @@ public class InventoryComponent extends Component {
     public void consumePotion(int inputIndex) {
         //Does nothing if there is no potion on the selected slot or the quantity < 1
         if (quickBarItems.size() >= inputIndex) {
+            logger.info("Consuming potion yum");
             quickBarItems.get(--inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
             if (quickBarQuantity[inputIndex] == 1) {
                 removePotion(inputIndex);
@@ -570,5 +557,9 @@ public class InventoryComponent extends Component {
                 --quickBarQuantity[inputIndex];
             }
         }
+    }
+
+    public int getInventorySize(){
+        return inventory.size();
     }
 }
