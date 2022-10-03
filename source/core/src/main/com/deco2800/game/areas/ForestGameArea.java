@@ -814,14 +814,17 @@ public class ForestGameArea extends GameArea {
    * Spawn gym bros in random positions.
    */
   private void spawnGymBro() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    ArrayList<GridPoint2> positions = new ArrayList<>();
+    positions.add(new GridPoint2(129, 22));
+    positions.add(new GridPoint2(99, 65));
+    positions.add(new GridPoint2(45, 47));
+    positions.add(new GridPoint2(118, 141));
+    positions.add(new GridPoint2(118, 175));
 
-    for (int i = 0; i < 3; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    for (GridPoint2 position: positions) {
       Entity gymBro = NPCFactory.createGymBro(player);
       areaEntities.add(gymBro);
-      spawnEntityAt(gymBro, randomPos, true, true);
+      spawnEntityAt(gymBro, position, true, true);
     }
   }
 
@@ -829,13 +832,10 @@ public class ForestGameArea extends GameArea {
    * Spawn Heracles in a random position.
    */
   private Entity spawnHeracles() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    GridPoint2 position = new GridPoint2(153, 113);
     Entity heracles = NPCFactory.createHeracles(player);
     areaEntities.add(heracles);
-    spawnEntityAt(heracles, randomPos, true, true);
+    spawnEntityAt(heracles, position, true, true);
     return heracles;
   }
 
