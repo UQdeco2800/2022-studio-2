@@ -282,6 +282,7 @@ public class Entity {
             component instanceof PlayerSkillAnimationController ||
             component instanceof PlayerKPAnimationController ||
             component instanceof PlayerCombatAnimationController ||
+            component instanceof PlayerTouchAttackComponent ||
             component instanceof PlayerModifier ||
             component instanceof PhysicsComponent ) {
 
@@ -321,6 +322,7 @@ public class Entity {
                 component instanceof PlayerSkillAnimationController ||
                 component instanceof PlayerKPAnimationController ||
                 component instanceof PlayerCombatAnimationController ||
+                component instanceof PlayerTouchAttackComponent ||
                 component instanceof PlayerModifier ||
                 component instanceof PhysicsComponent) {
 
@@ -349,10 +351,16 @@ public class Entity {
                component instanceof PlayerSkillAnimationController ||
                component instanceof PlayerSkillProjectileComponent ||
                component instanceof PlayerCombatAnimationController ||
+               component instanceof PlayerTouchAttackComponent ||
                component instanceof PlayerKPAnimationController
                 ) {
           return;
         }
+      }
+    }
+    for (Component component : createdComponents) {
+      if (component instanceof PlayerCombatAnimationController) {
+        return;
       }
     }
     for (Component component : createdComponents) {

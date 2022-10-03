@@ -48,7 +48,7 @@ public class AuraFactory {
         AuraConfig config = configs.speedBuff;
         weaponSpeedBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier))
+                        config.coolDownMultiplier, "Speed"))
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Weapon Speed Buff.png"));
         weaponSpeedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponSpeedBuff;
@@ -63,7 +63,7 @@ public class AuraFactory {
         AuraConfig config = configs.speedDebuff;
         weaponSpeedDeBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier))
+                        config.coolDownMultiplier, "SpeedDebuff"))
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/AttackSpeedDebuff.png"));
         weaponSpeedDeBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponSpeedDeBuff;
@@ -78,7 +78,7 @@ public class AuraFactory {
         AuraConfig config = configs.dmgBuff;
         weaponDmgBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier))
+                        config.coolDownMultiplier, "Damage"))
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Damage Increase Buff.png"));
         weaponDmgBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponDmgBuff;
@@ -93,7 +93,7 @@ public class AuraFactory {
         AuraConfig config = configs.dmgDebuff;
         weaponDmgDebuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier))
+                        config.coolDownMultiplier, "DamageDebuff"))
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/AttackDamageDebuff.png"));
         weaponDmgDebuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponDmgDebuff;
@@ -108,7 +108,7 @@ public class AuraFactory {
         AuraConfig config = configs.fireBuff;
         weaponFireBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier))
+                        config.coolDownMultiplier, "Fire"))
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png"));
         weaponFireBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponFireBuff;
@@ -123,7 +123,7 @@ public class AuraFactory {
         AuraConfig config = configs.poisonBuff;
         weaponPoisonBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier))
+                        config.coolDownMultiplier, "Poison"))
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/poisonBuff.png"));
         weaponPoisonBuff.getComponent(TextureRenderComponent.class).scaleEntity();
         return weaponPoisonBuff;

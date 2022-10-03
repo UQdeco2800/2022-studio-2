@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
@@ -111,15 +112,35 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("dropWeapon");
         // Determines if the player is near the plug when enter is hit, transitions to next map
       case Keys.ENTER:
-        if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
-                (entity.getPosition().y > 16 && entity.getPosition().y < 18)
-                 && (ForestGameArea.ifHeraclesOnMap())) {
+        // The coordinates below are for the new plug hole to go to forest game area
+        //transition state for level 1
 
-          entity.getEvents().trigger("mapTransition");
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+          if ((entity.getPosition().x > 174 && entity.getPosition().x < 176) &&
+                  (entity.getPosition().y > 54 && entity.getPosition().y < 55)
+                  && (ForestGameArea.ifHeraclesOnMap())) {
+
+            entity.getEvents().trigger("mapTransition");
+            }
         }
+        // Win logic for level 2
+        if (ServiceLocator.getGameArea().getClass() == UndergroundGameArea.class) {
+          logger.info("entity positon: X " + entity.getPosition().x + " y " + entity.getPosition().y);
+          if (UndergroundGameArea.ifMegaPoopOnMap() &&
+                (entity.getPosition().x > 36 && entity.getPosition().x < 40) &&
+                (entity.getPosition().y > 113 && entity.getPosition().y < 117))
+          {
+            logger.info("win state triggered");
+            entity.getEvents().trigger("win");
+          }
+        }
+
         return true;
       case Keys.N:
-        entity.getEvents().trigger("win");
+        //entity.getEvents().trigger("win");
+
+        // Use to skip to level 2.
+        entity.getEvents().trigger("mapTransition");
         return true;
       default:
         return false;

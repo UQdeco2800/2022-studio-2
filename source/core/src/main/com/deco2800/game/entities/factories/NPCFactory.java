@@ -64,7 +64,7 @@ public class NPCFactory {
     oneLegGirl.getComponent(AITaskComponent.class);
     oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
     oneLegGirl.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    oneLegGirl.setScale(1, 1);
+    oneLegGirl.setScale(5, 5);
     return oneLegGirl;
   }
 
@@ -92,7 +92,7 @@ public class NPCFactory {
     child.getComponent(AITaskComponent.class);
     child.getComponent(AnimationRenderComponent.class).scaleEntity();
     child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    child.setScale(1, 1);
+    child.setScale(5, 5);
     return child;
   }
 
@@ -119,7 +119,7 @@ public class NPCFactory {
     guard.getComponent(AITaskComponent.class);
     guard.getComponent(AnimationRenderComponent.class).scaleEntity();
     guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    guard.setScale(1, 1);
+    guard.setScale(5, 5);
     return guard;
   }
   public static Entity createHumanGuard (Entity target) {
@@ -139,7 +139,7 @@ public class NPCFactory {
     humanguard.getComponent(AITaskComponent.class);
     humanguard.getComponent(AnimationRenderComponent.class).scaleEntity();
     humanguard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    humanguard.setScale(1, 1);
+    humanguard.setScale(5, 5);
     humanguard.setEntityType(EntityTypes.NPC);
     return humanguard;
   }
@@ -161,7 +161,7 @@ public class NPCFactory {
     plumberfriend.getComponent(AITaskComponent.class);
     plumberfriend.getComponent(AnimationRenderComponent.class).scaleEntity();
     plumberfriend.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    plumberfriend.setScale(1, 1);
+    plumberfriend.setScale(5, 5);
     plumberfriend.setEntityType(EntityTypes.NPC);
     return plumberfriend;
   }
@@ -189,7 +189,7 @@ public class NPCFactory {
     friendlycreature.getComponent(AITaskComponent.class);
     friendlycreature.getComponent(AnimationRenderComponent.class).scaleEntity();
     friendlycreature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    friendlycreature.setScale(1, 1);
+    friendlycreature.setScale(5, 5);
     friendlycreature.setEntityType(EntityTypes.NPC);
     return friendlycreature;
 
@@ -222,7 +222,7 @@ public class NPCFactory {
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    male_citizen.setScale(1, 1);
+    male_citizen.setScale(5, 5);
     return male_citizen;
   }
 
@@ -282,7 +282,7 @@ public class NPCFactory {
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            .addTask(new JumpTask(target, 11, 8f,25, 1.5f));
+            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
