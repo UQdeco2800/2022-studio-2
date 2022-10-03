@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -41,6 +42,13 @@ public class PlayerActions extends Component {
   private long restEnd;
   private Music walkingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/walk_on_sand.wav"));
   private Music teleportSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/teleport_sound.wav"));
+  private Music dashSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dash.mp3"));
+  private Music blockSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/block.mp3"));
+  private Music dodgeSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dodge.mp3"));
+  private Music projectileSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/projectile.wav"));
+  private Music invulnerabilitySound= Gdx.audio.newMusic(Gdx.files.internal("sounds/invulnerability.mp3"));
+  private Music oraSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/ora.mp3"));
+  private Music zawarudoSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/zawarudo.mp3"));
 
   @Override
   public void create() {
@@ -56,11 +64,11 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+    entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
     entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
     entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
     entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
-    entity.getEvents().addListener("kill switch", this::killEnemy);
-    entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
+    //entity.getEvents().addListener("kill switch", this::killEnemy);
     //entity.getEvents().addListener("attack", this::attackAnimation);
 
 
@@ -100,6 +108,20 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Pressing the 'M' button toggles the Minimap window being open.
+   */
+  private void toggleMinimap() {
+    if (!miniMapOpen) {
+      ServiceLocator.getInventoryArea().displayMinimap();
+    } else {
+      ServiceLocator.getInventoryArea().disposeMinimap();
+    }
+    logger.info("Minimap toggled: " + miniMapOpen);
+    EntityService.pauseAndResume();
+    miniMapOpen = !miniMapOpen;
+  }
+
+  /**
    * Pressing the '1' button triggers the player to consume potion slot 1
    */
   public void consumePotionSlot1() {
@@ -120,14 +142,6 @@ public class PlayerActions extends Component {
     entity.getComponent(InventoryComponent.class).consumePotion(3);
   }
 
-  public void killEnemy() {
-    for (Entity enemy : ServiceLocator.getEntityService().getEntityList()) {
-      if (enemy.checkEntityType(EntityTypes.ENEMY)) {
-        enemy.flagDead();
-      }
-    }
-  }
-
 
   private void updateSpeed() {
     Body body = physicsComponent.getBody();
@@ -146,21 +160,6 @@ public class PlayerActions extends Component {
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
-  }
-
-  /**
-   * Pressing the 'M' button toggles the Minimap window being open.
-   */
-  private void toggleMinimap() {
-    miniMapOpen = !miniMapOpen;
-
-    if (miniMapOpen) {
-      logger.trace("minimap open");
-    } else {
-      logger.trace("minimap closed");
-    }
-    //logger.debug()
-    return;
   }
 
   /**
@@ -204,7 +203,8 @@ public class PlayerActions extends Component {
    */
   void dash() {
     if(stamina >=20){
-      teleportSound.play();
+//      teleportSound.play();
+      dashSound.play();
       skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
     }
@@ -304,6 +304,7 @@ public class PlayerActions extends Component {
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
+    dodgeSound.play();
     skillManager.startDodge(this.walkDirection.cpy());
   }
 
@@ -311,6 +312,7 @@ public class PlayerActions extends Component {
    * Makes the player block. Registers call of the block function to the skill manager component.
    */
   void block() {
+    blockSound.play();
     skillManager.startBlock();
   }
 
@@ -319,6 +321,8 @@ public class PlayerActions extends Component {
    * Registers call of the ultimate function to the skill manager component.
    */
   void ultimate() {
+    oraSound.play();
+    zawarudoSound.play();
     skillManager.startUltimate();
   }
 

@@ -30,6 +30,7 @@ public class PlayerSkillComponent extends Component {
     private static final String SKILL2_LISTENER = "skill2";
 
     public enum SkillTypes {
+        NONE,
         DASH,
         TELEPORT,
         BLOCK,
@@ -38,7 +39,8 @@ public class PlayerSkillComponent extends Component {
         ROOT,
         CHARGE,
         ATTACKSPEED,
-        ULTIMATE
+        ULTIMATE,
+        FIREBALLULTIMATE
     }
 
     private boolean isInvulnerable;

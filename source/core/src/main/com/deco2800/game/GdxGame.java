@@ -21,6 +21,7 @@ public class GdxGame extends Game {
   private static MainGameScreen currentGameScreen;
   private static DeathScreen deathScreen;
   private static LevelTransitionScreen levelTransitionScreen;
+  private static MainMenuTransitionScreen mainMenuTransitionScreen;
 
   private static int level;
 
@@ -88,8 +89,6 @@ public class GdxGame extends Game {
         level = 2;
         deathScreen = new DeathScreen(this, 2);
         return deathScreen;
-      case SkillsTree:
-        return new SkillsTreeScreen(this);
       case LEVEL_TRANSITION:
         level = 2;
         levelTransitionScreen = new LevelTransitionScreen(this);
@@ -97,13 +96,18 @@ public class GdxGame extends Game {
       case WIN_SCREEN:
         deathScreen = new DeathScreen(this, 3);
         return  deathScreen;
+      case MENU_TRANSITION:
+        level = 1;
+        mainMenuTransitionScreen = new MainMenuTransitionScreen(this);
+        return mainMenuTransitionScreen;
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN_L1, DEATH_SCREEN_L2, SkillsTree, LEVEL_TRANSITION, WIN_SCREEN
+    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN_L1, DEATH_SCREEN_L2, SkillsTree, LEVEL_TRANSITION, WIN_SCREEN,
+    MENU_TRANSITION
   }
 
   /**

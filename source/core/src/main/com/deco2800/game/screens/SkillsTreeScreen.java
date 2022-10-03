@@ -38,6 +38,9 @@ public class SkillsTreeScreen extends ScreenAdapter {
     private static final String[] invulnerabilityImg = {"images/Skills/invulnerability.png"};
     private static final String[] teleportImg = {"images/Skills/teleport.png"};
     private static final String[] fireballUltimateImg = {"images/Skills/fireballUltimate.png"};
+    private static final String[] equippedTextImg = {"images/Skills/EquippedSkillsText.png"};
+    private static final String[] clearSkillsImg = {"images/Skills/clearSkillsButton.png", "images/Skills/clearSkillsButton_down.png"};
+    private static final String[] blankSkillImg = {"images/Skills/blankSkillIcon.png"};
 
     public SkillsTreeScreen(GdxGame game) {
         this.game = game;
@@ -109,6 +112,9 @@ public class SkillsTreeScreen extends ScreenAdapter {
         resourceService.loadTextures(invulnerabilityImg);
         resourceService.loadTextures(teleportImg);
         resourceService.loadTextures(fireballUltimateImg);
+        resourceService.loadTextures(equippedTextImg);
+        resourceService.loadTextures(clearSkillsImg);
+        resourceService.loadTextures(blankSkillImg);
         ServiceLocator.getResourceService().loadAll();
     }
 
