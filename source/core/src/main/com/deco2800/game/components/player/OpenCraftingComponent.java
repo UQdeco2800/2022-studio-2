@@ -28,7 +28,7 @@ public class OpenCraftingComponent extends Component {
         if (((ServiceLocator.getCraftArea().getGameAreaName().equals("Underground")
                 && entity.getCenterPosition().dst(36, 15) < 3)
                 || (ServiceLocator.getCraftArea().getGameAreaName().equals("Forest")
-                && entity.getCenterPosition().dst(15, 15) < 3)) && craftingStatus == false) {
+                && entity.getCenterPosition().dst(100, 10) < 3)) && craftingStatus == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();
             ServiceLocator.getCraftArea().displayCatOne();
             setCraftingStatus();
