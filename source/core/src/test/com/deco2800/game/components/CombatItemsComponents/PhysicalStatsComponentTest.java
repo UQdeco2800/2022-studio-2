@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 
 @ExtendWith(GameExtension.class)
-class MeleeStatsComponentTest {
+class PhysicalStatsComponentTest {
 
     public PhysicalWeaponStatsComponent weapons1;
     public PhysicalWeaponStatsComponent weapons2;
