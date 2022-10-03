@@ -10,7 +10,7 @@ public class PlayerSkillProjectileComponent extends Component {
 
     private PhysicsComponent physicsComponent;
     private Vector2 projectileVector;
-    private Vector2 projectileVelocity = new Vector2(15,15);
+    private Vector2 projectileVelocity = new Vector2(10,10);
 
     @Override
     public void create() {

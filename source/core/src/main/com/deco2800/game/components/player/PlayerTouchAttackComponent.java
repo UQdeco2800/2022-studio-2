@@ -57,6 +57,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
             target = ((BodyUserData) other.getBody().getUserData()).entity;
             enemyCollide = true;
+            entity.getEvents().trigger("enemyCollision", target); // skill listener
         }
     }
 
