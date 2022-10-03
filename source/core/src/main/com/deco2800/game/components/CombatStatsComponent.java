@@ -81,7 +81,7 @@ public class CombatStatsComponent extends Component {
    * @param health health
    */
   public void setHealth(int health) {
-    if (health >= 0) {
+    if (health >= 0 && health <= 100) {
       this.health = health;
     } else {
       this.health = 0;

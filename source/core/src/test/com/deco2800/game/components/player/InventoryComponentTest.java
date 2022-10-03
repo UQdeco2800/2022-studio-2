@@ -161,7 +161,7 @@ class InventoryComponentTest {
 
   @Test
   void applyArmourEffect() {
-
+      
   }
 
   @Test
@@ -351,4 +351,20 @@ class InventoryComponentTest {
 
 
 
+//  void consumePotion() {
+//    Entity player = PlayerFactory.createTestPlayer();
+//
+//    List<Entity> expectedList = new ArrayList<>(16);
+//
+//    Entity testPotion1 = PotionFactory.createTestSpeedPotion();
+//    InventoryComponent testInventory7 = player.getComponent(InventoryComponent.class);
+//
+//    expectedList.add(testPotion1);
+//    testInventory7.addQuickBarItems(testPotion1);
+//
+//    expectedList.remove(0);
+//    testInventory7.consumePotion(1);
+//
+//    assertEquals(testInventory7.getQuickBarItems(), expectedList);
+//  }
 }

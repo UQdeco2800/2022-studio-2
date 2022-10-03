@@ -62,6 +62,17 @@ public class PotionFactory {
         return healthPotion;
     }
 
+    public static Entity createHealthRegenPotion() {
+        Entity healthRegenPotion = createBasePotion()
+                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
+                ))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "health"));
+        healthRegenPotion.getComponent(TextureRenderComponent.class).scaleEntity();
+        healthRegenPotion.scaleHeight(1.0f);
+        PhysicsUtils.setScaledCollider(healthRegenPotion, 0.5f, 0.2f);
+        return healthRegenPotion;
+    }
+
     public static Entity createDamageReductionPotion() {
         Entity damageReductionPotion = createBasePotion()
                 .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
@@ -81,6 +92,16 @@ public class PotionFactory {
         Entity speedPotion = createBasePotion()
                 .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "speed"));
         return speedPotion;
+    }
+
+    /**
+     * Creates health potion without rendering Component.
+     * @return health potion for testing purposes
+     */
+    public static Entity createTestHealthPotion() {
+        Entity potion = createBasePotion()
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "health"));
+        return potion;
     }
 
     public static Entity createDefencePotion() {
