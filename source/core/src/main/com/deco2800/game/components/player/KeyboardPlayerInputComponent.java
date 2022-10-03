@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
@@ -124,15 +125,26 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         // Determines if the player is near the plug when enter is hit, transitions to next map
       case Keys.ENTER:
         // The coordinates below are for the new plug hole to go to forest game area
-//        if ((entity.getPosition().x > 174 && entity.getPosition().x < 176) &&
-//                (entity.getPosition().y > 54 && entity.getPosition().y < 55)
-//                 && (ForestGameArea.ifHeraclesOnMap())) {
-
+        //transition state for level 1
+        if ((entity.getPosition().x > 174 && entity.getPosition().x < 176) &&
+                (entity.getPosition().y > 54 && entity.getPosition().y < 55)
+                 && (ForestGameArea.ifHeraclesOnMap())) {
           entity.getEvents().trigger("mapTransition");
-//        }
+
+          // win state for level 2
+        } else if (UndergroundGameArea.ifMegaPoopOnMap() &&
+              (entity.getPosition().x > 36 && entity.getPosition().x < 40) &&
+                  (entity.getPosition().x > 113 && entity.getPosition().y < 117)) {
+            entity.getEvents().trigger("win");
+        }
+        // TODO remove this trigger later when implementation complete
+        entity.getEvents().trigger("mapTransition");
+
         return true;
       case Keys.N:
         entity.getEvents().trigger("win");
+        //entity.getEvents().trigger("mapTransition");
+
         return true;
       default:
         return false;
