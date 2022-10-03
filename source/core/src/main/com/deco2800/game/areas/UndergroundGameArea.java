@@ -128,7 +128,12 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
-            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/countdown/1.png",
+            "images/countdown/2.png",
+            "images/countdown/3.png",
+            "images/countdown/4.png",
+            "images/countdown/5.png"
     };
 
     public static String[] newTextures;
