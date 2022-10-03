@@ -725,14 +725,14 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnChild() {
     childPosition = new GridPoint2(33,95);
-    childDialoguePosition = new GridPoint2(33, 96);
+    childDialoguePosition = new GridPoint2(33, 97);
 
     Entity child = NPCFactory.createChild(player);
     spawnEntityAt(child, childPosition, true, true);
     areaEntities.add(child);
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, childPosition, true, true);
+    spawnEntityAt(dialogue, childDialoguePosition, true, true);
     //areaEntities.add(dialogue);
   }
 
@@ -746,7 +746,7 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnGuard() {
     GuardPosition = new GridPoint2(10, 8);
-    GuardDialoguePosition = new GridPoint2(10, 9);
+    GuardDialoguePosition = new GridPoint2(10, 10);
 
     Entity guard = NPCFactory.createGuard(player);
     spawnEntityAt(guard, GuardPosition, true, true);
@@ -762,20 +762,20 @@ public class ForestGameArea extends GameArea {
 
   private void spawnHumanGuard() {
     HumanGuardPosition = new GridPoint2(110, 41);
-    HumanGuardDialoguePosition = new GridPoint2(110, 42);
+    HumanGuardDialoguePosition = new GridPoint2(110, 43);
 
     Entity humanguard = NPCFactory.createHumanGuard(player);
     spawnEntityAt(humanguard, HumanGuardPosition, true, true);
     areaEntities.add(humanguard);
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, HumanGuardPosition, true, true);
+    spawnEntityAt(dialogue, HumanGuardDialoguePosition, true, true);
     areaEntities.add(dialogue);
   }
 
   private void spawnPlumberFriend() {
     PlumberFriendPosition = new GridPoint2(96, 13);
-    PLumberFriendDialoguePosition = new GridPoint2(96, 14);
+    PLumberFriendDialoguePosition = new GridPoint2(96, 15);
 
     Entity plumberfriend = NPCFactory.createPlumberFriend(player);
     spawnEntityAt(plumberfriend, PlumberFriendPosition, true, true);
@@ -791,14 +791,14 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnMaleCitizen() {
     maleCitizenPosition = new GridPoint2(74,121);
-    maleCitizenDialoguePosition = new GridPoint2(74, 122);
+    maleCitizenDialoguePosition = new GridPoint2(74, 123);
 
     Entity male_citizen = NPCFactory.createMale_citizen(player);
     spawnEntityAt(male_citizen, maleCitizenPosition, true, true);
     areaEntities.add(male_citizen);
 
     Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, maleCitizenPosition, true, true);
+    spawnEntityAt(dialogue, maleCitizenDialoguePosition, true, true);
     areaEntities.add(dialogue);
   }
   public static GridPoint2 getMaleCitizenPosition() {
@@ -811,7 +811,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnfriendlycreature() {
     friendlycreaturePosition = new GridPoint2(5, 10);
-    friendlycreatureDialoguePosition = new GridPoint2(5, 11);
+    friendlycreatureDialoguePosition = new GridPoint2(5, 12);
 
     Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
     spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
