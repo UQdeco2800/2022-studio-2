@@ -2,7 +2,6 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.ItemPickupComponent;
-import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -11,6 +10,8 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 
 public class MaterialFactory {
 
+    private MaterialFactory(){
+    }
     public static Entity createBaseMaterial() {
         return new Entity()
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))

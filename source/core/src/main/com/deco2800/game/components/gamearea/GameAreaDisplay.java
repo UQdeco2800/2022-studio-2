@@ -1,6 +1,5 @@
 package com.deco2800.game.components.gamearea;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -65,7 +64,6 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton secondToCraft;
     private Image resume_image;
     private ImageButton resume;
-
     private ImageButton exit;
     private ImageButton controls;
     private Texture materialTexture;
@@ -82,17 +80,12 @@ public class GameAreaDisplay extends UIComponent {
     private Group keyBindGroup = new Group();
     private int keyBindPage = 0;
     private int keyBindMod = 0;
-
     private int firstTime = 0;
     List<Entity> inventory;
     InventoryComponent inventoryComponent;
-    private int index;
     private Image inventoryMenu;
-
     private Group inventoryGroup = new Group();
-
     private Image minimapImage;
-
     private Group minimapGroup = new Group();
     private List<Entity> items;
 
@@ -151,7 +144,7 @@ public class GameAreaDisplay extends UIComponent {
 
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
-        logger.info("Displaying minimap, area is " + gameArea.getClass().getSimpleName());
+        logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
         if (gameArea.getClass().getSimpleName().equals("ForestGameArea")) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_1_tiledmap/minimap1.png")));
@@ -184,8 +177,8 @@ public class GameAreaDisplay extends UIComponent {
      * Displays the items that the player has equipped.
      */
     public void displayEquipables() {
-        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        for (Entity item : inventory.getEquipables()) {
+        InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        for (Entity item : inventoryComponent1.getEquipables()) {
             if (item != null) {
                 int itemSlot;
                 float padding = 128 + 64;
@@ -233,7 +226,7 @@ public class GameAreaDisplay extends UIComponent {
                         unequipBtn.addListener(new ChangeListener() {
                             @Override
                             public void changed(ChangeEvent event, Actor actor) {
-                                if (inventory.unequipItem(itemSlot)) {
+                                if (inventoryComponent1.unequipItem(itemSlot)) {
                                     inventoryGroup.removeActor(equippedItem);
                                     updateInventoryDisplay();
                                 }
@@ -247,7 +240,7 @@ public class GameAreaDisplay extends UIComponent {
                                 new ChangeListener() {
                                     @Override
                                     public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.removeEquipable(itemSlot)) {
+                                        if (inventoryComponent1.removeEquipable(itemSlot)) {
                                             inventoryGroup.removeActor(equippedItem);
                                             updateInventoryDisplay();
                                         }
@@ -275,8 +268,8 @@ public class GameAreaDisplay extends UIComponent {
 
     public void displayItems() {
         float padding = 32f;
-        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        items = inventory.getInventory();
+        InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        items = inventoryComponent1.getInventory();
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -326,7 +319,7 @@ public class GameAreaDisplay extends UIComponent {
                                     new ChangeListener() {
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-                                            if (inventory.removeItem(currentItem)) {
+                                            if (inventoryComponent1.removeItem(currentItem)) {
                                                 inventoryGroup.removeActor(item);
                                                 updateInventoryDisplay();
                                             }
@@ -343,13 +336,13 @@ public class GameAreaDisplay extends UIComponent {
                                         public void changed(ChangeEvent event, Actor actor) {
                                             switch (buttonText) {
                                                 case "Equip item":
-                                                    if (inventory.equipItem(currentItem)) {
+                                                    if (inventoryComponent1.equipItem(currentItem)) {
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
                                                 case "Add to quick bar":
-                                                    if (inventory.addQuickBarItems(currentItem)) {
-                                                        inventory.removeItem(currentItem);
+                                                    if (inventoryComponent1.addQuickBarItems(currentItem)) {
+                                                        inventoryComponent1.removeItem(currentItem);
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
@@ -385,12 +378,12 @@ public class GameAreaDisplay extends UIComponent {
     public void openCraftingMenu() {
         logger.info("Opening Crafting Menu");
         inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        /*if (firstTime == 0) {
-            inventoryComponent.addItem(MaterialFactory.createWood());
-            inventoryComponent.addItem(MaterialFactory.createPoop());
-            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
-            firstTime += 1;
-        }*/
+//        if (firstTime == 0) {
+//            inventoryComponent.addItem(MaterialFactory.createWood());
+//            inventoryComponent.addItem(MaterialFactory.createPoop());
+//            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+//            firstTime += 1;
+//        }
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
@@ -408,7 +401,6 @@ public class GameAreaDisplay extends UIComponent {
         craftButton.setSize(146, 146);
         craftButton.setPosition(craftMenu.getX() + 527, craftMenu.getY() + 110.5f);
         craftButton.addListener(new ChangeListener() {
-
             // Method to add item to players inventory
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -422,7 +414,6 @@ public class GameAreaDisplay extends UIComponent {
                     clearBoxes(0);
                     displayPopUp();
                 }
-                ;
                 clearMaterials();
                 getInventory();
             }
@@ -667,7 +658,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private void getInventory() {
         currentScreenCrafting = true;
-        index = 0;
+        int index = 0;
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
         inventory = inventoryComponent.getInventory();
         for (Entity item : inventory) {
@@ -721,7 +712,7 @@ public class GameAreaDisplay extends UIComponent {
                             firstToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    if (currentScreenCrafting == true){
+                                    if (currentScreenCrafting){
                                         clearMaterials();
                                         disposeFirstBox();
                                         clearBoxes(1);
@@ -757,7 +748,7 @@ public class GameAreaDisplay extends UIComponent {
                             secondToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    if (currentScreenCrafting == true) {
+                                    if (currentScreenCrafting) {
                                         clearMaterials();
                                         disposeSecondBox();
                                         clearBoxes(2);
@@ -869,7 +860,7 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     private void addToBoxes(EntityTypes type) {
-        Materials materials = Materials.Gold;
+        Materials materials;
         if (type == EntityTypes.GOLD) {
             materials = Materials.Gold;
         } else if (type == EntityTypes.IRON) {
@@ -1056,7 +1047,7 @@ public class GameAreaDisplay extends UIComponent {
             clearBoxes(0);
             disposeFirstBox();
             disposeSecondBox();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
         craftingGroup.remove();
     }
