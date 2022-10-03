@@ -124,7 +124,8 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/animations/combatanimation.png",
     "images/CombatItems/Sprint-2/pipe.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
-    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"
+    "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+    "images/Skills/WrenchAnimation.png"
   };
 
   public static String[] newTextures;
@@ -139,7 +140,7 @@ public class ForestGameArea extends GameArea {
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
-    "images/Enemies/poop.atlas"
+    "images/Enemies/poop.atlas", "images/Skills/WrenchAnimation.atlas"
 
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
@@ -659,9 +660,9 @@ public class ForestGameArea extends GameArea {
    * Spawns a spray of projectiles at the player entity's coordinates.
    */
   public void spawnPlayerProjectileCone() {
-    double[] sprayAngles = {0,0.05,0.1,1.9,1.95};
+    double[] sprayAngles = {0,0.06,0.11,1.89,1.94};
     for (int i = 0; i < sprayAngles.length; ++i) {
-      Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
+      Entity newProjectile = ProjectileFactory.createWrenchPlayerProjectile(player,sprayAngles[i]);
       spawnEntityAt(newProjectile,
               new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
               true, true);

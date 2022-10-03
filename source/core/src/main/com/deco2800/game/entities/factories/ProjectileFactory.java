@@ -99,6 +99,39 @@ public class ProjectileFactory {
         return discus;
     }
 
+    public static Entity createWrenchPlayerProjectile(Entity player, double angle) {
+        PhysicsComponent physicsComponent = new PhysicsComponent();
+        PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
+
+        AnimationRenderComponent projectileAnimator = new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset("images/Skills/WrenchAnimation.atlas",
+                        TextureAtlas.class));
+        projectileAnimator.addAnimation("wrenchSpin",0.05f, Animation.PlayMode.LOOP);
+        Entity projectile = new Entity()
+                .addComponent(physicsComponent)
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 5.0f))
+                .addComponent(new CombatStatsComponent(10, 10, 0, 0))
+                .addComponent(projectileAnimator)
+                .addComponent(playerSkillProjectileComponent);
+
+        PhysicsUtils.setScaledCollider(projectile, 0.8f, 0.8f);
+        projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
+        projectile.setEntityType(EntityTypes.PROJECTILE);
+
+        PlayerActions playerActions = player.getComponent(PlayerActions.class);
+        if(playerActions.getWalkDirection().cpy().x == 0 && playerActions.getWalkDirection().cpy().y == 0) {
+            playerSkillProjectileComponent.setProjectileDirection(new Vector2(1, 0));
+        } else {
+            double angleRadians = angle * Math.PI;
+            Vector2 rotatedVector = rotateVector(playerActions.getWalkDirection().cpy(), angleRadians);
+            playerSkillProjectileComponent.setProjectileDirection(rotatedVector.cpy());
+        }
+        projectileAnimator.startAnimation("wrenchSpin");
+        return projectile;
+    }
+
     /**
      * Creates a non-colliding projectile shooting in the walk direction of the player
      * which damages enemies.
