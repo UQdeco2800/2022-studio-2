@@ -74,16 +74,7 @@ public class PlayerActions extends Component {
 
     // Skills and Dash initialisation
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
-    skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
-
-    // temp skill bindings for sprint 2 marking
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
-
   }
 
   @Override
@@ -212,6 +203,18 @@ public class PlayerActions extends Component {
   }
 
   /**
+   *  Makes the player charge. Registers call of the charge function to the skill manager component.
+   */
+  void charge() {
+    if(mana >= 2){
+      skillManager.startCharge(this.walkDirection.cpy());
+      entity.getEvents().trigger("decreaseStamina", -2);
+    }
+
+    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
+  }
+
+  /**
    * Gets a reference to the skill subcomponent of playeractions.
    * This reference should be used sparingly as a way for external functionality to directly
    * interact with skill states, and should avoid directly inducing any skill start fuctions
@@ -288,6 +291,16 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Does an aoe attack around the player. Registers call of the aoe function to the skill manager component.
+   */
+  void aoe() {
+    if (mana>=2) {
+      entity.getEvents().trigger("decreaseMana", -2);
+      skillManager.aoeAttack();
+    }
+  }
+
+  /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
@@ -313,12 +326,12 @@ public class PlayerActions extends Component {
     skillManager.startUltimate();
   }
 
-  /**
-   * Makes the player cast their attackspeed skill.
-   * Registers call of the attackspeed skill function to the skill manager component.
-   */
-  void attackSpeedUp() {
-    skillManager.startAttackSpeedUp();
+  public void fireballUltimate() {
+    skillManager.startFireballUltimate();
+  }
+
+  public void coneProjectile() {
+    skillManager.startProjectileSkill();
   }
 
   public Vector2 getWalkDirection() {
@@ -336,4 +349,6 @@ public class PlayerActions extends Component {
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillManager.setSkillAnimator(skillAnimator);
   }
+
+
 }

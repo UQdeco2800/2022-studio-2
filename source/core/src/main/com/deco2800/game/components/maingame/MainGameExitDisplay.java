@@ -1,10 +1,16 @@
 package com.deco2800.game.components.maingame;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +35,9 @@ public class MainGameExitDisplay extends UIComponent {
     table.setFillParent(true);
 
 //    TextButton mainMenuBtn = new TextButton("Exit", skin);
-    TextButton skillsTreeBtn = new TextButton("SkillsTree", skin);
+    TextureRegionDrawable skillTreeButtonTexture = new TextureRegionDrawable(ServiceLocator.getResourceService()
+            .getAsset("images/Skills/skill-tree-icon.png", Texture.class));
+    ImageButton skillsTreeBtn = new ImageButton(skillTreeButtonTexture);
 
     // Triggers an event when the button is pressed.
 //    mainMenuBtn.addListener(
@@ -46,7 +54,8 @@ public class MainGameExitDisplay extends UIComponent {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
           logger.debug("SkillsTree button clicked");
-          entity.getEvents().trigger("openSkillsTree");
+          Entity playerEntity = ServiceLocator.getGameArea().getPlayer();
+          playerEntity.getComponent(SkillsTreeDisplay.class).toggleSkillTreeDisplay();
         }
       });
 

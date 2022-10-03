@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
@@ -85,7 +86,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private int firstTime = 0;
     List<Entity> inventory;
-    InventoryComponent inventoryComponent;
+    public static InventoryComponent inventoryComponent;
     private int index;
     private Image inventoryMenu;
 
@@ -1102,6 +1103,16 @@ public class GameAreaDisplay extends UIComponent {
         }
         numcrafted += 1;
         craftingGroup.addActor(weapon);
+    }
+
+    /**
+     * Toggles the skill tree display
+     */
+    public void toggleSkillTree() {
+        SkillsTreeDisplay skillsTree = ServiceLocator.getGameArea().getPlayer().getComponent(SkillsTreeDisplay.class);
+        if (skillsTree != null) {
+            skillsTree.toggleSkillTreeDisplay();
+        }
     }
 
     @Override

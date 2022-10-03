@@ -15,7 +15,7 @@ class WeaponAuraComponentTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        aura1 = new WeaponAuraComponent(5, 1.25, 0.75);
+        aura1 = new WeaponAuraComponent(5, 1.25, 0.75, "fire");
         aura2 = new WeaponAuraComponent(10, 2, 2,1, 5);
     }
 

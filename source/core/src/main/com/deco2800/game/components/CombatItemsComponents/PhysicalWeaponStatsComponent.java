@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Component used to store information and methods related to combat for melee weapons.
  */
-public class PhyiscalWeaponStatsComponent extends WeaponStatsComponent {
+public class PhysicalWeaponStatsComponent extends WeaponStatsComponent {
 
     private double weight;
     /**
@@ -18,7 +18,7 @@ public class PhyiscalWeaponStatsComponent extends WeaponStatsComponent {
      * @param weight    weight of the weapon (affects player's movement speed)
      * @param description description of the weapon (used to target weapon animations more effectively)
      */
-    public PhyiscalWeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight, String description) {
+    public PhysicalWeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight, String description) {
        super(damage, coolDown, materials, description);
         setWeight(weight);
     }
@@ -44,7 +44,7 @@ public class PhyiscalWeaponStatsComponent extends WeaponStatsComponent {
      * @param other other melee weapon
      * @return true if they have the same stat, false otherwise //implemented by peter from team 02
      */
-    public boolean equals(PhyiscalWeaponStatsComponent other) {
+    public boolean equalsOther(PhysicalWeaponStatsComponent other) {
         return this.damage == other.getDamage()
                 && this.weight == other.getWeight()
                 && this.coolDown == other.getCoolDown();

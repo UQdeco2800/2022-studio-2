@@ -153,12 +153,11 @@ public class AnimationRenderComponent extends RenderComponent {
   }
 
   public void togglePauseAnimation() {
-    if (currentAnimation == null) {
-      return;
-    }
     animationPaused = !animationPaused;
     if (animationPaused) {
       animationPauseStart = animationPlayTime;
+    } else {
+      animationPlayTime = animationPauseStart;
     }
   }
 
