@@ -387,6 +387,8 @@ public class CombatStatsComponent extends Component {
       ServiceLocator.getEntityService().register(newWeapon);
 
       newWeapon.setPosition(x , (y - 1));
+
+      logger.trace("enemy drop weapon");
     }
 
   }

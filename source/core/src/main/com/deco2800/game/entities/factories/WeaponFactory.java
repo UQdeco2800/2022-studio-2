@@ -20,6 +20,8 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  */
 public class WeaponFactory {
 
+    private WeaponFactory(){}
+
     private static final WeaponConfigSetup configs =
             FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
 
@@ -42,7 +44,6 @@ public class WeaponFactory {
      */
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
-        //dagger.setEntityType(EntityTypes.CRAFTABLE);
         WeaponConfig config = configs.athenaDag;
         PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "athena");
 

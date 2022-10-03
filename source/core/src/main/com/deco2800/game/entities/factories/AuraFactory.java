@@ -21,6 +21,8 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  */
 public class AuraFactory {
 
+    private AuraFactory(){}
+
     private static final BaseAuraConfig configs =
             FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
 
