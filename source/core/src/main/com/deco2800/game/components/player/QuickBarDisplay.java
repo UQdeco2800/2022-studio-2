@@ -1,16 +1,24 @@
 package com.deco2800.game.components.player;
 
 
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class QuickBarDisplay extends UIComponent {
 
@@ -22,6 +30,15 @@ public class QuickBarDisplay extends UIComponent {
     private Image image4;
     private Image image5;
 
+    //Potion display table:
+    private Table potionTable = new Table();
+    private Image healthPotion;
+    private Texture texCheck = null;
+
+
+
+
+
     /**
      * Creates reusable ui styles and adds actors to the stage.
      */
@@ -29,7 +46,21 @@ public class QuickBarDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+        addPotionTable();
     }
+
+    /**
+     * A table for the potion graphics.
+     */
+    private void addPotionTable() {
+
+        potionTable.bottom();
+
+    }
+
+    /**
+     * This function visualizes potions in the item bar when equipped from the inventory.
+     */
 
     private void addActors() {
 
@@ -58,18 +89,42 @@ public class QuickBarDisplay extends UIComponent {
         quickBar.add(quickImage).size(382,175).pad(5);
         quickBar.add(image4).size(100,100).pad(5);
         quickBar.add(image5).size(100,100).pad(5);
+
         stage.addActor(quickBar);
 
     }
     @Override
     public void draw(SpriteBatch batch) {
         //draw is handled by the stage
+        //TODO work in progress below
+        System.out.println(potionEQ);
+        updatePotionTable();
+
+    }
+
+    public void updatePotionTable(){
+        if(potionEQ == 1) {
+            if(texCheck != potionTex){
+                healthPotion = new Image(new Texture(Gdx.files.internal
+                        (String.valueOf(potionTex))));
+                texCheck = potionTex;
+            }
+            potionTable.add(healthPotion).size(150, 150);
+            healthPotion.setPosition(498, -45);
+
+            stage.addActor(potionTable);
+        } else {
+            //potionTable.removeActor(bombPotion);
+            potionTable.removeActor(healthPotion);
+        }
     }
 
     @Override
     public void dispose() {
-        quickImage.clear();
         super.dispose();
+        quickImage.clear();
+
+        potionTable.clear();
     }
 
 }

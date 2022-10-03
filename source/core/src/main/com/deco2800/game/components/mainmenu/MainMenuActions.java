@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.screens.MainMenuTransitionScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +47,7 @@ public class MainMenuActions extends Component {
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
     sound.play(1.0f);
     logger.info("Load game");
+    game.setScreen(GdxGame.ScreenType.MENU_TRANSITION);
   }
 
   /**

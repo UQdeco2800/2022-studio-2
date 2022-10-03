@@ -15,13 +15,18 @@ public class DialogueKeybordInputComponent extends InputComponent {
         if (keycode == Keys.F) {
             DialogueDisplay.state = true;
             entity.getEvents().trigger("openDialogue");
-
+            entity.getEvents().trigger("nextText");
             return true;
         } else if (keycode == Keys.G) {
             entity.getEvents().trigger("hideDialogue");
             DialogueDisplay.state = false;
             return true;
         }
+//        else if (keycode == Keys.V) {
+//            DialogueDisplay.state = true;
+//            entity.getEvents().trigger("nextText");
+//            return true;
+//        }
         return false;
     }
 

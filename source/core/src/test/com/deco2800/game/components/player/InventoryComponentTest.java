@@ -174,7 +174,7 @@ class InventoryComponentTest {
     Entity player = PlayerFactory.createTestPlayer();
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     Entity[] expectedList = new Entity[2];
-    
+
     assertArrayEquals(expectedList, inventory.getEquipables());
   }
 
@@ -334,6 +334,7 @@ class InventoryComponentTest {
   void consumePotion() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testPotion1 = PotionFactory.createTestSpeedPotion();
+    List<Entity> expectedList = new ArrayList<>(3);
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
@@ -345,26 +346,6 @@ class InventoryComponentTest {
     inventory.consumePotion(1);
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
+    assertEquals(expectedList, inventory.getQuickBarItems());
   }
-
-
-
-
-
-//  void consumePotion() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//
-//    List<Entity> expectedList = new ArrayList<>(16);
-//
-//    Entity testPotion1 = PotionFactory.createTestSpeedPotion();
-//    InventoryComponent testInventory7 = player.getComponent(InventoryComponent.class);
-//
-//    expectedList.add(testPotion1);
-//    testInventory7.addQuickBarItems(testPotion1);
-//
-//    expectedList.remove(0);
-//    testInventory7.consumePotion(1);
-//
-//    assertEquals(testInventory7.getQuickBarItems(), expectedList);
-//  }
 }
