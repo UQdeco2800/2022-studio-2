@@ -75,8 +75,6 @@ public class PlayerFactory {
             .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
             .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions());
 
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
-
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
@@ -176,13 +174,13 @@ public class PlayerFactory {
     /*hera animations*/
     animator.addAnimation("hera", 0.1f);
     animator.addAnimation("heraDamage", 0.1f);
-    animator.addAnimation("heraDamageStatic", 0.1f);
+    animator.addAnimation("heraDamageStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("heraFire", 0.1f);
-    animator.addAnimation("heraFireStatic", 0.1f);
+    animator.addAnimation("heraFireStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("heraPoison", 0.1f);
-    animator.addAnimation("heraPoisonStatic", 0.1f);
+    animator.addAnimation("heraPoisonStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("heraSpeed", 0.1f);
-    animator.addAnimation("heraSpeedStatic", 0.1f);
+    animator.addAnimation("heraSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("heraStatic", 0.1f);
 
     /*hera athena animations*/
@@ -202,9 +200,9 @@ public class PlayerFactory {
     animator.addAnimation("pipeDamage", 0.1f);
     //animator.addAnimation("pipeDamageStatic", 0.1f);
     animator.addAnimation("pipeFire", 0.1f);
-    animator.addAnimation("pipeFireStatic", 0.1f);
+    animator.addAnimation("pipeFireStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("pipePoison", 0.1f);
-    animator.addAnimation("pipePoisonStatic", 0.1f);
+    animator.addAnimation("pipePoisonStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("pipeSpeed", 0.1f);
     //animator.addAnimation("pipeSpeedStatic", 0.1f);
     animator.addAnimation("pipeStatic", 0.1f);
@@ -212,49 +210,49 @@ public class PlayerFactory {
     /*plunger animations*/
     animator.addAnimation("plunger", 0.1f);
     animator.addAnimation("plungerDamage", 0.1f);
-    animator.addAnimation("plungerDamageStatic", 0.1f);
+    animator.addAnimation("plungerDamageStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerFire", 0.1f);
-    animator.addAnimation("plungerFireStatic", 0.1f);
+    animator.addAnimation("plungerFireStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerPoison", 0.1f);
-    animator.addAnimation("plungerPoisonStatic", 0.1f);
+    animator.addAnimation("plungerPoisonStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerSpeed", 0.1f);
-    animator.addAnimation("plungerSpeedStatic", 0.1f);
+    animator.addAnimation("plungerSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerStatic", 0.1f);
 
     /*sword animations*/
     animator.addAnimation("sword", 0.1f);
     animator.addAnimation("swordDamage", 0.1f);
-    animator.addAnimation("swordDamageStatic", 0.1f);
+    animator.addAnimation("swordDamageStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("swordFire", 0.1f);
-    animator.addAnimation("swordFireStatic", 0.1f);
+    animator.addAnimation("swordFireStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("swordPoison", 0.1f);
-    animator.addAnimation("swordPoisonStatic", 0.1f);
+    animator.addAnimation("swordPoisonStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("swordSpeed", 0.1f);
-    animator.addAnimation("swordSpeedStatic", 0.1f);
+    animator.addAnimation("swordSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("swordStatic", 0.1f);
 
     /*trident animations*/
     animator.addAnimation("trident", 0.1f);
     animator.addAnimation("tridentDamage", 0.1f);
-    animator.addAnimation("tridentDamageStatic", 0.1f);
+    animator.addAnimation("tridentDamageStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("tridentFire", 0.1f);
-    animator.addAnimation("tridentFireStatic", 0.1f);
+    animator.addAnimation("tridentFireStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("tridentPoison", 0.1f);
-    animator.addAnimation("tridentPoisonStatic", 0.1f);
+    animator.addAnimation("tridentPoisonStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("tridentSpeed", 0.1f);
-    animator.addAnimation("tridentSpeedStatic", 0.1f);
+    animator.addAnimation("tridentSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("tridentStatic", 0.1f);
 
     /*plunger bow animations*/
     animator.addAnimation("plungerBow", 0.1f);
     animator.addAnimation("plungerBowDamage", 0.1f);
-    animator.addAnimation("plungerBowDamageStatic", 0.1f);
+    animator.addAnimation("plungerBowDamageStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerBowFire", 0.1f);
-    animator.addAnimation("plungerBowFireStatic", 0.1f);
+    animator.addAnimation("plungerBowFireStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerBowPoison", 0.1f);
-    animator.addAnimation("plungerBowPoisonStatic", 0.1f);
+    animator.addAnimation("plungerBowPoisonStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerBowSpeed", 0.1f);
-    animator.addAnimation("plungerBowSpeedStatic", 0.1f);
+    animator.addAnimation("plungerBowSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerBowStatic", 0.1f);
 
     Entity combatAnimator =

@@ -5,6 +5,7 @@ import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -68,11 +69,10 @@ public class WeaponAuraManager extends Component {
             Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);
             setCombatAnimator(newCombatAnimator);
             String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-            Entity auraEquipped = ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied;
-            String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
+            String current_aura = auraApplied.getComponent(WeaponAuraComponent.class).getDescription();
             String animationToApply = description+current_aura+"Static";
-            System.out.println(animationToApply);
-            combatAnimator.getEvents().trigger(animationToApply);
+
+            entity.getComponent(PlayerTouchAttackComponent.class).getCombatAnimator().getEvents().trigger(animationToApply);
         }
     }
 
