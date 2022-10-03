@@ -1,55 +1,55 @@
 {
   "athenaDag": {
-    "damage": 7.5,
+    "damage": 12.5,
     "coolDown": 500,
     "weight": 1,
     "materials": {"gold": 1, "platinum": 1}
   },
 
   "heraDag": {
-    "damage": 9,
+    "damage": 16,
     "coolDown": 700,
     "weight": 1,
     "materials": {"gold": 1, "steel": 1}
   },
 
   "SwordLvl2": {
-    "damage": 26,
+    "damage": 30,
     "coolDown": 1200,
     "weight": 2,
     "materials": {"gold": 1, "iron": 1}
   },
 
   "dumbbell": {
-    "damage": 5,
+    "damage": 19,
     "coolDown": 1000,
-    "weight": 10,
+    "weight": 5,
     "materials": {"steel": 1, "plastic": 1}
   },
 
   "tridentLvl2": {
-    "damage": 25,
+    "damage": 35,
     "coolDown": 1500,
-    "weight": 10,
+    "weight": 2,
     "materials": {"gold": 1,"silver": 1}
   },
 
   "heraAthenaDag": {
-    "damage": 35,
+    "damage": 40,
     "coolDown": 1000,
     "weight": 3,
     "materials": {"herraDag": 1,"poop": 1}
   },
 
   "plunger": {
-    "damage": 3,
+    "damage": 10,
     "coolDown": 1000,
     "weight": 1,
     "materials": {"wood": 1, "rubber": 1}
   },
 
   "pipe": {
-    "damage": 5,
+    "damage": 15,
     "coolDown": 1000,
     "weight": 2,
     "materials": {"plastic": 1, "rubber": 1}

@@ -101,22 +101,22 @@ public class CraftingLogic {
     public static Entity damageToWeapon(WeaponConfig weapon){
         double dam = weapon.damage;
         switch ((int) Math.floor(dam)){
-            case 7:
+            case 12:
                 return WeaponFactory.createDagger();
 
-            case 9:
+            case 16:
                 return WeaponFactory.createHera();
 
-            case 26:
+            case 30:
                 return WeaponFactory.createSwordLvl2();
 
-            case 5:
+            case 15:
                 return WeaponFactory.createPipe();
 
-            case 25:
+            case 35:
                 return WeaponFactory.createTridentLvl2();
 
-            case 35:
+            case 40:
                 return WeaponFactory.createHeraAthenaDag();
 
             case 20:
