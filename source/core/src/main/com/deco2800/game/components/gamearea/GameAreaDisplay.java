@@ -159,7 +159,7 @@ public class GameAreaDisplay extends UIComponent {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_2_tiledmap/minimap2.png")));
         } else {
-            logger.info("Game area invalid");
+            logger.info("Game area invalid for minimap");
             return;
         }
 
@@ -170,7 +170,6 @@ public class GameAreaDisplay extends UIComponent {
         minimapGroup.addActor(minimapImage);
         stage.addActor(minimapGroup);
         stage.draw();
-        logger.info("Drawing Minimap");
     }
 
     /**
