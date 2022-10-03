@@ -92,8 +92,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                     //When an aura is applied, play the respective aura animation
                     if (auraEquipped != null) {
                         String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
-                        String animationToApply = description+current_aura;
-                        combatAnimator.getEvents().trigger(animationToApply);
+                        animationDesc = description+current_aura;
                     }
                     else {
                         animationDesc = description;
