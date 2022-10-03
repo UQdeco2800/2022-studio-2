@@ -180,7 +180,7 @@ class npcTest {
     void MaleCitizenExist() {
 
         GridPoint2 maleCitizenPosition = new GridPoint2(74,121);
-        assertTrue(maleCitizenPosition.x>0&&maleCitizenPosition.x<=200 && maleCitizenPosition.y>0&&maleCitizenPosition.y<=200);
+        assertTrue(maleCitizenPosition.x>0&&maleCitizenPosition.x<=201 && maleCitizenPosition.y>0&&maleCitizenPosition.y<=200);
 
         GridPoint2 maleCitizenDialoguePosition = new GridPoint2(74, 122);
         assertTrue(maleCitizenDialoguePosition.x>0&&maleCitizenDialoguePosition.x<=200 && maleCitizenDialoguePosition.y>0&&maleCitizenDialoguePosition.y<=200);
