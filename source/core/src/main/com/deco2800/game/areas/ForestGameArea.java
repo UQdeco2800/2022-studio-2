@@ -147,7 +147,7 @@ public class ForestGameArea extends GameArea {
           "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
           "images/Enemies/heracles.atlas"
 
-  };println
+  };
   private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
