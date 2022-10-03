@@ -26,8 +26,6 @@ import static org.mockito.Mockito.verify;
 
 class npcTest {
 
-    public AreaOfEffectStatsComponent areaEffectOne;
-    public AreaOfEffectStatsComponent areaEffectTwo;
     DebugRenderer debugRenderer;
 
     public static String[] textFemale ;
@@ -59,7 +57,7 @@ class npcTest {
     }
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
         index_female = 0;
         index_guard = 0;
