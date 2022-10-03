@@ -144,7 +144,7 @@ class PlayerSkillComponentTest {
         skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.TELEPORT, player, player.getComponent(PlayerActions.class));
         assertEquals(1, player.getEvents().getNumberOfListeners("skill"));
         skillManager.setSkill(3, PlayerSkillComponent.SkillTypes.DODGE, player, player.getComponent(PlayerActions.class));
-        assertEquals(2, player.getEvents().getNumberOfListeners("skill"));
+        assertEquals(1, player.getEvents().getNumberOfListeners("skill3"));
         skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.TELEPORT, player, player.getComponent(PlayerActions.class));
         assertEquals(1, player.getEvents().getNumberOfListeners("skill2"));
 

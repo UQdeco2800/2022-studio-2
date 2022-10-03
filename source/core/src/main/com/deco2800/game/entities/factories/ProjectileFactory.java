@@ -336,12 +336,12 @@ public class ProjectileFactory {
                 .addComponent(physicsComponent)
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 100.0f))
-                .addComponent(new CombatStatsComponent(100000, 10, 0, 0))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 150.0f))
+                .addComponent(new CombatStatsComponent(100000, 0, 0, 0))
                 .addComponent(projectileAnimator)
                 .addComponent(playerSkillProjectileComponent);
 
-        projectile.setScale(2, 2);
+        projectile.setScale(4, 4);
         PhysicsUtils.setScaledCollider(projectile, 1, 1);
         //projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
         projectile.setEntityType(EntityTypes.PROJECTILE);

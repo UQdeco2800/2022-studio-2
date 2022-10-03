@@ -29,6 +29,7 @@ public class PlayerSkillComponent extends Component {
     private Entity playerEntity;
     private static final String SKILL1_LISTENER = "skill";
     private static final String SKILL2_LISTENER = "skill2";
+    private static final String SKILL3_LISTENER = "skill3";
 
     public enum SkillTypes {
         NONE,
@@ -40,10 +41,13 @@ public class PlayerSkillComponent extends Component {
         ROOT,
         CHARGE,
         AOE,
-        ATTACKSPEED,
         ULTIMATE,
-        FIREBALLULTIMATE
+        FIREBALLULTIMATE,
+        INVULNERABILITY,
+        PROJECTILE
     }
+
+    private int playerSkillPoints = 0;
 
     private boolean isInvulnerable;
     private long invulnerableEnd;
@@ -118,6 +122,9 @@ public class PlayerSkillComponent extends Component {
     private boolean chargingUltimate;
     private long ultimateChargeEnd;
     private static final long ULTIMATE_CHARGE_LENGTH = 2600;
+    private static final long ULTIMATE_TIMESTOP_LENGTH = 6000;
+    private long ultimateTimeStopEnd;
+    private boolean timeStopped;
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -228,12 +235,28 @@ public class PlayerSkillComponent extends Component {
                 playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
                 skillAnimator.getEvents().trigger("regularAnimation");
                 this.chargingUltimate = false;
+                ServiceLocator.getEntityService().toggleTimeStop();
+                this.timeStopped = true;
             } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1500) {
                 playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
             } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1800) {
                 playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
             }
         }
+        if (this.timeStopped) {
+            if (System.currentTimeMillis() > this.ultimateTimeStopEnd) {
+                this.timeStopped = false;
+                ServiceLocator.getEntityService().toggleTimeStop();
+            }
+        }
+    }
+
+    public void addSkillPoints(int skillPoints) {
+        playerSkillPoints += skillPoints;
+    }
+
+    public int getSkillPoints() {
+        return playerSkillPoints;
     }
 
     /**
@@ -252,29 +275,32 @@ public class PlayerSkillComponent extends Component {
         } else if (skillNum == 2) {
             skillEvent = SKILL2_LISTENER;
         } else {
-            skillEvent = SKILL1_LISTENER;
+            skillEvent = SKILL3_LISTENER;
         }
+
         if (skillName == SkillTypes.TELEPORT) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::teleport);
         } else if (skillName == SkillTypes.DODGE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::dodge);
         } else if (skillName == SkillTypes.BLOCK) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
-        } else if (skillName == SkillTypes.BLEED) { // change back to skillEvent after sprint 2
-            entity.getEvents().addListener("skillTemp", playerActionsComponent::bleed);
+        } else if (skillName == SkillTypes.BLEED) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::bleed);
             entity.getEvents().addListener("hitEnemy", this::hitBleed);
-        }  else if (skillName == SkillTypes.ROOT) { // change back to skillEvent after sprint 2
-            entity.getEvents().addListener("skillTemp", playerActionsComponent::root);
+        }  else if (skillName == SkillTypes.ROOT) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::root);
             entity.getEvents().addListener("hitEnemy", this::hitRoot);
-        } else if (skillName == SkillTypes.ATTACKSPEED) {
-            entity.getEvents().addListener("attackspeedTemp", playerActionsComponent::attackSpeedUp);
+        } else if (skillName == SkillTypes.FIREBALLULTIMATE) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::fireballUltimate);
         } else if (skillName == SkillTypes.ULTIMATE) {
-            entity.getEvents().addListener("ultimateTemp", playerActionsComponent::ultimate);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::ultimate);
         } else if (skillName == SkillTypes.CHARGE) {
-            entity.getEvents().addListener("skillTemp", playerActionsComponent::charge);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::charge);
             entity.getEvents().addListener("enemyCollision", this::chargeHit);
         } else if (skillName == SkillTypes.AOE) {
-            entity.getEvents().addListener("aoeTemp", playerActionsComponent::aoe);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
+        } else if (skillName == SkillTypes.INVULNERABILITY) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
         }
     }
 
@@ -284,6 +310,8 @@ public class PlayerSkillComponent extends Component {
      */
     public void resetSkills(Entity entity) {
         entity.getEvents().removeAllListeners(SKILL1_LISTENER);
+        entity.getEvents().removeAllListeners(SKILL2_LISTENER);
+        entity.getEvents().removeAllListeners(SKILL3_LISTENER);
     }
 
     /**
@@ -571,7 +599,7 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
-     * The functional start of the ultimate skill.
+     * The functional start of the timestop ultimate skill.
      * Should be called when player actions component registers ultimate event.
      */
     public void startUltimate() {
@@ -580,6 +608,21 @@ public class PlayerSkillComponent extends Component {
         chargingUltimate = true;
         long ultimateStart = System.currentTimeMillis();
         this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
+        this.ultimateTimeStopEnd = ultimateChargeEnd + ULTIMATE_TIMESTOP_LENGTH;
+        //if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+          //((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
+        //}
+
+    }
+
+    /**
+     * The functional start of the fireball ultimate skill.
+     * Should be called when player actions component registers ultimate event.
+     */
+    public void startFireballUltimate() {
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+            ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+        }
     }
 
     /**
