@@ -70,7 +70,7 @@ public class QuickBarDisplay extends UIComponent {
         quickBar.padBottom(0f).padLeft(50f);
 
         quickImage = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/Inventory/quickbar.png", Texture.class));
+                .getAsset("images/Inventory/quickbar_sprint3.png", Texture.class));
         image1 = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/Skills/dash.png", Texture.class));
         image2 = new Image(ServiceLocator.getResourceService()
@@ -86,7 +86,7 @@ public class QuickBarDisplay extends UIComponent {
         quickBar.add(image1).size(100,100).pad(5);
         quickBar.add(image2).size(100,100).pad(5);
         quickBar.add(image3).size(100,100).pad(5);
-        quickBar.add(quickImage).size(600,100).pad(5);
+        quickBar.add(quickImage).size(382,175).pad(5);
         quickBar.add(image4).size(100,100).pad(5);
         quickBar.add(image5).size(100,100).pad(5);
 

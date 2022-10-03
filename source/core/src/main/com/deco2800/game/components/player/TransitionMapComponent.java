@@ -27,7 +27,6 @@ public class TransitionMapComponent extends Component {
     private boolean nextMap() {
         int mapLevel;
         MainGameScreen gameScreen = ServiceLocator.getMainGameScreen();
-
         if (gameScreen.getClass() == MainGameScreen.class) {
             logger.info("class of current map: " + gameScreen.getMap().toString());
             switch (gameScreen.getMap().toString()) {

@@ -2,18 +2,17 @@
   "gymBro": {
     "health": 70,
     "baseAttack": 20,
-    "speed": 120
+    "speed": 2
   },
   "heracles": {
     "health": 70,
     "baseAttack": 20,
-    "speed": 120
+    "speed": 1
   },
-
   "poops": {
     "health": 70,
     "baseAttack": 20,
-    "speed": 120
+    "speed": 1
   },
 
   "oneLegGirl": {

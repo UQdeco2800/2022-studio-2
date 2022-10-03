@@ -5,9 +5,12 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.EnemyProjectileComponent;
+import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillProjectileComponent;
 import com.deco2800.game.entities.Entity;
@@ -39,7 +42,7 @@ public class ProjectileFactory {
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new TouchAttackComponent(PhysicsLayer.PLAYER, 0f))
-                .addComponent(new CombatStatsComponent(1, 1, 0, 0))
+                .addComponent(new CombatStatsComponent(1, 3, 0, 0))
                 .addComponent(enemyProjectileComponent);
         projectile.setEntityType(EntityTypes.PROJECTILE);
         enemyProjectileComponent.setProjectileDirection(new Vector2(
@@ -157,7 +160,8 @@ public class ProjectileFactory {
      */
     public static Entity createWeaponProjectile(Entity player, double angle) { //TEAM 04 WIP
        WeaponConfigSetup configs = FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
-        WeaponConfig config = configs.plungerBow;
+        //WeaponConfig config = configs.plungerBow;
+        double dmg = player.getComponent(InventoryComponent.class).getEquipable(0).getComponent(PhyiscalWeaponStatsComponent.class).getDamage();
 
         PhysicsComponent physicsComponent = new PhysicsComponent();
         PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
@@ -179,7 +183,7 @@ public class ProjectileFactory {
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
                 .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 10.0f))
-                .addComponent(new CombatStatsComponent(100000, (int)config.damage, 0, 0))
+                .addComponent(new CombatStatsComponent(100000, (int)dmg, 0, 0))
                 .addComponent(projectileAnimator)
                 .addComponent(playerSkillProjectileComponent);
 

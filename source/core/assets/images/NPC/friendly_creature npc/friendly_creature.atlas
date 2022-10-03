@@ -19,7 +19,7 @@ creatureShake
   index: 0
 creatureShake
   rotate: false
-  xy: 64, 0
+  xy: 66, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

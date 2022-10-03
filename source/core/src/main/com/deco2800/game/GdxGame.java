@@ -4,11 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
-import com.deco2800.game.screens.DeathScreen;
-import com.deco2800.game.screens.MainGameScreen;
-import com.deco2800.game.screens.MainMenuScreen;
-import com.deco2800.game.screens.SettingsScreen;
-import com.deco2800.game.screens.SkillsTreeScreen;
+import com.deco2800.game.screens.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +19,11 @@ public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
 
   private static MainGameScreen currentGameScreen;
+  private static DeathScreen deathScreen;
+  private static LevelTransitionScreen levelTransitionScreen;
+  private static MainMenuTransitionScreen mainMenuTransitionScreen;
+
+  private static int level;
 
   @Override
   public void create() {
@@ -33,6 +34,8 @@ public class GdxGame extends Game {
     Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
 
     setScreen(ScreenType.MAIN_MENU);
+
+    level = 1;
   }
 
   /**
@@ -71,25 +74,42 @@ public class GdxGame extends Game {
   private Screen newScreen(ScreenType screenType) {
     switch (screenType) {
       case MAIN_MENU:
+        level = 1;
         return new MainMenuScreen(this);
       case MAIN_GAME:
-        //MainGameScreen mainGame = new MainGameScreen(this);
-        currentGameScreen = new MainGameScreen(this);
+        currentGameScreen = new MainGameScreen(this, level);
         return currentGameScreen;
       case SETTINGS:
         return new SettingsScreen(this);
+      case DEATH_SCREEN_L1:
+        level = 1;
+        deathScreen = new DeathScreen(this, 1);
+        return deathScreen;
+      case DEATH_SCREEN_L2:
+        level = 2;
+        deathScreen = new DeathScreen(this, 2);
+        return deathScreen;
       case SkillsTree:
         return new SkillsTreeScreen(this);
-      case DEATH_SCREEN:
-        DeathScreen deathScreen = new DeathScreen(this);
-        return deathScreen;
+      case LEVEL_TRANSITION:
+        level = 2;
+        levelTransitionScreen = new LevelTransitionScreen(this);
+        return levelTransitionScreen;
+      case WIN_SCREEN:
+        deathScreen = new DeathScreen(this, 3);
+        return  deathScreen;
+      case MENU_TRANSITION:
+        level = 1;
+        mainMenuTransitionScreen = new MainMenuTransitionScreen(this);
+        return mainMenuTransitionScreen;
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN, SkillsTree
+    MAIN_MENU, MAIN_GAME, SETTINGS, DEATH_SCREEN_L1, DEATH_SCREEN_L2, SkillsTree, LEVEL_TRANSITION, WIN_SCREEN,
+    MENU_TRANSITION
   }
 
   /**
