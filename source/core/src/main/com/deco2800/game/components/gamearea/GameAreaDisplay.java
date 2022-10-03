@@ -40,7 +40,6 @@ public class GameAreaDisplay extends UIComponent {
 
     private String gameAreaName = "";
     private Label title;
-
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
     private static Component mainGameActions;
     private int numcrafted = 0;
@@ -51,7 +50,6 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton inventoryButton;
     private ImageButton exitButton;
     private Texture buttonTexture;
-
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
     private Image craftMenu;
