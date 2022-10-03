@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -19,6 +21,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class QuickBarDisplay extends UIComponent {
 
@@ -99,6 +102,31 @@ public class QuickBarDisplay extends UIComponent {
         //TODO work in progress below
         System.out.println(potionEQ);
         updatePotionTable();
+
+    }
+
+    private InventoryComponent getInventory() {
+        Entity player = ServiceLocator.getGameArea().getPlayer();
+        return player.getComponent(InventoryComponent.class);
+    }
+
+    private void display(){
+        List<Entity> quickBar = getInventory().getQuickBarItems();
+        //Random number you can change it later
+        float xPosition = 100;
+        float yPosition = 100;
+        float padding = 50;
+        for (int i = 0; i < quickBar.size(); ++i) {
+            //0 will be the first potion, 1 be 2nd and so on.
+
+            //Get the picture asset of each potion
+            Entity potion = quickBar.get(i);
+            Image potionTexture =  new Image(
+                    new Texture(potion.getComponent(TextureRenderComponent.class).getTexturePath()));
+            potionTable.add(potionTexture);
+            //Each time the loop iterates the x postion will dynamically change
+            potion.setPosition(xPosition + padding, yPosition);
+        }
 
     }
 
