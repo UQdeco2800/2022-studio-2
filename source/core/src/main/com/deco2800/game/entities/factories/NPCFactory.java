@@ -12,10 +12,7 @@ import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.*;
-import com.deco2800.game.components.tasks.ChaseTask;
-import com.deco2800.game.components.tasks.JumpTask;
-import com.deco2800.game.components.tasks.ProjectileTask;
-import com.deco2800.game.components.tasks.WanderTask;
+import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -284,7 +281,7 @@ public class NPCFactory {
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            .addTask(new JumpTask(target, 11, 8f,180, 1.5f));
+            .addTask(new JumpTask(target, 11, 8f,25, 1.5f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -324,7 +321,6 @@ public class NPCFactory {
     Entity poops = createBaseNPC();
     PoopsConfig config = new NPCConfigs().poops;
     String projectileType = "poopSludge";
-    //List<EntityTypes> types = poops.getEntityTypes();
     poops.getComponent(AITaskComponent.class)
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
@@ -360,7 +356,8 @@ public class NPCFactory {
     String projectileType = "discus";
 
     megaPoop.getComponent(AITaskComponent.class)
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new TransportTask(target, 10, 10f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -370,6 +367,7 @@ public class NPCFactory {
     animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cast", 0.2f, Animation.PlayMode.LOOP);
 
 
     megaPoop
