@@ -97,7 +97,7 @@ public class TransportTask extends DefaultTask implements PriorityTask {
      */
     private int getActivePriority() {
         float dst = getDistanceToTarget();
-        if (dst > effectiveRange || (gameTime.getTime() - lastTransportTime < 2000L)) {
+        if (dst > effectiveRange || (gameTime.getTime() - lastTransportTime < 4000L)) {
             return -1;
         }
         return priority;
@@ -109,7 +109,7 @@ public class TransportTask extends DefaultTask implements PriorityTask {
      */
     private int getInactivePriority() {
         float dst = getDistanceToTarget();
-        if (dst < effectiveRange && (gameTime.getTime() - lastTransportTime > 2000L)) {
+        if (dst < effectiveRange && (gameTime.getTime() - lastTransportTime > 4000L)) {
             return priority;
         }
         return -1;
