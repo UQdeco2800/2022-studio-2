@@ -31,7 +31,7 @@ public class AuraPickupComponent extends ItemPickupComponent {
     @Override
     public void create() {
         logger = LoggerFactory.getLogger(AuraPickupComponent.class);
-        entity.getEvents().addListener("collisionStart", this::pickUp);
+        entity.getEvents().addListener("collisionStart", this::pickUpAura);
     }
 
     /**
@@ -41,7 +41,7 @@ public class AuraPickupComponent extends ItemPickupComponent {
      * @param me    Fixture of the weapon that implements this component.
      * @param other Fixture of the entity that is colliding with this weapon on the map.
      */
-    private void pickUp(Fixture me, Fixture other) {
+    private void pickUpAura(Fixture me, Fixture other) {
         hitboxComponent = entity.getComponent(HitboxComponent.class);
         Fixture f = ServiceLocator.getGameArea().getPlayer().getComponent(HitboxComponent.class).getFixture();
         //aura is only picked up if weapon equipped
