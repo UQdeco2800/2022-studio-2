@@ -10,6 +10,8 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +24,6 @@ import java.security.Provider;
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
   private static int keyPressedCounter = 1;
-  private static boolean transitionScreenDisplayed = false;
 
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
@@ -123,20 +124,21 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         // Determines if the player is near the plug when enter is hit, transitions to next map
       case Keys.ENTER:
         if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
-                (entity.getPosition().y > 16 && entity.getPosition().y < 18) && !transitionScreenDisplayed
-                && (!ForestGameArea.ifHeraclesOnMap())) {
-          //logger.info("Transition level screen triggered");
-          entity.getEvents().trigger("transition");
-          transitionScreenDisplayed = true;
-        } else if (transitionScreenDisplayed){
-          //logger.info("NEXT MAP call");
+                (entity.getPosition().y > 16 && entity.getPosition().y < 18)
+                 && (ForestGameArea.ifHeraclesOnMap())) {
+
+          entity.getEvents().trigger("mapTransition");
           entity.getEvents().trigger("nextMap");
         }
+        return true;
+      case Keys.N:
+        entity.getEvents().trigger("win");
         return true;
       default:
         return false;
     }
   }
+
 
   public static void incrementPauseCounter(){
     keyPressedCounter++;
