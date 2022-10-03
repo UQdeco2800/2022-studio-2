@@ -55,11 +55,29 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/blankSkillIcon.png",
           "images/Skills/dash.png",
           "images/Skills/block.png",
+          "images/Skills/block_disabled.png",
           "images/Skills/dodge.png",
+          "images/Skills/dodge_disabled.png",
           "images/Skills/invulnerability.png",
+          "images/Skills/invulnerability_disabled.png",
           "images/Skills/teleport.png",
-          "images/Skills/fireballUltimate.png"
+          "images/Skills/teleport_disabled.png",
+          "images/Skills/fireballUltimate.png",
+          "images/Skills/fireballUltimate_disabled.png",
+          "images/Skills/aoe.png",
+          "images/Skills/aoe_disabled.png",
+          "images/Skills/root.png",
+          "images/Skills/root_disabled.png",
+          "images/Skills/ultimate.png",
+          "images/Skills/ultimate_disabled.png",
+          "images/Skills/wrenchProjectile.png",
+          "images/Skills/wrenchProjectile_disabled.png",
+          "images/Skills/bleed.png",
+          "images/Skills/bleed_disabled.png",
+          "images/Skills/charge.png",
+          "images/Skills/charge_disabled.png"
   };
+
   private static final String[] dialogueImg = {
           "images/NPC/Dialogue/dialoguesboxmale.png",
           "images/NPC/Dialogue/dialoguesboxguard.png",

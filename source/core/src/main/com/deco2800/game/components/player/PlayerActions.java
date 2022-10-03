@@ -330,12 +330,8 @@ public class PlayerActions extends Component {
     skillManager.startFireballUltimate();
   }
 
-  /**
-   * Makes the player cast their attackspeed skill.
-   * Registers call of the attackspeed skill function to the skill manager component.
-   */
-  void attackSpeedUp() {
-    skillManager.startAttackSpeedUp();
+  public void coneProjectile() {
+    skillManager.startProjectileSkill();
   }
 
   public Vector2 getWalkDirection() {
@@ -353,5 +349,6 @@ public class PlayerActions extends Component {
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillManager.setSkillAnimator(skillAnimator);
   }
+
 
 }

@@ -188,7 +188,6 @@ public class PlayerSkillComponent extends Component {
                 skillAnimator.getEvents().trigger("regularAnimation");
             }
             this.charging = false;
-            //this.dashEndEvent = true;
         }
 
         // Check if the player is waiting to teleport from charging
@@ -300,6 +299,8 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
         } else if (skillName == SkillTypes.INVULNERABILITY) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
+        } else if (skillName == SkillTypes.PROJECTILE) {
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::coneProjectile);
         }
     }
 
@@ -608,10 +609,12 @@ public class PlayerSkillComponent extends Component {
         long ultimateStart = System.currentTimeMillis();
         this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
         this.ultimateTimeStopEnd = ultimateChargeEnd + ULTIMATE_TIMESTOP_LENGTH;
-        //if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-          //((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
-        //}
+    }
 
+    public void startProjectileSkill() {
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+            ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
+        }
     }
 
     /**

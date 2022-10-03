@@ -110,33 +110,34 @@ public class SkillsTreeDisplay extends UIComponent {
         boolean row2Lock = true;
         boolean row3Lock = true;
         boolean row4Lock = true;
-        if (playerSkillPoints > -1) { // Placeholder checks
+        if (playerSkillPoints >= 0) {
             row1Lock = false;
         }
-        if (playerSkillPoints > -1) {
+        if (playerSkillPoints > 4) {
             row2Lock = false;
         }
-        if (playerSkillPoints > -1) {
+        if (playerSkillPoints > 6) {
             row3Lock = false;
         }
-        if (playerSkillPoints > -1) {
+        if (playerSkillPoints > 8) {
             row4Lock = false;
         }
+
         addSkillToTree(1, "dash", PlayerSkillComponent.SkillTypes.NONE, false);
         // Row 1
         addSkillToTree(2, "dodge", PlayerSkillComponent.SkillTypes.DODGE, row1Lock);
         addSkillToTree(3, "teleport", PlayerSkillComponent.SkillTypes.TELEPORT, row1Lock);
-        addSkillToTree(4, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row1Lock);
-        addSkillToTree(5, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row1Lock);
+        addSkillToTree(4, "aoe", PlayerSkillComponent.SkillTypes.AOE, row1Lock);
+        addSkillToTree(5, "root", PlayerSkillComponent.SkillTypes.ROOT, row1Lock);
         // Row 2
         addSkillToTree(6, "block", PlayerSkillComponent.SkillTypes.BLOCK, row2Lock);
         addSkillToTree(7, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row2Lock);
         // Row 3
-        addSkillToTree(8, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
-        addSkillToTree(9, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
-        addSkillToTree(10, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row3Lock);
+        addSkillToTree(8, "wrenchProjectile", PlayerSkillComponent.SkillTypes.PROJECTILE, row3Lock);
+        addSkillToTree(9, "charge", PlayerSkillComponent.SkillTypes.CHARGE, row3Lock);
+        addSkillToTree(10, "bleed", PlayerSkillComponent.SkillTypes.BLEED, row3Lock);
         // Row 4
-        addSkillToTree(11, "invulnerability", PlayerSkillComponent.SkillTypes.ULTIMATE, row4Lock);
+        addSkillToTree(11, "ultimate", PlayerSkillComponent.SkillTypes.ULTIMATE, row4Lock);
         addSkillToTree(12, "fireballUltimate", PlayerSkillComponent.SkillTypes.FIREBALLULTIMATE, row4Lock);
     }
 
@@ -249,7 +250,12 @@ public class SkillsTreeDisplay extends UIComponent {
             case BLOCK -> addEquipImage("block");
             case DODGE -> addEquipImage("dodge");
             case FIREBALLULTIMATE -> addEquipImage("fireballUltimate");
-            case ULTIMATE -> addEquipImage("fireballUltimate");
+            case ULTIMATE -> addEquipImage("ultimate");
+            case ROOT -> addEquipImage("root");
+            case AOE -> addEquipImage("aoe");
+            case PROJECTILE -> addEquipImage("wrenchProjectile");
+            case BLEED -> addEquipImage("bleed");
+            case CHARGE -> addEquipImage("charge");
         }
     }
 
@@ -280,18 +286,18 @@ public class SkillsTreeDisplay extends UIComponent {
             imageFileName = baseImageFileName;
         }
         switch (skillNumber) {
-            case 1 -> addSkillTreeButton(808, 642, imageFileName, skillType);
-            case 2 -> addSkillTreeButton(698, 532, imageFileName, skillType);
-            case 3 -> addSkillTreeButton(774, 532, imageFileName, skillType);
-            case 4 -> addSkillTreeButton(920, 532, imageFileName, skillType);
-            case 5 -> addSkillTreeButton(844, 532, imageFileName, skillType);
-            case 6 -> addSkillTreeButton(736, 436, imageFileName, skillType);
-            case 7 -> addSkillTreeButton(882, 436, imageFileName, skillType);
-            case 8 -> addSkillTreeButton(736, 344, imageFileName, skillType);
-            case 9 -> addSkillTreeButton(920, 344, imageFileName, skillType);
-            case 10 -> addSkillTreeButton(844, 344, imageFileName, skillType);
-            case 11 -> addSkillTreeButton(781, 210, imageFileName, skillType);
-            case 12 -> addSkillTreeButton(850, 210, imageFileName, skillType);
+            case 1 -> addSkillTreeButton(808, 642, imageFileName, skillType, disabled);
+            case 2 -> addSkillTreeButton(698, 532, imageFileName, skillType, disabled);
+            case 3 -> addSkillTreeButton(774, 532, imageFileName, skillType, disabled);
+            case 4 -> addSkillTreeButton(920, 532, imageFileName, skillType, disabled);
+            case 5 -> addSkillTreeButton(844, 532, imageFileName, skillType, disabled);
+            case 6 -> addSkillTreeButton(736, 436, imageFileName, skillType, disabled);
+            case 7 -> addSkillTreeButton(882, 436, imageFileName, skillType, disabled);
+            case 8 -> addSkillTreeButton(736, 344, imageFileName, skillType, disabled);
+            case 9 -> addSkillTreeButton(920, 344, imageFileName, skillType, disabled);
+            case 10 -> addSkillTreeButton(844, 344, imageFileName, skillType, disabled);
+            case 11 -> addSkillTreeButton(781, 210, imageFileName, skillType, disabled);
+            case 12 -> addSkillTreeButton(850, 210, imageFileName, skillType, disabled);
         }
     }
 
@@ -303,7 +309,7 @@ public class SkillsTreeDisplay extends UIComponent {
      * @param imageFilePath the name of the png file of the skill icon in images/Skills/
      * @param skillType the skill type from PlayerSkillComponent.SkillTypes
      */
-    private void addSkillTreeButton(int xCoord, int yCoord, String imageFilePath, PlayerSkillComponent.SkillTypes skillType) {
+    private void addSkillTreeButton(int xCoord, int yCoord, String imageFilePath, PlayerSkillComponent.SkillTypes skillType, boolean disabled) {
         TextureRegionDrawable texture = new TextureRegionDrawable(ServiceLocator.getResourceService()
                 .getAsset("images/Skills/" + imageFilePath + ".png", Texture.class));
         ImageButton button = new ImageButton(texture);
@@ -314,12 +320,15 @@ public class SkillsTreeDisplay extends UIComponent {
         button.setPosition(xCoord, yCoord);
         button.setSize(SKILL_ICON_BUTTON_SIZE, SKILL_ICON_BUTTON_SIZE);
 
-        button.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                equipSkill(skillType);
-            }
-        });
+        if (!disabled) {
+            button.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    equipSkill(skillType);
+                }
+            });
+        }
+
         stage.addActor(button);
         skillTreeIcons.add(button);
     }
