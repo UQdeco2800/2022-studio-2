@@ -12,11 +12,10 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 public class MaterialFactory {
 
     public static Entity createBaseMaterial() {
-        Entity material = new Entity()
+        return new Entity()
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
-        return material;
     }
     public static Entity createGold() {
         Entity gold = createBaseMaterial();
