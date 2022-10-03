@@ -123,13 +123,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("dropWeapon");
         // Determines if the player is near the plug when enter is hit, transitions to next map
       case Keys.ENTER:
-        if ((entity.getPosition().x > 11 && entity.getPosition().x < 13) &&
-                (entity.getPosition().y > 16 && entity.getPosition().y < 18)
-                 && (ForestGameArea.ifHeraclesOnMap())) {
+        // The coordinates below are for the new plug hole to go to forest game area
+//        if ((entity.getPosition().x > 174 && entity.getPosition().x < 176) &&
+//                (entity.getPosition().y > 54 && entity.getPosition().y < 55)
+//                 && (ForestGameArea.ifHeraclesOnMap())) {
 
           entity.getEvents().trigger("mapTransition");
-          entity.getEvents().trigger("nextMap");
-        }
+//        }
         return true;
       case Keys.N:
         entity.getEvents().trigger("win");

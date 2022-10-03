@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -39,8 +40,8 @@ import static com.badlogic.gdx.math.MathUtils.ceil;
  */
 public class GameAreaDisplay extends UIComponent {
 
-  private String gameAreaName = "";
-  private Label title;
+    private String gameAreaName = "";
+    private Label title;
 
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
     private static Component mainGameActions;
@@ -52,7 +53,6 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton inventoryButton;
     private ImageButton exitButton;
     private Texture buttonTexture;
-
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
     private Image craftMenu;
@@ -87,10 +87,15 @@ public class GameAreaDisplay extends UIComponent {
 
     private int firstTime = 0;
     List<Entity> inventory;
-    InventoryComponent inventoryComponent;
+    public static InventoryComponent inventoryComponent;
     private int index;
     private Image inventoryMenu;
+
     private Group inventoryGroup = new Group();
+
+    private Image minimapImage;
+
+    private Group minimapGroup = new Group();
     private List<Entity> items;
 
     private Boolean currentScreenCrafting = false;
@@ -144,6 +149,37 @@ public class GameAreaDisplay extends UIComponent {
         inventoryGroup.addActor(inventoryMenu);
         stage.addActor(inventoryGroup);
         stage.draw();
+    }
+
+    public void displayMinimap() {
+        GameArea gameArea = ServiceLocator.getGameArea();
+        logger.info("Displaying minimap, area is " + gameArea.getClass().getSimpleName());
+        if (gameArea.getClass().getSimpleName().equals("ForestGameArea")) {
+            minimapImage = new Image(new Texture(Gdx.files.internal
+                    ("images/level_1_tiledmap/minimap1.png")));
+        } else if (gameArea.getClass().getSimpleName().equals("UndergroundGameArea")) {
+            minimapImage = new Image(new Texture(Gdx.files.internal
+                    ("images/level_2_tiledmap/minimap2.png")));
+        } else {
+            logger.info("Game area invalid for minimap");
+            return;
+        }
+
+        //Note: the position of the asset is at the bottom left.
+        minimapImage.setSize(1200, 1465);
+        minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
+        minimapGroup.addActor(minimapImage);
+        stage.addActor(minimapGroup);
+        stage.draw();
+    }
+
+    /**
+     * Disposes of the minimap when it is open and M is pressed.
+     */
+    public void disposeMinimap() {
+        minimapGroup.remove();
+        logger.info("removing minimap");
     }
 
     /**
@@ -350,18 +386,18 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     /**
-     * Code that opens an overlay crafting menu when the craft button is pressed. Creates assets based on users inventory
+     * Opens an overlay crafting menu when 'Q' is pressed. Creates assets based on users' inventory
      * and creates button event handlers to test for user clicks.
      */
     public void openCraftingMenu() {
         logger.info("Opening Crafting Menu");
-        if (firstTime == 0) {
-            inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        /*if (firstTime == 0) {
             inventoryComponent.addItem(MaterialFactory.createWood());
             inventoryComponent.addItem(MaterialFactory.createPoop());
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             firstTime += 1;
-        }
+        }*/
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
@@ -631,7 +667,10 @@ public class GameAreaDisplay extends UIComponent {
         }
     }
 
-    //return the inventory for the user
+    /**
+     * If an item is craftable, display it in the crafting inventory and set up event handlers to add it to the right
+     * side of the menu to be crafted when clicked on
+     */
 
     private void getInventory() {
         currentScreenCrafting = true;
@@ -744,6 +783,11 @@ public class GameAreaDisplay extends UIComponent {
         }
     }
 
+    /**
+     * Display an icon next to each material showing the quantity levels and add animations to them
+     * @param amount
+     * @param index
+     */
     private void displayAmount(int amount, int index) {
         matAmount = new Image(new Texture(Gdx.files.internal
                 (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
@@ -756,6 +800,9 @@ public class GameAreaDisplay extends UIComponent {
         materialsGroup.addActor(matAmount);
     }
 
+    /**
+     * Displays a "Weapon crafted" pop-up whenever the user successfully crafts a weapon and add animations to it
+     */
     private void displayPopUp() {
         popUp = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
@@ -772,57 +819,59 @@ public class GameAreaDisplay extends UIComponent {
         stage.addActor(popUp);
     }
 
+    /**
+     * Checks what type of material is being passed and return the type
+     * @param entity
+     * @return
+     */
     private EntityTypes checkType(Entity entity) {
-        EntityTypes result = null;
-        if (entity.checkEntityType(EntityTypes.GOLD)) {
-            result = EntityTypes.GOLD;
-        } else if (entity.checkEntityType(EntityTypes.IRON)) {
-            result = EntityTypes.IRON;
-        } else if (entity.checkEntityType(EntityTypes.STEEL)) {
-            result = EntityTypes.STEEL;
-        } else if (entity.checkEntityType(EntityTypes.WOOD)) {
-            result = EntityTypes.WOOD;
-        } else if (entity.checkEntityType(EntityTypes.PLASTIC)) {
-            result = EntityTypes.PLASTIC;
-        } else if (entity.checkEntityType(EntityTypes.RUBBER)) {
-            result = EntityTypes.RUBBER;
-        } else if (entity.checkEntityType(EntityTypes.PLATINUM)) {
-            result = EntityTypes.PLATINUM;
-        } else if (entity.checkEntityType(EntityTypes.SILVER)) {
-            result = EntityTypes.SILVER;
-        } else if (entity.checkEntityType(EntityTypes.POOP)) {
-            result = EntityTypes.POOP;
-        } else if (entity.checkEntityType(EntityTypes.TOILETPAPER)) {
-            result = EntityTypes.TOILETPAPER;
-        }else {
-            result = EntityTypes.WEAPON;
+        List<EntityTypes> entityTypes = entity.getEntityTypes();
+        for (EntityTypes type : entityTypes) {
+            if (!type.equals(EntityTypes.CRAFTABLE)) {
+                return type;
+            }
         }
-        return result;
+        return null;
     }
 
+    /**
+     * Takes an entity type and creates the material corresponding to that entity type
+     * @param type
+     */
     private void addToInventory(EntityTypes type) {
-        if (type == EntityTypes.GOLD) {
-            inventoryComponent.addItem(MaterialFactory.createGold());
-        } else if (type == EntityTypes.IRON) {
-            inventoryComponent.addItem(MaterialFactory.createIron());
-        } else if (type == EntityTypes.STEEL) {
-            inventoryComponent.addItem(MaterialFactory.createSteel());
-        } else if (type == EntityTypes.WOOD) {
-            inventoryComponent.addItem(MaterialFactory.createWood());
-        } else if (type == EntityTypes.PLASTIC) {
-            inventoryComponent.addItem(MaterialFactory.createPlastic());
-        } else if (type == EntityTypes.RUBBER) {
-            inventoryComponent.addItem(MaterialFactory.createRubber());
-        } else if (type == EntityTypes.PLATINUM) {
-            inventoryComponent.addItem(MaterialFactory.createPlatinum());
-        } else if (type == EntityTypes.SILVER) {
-            inventoryComponent.addItem(MaterialFactory.createSilver());
-        } else if (type == EntityTypes.POOP) {
-            inventoryComponent.addItem(MaterialFactory.createPoop());
-        } else if (type == EntityTypes.TOILETPAPER) {
-            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
-        } else {
-            inventoryComponent.addItem(WeaponFactory.createHera());
+        switch(type) {
+            case GOLD:
+                inventoryComponent.addItem(MaterialFactory.createGold());
+                break;
+            case IRON:
+                inventoryComponent.addItem(MaterialFactory.createIron());
+                break;
+            case STEEL:
+                inventoryComponent.addItem(MaterialFactory.createSteel());
+                break;
+            case WOOD:
+                inventoryComponent.addItem(MaterialFactory.createWood());
+                break;
+            case PLASTIC:
+                inventoryComponent.addItem(MaterialFactory.createPlastic());
+                break;
+            case RUBBER:
+                inventoryComponent.addItem(MaterialFactory.createRubber());
+                break;
+            case PLATINUM:
+                inventoryComponent.addItem(MaterialFactory.createPlatinum());
+                break;
+            case SILVER:
+                inventoryComponent.addItem(MaterialFactory.createSilver());
+                break;
+            case POOP:
+                inventoryComponent.addItem(MaterialFactory.createPoop());
+                break;
+            case TOILETPAPER:
+                inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+                break;
+            default:
+                inventoryComponent.addItem(WeaponFactory.createHera());
         }
     }
 
@@ -886,6 +935,9 @@ public class GameAreaDisplay extends UIComponent {
 
     }
 
+    /**
+     * Displays the first page of the catalogue menu and adds event handlers for buttons
+     */
     public void displayCatOne() {
         disposeMaterials();
         catOneMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
@@ -928,6 +980,9 @@ public class GameAreaDisplay extends UIComponent {
         craftingGroup.addActor(catTwoButton);
     }
 
+    /**
+     * Displays the second page of the catalogue menu and adds event handlers for buttons
+     */
     private void displayCatTwo() {
         disposeMaterials();
         catTwoMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
@@ -971,6 +1026,9 @@ public class GameAreaDisplay extends UIComponent {
         craftingGroup.addActor(catOneButton);
     }
 
+    /**
+     * Dispose methods for various actors on stage
+     */
     private void disposeCatOne() {
         catOneMenu.remove();
         inventoryButton.remove();

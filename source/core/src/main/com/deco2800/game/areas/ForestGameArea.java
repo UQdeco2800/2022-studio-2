@@ -31,7 +31,12 @@ import java.util.ArrayList;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+
+  // spawn location of old forestgamearea map
+//  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(12, 1);
+
+  // spawn location of new forestgamearea map
+  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(96, 3);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
@@ -471,10 +476,13 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(entity, position, centreX, centreY);
   }
 
+  /**
+   * Spawns the crafting table entity on the forest map
+   */
   public void spawnCraftingTable() {
     Entity craftingTable = ObstacleFactory.createCraftingTableForest();
     craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
-    spawnEntityAt(craftingTable, new GridPoint2(15, 15), true, false);
+    spawnEntityAt(craftingTable, new GridPoint2(100, 10), true, false);
   }
 
   /**
@@ -710,7 +718,7 @@ public class ForestGameArea extends GameArea {
    * Spawn child NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnChild() {
-    childPosition = new GridPoint2(7, 7);
+    childPosition = new GridPoint2(20,80);
 
     Entity child = NPCFactory.createChild(player);
     spawnEntityAt(child, childPosition, true, true);
@@ -772,7 +780,7 @@ public class ForestGameArea extends GameArea {
    * Spawn male NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnMaleCitizen() {
-    maleCitizenPosition = new GridPoint2(3, 8);
+    maleCitizenPosition = new GridPoint2(37,47);
 
     Entity male_citizen = NPCFactory.createMale_citizen(player);
     spawnEntityAt(male_citizen, maleCitizenPosition, true, true);
