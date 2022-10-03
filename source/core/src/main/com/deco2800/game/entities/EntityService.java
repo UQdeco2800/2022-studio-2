@@ -52,7 +52,7 @@ public class EntityService {
     for (Entity entity : entities) {
       if (!paused) {
         if(pauseEndFlag) {
-          entity.togglePauseAnimations(false);
+          entity.togglePauseAnimations(true);
         }
         entity.earlyUpdate();
         entity.update();
