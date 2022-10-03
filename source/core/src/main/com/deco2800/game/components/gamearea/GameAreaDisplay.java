@@ -92,11 +92,6 @@ public class GameAreaDisplay extends UIComponent {
     private Group inventoryGroup = new Group();
     private List<Entity> items;
 
-    // Janky fix for deathscreen, temp fix
-    private Image deathScreen;
-    private Image deathScreenTwo;
-    private Image deathScreenThree;
-
     private Boolean currentScreenCrafting = false;
     private int gameLevel;
 
