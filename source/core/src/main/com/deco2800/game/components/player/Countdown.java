@@ -39,7 +39,6 @@ public class Countdown extends UIComponent {
         bar.padBottom(0f).padLeft(50f);
         stage.addActor(bar);
 
-
         numberImages = new HashMap<Integer, Image>();
         numberImages.put(1, new Image(ServiceLocator.getResourceService()
                 .getAsset("images/countdown/1.png", Texture.class)));
@@ -51,7 +50,6 @@ public class Countdown extends UIComponent {
                 .getAsset("images/countdown/4.png", Texture.class)));
         numberImages.put(5, new Image(ServiceLocator.getResourceService()
                 .getAsset("images/countdown/5.png", Texture.class)));
-
 
         entity.getEvents().addListener("teleportAnimation",
                 () -> this.startCountdown(Ability.TELEPORT));
@@ -65,12 +63,19 @@ public class Countdown extends UIComponent {
                 () -> this.startCountdown(Ability.DASH));
     }
 
+    /**
+     * Starts the count-down
+     * @param ability: the ability that is in the cool-down phase
+     */
     private void startCountdown(Ability ability) {
         startTime = TimeUtils.millis();
         activeAbility = ability;
         this.update();
     }
 
+    /**
+     * Called every frame. Checks cool-down duration if any are active and updates the table accordingly
+     */
     public void update() {
         // For now just gives each ability 10 seconds
         if (activeAbility == Ability.NONE)
@@ -83,6 +88,11 @@ public class Countdown extends UIComponent {
         alterTable(activeAbility, numberToDisplay);
     }
 
+    /**
+     * Alters the table to display any given number above any given ability
+     * @param ability: ability number is displayed above
+     * @param number: number displayed
+     */
     private void alterTable(Ability ability, int number) {
         // Should change one child, but for now resets entire table
         if (number > MAX_NUMBER)
