@@ -8,6 +8,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -218,6 +219,7 @@ public class UndergroundGameArea extends GameArea {
      */
     public void spawnCraftingTable() {
         Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
         spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
     }
 
