@@ -104,7 +104,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                 cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
             }
 
-            if (enemyCollide && !weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
+            if (enemyCollide) {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
             }
