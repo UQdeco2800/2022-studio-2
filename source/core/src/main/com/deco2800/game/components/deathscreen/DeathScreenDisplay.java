@@ -1,19 +1,15 @@
 package com.deco2800.game.components.deathscreen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.rendering.TextureRenderComponent;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -26,26 +22,15 @@ import org.slf4j.LoggerFactory;
 public class DeathScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreenDisplay.class);
     private static final float Z_INDEX = 2f;
-    private Table table;
     // The image of the deathBackground
     private Image deathBackground;
     // Global variable of game level
     private Integer level;
-    //private List<String> deathBackgrounds = new List<String>();
-    private Texture continueBtnTexture;
-    private Texture exitBtnTexture;
-    private TextureRegion buttonTextureRegion;
-    private TextureRegionDrawable buttonDrawable;
-    private ImageButton exitButton;
-    private ImageButton continueButton;
-
 
     /**
      * Constructor of DeathScreenDisplay, default empty
      */
-    public DeathScreenDisplay(){
-
-    }
+    public DeathScreenDisplay(){ }
 
     /**
      * Constructor of DeathScreenDisplay, instantiates the varibles given
@@ -53,7 +38,6 @@ public class DeathScreenDisplay extends UIComponent {
      */
     public DeathScreenDisplay(int level) {
         this.level = level;
-        //levelBackground(level);
 
     }
 
@@ -62,61 +46,74 @@ public class DeathScreenDisplay extends UIComponent {
         super.create();
         addActors();
     }
-
-
+    
     /**
-     * Adds table to the screen, specifically adds the image of the deathscreen and buttons to the screen
-     * after the player has died, this then gives the player the option to return to main menu to play again
+     * Sets 'background' to the appropriate image depedning on levelBackground, stages the image, and then
+     * adds the buttons using setButtonDisplay.
      */
     private void addActors() {
-        table = new Table();
-        table.setFillParent(true);
+        // Set's background image based on the level
+        Image background = levelBackground(level);
+        // Makes sure the image fills the entire screen
+        background.setFillParent(true);
+        // Stages the image
+        stage.addActor(background);
+        // stages the buttons
+        setButtonDisplay();
+        logger.debug("DeathScreenDisplay background image and buttons has been added to the actor");
+    }
 
+    /**
+     * Sets up button display and adds them to the stage. This is done by setting up textures, assigning them to buttons
+     * and assigning listeners to buttons.
+     */
+    public void setButtonDisplay(){
+        Group buttons = new Group();
+        //loads in transparent image for button texture, making button transparent
+        Texture btnTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        // Texture Region of a given texture
+        TextureRegion buttonTextureRegion = new TextureRegion(btnTexture);
+        // Texture drawable of a given texture region
+        TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        ImageButton playAgainBtn = new ImageButton(buttonDrawable);
 
-        //Play Again/ Continue Button
-        if (getLevel() == 1) {
-            continueBtnTexture = new Texture(Gdx.files
-                    .internal("images/DeathScreens/widgets/play_again_lvl_1.png"));
-        } else if (getLevel() == 2) {
-            new Texture(Gdx.files
-                    .internal("images/DeathScreens/widgets/play_again_lvl_2.png"));
-        } else if (getLevel() == 3) {
-            exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        //playAgain
+        if (getLevel() == 3) {
+            playAgainBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
+            playAgainBtn.setPosition(908, 370);
+            playAgainBtn.setSize(88, 80);
+        } else {
+            playAgainBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
+            playAgainBtn.setWidth(340);
+            playAgainBtn.setHeight(270);
+            playAgainBtn.setPosition(1565,0);
         }
-        buttonTextureRegion = new TextureRegion(continueBtnTexture);
-        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        continueButton = new ImageButton(buttonDrawable);
-
-
-
-        // Play Again/ continue button listener - Restarts game
-        continueButton.addListener(
+        // play again/ restart level 1 listner
+        playAgainBtn.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("The continue/play again button was clicked");
+                        logger.info("The play again button was clicked");
                         entity.getEvents().trigger("continueGame");
                     }
                 });
+        buttons.addActor(playAgainBtn);
 
-        //Exit Button texture set up
-        if (getLevel() == 1) {
-            exitBtnTexture = new Texture(Gdx.files
-                    .internal("images/DeathScreens/widgets/main_menu_lvl_1.png"));
-
-        } else if (getLevel() == 2) {
-            exitBtnTexture = new Texture(Gdx.files
-                    .internal("images/DeathScreens/widgets/main_menu_lvl_2.png"));
-        } else if (getLevel() == 3) {
-            exitBtnTexture = new Texture(Gdx.files.internal("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        //Exit to main menu
+        ImageButton exitBtn = new ImageButton(buttonDrawable);
+        if (getLevel() == 3){
+            playAgainBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
+            exitBtn.setPosition(988, 290);
+            exitBtn.setSize(88, 80);
+        } else {
+            exitBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
+            exitBtn.setWidth(340);
+            exitBtn.setHeight(270);
+            exitBtn.setPosition(1167, 0);
         }
-        buttonTextureRegion = new TextureRegion(exitBtnTexture);
-        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        exitButton = new ImageButton(buttonDrawable);
-
-
-        // Exit button listener, returns to main menu
-        exitButton.addListener(
+        // exit button/ return to main menu button listener
+        exitBtn.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -124,36 +121,12 @@ public class DeathScreenDisplay extends UIComponent {
                         entity.getEvents().trigger("exit");
                     }
                 });
-
-        logger.debug("Continue button and Exit button created");
-
-        //  adjust layout of table to make it align with what we planed for death screen
-
-        // Creates a stack of items, this allows you to overlay them and 'stack' them on top of eachother
-        Stack background = new Stack();
-        background.setFillParent(true);
-        background.add(levelBackground(level));
-
-        logger.debug("Stack created and level background image added");
-
-        // Creates a table within the stack for the buttons
-        Table btnTable = new Table();
-        btnTable.setFillParent(true);
-        btnTable.bottom().right();
-        btnTable.add(continueButton).padTop(35).padLeft(200).left().height(100);
-        btnTable.row();
-        btnTable.add(exitButton).padBottom(35).padLeft(200).left().height(100);
-
-        background.setPosition(table.getX() + 1600, table.getY() + 900);
-        //background.set
-        background.add(btnTable);
-
-        // Adds the stack to the parent table
-        table.add(background);
-        table.right().bottom();
-        stage.addActor(table);
-        logger.debug("DeathScreenDisplay table has been added to the actor");
+        buttons.addActor(exitBtn);
+        stage.addActor(buttons);
+        stage.draw();
     }
+
+
 
     /**
      * Adjusts DeathScreens background image based on given level, it checks what value the level is and outputs the
@@ -166,21 +139,21 @@ public class DeathScreenDisplay extends UIComponent {
             case 1 -> {
                 logger.info("setting level 1 deathscreen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
+                        .getAsset("images/DeathScreens/lvl_1_w_buttons.png", Texture.class));
             }
             case 2 -> {
                 logger.info("setting level 2 deathscreen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_2.png", Texture.class));
+                        .getAsset("images/DeathScreens/lvl_2_w_buttons.png", Texture.class));
             }
-            // TODO change this out to win screen.
             case 3 -> {
                 logger.info("setting win screen from DeathScreenDisplay");
                 return deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_3.png", Texture.class));
+                        .getAsset("images/WinScreen/atlantis_sinks_no_island_win.png", Texture.class));
             }
         }
-        return null;
+        return deathBackground = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
     }
 
     /**
@@ -205,7 +178,6 @@ public class DeathScreenDisplay extends UIComponent {
     @Override
     public void dispose() {
         deathBackground.remove();
-        table.clear();
         super.dispose();
     }
 }

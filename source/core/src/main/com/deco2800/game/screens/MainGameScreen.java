@@ -89,6 +89,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   private static Boolean transition;
   private static Integer gameLevel;
+  private static Boolean win;
 
 
 
@@ -131,10 +132,13 @@ public class MainGameScreen extends ScreenAdapter {
     // Management components for death and transition screen
     dead = false;
     transition = false;
+    win = false;
     // Add a death listener to the player
     player.getEvents().addListener("death", this::deathScreenStart);
     // Add screen transition listener to player
     player.getEvents().addListener("mapTransition", this::transitionScreenStart);
+    // Add win screen listener to player
+    player.getEvents().addListener("win", this::winScreenStart);
   }
 
   /**
@@ -142,7 +146,15 @@ public class MainGameScreen extends ScreenAdapter {
    */
   public void deathScreenStart() { dead = true; }
 
+  /**
+   * Sets transition to true
+   */
   public void transitionScreenStart() { transition = true; }
+
+  /**
+   * Sets win to true
+   */
+  public void winScreenStart() { win = true;}
 
 
   /**
@@ -166,9 +178,13 @@ public class MainGameScreen extends ScreenAdapter {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L1);
       } else if (gameLevel == 2) {
         game.setScreen(GdxGame.ScreenType.DEATH_SCREEN_L2);
-      } else if (gameLevel == 3) {
-        game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
       }
+    }
+    if (win) {
+      logger.info("Win screen screen type set");
+      player.getComponent(PlayerActions.class).stopWalking();
+      game.setScreen(GdxGame.ScreenType.WIN_SCREEN);
+
     }
 
     if (transition) {
@@ -210,6 +226,22 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getResourceService().dispose();
 
     ServiceLocator.clear();
+  }
+
+  /**
+   * Gets game level
+   * @return gameLevel - integer value of current game level
+   */
+  public int getGameLevel() {
+    return gameLevel;
+  }
+
+  /**
+   * Sets game level
+   * @param gameLevel - the game level you want to change the level to.
+   */
+  public void setGameLevel(int gameLevel) {
+    this.gameLevel = gameLevel;
   }
 
   /**
@@ -290,19 +322,19 @@ public class MainGameScreen extends ScreenAdapter {
     mainGameActions = new MainGameActions(this.game);
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent =
-        ServiceLocator.getInputService().getInputFactory().createForTerminal();
+            ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
-        .addComponent(new QuickBarDisplay())
-        .addComponent(new PerformanceDisplay())
-        .addComponent(mainGameActions)
-        .addComponent(new MainGameExitDisplay())
-        .addComponent(new Terminal())
-        .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay())
-        .addComponent(new DialogueDisplay())
-        .addComponent(new PauseMenuActions());
+            .addComponent(new QuickBarDisplay())
+            .addComponent(new PerformanceDisplay())
+            .addComponent(mainGameActions)
+            .addComponent(new MainGameExitDisplay())
+            .addComponent(new Terminal())
+            .addComponent(inputComponent)
+            .addComponent(new TerminalDisplay())
+            .addComponent(new DialogueDisplay())
+            .addComponent(new PauseMenuActions());
 
     ServiceLocator.getEntityService().register(ui);
   }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -23,12 +24,11 @@ public class MainMenuDisplayProMax extends UIComponent {
     private Texture buttonTexture;
     private Image mainMenu;
 
-    private Image startBtn;
-
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
     private ImageButton startButton;
     private ImageButton exitButton;
+    private ImageButton settingsButton;
 
 
     private static final float Z_INDEX = 2f;
@@ -48,7 +48,7 @@ public class MainMenuDisplayProMax extends UIComponent {
                 new Image(
                         ServiceLocator.getResourceService()
                                 .getAsset(
-                                        "images/Crafting-assets-sprint1/screens/atlantis sinks main menu.png",
+                                        "images/Crafting-assets-sprint1/screens/substitute main menu by Rey.png",
                                         Texture.class));
         mainMenu.setWidth(Gdx.graphics.getWidth());
         mainMenu.setHeight(Gdx.graphics.getHeight());
@@ -63,13 +63,13 @@ public class MainMenuDisplayProMax extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         startButton = new ImageButton(buttonDrawable);
         startButton.setSize(290, 170);
-        startButton.setPosition(Gdx.graphics.getWidth()/2 - 280,
-                Gdx.graphics.getHeight()/2 - 450);
+        startButton.setPosition(Gdx.graphics.getWidth()/2 - 461,
+                Gdx.graphics.getHeight()/2 - 365);
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 logger.debug("Game starting...");
-                entity.getEvents().trigger("start");
+                entity.getEvents().trigger("load");
             }
         });
         menuGroup.addActor(startButton);
@@ -79,10 +79,28 @@ public class MainMenuDisplayProMax extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        settingsButton = new ImageButton(buttonDrawable);
+        settingsButton.setSize(290, 170);
+        settingsButton.setPosition(Gdx.graphics.getWidth()/2 - 146,
+                Gdx.graphics.getHeight()/2 - 365);
+        settingsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                logger.debug("Settings button clicked...");
+                entity.getEvents().trigger("settings");
+            }
+        });
+        menuGroup.addActor(settingsButton);
+        stage.addActor(menuGroup);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exitButton = new ImageButton(buttonDrawable);
         exitButton.setSize(290, 170);
-        exitButton.setPosition(Gdx.graphics.getWidth()/2 + 40,
-                Gdx.graphics.getHeight()/2 - 450);
+        exitButton.setPosition(Gdx.graphics.getWidth()/2 + 185,
+                Gdx.graphics.getHeight()/2 - 365);
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
