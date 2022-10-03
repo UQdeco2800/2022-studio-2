@@ -252,9 +252,6 @@ public class DialogueDisplay extends UIComponent {
                 countGuard = 0;
                 dialogueContainerGuard.remove();
 
-            } else if (countGuard == 2) {
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Female Audio 1.wav"));
-
             } else if (countGuard == 1) {
                 logger.info("Guard1 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 1.wav"));
@@ -371,6 +368,11 @@ public class DialogueDisplay extends UIComponent {
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_2.wav"));
                 music.play();
             } else if (countHumanGuard == 3) {
+
+                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                inventoryComponent.addItem(MaterialFactory.createRubber());
+                inventoryComponent.addItem(MaterialFactory.createPlastic());
+
                 logger.info("HumanGuard3 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_3.wav"));
                 music.play();
@@ -393,6 +395,9 @@ public class DialogueDisplay extends UIComponent {
             if (countFriendlyCreature == textFriendlyCreature.length - 1) {
                 countFriendlyCreature = 0;
                 dialogueContainerFriendlyCreature.remove();
+            } else if (countFriendlyCreature == 1) {
+                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             }
 
         } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
@@ -438,6 +443,8 @@ public class DialogueDisplay extends UIComponent {
                 music.play();
             } else if (countPlumberFriend == 9) {
                 logger.info("PlumberFriend9 sound displayed");
+                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                inventoryComponent.addItem(MaterialFactory.createPoop());
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 9.wav"));
                 music.play();
             }
