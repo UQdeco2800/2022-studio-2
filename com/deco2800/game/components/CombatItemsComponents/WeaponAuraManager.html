@@ -133,11 +133,13 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkAuraEffect()" class="member-name-link">checkAuraEffect</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Check if the aura is expired, if it is reverts the damage stat to default and remove the aura.</div>
+<div class="block">Check if the aura is expired, if it is reverts the weapon stats to default and remove the aura.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAura()" class="member-name-link">getAura</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the aura currently applied to the equipped weapon of the player</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCombatAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setCombatAnimator</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;combatAnimator)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -225,7 +227,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="checkAuraEffect()">
 <h3>checkAuraEffect</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkAuraEffect</span>()</div>
-<div class="block">Check if the aura is expired, if it is reverts the damage stat to default and remove the aura.</div>
+<div class="block">Check if the aura is expired, if it is reverts the weapon stats to default and remove the aura.</div>
 </section>
 </li>
 <li>
@@ -245,6 +247,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getAura()">
 <h3>getAura</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">getAura</span>()</div>
+<div class="block">Returns the aura currently applied to the equipped weapon of the player</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Aura currently applied to the equipped weapon of the player.</dd>
+</dl>
 </section>
 </li>
 </ul>

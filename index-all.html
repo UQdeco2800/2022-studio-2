@@ -238,15 +238,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Factory to create Aura entities.</div>
 </dd>
-<dt><a href="com/deco2800/game/entities/factories/AuraFactory.html#%3Cinit%3E()" class="member-name-link">AuraFactory()</a> - Constructor for class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/AuraFactory.html" title="class in com.deco2800.game.entities.factories">AuraFactory</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/configs/CombatItemsConfig/AuraConfig.html#auraName" class="member-name-link">auraName</a> - Variable in class com.deco2800.game.entities.configs.CombatItemsConfig.<a href="com/deco2800/game/entities/configs/CombatItemsConfig/AuraConfig.html" title="class in com.deco2800.game.entities.configs.CombatItemsConfig">AuraConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/AuraPickupComponent.html" class="type-name-link" title="class in com.deco2800.game.components.CombatItemsComponents">AuraPickupComponent</a> - Class in <a href="com/deco2800/game/components/CombatItemsComponents/package-summary.html">com.deco2800.game.components.CombatItemsComponents</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/AuraPickupComponent.html#%3Cinit%3E(short)" class="member-name-link">AuraPickupComponent(short)</a> - Constructor for class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/AuraPickupComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">AuraPickupComponent</a></dt>
 <dd>
-<div class="block">Creates a component which allows a (weapon) entity to be picked up from the map and put in inventory</div>
+<div class="block">Creates a component which allows an aura entity to be picked up from the map</div>
 </dd>
 </dl>
 <h2 class="title" id="I:B">B</h2>
@@ -359,7 +357,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/WeaponAuraManager.html#checkAuraEffect()" class="member-name-link">checkAuraEffect()</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/WeaponAuraManager.html" title="class in com.deco2800.game.components.CombatItemsComponents">WeaponAuraManager</a></dt>
 <dd>
-<div class="block">Check if the aura is expired, if it is reverts the damage stat to default and remove the aura.</div>
+<div class="block">Check if the aura is expired, if it is reverts the weapon stats to default and remove the aura.</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#checkBleed(com.deco2800.game.entities.Entity)" class="member-name-link">checkBleed(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
@@ -1521,14 +1519,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/factories/EntityTypes.html" class="type-name-link" title="enum class in com.deco2800.game.entities.factories">EntityTypes</a> - Enum Class in <a href="com/deco2800/game/entities/factories/package-summary.html">com.deco2800.game.entities.factories</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/components/CombatItemsComponents/PhysicalWeaponStatsComponent.html#equals(com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent)" class="member-name-link">equals(PhysicalWeaponStatsComponent)</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/PhysicalWeaponStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">PhysicalWeaponStatsComponent</a></dt>
-<dd>
-<div class="block">Checks if two melee weapons are the same</div>
-</dd>
-<dt><a href="com/deco2800/game/components/CombatItemsComponents/RangedStatsComponent.html#equals(com.deco2800.game.components.CombatItemsComponents.RangedStatsComponent)" class="member-name-link">equals(RangedStatsComponent)</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/RangedStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">RangedStatsComponent</a></dt>
-<dd>
-<div class="block">Checks if two ranged weapons are the same</div>
-</dd>
 <dt><a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html#equals(com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent)" class="member-name-link">equals(ArmourStatsComponent)</a> - Method in class com.deco2800.game.components.DefensiveItemsComponents.<a href="com/deco2800/game/components/DefensiveItemsComponents/ArmourStatsComponent.html" title="class in com.deco2800.game.components.DefensiveItemsComponents">ArmourStatsComponent</a></dt>
 <dd>
 <div class="block">Checks if two ArmourStatsComponents have the same stat.</div>
@@ -1539,11 +1529,19 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/entities/Entity.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
-<div class="block">Check if this entity equals another object</div>
+<div class="block">Check if this entity equalsOther another object</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/PotionEffectComponent.html#equals(java.lang.String)" class="member-name-link">equals(String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PotionEffectComponent.html" title="class in com.deco2800.game.components.player">PotionEffectComponent</a></dt>
 <dd>
 <div class="block">Returns if the two potion has the same effect</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatItemsComponents/PhysicalWeaponStatsComponent.html#equalsOther(com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent)" class="member-name-link">equalsOther(PhysicalWeaponStatsComponent)</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/PhysicalWeaponStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">PhysicalWeaponStatsComponent</a></dt>
+<dd>
+<div class="block">Checks if two melee weapons are the same</div>
+</dd>
+<dt><a href="com/deco2800/game/components/CombatItemsComponents/RangedStatsComponent.html#equalsRanged(com.deco2800.game.components.CombatItemsComponents.RangedStatsComponent)" class="member-name-link">equalsRanged(RangedStatsComponent)</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/RangedStatsComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">RangedStatsComponent</a></dt>
+<dd>
+<div class="block">Checks if two ranged weapons are the same</div>
 </dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#equipItem(com.deco2800.game.entities.Entity)" class="member-name-link">equipItem(Entity)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
@@ -1727,7 +1725,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Load an asset from a file</div>
 </dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/WeaponAuraManager.html#getAura()" class="member-name-link">getAura()</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/WeaponAuraManager.html" title="class in com.deco2800.game.components.CombatItemsComponents">WeaponAuraManager</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the aura currently applied to the equipped weapon of the player</div>
+</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/WeaponAuraComponent.html#getAuraDuration()" class="member-name-link">getAuraDuration()</a> - Method in class com.deco2800.game.components.CombatItemsComponents.<a href="com/deco2800/game/components/CombatItemsComponents/WeaponAuraComponent.html" title="class in com.deco2800.game.components.CombatItemsComponents">WeaponAuraComponent</a></dt>
 <dd>
 <div class="block">Return how long the aura is activated for the weapon</div>
@@ -3413,6 +3413,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/areas/ForestGameArea.html#removeAuraOnMap(com.deco2800.game.entities.Entity)" class="member-name-link">removeAuraOnMap(Entity)</a> - Static method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/areas/UndergroundGameArea.html#removeAuraOnMap(com.deco2800.game.entities.Entity)" class="member-name-link">removeAuraOnMap(Entity)</a> - Static method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/UndergroundGameArea.html" title="class in com.deco2800.game.areas">UndergroundGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removeEquipable(int)" class="member-name-link">removeEquipable(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
 <div class="block">Remove the item in the given itemSlot.</div>
@@ -3430,6 +3432,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Removes an item to player's inventory.</div>
 </dd>
 <dt><a href="com/deco2800/game/areas/ForestGameArea.html#removeItemOnMap(com.deco2800.game.entities.Entity)" class="member-name-link">removeItemOnMap(Entity)</a> - Static method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/areas/UndergroundGameArea.html#removeItemOnMap(com.deco2800.game.entities.Entity)" class="member-name-link">removeItemOnMap(Entity)</a> - Static method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/UndergroundGameArea.html" title="class in com.deco2800.game.areas">UndergroundGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html#removePotion(int)" class="member-name-link">removePotion(int)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player">InventoryComponent</a></dt>
 <dd>
@@ -4012,8 +4016,6 @@ loadScripts(document, 'script');</script>
 <div class="block">Spawn entity on a given tile.</div>
 </dd>
 <dt><a href="com/deco2800/game/areas/ForestGameArea.html#spawnEntityOnMap(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,java.lang.Boolean,java.lang.Boolean)" class="member-name-link">spawnEntityOnMap(Entity, GridPoint2, Boolean, Boolean)</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/areas/UndergroundGameArea.html#spawnEntityOnMap(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,java.lang.Boolean,java.lang.Boolean)" class="member-name-link">spawnEntityOnMap(Entity, GridPoint2, Boolean, Boolean)</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/UndergroundGameArea.html" title="class in com.deco2800.game.areas">UndergroundGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/areas/ForestGameArea.html#spawnPlayerAOE()" class="member-name-link">spawnPlayerAOE()</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>
@@ -4871,8 +4873,6 @@ the order they are declared.</div>
 <dd>
 <div class="block">Factory to create Weapon entities.</div>
 </dd>
-<dt><a href="com/deco2800/game/entities/factories/WeaponFactory.html#%3Cinit%3E()" class="member-name-link">WeaponFactory()</a> - Constructor for class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/WeaponFactory.html" title="class in com.deco2800.game.entities.factories">WeaponFactory</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/CombatItemsComponents/WeaponStatsComponent.html" class="type-name-link" title="class in com.deco2800.game.components.CombatItemsComponents">WeaponStatsComponent</a> - Class in <a href="com/deco2800/game/components/CombatItemsComponents/package-summary.html">com.deco2800.game.components.CombatItemsComponents</a></dt>
 <dd>
 <div class="block">Component used to store information and methods related to combat such as health, attack, etc.</div>
