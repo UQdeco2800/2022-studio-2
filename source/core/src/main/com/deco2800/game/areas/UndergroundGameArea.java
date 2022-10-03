@@ -8,6 +8,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
@@ -28,7 +29,7 @@ public class UndergroundGameArea extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(UndergroundGameArea.class);
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
-    private Entity megaPoop;
+    private static Entity megaPoop;
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
@@ -150,6 +151,12 @@ public class UndergroundGameArea extends GameArea {
         playMusic();
     }
 
+    /**
+     * Check if Mega Poop is alive on map
+     */
+    public static boolean ifMegaPoopOnMap() {
+        return megaPoop.isDead();
+    }
 
 
     private void displayUI() {
@@ -213,8 +220,12 @@ public class UndergroundGameArea extends GameArea {
         return newPlayer;
     }
 
+    /**
+     * Spawns the crafting table entity on the underground map
+     */
     public void spawnCraftingTable() {
         Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
         spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
     }
 

@@ -53,6 +53,10 @@ public class ObstacleFactory {
     return smallTree;
   }
 
+  /**
+   * Creates the crafting table entity for the forest map
+   * @return crafting table entity
+   */
   public static Entity createCraftingTableForest() {
     Entity craftingTable =
             new Entity()
@@ -68,6 +72,10 @@ public class ObstacleFactory {
     return craftingTable;
   }
 
+  /**
+   * Creates the crafting table entity for the underground map
+   * @return crafting table entity
+   */
   public static Entity createCraftingTableUnderground() {
     Entity craftingTable =
             new Entity()
