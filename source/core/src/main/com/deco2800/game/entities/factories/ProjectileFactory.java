@@ -99,6 +99,14 @@ public class ProjectileFactory {
         return discus;
     }
 
+    /**
+     * Creates a non-colliding wrench projectile shooting in the walk direction of the player
+     * which damages enemies.
+     * @param player the player entity
+     * @param angle the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
+     *              from the walk direction of the player
+     * @return the projectile entity
+     */
     public static Entity createWrenchPlayerProjectile(Entity player, double angle) {
         PhysicsComponent physicsComponent = new PhysicsComponent();
         PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
@@ -134,7 +142,7 @@ public class ProjectileFactory {
 
     /**
      * Creates a non-colliding projectile shooting in the walk direction of the player
-     * which damages enemies.
+     * which damages enemies. Uses animations from images/Skills/projectileSprites.png
      * @param player the player entity
      * @param angle the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
      *              from the walk direction of the player
