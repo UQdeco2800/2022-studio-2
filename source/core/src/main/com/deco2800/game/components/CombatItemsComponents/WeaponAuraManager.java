@@ -2,8 +2,11 @@ package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.InventoryComponent;
+import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 
 //this is tied to the player
 public class WeaponAuraManager extends Component {
@@ -11,6 +14,18 @@ public class WeaponAuraManager extends Component {
     public Entity auraApplied;
     private long auraEndTime;
     WeaponStatsComponent weaponStats;
+
+    private Entity combatAnimator;
+
+    /**
+     * Sets the combat item animator for this actions component
+     * @param combatAnimator the combat animator entity which has subcomponents
+     *                      PlayerSkillAnimationController and AnimationRenderer
+     */
+    public void setCombatAnimator(Entity combatAnimator){
+        this.combatAnimator = combatAnimator;
+    }
+
 
     @Override
     public void update() {
@@ -48,6 +63,16 @@ public class WeaponAuraManager extends Component {
             weaponStats.setCoolDown(weaponStats.getCoolDown() * aura.getComponent(WeaponAuraComponent.class).getCdMultiplier());
             //shows the applied buff in the game
             entity.getComponent(BuffDisplayComponent.class).setBuff(aura.getComponent(TextureRenderComponent.class).getTexturePath());
+
+            //apply static aura animation
+            Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);
+            setCombatAnimator(newCombatAnimator);
+            String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
+            Entity auraEquipped = ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied;
+            String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
+            String animationToApply = description+current_aura+"Static";
+            System.out.println(animationToApply);
+            combatAnimator.getEvents().trigger(animationToApply);
         }
     }
 

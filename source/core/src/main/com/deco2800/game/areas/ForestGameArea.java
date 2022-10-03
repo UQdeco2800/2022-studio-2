@@ -121,7 +121,7 @@ public class ForestGameArea extends GameArea {
     "images/Crafting-assets-sprint1/materials/wood.png",
     "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
     "images/Skills/projectileSprites.png",
-    "images/CombatItems/animations/combatanimation.png",
+    "images/CombatItems/animations/combatItemsAnimation.png",
     "images/CombatItems/Sprint-2/pipe.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
     "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
@@ -138,7 +138,7 @@ public class ForestGameArea extends GameArea {
           "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
           "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
-    "images/CombatItems/animations/combatanimation.atlas", "images/Skills/projectileSprites.atlas",
+    "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
     "images/Enemies/poop.atlas", "images/CombatItems/animations/PlungerBow/plungerBow.atlas"
 

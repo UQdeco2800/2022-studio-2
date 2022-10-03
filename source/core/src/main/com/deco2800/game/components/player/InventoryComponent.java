@@ -49,7 +49,8 @@ public class InventoryComponent extends Component {
         entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
         ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
         String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-        combatAnimator.getEvents().trigger(description);
+        String staticAnimation = description+"Static";
+        combatAnimator.getEvents().trigger(staticAnimation);
     }
 
     /**

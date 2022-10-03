@@ -134,7 +134,7 @@ public class WeaponFactory {
     public static Entity createHeraAthenaDag() {
         Entity heraAthenaDag = createBaseWeapon();
         WeaponConfig config = configs.heraAthenaDag;
-        PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "heraAthenaDag");
+        PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "heraAthena");
 
         heraAthenaDag
                 .addComponent(weaponStats)

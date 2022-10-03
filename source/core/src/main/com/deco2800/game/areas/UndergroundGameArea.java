@@ -105,7 +105,7 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/Sprint-1/AttackDamageDebuff.png",
             "images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png",
             "images/CombatItems/Sprint-1/poisonBuff.png",
-            "images/CombatItems/animations/combatanimation.png",
+            "images/CombatItems/animations/combatItemsAnimation.png",
             "images/CombatItems/Sprint-2/pipe.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
@@ -120,7 +120,7 @@ public class UndergroundGameArea extends GameArea {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
-            "images/CombatItems/animations/combatanimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBow.atlas"
+            "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBow.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};

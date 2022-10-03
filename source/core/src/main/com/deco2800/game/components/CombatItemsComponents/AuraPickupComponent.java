@@ -5,7 +5,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.components.player.InventoryComponent;
+import com.deco2800.game.components.player.PlayerCombatAnimationController;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -17,7 +19,6 @@ public class AuraPickupComponent extends ItemPickupComponent {
     private HitboxComponent hitboxComponent;
     private short targetLayer;
 
-
     /**
      * Creates a component which allows a (weapon) entity to be picked up from the map and put in inventory
      *
@@ -26,7 +27,6 @@ public class AuraPickupComponent extends ItemPickupComponent {
     public AuraPickupComponent(short targetLayer) {
         super(targetLayer);
     }
-
 
     @Override
     public void create() {

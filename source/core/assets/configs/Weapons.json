@@ -7,7 +7,7 @@
   },
 
   "heraDag": {
-    "damage": 15,
+    "damage": 16,
     "coolDown": 700,
     "weight": 1,
     "materials": {"gold": 1, "steel": 1}
@@ -28,14 +28,14 @@
   },
 
   "tridentLvl2": {
-    "damage": 25,
+    "damage": 35,
     "coolDown": 1500,
-    "weight": 10,
+    "weight": 2,
     "materials": {"gold": 1,"silver": 1}
   },
 
   "heraAthenaDag": {
-    "damage": 35,
+    "damage": 40,
     "coolDown": 1000,
     "weight": 3,
     "materials": {"herraDag": 1,"poop": 1}

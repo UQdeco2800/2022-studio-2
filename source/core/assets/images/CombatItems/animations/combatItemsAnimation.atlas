@@ -563,203 +563,203 @@ heraAthena
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1152, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1216, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1280, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1344, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1408, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1472, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1536, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1600, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamage
+heraAthenaDamage
   rotate: false
   xy: 1664, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1728, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1792, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1856, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 1920, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagDamageStatic
+heraAthenaDamageStatic
   rotate: false
   xy: 0, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaFireStatic
   rotate: false
   xy: 64, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaFireStatic
   rotate: false
   xy: 128, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaFireStatic
   rotate: false
   xy: 192, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagFireStatic
+heraAthenaFireStatic
   rotate: false
   xy: 256, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 320, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 384, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 448, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 512, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 576, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagPoisonStatic
+heraAthenaPoisonStatic
   rotate: false
   xy: 640, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 704, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 768, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 832, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagSpeedStatic
+heraAthenaSpeedStatic
   rotate: false
   xy: 896, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-heraAthenaDagStatic
+heraAthenaStatic
   rotate: false
   xy: 960, 192
   size: 64, 64
