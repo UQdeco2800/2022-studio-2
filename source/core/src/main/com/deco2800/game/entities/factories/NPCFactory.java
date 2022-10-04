@@ -64,7 +64,7 @@ public class NPCFactory {
     oneLegGirl.getComponent(AITaskComponent.class);
     oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
     oneLegGirl.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    oneLegGirl.setScale(5, 5);
+    oneLegGirl.setScale(1, 1);
     return oneLegGirl;
   }
 
@@ -92,7 +92,7 @@ public class NPCFactory {
     child.getComponent(AITaskComponent.class);
     child.getComponent(AnimationRenderComponent.class).scaleEntity();
     child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    child.setScale(5, 5);
+    child.setScale(1, 1);
     return child;
   }
 
@@ -119,7 +119,7 @@ public class NPCFactory {
     guard.getComponent(AITaskComponent.class);
     guard.getComponent(AnimationRenderComponent.class).scaleEntity();
     guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    guard.setScale(5, 5);
+    guard.setScale(1, 1);
     return guard;
   }
   public static Entity createHumanGuard (Entity target) {
@@ -139,7 +139,7 @@ public class NPCFactory {
     humanguard.getComponent(AITaskComponent.class);
     humanguard.getComponent(AnimationRenderComponent.class).scaleEntity();
     humanguard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    humanguard.setScale(5, 5);
+    humanguard.setScale(1, 1);
     humanguard.setEntityType(EntityTypes.NPC);
     return humanguard;
   }
@@ -161,7 +161,7 @@ public class NPCFactory {
     plumberfriend.getComponent(AITaskComponent.class);
     plumberfriend.getComponent(AnimationRenderComponent.class).scaleEntity();
     plumberfriend.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    plumberfriend.setScale(5, 5);
+    plumberfriend.setScale(1, 1);
     plumberfriend.setEntityType(EntityTypes.NPC);
     return plumberfriend;
   }
@@ -189,7 +189,7 @@ public class NPCFactory {
     friendlycreature.getComponent(AITaskComponent.class);
     friendlycreature.getComponent(AnimationRenderComponent.class).scaleEntity();
     friendlycreature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    friendlycreature.setScale(5, 5);
+    friendlycreature.setScale(1, 1);
     friendlycreature.setEntityType(EntityTypes.NPC);
     return friendlycreature;
 
@@ -222,7 +222,7 @@ public class NPCFactory {
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    male_citizen.setScale(5, 5);
+    male_citizen.setScale(1, 1);
     return male_citizen;
   }
 
@@ -257,7 +257,8 @@ public class NPCFactory {
     gymBro
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new GymBroAnimationController());
+            .addComponent(new GymBroAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
     gymBro.setScale(2f, 2f);
     gymBro.setEntityType(EntityTypes.ENEMY);
     gymBro.setEntityType(EntityTypes.MELEE);
@@ -304,7 +305,8 @@ public class NPCFactory {
     heracles
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new HeraclesAnimationController());
+            .addComponent(new HeraclesAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
 
     heracles.setEntityType(EntityTypes.ENEMY);
     heracles.setEntityType(EntityTypes.BOSS);
@@ -337,7 +339,8 @@ public class NPCFactory {
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new PoopAnimationController());
+            .addComponent(new PoopAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
     poops.setEntityType(EntityTypes.ENEMY);
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
@@ -353,11 +356,12 @@ public class NPCFactory {
     Entity megaPoop = createBaseNPC();
     MegaPoopConfig config = configs.megaPoop;
     List<EntityTypes> types = megaPoop.getEntityTypes();
-    String projectileType = "discus";
+    String projectileType = "poopSludge";
 
     megaPoop.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new TransportTask(target, 10, 10f));
+            .addTask(new TransportTask(target, 10, 10f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -368,12 +372,17 @@ public class NPCFactory {
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("cast", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     megaPoop
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new MegaPoopAnimationController());
+            .addComponent(new MegaPoopAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
 
     megaPoop.setEntityType(EntityTypes.ENEMY);
     megaPoop.setEntityType(EntityTypes.BOSS);

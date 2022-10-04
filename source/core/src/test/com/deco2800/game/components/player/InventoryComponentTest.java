@@ -1,14 +1,5 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.Game;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
-import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-
-import com.deco2800.game.crafting.Materials;
-
-import com.deco2800.game.components.gamearea.GameAreaDisplay;
-
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
@@ -45,7 +36,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class InventoryComponentTest {
 
-  private static GameArea gameArea;
 
   @BeforeEach
   void beforeEach() {
