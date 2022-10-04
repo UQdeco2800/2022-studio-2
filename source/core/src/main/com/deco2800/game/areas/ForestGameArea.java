@@ -361,9 +361,16 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 10
    */
   private void spawnSpeedBuff() {
-    Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
-    auraOnMap.add(speedbuff);
-    spawnEntityAt(speedbuff, new GridPoint2(7,7), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(48,18));
+    locations.add(new GridPoint2(129,22));
+    locations.add(new GridPoint2(77,86));
+    locations.add(new GridPoint2(63,126));
+    for (GridPoint2 location : locations) {
+      Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+      auraOnMap.add(speedbuff);
+      spawnEntityAt(speedbuff, location, true, false);
+    }
   }
   /**
    *
@@ -374,9 +381,14 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 10
    */
   private void spawnSpeedDebuff() {
-    Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
-    auraOnMap.add(speedDebuff);
-    spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(84, 178));
+    locations.add(new GridPoint2(79, 26));
+    for (GridPoint2 location : locations) {
+      Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
+      auraOnMap.add(speedDebuff);
+      spawnEntityAt(speedDebuff, location, true, false);
+    }
   }
   /**
    * Spawns damage buff entity into the game
@@ -384,9 +396,16 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 15
    */
   private void spawnDmgBuff() {
-    Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
-    auraOnMap.add(dmgBuff);
-    spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(45, 47));
+    locations.add(new GridPoint2(34, 90));
+    locations.add(new GridPoint2(96, 22));
+    locations.add(new GridPoint2(145, 152));
+    for (GridPoint2 location : locations) {
+      Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
+      auraOnMap.add(dmgBuff);
+      spawnEntityAt(dmgBuff, location, true, false);
+    }
   }
 
   /**
@@ -395,9 +414,14 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 15
    */
   private void spawnDmgDebuff() {
-    Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
-    auraOnMap.add(dmgDebuff);
-    spawnEntityAt(dmgDebuff, new GridPoint2(11,15), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(96, 65));
+    locations.add(new GridPoint2(79, 26));
+    for (GridPoint2 location : locations) {
+      Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
+      auraOnMap.add(dmgDebuff);
+      spawnEntityAt(dmgDebuff, location, true, false);
+    }
   }
 
   /**
@@ -406,9 +430,18 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 10
    */
   private void spawnFireBuff() {
-    Entity fireBuff = AuraFactory.createFireBuff();
-    auraOnMap.add(fireBuff);
-    spawnEntityAt(fireBuff, new GridPoint2(20,10), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(9, 129));
+    locations.add(new GridPoint2(100, 100));
+    locations.add(new GridPoint2(178, 123));
+    locations.add(new GridPoint2(174, 176));
+    locations.add(new GridPoint2(96, 2));
+
+    for (GridPoint2 location : locations) {
+      Entity fireBuff = AuraFactory.createFireBuff();
+      auraOnMap.add(fireBuff);
+      spawnEntityAt(fireBuff, location, true, false);
+    }
   }
 
   /**
@@ -417,9 +450,16 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 12
    */
   private void spawnPoisonBuff() {
-    Entity fireBuff = AuraFactory.createPoisonBuff();
-    auraOnMap.add(fireBuff);
-    spawnEntityAt(fireBuff, new GridPoint2(18,14), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(153, 113));
+    locations.add(new GridPoint2(118, 141));
+    locations.add(new GridPoint2(178, 163));
+    locations.add(new GridPoint2(118, 175));
+    for (GridPoint2 location : locations) {
+      Entity fireBuff = AuraFactory.createPoisonBuff();
+      auraOnMap.add(fireBuff);
+      spawnEntityAt(fireBuff, location, true, false);
+    }
   }
 
   /**
