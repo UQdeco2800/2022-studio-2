@@ -403,7 +403,7 @@ public class Entity {
   }
 
   /**
-   * Check if this entity equals another object
+   * Check if this entity equalsOther another object
    * @param obj - the object to compare this entity to
    *
    * @return true if equal, false if not

@@ -85,7 +85,7 @@ public class PlayerFactory {
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setEntityType(EntityTypes.PLAYER);
 
-    //FOR TESTING
+    /*//FOR TESTING
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createSwordLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createDagger());
@@ -94,7 +94,7 @@ public class PlayerFactory {
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createGoldenPlungerBow());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPipe());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());*/
     return player;
   }
 

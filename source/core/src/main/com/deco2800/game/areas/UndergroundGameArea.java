@@ -1,5 +1,6 @@
 package com.deco2800.game.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -8,11 +9,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.entities.factories.NPCFactory;
-import com.deco2800.game.entities.factories.ObstacleFactory;
-import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.entities.factories.ProjectileFactory;
+import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -31,6 +28,8 @@ public class UndergroundGameArea extends GameArea {
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static Entity megaPoop;
+    private static List<Entity> ItemsOnMap = new ArrayList<>();
+    private static List<Entity> auraOnMap = new ArrayList<>();
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
@@ -125,22 +124,32 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
-            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/countdown/1.png",
+            "images/countdown/2.png",
+            "images/countdown/3.png",
+            "images/countdown/4.png",
+            "images/countdown/5.png"
     };
 
     public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
+            "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
-            "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas"
+            "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
+            "images/NPC/friendly_creature npc/friendly_creature.atlas"
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
+//    public static GridPoint2 GuardPosition;
+//    public static GridPoint2 GuardDialoguePosition;
+//    public static GridPoint2 friendlycreaturePosition;
+//    public static GridPoint2 friendlycreatureDialoguePosition;
 
     private Entity player;
 
@@ -154,13 +163,16 @@ public class UndergroundGameArea extends GameArea {
 
     /**
      * Get the player entity from the map.
+     *
      * @return player entity.
      */
     public Entity getPlayer() {
         return player;
     }
 
-    /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
+    /**
+     * Create the game area, including terrain, static entities (trees), dynamic entities (player)
+     */
     @Override
     public void create() {
         loadAssets();
@@ -169,6 +181,8 @@ public class UndergroundGameArea extends GameArea {
         spawnCraftingTable();
         player = spawnPlayer();
         spawnPoops();
+//        spawnGuard();
+//        spawnfriendlycreature();
         megaPoop = spawnMegaPoop();
         playMusic();
     }
@@ -501,19 +515,15 @@ public class UndergroundGameArea extends GameArea {
                 , false);
     }
 
-
-    public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
-        spawnEntityAt(entity, position, centreX, centreY);
-    }
-
     /**
      * Spawns the player entity, with a skill animator overlaid above the player.
+     *
      * @return the player entity
      */
     private Entity spawnPlayer() {
         Entity newPlayer = PlayerFactory.createPlayer();
         Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
-        Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
+        Entity newKeyPromptAnimator = PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
@@ -532,7 +542,7 @@ public class UndergroundGameArea extends GameArea {
     }
 
     /**
-     * Spawn Heracles in a random position.
+     * Spawn Mega Poop in a random position.
      */
     private Entity spawnMegaPoop() {
         GridPoint2 position = new GridPoint2(35, 98);
@@ -551,12 +561,48 @@ public class UndergroundGameArea extends GameArea {
         positions.add(new GridPoint2(20, 80));
         positions.add(new GridPoint2(65, 47));
         positions.add(new GridPoint2(85, 54));
-        for (GridPoint2 position: positions) {
+        for (GridPoint2 position : positions) {
             Entity poops = NPCFactory.createPoops(player);
             areaEntities.add(poops);
             spawnEntityAt(poops, position, true, true);
         }
     }
+
+    /**
+     * Spawn guard NPC in random position. - Team 7 all-mid-npc
+     */
+//    private void spawnGuard() {
+//        GuardPosition = new GridPoint2(10, 8);
+//        GuardDialoguePosition = new GridPoint2(10, 9);
+//
+//        Entity guard = NPCFactory.createGuard(player);
+//        spawnEntityAt(guard, GuardPosition, true, true);
+//        areaEntities.add(guard);
+//
+//        Entity dialogue = DialogueFactory.createDialogue();
+//        spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
+//        areaEntities.add(dialogue);
+//    }
+//    public static GridPoint2 getGuardPosition() {
+//        return GuardPosition;
+//    }
+
+    /**
+     * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
+     */
+
+//    private void spawnfriendlycreature() {
+//        friendlycreaturePosition = new GridPoint2(5, 10);
+//        friendlycreatureDialoguePosition = new GridPoint2(5, 11);
+//
+//        Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+//        spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+//        areaEntities.add(friendlycreature);
+//
+//        Entity dialogue = DialogueFactory.createDialogue();
+//        spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+//        areaEntities.add(dialogue);
+//    }
 
 
     private GridPoint2 randomPositon() {
@@ -589,7 +635,7 @@ public class UndergroundGameArea extends GameArea {
     /**
      * Spawns a projectile at the player entity's coordinates.
      */
-    public void spawnWeaponProjectile() { //TEAM 04 WIP
+    public void spawnWeaponProjectile() { //TEAM 04
         Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
         spawnEntityAt(newProjectile,
                 new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
@@ -614,10 +660,26 @@ public class UndergroundGameArea extends GameArea {
 
     /**
      * toString returning a string of the classes name
+     *
      * @return (String) class name
      */
     @Override
     public String toString() {
         return "UndergroundGameArea";
+    }
+
+    public static void removeAuraOnMap(Entity entityToRemove) {
+
+        entityToRemove.setEnabled(false);
+        auraOnMap.remove(entityToRemove);
+
+        Gdx.app.postRunnable(() -> entityToRemove.dispose());
+    }
+
+    public static void removeItemOnMap(Entity entityToRemove) {
+
+        entityToRemove.setEnabled(false);
+        ItemsOnMap.remove(entityToRemove);
+        Gdx.app.postRunnable(() -> entityToRemove.dispose());
     }
 }
