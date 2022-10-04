@@ -63,7 +63,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     @Override
     public void start() {
         super.start();
-        owner.getEntity().getComponent(ColliderComponent.class).setLayer(PhysicsLayer.NPC);
+        owner.getEntity().getComponent(ColliderComponent.class).setLayer(PhysicsLayer.NONE);
         owner.getEntity().getComponent(HitboxComponent.class).setSensor(false);
         owner.getEntity().getComponent(HitboxComponent.class).setLayer(PhysicsLayer.NONE);
         targetPos = target.getPosition();
@@ -80,8 +80,9 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     @Override
     public void update() {
+        animate();
         if (isAtTarget()) {
-            if (getDistanceToTarget() <= 2f) {
+            if (getDistanceToTarget() <= 1f) {
                 PlayerActions playerActions = target.getComponent(PlayerActions.class);
                 if (playerActions != null && !(playerActions.getSkillComponent().skillDamageTrigger())) {
                     target.getComponent(CombatStatsComponent.class)
@@ -111,7 +112,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     @Override
     public void stop() {
-        owner.getEntity().getComponent(HitboxComponent.class).setSensor(true);
+        owner.getEntity().getComponent(ColliderComponent.class).setLayer(PhysicsLayer.NPC);
         owner.getEntity().getComponent(HitboxComponent.class).setLayer(PhysicsLayer.NPC);
         super.stop();
         movementTask.stop();
@@ -124,7 +125,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         if (didMove()) {
             lastTimeMoved = gameTime.getTime();
             lastPos = owner.getEntity().getPosition();
-        } else if (gameTime.getTimeSince(lastTimeMoved) > 35L) {
+        } else if (gameTime.getTimeSince(lastTimeMoved) > 50L) {
             stop();
             lastJumpTime = gameTime.getTime();
             status = Status.FINISHED;
@@ -151,15 +152,15 @@ public class JumpTask extends DefaultTask implements PriorityTask {
 
         if (Math.abs(y) > Math.abs(x)) {
             if (y >= 0) {
-                this.owner.getEntity().getEvents().trigger("walkFront");
+                this.owner.getEntity().getEvents().trigger("jumpFront");
             } else {
-                this.owner.getEntity().getEvents().trigger("walkBack");
+                this.owner.getEntity().getEvents().trigger("jumpBack");
             }
         } else {
             if (x >= 0) {
-                this.owner.getEntity().getEvents().trigger("walkLeft");
+                this.owner.getEntity().getEvents().trigger("jumpLeft");
             } else {
-                this.owner.getEntity().getEvents().trigger("walkRight");
+                this.owner.getEntity().getEvents().trigger("jumpRight");
             }
         }
     }
@@ -173,10 +174,10 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     }
 
     /**
-     * Check if entity at target
+     * Check if entity is at target.
      * @return true if entity is at target, else false.
      */
-    private boolean isAtTarget() {return owner.getEntity().getPosition().dst(targetPos) <= 0.1f;}
+    private boolean isAtTarget() {return owner.getEntity().getPosition().dst(targetPos) <= 2f;}
 
     /**
      * Get the priority of this task.
@@ -196,7 +197,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     private int getActivePriority() {
         float dst = getDistanceToTarget();
-        if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 1500L)
+        if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 3000L)
                 || !isTargetVisible()) {
             return -1;
         }
@@ -209,7 +210,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     private int getInactivePriority() {
         float dst = getDistanceToTarget();
-        if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 1500L)
+        if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 3000L)
             && isTargetVisible()) {
             return priority;
         }

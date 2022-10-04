@@ -53,11 +53,34 @@ public class ObstacleFactory {
     return smallTree;
   }
 
-  public static Entity createCraftingTable() {
+  /**
+   * Creates the crafting table entity for the forest map
+   * @return crafting table entity
+   */
+  public static Entity createCraftingTableForest() {
     Entity craftingTable =
             new Entity()
                     .addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1" +
                             "/crafting table/craftingTable.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    craftingTable.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    craftingTable.getComponent(TextureRenderComponent.class).scaleEntity();
+    craftingTable.scaleHeight(1.5f);
+    PhysicsUtils.setScaledCollider(craftingTable, 0.8f, 0.7f);
+    return craftingTable;
+  }
+
+  /**
+   * Creates the crafting table entity for the underground map
+   * @return crafting table entity
+   */
+  public static Entity createCraftingTableUnderground() {
+    Entity craftingTable =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/Crafting-assets-sprint1/" +
+                            "crafting table/craftingTable2.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 

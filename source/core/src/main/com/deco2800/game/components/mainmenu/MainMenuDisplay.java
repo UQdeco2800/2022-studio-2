@@ -1,5 +1,6 @@
 package com.deco2800.game.components.mainmenu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -30,11 +31,15 @@ public class MainMenuDisplay extends UIComponent {
   private void addActors() {
     table = new Table();
     table.setFillParent(true);
+//    table.setHeight(400);
+//    table.setWidth(400);
     Image title =
         new Image(
             ServiceLocator.getResourceService()
                 .getAsset("images/Crafting-assets-sprint1/screens/atlantis sinks main menu.png", Texture.class));
-    title.setScale(4f);
+//    title.setScale(4f);
+    title.setWidth(Gdx.graphics.getWidth());
+    title.setHeight(Gdx.graphics.getHeight());
     title.setPosition(0, 0);
 
 
@@ -85,7 +90,7 @@ public class MainMenuDisplay extends UIComponent {
    // table.add(title);
     table.row();
     table.add(startBtn).padTop(650f);
-
+    table.add(exitBtn).padTop(650f);
     table.add(settingsBtn).padTop(650f);
 
 

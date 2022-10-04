@@ -6,23 +6,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.DialogueAnimationController;
 import com.deco2800.game.components.npc.GymBroAnimationController;
-
-import com.deco2800.game.components.npc.MaleAnimationController;
-
 import com.deco2800.game.components.npc.NPCAnimationController;
-
-
-
 import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
-
-import com.deco2800.game.components.tasks.ChaseTask;
-import com.deco2800.game.components.tasks.JumpTask;
-import com.deco2800.game.components.tasks.ProjectileTask;
-import com.deco2800.game.components.tasks.WanderTask;
+import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.*;
+import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.*;
 import com.deco2800.game.files.FileLoader;
@@ -36,9 +26,6 @@ import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import java.util.*;
-
-import static com.deco2800.game.entities.factories.ProjectileFactory.createPoopsSludge;
-
 
 
 /**
@@ -77,7 +64,7 @@ public class NPCFactory {
     oneLegGirl.getComponent(AITaskComponent.class);
     oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
     oneLegGirl.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    oneLegGirl.setScale(1, 1);
+    oneLegGirl.setScale(5, 5);
     return oneLegGirl;
   }
 
@@ -105,7 +92,7 @@ public class NPCFactory {
     child.getComponent(AITaskComponent.class);
     child.getComponent(AnimationRenderComponent.class).scaleEntity();
     child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    child.setScale(1, 1);
+    child.setScale(5, 5);
     return child;
   }
 
@@ -132,7 +119,7 @@ public class NPCFactory {
     guard.getComponent(AITaskComponent.class);
     guard.getComponent(AnimationRenderComponent.class).scaleEntity();
     guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    guard.setScale(1, 1);
+    guard.setScale(5, 5);
     return guard;
   }
   public static Entity createHumanGuard (Entity target) {
@@ -152,7 +139,8 @@ public class NPCFactory {
     humanguard.getComponent(AITaskComponent.class);
     humanguard.getComponent(AnimationRenderComponent.class).scaleEntity();
     humanguard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    humanguard.setScale(1, 1);
+    humanguard.setScale(5, 5);
+    humanguard.setEntityType(EntityTypes.NPC);
     return humanguard;
   }
 
@@ -173,7 +161,8 @@ public class NPCFactory {
     plumberfriend.getComponent(AITaskComponent.class);
     plumberfriend.getComponent(AnimationRenderComponent.class).scaleEntity();
     plumberfriend.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    plumberfriend.setScale(1, 1);
+    plumberfriend.setScale(5, 5);
+    plumberfriend.setEntityType(EntityTypes.NPC);
     return plumberfriend;
   }
 
@@ -190,8 +179,7 @@ public class NPCFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/NPC/friendly_creature npc/friendly_creature.atlas", TextureAtlas.class));
-    animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
-
+            animator.addAnimation("creatureShake", 0.1f, Animation.PlayMode.LOOP);
 
     friendlycreature
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
@@ -201,7 +189,8 @@ public class NPCFactory {
     friendlycreature.getComponent(AITaskComponent.class);
     friendlycreature.getComponent(AnimationRenderComponent.class).scaleEntity();
     friendlycreature.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    friendlycreature.setScale(1, 1);
+    friendlycreature.setScale(5, 5);
+    friendlycreature.setEntityType(EntityTypes.NPC);
     return friendlycreature;
 
   }
@@ -224,8 +213,6 @@ public class NPCFactory {
 
     male_citizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
-
-            .addComponent(new MaleAnimationController())
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
     ;
@@ -235,7 +222,7 @@ public class NPCFactory {
     male_citizen.getComponent(AITaskComponent.class);
     male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
     male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    male_citizen.setScale(1, 1);
+    male_citizen.setScale(5, 5);
     return male_citizen;
   }
 
@@ -247,7 +234,7 @@ public class NPCFactory {
    */
   public static Entity createGymBro(Entity target) {
     Entity gymBro = createBaseNPC();
-    GymBroConfig config = configs.gymBro;
+    GymBroConfig config = new NPCConfigs().gymBro;
 
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
@@ -286,7 +273,7 @@ public class NPCFactory {
    */
   public static Entity createHeracles(Entity target)  {
     Entity heracles = createBaseNPC();
-    HeraclesConfig config = configs.heracles;
+    HeraclesConfig config = new NPCConfigs().heracles;
     List<EntityTypes> types = heracles.getEntityTypes();
     String projectileType = "discus";
 
@@ -294,7 +281,7 @@ public class NPCFactory {
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            .addTask(new JumpTask(target, 11, 8f,180, 1.5f));
+            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -308,6 +295,10 @@ public class NPCFactory {
     animator.addAnimation("discus_attack_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("discus_attack_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("discus_attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("jump_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     heracles
@@ -328,9 +319,8 @@ public class NPCFactory {
    */
   public static Entity createPoops(Entity target)  {
     Entity poops = createBaseNPC();
-    PoopsConfig config = configs.poops;
+    PoopsConfig config = new NPCConfigs().poops;
     String projectileType = "poopSludge";
-    //List<EntityTypes> types = poops.getEntityTypes();
     poops.getComponent(AITaskComponent.class)
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
@@ -352,6 +342,43 @@ public class NPCFactory {
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
     return poops;
+  }
+
+  /**
+   * Creates Mega Poop, the boss of the second level.
+   *
+   * @return entity
+   */
+  public static Entity createMegaPoop(Entity target)  {
+    Entity megaPoop = createBaseNPC();
+    MegaPoopConfig config = configs.megaPoop;
+    List<EntityTypes> types = megaPoop.getEntityTypes();
+    String projectileType = "discus";
+
+    megaPoop.getComponent(AITaskComponent.class)
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new TransportTask(target, 10, 10f));
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/Enemies/mega_poop.atlas", TextureAtlas.class));
+    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cast", 0.2f, Animation.PlayMode.LOOP);
+
+
+    megaPoop
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(animator)
+            .addComponent(new MegaPoopAnimationController());
+
+    megaPoop.setEntityType(EntityTypes.ENEMY);
+    megaPoop.setEntityType(EntityTypes.BOSS);
+    megaPoop.setScale(3f, 3f);
+    return megaPoop;
   }
 
   /**
