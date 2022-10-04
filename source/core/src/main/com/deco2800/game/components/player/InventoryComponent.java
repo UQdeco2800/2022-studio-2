@@ -2,11 +2,12 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
@@ -46,8 +47,9 @@ public class InventoryComponent extends Component {
         setCombatAnimator(newCombatAnimator);
         entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
         ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
-        String description = weapon.getComponent(PhyiscalWeaponStatsComponent.class).getDescription();
-        combatAnimator.getEvents().trigger(description);
+        String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
+        String staticAnimation = description+"Static";
+        combatAnimator.getEvents().trigger(staticAnimation);
     }
 
     /**
@@ -61,6 +63,7 @@ public class InventoryComponent extends Component {
     //CANCEL_ANIMATION
     private void cancelAnimation() {
         combatAnimator.dispose();
+        combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
 //        ServiceLocator.getEntityService().unregister(combatAnimator);
     }
 
@@ -271,9 +274,9 @@ public class InventoryComponent extends Component {
      * @param equip  boolean to determine equip or unequip item
      */
     private void applyWeaponEffect(Entity weapon, boolean equip) {
-        PhyiscalWeaponStatsComponent weaponStats;
+        PhysicalWeaponStatsComponent weaponStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
-        if ((weaponStats = weapon.getComponent(PhyiscalWeaponStatsComponent.class)) != null) {
+        if ((weaponStats = weapon.getComponent(PhysicalWeaponStatsComponent.class)) != null) {
             if (equip) {
                 //Equip weapon
                 pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-weaponStats.getWeight() / 15), true, 0);
@@ -338,6 +341,7 @@ public class InventoryComponent extends Component {
         if (equipables[itemSlot] != null) {
             equipables[itemSlot] = null;
             removed = true;
+            cancelAnimation();
         }
         return removed;
     }
@@ -473,8 +477,8 @@ public class InventoryComponent extends Component {
                     .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)
         && other.checkEntityType(EntityTypes.WEAPON)) {
-            equals = item.getComponent(PhyiscalWeaponStatsComponent.class)
-                    .equals(other.getComponent(PhyiscalWeaponStatsComponent.class));
+            equals = item.getComponent(PhysicalWeaponStatsComponent.class)
+                    .equalsOther(other.getComponent(PhysicalWeaponStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
         && other.checkEntityType(EntityTypes.CRAFTABLE)){
             for (EntityTypes type: other.getEntityTypes()) {

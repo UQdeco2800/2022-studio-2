@@ -144,7 +144,7 @@ class PlayerSkillComponentTest {
         skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.TELEPORT, player, player.getComponent(PlayerActions.class));
         assertEquals(1, player.getEvents().getNumberOfListeners("skill"));
         skillManager.setSkill(3, PlayerSkillComponent.SkillTypes.DODGE, player, player.getComponent(PlayerActions.class));
-        assertEquals(2, player.getEvents().getNumberOfListeners("skill"));
+        assertEquals(1, player.getEvents().getNumberOfListeners("skill3"));
         skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.TELEPORT, player, player.getComponent(PlayerActions.class));
         assertEquals(1, player.getEvents().getNumberOfListeners("skill2"));
 
@@ -360,6 +360,40 @@ class PlayerSkillComponentTest {
         customWait(5001);
         skillManager.update();
         assertFalse(skillManager.isRooted());
+    }
+
+    @Test
+    void testStartCharge() {
+        Vector2 vec = new Vector2(1f, 1f);
+        assertFalse(skillManager.isCharging());
+        skillManager.startCharge(vec);
+        assertTrue(skillManager.isCharging());
+        customWait(301);
+        skillManager.update();
+        assertFalse(skillManager.isCharging());
+    }
+
+    @Test
+    void testChargeHit() {
+        Vector2 vec = new Vector2(1f, 1f);
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        Entity enemy =
+                new Entity()
+                        .addComponent(new CombatStatsComponent(60, 1, 1, 1))
+                        .addComponent(new PhysicsComponent());
+
+        enemy.create();
+
+        skillManager.chargeHit(enemy);
+        skillManager.startCharge(vec);
+        skillManager.chargeHit(enemy);
+        assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        skillManager.chargeHit(enemy);
+        assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
+        skillManager.startCharge(vec);
+        skillManager.chargeHit(enemy);
+        assertEquals(0, enemy.getComponent(CombatStatsComponent.class).getHealth());
     }
 
     @Test

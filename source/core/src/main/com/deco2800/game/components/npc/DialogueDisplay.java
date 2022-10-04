@@ -1,10 +1,15 @@
 package com.deco2800.game.components.npc;
 
 import com.badlogic.gdx.Gdx;
+
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+
 import com.badlogic.gdx.audio.AudioDevice;
 import com.badlogic.gdx.audio.AudioRecorder;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -246,6 +251,7 @@ public class DialogueDisplay extends UIComponent {
             if (countGuard == textGuard.length - 1) {
                 countGuard = 0;
                 dialogueContainerGuard.remove();
+
             } else if (countGuard == 1) {
                 logger.info("Guard1 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 1.wav"));
@@ -265,6 +271,7 @@ public class DialogueDisplay extends UIComponent {
             } else if (countGuard == 5) {
                 logger.info("Guard5 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 5.wav"));
+
                 music.play();
             }
         } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
@@ -361,6 +368,11 @@ public class DialogueDisplay extends UIComponent {
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_2.wav"));
                 music.play();
             } else if (countHumanGuard == 3) {
+
+                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                inventoryComponent.addItem(MaterialFactory.createRubber());
+                inventoryComponent.addItem(MaterialFactory.createPlastic());
+
                 logger.info("HumanGuard3 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_3.wav"));
                 music.play();
@@ -383,6 +395,9 @@ public class DialogueDisplay extends UIComponent {
             if (countFriendlyCreature == textFriendlyCreature.length - 1) {
                 countFriendlyCreature = 0;
                 dialogueContainerFriendlyCreature.remove();
+            } else if (countFriendlyCreature == 1) {
+                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             }
 
         } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
@@ -428,6 +443,8 @@ public class DialogueDisplay extends UIComponent {
                 music.play();
             } else if (countPlumberFriend == 9) {
                 logger.info("PlumberFriend9 sound displayed");
+                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                inventoryComponent.addItem(MaterialFactory.createPoop());
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 9.wav"));
                 music.play();
             }
