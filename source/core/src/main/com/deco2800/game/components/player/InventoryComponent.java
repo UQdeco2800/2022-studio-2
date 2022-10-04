@@ -292,7 +292,7 @@ public class InventoryComponent extends Component {
      * @param armour the armour that is equipped
      * @param equip  boolean to determine equip or unequip item
      */
-    private void applyArmourEffect(Entity armour, boolean equip) {
+    public void applyArmourEffect(Entity armour, boolean equip) {
         ArmourStatsComponent armourStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
         //Applying the weight of the armour to player

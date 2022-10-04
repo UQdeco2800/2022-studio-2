@@ -2,6 +2,7 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
+import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
@@ -27,6 +28,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -161,7 +163,18 @@ class InventoryComponentTest {
 
   @Test
   void applyArmourEffect() {
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    Entity[] expectedList = new Entity[2];
+    //ArmourFactory armour = new ArmourFactory();
+    Entity testArmour = ArmourFactory.createBaseArmour();
 
+    inventory.applyArmourEffect(testArmour, true);
+    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+
+    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, true,0));
+    inventory.applyArmourEffect(testArmour, false);
+    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false, 0));
   }
 
   @Test

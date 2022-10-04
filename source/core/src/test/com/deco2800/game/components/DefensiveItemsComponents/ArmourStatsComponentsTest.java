@@ -38,4 +38,37 @@ public class ArmourStatsComponentsTest {
         armourStats.setWeight(10);
         assertEquals(10, armourStats.getWeight());
     }
+
+    @Test
+    void shouldSetGetPhysResistance() {
+        assertEquals(10, armourStats.getPhyResistance());
+
+        armourStats.setPhyResistance(20);
+        assertEquals(20, armourStats.getPhyResistance());
+    }
+
+    @Test
+    void shouldSetGetVitality(){
+        assertEquals(10, armourStats.getVitality());
+
+        armourStats.setVitality(20);
+        assertEquals(20, armourStats.getVitality());
+    }
+
+    @Test
+    void shouldSetGetDurability() {
+        assertEquals(1, armourStats.getDurability());
+
+        armourStats.setDurability(2);
+        assertEquals(2, armourStats.getDurability());
+    }
+
+    @Test
+    void shouldSetGetDmgReturn() {
+        assertEquals(10, armourStats.getDmgReturn());
+
+        armourStats.setDmgReturn(20);
+        assertEquals(20, armourStats.getDmgReturn());
+    }
+
 }
