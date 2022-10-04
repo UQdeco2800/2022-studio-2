@@ -356,11 +356,12 @@ public class NPCFactory {
     Entity megaPoop = createBaseNPC();
     MegaPoopConfig config = configs.megaPoop;
     List<EntityTypes> types = megaPoop.getEntityTypes();
-    String projectileType = "discus";
+    String projectileType = "poopSludge";
 
     megaPoop.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new TransportTask(target, 10, 10f));
+            .addTask(new TransportTask(target, 10, 10f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -371,6 +372,10 @@ public class NPCFactory {
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("cast", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     megaPoop

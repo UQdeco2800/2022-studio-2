@@ -173,14 +173,18 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         if (Math.abs(y) > Math.abs(x)) {
             if (y >= 0) {
                 this.owner.getEntity().getEvents().trigger("discusAttackFront");
+                this.owner.getEntity().getEvents().trigger("projectileAttackFront");
             } else {
                 this.owner.getEntity().getEvents().trigger("discusAttackBack");
+                this.owner.getEntity().getEvents().trigger("projectileAttackBack");
             }
         } else {
             if (x >= 0) {
                 this.owner.getEntity().getEvents().trigger("discusAttackLeft");
+                this.owner.getEntity().getEvents().trigger("projectileAttackLeft");
             } else {
                 this.owner.getEntity().getEvents().trigger("discusAttackRight");
+                this.owner.getEntity().getEvents().trigger("projectileAttackRight");
             }
         }
     }

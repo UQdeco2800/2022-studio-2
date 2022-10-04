@@ -124,7 +124,12 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
-            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/countdown/1.png",
+            "images/countdown/2.png",
+            "images/countdown/3.png",
+            "images/countdown/4.png",
+            "images/countdown/5.png"
     };
 
     public static String[] newTextures;
@@ -133,13 +138,18 @@ public class UndergroundGameArea extends GameArea {
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
-            "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas"
+            "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
+            "images/NPC/friendly_creature npc/friendly_creature.atlas"
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
+//    public static GridPoint2 GuardPosition;
+//    public static GridPoint2 GuardDialoguePosition;
+//    public static GridPoint2 friendlycreaturePosition;
+//    public static GridPoint2 friendlycreatureDialoguePosition;
 
     private Entity player;
 
@@ -171,6 +181,8 @@ public class UndergroundGameArea extends GameArea {
         spawnCraftingTable();
         player = spawnPlayer();
         spawnPoops();
+//        spawnGuard();
+//        spawnfriendlycreature();
         megaPoop = spawnMegaPoop();
         playMusic();
 
@@ -642,7 +654,7 @@ public class UndergroundGameArea extends GameArea {
     }
 
     /**
-     * Spawn Heracles in a random position.
+     * Spawn Mega Poop in a random position.
      */
     private Entity spawnMegaPoop() {
         GridPoint2 position = new GridPoint2(35, 98);
@@ -667,6 +679,42 @@ public class UndergroundGameArea extends GameArea {
             spawnEntityAt(poops, position, true, true);
         }
     }
+
+    /**
+     * Spawn guard NPC in random position. - Team 7 all-mid-npc
+     */
+//    private void spawnGuard() {
+//        GuardPosition = new GridPoint2(10, 8);
+//        GuardDialoguePosition = new GridPoint2(10, 9);
+//
+//        Entity guard = NPCFactory.createGuard(player);
+//        spawnEntityAt(guard, GuardPosition, true, true);
+//        areaEntities.add(guard);
+//
+//        Entity dialogue = DialogueFactory.createDialogue();
+//        spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
+//        areaEntities.add(dialogue);
+//    }
+//    public static GridPoint2 getGuardPosition() {
+//        return GuardPosition;
+//    }
+
+    /**
+     * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
+     */
+
+//    private void spawnfriendlycreature() {
+//        friendlycreaturePosition = new GridPoint2(5, 10);
+//        friendlycreatureDialoguePosition = new GridPoint2(5, 11);
+//
+//        Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+//        spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+//        areaEntities.add(friendlycreature);
+//
+//        Entity dialogue = DialogueFactory.createDialogue();
+//        spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+//        areaEntities.add(dialogue);
+//    }
 
 
     private GridPoint2 randomPositon() {

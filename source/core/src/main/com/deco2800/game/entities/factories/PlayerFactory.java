@@ -127,7 +127,10 @@ public class PlayerFactory {
     animator.addAnimation("dodge", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("vendemaire", 0.1f, Animation.PlayMode.NORMAL);
     animator.addAnimation("dash", 0.1f, Animation.PlayMode.NORMAL);
-    animator.addAnimation("attackSpeed", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("attackSpeed", 0.05f, Animation.PlayMode.LOOP);
+    animator.addAnimation("invulnerability", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("fireballUltimate", 0.1f, Animation.PlayMode.NORMAL);
+    animator.addAnimation("aoe", 0.05f, Animation.PlayMode.LOOP);
 
     Entity skillAnimator =
             new Entity().addComponent(animator)

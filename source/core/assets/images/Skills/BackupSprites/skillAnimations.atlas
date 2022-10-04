@@ -1,453 +1,439 @@
-mega_poop_sprite_sheet.png
-size: 192, 192
+skillAnimations.png
+size: 256, 864
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-walk_front
+default
+  rotate: false
+  xy: 192, 352
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dash
   rotate: false
   xy: 0, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-walk_front
+  index: -1
+dash
   rotate: false
   xy: 64, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-walk_front
+  index: -1
+dash
   rotate: false
   xy: 128, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-walk_front
+  index: -1
+dash
   rotate: false
   xy: 192, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-walk_back
-  rotate: false
-  xy: 256, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 0
-walk_back
-  rotate: false
-  xy: 320, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 1
-walk_back
-  rotate: false
-  xy: 384, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 2
-walk_back
-  rotate: false
-  xy: 448, 0
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 3
-walk_left
+  index: -1
+dodge
   rotate: false
   xy: 0, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-walk_left
+  index: -1
+dodge
   rotate: false
   xy: 64, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-walk_right
+  index: -1
+dodge
   rotate: false
   xy: 128, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-walk_right
+  index: -1
+dodge
   rotate: false
   xy: 192, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-cast
-  rotate: false
-  xy: 256, 64
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 0
-cast
-  rotate: false
-  xy: 320, 64
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 1
-cast
-  rotate: false
-  xy: 384, 64
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 2
-cast
-  rotate: false
-  xy: 448, 64
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 3
-cast
+  index: -1
+attackSpeed
   rotate: false
   xy: 0, 128
-  size: 64, 64
-  orig: 64, 64
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
-  index: 4
-cast
+  index: 1
+attackSpeed
+  rotate: false
+  xy: 32, 128
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+attackSpeed
   rotate: false
   xy: 64, 128
-  size: 64, 64
-  orig: 64, 64
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
-  index: 5
-cast
+  index: 3
+attackSpeed
+  rotate: false
+  xy: 96, 128
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+attackSpeed
   rotate: false
   xy: 128, 128
-  size: 64, 64
-  orig: 64, 64
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+attackSpeed
+  rotate: false
+  xy: 160, 128
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 6
-cast
+attackSpeed
   rotate: false
   xy: 192, 128
-  size: 64, 64
-  orig: 64, 64
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 7
-cast
+attackSpeed
   rotate: false
-  xy: 256, 128
-  size: 64, 64
-  orig: 64, 64
+  xy: 224, 128
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 8
-cast
+attackSpeed
   rotate: false
-  xy: 320, 128
-  size: 64, 64
-  orig: 64, 64
+  xy: 0, 160
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 9
-cast
+attackSpeed
   rotate: false
-  xy: 384, 128
-  size: 64, 64
-  orig: 64, 64
+  xy: 32, 160
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: 10
-projectile_attack_front
+attackSpeed
   rotate: false
-  xy: 0, 192
+  xy: 64, 160
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 11
+attackSpeed
+  rotate: false
+  xy: 96, 160
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 12
+attackSpeed
+  rotate: false
+  xy: 128, 160
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 13
+attackSpeed
+  rotate: false
+  xy: 160, 160
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 14
+block
+  rotate: false
+  xy: 192, 160
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-projectile_attack_front
+  index: -1
+block
   rotate: false
-  xy: 64, 192
+  xy: 0, 224
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-projectile_attack_front
+  index: -1
+block
   rotate: false
-  xy: 128, 192
+  xy: 64, 224
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-projectile_attack_front
+  index: -1
+block
   rotate: false
-  xy: 192, 192
+  xy: 128, 224
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-projectile_attack_front
+  index: -1
+teleport
   rotate: false
-  xy: 256, 192
+  xy: 192, 224
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 4
-projectile_attack_front
+  index: -1
+teleport
   rotate: false
-  xy: 320, 192
+  xy: 0, 288
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 5
-projectile_attack_front
+  index: -1
+teleport
   rotate: false
-  xy: 384, 192
+  xy: 64, 288
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 6
-projectile_attack_front
+  index: -1
+teleport
   rotate: false
-  xy: 448, 192
+  xy: 128, 288
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 7
-projectile_attack_front
+  index: -1
+teleport
   rotate: false
-  xy: 0, 256
+  xy: 192, 288
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 8
-projectile_attack_front
+  index: -1
+teleport
   rotate: false
-  xy: 64, 256
+  xy: 0, 352
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 9
-projectile_attack_front
+  index: -1
+teleport
   rotate: false
-  xy: 128, 256
+  xy: 64, 352
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 10
-projectile_attack_back
+  index: -1
+teleport
   rotate: false
-  xy: 192, 256
+  xy: 128, 352
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-projectile_attack_back
+  index: -1
+no_animation
   rotate: false
-  xy: 256, 256
+  xy: 192, 352
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 320, 256
+  xy: 0, 416
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 384, 256
+  xy: 64, 416
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 448, 256
+  xy: 128, 416
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 4
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 0, 320
+  xy: 192, 416
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 5
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 64, 320
+  xy: 0, 480
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 6
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 128, 320
+  xy: 64, 480
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 7
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 192, 320
+  xy: 128, 480
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 8
-projectile_attack_back
+  index: -1
+vendemaire
   rotate: false
-  xy: 256, 320
+  xy: 192, 480
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 9
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 320, 320
+  xy: 0, 544
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 384, 320
+  xy: 64, 544
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 448, 320
+  xy: 128, 544
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 0, 384
+  xy: 192, 544
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 64, 384
+  xy: 0, 608
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 4
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 128, 384
+  xy: 64, 608
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 5
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 192, 384
+  xy: 128, 608
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 6
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 256, 384
+  xy: 192, 608
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 7
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 320, 384
+  xy: 0, 672
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 8
-projectile_attack_left
+  index: -1
+vendemaire
   rotate: false
-  xy: 384, 384
+  xy: 64, 672
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 9
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 448, 384
+  xy: 128, 672
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 0, 448
+  xy: 192, 672
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 64, 448
+  xy: 0, 736
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 128, 448
+  xy: 64, 736
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 192, 448
+  xy: 128, 736
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 4
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 256, 448
+  xy: 192, 736
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 5
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 320, 448
+  xy: 0, 800
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 6
-projectile_attack_right
+  index: -1
+vendemaire
   rotate: false
-  xy: 384, 448
+  xy: 64, 800
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 7
-projectile_attack_right
-  rotate: false
-  xy: 448, 448
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 8
-projectile_attack_right
-  rotate: false
-  xy: 0, 512
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: 9
+  index: -1
