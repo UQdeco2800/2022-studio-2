@@ -818,7 +818,7 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawn gym bros in random positions.
+   * Spawn gym bros in positions.
    */
   private void spawnGymBro() {
     ArrayList<GridPoint2> positions = new ArrayList<>();
@@ -836,7 +836,7 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawn Heracles in a random position.
+   * Spawn Heracles in a position.
    */
   private Entity spawnHeracles() {
     GridPoint2 position = new GridPoint2(153, 113);
