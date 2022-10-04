@@ -75,7 +75,7 @@ public class QuickBarDisplay extends UIComponent {
                 texCheck = potionTex;
             }
             potionTable.add(healthPotion).size(64, 64);
-            healthPotion.setPosition(580, 60);
+            healthPotion.setPosition(726, 60);
 
             stage.addActor(potionTable);
         } else {
