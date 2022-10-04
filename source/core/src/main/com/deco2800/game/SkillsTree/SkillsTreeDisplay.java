@@ -131,7 +131,7 @@ public class SkillsTreeDisplay extends UIComponent {
         addSkillToTree(5, "root", PlayerSkillComponent.SkillTypes.ROOT, row1Lock);
         // Row 2
         addSkillToTree(6, "block", PlayerSkillComponent.SkillTypes.BLOCK, row2Lock);
-        addSkillToTree(7, "invulnerability", PlayerSkillComponent.SkillTypes.NONE, row2Lock);
+        addSkillToTree(7, "invulnerability", PlayerSkillComponent.SkillTypes.INVULNERABILITY, row2Lock);
         // Row 3
         addSkillToTree(8, "wrenchProjectile", PlayerSkillComponent.SkillTypes.PROJECTILE, row3Lock);
         addSkillToTree(9, "charge", PlayerSkillComponent.SkillTypes.CHARGE, row3Lock);
@@ -256,6 +256,7 @@ public class SkillsTreeDisplay extends UIComponent {
             case PROJECTILE -> addEquipImage("wrenchProjectile");
             case BLEED -> addEquipImage("bleed");
             case CHARGE -> addEquipImage("charge");
+            case INVULNERABILITY -> addEquipImage("invulnerability");
         }
     }
 

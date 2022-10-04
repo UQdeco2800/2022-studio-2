@@ -126,6 +126,22 @@ public class PlayerSkillComponent extends Component {
     private long ultimateTimeStopEnd;
     private boolean timeStopped;
 
+    private boolean chargingUltimateFireball;
+    private static final long FIREBALL_CHARGE_LENGTH = 1000;
+    private long ultimateFireballChargeEnd;
+
+    private boolean invulnerabilitySkill;
+    private static final long INVULNERABILITY_LENGTH = 2600;
+    private long invulnerabilitySkillEnd;
+
+    private long aoeAnimationEnd;
+    private boolean aoeAnimationRunning;
+    private static final long AOE_ANIMATION_LENGTH = 500;
+
+    private long rootAnimationEnd;
+    private boolean rootAnimationRunning;
+    private static final long ROOT_ANIMATION_LENGTH = 500;
+
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
      * @param playerEntity the player entity this skill component is a subcomponent of
@@ -248,6 +264,36 @@ public class PlayerSkillComponent extends Component {
                 ServiceLocator.getEntityService().toggleTimeStop();
             }
         }
+
+        if (this.chargingUltimateFireball) {
+            if (System.currentTimeMillis() > this.ultimateFireballChargeEnd) {
+                this.chargingUltimateFireball = false;
+                skillAnimator.getEvents().trigger("regularAnimation");
+                if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+                    ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+                }
+            }
+        }
+
+        if (this.invulnerabilitySkill) {
+            if (System.currentTimeMillis() > this.invulnerabilitySkillEnd) {
+                this.invulnerabilitySkill = false;
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
+        }
+
+        if (this.rootAnimationRunning) {
+            if (System.currentTimeMillis() > this.rootAnimationEnd) {
+                this.rootAnimationRunning = false;
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
+        }
+        if (this.aoeAnimationRunning) {
+            if (System.currentTimeMillis() > this.aoeAnimationEnd) {
+                this.aoeAnimationRunning = false;
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
+        }
     }
 
     public void addSkillPoints(int skillPoints) {
@@ -299,7 +345,7 @@ public class PlayerSkillComponent extends Component {
         } else if (skillName == SkillTypes.AOE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
         } else if (skillName == SkillTypes.INVULNERABILITY) {
-            entity.getEvents().addListener(skillEvent, playerActionsComponent::aoe);
+            entity.getEvents().addListener(skillEvent, playerActionsComponent::invulnerabilitySkill);
         } else if (skillName == SkillTypes.PROJECTILE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::coneProjectile);
         }
@@ -529,6 +575,21 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * The functional start of the invulnerability skill.
+     * Should be called when the player actions component registers invulnerability skill
+     */
+    public void startInvulnerabilitySkill() {
+        if (cooldownFinished("invulnerable", (INVULNERABILITY_LENGTH * 3))) {
+            this.invulnerabilitySkill = true;
+            skillAnimator.getEvents().trigger("invulnerabilityAnimation");
+            long invulnerabilityStart = System.currentTimeMillis();
+            this.invulnerabilitySkillEnd = invulnerabilityStart + INVULNERABILITY_LENGTH;
+            setInvulnerable(INVULNERABILITY_LENGTH);
+            setSkillCooldown("invulnerable");
+        }
+    }
+
+    /**
      * The functional start of the dash.
      * Should be called when player actions component registers dash event.
      * @param moveDirection the direction of the players movement at the start of the dash event.
@@ -596,6 +657,10 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers root event.
      */
     public void startRoot() {
+        skillAnimator.getEvents().trigger("rootAnimation");
+        this.rootAnimationRunning = true;
+        long rootStart = System.currentTimeMillis();
+        this.rootAnimationEnd = rootStart + ROOT_ANIMATION_LENGTH;
         this.rootApplied = true;
     }
 
@@ -604,17 +669,25 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers ultimate event.
      */
     public void startUltimate() {
-        skillAnimator.getEvents().trigger("ultimateAnimation");
-        //playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
-        chargingUltimate = true;
-        long ultimateStart = System.currentTimeMillis();
-        this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
-        this.ultimateTimeStopEnd = ultimateChargeEnd + ULTIMATE_TIMESTOP_LENGTH;
+        if (cooldownFinished("timestop", (long) (ULTIMATE_CHARGE_LENGTH * 3))) {
+            skillAnimator.getEvents().trigger("ultimateAnimation");
+            chargingUltimate = true;
+            long ultimateStart = System.currentTimeMillis();
+            this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
+            this.ultimateTimeStopEnd = ultimateChargeEnd + ULTIMATE_TIMESTOP_LENGTH;
+            setSkillCooldown("timestop");
+        }
     }
 
+    /**
+     * The functional start of the wrench projectile skill.
+     * Should be called when player actions component registers projectile skill event.
+     */
     public void startProjectileSkill() {
-        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-            ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
+        if (cooldownFinished("projectile", 5000)) {
+            if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+                ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
+            }
         }
     }
 
@@ -623,17 +696,13 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers ultimate event.
      */
     public void startFireballUltimate() {
-        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-            ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+        if (cooldownFinished("fireball", FIREBALL_CHARGE_LENGTH * 10)) {
+            chargingUltimateFireball = true;
+            skillAnimator.getEvents().trigger("fireballAnimation");
+            long ultimateStart = System.currentTimeMillis();
+            this.ultimateFireballChargeEnd = ultimateStart + FIREBALL_CHARGE_LENGTH;
+            setSkillCooldown("fireball");
         }
-    }
-
-    /**
-     * The functional start of the attack speed skill.
-     * Should be called when player actions component registers attackspeed skill event.
-     */
-    public void startAttackSpeedUp() {
-        skillAnimator.getEvents().trigger("attackSpeedAnimation");
     }
 
     /**
@@ -836,7 +905,7 @@ public class PlayerSkillComponent extends Component {
             skillAnimator.getEvents().trigger("dashAnimation");
             this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
             setInvulnerable(DASH_LENGTH / 2);
-            //setSkillCooldown("dash");
+            setSkillCooldown("charge");
         }
     }
 
@@ -883,16 +952,21 @@ public class PlayerSkillComponent extends Component {
 
     /**
      * Damages all enemies around player and knocks them back.
-     *
-     * TODO: cooldowns
      */
     public void aoeAttack() {
-        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-            Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
-            ForestGameArea.removeProjectileOnMap(projectile);
-            if (projectile.getComponent(AnimationRenderComponent.class) != null) {
-                projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
+        if (cooldownFinished("aoe", AOE_ANIMATION_LENGTH * 10)) {
+            long aoeStart = System.currentTimeMillis();
+            this.aoeAnimationEnd = aoeStart + AOE_ANIMATION_LENGTH;
+            skillAnimator.getEvents().trigger("aoeAnimation");
+            this.aoeAnimationRunning = true;
+            if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
+                Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+                ForestGameArea.removeProjectileOnMap(projectile);
+                if (projectile.getComponent(AnimationRenderComponent.class) != null) {
+                    projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
+                }
             }
+            setSkillCooldown("aoe");
         }
     }
 }
