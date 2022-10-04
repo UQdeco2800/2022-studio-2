@@ -51,13 +51,13 @@ public class QuickBarDisplay extends UIComponent {
         image5 = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/Skills/teleport.png", Texture.class));
 
-
-        quickBar.add(image1).size(100,100).pad(5);
-        quickBar.add(image2).size(100,100).pad(5);
-        quickBar.add(image3).size(100,100).pad(5);
+        // Commented out for visual consistency when marking
+        //quickBar.add(image1).size(100,100).pad(5);
+        //quickBar.add(image2).size(100,100).pad(5);
+        //quickBar.add(image3).size(100,100).pad(5);
         quickBar.add(quickImage).size(382,175).pad(5);
-        quickBar.add(image4).size(100,100).pad(5);
-        quickBar.add(image5).size(100,100).pad(5);
+        //quickBar.add(image4).size(100,100).pad(5);
+        //quickBar.add(image5).size(100,100).pad(5);
         stage.addActor(quickBar);
 
     }

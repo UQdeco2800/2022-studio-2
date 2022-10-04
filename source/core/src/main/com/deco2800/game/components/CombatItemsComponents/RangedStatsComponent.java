@@ -1,11 +1,8 @@
 package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.crafting.Materials;
-import com.deco2800.game.entities.Entity;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * /**
@@ -50,7 +47,7 @@ public class RangedStatsComponent extends WeaponStatsComponent {
      * @param other other melee weapon
      * @return true if they have the same stat, false otherwise //implemented by peter from team 02
      */
-    public boolean equals(RangedStatsComponent other) {
+    public boolean equalsRanged(RangedStatsComponent other) {
         return this.damage == other.getDamage()
                 && this.weight == other.getWeight()
                 && this.coolDown == other.getCoolDown();
