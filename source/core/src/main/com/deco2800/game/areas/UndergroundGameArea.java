@@ -17,9 +17,12 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.deco2800.game.areas.ForestGameArea.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.deco2800.game.areas.ForestGameArea.GridPointToVector;
 
 
 /** Underground area for the demo game with trees, a player, and some enemies. */
@@ -572,8 +575,8 @@ public class UndergroundGameArea extends GameArea {
      * Spawn guard NPC in random position. - Team 7 all-mid-npc
      */
     private void spawnGuard() {
-        GuardPosition = new GridPoint2(10, 8);
-        GuardDialoguePosition = new GridPoint2(10, 9);
+        GuardPosition = new GridPoint2(37, 24);
+        GuardDialoguePosition = new GridPoint2(37, 25);
 
         Entity guard = NPCFactory.createGuard(player);
         spawnEntityAt(guard, GuardPosition, true, true);
@@ -603,7 +606,9 @@ public class UndergroundGameArea extends GameArea {
         spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
         areaEntities.add(dialogue);
     }
-
+    public static Vector2 getFriendlycreaturePosition(GridPoint2 friendlycreaturePosition) {
+        return GridPointToVector(friendlycreaturePosition);
+    }
 
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);

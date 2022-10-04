@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
+import static com.deco2800.game.areas.UndergroundGameArea.getFriendlycreaturePosition;
 import static com.deco2800.game.components.gamearea.GameAreaDisplay.inventoryComponent;
 
 
@@ -506,7 +507,7 @@ public class DialogueDisplay extends UIComponent {
         } else if (!state && (PlumberFriendPosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) < 1.5) {
             dialogueContainerPlumberFriend.remove();
             state = true;
-        } else if (!state && (friendlycreaturePosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(friendlycreaturePosition)) < 1.5) {
+        } else if (!state && (friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
             dialogueContainerFriendlyCreature.remove();
             state = true;
         }
