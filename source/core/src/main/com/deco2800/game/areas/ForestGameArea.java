@@ -145,8 +145,8 @@ public class ForestGameArea extends GameArea {
           "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
           "images/Skills/skillAnimations.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
-          "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
-          "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
+          "images/NPC/child npc/npcchild.atlas","images/NPC/female npc/npcfemale.atlas",
+          "images/NPC/plumber_friend/plumber_friend.atlas", "images/NPC/guard npc/npcguard.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
@@ -173,10 +173,11 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 HumanGuardDialoguePosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 PLumberFriendDialoguePosition;
-  public static GridPoint2 friendlycreaturePosition;
-  public static GridPoint2 friendlycreatureDialoguePosition;
   public static GridPoint2 GuardPosition;
   public static GridPoint2 GuardDialoguePosition;
+  public static GridPoint2 friendlycreaturePosition;
+  public static GridPoint2 friendlycreatureDialoguePosition;
+
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 maleCitizenDialoguePosition;
   public static GridPoint2 childPosition;
@@ -230,10 +231,10 @@ public class ForestGameArea extends GameArea {
     spawnOneLegGirl();
     spawnPlug();
     spawnHumanGuard();
-    spawnPlumberFriend();
     spawnfriendlycreature();
-    spawnChild();
     spawnGuard();
+    spawnPlumberFriend();
+    spawnChild();
     spawnMaleCitizen();
 //    spawnDialogue();
 //    spawnColumn(20, 20);
@@ -736,25 +737,6 @@ public class ForestGameArea extends GameArea {
   }
 
 
-  /**
-   * Spawn guard NPC in random position. - Team 7 all-mid-npc
-   */
-  private void spawnGuard() {
-    GuardPosition = new GridPoint2(10, 8);
-    GuardDialoguePosition = new GridPoint2(10, 9);
-
-    Entity guard = NPCFactory.createGuard(player);
-    spawnEntityAt(guard, GuardPosition, true, true);
-    areaEntities.add(guard);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
-    areaEntities.add(dialogue);
-  }
-  public static GridPoint2 getGuardPosition() {
-    return GuardPosition;
-  }
-
   private void spawnHumanGuard() {
     HumanGuardPosition = new GridPoint2(110, 41);
     HumanGuardDialoguePosition = new GridPoint2(110, 42);
@@ -781,6 +763,35 @@ public class ForestGameArea extends GameArea {
     areaEntities.add(dialogue);
   }
 
+  private void spawnGuard() {
+    GuardPosition = new GridPoint2(100, 16);
+    GuardDialoguePosition = new GridPoint2(100, 17);
+
+    Entity guard = NPCFactory.createGuard(player);
+    spawnEntityAt(guard, GuardPosition, true, true);
+    areaEntities.add(guard);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
+    areaEntities.add(dialogue);
+  }
+  public static GridPoint2 getGuardPosition() {
+    return GuardPosition;
+  }
+
+  private void spawnfriendlycreature() {
+    friendlycreaturePosition = new GridPoint2(97, 16);
+    friendlycreatureDialoguePosition = new GridPoint2(97, 17);
+
+    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+    areaEntities.add(friendlycreature);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+    areaEntities.add(dialogue);
+  }
+
   /**
    * Spawn male NPC in random position. - Team 7 all-mid-npc
    */
@@ -798,23 +809,6 @@ public class ForestGameArea extends GameArea {
   }
   public static GridPoint2 getMaleCitizenPosition() {
     return maleCitizenPosition;
-  }
-
-  /**
-   * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
-   */
-
-  private void spawnfriendlycreature() {
-    friendlycreaturePosition = new GridPoint2(5, 10);
-    friendlycreatureDialoguePosition = new GridPoint2(5, 11);
-
-    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
-    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
-    areaEntities.add(friendlycreature);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-    areaEntities.add(dialogue);
   }
 
   /**
