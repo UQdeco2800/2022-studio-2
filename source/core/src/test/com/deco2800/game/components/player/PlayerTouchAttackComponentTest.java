@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
@@ -7,6 +8,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.extensions.GameExtension;
 
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.BodyUserData;
 
 import com.deco2800.game.physics.PhysicsService;
@@ -16,21 +18,26 @@ import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.mockito.Mockito.mock;
 
 
 @ExtendWith(GameExtension.class)
-
+@ExtendWith(MockitoExtension.class)
 public class PlayerTouchAttackComponentTest {
 
     @BeforeEach
     void beforeEach() {
+
         ServiceLocator.registerPhysicsService(new PhysicsService());
+        //ServiceLocator locator = mock(ServiceLocator.class);
+        Sound attack_sound = mock(Sound.class);
+        InventoryComponent inventory = mock(InventoryComponent.class);
     }
 
-    /*
+    @Test
     void attackTargetTest() {
         short targetLayer = (1 << 3);
         Entity entity = createAttacker(targetLayer);
@@ -39,20 +46,15 @@ public class PlayerTouchAttackComponentTest {
         Fixture entityFixture = entity.getComponent(HitboxComponent.class).getFixture();
         Fixture targetFixture = target.getComponent(HitboxComponent.class).getFixture();
 
-        //System.out.println("entity fixture" + entityFixture.toString());
-        //System.out.println("entity fixture" + targetFixture.toString());
-        //BodyUserData body = (BodyUserData) targetFixture.getBody().getUserData();
-        //System.out.println("this is the value:" + body.entity.getEntityTypes().toString());
-
-        entity.getEvents().trigger("playerCollisionStart", entityFixture, targetFixture);
+        entity.getEvents().trigger("collisionStart", entityFixture, targetFixture);
 
         entity.getEvents().trigger("attack");
 
         assertEquals(10, target.getComponent(CombatStatsComponent.class).getHealth());
 
-    } */
+    }
 
-    /*
+    @Test
     void collisionActiveNoAttackTest() {
 
         // checks that even when collision is set to true and attack isn't called the health stays unchanged
@@ -64,11 +66,11 @@ public class PlayerTouchAttackComponentTest {
         Fixture entityFixture = entity.getComponent(HitboxComponent.class).getFixture();
         Fixture targetFixture = target.getComponent(HitboxComponent.class).getFixture();
 
-        //entity.getEvents().trigger("collisionStart", entityFixture, targetFixture);
+        entity.getEvents().trigger("attack");
 
         assertEquals(20, target.getComponent(CombatStatsComponent.class).getHealth());
 
-    }*/
+    }
 
     @Test
     void collisionFalseAttackTest() {
@@ -91,6 +93,7 @@ public class PlayerTouchAttackComponentTest {
                 new Entity()
                         .addComponent(new TouchAttackComponent(targetLayer))
                         .addComponent(new PlayerTouchAttackComponent(targetLayer))
+                        .addComponent(new InventoryComponent())
                         .addComponent(new CombatStatsComponent(100, 10, 1, 1))
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent());

@@ -32,7 +32,7 @@ public class DialogueFactory {
 
 
         dialogue.getComponent(AnimationRenderComponent.class).scaleEntity();
-        dialogue.setScale(2,2);
+        dialogue.setScale(1.5f,1.5f);
         return dialogue;
     }
 

@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 
 @ExtendWith(GameExtension.class)
-class MeleeStatsComponentTest {
+class PhysicalStatsComponentTest {
 
-    public PhyiscalWeaponStatsComponent weapons1;
-    public PhyiscalWeaponStatsComponent weapons2;
+    public PhysicalWeaponStatsComponent weapons1;
+    public PhysicalWeaponStatsComponent weapons2;
 
 
     @BeforeEach
@@ -36,8 +36,8 @@ class MeleeStatsComponentTest {
         materials2.put(Materials.Steel, 20);
         materials2.put(Materials.Wood, 5);
 
-        weapons1 = new PhyiscalWeaponStatsComponent(20, 10, materials1, 2, "pipe");
-        weapons2 = new PhyiscalWeaponStatsComponent(30, 20, materials2, 5, "pipe");
+        weapons1 = new PhysicalWeaponStatsComponent(20, 10, materials1, 2, "pipe");
+        weapons2 = new PhysicalWeaponStatsComponent(30, 20, materials2, 5, "pipe");
 
     }
 

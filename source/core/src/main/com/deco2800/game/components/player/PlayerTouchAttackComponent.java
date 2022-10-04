@@ -3,16 +3,18 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.RangedStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
+import com.deco2800.game.areas.UndergroundGameArea;
+import com.deco2800.game.components.CombatItemsComponents.*;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private CombatStatsComponent combatStats;
@@ -21,6 +23,8 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private Entity combatAnimator;
     private boolean canAttack;
     private long  cooldownEnd;
+    private String animationDesc;
+    private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
 
     /**
      * Create a component which attacks enemy entities on collision, without knockback.
@@ -53,6 +57,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.ENEMY)) {
             target = ((BodyUserData) other.getBody().getUserData()).entity;
             enemyCollide = true;
+            entity.getEvents().trigger("enemyCollision", target); // skill listener
         }
     }
 
@@ -66,6 +71,14 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     }
 
     /**
+     * Returns the combat item animator
+     * @return combat item animator
+     */
+    public Entity getCombatAnimator() {
+        return combatAnimator;
+    }
+
+    /**
      * Method called when the player entity is attacking.
      */
     void attack() {
@@ -74,13 +87,27 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             attackSound.play();
             canAttack = false;
 
+            // base damage variable for the logger
+            double damage = entity.getComponent(CombatStatsComponent.class).getDamageReduction();
+
             Entity weaponEquipped = entity.getComponent(InventoryComponent.class).getEquipable(0);
+            Entity auraEquipped = ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied;
             if (weaponEquipped != null) {
-                if (weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class) != null) {
-                    cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class).getCoolDown());
+                if (weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class) != null) {
+                    cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getCoolDown());
+                    // set the damage value for logger
+                    damage = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
                     //Sets the attack animation dependent on the weapon that is currently equipped
-                    String description = weaponEquipped.getComponent(PhyiscalWeaponStatsComponent.class).getDescription();
-                    combatAnimator.getEvents().trigger(description);
+                    String description = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
+                    //When an aura is applied, play the respective aura animation
+                    if (auraEquipped != null) {
+                        String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
+                        animationDesc = description+current_aura;
+                    }
+                    else {
+                        animationDesc = description;
+                    }
+                    combatAnimator.getEvents().trigger(animationDesc);
                 }
 
             } else {
@@ -89,20 +116,17 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
 
             if (enemyCollide) {
                 applyDamageToTarget(target);
-              /*  if (target.getComponent(CombatStatsComponent.class).getHealth() == 0) {
-                    target.dispose();
-                    target.getComponent(CombatStatsComponent.class).dropWeapon();
-                    if (target.getComponent(AnimationRenderComponent.class) != null) {
-                        target.getComponent(CombatStatsComponent.class).dropMaterial();
-                        target.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
-                    }
-                }*/
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
+                String s_damage = String.valueOf(damage);
+                logger.trace("attack enemy: " + s_damage);
             }
 
             else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
                 if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
                     ((ForestGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
+                }
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
+                    ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
                 }
             }
         }
