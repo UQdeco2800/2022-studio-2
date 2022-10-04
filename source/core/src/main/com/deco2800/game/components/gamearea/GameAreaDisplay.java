@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
@@ -378,12 +379,13 @@ public class GameAreaDisplay extends UIComponent {
     public void openCraftingMenu() {
         logger.info("Opening Crafting Menu");
         inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-//        if (firstTime == 0) {
-//            inventoryComponent.addItem(MaterialFactory.createWood());
-//            inventoryComponent.addItem(MaterialFactory.createPoop());
-//            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
-//            firstTime += 1;
-//        }
+        if (getGameAreaName().equals("Underground") && firstTime == 0) {
+            inventoryComponent.addItem(MaterialFactory.createWood());
+            inventoryComponent.addItem(MaterialFactory.createGold());
+            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+            inventoryComponent.addItem(MaterialFactory.createIron());
+            firstTime += 1;
+        }
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
@@ -1093,6 +1095,16 @@ public class GameAreaDisplay extends UIComponent {
         }
         numcrafted += 1;
         craftingGroup.addActor(weapon);
+    }
+
+    /**
+     * Toggles the skill tree display
+     */
+    public void toggleSkillTree() {
+        SkillsTreeDisplay skillsTree = ServiceLocator.getGameArea().getPlayer().getComponent(SkillsTreeDisplay.class);
+        if (skillsTree != null) {
+            skillsTree.toggleSkillTreeDisplay();
+        }
     }
 
     @Override

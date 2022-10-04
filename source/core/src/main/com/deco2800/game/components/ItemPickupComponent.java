@@ -2,6 +2,7 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -45,8 +46,13 @@ public class ItemPickupComponent extends Component{
 
         if (other == f) {
             Entity entityOfComponent = getEntity();
-            ForestGameArea.removeItemOnMap(entityOfComponent);
 
+            if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
+                ((ForestGameArea) ServiceLocator.getGameArea()).removeItemOnMap(entityOfComponent);
+            }
+            else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
+                ((UndergroundGameArea) ServiceLocator.getGameArea()).removeItemOnMap(entityOfComponent);
+            }
             //insert into inventory
             ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).addItem(entityOfComponent);
             logger.info("Item picked up");
