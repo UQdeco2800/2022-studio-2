@@ -173,9 +173,9 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 HumanGuardDialoguePosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 PLumberFriendDialoguePosition;
-//  public static GridPoint2 GuardPosition;
+  public static GridPoint2 GuardPosition;
 //  public static GridPoint2 GuardDialoguePosition;
-//  public static GridPoint2 friendlycreaturePosition;
+  public static GridPoint2 friendlycreaturePosition;
 //  public static GridPoint2 friendlycreatureDialoguePosition;
 
   public static GridPoint2 maleCitizenPosition;
