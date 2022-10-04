@@ -381,8 +381,8 @@ public class GameAreaDisplay extends UIComponent {
         inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         if (getGameAreaName().equals("Underground") && firstTime == 0) {
             inventoryComponent.addItem(MaterialFactory.createWood());
-            inventoryComponent.addItem(MaterialFactory.createGold());
             inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+            inventoryComponent.addItem(MaterialFactory.createGold());
             inventoryComponent.addItem(MaterialFactory.createIron());
             firstTime += 1;
         }
