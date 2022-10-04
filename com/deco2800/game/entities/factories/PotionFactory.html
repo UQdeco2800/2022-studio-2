@@ -114,20 +114,28 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createDamageReductionPotion()" class="member-name-link">createDamageReductionPotion</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a damage reduction potion which reduces the player's damage taken by a set amount</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createDefencePotion()" class="member-name-link">createDefencePotion</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">creates a defence potion.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createHealthPotion()" class="member-name-link">createHealthPotion</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a health potion which gives the player health all at once</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createHealthRegenPotion()" class="member-name-link">createHealthRegenPotion</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Create a health regen potion which slows gives the player health every few frames</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createSpeedPotion()" class="member-name-link">createSpeedPotion</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Creates speed potion</div>
+<div class="block">Creates speed potion which increases the players movement speed by a set amount</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createTestHealthPotion()" class="member-name-link">createTestHealthPotion</a>()</code></div>
@@ -174,7 +182,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createBasePotion()">
 <h3>createBasePotion</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createBasePotion</span>()</div>
-<div class="block">Creates the base potion which can be modified to other types of potion.</div>
+<div class="block">Creates the base potion which can be modified to other types of potion. This potion on its
+ own has no effects</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>base potion</dd>
@@ -185,7 +194,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createSpeedPotion()">
 <h3>createSpeedPotion</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createSpeedPotion</span>()</div>
-<div class="block">Creates speed potion</div>
+<div class="block">Creates speed potion which increases the players movement speed by a set amount</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>speed potion</dd>
@@ -196,18 +205,33 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createHealthPotion()">
 <h3>createHealthPotion</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createHealthPotion</span>()</div>
+<div class="block">Creates a health potion which gives the player health all at once</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>health potion</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="createHealthRegenPotion()">
 <h3>createHealthRegenPotion</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createHealthRegenPotion</span>()</div>
+<div class="block">Create a health regen potion which slows gives the player health every few frames</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>health regen potion</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="createDamageReductionPotion()">
 <h3>createDamageReductionPotion</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createDamageReductionPotion</span>()</div>
+<div class="block">Creates a damage reduction potion which reduces the player's damage taken by a set amount</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>damage reduction potion</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -236,6 +260,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createDefencePotion()">
 <h3>createDefencePotion</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="element-name">createDefencePotion</span>()</div>
+<div class="block">creates a defence potion. This is scheduled for removal as it is too similar to other
+ potions and because too many potions already exist in the game</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>defence potion</dd>
+</dl>
 </section>
 </li>
 </ul>
