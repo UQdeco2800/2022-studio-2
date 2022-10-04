@@ -91,7 +91,6 @@ public class UndergroundGameArea extends GameArea {
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
-            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Athena.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
@@ -104,7 +103,15 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
-            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+            "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+            "images/CombatItems/Sprint-1/trident_Lvl2.png",
+            "images/CombatItems/Sprint-2/H&ADagger.png",
+            "images/CombatItems/Sprint-2/Plunger.png",
+            "images/CombatItems/Sprint-2/pipe.png"
     };
 
     public static String[] newTextures;
@@ -112,7 +119,8 @@ public class UndergroundGameArea extends GameArea {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
-            "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas"
+            "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas",
+            "images/CombatItems/animations/combatanimation.atlas"
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
