@@ -26,7 +26,6 @@ import java.util.List;
 public class QuickBarDisplay extends UIComponent {
 
     private Table quickBar;
-    private Image quickImage;
 
     //Potion display table:
     private Table potionTable = new Table();
@@ -44,71 +43,28 @@ public class QuickBarDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        addPotionTable();
     }
 
-    /**
-     * A table for the potion graphics.
-     */
-    private void addPotionTable() {
-
-        potionTable.bottom();
-
-    }
 
     /**
      * This function visualizes potions in the item bar when equipped from the inventory.
      */
-
     private void addActors() {
-
         quickBar = new Table();
         quickBar.bottom();
         quickBar.setFillParent(true);
         quickBar.padBottom(0f).padLeft(50f);
-
-        quickImage = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/Inventory/quickbar_sprint3.png", Texture.class));
-
-        quickBar.add(quickImage).size(382,175).pad(5);
-
+        quickBar.add(new Image(ServiceLocator.getResourceService()
+                .getAsset("images/Inventory/quickbar_sprint3.png", Texture.class)))
+                .size(382,175).pad(5);
         stage.addActor(quickBar);
-
+        potionTable.bottom();
     }
+
     @Override
     public void draw(SpriteBatch batch) {
         //draw is handled by the stage
         updatePotionTable();
-
-    }
-
-    private InventoryComponent getInventory() {
-        Entity player = ServiceLocator.getGameArea().getPlayer();
-        return player.getComponent(InventoryComponent.class);
-    }
-
-    //Implemented by Peter
-    private void display(){
-        List<Entity> quickBar = getInventory().getQuickBarItems();
-        //Random number you can change it later
-        float xPosition = 100;
-        float yPosition = 100;
-        float padding = 50;
-        for (int i = 0; i < quickBar.size(); ++i) {
-            //0 will be the first potion, 1 be 2nd and so on.
-
-            //Get the picture asset of each potion
-            Entity potion = quickBar.get(i);
-            Image potionTexture =  new Image(
-                    new Texture(potion.getComponent(TextureRenderComponent.class).getTexturePath()));
-            potionTable.add(potionTexture);
-            //Each time the loop iterates the x postion will dynamically change
-            potion.setPosition(xPosition + padding, yPosition);
-            //Try add a eventListner here on player's keyboard input NUM1,NUM2,NUM3
-            //See more on components/player/PlayerActions and components/player/KeyboardPlayerInputComponent
-            //If a potion is consumed just rerender the whole table
-        }
-
     }
 
     public void updatePotionTable(){
@@ -131,8 +87,7 @@ public class QuickBarDisplay extends UIComponent {
     @Override
     public void dispose() {
         super.dispose();
-        quickImage.clear();
-
+        quickBar.clear();
         potionTable.clear();
     }
 
