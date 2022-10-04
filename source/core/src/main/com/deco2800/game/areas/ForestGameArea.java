@@ -778,7 +778,7 @@ public class ForestGameArea extends GameArea {
 //  public static GridPoint2 getGuardPosition() {
 //    return GuardPosition;
 //  }
-//
+
 //  private void spawnfriendlycreature() {
 //    friendlycreaturePosition = new GridPoint2(97, 16);
 //    friendlycreatureDialoguePosition = new GridPoint2(97, 17);
