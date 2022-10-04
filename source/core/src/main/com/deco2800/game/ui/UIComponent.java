@@ -1,6 +1,7 @@
 package com.deco2800.game.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.deco2800.game.rendering.RenderComponent;
@@ -15,6 +16,10 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
   protected static final Skin skin =
       new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
   protected static Stage stage;
+
+  //TODO
+  public static int potionEQ = 0;
+  public static Texture potionTex = null;
 
   @Override
   public void create() {

@@ -8,7 +8,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
 
 public class DialogueKeybordInputComponent extends InputComponent {
 
-//    public static Boolean dialogueState = false;
+
 
     @Override
     public boolean keyDown(int keycode) {
@@ -22,11 +22,7 @@ public class DialogueKeybordInputComponent extends InputComponent {
             DialogueDisplay.state = false;
             return true;
         }
-//        else if (keycode == Keys.V) {
-//            DialogueDisplay.state = true;
-//            entity.getEvents().trigger("nextText");
-//            return true;
-//        }
+
         return false;
     }
 
