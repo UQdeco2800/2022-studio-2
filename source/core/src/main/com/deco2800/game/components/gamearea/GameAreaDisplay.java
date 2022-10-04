@@ -353,6 +353,9 @@ public class GameAreaDisplay extends UIComponent {
                                                     if (inventory.addQuickBarItems(currentItem)) {
                                                         inventory.removeItem(currentItem);
                                                         updateInventoryDisplay();
+                                                        //TODO visualizePotion();
+                                                        potionEQ = 1;
+                                                        potionTex = itemTexture;
 
                                                     }
                                                     break;
@@ -360,9 +363,7 @@ public class GameAreaDisplay extends UIComponent {
                                             if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
                                                 inventoryGroup.removeActor(itemOpBtn);
                                                 inventoryGroup.removeActor(dropItemBtn);
-                                                //TODO visualizePotion();
-                                                potionEQ = 1;
-                                                potionTex = itemTexture;
+
                                             }
                                         }
                                     }
