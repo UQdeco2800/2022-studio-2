@@ -103,6 +103,7 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
+            "images/level_2_tiledmap/statues2.jpg",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
     };
 
