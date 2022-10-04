@@ -355,8 +355,6 @@ public class ForestGameArea extends GameArea {
 
   /**
    * Spawns speed buff entity into the game
-   * Spawns x-pos 10
-   * Spawns y-pos 10
    */
   private void spawnSpeedBuff() {
     List<GridPoint2> locations = new ArrayList<>();
@@ -370,13 +368,9 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(speedbuff, location, true, false);
     }
   }
-  /**
-   *
-   */
+
   /**
    * Spawns speed debuff entity into the game
-   * Spawns x-pos 10
-   * Spawns y-pos 10
    */
   private void spawnSpeedDebuff() {
     List<GridPoint2> locations = new ArrayList<>();
@@ -388,10 +382,9 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(speedDebuff, location, true, false);
     }
   }
+
   /**
    * Spawns damage buff entity into the game
-   * Spawns x-pos 15
-   * Spawns y-pos 15
    */
   private void spawnDmgBuff() {
     List<GridPoint2> locations = new ArrayList<>();
@@ -408,8 +401,6 @@ public class ForestGameArea extends GameArea {
 
   /**
    * Spawns damage debuff entity into the game
-   * Spawns x-pos 11
-   * Spawns y-pos 15
    */
   private void spawnDmgDebuff() {
     List<GridPoint2> locations = new ArrayList<>();
@@ -424,8 +415,6 @@ public class ForestGameArea extends GameArea {
 
   /**
    * Spawns fire buff entity into the game
-   * Spawns x-pos 20
-   * Spawns y-pos 10
    */
   private void spawnFireBuff() {
     List<GridPoint2> locations = new ArrayList<>();
@@ -444,8 +433,6 @@ public class ForestGameArea extends GameArea {
 
   /**
    * Spawns poison buff entity into the game
-   * Spawns x-pos 18
-   * Spawns y-pos 12
    */
   private void spawnPoisonBuff() {
     List<GridPoint2> locations = new ArrayList<>();
