@@ -102,6 +102,9 @@ public class SkillsTreeDisplay extends UIComponent {
         addAllSkillsToTree();
     }
 
+    /**
+     * Adds all skill icons to the tree for existing skills.
+     */
     private void addAllSkillsToTree() {
         int playerSkillPoints = ServiceLocator.getGameArea().getPlayer()
                 .getComponent(PlayerActions.class).getSkillComponent().getSkillPoints();
