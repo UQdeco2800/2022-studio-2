@@ -102,6 +102,10 @@ public class OpenPauseComponent extends Component {
         keyBindOpen = false;
     }
 
+//    static Boolean getPauseOpen() {
+//        return pauseOpen;
+//    }
+
     private void setInventoryStatus() {
         inventoryToggled = !inventoryToggled;
     }
