@@ -568,18 +568,19 @@ public class InventoryComponent extends UIComponent {
         }
     }
 
-<<<<<<< HEAD
+
     /**
      * Gets the size of the inventory in order for the program to calculate the size of
      * inventory size
      * @return inventory size
      */
-    public int getInventorySize(){
+    public int getInventorySize() {
         return inventory.size();
-=======
-    @Override
-    protected void draw(SpriteBatch batch) {
-
->>>>>>> 62ea339cef2a8b62aaf11c362df6576f15205a07
     }
+
+    /*
+    protected void draw(SpriteBatch batch) {
+        
+    }
+    */
 }
