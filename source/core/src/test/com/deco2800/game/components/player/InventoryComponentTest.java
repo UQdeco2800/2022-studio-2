@@ -161,7 +161,7 @@ class InventoryComponentTest {
 
   @Test
   void applyArmourEffect() {
-      
+
   }
 
   @Test
@@ -263,6 +263,10 @@ class InventoryComponentTest {
 
   }
 
+  /**
+   * Checks whether the quickbar items are what they are expected to be when items are added to
+   * the quickbar
+   */
   @Test
   void getQuickBarItems() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -289,6 +293,9 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
 
+  /**
+   * Checks that the item has correctly been added to the quickbar
+   */
   @Test
   void addQuickBarItems() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -303,6 +310,10 @@ class InventoryComponentTest {
     assertEquals(expectedList, inventory.getQuickBarItems());
   }
 
+  /**
+   * Tests whether the potion is at the correct place in the quickbar so that it may be used
+   * correctly with hotkeys
+   */
   @Test
   void getPotionIndex() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -315,6 +326,9 @@ class InventoryComponentTest {
     assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
   }
 
+  /**
+   * Handles the removal of the potion from the quickbar. Used when consume potion is called
+   */
   @Test
   void removePotion() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -330,6 +344,10 @@ class InventoryComponentTest {
     assertEquals(expectedList, testInventory6.getInventory());
   }
 
+  /**
+   * This test checks that when a potion is consumed that it is removed from the quickbar and
+   * applies the intended effect to the player
+   */
   @Test
   void consumePotion() {
     Entity player = PlayerFactory.createTestPlayer();

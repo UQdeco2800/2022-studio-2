@@ -18,6 +18,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(GameExtension.class)
 public class ArmourStatsComponentsTest {
+    /**
+     * Setting up armour component so that tests can be made on it
+     */
     ArmourStatsComponent armourStats;
     @BeforeEach
     void init() {
@@ -25,6 +28,9 @@ public class ArmourStatsComponentsTest {
                 Integer>());
     }
 
+    /**
+     * Test to make sure that weight works as expected with Armour
+     */
     @Test
     void shouldSetGetWeight() {
         assertEquals(1, armourStats.getWeight());

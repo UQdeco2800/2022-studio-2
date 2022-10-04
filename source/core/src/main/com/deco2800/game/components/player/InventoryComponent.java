@@ -561,6 +561,11 @@ public class InventoryComponent extends Component {
         }
     }
 
+    /**
+     * Gets the size of the inventory in order for the program to calculate the size of
+     * inventory size
+     * @return inventory size
+     */
     public int getInventorySize(){
         return inventory.size();
     }
