@@ -4,11 +4,11 @@ import com.badlogic.gdx.Game;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-<<<<<<< HEAD
+
 import com.deco2800.game.crafting.Materials;
-=======
+
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
->>>>>>> 62ea339cef2a8b62aaf11c362df6576f15205a07
+
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;

@@ -22,7 +22,7 @@ import java.util.List;
  * A component intended to be used by the player to track their inventory.
  * Can also be used as a more generic component for other entities.
  */
-public class InventoryComponent extends UIComponent {
+public class InventoryComponent extends Component {
 
     private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
 
@@ -561,7 +561,7 @@ public class InventoryComponent extends UIComponent {
                 removePotion(inputIndex);
                 sortInventory(inputIndex, quickBarItems, quickBarQuantity);
                 //TODO
-                potionEQ = 0;
+                //potionEQ = 0;
             } else if (quickBarQuantity[inputIndex] > 1) {
                 --quickBarQuantity[inputIndex];
             }
@@ -580,7 +580,7 @@ public class InventoryComponent extends UIComponent {
 
     /*
     protected void draw(SpriteBatch batch) {
-        
+
     }
     */
 }
