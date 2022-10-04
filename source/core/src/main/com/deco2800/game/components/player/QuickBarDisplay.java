@@ -87,6 +87,7 @@ public class QuickBarDisplay extends UIComponent {
         return player.getComponent(InventoryComponent.class);
     }
 
+    //Implemented by Peter
     private void display(){
         List<Entity> quickBar = getInventory().getQuickBarItems();
         //Random number you can change it later
@@ -103,6 +104,9 @@ public class QuickBarDisplay extends UIComponent {
             potionTable.add(potionTexture);
             //Each time the loop iterates the x postion will dynamically change
             potion.setPosition(xPosition + padding, yPosition);
+            //Try add a eventListner here on player's keyboard input NUM1,NUM2,NUM3
+            //See more on components/player/PlayerActions and components/player/KeyboardPlayerInputComponent
+            //If a potion is consumed just rerender the whole table
         }
 
     }

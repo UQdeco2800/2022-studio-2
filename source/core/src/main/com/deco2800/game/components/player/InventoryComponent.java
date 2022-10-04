@@ -1,7 +1,6 @@
 package com.deco2800.game.components.player;
 
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
@@ -10,7 +9,6 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -560,27 +558,10 @@ public class InventoryComponent extends Component {
             if (quickBarQuantity[inputIndex] == 1) {
                 removePotion(inputIndex);
                 sortInventory(inputIndex, quickBarItems, quickBarQuantity);
-                //TODO
-                //potionEQ = 0;
             } else if (quickBarQuantity[inputIndex] > 1) {
                 --quickBarQuantity[inputIndex];
             }
         }
     }
 
-
-    /**
-     * Gets the size of the inventory in order for the program to calculate the size of
-     * inventory size
-     * @return inventory size
-     */
-    public int getInventorySize() {
-        return inventory.size();
-    }
-
-    /*
-    protected void draw(SpriteBatch batch) {
-
-    }
-    */
 }
