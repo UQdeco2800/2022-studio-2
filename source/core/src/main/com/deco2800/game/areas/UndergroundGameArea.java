@@ -1,5 +1,6 @@
 package com.deco2800.game.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +13,7 @@ import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.ProjectileFactory;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -30,11 +32,14 @@ public class UndergroundGameArea extends GameArea {
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static Entity megaPoop;
+    private static List<Entity> ItemsOnMap = new ArrayList<>();
+    private static List<Entity> auraOnMap = new ArrayList<>();
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
             "images/Enemies/gym_bro.png",
             "images/Enemies/poops.png",
             "images/Enemies/poopSludge.png",
+            "images/level_1_tiledmap/32x32/wall_tile.png",
             "images/level_2_tiledmap/dirt.png",
             "images/level_2_tiledmap/drain_empty.png",
             "images/level_2_tiledmap/columns.png",
@@ -101,20 +106,45 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Plunger.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Sword.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+            "images/CombatItems/Sprint-1/Weapon Speed Buff.png",
+            "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
+            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+            "images/CombatItems/Sprint-1/Damage Increase Buff.png",
+            "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+            "images/CombatItems/Sprint-1/AttackDamageDebuff.png",
+            "images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png",
+            "images/CombatItems/Sprint-1/poisonBuff.png",
+            "images/CombatItems/animations/combatItemsAnimation.png",
+            "images/CombatItems/Sprint-2/pipe.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+            "images/CombatItems/Sprint-1/trident_Lvl2.png",
+            "images/CombatItems/Sprint-2/H&ADagger.png",
+            "images/CombatItems/Sprint-2/Plunger.png",
+            "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
-            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png"
+            "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/countdown/1.png",
+            "images/countdown/2.png",
+            "images/countdown/3.png",
+            "images/countdown/4.png",
+            "images/countdown/5.png"
     };
 
     public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
-            "images/Movement/movement.atlas","images/KeyPrompt/KEY_Q_!.atlas",
+            "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
+            "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas"
     };
-    private static final String[] undergroundSounds = {"sounds/Impact4.ogg"};
+    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
@@ -132,13 +162,16 @@ public class UndergroundGameArea extends GameArea {
 
     /**
      * Get the player entity from the map.
+     *
      * @return player entity.
      */
     public Entity getPlayer() {
         return player;
     }
 
-    /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
+    /**
+     * Create the game area, including terrain, static entities (trees), dynamic entities (player)
+     */
     @Override
     public void create() {
         loadAssets();
@@ -175,43 +208,319 @@ public class UndergroundGameArea extends GameArea {
         GridPoint2 tileBounds = terrain.getMapBounds(0);
         Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
 
+        // create the world borders
+
         // Left
         spawnEntityAt(
-                ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+                ObstacleFactory.createWall(WALL_WIDTH, 117), new GridPoint2(5,
+                        2), false,
+                false);
         // Right
         spawnEntityAt(
-                ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
-                new GridPoint2(tileBounds.x, 0),
+                ObstacleFactory.createWall(WALL_WIDTH, 117),
+                new GridPoint2(tileBounds.x - 6, 2),
                 false,
                 false);
         // Top
         spawnEntityAt(
-                ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
-                new GridPoint2(0, tileBounds.y),
+                ObstacleFactory.createWall(89, WALL_WIDTH),
+                new GridPoint2(5, tileBounds.y - 6),
                 false,
                 false);
         // Bottom
         spawnEntityAt(
-                ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+                ObstacleFactory.createWall(42, WALL_WIDTH), new GridPoint2(5, 2), false
+                , false);
+
+        spawnBottomRoomBorders();
+        spawnTopRoomBorders();
+        spawnRightTunnelBorders();
+        spawnRightRoomBorders();
+        spawnMiddleHallBorders();
     }
 
-    private void spawnTrees(int x, int y) {
-        Entity tree = ObstacleFactory.createTree();
-        spawnEntityAt(tree, new GridPoint2(x, y), true, false);
+    private void spawnBottomRoomBorders() {
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 15), new GridPoint2(24,
+                        2), false,
+                false);
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(8, WALL_WIDTH),
+                new GridPoint2(24, 17),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(8, WALL_WIDTH),
+                new GridPoint2(39, 17),
+                false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 15),
+                new GridPoint2(47, 2),
+                false,
+                false);
+
+        // Tunnel
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 19), new GridPoint2(32,
+                        17), false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 19),
+                new GridPoint2(39, 17),
+                false,
+                false);
     }
 
-    public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
-        spawnEntityAt(entity, position, centreX, centreY);
+    private void spawnTopRoomBorders() {
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 9), new GridPoint2(31,
+                        93), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 17), new GridPoint2(25,
+                        102), false,
+                false);
+//        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 17),
+                new GridPoint2(54, 102),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 9),
+                new GridPoint2(48, 93),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(5, WALL_WIDTH), new GridPoint2(31, 93), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(42, 93), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(25, 102), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(48, 102), false
+                , false);
+        // Tunnel
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 8), new GridPoint2(36,
+                        85), false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 8),
+                new GridPoint2(42, 85),
+                false,
+                false);
+    }
+
+    private void spawnRightTunnelBorders() {
+        // Top Tunnel
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(35, WALL_WIDTH),
+                new GridPoint2(53, 72),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(30, WALL_WIDTH), new GridPoint2(53, 67), false
+                , false);
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(83, 62),
+                false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 10),
+                new GridPoint2(88, 62),
+                false,
+                false);
+        // Bottom Tunnel
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH),
+                new GridPoint2(49, 50),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH), new GridPoint2(49, 45), false
+                , false);
+    }
+
+    private void spawnRightRoomBorders() {
+        // Left Room
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(12, WALL_WIDTH),
+                new GridPoint2(59, 55),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH),
+                new GridPoint2(71, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH),
+                new GridPoint2(77, 62),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH),
+                new GridPoint2(88, 62),
+                false,
+                false);
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(59, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 2),
+                new GridPoint2(59, 43),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 12),
+                new GridPoint2(77, 50),
+                false,
+                false);
+        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(71, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 2),
+                new GridPoint2(71, 43),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(12, WALL_WIDTH), new GridPoint2(59, 43), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(23, WALL_WIDTH), new GridPoint2(71, 45), false
+                , false);
+    }
+
+    private void spawnMiddleHallBorders() {
+        // Left
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 19), new GridPoint2(22,
+                        36), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 10), new GridPoint2(16,
+                        55), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 13), new GridPoint2(10,
+                        73), false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 4), new GridPoint2(14,
+                        91), false,
+                false);
+        // Top
+        spawnEntityAt(
+                ObstacleFactory.createWall(5, WALL_WIDTH),
+                new GridPoint2(5, 73),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(9, WALL_WIDTH),
+                new GridPoint2(5, 91),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(13, WALL_WIDTH),
+                new GridPoint2(14, 95),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(9, WALL_WIDTH),
+                new GridPoint2(27, 85),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(11, WALL_WIDTH),
+                new GridPoint2(42, 85),
+                false,
+                false);
+//        // Right
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 10),
+                new GridPoint2(27, 85),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 13),
+                new GridPoint2(53, 72),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 12),
+                new GridPoint2(53, 55),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 5),
+                new GridPoint2(49, 50),
+                false,
+                false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(WALL_WIDTH, 9),
+                new GridPoint2(49, 36),
+                false,
+                false);
+        // Bottom
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH), new GridPoint2(22, 36), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(10, WALL_WIDTH), new GridPoint2(39, 36), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(6, WALL_WIDTH), new GridPoint2(16, 55), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(11, WALL_WIDTH), new GridPoint2(5, 65), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(5, WALL_WIDTH), new GridPoint2(5, 86), false
+                , false);
+        spawnEntityAt(
+                ObstacleFactory.createWall(4, WALL_WIDTH), new GridPoint2(49, 55), false
+                , false);
     }
 
     /**
      * Spawns the player entity, with a skill animator overlaid above the player.
+     *
      * @return the player entity
      */
     private Entity spawnPlayer() {
         Entity newPlayer = PlayerFactory.createPlayer();
         Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
-        Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
+        Entity newKeyPromptAnimator = PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
@@ -249,7 +558,7 @@ public class UndergroundGameArea extends GameArea {
         positions.add(new GridPoint2(20, 80));
         positions.add(new GridPoint2(65, 47));
         positions.add(new GridPoint2(85, 54));
-        for (GridPoint2 position: positions) {
+        for (GridPoint2 position : positions) {
             Entity poops = NPCFactory.createPoops(player);
             areaEntities.add(poops);
             spawnEntityAt(poops, position, true, true);
@@ -284,6 +593,16 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
+    /**
+     * Spawns a projectile at the player entity's coordinates.
+     */
+    public void spawnWeaponProjectile() { //TEAM 04
+        Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
+        spawnEntityAt(newProjectile,
+                new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+                true, true);
+    }
+
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
@@ -302,10 +621,26 @@ public class UndergroundGameArea extends GameArea {
 
     /**
      * toString returning a string of the classes name
+     *
      * @return (String) class name
      */
     @Override
     public String toString() {
         return "UndergroundGameArea";
+    }
+
+    public static void removeAuraOnMap(Entity entityToRemove) {
+
+        entityToRemove.setEnabled(false);
+        auraOnMap.remove(entityToRemove);
+
+        Gdx.app.postRunnable(() -> entityToRemove.dispose());
+    }
+
+    public static void removeItemOnMap(Entity entityToRemove) {
+
+        entityToRemove.setEnabled(false);
+        ItemsOnMap.remove(entityToRemove);
+        Gdx.app.postRunnable(() -> entityToRemove.dispose());
     }
 }

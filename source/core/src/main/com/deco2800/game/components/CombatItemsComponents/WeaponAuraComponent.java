@@ -13,16 +13,20 @@ public class WeaponAuraComponent extends Component {
     private double areaMultiplier;
     private int auraDuration; //in milliseconds preferably
 
+    public String description;
+
     /**
      *
      * @param auraDuration how long the aura is activated for the weapon
      * @param dmgMultiplier damage multiplier effect on the weapon
      * @param cdMultiplier cooldown multiplier effect on the weapon
+     * @param description description of the weapon
      */
-    public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double cdMultiplier) {
+    public WeaponAuraComponent(int auraDuration, double dmgMultiplier, double cdMultiplier, String description) {
         setAuraDuration(auraDuration);
         setDmgMultiplier(dmgMultiplier);
         setCdMultiplier(cdMultiplier);
+        setDescription(description);
     }
 
     /**
@@ -42,6 +46,12 @@ public class WeaponAuraComponent extends Component {
         setDurationMultiplier(durationMultiplier);
         setAreaMultiplier(areaMultiplier);
     }
+
+    /**
+     * Sets the description of the aura
+     * @param description description of the aura
+     */
+    public void setDescription(String description) { this.description = description; }
 
     /**
      * Set how long the aura is activated for the weapon
@@ -128,6 +138,14 @@ public class WeaponAuraComponent extends Component {
      */
     public int getAuraDuration() {
         return auraDuration;
+    }
+
+    /**
+     * Returns the aura description
+     * @return description of the aura
+     */
+    public String getDescription() {
+        return description;
     }
 
 }
