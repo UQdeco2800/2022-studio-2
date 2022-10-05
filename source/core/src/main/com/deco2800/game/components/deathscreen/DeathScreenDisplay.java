@@ -138,22 +138,29 @@ public class DeathScreenDisplay extends UIComponent {
         switch (level) {
             case 1 -> {
                 logger.info("setting level 1 deathscreen from DeathScreenDisplay");
-                return deathBackground = new Image(ServiceLocator.getResourceService()
+                 deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_1_w_buttons.png", Texture.class));
+                 return deathBackground;
             }
             case 2 -> {
                 logger.info("setting level 2 deathscreen from DeathScreenDisplay");
-                return deathBackground = new Image(ServiceLocator.getResourceService()
+                deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_2_w_buttons.png", Texture.class));
+                return deathBackground;
             }
             case 3 -> {
                 logger.info("setting win screen from DeathScreenDisplay");
-                return deathBackground = new Image(ServiceLocator.getResourceService()
+                deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/WinScreen/atlantis_sinks_no_island_win.png", Texture.class));
+                return deathBackground;
+            }
+            default -> {
+                deathBackground = new Image(ServiceLocator.getResourceService()
+                        .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
+                return deathBackground;
             }
         }
-        return deathBackground = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
+
     }
 
     /**
