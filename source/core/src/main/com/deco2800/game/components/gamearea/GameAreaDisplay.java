@@ -574,7 +574,8 @@ public class GameAreaDisplay extends UIComponent {
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         ImageButton keyBindNextBtn = new ImageButton(buttonDrawable);
-        keyBindNextBtn.setPosition(1325, 360);
+        keyBindNextBtn.setPosition(1325, 300);
+        keyBindNextBtn.setOrigin(keyBindNextBtn.getWidth()/3, keyBindNextBtn.getHeight()/3);
         keyBindNextBtn.setSize(200, 65);
         keyBindNextBtn.addListener(
                 new ChangeListener() {
