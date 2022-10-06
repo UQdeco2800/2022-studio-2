@@ -6,14 +6,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
 public class Countdown extends UIComponent {
     Ability activeAbility = Ability.NONE;
     long startTime;
+    private static final Logger logger = LoggerFactory.getLogger(Countdown.class);
 
     private int MAX_NUMBER = 5;
     private long COUNTDOWN_DURATION_MILLIS = 10000;
@@ -34,9 +38,9 @@ public class Countdown extends UIComponent {
     public void create() {
         super.create();
         bar = new Table();
-        bar.bottom();
+        bar.bottom().left();
         bar.setFillParent(true); //might need to change
-        bar.padBottom(0f).padLeft(50f);
+        //bar.padBottom(0f).padLeft(50f);
         stage.addActor(bar);
 
         numberImages = new HashMap<Integer, Image>();
@@ -82,11 +86,17 @@ public class Countdown extends UIComponent {
         if (activeAbility == Ability.NONE)
             return;
         long elapsedTime = TimeUtils.timeSinceMillis(startTime);
+        int numberToDisplay;
         if (elapsedTime > COUNTDOWN_DURATION_MILLIS) {
             activeAbility = Ability.NONE;
+            numberToDisplay = 2;
+        } else {
+            numberToDisplay = ((int) ((COUNTDOWN_DURATION_MILLIS - elapsedTime) / 1000)) + 1;
         }
-        int numberToDisplay = ((int) ((COUNTDOWN_DURATION_MILLIS - elapsedTime) / 1000)) + 1;
-        alterTable(activeAbility, numberToDisplay);
+        if (false) { // temp disable flag until fixed
+            alterTable(activeAbility, numberToDisplay);
+        }
+
     }
 
     /**

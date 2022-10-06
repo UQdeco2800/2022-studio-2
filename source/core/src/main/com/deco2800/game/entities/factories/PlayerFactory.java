@@ -61,7 +61,6 @@ public class PlayerFactory {
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina, stats.mana))
             .addComponent(new PlayerActions())
             .addComponent(new PlayerSkillScreenOverlay())
-            .addComponent(new SkillsTreeDisplay())
             .addComponent(new InventoryComponent())
             .addComponent(new PlayerModifier())
             .addComponent(inputComponent)

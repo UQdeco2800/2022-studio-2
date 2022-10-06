@@ -13,9 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.components.player.CooldownBarDisplay;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillComponent;
+import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -43,6 +46,11 @@ public class SkillsTreeDisplay extends UIComponent {
     public void create() {
         entity.getEvents().addListener("toggleSkillTree", this::toggleSkillTreeDisplay);
         super.create();
+        CooldownBarDisplay cooldownBar = entity.getComponent(CooldownBarDisplay.class);
+        cooldownBar.addSkillIcon(new Image(new Texture("images/Skills/dash.png")));
+        for (int i = 0 ; i < 3 ; ++i) {
+            cooldownBar.addSkillIcon(new Image(new Texture("images/Skills/blankSkillIcon.png")));
+        }
     }
 
     /**
@@ -191,6 +199,7 @@ public class SkillsTreeDisplay extends UIComponent {
      */
     private void refreshEquippedSkillsUI() {
         equipTable.clear();
+        entity.getComponent(CooldownBarDisplay.class).clearSkillIcons();
         addEquipText();
         addEquippedSkill(PlayerSkillComponent.SkillTypes.DASH);
         addEquippedSkill(skill1Type);
@@ -268,10 +277,14 @@ public class SkillsTreeDisplay extends UIComponent {
      * @param imageName The name of the png image filename in images/Skills/
      */
     private void addEquipImage(String imageName) {
-        Image skillIcon = new Image(new Texture(Gdx.files.internal(
-                                "images/Skills/" + imageName + ".png")));
-        equipTable.add(skillIcon).pad(10f);
+        String imagePath = "images/Skills/" + imageName + ".png";
+        Image skillIcon = new Image(new Texture(imagePath));
+        equipTable.add(skillIcon).pad(5f);
+        CooldownBarDisplay cooldownBar = entity.getComponent(CooldownBarDisplay.class);
+        cooldownBar.addSkillIcon(new Image(new Texture(imagePath)));
     }
+
+
 
     /**
      * Adds the skill tree buttons to the skill tree boxes in the image skill tree

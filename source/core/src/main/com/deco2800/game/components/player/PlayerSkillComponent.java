@@ -599,6 +599,7 @@ public class PlayerSkillComponent extends Component {
             this.dashDirection = moveDirection;
             this.dashing = true;
             skillAnimator.getEvents().trigger("dashAnimation");
+            playerEntity.getEvents().trigger("teleportAnimation");
             long dashStart = System.currentTimeMillis();
             this.dashEnd = dashStart + DASH_LENGTH;
             setInvulnerable(DASH_LENGTH/2);

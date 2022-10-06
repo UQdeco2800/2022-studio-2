@@ -33,9 +33,6 @@ public class QuickBarDisplay extends UIComponent {
     private Texture texCheck = null;
 
 
-
-
-
     /**
      * Creates reusable ui styles and adds actors to the stage.
      */
