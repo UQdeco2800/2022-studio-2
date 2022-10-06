@@ -9,6 +9,8 @@ import static org.mockito.Mockito.spy;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.entities.Entity;
@@ -38,7 +40,8 @@ import java.awt.*;
 public class DeathScreenDisplayTest {
     Integer level;
     DeathScreenDisplay deathScreenDisplay;
-    Entity sockPuppet;
+    Entity dummy;
+
     @Mock Entity entity;
 
 
@@ -48,22 +51,13 @@ public class DeathScreenDisplayTest {
     @BeforeEach
     void init() {
 
-        Entity mockk = mock(Entity.class);
-
-        deathScreenDisplay = new DeathScreenDisplay();
+        Entity mock = mock(Entity.class);
         AssetManager assetManager = spy(AssetManager.class);
         ResourceService resourceService = new ResourceService(assetManager);
-        String deathTextures[] = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
-        resourceService.loadTextures(deathTextures);
-        resourceService.loadAll();
+        ServiceLocator.registerResourceService(resourceService);
 
-        ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
-        ServiceLocator.registerInputService(new InputService());
-        ServiceLocator.registerResourceService(new ResourceService());
-        ServiceLocator.registerRenderService(new RenderService());
-
-        mockk.addComponent(deathScreenDisplay);
+        // Create deathScreenDisplay
+        deathScreenDisplay = new DeathScreenDisplay();
 
     }
 

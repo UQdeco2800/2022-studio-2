@@ -36,10 +36,10 @@ public class DeathScreen extends ScreenAdapter {
                                                     "images/DeathScreens/widgets/play_again_lvl_1.png",
                                                     "images/DeathScreens/widgets/play_again_lvl_2.png",
                                                     "images/WinScreen/winbtn.png"};
-    private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
-    private static final String buzzDeathMusic = "sounds/buzz_death.mp3";
-    private static final String flushWinSound = "sounds/flush_win.mp3";
-    private static final String[] deathMusic = {backgroundMusic, buzzDeathMusic, flushWinSound};
+    private static String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
+    private static String buzzDeathMusic = "sounds/buzz_death.mp3";
+    private static String flushWinSound = "sounds/flush_win.mp3";
+    private static String[] deathMusic = {backgroundMusic, buzzDeathMusic, flushWinSound};
 
 
     /**
@@ -66,7 +66,7 @@ public class DeathScreen extends ScreenAdapter {
     private void playMusic() {
         // Unsure why the load is needed here (a second time too), but otherwise it doesn't play
         ServiceLocator.getResourceService().loadMusic(deathMusic);
-        Music music = ServiceLocator.getResourceService().getAsset(buzzDeathMusic, Music.class);
+        Music music;
         if (level == 1 || level == 2) {
             music = ServiceLocator.getResourceService().getAsset(buzzDeathMusic, Music.class);
             music.setLooping(true);
