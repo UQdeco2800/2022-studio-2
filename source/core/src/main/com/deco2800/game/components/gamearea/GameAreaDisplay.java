@@ -591,6 +591,20 @@ public class GameAreaDisplay extends UIComponent {
                 });
         keyBindGroup.addActor(keyBindNextBtn);
 
+        //buttonTexture = new Texture(Gdx.files.internal
+        //      ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTexture = new Texture(Gdx.files.internal("images/WinScreen/winbtn.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        ImageButton exitBtn = new ImageButton(buttonDrawable);
+        exitBtn.setPosition(1325, 500);
+        exitBtn.setOrigin(keyBindNextBtn.getWidth()/3, keyBindNextBtn.getHeight()/3);
+        exitBtn.setSize(65, 65);
+        //exitBtn.addListener(disposeKeyBindMenu());
+
+        //TODO need to work out what to trigger to close
+
+
         stage.addActor(keyBindGroup);
         stage.draw();
     }
