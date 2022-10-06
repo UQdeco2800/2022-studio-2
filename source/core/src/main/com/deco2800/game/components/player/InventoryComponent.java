@@ -32,14 +32,16 @@ public class InventoryComponent extends Component {
 
     /**
      * Set the animator for weapons
+     *
      * @param combatAnimator animation handler
      */
-    public void setCombatAnimator(Entity combatAnimator){
+    public void setCombatAnimator(Entity combatAnimator) {
         this.combatAnimator = combatAnimator;
     }
 
     /**
      * Register animation component for the weapon (IMPLEMENT ARMOUR ANIMATION)
+     *
      * @param weapon Entity
      */
     public void registerAnimation(Entity weapon) {
@@ -54,6 +56,7 @@ public class InventoryComponent extends Component {
 
     /**
      * Get the animation handler
+     *
      * @return animation handler
      */
     public Entity getCombatAnimator() {
@@ -124,7 +127,7 @@ public class InventoryComponent extends Component {
     /**
      * Checks if there is an item with the same type in the storage
      *
-     * @param item the Entity to be checked
+     * @param item    the Entity to be checked
      * @param storage the List of storage(e.g. can be quick bar, inventory)
      * @return true if there is a same kind of Entity, false otherwise
      */
@@ -140,7 +143,7 @@ public class InventoryComponent extends Component {
     /**
      * Returns the index in the storage if there is one with the same Entity type
      *
-     * @param item item to be found
+     * @param item    item to be found
      * @param storage the List of storage(e.g. can be quick bar, inventory)
      * @return index of the item, or -1 if item is not in the storage
      */
@@ -164,7 +167,7 @@ public class InventoryComponent extends Component {
             if ((item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR))
 //                    && !hasItem(item, inventory)) {
-                    ) {
+            ) {
                 inventory.add(item);
                 ++itemQuantity[inventory.indexOf(item)];
             } else if (item.checkEntityType(EntityTypes.POTION)
@@ -180,6 +183,7 @@ public class InventoryComponent extends Component {
             ++itemQuantity[getItemIndex(item, inventory)];
         }
     }
+
     /**
      * Sort the item quantity array once an item is removed from the inventory.
      *
@@ -293,7 +297,7 @@ public class InventoryComponent extends Component {
      * @param armour the armour that is equipped
      * @param equip  boolean to determine equip or unequip item
      */
-    private void applyArmourEffect(Entity armour, boolean equip) {
+    public void applyArmourEffect(Entity armour, boolean equip) {
         ArmourStatsComponent armourStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
         //Applying the weight of the armour to player
@@ -303,7 +307,7 @@ public class InventoryComponent extends Component {
 //                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
 //                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
             } else {
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10,false, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10, false, 0);
 //                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
 //                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
             }
@@ -354,7 +358,7 @@ public class InventoryComponent extends Component {
      */
     public boolean equipItem(Entity item) {
         boolean equipped = false;
-        int itemSlot = item.checkEntityType(EntityTypes.WEAPON)? 0 : 1;
+        int itemSlot = item.checkEntityType(EntityTypes.WEAPON) ? 0 : 1;
         if (inventory.contains(item)) {
             if (equipables[itemSlot] != null) {
                 swapItem(item);
@@ -381,10 +385,11 @@ public class InventoryComponent extends Component {
 
     /**
      * Swap the item in equipable
+     *
      * @param item the item to be swapped in
      */
     public void swapItem(Entity item) {
-        int itemSlot = item.checkEntityType(EntityTypes.WEAPON)? 0 : 1;
+        int itemSlot = item.checkEntityType(EntityTypes.WEAPON) ? 0 : 1;
         Entity swappedItem = equipables[itemSlot];
         if (swappedItem != null) {
             if (itemSlot == 0) {
@@ -462,17 +467,17 @@ public class InventoryComponent extends Component {
     /**
      * Check if two items are the same kind
      *
-     * @param item the item to be checked
+     * @param item  the item to be checked
      * @param other the comparison item
      * @return true if two items are the same type, false otherwise
      */
-    public boolean itemEquals (Entity item, Entity other) {
+    public boolean itemEquals(Entity item, Entity other) {
         boolean equals = false;
         if (item.checkEntityType(EntityTypes.POTION)
-        && other.checkEntityType(EntityTypes.POTION)){
+                && other.checkEntityType(EntityTypes.POTION)) {
             equals = item.getComponent(PotionEffectComponent.class).equals(other);
         } else if (item.checkEntityType(EntityTypes.ARMOUR)
-        && other.checkEntityType(EntityTypes.ARMOUR)) {
+                && other.checkEntityType(EntityTypes.ARMOUR)) {
             equals = item.getComponent(ArmourStatsComponent.class)
                     .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)
@@ -480,8 +485,8 @@ public class InventoryComponent extends Component {
             equals = item.getComponent(PhysicalWeaponStatsComponent.class)
                     .equalsOther(other.getComponent(PhysicalWeaponStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
-        && other.checkEntityType(EntityTypes.CRAFTABLE)){
-            for (EntityTypes type: other.getEntityTypes()) {
+                && other.checkEntityType(EntityTypes.CRAFTABLE)) {
+            for (EntityTypes type : other.getEntityTypes()) {
                 if (type != EntityTypes.CRAFTABLE) {
                     equals = item.checkEntityType(type);
                 }
@@ -500,7 +505,7 @@ public class InventoryComponent extends Component {
         boolean added = false;
 
         if (hasPotion) {
-            if(quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
+            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
                 logger.info("Added 1 to an existing potion");
@@ -563,7 +568,4 @@ public class InventoryComponent extends Component {
         }
     }
 
-    public int getInventorySize(){
-        return inventory.size();
-    }
 }

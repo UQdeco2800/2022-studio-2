@@ -4,6 +4,10 @@ import com.deco2800.game.crafting.Materials;
 
 import java.util.HashMap;
 
+/**
+ * This is where armour stats are originally configured. Several are slated for removal
+ * dmgReturn, durability scheduled to be removed
+ */
 public class ArmourConfig {
     public String armourName = "armour";
     //damage reduction modififer

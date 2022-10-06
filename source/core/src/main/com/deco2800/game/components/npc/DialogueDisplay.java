@@ -29,7 +29,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
-import static com.deco2800.game.components.gamearea.GameAreaDisplay.inventoryComponent;
 
 
 /**
@@ -37,6 +36,7 @@ import static com.deco2800.game.components.gamearea.GameAreaDisplay.inventoryCom
  */
 public class DialogueDisplay extends UIComponent {
 
+    InventoryComponent inventoryComponent;
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
     private static Image dialogueImagefemale;
     private static Image dialogueimageguard;

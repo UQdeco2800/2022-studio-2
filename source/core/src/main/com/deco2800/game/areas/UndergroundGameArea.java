@@ -92,7 +92,6 @@ public class UndergroundGameArea extends GameArea {
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
-            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Athena.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
@@ -124,7 +123,16 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
+            "images/level_2_tiledmap/statues2.jpg",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+            "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+            "images/CombatItems/Sprint-1/trident_Lvl2.png",
+            "images/CombatItems/Sprint-2/H&ADagger.png",
+            "images/CombatItems/Sprint-2/Plunger.png",
+            "images/CombatItems/Sprint-2/pipe.png",
             "images/countdown/1.png",
             "images/countdown/2.png",
             "images/countdown/3.png",
@@ -185,6 +193,13 @@ public class UndergroundGameArea extends GameArea {
 //        spawnfriendlycreature();
         megaPoop = spawnMegaPoop();
         playMusic();
+
+        spawnSpeedDebuff();
+        spawnDmgBuff();
+        spawnDmgDebuff();
+        spawnFireBuff();
+        spawnPoisonBuff();
+        spawnSpeedBuff();
     }
 
     /**
@@ -530,6 +545,98 @@ public class UndergroundGameArea extends GameArea {
         newPlayer.getComponent(PlayerKeyPrompt.class)
                 .setKeyPromptAnimator(newKeyPromptAnimator);
         return newPlayer;
+    }
+
+    /**
+     * Spawns speed buff entity into the game
+     */
+    private void spawnSpeedBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(52,69));
+        locations.add(new GridPoint2(85,54));
+        locations.add(new GridPoint2(32,10));
+        locations.add(new GridPoint2(9,88));
+        for (GridPoint2 location : locations) {
+            Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+            auraOnMap.add(speedbuff);
+            spawnEntityAt(speedbuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns speed debuff entity into the game
+     */
+    private void spawnSpeedDebuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(35, 98));
+        locations.add(new GridPoint2(54, 47));
+        for (GridPoint2 location : locations) {
+            Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
+            auraOnMap.add(speedDebuff);
+            spawnEntityAt(speedDebuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns damage buff entity into the game
+     */
+    private void spawnDmgBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(35, 39));
+        locations.add(new GridPoint2(70, 70));
+        locations.add(new GridPoint2(29, 112));
+        for (GridPoint2 location : locations) {
+            Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
+            auraOnMap.add(dmgBuff);
+            spawnEntityAt(dmgBuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns damage debuff entity into the game
+     */
+    private void spawnDmgDebuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(80, 48));
+        locations.add(new GridPoint2(49, 110));
+        locations.add(new GridPoint2(20, 90));
+        for (GridPoint2 location : locations) {
+            Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
+            auraOnMap.add(dmgDebuff);
+            spawnEntityAt(dmgDebuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns fire buff entity into the game
+     */
+    private void spawnFireBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(22, 55));
+        locations.add(new GridPoint2(35, 24));
+        locations.add(new GridPoint2(65, 47));
+        locations.add(new GridPoint2(38, 85));
+
+        for (GridPoint2 location : locations) {
+            Entity fireBuff = AuraFactory.createFireBuff();
+            auraOnMap.add(fireBuff);
+            spawnEntityAt(fireBuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns poison buff entity into the game
+     */
+    private void spawnPoisonBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(84, 64));
+        locations.add(new GridPoint2(37, 47));
+        locations.add(new GridPoint2(45, 74));
+        for (GridPoint2 location : locations) {
+            Entity fireBuff = AuraFactory.createPoisonBuff();
+            auraOnMap.add(fireBuff);
+            spawnEntityAt(fireBuff, location, true, false);
+        }
     }
 
     /**
