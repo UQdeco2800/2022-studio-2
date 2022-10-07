@@ -76,6 +76,7 @@ public class Countdown extends UIComponent {
     /**
      * Called every frame. Checks cool-down duration if any are active and updates the table accordingly
      */
+    @Override
     public void update() {
         // For now just gives each ability 10 seconds
         if (activeAbility == Ability.NONE)

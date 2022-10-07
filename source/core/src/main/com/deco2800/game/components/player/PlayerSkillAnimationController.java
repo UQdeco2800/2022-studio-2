@@ -44,10 +44,25 @@ public class PlayerSkillAnimationController extends Component {
         entity.getEvents().addListener("teleportAnimation", this::animateTeleport);
         entity.getEvents().addListener("blockAnimation", this::animateBlock);
         entity.getEvents().addListener("dodgeAnimation", this::animateDodge);
-        entity.getEvents().addListener("attackSpeedAnimation", this::animateAttackSpeed);
         entity.getEvents().addListener("ultimateAnimation", this::animateUltimate);
+        entity.getEvents().addListener("fireballAnimation", this::animateFireballUltimate);
+        entity.getEvents().addListener("rootAnimation", this::animateRoot);
+        entity.getEvents().addListener("invulnerabilityAnimation", this::animateInvulnerability);
+        entity.getEvents().addListener("aoeAnimation", this::animateAOE);
         entity.getEvents().addListener("dashAnimation", this::animateDash);
         entity.getEvents().trigger("regularAnimation");
+    }
+
+    private void animateAOE() {
+        animator.startAnimation("aoe");
+    }
+
+    private void animateInvulnerability() {
+        animator.startAnimation("invulnerability");
+    }
+
+    private void animateFireballUltimate() {
+        animator.startAnimation("fireballUltimate");
     }
 
     /**
@@ -95,7 +110,7 @@ public class PlayerSkillAnimationController extends Component {
     /**
      * Triggers the attackspeed animation.
      */
-    void animateAttackSpeed() {
+    void animateRoot() {
         animator.startAnimation("attackSpeed");
     }
 }

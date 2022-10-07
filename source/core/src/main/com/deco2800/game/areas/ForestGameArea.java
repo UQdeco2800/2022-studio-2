@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
@@ -145,8 +146,8 @@ public class ForestGameArea extends GameArea {
           "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
           "images/Skills/skillAnimations.atlas", "images/Movement/movement.atlas",
           "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
-          "images/NPC/child npc/npcchild.atlas", "images/NPC/friendly_creature npc/friendly_creature.atlas",
-          "images/NPC/female npc/npcfemale.atlas", "images/NPC/guard npc/npcguard.atlas", "images/NPC/plumber_friend/plumber_friend.atlas",
+          "images/NPC/child npc/npcchild.atlas","images/NPC/female npc/npcfemale.atlas",
+          "images/NPC/plumber_friend/plumber_friend.atlas", "images/NPC/guard npc/npcguard.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
     "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
     "images/Enemies/heracles.atlas", "images/Enemies/mega_poop.atlas",
@@ -173,10 +174,11 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 HumanGuardDialoguePosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 PLumberFriendDialoguePosition;
-  public static GridPoint2 friendlycreaturePosition;
-  public static GridPoint2 friendlycreatureDialoguePosition;
   public static GridPoint2 GuardPosition;
   public static GridPoint2 GuardDialoguePosition;
+  public static GridPoint2 friendlycreaturePosition;
+  public static GridPoint2 friendlycreatureDialoguePosition;
+
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 maleCitizenDialoguePosition;
   public static GridPoint2 childPosition;
@@ -230,10 +232,10 @@ public class ForestGameArea extends GameArea {
     spawnOneLegGirl();
     spawnPlug();
     spawnHumanGuard();
-    spawnPlumberFriend();
     spawnfriendlycreature();
-    spawnChild();
     spawnGuard();
+    spawnPlumberFriend();
+    spawnChild();
     spawnMaleCitizen();
 //    spawnDialogue();
 //    spawnColumn(20, 20);
@@ -358,65 +360,94 @@ public class ForestGameArea extends GameArea {
    * Spawns y-pos 10
    */
   private void spawnSpeedBuff() {
-    Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
-    auraOnMap.add(speedbuff);
-    spawnEntityAt(speedbuff, new GridPoint2(7,7), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(48,18));
+    locations.add(new GridPoint2(129,22));
+    locations.add(new GridPoint2(77,86));
+    locations.add(new GridPoint2(63,126));
+    for (GridPoint2 location : locations) {
+      Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+      auraOnMap.add(speedbuff);
+      spawnEntityAt(speedbuff, location, true, false);
+    }
   }
-  /**
-   *
-   */
+
   /**
    * Spawns speed debuff entity into the game
-   * Spawns x-pos 10
-   * Spawns y-pos 10
    */
   private void spawnSpeedDebuff() {
-    Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
-    auraOnMap.add(speedDebuff);
-    spawnEntityAt(speedDebuff, new GridPoint2(10,10), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(84, 178));
+    locations.add(new GridPoint2(79, 26));
+    for (GridPoint2 location : locations) {
+      Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
+      auraOnMap.add(speedDebuff);
+      spawnEntityAt(speedDebuff, location, true, false);
+    }
   }
+
   /**
    * Spawns damage buff entity into the game
-   * Spawns x-pos 15
-   * Spawns y-pos 15
    */
   private void spawnDmgBuff() {
-    Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
-    auraOnMap.add(dmgBuff);
-    spawnEntityAt(dmgBuff, new GridPoint2(15,15), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(45, 47));
+    locations.add(new GridPoint2(34, 90));
+    locations.add(new GridPoint2(96, 22));
+    locations.add(new GridPoint2(145, 152));
+    for (GridPoint2 location : locations) {
+      Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
+      auraOnMap.add(dmgBuff);
+      spawnEntityAt(dmgBuff, location, true, false);
+    }
   }
 
   /**
    * Spawns damage debuff entity into the game
-   * Spawns x-pos 11
-   * Spawns y-pos 15
    */
   private void spawnDmgDebuff() {
-    Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
-    auraOnMap.add(dmgDebuff);
-    spawnEntityAt(dmgDebuff, new GridPoint2(11,15), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(96, 65));
+    locations.add(new GridPoint2(79, 26));
+    for (GridPoint2 location : locations) {
+      Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
+      auraOnMap.add(dmgDebuff);
+      spawnEntityAt(dmgDebuff, location, true, false);
+    }
   }
 
   /**
    * Spawns fire buff entity into the game
-   * Spawns x-pos 20
-   * Spawns y-pos 10
    */
   private void spawnFireBuff() {
-    Entity fireBuff = AuraFactory.createFireBuff();
-    auraOnMap.add(fireBuff);
-    spawnEntityAt(fireBuff, new GridPoint2(20,10), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(9, 129));
+    locations.add(new GridPoint2(100, 100));
+    locations.add(new GridPoint2(178, 123));
+    locations.add(new GridPoint2(174, 176));
+    locations.add(new GridPoint2(96, 2));
+
+    for (GridPoint2 location : locations) {
+      Entity fireBuff = AuraFactory.createFireBuff();
+      auraOnMap.add(fireBuff);
+      spawnEntityAt(fireBuff, location, true, false);
+    }
   }
 
   /**
    * Spawns poison buff entity into the game
-   * Spawns x-pos 18
-   * Spawns y-pos 12
    */
   private void spawnPoisonBuff() {
-    Entity fireBuff = AuraFactory.createPoisonBuff();
-    auraOnMap.add(fireBuff);
-    spawnEntityAt(fireBuff, new GridPoint2(18,14), true, false);
+    List<GridPoint2> locations = new ArrayList<>();
+    locations.add(new GridPoint2(153, 113));
+    locations.add(new GridPoint2(118, 141));
+    locations.add(new GridPoint2(178, 163));
+    locations.add(new GridPoint2(118, 175));
+    for (GridPoint2 location : locations) {
+      Entity fireBuff = AuraFactory.createPoisonBuff();
+      auraOnMap.add(fireBuff);
+      spawnEntityAt(fireBuff, location, true, false);
+    }
   }
 
   /**
@@ -736,25 +767,6 @@ public class ForestGameArea extends GameArea {
   }
 
 
-  /**
-   * Spawn guard NPC in random position. - Team 7 all-mid-npc
-   */
-  private void spawnGuard() {
-    GuardPosition = new GridPoint2(10, 8);
-    GuardDialoguePosition = new GridPoint2(10, 9);
-
-    Entity guard = NPCFactory.createGuard(player);
-    spawnEntityAt(guard, GuardPosition, true, true);
-    areaEntities.add(guard);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
-    areaEntities.add(dialogue);
-  }
-  public static GridPoint2 getGuardPosition() {
-    return GuardPosition;
-  }
-
   private void spawnHumanGuard() {
     HumanGuardPosition = new GridPoint2(110, 41);
     HumanGuardDialoguePosition = new GridPoint2(110, 42);
@@ -781,6 +793,35 @@ public class ForestGameArea extends GameArea {
     areaEntities.add(dialogue);
   }
 
+  private void spawnGuard() {
+    GuardPosition = new GridPoint2(100, 16);
+    GuardDialoguePosition = new GridPoint2(100, 17);
+
+    Entity guard = NPCFactory.createGuard(player);
+    spawnEntityAt(guard, GuardPosition, true, true);
+    areaEntities.add(guard);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
+    areaEntities.add(dialogue);
+  }
+  public static GridPoint2 getGuardPosition() {
+    return GuardPosition;
+  }
+
+  private void spawnfriendlycreature() {
+    friendlycreaturePosition = new GridPoint2(97, 16);
+    friendlycreatureDialoguePosition = new GridPoint2(97, 17);
+
+    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+    areaEntities.add(friendlycreature);
+
+    Entity dialogue = DialogueFactory.createDialogue();
+    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+    areaEntities.add(dialogue);
+  }
+
   /**
    * Spawn male NPC in random position. - Team 7 all-mid-npc
    */
@@ -798,23 +839,6 @@ public class ForestGameArea extends GameArea {
   }
   public static GridPoint2 getMaleCitizenPosition() {
     return maleCitizenPosition;
-  }
-
-  /**
-   * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
-   */
-
-  private void spawnfriendlycreature() {
-    friendlycreaturePosition = new GridPoint2(5, 10);
-    friendlycreatureDialoguePosition = new GridPoint2(5, 11);
-
-    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
-    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
-    areaEntities.add(friendlycreature);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-    areaEntities.add(dialogue);
   }
 
   /**

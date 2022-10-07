@@ -1,438 +1,620 @@
 skillAnimations.png
-size: 256, 864
+size: 1024, 320
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 default
   rotate: false
-  xy: 192, 352
+  xy: 320, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dash
+aoe
   rotate: false
   xy: 0, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dash
+aoe
   rotate: false
   xy: 64, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dash
+aoe
   rotate: false
   xy: 128, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dash
+aoe
   rotate: false
   xy: 192, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+aoe
+  rotate: false
+  xy: 256, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+aoe
+  rotate: false
+  xy: 320, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dash
+  rotate: false
+  xy: 384, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dash
+  rotate: false
+  xy: 448, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dash
+  rotate: false
+  xy: 512, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dash
+  rotate: false
+  xy: 576, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 dodge
+  rotate: false
+  xy: 640, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dodge
+  rotate: false
+  xy: 704, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dodge
+  rotate: false
+  xy: 768, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dodge
+  rotate: false
+  xy: 832, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+invulnerability
+  rotate: false
+  xy: 896, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+invulnerability
+  rotate: false
+  xy: 960, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+invulnerability
   rotate: false
   xy: 0, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dodge
+invulnerability
   rotate: false
   xy: 64, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dodge
+invulnerability
   rotate: false
   xy: 128, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dodge
+invulnerability
   rotate: false
   xy: 192, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+invulnerability
+  rotate: false
+  xy: 256, 64
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+invulnerability
+  rotate: false
+  xy: 320, 64
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 attackSpeed
   rotate: false
-  xy: 0, 128
+  xy: 384, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 attackSpeed
   rotate: false
-  xy: 32, 128
+  xy: 416, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 attackSpeed
   rotate: false
-  xy: 64, 128
+  xy: 448, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 attackSpeed
   rotate: false
-  xy: 96, 128
+  xy: 480, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 attackSpeed
   rotate: false
-  xy: 128, 128
+  xy: 512, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 attackSpeed
   rotate: false
-  xy: 160, 128
+  xy: 544, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 attackSpeed
   rotate: false
-  xy: 192, 128
+  xy: 576, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 attackSpeed
   rotate: false
-  xy: 224, 128
+  xy: 608, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 8
 attackSpeed
   rotate: false
-  xy: 0, 160
+  xy: 640, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 9
 attackSpeed
   rotate: false
-  xy: 32, 160
+  xy: 672, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 10
 attackSpeed
   rotate: false
-  xy: 64, 160
+  xy: 704, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 11
 attackSpeed
   rotate: false
-  xy: 96, 160
+  xy: 736, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 12
 attackSpeed
   rotate: false
-  xy: 128, 160
+  xy: 768, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 13
 attackSpeed
   rotate: false
-  xy: 160, 160
+  xy: 800, 64
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 14
 block
   rotate: false
-  xy: 192, 160
+  xy: 832, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 block
   rotate: false
-  xy: 0, 224
+  xy: 896, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 block
   rotate: false
-  xy: 64, 224
+  xy: 960, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 block
   rotate: false
-  xy: 128, 224
+  xy: 0, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 192, 224
+  xy: 64, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 0, 288
+  xy: 128, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 64, 288
+  xy: 192, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 128, 288
+  xy: 256, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 192, 288
+  xy: 320, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 0, 352
+  xy: 384, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 64, 352
+  xy: 448, 128
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 teleport
   rotate: false
-  xy: 128, 352
+  xy: 512, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 576, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 640, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 704, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 768, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 832, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 896, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 960, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 0, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 64, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 128, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 192, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fireballUltimate
+  rotate: false
+  xy: 256, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 no_animation
   rotate: false
-  xy: 192, 352
+  xy: 320, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 0, 416
+  xy: 384, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 64, 416
+  xy: 448, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 128, 416
+  xy: 512, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 192, 416
+  xy: 576, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 0, 480
+  xy: 640, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 64, 480
+  xy: 704, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 128, 480
+  xy: 768, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 192, 480
+  xy: 832, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 0, 544
+  xy: 896, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 64, 544
+  xy: 960, 192
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 128, 544
+  xy: 0, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 192, 544
+  xy: 64, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 0, 608
+  xy: 128, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 64, 608
+  xy: 192, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 128, 608
+  xy: 256, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 192, 608
+  xy: 320, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 0, 672
+  xy: 384, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 64, 672
+  xy: 448, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 128, 672
+  xy: 512, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 192, 672
+  xy: 576, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 0, 736
+  xy: 640, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 64, 736
+  xy: 704, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 128, 736
+  xy: 768, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 192, 736
+  xy: 832, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 0, 800
+  xy: 896, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 vendemaire
   rotate: false
-  xy: 64, 800
+  xy: 960, 256
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

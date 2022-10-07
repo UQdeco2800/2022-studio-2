@@ -6,6 +6,7 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -13,8 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.services.ServiceLocator;
@@ -25,14 +25,17 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(GameExtension.class)
 @ExtendWith(MockitoExtension.class)
 class InventoryComponentTest {
+
 
   @BeforeEach
   void beforeEach() {
@@ -159,12 +162,39 @@ class InventoryComponentTest {
 
   @Test
   void applyArmourEffect() {
-      
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    Entity[] expectedList = new Entity[2];
+    //ArmourFactory armour = new ArmourFactory();
+    Entity testArmour = ArmourFactory.createBaseArmour();
+
+    inventory.applyArmourEffect(testArmour, true);
+    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+
+    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, true,0));
+    inventory.applyArmourEffect(testArmour, false);
+    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false, 0));
   }
 
   @Test
   void getEquipable() {
-
+//    Entity player = PlayerFactory.createTestPlayer();
+//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+//    Entity testWeapon = WeaponFactory.createTestDagger();
+//
+//    Entity animator = new Entity();
+//    animator.getComponent(AnimationRenderComponent.class);
+//    Entity entity = mock(Entity.class);
+//    PlayerFactory playerFactory = mock(PlayerFactory.class);
+//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
+//
+//    when(playerFactory.createCombatAnimator(entity)).thenReturn(animator);
+//    when(serviceLocator.getGameArea()).thenReturn(gameArea);
+//
+//    inventory.addItem(testWeapon);
+//    inventory.equipItem(testWeapon);
+//
+//    assertEquals(testWeapon, inventory.getEquipable(0));
   }
 
   @Test
@@ -178,36 +208,53 @@ class InventoryComponentTest {
 
   @Test
   void removeEquipable() {
-
-  }
-
-
-  /**
-  Currently not working since mock is not implemented
-  @Test
-  void equipItem() {
     Entity player = PlayerFactory.createTestPlayer();
-    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
-    Entity testArmour = ArmourFactory.createBaseArmour();
-
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
-
-    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
-    PhyiscalWeaponStatsComponent meleeStats = testWeapon.getComponent(PhyiscalWeaponStatsComponent.class);
-
-    inventory.addItem(testWeapon);
-    inventory.addItem(testArmour);
-
-    inventory.equipItem(testArmour);
-    assertTrue(pmComponent.
-            checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
+    Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity[] expectedList = new Entity[2];
 
     inventory.equipItem(testWeapon);
-    assertTrue(pmComponent.
-            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+    inventory.removeEquipable(0);
+
+    assertArrayEquals(expectedList, inventory.getEquipables());
   }
-  */
+
+
+  @Test
+  void equipItem() {
+    /*
+     have no idea why methods still report errors after they have been mocked
+     */
+
+//    Entity player = PlayerFactory.createTestPlayer();
+//    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
+//    Entity testArmour = ArmourFactory.createBaseArmour();
+//    Entity animator = new Entity();
+//    animator.getComponent(AnimationRenderComponent.class);
+//    Entity entity = mock(Entity.class);
+//    PlayerFactory playerFactory = mock(PlayerFactory.class);
+//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
+//
+//    when(playerFactory.createCombatAnimator(entity)).thenReturn(animator);
+//    when(serviceLocator.getGameArea()).thenReturn(gameArea);
+//
+//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+//    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+//
+//    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
+//    PhyiscalWeaponStatsComponent meleeStats = testWeapon.getComponent(PhyiscalWeaponStatsComponent.class);
+//
+//    inventory.addItem(testWeapon);
+//    inventory.addItem(testArmour);
+//
+//    inventory.equipItem(testArmour);
+//    assertTrue(pmComponent.
+//            checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
+//
+//    inventory.equipItem(testWeapon);
+//    assertTrue(pmComponent.
+//            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+  }
 
   @Test
   void swapItem(){
@@ -258,9 +305,46 @@ class InventoryComponentTest {
 
   @Test
   void toggleInventoryDisplay() {
+    /*
+    not working but trying to fix it.
+    if anyone can make it, just delete all the comment :)
+     */
 
+////    ServiceLocator serviceLocator = spy(ServiceLocator.class);
+//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
+//    Entity player = PlayerFactory.createTestPlayer();
+//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+//
+//    GameAreaDisplay gameArea = mock(GameAreaDisplay.class);
+////    GameAreaDisplay gameArea = new GameAreaDisplay("1");
+//
+////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea);
+//    doThrow(new Exception("null")).when(serviceLocator.getInventoryArea());
+//
+////    GameAreaDisplay gameArea1 = mock(GameAreaDisplay.class);
+////    GameAreaDisplay gameArea2 = mock(GameAreaDisplay.class);
+////    GameAreaDisplay gameArea3 = mock(GameAreaDisplay.class);
+////
+////    String gameAreaName1 = "one";
+////    String gameAreaName2 = "two";
+////    String gameAreaName3 = "three";
+////    gameArea1.setGameAreaName(gameAreaName1);
+////    gameArea2.setGameAreaName(gameAreaName2);
+////    gameArea3.setGameAreaName(gameAreaName3);
+////
+////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea1)
+////            .thenReturn(gameArea2)
+////            .thenReturn(gameArea3);
+//
+//    inventory.toggleInventoryDisplay();
+//
+//    verify(serviceLocator.getInventoryArea()).displayInventoryMenu();
   }
 
+  /**
+   * Checks whether the quickbar items are what they are expected to be when items are added to
+   * the quickbar
+   */
   @Test
   void getQuickBarItems() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -287,6 +371,9 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
 
+  /**
+   * Checks that the item has correctly been added to the quickbar
+   */
   @Test
   void addQuickBarItems() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -301,6 +388,10 @@ class InventoryComponentTest {
     assertEquals(expectedList, inventory.getQuickBarItems());
   }
 
+  /**
+   * Tests whether the potion is at the correct place in the quickbar so that it may be used
+   * correctly with hotkeys
+   */
   @Test
   void getPotionIndex() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -313,6 +404,9 @@ class InventoryComponentTest {
     assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
   }
 
+  /**
+   * Handles the removal of the potion from the quickbar. Used when consume potion is called
+   */
   @Test
   void removePotion() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -328,6 +422,10 @@ class InventoryComponentTest {
     assertEquals(expectedList, testInventory6.getInventory());
   }
 
+  /**
+   * This test checks that when a potion is consumed that it is removed from the quickbar and
+   * applies the intended effect to the player
+   */
   @Test
   void consumePotion() {
     Entity player = PlayerFactory.createTestPlayer();
