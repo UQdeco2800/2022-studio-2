@@ -72,10 +72,19 @@ public class GameAreaDisplay extends UIComponent {
     private TextureRegionDrawable materialDrawable;
     private Image matAmount;
     private Image popUp;
+    private Image firstMatArrow;
+    private Image secondMatArrow;
+    private Image craftArrow;
+    private Image firstMatText;
+    private Image secondMatText;
+    private Image craftText;
     private String weaponType = "";
     private Image weapon;
     private Group craftingGroup = new Group();
     private Group materialsGroup = new Group();
+    private Group firstTutorial = new Group();
+    private Group secondTutorial = new Group();
+    private Group thirdTutorial = new Group();
     private Materials[] boxes = new Materials[2];
     private Group pausingGroup = new Group();
     private Group keyBindGroup = new Group();
@@ -379,20 +388,22 @@ public class GameAreaDisplay extends UIComponent {
     public void openCraftingMenu() {
         logger.info("Opening Crafting Menu");
         inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        if (getGameAreaName().equals("Underground") && firstTime == 0) {
-            inventoryComponent.addItem(MaterialFactory.createWood());
-            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
-            inventoryComponent.addItem(MaterialFactory.createGold());
-            inventoryComponent.addItem(MaterialFactory.createIron());
-            firstTime += 1;
-        }
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
         craftMenu.setPosition(Gdx.graphics.getWidth() / 2 - craftMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - craftMenu.getHeight() / 2);
         craftingGroup.addActor(craftMenu);
-
+        if (firstTime == 0) {
+            initTutorial();
+            if (getGameAreaName().equals("Underground")) {
+                inventoryComponent.addItem(MaterialFactory.createWood());
+                inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+                inventoryComponent.addItem(MaterialFactory.createGold());
+                inventoryComponent.addItem(MaterialFactory.createIron());
+            }
+            firstTime = 1;
+        }
         getInventory();
         currentScreenCrafting = true;
         buttonTexture = new Texture(Gdx.files.internal
@@ -430,7 +441,6 @@ public class GameAreaDisplay extends UIComponent {
         catalogueButton.setSize(146, 146);
         catalogueButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 302);
         catalogueButton.addListener(new ChangeListener() {
-
             public void changed(ChangeEvent event, Actor actor) {
                 logger.info("Catalogue button pressed");
                 currentScreenCrafting = false;
@@ -452,6 +462,9 @@ public class GameAreaDisplay extends UIComponent {
                 disposeCraftingMenu();
                 EntityService.pauseAndResume();
                 OpenCraftingComponent.setCraftingStatus();
+                if (firstTime < 4) {
+                    firstTime = 1;
+                }
             }
         });
         craftingGroup.addActor(exitButton);
@@ -646,6 +659,9 @@ public class GameAreaDisplay extends UIComponent {
                     }
                 }
                 if (numItems == 2) {
+                    if (firstTime == 3) {
+                        stage.addActor(thirdTutorial);
+                    }
                     displayWeapon(item);
                     break;
                 }
@@ -724,11 +740,20 @@ public class GameAreaDisplay extends UIComponent {
                                 }
                             });
                             getInventory();
+                            if (firstTime == 1) {
+                                disposeFirstTutorial();
+                                stage.addActor(secondTutorial);
+                                firstTime = 2;
+                            }
                         } else if (boxes[1] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                             if (item.checkEntityType((EntityTypes.WEAPON))){
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
+                            }
+                            if (firstTime == 2) {
+                                disposeSecondTutorial();
+                                firstTime = 3;
                             }
                             logger.info(String.format(" item: %s added to box 2", item.getEntityTypes().get(0)));
                             materialTextureRegion = new TextureRegion(materialTexture);
@@ -790,6 +815,10 @@ public class GameAreaDisplay extends UIComponent {
      * Displays a "Weapon crafted" pop-up whenever the user successfully crafts a weapon and add animations to it
      */
     private void displayPopUp() {
+        if (firstTime == 3) {
+            disposeThirdTutorial();
+            firstTime = 4;
+        }
         popUp = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
         popUp.setHeight(5);
@@ -803,6 +832,45 @@ public class GameAreaDisplay extends UIComponent {
                 }));
         popUp.addAction(popUpAction);
         stage.addActor(popUp);
+    }
+
+    /**
+     * Initialises the crafting tutorial assets for players opening the crafting table for the first time
+     */
+    private void initTutorial() {
+        Action firstArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, 5, 0.5f),
+                Actions.moveBy(-5, -5, 0.5f)));
+        firstMatArrow = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-right.png")));
+        firstMatArrow.setPosition(craftMenu.getX() + 152, craftMenu.getTop() - 228);
+        firstMatArrow.addAction(firstArrowAction);
+        Action secondArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, 5, 0.5f),
+                Actions.moveBy(-5, -5, 0.5f)));
+        secondMatArrow = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-right.png")));
+        secondMatArrow.setPosition(craftMenu.getX() + 152, craftMenu.getTop() - 228);
+        secondMatArrow.addAction(secondArrowAction);
+        Action craftArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, -5, 0.5f),
+                Actions.moveBy(-5, 5, 0.5f)));
+        craftArrow = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-left.png")));
+        craftArrow.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 145);
+        craftArrow.addAction(craftArrowAction);
+        firstMatText = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/first-mat-prompt.png")));
+        firstMatText.setPosition(craftMenu.getX(), craftMenu.getY());
+        secondMatText = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/second-mat-prompt.png")));
+        secondMatText.setPosition(craftMenu.getX(), craftMenu.getY());
+        craftText = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/craft-prompt.png")));
+        craftText.setPosition(craftMenu.getX(), craftMenu.getY());
+        firstTutorial.addActor(firstMatArrow);
+        firstTutorial.addActor(firstMatText);
+        secondTutorial.addActor(secondMatArrow);
+        secondTutorial.addActor(secondMatText);
+        thirdTutorial.addActor(craftArrow);
+        thirdTutorial.addActor(craftText);
     }
 
     /**
@@ -926,6 +994,8 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void displayCatOne() {
         disposeMaterials();
+        disposeFirstTutorial();
+        disposeSecondTutorial();
         catOneMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_catalogue_1_lvl%d.png", gameLevel))));
         catOneMenu.setSize(883.26f, 500);
@@ -946,6 +1016,13 @@ public class GameAreaDisplay extends UIComponent {
                 disposeCatOne();
                 clearMaterials();
                 getInventory();
+                if (getGameAreaName().equals("Forest")) {
+                    if (firstTime == 1) {
+                        stage.addActor(firstTutorial);
+                    } else if (firstTime == 2) {
+                        stage.addActor(secondTutorial);
+                    }
+                }
             }
         });
         craftingGroup.addActor(inventoryButton);
@@ -971,6 +1048,8 @@ public class GameAreaDisplay extends UIComponent {
      */
     private void displayCatTwo() {
         disposeMaterials();
+        disposeFirstTutorial();
+        disposeSecondTutorial();
         catTwoMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_catalogue_2_lvl%d.png", gameLevel))));
         catTwoMenu.setSize(883.26f, 500);
@@ -991,6 +1070,13 @@ public class GameAreaDisplay extends UIComponent {
                 disposeCatTwo();
                 clearMaterials();
                 getInventory();
+                if (getGameAreaName().equals("Forest")) {
+                    if (firstTime == 1) {
+                        stage.addActor(firstTutorial);
+                    } else if (firstTime == 2) {
+                        stage.addActor(secondTutorial);
+                    }
+                }
             }
         });
         craftingGroup.addActor(inventoryButton);
@@ -1027,6 +1113,18 @@ public class GameAreaDisplay extends UIComponent {
         catOneButton.remove();
     }
 
+    private void disposeFirstTutorial() {
+        firstTutorial.remove();
+    }
+
+    private void disposeSecondTutorial() {
+        secondTutorial.remove();
+    }
+
+    private void disposeThirdTutorial() {
+        thirdTutorial.remove();
+    }
+
     private void clearMaterials() {
         materialsGroup.clear();
     }
@@ -1051,6 +1149,9 @@ public class GameAreaDisplay extends UIComponent {
             disposeSecondBox();
         } catch (NullPointerException ignored) {
         }
+        disposeFirstTutorial();
+        disposeSecondTutorial();
+        disposeThirdTutorial();
         craftingGroup.remove();
     }
 
