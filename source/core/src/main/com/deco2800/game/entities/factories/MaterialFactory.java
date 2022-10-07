@@ -2,7 +2,6 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.ItemPickupComponent;
-import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -11,12 +10,13 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 
 public class MaterialFactory {
 
+    private MaterialFactory(){
+    }
     public static Entity createBaseMaterial() {
-        Entity material = new Entity()
+        return new Entity()
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
-        return material;
     }
     public static Entity createGold() {
         Entity gold = createBaseMaterial();
@@ -101,5 +101,37 @@ public class MaterialFactory {
         silver.setEntityType(EntityTypes.SILVER);
         silver.setEntityType(EntityTypes.CRAFTABLE);
         return silver;
+    }
+
+    /**
+     * Crate a gold for testing
+     * @return test material
+     */
+    public static Entity testCreateGold() {
+        Entity gold = createBaseMaterial();
+        gold.setEntityType(EntityTypes.GOLD);
+        gold.setEntityType(EntityTypes.CRAFTABLE);
+        return gold;
+    }
+
+    /**
+     * Creates the specified type of material for testing
+     * @return test material
+     */
+    public static Entity creatTestMaterial(String materialName) {
+        Entity material = createBaseMaterial();
+        material.setEntityType(EntityTypes.CRAFTABLE);
+        switch (materialName) {
+            case "gold" -> material.setEntityType(EntityTypes.GOLD);
+            case "poop" -> material.setEntityType(EntityTypes.POOP);
+            case "iron" -> material.setEntityType(EntityTypes.IRON);
+            case "toiletPaper" -> material.setEntityType(EntityTypes.TOILETPAPER);
+            case "wood" -> material.setEntityType(EntityTypes.WOOD);
+            case "plastic" -> material.setEntityType(EntityTypes.PLASTIC);
+            case "rubber" -> material.setEntityType(EntityTypes.RUBBER);
+            case "platinum" -> material.setEntityType(EntityTypes.PLATINUM);
+            case "silver" -> material.setEntityType(EntityTypes.SILVER);
+        }
+        return material;
     }
 }
