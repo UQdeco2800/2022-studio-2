@@ -198,17 +198,15 @@ public class GameAreaDisplay extends UIComponent {
      * Displays the items that the player has equipped.
      */
     public void displayEquipables() {
-        InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        for (Entity item : inventoryComponent1.getEquipables()) {
+        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        for (Entity item : inventory.getEquipables()) {
             if (item != null) {
                 int itemSlot;
                 float padding = 128 + 64;
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
                 Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
-                TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
-                TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
-                ImageButton equippedItem = new ImageButton(itemTextureDrawable);
+                ImageButton equippedItem = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
                 equippedItem.setSize(128, 128);
 
                 if (item.checkEntityType(EntityTypes.WEAPON)) {
@@ -222,54 +220,35 @@ public class GameAreaDisplay extends UIComponent {
                 equippedItem.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        //TextButton unequipBtn = new TextButton("Unequip", skin);
-                        //TextButton dropItemBtn = new TextButton("Drop item", skin);
-                        Button.ButtonStyle unequip = new Button.ButtonStyle();
-                        unequip.up= new TextureRegionDrawable(new TextureRegion(
-                                new Texture(Gdx.files.internal("images/Inventory/button/unequip_up.png"))));
-                        unequip.over= new TextureRegionDrawable(new TextureRegion(
-                                new Texture(Gdx.files.internal("images/Inventory/button/unequip_down.png"))));
-                        Button unequipBtn = new Button(unequip);
-                        unequipBtn.setSize(96,36);
 
-                        Button.ButtonStyle drop = new Button.ButtonStyle();
-                        drop.up= new TextureRegionDrawable(new TextureRegion(
-                                new Texture(Gdx.files.internal("images/Inventory/button/drop_up.png"))));
-                        drop.over= new TextureRegionDrawable(new TextureRegion(
-                                new Texture(Gdx.files.internal("images/Inventory/button/drop_down.png"))));
-                        Button dropItemBtn = new Button(drop);
-                        dropItemBtn.setSize(96,36);
-
+                        Button unequipBtn = createInventoryButton("unequip");
+                        Button dropItemBtn = createInventoryButton("drop");
                         unequipBtn.setPosition(horizontalPosition + 63, verticalPosition);
                         dropItemBtn.setPosition(horizontalPosition + 63, verticalPosition - 40);
+
                         inventoryGroup.addActor(unequipBtn);
                         inventoryGroup.addActor(dropItemBtn);
                         unequipBtn.addListener(new ChangeListener() {
-                            @Override
-                            public void changed(ChangeEvent event, Actor actor) {
-                                if (inventoryComponent1.unequipItem(itemSlot)) {
-                                    inventoryGroup.removeActor(equippedItem);
-                                    updateInventoryDisplay();
-                                }
-                                if (unequipBtn.isPressed() || dropItemBtn.isPressed()) {
-                                    inventoryGroup.removeActor(unequipBtn);
-                                    inventoryGroup.removeActor(dropItemBtn);
-                                }
-                            }
+                                @Override
+                                    public void changed(ChangeEvent event, Actor actor) {
+                                        if (inventory.unequipItem(itemSlot)) {
+                                            inventoryGroup.removeActor(equippedItem);
+                                            updateInventoryDisplay();
+                                        }
+                                        inventoryGroup.removeActor(unequipBtn);
+                                        inventoryGroup.removeActor(dropItemBtn);
+                                    }
                         });
                         dropItemBtn.addListener(
                                 new ChangeListener() {
                                     @Override
                                     public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventoryComponent1.removeEquipable(itemSlot)) {
+                                        if (inventory.removeEquipable(itemSlot)) {
                                             inventoryGroup.removeActor(equippedItem);
                                             updateInventoryDisplay();
                                         }
-                                        //Team 4, Call drop item function here
-                                        if (unequipBtn.isPressed() || dropItemBtn.isPressed()) {
-                                            inventoryGroup.removeActor(unequipBtn);
-                                            inventoryGroup.removeActor(dropItemBtn);
-                                        }
+                                        inventoryGroup.removeActor(unequipBtn);
+                                        inventoryGroup.removeActor(dropItemBtn);
                                     }
                                 }
                         );
@@ -289,14 +268,12 @@ public class GameAreaDisplay extends UIComponent {
 
     public void displayItems() {
         float padding = 32f;
-        InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        items = inventoryComponent1.getInventory();
+        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        items = inventory.getInventory();
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
-            TextureRegion itemTextureRegion = new TextureRegion(itemTexture);
-            TextureRegionDrawable itemTextureDrawable = new TextureRegionDrawable(itemTextureRegion);
-            ImageButton item = new ImageButton(itemTextureDrawable);
+            ImageButton item = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
             item.setSize(64, 64);
             int row = i / 4;
             int column = i % 4;
@@ -318,21 +295,10 @@ public class GameAreaDisplay extends UIComponent {
                     new ChangeListener() {
                         @Override
                         public void changed(ChangeEvent changeEvent, Actor actor) {
-                            Button.ButtonStyle equip = new Button.ButtonStyle();
-                            equip.up= new TextureRegionDrawable(new TextureRegion(
-                                    new Texture(Gdx.files.internal("images/Inventory/button/equip_up.png"))));
-                            equip.over= new TextureRegionDrawable(new TextureRegion(
-                                    new Texture(Gdx.files.internal("images/Inventory/button/equip_down.png"))));
-                            Button itemOpBtn = new Button(equip);
-                            itemOpBtn.setSize(96,36);
 
-                            Button.ButtonStyle drop = new Button.ButtonStyle();
-                            drop.up= new TextureRegionDrawable(new TextureRegion(
-                                    new Texture(Gdx.files.internal("images/Inventory/button/drop_up.png"))));
-                            drop.over= new TextureRegionDrawable(new TextureRegion(
-                                    new Texture(Gdx.files.internal("images/Inventory/button/drop_down.png"))));
-                            Button dropItemBtn = new Button(drop);
-                            dropItemBtn.setSize(96,36);
+                            Button itemOpBtn = createInventoryButton("equip");
+                            Button dropItemBtn = createInventoryButton("drop");
+
 
                             itemOpBtn.setPosition(horizontalPosition + 48, verticalPosition);
                             dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 42);
@@ -340,14 +306,12 @@ public class GameAreaDisplay extends UIComponent {
                                     new ChangeListener() {
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-                                            if (inventoryComponent1.removeItem(currentItem)) {
+                                            if (inventory.removeItem(currentItem)) {
                                                 inventoryGroup.removeActor(item);
                                                 updateInventoryDisplay();
                                             }
-                                            if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
-                                                inventoryGroup.removeActor(itemOpBtn);
-                                                inventoryGroup.removeActor(dropItemBtn);
-                                            }
+                                            inventoryGroup.removeActor(itemOpBtn);
+                                            inventoryGroup.removeActor(dropItemBtn);
                                         }
                                     }
                             );
@@ -357,13 +321,13 @@ public class GameAreaDisplay extends UIComponent {
                                         public void changed(ChangeEvent event, Actor actor) {
                                             switch (buttonText) {
                                                 case "Equip item":
-                                                    if (inventoryComponent1.equipItem(currentItem)) {
+                                                    if (inventory.equipItem(currentItem)) {
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
                                                 case "Add to quick bar":
-                                                    if (inventoryComponent1.addQuickBarItems(currentItem)) {
-                                                        inventoryComponent1.removeItem(currentItem);
+                                                    if (inventory.addQuickBarItems(currentItem)) {
+                                                        inventory.removeItem(currentItem);
                                                         updateInventoryDisplay();
                                                         //TODO visualizePotion();
                                                         potionEQ = 1;
@@ -371,10 +335,8 @@ public class GameAreaDisplay extends UIComponent {
                                                     }
                                                     break;
                                             }
-                                            if (itemOpBtn.isPressed() || dropItemBtn.isPressed()) {
-                                                inventoryGroup.removeActor(itemOpBtn);
-                                                inventoryGroup.removeActor(dropItemBtn);
-                                            }
+                                            inventoryGroup.removeActor(itemOpBtn);
+                                            inventoryGroup.removeActor(dropItemBtn);
                                         }
                                     }
                             );
