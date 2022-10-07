@@ -122,30 +122,6 @@ public class GameAreaDisplay extends UIComponent {
         stage.addActor(title);
     }
 
-    public void updateInventoryDisplay() {
-        inventoryGroup.clear();
-        ServiceLocator.getInventoryArea().displayInventoryMenu();
-        ServiceLocator.getInventoryArea().displayItems();
-        ServiceLocator.getInventoryArea().displayEquipables();
-    }
-
-    /**
-     * Displays the inventory UI.
-     *
-     * INVENTORY_DISPLAY Self-made tag for the ease of searching
-     */
-    public void displayInventoryMenu() {
-        inventoryMenu = new Image(new Texture(Gdx.files.internal
-                ("images/Inventory/Inventory_v3.png")));
-        //Note: the position of the asset is at the bottom left.
-        inventoryMenu.setSize(1024, 768);
-        inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
-        inventoryGroup.addActor(inventoryMenu);
-        stage.addActor(inventoryGroup);
-        stage.draw();
-    }
-
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
         logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
@@ -175,6 +151,47 @@ public class GameAreaDisplay extends UIComponent {
     public void disposeMinimap() {
         minimapGroup.remove();
         logger.info("removing minimap");
+    }
+
+    public void updateInventoryDisplay() {
+        inventoryGroup.clear();
+        ServiceLocator.getInventoryArea().displayInventoryMenu();
+        ServiceLocator.getInventoryArea().displayItems();
+        ServiceLocator.getInventoryArea().displayEquipables();
+    }
+
+    /**
+     * Displays the inventory UI.
+     *
+     * INVENTORY_DISPLAY Self-made tag for the ease of searching
+     */
+    public void displayInventoryMenu() {
+        inventoryMenu = new Image(new Texture(Gdx.files.internal
+                ("images/Inventory/Inventory_v3.png")));
+        //Note: the position of the asset is at the bottom left.
+        inventoryMenu.setSize(1024, 768);
+        inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
+        inventoryGroup.addActor(inventoryMenu);
+        stage.addActor(inventoryGroup);
+        stage.draw();
+    }
+
+    /**
+     * Create a button based on the input operation
+     * @param operation button action
+     * @return button
+     */
+    private Button createInventoryButton (String operation) {
+        Button.ButtonStyle style = new Button.ButtonStyle();
+        style.up= new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal(String.format("images/Inventory/button/%s_up.png", operation)))));
+        style.over= new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal(String.format("images/Inventory/button/%s_down.png", operation)))));
+
+        Button button = new Button(style);
+        button.setSize(96,36);
+        return button;
     }
 
     /**
