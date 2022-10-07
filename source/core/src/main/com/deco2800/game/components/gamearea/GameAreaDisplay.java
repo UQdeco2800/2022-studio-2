@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -26,6 +27,7 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +43,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private String gameAreaName = "";
     private Label title;
+
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
     private static Component mainGameActions;
     private int numcrafted = 0;
@@ -354,6 +357,9 @@ public class GameAreaDisplay extends UIComponent {
                                                     if (inventoryComponent1.addQuickBarItems(currentItem)) {
                                                         inventoryComponent1.removeItem(currentItem);
                                                         updateInventoryDisplay();
+                                                        //TODO visualizePotion();
+                                                        potionEQ = 1;
+                                                        potionTex = itemTexture;
                                                     }
                                                     break;
                                             }
@@ -373,6 +379,7 @@ public class GameAreaDisplay extends UIComponent {
             inventoryGroup.addActor(item);
         }
     }
+
 
     /**
      * Disposes the inventory display group.
