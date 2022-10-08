@@ -846,11 +846,29 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnGymBro() {
     ArrayList<GridPoint2> positions = new ArrayList<>();
-    positions.add(new GridPoint2(129, 22));
     positions.add(new GridPoint2(99, 65));
-    positions.add(new GridPoint2(45, 47));
+    positions.add(new GridPoint2(89, 65));
+    positions.add(new GridPoint2(105, 62));
+
+    positions.add(new GridPoint2(34, 100));
+    positions.add(new GridPoint2(20, 106));
+    positions.add(new GridPoint2(25, 99));
+
+    positions.add(new GridPoint2(80, 100));
+    positions.add(new GridPoint2(63, 106));
+    positions.add(new GridPoint2(90, 99));
+
+    positions.add(new GridPoint2(118, 173));
     positions.add(new GridPoint2(118, 141));
-    positions.add(new GridPoint2(118, 175));
+    positions.add(new GridPoint2(145, 152));
+
+    positions.add(new GridPoint2(153, 123));
+    positions.add(new GridPoint2(153, 141));
+    positions.add(new GridPoint2(153, 130));
+
+    positions.add(new GridPoint2(153, 113));
+    positions.add(new GridPoint2(175, 113));
+    positions.add(new GridPoint2(178, 123));
 
     for (GridPoint2 position: positions) {
       Entity gymBro = NPCFactory.createGymBro(player);
@@ -863,7 +881,7 @@ public class ForestGameArea extends GameArea {
    * Spawn Heracles in a position.
    */
   private Entity spawnHeracles() {
-    GridPoint2 position = new GridPoint2(153, 113);
+    GridPoint2 position = new GridPoint2(174, 65);
     Entity heracles = NPCFactory.createHeracles(player);
     areaEntities.add(heracles);
     spawnEntityAt(heracles, position, true, true);
