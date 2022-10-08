@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.Component;
@@ -28,6 +29,8 @@ public class OpenCraftingComponent extends Component {
     private void openCrafting() {
         if (inRange(entity.getCenterPosition()) && craftingStatus == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();
+            Sound openCraftMenu = ServiceLocator.getResourceService().getAsset("sounds/Scroll.wav", Sound.class);
+            openCraftMenu.play();
             ServiceLocator.getCraftArea().displayCatOne();
             setCraftingStatus();
             EntityService.pauseGame();

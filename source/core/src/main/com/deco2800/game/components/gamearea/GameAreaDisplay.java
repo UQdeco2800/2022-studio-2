@@ -1,6 +1,7 @@
 package com.deco2800.game.components.gamearea;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -711,6 +712,8 @@ public class GameAreaDisplay extends UIComponent {
                 material.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
+                        Sound selectMat = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
+                        selectMat.play();
                         if (boxes[0] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -826,6 +829,8 @@ public class GameAreaDisplay extends UIComponent {
             disposeThirdTutorial();
             firstTime = 4;
         }
+        Sound weaponCrafted = ServiceLocator.getResourceService().getAsset("sounds/Blueprint.wav", Sound.class);
+        weaponCrafted.play();
         popUp = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
         popUp.setHeight(5);
