@@ -11,7 +11,6 @@ import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.Component;
-import com.deco2800.game.components.deathscreen.DeathScreenDisplay;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -77,7 +76,6 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/charge.png",
           "images/Skills/charge_disabled.png"
   };
-
   private static final String[] dialogueImg = {
           "images/NPC/Dialogue/dialoguesboxmale.png",
           "images/NPC/Dialogue/dialoguesboxguard.png",

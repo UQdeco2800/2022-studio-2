@@ -326,12 +326,24 @@ public class PlayerActions extends Component {
     skillManager.startUltimate();
   }
 
+  /**
+   * Makes the player cast their ultimate fireball skill.
+   * Registers call of the ultimate function to the skill manager component.
+   */
   public void fireballUltimate() {
     skillManager.startFireballUltimate();
   }
 
+  /**
+   * Makes the player cast their cone projectile skill.
+   * Registers call of the projectile function to the skill manager component.
+   */
   public void coneProjectile() {
     skillManager.startProjectileSkill();
+  }
+
+  public void invulnerabilitySkill() {
+    skillManager.startInvulnerabilitySkill();
   }
 
   public Vector2 getWalkDirection() {
