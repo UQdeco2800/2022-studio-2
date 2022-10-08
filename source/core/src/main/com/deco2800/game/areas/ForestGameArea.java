@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
@@ -224,7 +223,7 @@ public class ForestGameArea extends GameArea {
     loadAssets();
     displayUI();
     spawnTerrain();
-    spawnCraftingTable();
+    spawnCraftingTables();
     spawnPotion();
     player = spawnPlayer();
     spawnGymBro();
@@ -494,10 +493,19 @@ public class ForestGameArea extends GameArea {
   /**
    * Spawns the crafting table entity on the forest map
    */
-  public void spawnCraftingTable() {
-    Entity craftingTable = ObstacleFactory.createCraftingTableForest();
-    craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
-    spawnEntityAt(craftingTable, new GridPoint2(100, 10), true, false);
+  public void spawnCraftingTables() {
+    Entity craftingTable1 = ObstacleFactory.createCraftingTableForest();
+    craftingTable1.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable1, new GridPoint2(100, 10), true, true);
+    Entity craftingTable2 = ObstacleFactory.createCraftingTableForest();
+    craftingTable2.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable2, new GridPoint2(47, 100), true, true);
+    Entity craftingTable3 = ObstacleFactory.createCraftingTableForest();
+    craftingTable3.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable3, new GridPoint2(96, 139), true, true);
+    Entity craftingTable4 = ObstacleFactory.createCraftingTableForest();
+    craftingTable4.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable4, new GridPoint2(144, 111), true, true);
   }
 
   /**

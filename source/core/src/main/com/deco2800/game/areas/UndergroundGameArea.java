@@ -643,9 +643,18 @@ public class UndergroundGameArea extends GameArea {
      * Spawns the crafting table entity on the underground map
      */
     public void spawnCraftingTable() {
-        Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
-        craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
-        spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
+        Entity craftingTable1 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable1.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable1, new GridPoint2(36, 15), true, false);
+        Entity craftingTable2 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable2.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable2, new GridPoint2(11, 69), true, false);
+        Entity craftingTable3 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable3.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable3, new GridPoint2(49, 81), true, false);
+        Entity craftingTable4 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable4.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable4, new GridPoint2(90, 45), true, false);
     }
 
     /**
