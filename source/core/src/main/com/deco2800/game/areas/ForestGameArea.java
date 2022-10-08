@@ -274,16 +274,16 @@ public class ForestGameArea extends GameArea {
     spawnEntity(new Entity().addComponent(terrain));
 
     //Place the columns
-    spawnColumn(8, 3);
-    spawnColumn(15, 3);
+//    spawnColumn(8, 3);
+//    spawnColumn(15, 3);
 
     //Place the trees
-    spawnTrees(2,15);
-    spawnTrees(22,15);
-    spawnSmallTrees(1,6);
-    spawnSmallTrees(22,6);
-    spawnRock(2,9);
-    spawnRock(22, 8);
+//    spawnTrees(2,15);
+//    spawnTrees(22,15);
+//    spawnSmallTrees(1,6);
+//    spawnSmallTrees(22,6);
+//    spawnRock(2,9);
+//    spawnRock(22, 8);
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
@@ -309,20 +309,103 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(
             ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
 
-    // Castle Walls
-    spawnEntityAt(ObstacleFactory.createWall(1f, 17f), new GridPoint2(3, 7), false,
+    // Zone A Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(88, 6), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(1f, 17f), new GridPoint2(21, 7), false,
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(104, 6), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(18f, 1f), new GridPoint2(4, 23), false,
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(10f), new GridPoint2(104, 16), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(3, 7), false,
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(9f), new GridPoint2(80, 16), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(17, 7), false,
+    spawnEntityAt(ObstacleFactory.createWall(1f, 22f), new GridPoint2(79, 18), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(1f, 4f), new GridPoint2(7, 4), false,
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(34f), new GridPoint2(80, 40), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(1f, 4f), new GridPoint2(17, 4), false,
+    spawnEntityAt(ObstacleFactory.createWall(25f, 1f), new GridPoint2(114, 17), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(138, 17), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(123, 26), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 5f), new GridPoint2(123, 26), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(119, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 5f), new GridPoint2(119, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(4f, 1f), new GridPoint2(116, 34), false,
+            false);
+      // the pool
+    spawnEntityAt(ObstacleFactory.createWall(11f, 1f), new GridPoint2(92, 21), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(92, 21), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(102, 21), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(90, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(100, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 8f), new GridPoint2(90, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 8f), new GridPoint2(104, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(14f, 1f), new GridPoint2(90, 37), false,
+            false);
+
+    // Zone B Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 39f), new GridPoint2(116, 34), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 15f), new GridPoint2(113, 42), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(31f, 1f), new GridPoint2(82, 56), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 16f), new GridPoint2(82, 56), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(6f, 1f), new GridPoint2(82, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(2f, 1f), new GridPoint2(95, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 1f), new GridPoint2(115, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 24f), new GridPoint2(87, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 66f), new GridPoint2(95, 72), false,
+            false);
+
+    // Zone D Walls
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(28f), new GridPoint2(60, 96), false,
+            false);
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(10f), new GridPoint2(60, 120), false,
+            false);
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(21f), new GridPoint2(69, 130), false,
+            false);
+
+    // Zone C Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 26f), new GridPoint2(60, 70), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 50f), new GridPoint2(19, 70), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(25f, 1f), new GridPoint2(36, 69), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(41f, 1f), new GridPoint2(19, 120), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(21f, 1f), new GridPoint2(24, 119), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(21f, 1f), new GridPoint2(24, 99), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 21f), new GridPoint2(24, 99), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 21f), new GridPoint2(45, 99), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(44, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(54, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(44, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(44, 81), false,
             false);
   }
 
