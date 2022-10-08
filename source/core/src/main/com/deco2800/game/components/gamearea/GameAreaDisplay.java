@@ -829,7 +829,7 @@ public class GameAreaDisplay extends UIComponent {
             disposeThirdTutorial();
             firstTime = 4;
         }
-        Sound weaponCrafted = ServiceLocator.getResourceService().getAsset("sounds/Blueprint.wav", Sound.class);
+        Sound weaponCrafted = ServiceLocator.getResourceService().getAsset("sounds/new_Weapon_Crafted.wav", Sound.class);
         weaponCrafted.play();
         popUp = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
