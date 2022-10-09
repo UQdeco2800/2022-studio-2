@@ -135,25 +135,27 @@ public class DeathScreenDisplay extends UIComponent {
      * @return deathBackground if level is 1 it returns level 1 image, if level is 2 it reyurns level 2, else level 1
      */
     public Image levelBackground (int level) {
+
         switch (level) {
             case 1 -> {
                 logger.info("setting level 1 deathscreen from DeathScreenDisplay");
-                return deathBackground = new Image(ServiceLocator.getResourceService()
+                 deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_1_w_buttons.png", Texture.class));
             }
             case 2 -> {
                 logger.info("setting level 2 deathscreen from DeathScreenDisplay");
-                return deathBackground = new Image(ServiceLocator.getResourceService()
+                deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_2_w_buttons.png", Texture.class));
             }
             case 3 -> {
                 logger.info("setting win screen from DeathScreenDisplay");
-                return deathBackground = new Image(ServiceLocator.getResourceService()
+                deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/WinScreen/atlantis_sinks_no_island_win.png", Texture.class));
             }
+            default -> deathBackground = new Image(ServiceLocator.getResourceService()
+                        .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
         }
-        return deathBackground = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
+        return deathBackground;
     }
 
     /**
