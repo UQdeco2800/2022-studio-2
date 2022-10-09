@@ -153,7 +153,7 @@ public class DeathScreenDisplay extends UIComponent {
                         .getAsset("images/WinScreen/atlantis_sinks_no_island_win.png", Texture.class));
             }
             default -> deathBackground = new Image(ServiceLocator.getResourceService()
-                        .getAsset("images/DeathScreens/lvl_1.png", Texture.class));
+                        .getAsset("images/DeathScreens/lvl_1_w_buttons.png", Texture.class));
         }
         return deathBackground;
     }
