@@ -36,10 +36,10 @@ public class DeathScreen extends ScreenAdapter {
                                                     "images/DeathScreens/widgets/play_again_lvl_1.png",
                                                     "images/DeathScreens/widgets/play_again_lvl_2.png",
                                                     "images/WinScreen/winbtn.png"};
-    private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
-    private static final String buzzDeathMusic = "sounds/buzz_death.mp3";
-    private static final String flushWinSound = "sounds/flush_win.mp3";
-    private static final String[] deathMusic = {backgroundMusic, buzzDeathMusic, flushWinSound};
+    private static final String BACKGROUND_MUSIC = "sounds/MenuSong-Overcast.mp3";
+    private static final String BUZZ_DEATH_SOUND = "sounds/buzz_death.mp3";
+    private static final String FLUSH_SOUND_SOUND = "sounds/flush_win.mp3";
+    private static final String[] deathMusic = {BACKGROUND_MUSIC, BUZZ_DEATH_SOUND, FLUSH_SOUND_SOUND};
 
 
     /**
@@ -66,15 +66,15 @@ public class DeathScreen extends ScreenAdapter {
     private void playMusic() {
         // Unsure why the load is needed here (a second time too), but otherwise it doesn't play
         ServiceLocator.getResourceService().loadMusic(deathMusic);
-        Music music = ServiceLocator.getResourceService().getAsset(buzzDeathMusic, Music.class);
+        Music music;
         if (level == 1 || level == 2) {
-            music = ServiceLocator.getResourceService().getAsset(buzzDeathMusic, Music.class);
+            music = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
             music.setLooping(true);
         } else {
-            music = ServiceLocator.getResourceService().getAsset(flushWinSound, Music.class);
+            music = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
             music.setLooping(false);
             music.setVolume(0.2f);
-            Music bgMusic = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
+            Music bgMusic = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
             bgMusic.setVolume(0.3f);
             bgMusic.play();
         }
@@ -112,7 +112,8 @@ public class DeathScreen extends ScreenAdapter {
         unloadAssets();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getEntityService().dispose();
-        ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
+        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
+        ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class).stop();
 
         ServiceLocator.clear();
     }
