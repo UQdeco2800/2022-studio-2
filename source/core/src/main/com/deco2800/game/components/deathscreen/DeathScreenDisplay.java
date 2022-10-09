@@ -53,7 +53,7 @@ public class DeathScreenDisplay extends UIComponent {
      */
     private void addActors() {
         // Set's background image based on the level
-        Image background = levelBackground(level);
+        Image background = levelBackground();
         // Makes sure the image fills the entire screen
         background.setFillParent(true);
         // Stages the image
@@ -131,12 +131,11 @@ public class DeathScreenDisplay extends UIComponent {
     /**
      * Adjusts DeathScreens background image based on given level, it checks what value the level is and outputs the
      * appropriate level background image
-     * @param level the games level as given in GdxGame
      * @return deathBackground if level is 1 it returns level 1 image, if level is 2 it reyurns level 2, else level 1
      */
-    public Image levelBackground (int level) {
+    public Image levelBackground () {
 
-        switch (level) {
+        switch (getLevel()) {
             case 1 -> {
                 logger.info("setting level 1 deathscreen from DeathScreenDisplay");
                  deathBackground = new Image(ServiceLocator.getResourceService()
