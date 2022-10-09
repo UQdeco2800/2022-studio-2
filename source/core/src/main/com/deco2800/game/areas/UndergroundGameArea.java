@@ -652,7 +652,7 @@ public class UndergroundGameArea extends GameArea {
      * Spawn Mega Poop in a random position.
      */
     private Entity spawnMegaPoop() {
-        GridPoint2 position = new GridPoint2(35, 102);
+        GridPoint2 position = new GridPoint2(35, 98);
         Entity megaPoop = NPCFactory.createMegaPoop(player);
         spawnEntityAt(megaPoop, position, true, true);
         return megaPoop;
@@ -664,25 +664,10 @@ public class UndergroundGameArea extends GameArea {
     private void spawnPoops() {
         ArrayList<GridPoint2> positions = new ArrayList<>();
         positions.add(new GridPoint2(37, 47));
-        positions.add(new GridPoint2(32, 47));
-        positions.add(new GridPoint2(42, 42));
-
         positions.add(new GridPoint2(32, 67));
-        positions.add(new GridPoint2(45, 74));
-        positions.add(new GridPoint2(35, 69));
-
-        positions.add(new GridPoint2(9, 88));
-        positions.add(new GridPoint2(20, 90));
         positions.add(new GridPoint2(20, 80));
-
         positions.add(new GridPoint2(65, 47));
-        positions.add(new GridPoint2(60, 47));
-        positions.add(new GridPoint2(63, 54));
-
         positions.add(new GridPoint2(85, 54));
-        positions.add(new GridPoint2(80, 48));
-        positions.add(new GridPoint2(84, 60));
-
         for (GridPoint2 position : positions) {
             Entity poops = NPCFactory.createPoops(player);
             areaEntities.add(poops);

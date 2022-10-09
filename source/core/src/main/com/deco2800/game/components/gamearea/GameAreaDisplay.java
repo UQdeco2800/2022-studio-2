@@ -161,7 +161,7 @@ public class GameAreaDisplay extends UIComponent {
         }
 
         //Note: the position of the asset is at the bottom left.
-        minimapImage.setSize(800, 977);
+        minimapImage.setSize(1200, 1465);
         minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
         minimapGroup.addActor(minimapImage);
@@ -174,7 +174,7 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void disposeMinimap() {
         minimapGroup.remove();
-        logger.info("Removing minimap");
+        logger.info("removing minimap");
     }
 
     /**

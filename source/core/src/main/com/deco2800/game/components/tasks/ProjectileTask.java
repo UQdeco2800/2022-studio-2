@@ -3,8 +3,6 @@ package com.deco2800.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
-import com.deco2800.game.components.npc.EnemyProjectileComponent;
-import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.raycast.RaycastHit;
@@ -103,20 +101,11 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         if (projectileType == "discus") {
             projectile = createDiscus(owner.getEntity(), target);
         }
-        if (owner.getEntity().checkEntityType(EntityTypes.MEGAPOOP)) {
-            Entity projectile = createPoopsSludge(owner.getEntity(), target);
-            ServiceLocator.getEntityService().register(projectile);
-            projectile.setPosition(owner.getEntity().getPosition().x - 0.5f, owner.getEntity().getPosition().y - 0.5f);
-
-            Entity projectile2 = createPoopsSludge(owner.getEntity(), target);
-            ServiceLocator.getEntityService().register(projectile2);
-            projectile2.setPosition(owner.getEntity().getPosition().x + 0.5f, owner.getEntity().getPosition().y + 0.5f);
-
-        } else if (projectile != null) {
+        if (projectile != null) {
             ServiceLocator.getEntityService().register(projectile);
             projectile.setPosition(owner.getEntity().getPosition().x, owner.getEntity().getPosition().y);
+            setTask(taskWait);
         }
-        setTask(taskWait);
     }
     
     public void setTask(Task task) {

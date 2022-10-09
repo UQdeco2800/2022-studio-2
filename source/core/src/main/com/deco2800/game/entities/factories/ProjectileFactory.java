@@ -68,7 +68,7 @@ public class ProjectileFactory {
         //The alignment values come from 1/64 multiplied by the center point of the poop sludge (Since the poop sludge sprite is slightly off center)
         poops.getComponent(ColliderComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
         poops.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
-        poops.setEntityType(EntityTypes.PROJECTILE);
+        poops.setEntityType(EntityTypes.ENEMY);
 
         poops.setScale(2,2);
         return poops;
@@ -93,7 +93,7 @@ public class ProjectileFactory {
         discus.getComponent(HitboxComponent.class).setAsBoxAligned(new Vector2(0.28f, 0.125f),
                 PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.CENTER);
 
-        discus.setEntityType(EntityTypes.PROJECTILE);
+        discus.setEntityType(EntityTypes.ENEMY);
         discus.setScale(2,2);
         return discus;
     }
