@@ -1,10 +1,11 @@
 package com.deco2800.game.components.gamearea;
 
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -25,6 +28,7 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +44,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private String gameAreaName = "";
     private Label title;
+
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
     private static Component mainGameActions;
     private int numcrafted = 0;
@@ -64,7 +69,6 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton secondToCraft;
     private Image resume_image;
     private ImageButton resume;
-
     private ImageButton exit;
     private ImageButton controls;
     private Texture materialTexture;
@@ -72,22 +76,31 @@ public class GameAreaDisplay extends UIComponent {
     private TextureRegionDrawable materialDrawable;
     private Image matAmount;
     private Image popUp;
+    private Image firstMatArrow;
+    private Image secondMatArrow;
+    private Image craftArrow;
+    private Image firstMatText;
+    private Image secondMatText;
+    private Image craftText;
     private String weaponType = "";
     private Image weapon;
     private Group craftingGroup = new Group();
     private Group materialsGroup = new Group();
+    private Group firstTutorial = new Group();
+    private Group secondTutorial = new Group();
+    private Group thirdTutorial = new Group();
     private Materials[] boxes = new Materials[2];
     private Group pausingGroup = new Group();
     private Group keyBindGroup = new Group();
     private int keyBindPage = 0;
     private int keyBindMod = 0;
-
     private int firstTime = 0;
     List<Entity> inventory;
     InventoryComponent inventoryComponent;
-    private int index;
     private Image inventoryMenu;
     private Group inventoryGroup = new Group();
+    private Image minimapImage;
+    private Group minimapGroup = new Group();
     private List<Entity> items;
 
     private Boolean currentScreenCrafting = false;
@@ -143,12 +156,43 @@ public class GameAreaDisplay extends UIComponent {
         stage.draw();
     }
 
+    public void displayMinimap() {
+        GameArea gameArea = ServiceLocator.getGameArea();
+        logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
+        if (gameArea.getClass().getSimpleName().equals("ForestGameArea")) {
+            minimapImage = new Image(new Texture(Gdx.files.internal
+                    ("images/level_1_tiledmap/minimap1.png")));
+        } else if (gameArea.getClass().getSimpleName().equals("UndergroundGameArea")) {
+            minimapImage = new Image(new Texture(Gdx.files.internal
+                    ("images/level_2_tiledmap/minimap2.png")));
+        } else {
+            logger.info("Game area invalid for minimap");
+            return;
+        }
+
+        //Note: the position of the asset is at the bottom left.
+        minimapImage.setSize(1200, 1465);
+        minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
+        minimapGroup.addActor(minimapImage);
+        stage.addActor(minimapGroup);
+        stage.draw();
+    }
+
+    /**
+     * Disposes of the minimap when it is open and M is pressed.
+     */
+    public void disposeMinimap() {
+        minimapGroup.remove();
+        logger.info("removing minimap");
+    }
+
     /**
      * Displays the items that the player has equipped.
      */
     public void displayEquipables() {
-        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        for (Entity item : inventory.getEquipables()) {
+        InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        for (Entity item : inventoryComponent1.getEquipables()) {
             if (item != null) {
                 int itemSlot;
                 float padding = 128 + 64;
@@ -196,7 +240,7 @@ public class GameAreaDisplay extends UIComponent {
                         unequipBtn.addListener(new ChangeListener() {
                             @Override
                             public void changed(ChangeEvent event, Actor actor) {
-                                if (inventory.unequipItem(itemSlot)) {
+                                if (inventoryComponent1.unequipItem(itemSlot)) {
                                     inventoryGroup.removeActor(equippedItem);
                                     updateInventoryDisplay();
                                 }
@@ -210,7 +254,7 @@ public class GameAreaDisplay extends UIComponent {
                                 new ChangeListener() {
                                     @Override
                                     public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.removeEquipable(itemSlot)) {
+                                        if (inventoryComponent1.removeEquipable(itemSlot)) {
                                             inventoryGroup.removeActor(equippedItem);
                                             updateInventoryDisplay();
                                         }
@@ -238,8 +282,8 @@ public class GameAreaDisplay extends UIComponent {
 
     public void displayItems() {
         float padding = 32f;
-        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        items = inventory.getInventory();
+        InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        items = inventoryComponent1.getInventory();
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -289,7 +333,7 @@ public class GameAreaDisplay extends UIComponent {
                                     new ChangeListener() {
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-                                            if (inventory.removeItem(currentItem)) {
+                                            if (inventoryComponent1.removeItem(currentItem)) {
                                                 inventoryGroup.removeActor(item);
                                                 updateInventoryDisplay();
                                             }
@@ -306,14 +350,17 @@ public class GameAreaDisplay extends UIComponent {
                                         public void changed(ChangeEvent event, Actor actor) {
                                             switch (buttonText) {
                                                 case "Equip item":
-                                                    if (inventory.equipItem(currentItem)) {
+                                                    if (inventoryComponent1.equipItem(currentItem)) {
                                                         updateInventoryDisplay();
                                                     }
                                                     break;
                                                 case "Add to quick bar":
-                                                    if (inventory.addQuickBarItems(currentItem)) {
-                                                        inventory.removeItem(currentItem);
+                                                    if (inventoryComponent1.addQuickBarItems(currentItem)) {
+                                                        inventoryComponent1.removeItem(currentItem);
                                                         updateInventoryDisplay();
+                                                        //TODO visualizePotion();
+                                                        potionEQ = 1;
+                                                        potionTex = itemTexture;
                                                     }
                                                     break;
                                             }
@@ -334,6 +381,7 @@ public class GameAreaDisplay extends UIComponent {
         }
     }
 
+
     /**
      * Disposes the inventory display group.
      */
@@ -348,19 +396,22 @@ public class GameAreaDisplay extends UIComponent {
     public void openCraftingMenu() {
         logger.info("Opening Crafting Menu");
         inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        /*if (firstTime == 0) {
-            inventoryComponent.addItem(MaterialFactory.createWood());
-            inventoryComponent.addItem(MaterialFactory.createPoop());
-            inventoryComponent.addItem(MaterialFactory.createToiletPaper());
-            firstTime += 1;
-        }*/
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
         craftMenu.setPosition(Gdx.graphics.getWidth() / 2 - craftMenu.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - craftMenu.getHeight() / 2);
         craftingGroup.addActor(craftMenu);
-
+        if (firstTime == 0) {
+            initTutorial();
+            if (getGameAreaName().equals("Underground")) {
+                inventoryComponent.addItem(MaterialFactory.createWood());
+                inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+                inventoryComponent.addItem(MaterialFactory.createGold());
+                inventoryComponent.addItem(MaterialFactory.createIron());
+            }
+            firstTime = 1;
+        }
         getInventory();
         currentScreenCrafting = true;
         buttonTexture = new Texture(Gdx.files.internal
@@ -371,7 +422,6 @@ public class GameAreaDisplay extends UIComponent {
         craftButton.setSize(146, 146);
         craftButton.setPosition(craftMenu.getX() + 527, craftMenu.getY() + 110.5f);
         craftButton.addListener(new ChangeListener() {
-
             // Method to add item to players inventory
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -385,7 +435,6 @@ public class GameAreaDisplay extends UIComponent {
                     clearBoxes(0);
                     displayPopUp();
                 }
-                ;
                 clearMaterials();
                 getInventory();
             }
@@ -400,7 +449,6 @@ public class GameAreaDisplay extends UIComponent {
         catalogueButton.setSize(146, 146);
         catalogueButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 302);
         catalogueButton.addListener(new ChangeListener() {
-
             public void changed(ChangeEvent event, Actor actor) {
                 logger.info("Catalogue button pressed");
                 currentScreenCrafting = false;
@@ -422,6 +470,9 @@ public class GameAreaDisplay extends UIComponent {
                 disposeCraftingMenu();
                 EntityService.pauseAndResume();
                 OpenCraftingComponent.setCraftingStatus();
+                if (firstTime < 4) {
+                    firstTime = 1;
+                }
             }
         });
         craftingGroup.addActor(exitButton);
@@ -616,6 +667,9 @@ public class GameAreaDisplay extends UIComponent {
                     }
                 }
                 if (numItems == 2) {
+                    if (firstTime == 3) {
+                        stage.addActor(thirdTutorial);
+                    }
                     displayWeapon(item);
                     break;
                 }
@@ -630,7 +684,7 @@ public class GameAreaDisplay extends UIComponent {
 
     private void getInventory() {
         currentScreenCrafting = true;
-        index = 0;
+        int index = 0;
         this.possibleBuilds = CraftingLogic.getPossibleWeapons();
         inventory = inventoryComponent.getInventory();
         for (Entity item : inventory) {
@@ -658,6 +712,8 @@ public class GameAreaDisplay extends UIComponent {
                 material.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
+                        Sound selectMat = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
+                        selectMat.play();
                         if (boxes[0] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -684,7 +740,7 @@ public class GameAreaDisplay extends UIComponent {
                             firstToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    if (currentScreenCrafting == true){
+                                    if (currentScreenCrafting){
                                         clearMaterials();
                                         disposeFirstBox();
                                         clearBoxes(1);
@@ -694,11 +750,20 @@ public class GameAreaDisplay extends UIComponent {
                                 }
                             });
                             getInventory();
+                            if (firstTime == 1) {
+                                disposeFirstTutorial();
+                                stage.addActor(secondTutorial);
+                                firstTime = 2;
+                            }
                         } else if (boxes[1] == null) {
                             clearMaterials();
                             materialTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
                             if (item.checkEntityType((EntityTypes.WEAPON))){
                                 materialTexture = new Texture("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Hera.png");
+                            }
+                            if (firstTime == 2) {
+                                disposeSecondTutorial();
+                                firstTime = 3;
                             }
                             logger.info(String.format(" item: %s added to box 2", item.getEntityTypes().get(0)));
                             materialTextureRegion = new TextureRegion(materialTexture);
@@ -720,7 +785,7 @@ public class GameAreaDisplay extends UIComponent {
                             secondToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    if (currentScreenCrafting == true) {
+                                    if (currentScreenCrafting) {
                                         clearMaterials();
                                         disposeSecondBox();
                                         clearBoxes(2);
@@ -760,6 +825,12 @@ public class GameAreaDisplay extends UIComponent {
      * Displays a "Weapon crafted" pop-up whenever the user successfully crafts a weapon and add animations to it
      */
     private void displayPopUp() {
+        if (firstTime == 3) {
+            disposeThirdTutorial();
+            firstTime = 4;
+        }
+        Sound weaponCrafted = ServiceLocator.getResourceService().getAsset("sounds/new_Weapon_Crafted.wav", Sound.class);
+        weaponCrafted.play();
         popUp = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
         popUp.setHeight(5);
@@ -773,6 +844,45 @@ public class GameAreaDisplay extends UIComponent {
                 }));
         popUp.addAction(popUpAction);
         stage.addActor(popUp);
+    }
+
+    /**
+     * Initialises the crafting tutorial assets for players opening the crafting table for the first time
+     */
+    private void initTutorial() {
+        Action firstArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, 5, 0.5f),
+                Actions.moveBy(-5, -5, 0.5f)));
+        firstMatArrow = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-right.png")));
+        firstMatArrow.setPosition(craftMenu.getX() + 152, craftMenu.getTop() - 228);
+        firstMatArrow.addAction(firstArrowAction);
+        Action secondArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, 5, 0.5f),
+                Actions.moveBy(-5, -5, 0.5f)));
+        secondMatArrow = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-right.png")));
+        secondMatArrow.setPosition(craftMenu.getX() + 152, craftMenu.getTop() - 228);
+        secondMatArrow.addAction(secondArrowAction);
+        Action craftArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, -5, 0.5f),
+                Actions.moveBy(-5, 5, 0.5f)));
+        craftArrow = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-left.png")));
+        craftArrow.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 145);
+        craftArrow.addAction(craftArrowAction);
+        firstMatText = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/first-mat-prompt.png")));
+        firstMatText.setPosition(craftMenu.getX(), craftMenu.getY());
+        secondMatText = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/second-mat-prompt.png")));
+        secondMatText.setPosition(craftMenu.getX(), craftMenu.getY());
+        craftText = new Image
+                (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/craft-prompt.png")));
+        craftText.setPosition(craftMenu.getX(), craftMenu.getY());
+        firstTutorial.addActor(firstMatArrow);
+        firstTutorial.addActor(firstMatText);
+        secondTutorial.addActor(secondMatArrow);
+        secondTutorial.addActor(secondMatText);
+        thirdTutorial.addActor(craftArrow);
+        thirdTutorial.addActor(craftText);
     }
 
     /**
@@ -832,7 +942,7 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     private void addToBoxes(EntityTypes type) {
-        Materials materials = Materials.Gold;
+        Materials materials;
         if (type == EntityTypes.GOLD) {
             materials = Materials.Gold;
         } else if (type == EntityTypes.IRON) {
@@ -896,6 +1006,8 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void displayCatOne() {
         disposeMaterials();
+        disposeFirstTutorial();
+        disposeSecondTutorial();
         catOneMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_catalogue_1_lvl%d.png", gameLevel))));
         catOneMenu.setSize(883.26f, 500);
@@ -916,6 +1028,13 @@ public class GameAreaDisplay extends UIComponent {
                 disposeCatOne();
                 clearMaterials();
                 getInventory();
+                if (getGameAreaName().equals("Forest")) {
+                    if (firstTime == 1) {
+                        stage.addActor(firstTutorial);
+                    } else if (firstTime == 2) {
+                        stage.addActor(secondTutorial);
+                    }
+                }
             }
         });
         craftingGroup.addActor(inventoryButton);
@@ -941,6 +1060,8 @@ public class GameAreaDisplay extends UIComponent {
      */
     private void displayCatTwo() {
         disposeMaterials();
+        disposeFirstTutorial();
+        disposeSecondTutorial();
         catTwoMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_catalogue_2_lvl%d.png", gameLevel))));
         catTwoMenu.setSize(883.26f, 500);
@@ -961,6 +1082,13 @@ public class GameAreaDisplay extends UIComponent {
                 disposeCatTwo();
                 clearMaterials();
                 getInventory();
+                if (getGameAreaName().equals("Forest")) {
+                    if (firstTime == 1) {
+                        stage.addActor(firstTutorial);
+                    } else if (firstTime == 2) {
+                        stage.addActor(secondTutorial);
+                    }
+                }
             }
         });
         craftingGroup.addActor(inventoryButton);
@@ -997,6 +1125,18 @@ public class GameAreaDisplay extends UIComponent {
         catOneButton.remove();
     }
 
+    private void disposeFirstTutorial() {
+        firstTutorial.remove();
+    }
+
+    private void disposeSecondTutorial() {
+        secondTutorial.remove();
+    }
+
+    private void disposeThirdTutorial() {
+        thirdTutorial.remove();
+    }
+
     private void clearMaterials() {
         materialsGroup.clear();
     }
@@ -1019,8 +1159,11 @@ public class GameAreaDisplay extends UIComponent {
             clearBoxes(0);
             disposeFirstBox();
             disposeSecondBox();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
+        disposeFirstTutorial();
+        disposeSecondTutorial();
+        disposeThirdTutorial();
         craftingGroup.remove();
     }
 
@@ -1065,6 +1208,16 @@ public class GameAreaDisplay extends UIComponent {
         }
         numcrafted += 1;
         craftingGroup.addActor(weapon);
+    }
+
+    /**
+     * Toggles the skill tree display
+     */
+    public void toggleSkillTree() {
+        SkillsTreeDisplay skillsTree = ServiceLocator.getGameArea().getPlayer().getComponent(SkillsTreeDisplay.class);
+        if (skillsTree != null) {
+            skillsTree.toggleSkillTreeDisplay();
+        }
     }
 
     @Override

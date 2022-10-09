@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -63,25 +64,17 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("toggleInventory", this::toggleInventory);
+    entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
     entity.getEvents().addListener("consumePotionSlot1", this::consumePotionSlot1);
     entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
     entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
-    entity.getEvents().addListener("toggleMinimap", this::toggleMinimap);
+    //entity.getEvents().addListener("kill switch", this::killEnemy);
     //entity.getEvents().addListener("attack", this::attackAnimation);
 
 
     // Skills and Dash initialisation
     skillManager = new PlayerSkillComponent(entity);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLOCK, entity,this);
-    skillManager.setSkill(2, PlayerSkillComponent.SkillTypes.DODGE, entity, this);
     entity.getEvents().addListener("dash", this::dash);
-
-    // temp skill bindings for sprint 2 marking
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.BLEED, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ROOT, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ULTIMATE, entity,this);
-    skillManager.setSkill(1, PlayerSkillComponent.SkillTypes.ATTACKSPEED, entity,this);
-
   }
 
   @Override
@@ -102,6 +95,20 @@ public class PlayerActions extends Component {
    */
   public void toggleInventory(){
     entity.getComponent(InventoryComponent.class).toggleInventoryDisplay();
+  }
+
+  /**
+   * Pressing the 'M' button toggles the Minimap window being open.
+   */
+  private void toggleMinimap() {
+    if (!miniMapOpen) {
+      ServiceLocator.getInventoryArea().displayMinimap();
+    } else {
+      ServiceLocator.getInventoryArea().disposeMinimap();
+    }
+    logger.info("Minimap toggled: " + miniMapOpen);
+    EntityService.pauseAndResume();
+    miniMapOpen = !miniMapOpen;
   }
 
   /**
@@ -143,21 +150,6 @@ public class PlayerActions extends Component {
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
-  }
-
-  /**
-   * Pressing the 'M' button toggles the Minimap window being open.
-   */
-  private void toggleMinimap() {
-    miniMapOpen = !miniMapOpen;
-
-    if (miniMapOpen) {
-      logger.trace("minimap open");
-    } else {
-      logger.trace("minimap closed");
-    }
-    //logger.debug()
-    return;
   }
 
   /**
@@ -205,6 +197,18 @@ public class PlayerActions extends Component {
       dashSound.play();
       skillManager.startDash(this.walkDirection.cpy());
       entity.getEvents().trigger("decreaseStamina", -20);
+    }
+
+    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
+  }
+
+  /**
+   *  Makes the player charge. Registers call of the charge function to the skill manager component.
+   */
+  void charge() {
+    if(mana >= 2){
+      skillManager.startCharge(this.walkDirection.cpy());
+      entity.getEvents().trigger("decreaseStamina", -2);
     }
 
     playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
@@ -287,6 +291,16 @@ public class PlayerActions extends Component {
   }
 
   /**
+   * Does an aoe attack around the player. Registers call of the aoe function to the skill manager component.
+   */
+  void aoe() {
+    if (mana>=2) {
+      entity.getEvents().trigger("decreaseMana", -2);
+      skillManager.aoeAttack();
+    }
+  }
+
+  /**
    * Makes the player dodge. Registers call of the dodge function to the skill manager component.
    */
   void dodge() {
@@ -313,11 +327,23 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Makes the player cast their attackspeed skill.
-   * Registers call of the attackspeed skill function to the skill manager component.
+   * Makes the player cast their ultimate fireball skill.
+   * Registers call of the ultimate function to the skill manager component.
    */
-  void attackSpeedUp() {
-    skillManager.startAttackSpeedUp();
+  public void fireballUltimate() {
+    skillManager.startFireballUltimate();
+  }
+
+  /**
+   * Makes the player cast their cone projectile skill.
+   * Registers call of the projectile function to the skill manager component.
+   */
+  public void coneProjectile() {
+    skillManager.startProjectileSkill();
+  }
+
+  public void invulnerabilitySkill() {
+    skillManager.startInvulnerabilitySkill();
   }
 
   public Vector2 getWalkDirection() {
@@ -335,4 +361,6 @@ public class PlayerActions extends Component {
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillManager.setSkillAnimator(skillAnimator);
   }
+
+
 }
