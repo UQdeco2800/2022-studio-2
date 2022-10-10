@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.player.*;
@@ -28,10 +26,8 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.List;
 import java.util.Map;
 
@@ -46,8 +42,7 @@ public class GameAreaDisplay extends UIComponent {
     private Label title;
 
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
-    private static Component mainGameActions;
-    private int numcrafted = 0;
+
     private ImageButton craftButton;
     private ImageButton catalogueButton;
     private ImageButton catOneButton;
@@ -67,7 +62,6 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton material;
     private ImageButton firstToCraft;
     private ImageButton secondToCraft;
-    private Image resume_image;
     private ImageButton resume;
     private ImageButton exit;
     private ImageButton controls;
@@ -149,8 +143,8 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/Inventory/Inventory_v3.png")));
         //Note: the position of the asset is at the bottom left.
         inventoryMenu.setSize(1024, 768);
-        inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
+        inventoryMenu.setPosition((float) (Gdx.graphics.getWidth() / (double) 2 - inventoryMenu.getWidth() / 2),
+                (float) (Gdx.graphics.getHeight() / (double) 2 - inventoryMenu.getHeight() / 2));
         inventoryGroup.addActor(inventoryMenu);
         stage.addActor(inventoryGroup);
         stage.draw();
@@ -172,8 +166,8 @@ public class GameAreaDisplay extends UIComponent {
 
         //Note: the position of the asset is at the bottom left.
         minimapImage.setSize(1200, 1465);
-        minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
+        minimapImage.setPosition((float) (Gdx.graphics.getWidth() / (double) 2 - minimapImage.getWidth() / 2),
+                (float) (Gdx.graphics.getHeight() / (double) 2 - minimapImage.getHeight() / 2));
         minimapGroup.addActor(minimapImage);
         stage.addActor(minimapGroup);
         stage.draw();
@@ -399,8 +393,8 @@ public class GameAreaDisplay extends UIComponent {
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_inventory_lvl%d.png", gameLevel))));
         craftMenu.setSize(883.26f, 500);
-        craftMenu.setPosition(Gdx.graphics.getWidth() / 2 - craftMenu.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - craftMenu.getHeight() / 2);
+        craftMenu.setPosition((float) (Gdx.graphics.getWidth() / (double) 2 - craftMenu.getWidth() / 2),
+                (float) (Gdx.graphics.getHeight() / (double) 2 - craftMenu.getHeight() / 2));
         craftingGroup.addActor(craftMenu);
         if (firstTime == 0) {
             initTutorial();
@@ -493,8 +487,8 @@ public class GameAreaDisplay extends UIComponent {
                     ("images/PauseMenu/newPauseScreen.png")));
         }
         pauseMenu.setSize(1920, 1080);
-        pauseMenu.setPosition(Gdx.graphics.getWidth()/2 - pauseMenu.getWidth()/2,
-                Gdx.graphics.getHeight()/2 - pauseMenu.getHeight()/2);
+        pauseMenu.setPosition((float) (Gdx.graphics.getWidth()/ (double) 2 - pauseMenu.getWidth()/2),
+                (float) (Gdx.graphics.getHeight()/ (double) 2 - pauseMenu.getHeight()/2));
         pausingGroup.addActor(pauseMenu);
         stage.addActor(pausingGroup);
 
@@ -556,9 +550,7 @@ public class GameAreaDisplay extends UIComponent {
         stage.draw();
     }
 
-    public void disposeResumeButton() {
-        resume_image.remove();
-    }
+
 
     /**
      * Creates the keybinding menu.
@@ -572,8 +564,8 @@ public class GameAreaDisplay extends UIComponent {
             keyBindMenu = new Image(new Texture("images/keybind/level_1/ControlPage.png"));
         }
         keyBindMenu.setSize(1920, 1080);
-        keyBindMenu.setPosition((float)Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
-                (float)Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
+        keyBindMenu.setPosition((float) ((float)Gdx.graphics.getWidth()/ (double)2 - keyBindMenu.getWidth()/2),
+                (float) ((float)Gdx.graphics.getHeight()/(double) 2 - keyBindMenu.getHeight()/2));
         keyBindGroup.addActor(keyBindMenu);
 
         for (Actor actor : createKeyBindings()) {
@@ -1011,8 +1003,8 @@ public class GameAreaDisplay extends UIComponent {
         catOneMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_catalogue_1_lvl%d.png", gameLevel))));
         catOneMenu.setSize(883.26f, 500);
-        catOneMenu.setPosition(Gdx.graphics.getWidth() / 2 - catOneMenu.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - catOneMenu.getHeight() / 2);
+        catOneMenu.setPosition((float) (Gdx.graphics.getWidth() / (double) 2 - catOneMenu.getWidth() / 2),
+                (float) (Gdx.graphics.getHeight() / (double) 2 - catOneMenu.getHeight() / 2));
         craftingGroup.addActor(catOneMenu);
         exitButton.setZIndex(catOneMenu.getZIndex() + 1);
         buttonTexture = new Texture(Gdx.files.internal
@@ -1065,8 +1057,8 @@ public class GameAreaDisplay extends UIComponent {
         catTwoMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
                 "crafting table/crafting_catalogue_2_lvl%d.png", gameLevel))));
         catTwoMenu.setSize(883.26f, 500);
-        catTwoMenu.setPosition(Gdx.graphics.getWidth() / 2 - catTwoMenu.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - catTwoMenu.getHeight() / 2);
+        catTwoMenu.setPosition((float) (Gdx.graphics.getWidth() / (double) 2 - catTwoMenu.getWidth() / 2),
+                (float) (Gdx.graphics.getHeight() / (double) 2 - catTwoMenu.getHeight() / 2));
         craftingGroup.addActor(catTwoMenu);
         exitButton.setZIndex(catTwoMenu.getZIndex() + 1);
         buttonTexture = new Texture(Gdx.files.internal
@@ -1206,7 +1198,6 @@ public class GameAreaDisplay extends UIComponent {
             weapon.setSize(200, 200);
             weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
         }
-        numcrafted += 1;
         craftingGroup.addActor(weapon);
     }
 
