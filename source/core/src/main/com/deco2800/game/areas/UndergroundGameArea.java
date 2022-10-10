@@ -149,7 +149,9 @@ public class UndergroundGameArea extends GameArea {
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
             "images/NPC/friendly_creature npc/friendly_creature.atlas"
     };
-    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
+    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
+            "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
+            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
@@ -643,9 +645,18 @@ public class UndergroundGameArea extends GameArea {
      * Spawns the crafting table entity on the underground map
      */
     public void spawnCraftingTable() {
-        Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
-        craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
-        spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
+        Entity craftingTable1 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable1.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable1, new GridPoint2(36, 15), true, false);
+        Entity craftingTable2 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable2.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable2, new GridPoint2(11, 69), true, false);
+        Entity craftingTable3 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable3.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable3, new GridPoint2(49, 81), true, false);
+        Entity craftingTable4 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable4.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable4, new GridPoint2(90, 45), true, false);
     }
 
     /**
