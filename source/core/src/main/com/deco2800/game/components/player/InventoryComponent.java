@@ -31,12 +31,12 @@ public class InventoryComponent extends Component {
     private Entity combatAnimator;
 
     /**
-     * Initial inventory size
+     * The initial size of inventory
      */
     private static final  int INVENTORY_SIZE = 16;
 
     /**
-     * The initial size of quick bar.
+     * The initial size of quick bar
      */
     private static final int QUICKBAR_SIZE= 3;
 
@@ -46,27 +46,27 @@ public class InventoryComponent extends Component {
     private static final int EQUIP_SLOTS = 2;
 
     /**
-     * The status of inventory display.
+     * The status of inventory display
      */
     private boolean inventoryIsOpened = false;
 
     /**
-     * An inventory unit for players to inspect and store their items.
+     * An inventory unit for players to inspect and store their items
      */
     private List<Entity> inventory = new ArrayList<>(INVENTORY_SIZE);
 
     /**
-     * Temporary storage for players to store their potions.
+     * The storage dedicated for players to store and use their potions
      */
     private List<Entity> quickBarItems = new ArrayList<>(QUICKBAR_SIZE);
 
     /**
-     * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
+     * Slot 1(index 0) is set to be weapon and slot2(index 1) for armour
      */
     private Entity[] equipables = new Entity[EQUIP_SLOTS];
 
     /**
-     * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
+     * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices
      */
     private int[] itemQuantity = new int[INVENTORY_SIZE];
 
@@ -124,8 +124,8 @@ public class InventoryComponent extends Component {
      * @return true if there is a same kind of Entity, false otherwise
      */
     public boolean hasItem(Entity item, List<Entity> storage) {
-        for (int i = 0; i < storage.size(); ++i) {
-            if (itemEquals(item, storage.get(i))) {
+        for (Entity other : storage) {
+            if (itemEquals(item, other)) {
                 return true;
             }
         }
