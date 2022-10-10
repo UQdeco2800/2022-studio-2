@@ -142,7 +142,9 @@ public class InventoryComponent extends Component {
     public int getItemIndex(Entity item, List<Entity> storage) {
         int index = -1;
         for (int i = 0; i < storage.size(); ++i) {
-            if (itemEquals(item, storage.get(i))) index = i;
+            if (itemEquals(item, storage.get(i))) {
+                return i;
+            }
         }
         return index;
     }
