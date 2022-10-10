@@ -38,9 +38,9 @@ public class Countdown extends UIComponent {
     public void create() {
         super.create();
         bar = new Table();
-        bar.bottom().left();
+        bar.bottom().right();
         bar.setFillParent(true); //might need to change
-        //bar.padBottom(0f).padLeft(50f);
+        bar.padBottom(0f);
         stage.addActor(bar);
 
         numberImages = new HashMap<Integer, Image>();
@@ -93,8 +93,8 @@ public class Countdown extends UIComponent {
         } else {
             numberToDisplay = ((int) ((COUNTDOWN_DURATION_MILLIS - elapsedTime) / 1000)) + 1;
         }
-        if (false) { // temp disable flag until fixed
-            alterTable(activeAbility, numberToDisplay);
+        if (true) { // temp disable flag until fixed
+            alterTable(activeAbility, 2);//numberToDisplay);
         }
 
     }
@@ -112,26 +112,26 @@ public class Countdown extends UIComponent {
             throw new IllegalArgumentException("number given to alterTable is too small");
         bar.clearChildren();
         if (ability == Ability.DASH)
-            bar.add(numberImages.get(number)).size(100,100).pad(5);
+            bar.add(numberImages.get(number)).size(64,64).pad(0);
         else
-            bar.add().size(100,100).pad(5);
+            bar.add().size(64,64).pad(0);
         if (ability == Ability.BLOCK)
-            bar.add(numberImages.get(number)).size(100,100).pad(5);
+            bar.add(numberImages.get(number)).size(64,64).pad(0);
         else
-            bar.add().size(100,100).pad(5);
+            bar.add().size(64,64).pad(0);
         if (ability == Ability.DODGE)
-            bar.add(numberImages.get(number)).size(100,100).pad(5);
+            bar.add(numberImages.get(number)).size(100,100).pad(0);
         else
-            bar.add().size(100,100).pad(5);
-        bar.add().size(382,175).pad(5);
+            bar.add().size(64,64).pad(0);
+        //bar.add().size(382,175).pad(5);
         if (ability == Ability.INVULNERABLE)
-            bar.add(numberImages.get(number)).size(100,100).pad(5);
+            bar.add(numberImages.get(number)).size(64,64).pad(0);
         else
-            bar.add().size(100,100).pad(5);
+            bar.add().size(64,64).pad(0);
         if (ability == Ability.TELEPORT)
-            bar.add(numberImages.get(number)).size(100,100).pad(5);
+            bar.add(numberImages.get(number)).size(100,100).pad(0);
         else
-            bar.add().size(100,100).pad(5);
+            bar.add().size(64,64).pad(0);
     }
 
     @Override
