@@ -192,10 +192,10 @@ public class InventoryComponent extends Component {
      * @param list     the list of the inventory storage
      * @param quantity the quantity array of corresponding inventory
      */
-    public void sortInventory(int index, List list, int[] quantity) {
-        if (list.size() > index) {
-            for (int i = index; i < list.size(); ) {
-                quantity[i] = quantity[++i];
+    public void sortInventory(int index, List<Entity> list, int[] quantity) {
+        if (list.size() - 1 > index) {
+            for (int i = index; i < list.size(); ++i) {
+                quantity[i] = quantity[i + 1];
             }
         }
     }
@@ -548,7 +548,6 @@ public class InventoryComponent extends Component {
     public void removePotion(int inputIndex) {
         quickBarItems.remove(inputIndex);
         quickBarQuantity[inputIndex] = 0;
-        UIComponent.RemovePotionTextureAt(inputIndex);
     }
 
     /**
