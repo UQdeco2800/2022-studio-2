@@ -330,8 +330,7 @@ public class GameAreaDisplay extends UIComponent {
                                                         inventory.removeItem(currentItem);
                                                         updateInventoryDisplay();
                                                         //TODO visualizePotion();
-                                                        potionEQ = 1;
-                                                        potionTex = itemTexture;
+                                                        potionsTex.add(itemTexture);
                                                     }
                                                     break;
                                             }

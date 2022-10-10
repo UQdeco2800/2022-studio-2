@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuickBarDisplay extends UIComponent {
@@ -29,10 +30,7 @@ public class QuickBarDisplay extends UIComponent {
 
     //Potion display table:
     private Table potionTable = new Table();
-    private Image healthPotion;
-    private Texture texCheck = null;
-
-
+    private ArrayList<Image> potionImages = new ArrayList<>();
 
 
 
@@ -68,20 +66,18 @@ public class QuickBarDisplay extends UIComponent {
     }
 
     public void updatePotionTable(){
-        if(potionEQ == 1) {
-            if(texCheck != potionTex){
-                healthPotion = new Image(new Texture(Gdx.files.internal
-                        (String.valueOf(potionTex))));
-                texCheck = potionTex;
+            if(potionImages.size() != potionsTex.size()){
+                potionImages.clear();
+                for(int i = 0; i < potionsTex.size(); i++) {
+                    potionImages.add(new Image(potionsTex.get(i)));
+                }
             }
-            potionTable.add(healthPotion).size(64, 64);
-            healthPotion.setPosition(726, 60);
-
+            for(int i = 0; i < potionImages.size(); i++) {
+                Image potion = potionImages.get(i);
+                potionTable.add(potion).size(64, 64);
+                potion.setPosition(845 + i * 100, 60);
+            }
             stage.addActor(potionTable);
-        } else {
-            //potionTable.removeActor(bombPotion);
-            potionTable.removeActor(healthPotion);
-        }
     }
 
     @Override
