@@ -14,6 +14,7 @@ public class OpenPauseComponent extends Component {
     //private static Boolean isOpen = false;
     private static Boolean pauseOpen;
     private static Boolean keyBindOpen;
+    private static Boolean playerGuideOpen;
     private static Boolean inventoryToggled;
 
     private static Boolean minimapToggled;
@@ -33,6 +34,7 @@ public class OpenPauseComponent extends Component {
         entity.getEvents().addListener("toggleMinimap", this::setMinimapStatus);
         pauseOpen = false;
         keyBindOpen = false;
+        playerGuideOpen = false;
         inventoryToggled = false;
         minimapToggled = false;
 //        entity.getEvents().addListener("game paused", this::openPauseMenu);
@@ -55,8 +57,9 @@ public class OpenPauseComponent extends Component {
      * If the pause menu IS open, close it.
      */
     private void togglePauseMenu() {
-        if (keyBindOpen) {
+        if (keyBindOpen || playerGuideOpen) {
             closeKeyBindings();
+            closePlayerGuide();
         } else if (!pauseOpen) {
             openPauseMenu();
         } else if (pauseOpen) {
@@ -74,6 +77,17 @@ public class OpenPauseComponent extends Component {
         if (!inventoryToggled) { EntityService.pauseGame(); }
     }
 
+    public static void openPlayerGuide() {
+        logger.info("Opening player guide menu");
+        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu();
+        playerGuideOpen = true;
+    }
+
+    public static void closePlayerGuide() {
+        logger.info("Closing player guide menu");
+        ServiceLocator.getPlayerGuidArea().disposePlayerGuideMenu();
+        playerGuideOpen = false;
+    }
     /**
      * Utility function to CLOSE pause window and UNPAUSE the game.
      */

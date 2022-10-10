@@ -64,6 +64,7 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton resume;
     private ImageButton exit;
     private ImageButton controls;
+    private ImageButton playerGuideBtn;
     private Texture materialTexture;
     private TextureRegion materialTextureRegion;
     private TextureRegionDrawable materialDrawable;
@@ -83,6 +84,7 @@ public class GameAreaDisplay extends UIComponent {
     private Group thirdTutorial = new Group();
     private Materials[] boxes = new Materials[2];
     private Group pausingGroup = new Group();
+    private Group playerGuidGroup = new Group();
     private Group keyBindGroup = new Group();
     private int keyBindPage = 0;
     private int keyBindMod = 0;
@@ -110,6 +112,7 @@ public class GameAreaDisplay extends UIComponent {
         gameLevel = (this.gameAreaName.equals("Underground"))? 2 : 1;
         ServiceLocator.registerInventoryArea(this);
         ServiceLocator.registerPauseArea(this);
+        ServiceLocator.registerPlayerGuideArea(this);
         ServiceLocator.registerKeyBindArea(this);
     }
 
@@ -491,12 +494,12 @@ public class GameAreaDisplay extends UIComponent {
         stage.addActor(pausingGroup);
 
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         resume = new ImageButton(buttonDrawable);
         resume.setSize(386f, 122.4f);
-        resume.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 570);
+        resume.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 576);
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -509,12 +512,12 @@ public class GameAreaDisplay extends UIComponent {
         stage.addActor(pausingGroup);
 
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exit = new ImageButton(buttonDrawable);
         exit.setSize(386, 122.4f);
-        exit.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 340);
+        exit.setPosition(pauseMenu.getX() + 765f, pauseMenu.getY() + 288);
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -528,12 +531,12 @@ public class GameAreaDisplay extends UIComponent {
         // Debug button to open keybind menu - hey Rey this is for you!
         // thanks!:) -Rey
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         controls = new ImageButton(buttonDrawable);
         controls.setSize(386, 122.4f);
-        controls.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 460);
+        controls.setPosition(pauseMenu.getX() + 762f, pauseMenu.getY() + 382);
         controls.addListener(
                 new ChangeListener() {
                     @Override
@@ -543,12 +546,49 @@ public class GameAreaDisplay extends UIComponent {
                     }
                 });
         pausingGroup.addActor(controls);
+
+        // Player guide menu added.
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        playerGuideBtn = new ImageButton(buttonDrawable);
+        playerGuideBtn.setSize(386, 122.4f);
+        playerGuideBtn.setPosition(pauseMenu.getX() + 762f, pauseMenu.getY() + 482);
+        playerGuideBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("Player guide button clicked");
+                        OpenPauseComponent.openPlayerGuide();
+                    }
+                });
+        pausingGroup.addActor(playerGuideBtn);
         stage.addActor(pausingGroup);
 
         stage.draw();
     }
 
+    public void setPlayerGuideMenu() {
+        Image playerGuidMenu;
+        logger.info("Opening Player guide menu");
+        if (getGameAreaName().equals("Underground")) {
+            playerGuidMenu = new Image(new Texture("images/Player Guide/level_2/1.png"));
+        } else {
+            playerGuidMenu = new Image(new Texture("images/Player Guide/level_1/1.png"));
+        }
+        playerGuidMenu.setSize(1920, 1080);
+        playerGuidMenu.setPosition((float) ((float)Gdx.graphics.getWidth()/ (double)2 - playerGuidMenu.getWidth()/2),
+                (float) ((float)Gdx.graphics.getHeight()/(double) 2 - playerGuidMenu.getHeight()/2));
+        playerGuidGroup.addActor(playerGuidMenu);
+        stage.addActor(playerGuidGroup);
 
+        stage.draw();
+    }
+
+    public void disposePlayerGuideMenu() {
+        playerGuidGroup.remove();
+    }
 
     /**
      * Creates the keybinding menu.
@@ -603,6 +643,7 @@ public class GameAreaDisplay extends UIComponent {
      * Dispose the keybinding menu group
      */
     public void disposeKeyBindMenu() { keyBindGroup.remove(); }
+
 
     /**
      * Creates the appropriate image and label entries for key labelling
