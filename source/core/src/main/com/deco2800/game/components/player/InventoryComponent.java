@@ -31,24 +31,24 @@ public class InventoryComponent extends Component {
     private Entity combatAnimator;
 
     /**
-     * The status of inventory display.
-     */
-    private boolean inventoryIsOpened = false;
-
-    /**
      * Initial inventory size
      */
-    private final static int INVENTORY_SIZE = 16;
+    private static final  int INVENTORY_SIZE = 16;
 
     /**
      * The initial size of quick bar.
      */
-    private final static int QUICKBAR_SIZE= 3;
+    private static final int QUICKBAR_SIZE= 3;
 
     /**
      * Initial item equipment slot
      */
     private static final int EQUIP_SLOTS = 2;
+
+    /**
+     * The status of inventory display.
+     */
+    private boolean inventoryIsOpened = false;
 
     /**
      * An inventory unit for players to inspect and store their items.
