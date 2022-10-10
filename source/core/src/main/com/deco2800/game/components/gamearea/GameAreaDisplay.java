@@ -503,7 +503,7 @@ public class GameAreaDisplay extends UIComponent {
         stage.addActor(pausingGroup);
 
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         resume = new ImageButton(buttonDrawable);
@@ -521,7 +521,7 @@ public class GameAreaDisplay extends UIComponent {
         stage.addActor(pausingGroup);
 
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exit = new ImageButton(buttonDrawable);
@@ -540,7 +540,7 @@ public class GameAreaDisplay extends UIComponent {
         // Debug button to open keybind menu - hey Rey this is for you!
         // thanks!:) -Rey
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         controls = new ImageButton(buttonDrawable);
@@ -558,7 +558,7 @@ public class GameAreaDisplay extends UIComponent {
 
         // Player guide menu added.
         buttonTexture = new Texture(Gdx.files.internal
-                ("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         playerGuideBtn = new ImageButton(buttonDrawable);
@@ -569,7 +569,12 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("Player guide button clicked");
-                        OpenPauseComponent.openPlayerGuide(1);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(1);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(1);
+                        }
+
                     }
                 });
         pausingGroup.addActor(playerGuideBtn);
@@ -580,13 +585,9 @@ public class GameAreaDisplay extends UIComponent {
 
     // looks very complicated i know, look closer...
     public void setPlayerGuideMenu(String filePath) {
-
         logger.info("Opening Player guide menu");
-        if (getGameAreaName().equals("Underground")) {
-            playerGuideMenu = new Image(new Texture("images/Player Guide/level_2/1.png"));
-        } else {
-            playerGuideMenu = new Image(new Texture(filePath));
-        }
+        playerGuideMenu = new Image(new Texture(filePath));
+
         playerGuideMenu.setSize(1920, 1080);
         playerGuideMenu.setPosition((float) ((float)Gdx.graphics.getWidth()/ (double)2 - playerGuideMenu.getWidth()/2),
                 (float) ((float)Gdx.graphics.getHeight()/(double) 2 - playerGuideMenu.getHeight()/2));
@@ -607,7 +608,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("HowToCraft clicked");
-                        OpenPauseComponent.openPlayerGuide(1);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(1);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(1);
+                        }
                     }
                 });
         playerGuidGroup.addActor(overviewBtn);
@@ -624,7 +629,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("HowToCraft clicked");
-                        OpenPauseComponent.openPlayerGuide(2);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(2);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(2);
+                        }
                     }
                 });
         playerGuidGroup.addActor(howToCraft);
@@ -641,7 +650,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("find item section clicked");
-                        OpenPauseComponent.openPlayerGuide(3);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(3);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(3);
+                        }
                     }
                 });
         playerGuidGroup.addActor(findItemsBtn);
@@ -658,7 +671,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("weapon buff section clicked");
-                        OpenPauseComponent.openPlayerGuide(4);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(4);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(4);
+                        }
                     }
                 });
         playerGuidGroup.addActor(weaponBuffsBtn);
@@ -675,7 +692,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("skill tree info section clicked");
-                        OpenPauseComponent.openPlayerGuide(5);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(5);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(5);
+                        }
                     }
                 });
         playerGuidGroup.addActor(skillTreeInfoBtn);
@@ -692,7 +713,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("level up section clicked");
-                        OpenPauseComponent.openPlayerGuide(6);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(6);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(6);
+                        }
                     }
                 });
         playerGuidGroup.addActor(levelUpBtn);
@@ -709,7 +734,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("level up section clicked");
-                        OpenPauseComponent.openPlayerGuide(7);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(7);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(7);
+                        }
                     }
                 });
         playerGuidGroup.addActor(accessInventoryBtn);
@@ -726,7 +755,11 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("level up section clicked");
-                        OpenPauseComponent.openPlayerGuide(8);
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(8);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(8);
+                        }
                     }
                 });
         playerGuidGroup.addActor(howToWinBtn);

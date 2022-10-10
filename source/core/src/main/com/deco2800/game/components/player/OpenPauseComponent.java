@@ -20,6 +20,7 @@ public class OpenPauseComponent extends Component {
 
     private static Boolean minimapToggled;
     private static ArrayList<String> playerGuideAssets = new ArrayList<>();
+    private static ArrayList<String> playerGuideAssetslevel2 = new ArrayList<>();
 
     public static OpenKeyBinds openKeyBinds;
 
@@ -37,6 +38,16 @@ public class OpenPauseComponent extends Component {
         playerGuideAssets.add("images/Player Guide/level_1/6.png");
         playerGuideAssets.add("images/Player Guide/level_1/7.png");
         playerGuideAssets.add("images/Player Guide/level_1/8.png");
+
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/1.png");
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/2.png");
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/3.png");
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/4.png");
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/5.png");
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/6.png");
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/7.png");
+        playerGuideAssetslevel2.add("images/Player Guide/level_2/8.png");
+
 
         logger = LoggerFactory.getLogger(OpenPauseComponent.class);
         entity.getEvents().addListener("escInput", this::togglePauseMenu);
@@ -133,6 +144,53 @@ public class OpenPauseComponent extends Component {
             case 8:
                 logger.info("Turn to player guide page 8");
                 ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(7));
+                playerGuideOpen = true;
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static Boolean openPlayerGuideLevel2(Integer playerGuidePageNumber) {
+        switch (playerGuidePageNumber) {
+            case 1:
+                logger.info("Turn to player guide page 1");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(0));
+                playerGuideOpen = true;
+                return true;
+            case 2:
+                logger.info("Turn to player guide page 2");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(1));
+                playerGuideOpen = true;
+                return true;
+            case 3:
+                logger.info("Turn to player guide page 3");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(2));
+                playerGuideOpen = true;
+                return true;
+            case 4:
+                logger.info("Turn to player guide page 4");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(3));
+                playerGuideOpen = true;
+                return true;
+            case 5:
+                logger.info("Turn to player guide page 5");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(4));
+                playerGuideOpen = true;
+                return true;
+            case 6:
+                logger.info("Turn to player guide page 6");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(5));
+                playerGuideOpen = true;
+                return true;
+            case 7:
+                logger.info("Turn to player guide page 7");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(6));
+                playerGuideOpen = true;
+                return true;
+            case 8:
+                logger.info("Turn to player guide page 8");
+                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(7));
                 playerGuideOpen = true;
                 return true;
             default:
