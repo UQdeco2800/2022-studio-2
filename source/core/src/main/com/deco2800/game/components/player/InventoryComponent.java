@@ -10,7 +10,6 @@ import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,15 +52,6 @@ public class InventoryComponent extends Component {
         String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
         String staticAnimation = description+"Static";
         combatAnimator.getEvents().trigger(staticAnimation);
-    }
-
-    /**
-     * Get the animation handler
-     *
-     * @return animation handler
-     */
-    public Entity getCombatAnimator() {
-        return this.combatAnimator;
     }
 
     /**
