@@ -38,6 +38,7 @@ public class ServiceLocator {
 
   private static GameAreaDisplay craftArea;
   private static GameAreaDisplay pauseMenuArea;
+  private static GameAreaDisplay playerGuidArea;
   private static GameAreaDisplay inventoryArea;
   private static GameAreaDisplay keyBindArea;
 
@@ -126,6 +127,7 @@ public class ServiceLocator {
   }
 
   public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+  public static void registerPlayerGuideArea(GameAreaDisplay area) {playerGuidArea = area;}
 
   public static void registerInventoryArea(GameAreaDisplay area){
     inventoryArea = area;
@@ -143,6 +145,10 @@ public class ServiceLocator {
 
   public static GameAreaDisplay getPauseMenuArea() {
     return pauseMenuArea;
+  }
+
+  public static GameAreaDisplay getPlayerGuidArea() {
+    return playerGuidArea;
   }
 
   public static GameAreaDisplay getInventoryArea() {

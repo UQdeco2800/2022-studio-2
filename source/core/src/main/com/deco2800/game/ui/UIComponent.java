@@ -8,6 +8,9 @@ import com.deco2800.game.rendering.RenderComponent;
 import com.deco2800.game.rendering.Renderable;
 import com.deco2800.game.services.ServiceLocator;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
+
 /**
  * A generic component for rendering onto the ui.
  */
@@ -18,9 +21,7 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
   protected static Stage stage;
 
   //TODO
-  public static int potionEQ = 0;
-  public static Texture potionTex = null;
-
+  protected static ArrayList<Texture> potionsTex = new ArrayList<>();
   @Override
   public void create() {
     super.create();
@@ -35,5 +36,9 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
   @Override
   public float getZIndex() {
     return 1f;
+  }
+
+  public static void RemovePotionTextureAt(int index) {
+      potionsTex.remove(index);
   }
 }
