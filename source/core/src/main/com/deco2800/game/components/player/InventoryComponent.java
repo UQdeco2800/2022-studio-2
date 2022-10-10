@@ -64,11 +64,12 @@ public class InventoryComponent extends Component {
         return this.combatAnimator;
     }
 
-    //CANCEL_ANIMATION
+    /**
+     * Cancel the animation registered for equipped weapon
+     */
     private void cancelAnimation() {
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
-//        ServiceLocator.getEntityService().unregister(combatAnimator);
     }
 
     /**
@@ -166,9 +167,7 @@ public class InventoryComponent extends Component {
             logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
-                    || item.checkEntityType(EntityTypes.ARMOUR))
-//                    && !hasItem(item, inventory)) {
-            ) {
+                    || item.checkEntityType(EntityTypes.ARMOUR))) {
                 inventory.add(item);
                 ++itemQuantity[inventory.indexOf(item)];
             } else if (item.checkEntityType(EntityTypes.POTION)
@@ -558,7 +557,6 @@ public class InventoryComponent extends Component {
     public void consumePotion(int inputIndex) {
         //Does nothing if there is no potion on the selected slot or the quantity < 1
         if (quickBarItems.size() >= inputIndex) {
-            logger.info("Consuming potion yum");
             quickBarItems.get(--inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
             if (quickBarQuantity[inputIndex] == 1) {
                 removePotion(inputIndex);
