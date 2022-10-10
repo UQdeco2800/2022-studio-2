@@ -33,7 +33,6 @@ public class QuickBarDisplay extends UIComponent {
     private ArrayList<Image> potionImages = new ArrayList<>();
 
 
-
     /**
      * Creates reusable ui styles and adds actors to the stage.
      */
@@ -54,7 +53,7 @@ public class QuickBarDisplay extends UIComponent {
         quickBar.padBottom(0f).padLeft(50f);
         quickBar.add(new Image(ServiceLocator.getResourceService()
                 .getAsset("images/Inventory/quickbar_sprint3.png", Texture.class)))
-                .size(382,175).pad(5);
+                .size(382, 175).pad(5);
         stage.addActor(quickBar);
         potionTable.bottom();
     }
@@ -65,19 +64,25 @@ public class QuickBarDisplay extends UIComponent {
         updatePotionTable();
     }
 
-    public void updatePotionTable(){
-            if(potionImages.size() != potionsTex.size()){
-                potionImages.clear();
-                for(int i = 0; i < potionsTex.size(); i++) {
-                    potionImages.add(new Image(potionsTex.get(i)));
-                }
+    public void updatePotionTable() {
+        if (potionsTex.size() == 0) {
+            for (Image potion : potionImages) {
+                potionTable.removeActor(potion);
             }
-            for(int i = 0; i < potionImages.size(); i++) {
-                Image potion = potionImages.get(i);
-                potionTable.add(potion).size(64, 64);
-                potion.setPosition(845 + i * 100, 60);
+        }
+
+        if (potionImages.size() != potionsTex.size()) {
+            potionImages.clear();
+            for (int i = 0; i < potionsTex.size(); i++) {
+                potionImages.add(new Image(potionsTex.get(i)));
             }
-            stage.addActor(potionTable);
+        }
+        for (int i = 0; i < potionImages.size(); i++) {
+            Image potion = potionImages.get(i);
+            potionTable.add(potion).size(64, 64);
+            potion.setPosition(845 + i * 100, 60);
+        }
+        stage.addActor(potionTable);
     }
 
     @Override

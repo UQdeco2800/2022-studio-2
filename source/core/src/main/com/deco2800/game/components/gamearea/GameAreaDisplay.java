@@ -27,7 +27,6 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
-import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -329,7 +328,6 @@ public class GameAreaDisplay extends UIComponent {
                                                     if (inventory.addQuickBarItems(currentItem)) {
                                                         inventory.removeItem(currentItem);
                                                         updateInventoryDisplay();
-                                                        //TODO visualizePotion();
                                                         potionsTex.add(itemTexture);
                                                     }
                                                     break;

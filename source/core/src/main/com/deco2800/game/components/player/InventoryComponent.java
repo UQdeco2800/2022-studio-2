@@ -10,6 +10,7 @@ import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -547,6 +548,7 @@ public class InventoryComponent extends Component {
     public void removePotion(int inputIndex) {
         quickBarItems.remove(inputIndex);
         quickBarQuantity[inputIndex] = 0;
+        UIComponent.RemovePotionTextureAt(inputIndex);
     }
 
     /**
