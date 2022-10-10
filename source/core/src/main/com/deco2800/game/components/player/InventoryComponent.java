@@ -304,12 +304,8 @@ public class InventoryComponent extends Component {
         if ((armourStats = armour.getComponent(ArmourStatsComponent.class)) != null) {
             if (equip) {
                 pmComponent.createModifier(PlayerModifier.MOVESPEED, (-(float) armourStats.getWeight() / 10), true, 0);
-//                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
-//                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
             } else {
                 pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10, false, 0);
-//                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
-//                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
             }
         }
     }
@@ -354,7 +350,7 @@ public class InventoryComponent extends Component {
      * Equip the item and apply effect of the item to the player.
      *
      * @param item the item to be equipped
-     *             NOTE: This should check if the player has equipped a weapon or amour.
+     *
      */
     public boolean equipItem(Entity item) {
         boolean equipped = false;
@@ -508,11 +504,9 @@ public class InventoryComponent extends Component {
             if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
-                logger.info("Added 1 to an existing potion");
             }
         } else {
-            if (quickBarItems.size() == quickBarSize)  // Check if inventory is full
-            {
+            if (quickBarItems.size() == quickBarSize) {
                 logger.info("Inventory is full");
             } else {
                 logger.info("Added to quick bar");
