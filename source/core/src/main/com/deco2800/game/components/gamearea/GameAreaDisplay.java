@@ -136,7 +136,7 @@ public class GameAreaDisplay extends UIComponent {
         }
 
         //Note: the position of the asset is at the bottom left.
-        minimapImage.setSize(1200, 1465);
+        minimapImage.setSize(800, 977);
         minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
         minimapGroup.addActor(minimapImage);
@@ -149,7 +149,7 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void disposeMinimap() {
         minimapGroup.remove();
-        logger.info("removing minimap");
+        logger.info("Removing minimap");
     }
 
     public void updateInventoryDisplay() {
@@ -550,7 +550,8 @@ public class GameAreaDisplay extends UIComponent {
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         ImageButton keyBindNextBtn = new ImageButton(buttonDrawable);
-        keyBindNextBtn.setPosition(1325, 360);
+        keyBindNextBtn.setPosition(1325, 300);
+        keyBindNextBtn.setOrigin(keyBindNextBtn.getWidth()/3, keyBindNextBtn.getHeight()/3);
         keyBindNextBtn.setSize(200, 65);
         keyBindNextBtn.addListener(
                 new ChangeListener() {

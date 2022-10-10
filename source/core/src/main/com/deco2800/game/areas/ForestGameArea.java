@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
-import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
@@ -157,7 +156,9 @@ public class ForestGameArea extends GameArea {
           "images/Enemies/heracles.atlas", "images/Skills/WrenchAnimation.atlas"
 
   };
-  private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
+  private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
+          "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
+          "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
@@ -224,7 +225,7 @@ public class ForestGameArea extends GameArea {
     loadAssets();
     displayUI();
     spawnTerrain();
-    spawnCraftingTable();
+    spawnCraftingTables();
     spawnPotion();
     player = spawnPlayer();
     spawnGymBro();
@@ -274,16 +275,16 @@ public class ForestGameArea extends GameArea {
     spawnEntity(new Entity().addComponent(terrain));
 
     //Place the columns
-    spawnColumn(8, 3);
-    spawnColumn(15, 3);
+//    spawnColumn(8, 3);
+//    spawnColumn(15, 3);
 
     //Place the trees
-    spawnTrees(2,15);
-    spawnTrees(22,15);
-    spawnSmallTrees(1,6);
-    spawnSmallTrees(22,6);
-    spawnRock(2,9);
-    spawnRock(22, 8);
+//    spawnTrees(2,15);
+//    spawnTrees(22,15);
+//    spawnSmallTrees(1,6);
+//    spawnSmallTrees(22,6);
+//    spawnRock(2,9);
+//    spawnRock(22, 8);
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
@@ -309,20 +310,103 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(
             ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
 
-    // Castle Walls
-    spawnEntityAt(ObstacleFactory.createWall(1f, 17f), new GridPoint2(3, 7), false,
+    // Zone A Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(88, 6), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(1f, 17f), new GridPoint2(21, 7), false,
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(104, 6), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(18f, 1f), new GridPoint2(4, 23), false,
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(10f), new GridPoint2(104, 16), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(3, 7), false,
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(9f), new GridPoint2(80, 16), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(17, 7), false,
+    spawnEntityAt(ObstacleFactory.createWall(1f, 22f), new GridPoint2(79, 18), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(1f, 4f), new GridPoint2(7, 4), false,
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(34f), new GridPoint2(80, 40), false,
             false);
-    spawnEntityAt(ObstacleFactory.createWall(1f, 4f), new GridPoint2(17, 4), false,
+    spawnEntityAt(ObstacleFactory.createWall(25f, 1f), new GridPoint2(114, 17), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(138, 17), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(123, 26), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 5f), new GridPoint2(123, 26), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(119, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 5f), new GridPoint2(119, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(4f, 1f), new GridPoint2(116, 34), false,
+            false);
+      // the pool
+    spawnEntityAt(ObstacleFactory.createWall(11f, 1f), new GridPoint2(92, 21), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(92, 21), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(102, 21), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(90, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(100, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 8f), new GridPoint2(90, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 8f), new GridPoint2(104, 30), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(14f, 1f), new GridPoint2(90, 37), false,
+            false);
+
+    // Zone B Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 39f), new GridPoint2(116, 34), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 15f), new GridPoint2(113, 42), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(31f, 1f), new GridPoint2(82, 56), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 16f), new GridPoint2(82, 56), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(6f, 1f), new GridPoint2(82, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(2f, 1f), new GridPoint2(95, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 1f), new GridPoint2(115, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 24f), new GridPoint2(87, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 66f), new GridPoint2(95, 72), false,
+            false);
+
+    // Zone D Walls
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(28f), new GridPoint2(60, 96), false,
+            false);
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(10f), new GridPoint2(60, 120), false,
+            false);
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(21f), new GridPoint2(69, 130), false,
+            false);
+
+    // Zone C Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 26f), new GridPoint2(60, 70), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 50f), new GridPoint2(19, 70), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(25f, 1f), new GridPoint2(36, 69), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(41f, 1f), new GridPoint2(19, 120), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(21f, 1f), new GridPoint2(24, 119), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(21f, 1f), new GridPoint2(24, 99), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 21f), new GridPoint2(24, 99), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 21f), new GridPoint2(45, 99), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(44, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 10f), new GridPoint2(54, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(44, 72), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(44, 81), false,
             false);
   }
 
@@ -356,6 +440,8 @@ public class ForestGameArea extends GameArea {
 
   /**
    * Spawns speed buff entity into the game
+   * Spawns x-pos 10
+   * Spawns y-pos 10
    */
   private void spawnSpeedBuff() {
     List<GridPoint2> locations = new ArrayList<>();
@@ -494,10 +580,19 @@ public class ForestGameArea extends GameArea {
   /**
    * Spawns the crafting table entity on the forest map
    */
-  public void spawnCraftingTable() {
-    Entity craftingTable = ObstacleFactory.createCraftingTableForest();
-    craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
-    spawnEntityAt(craftingTable, new GridPoint2(100, 10), true, false);
+  public void spawnCraftingTables() {
+    Entity craftingTable1 = ObstacleFactory.createCraftingTableForest();
+    craftingTable1.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable1, new GridPoint2(100, 10), true, true);
+    Entity craftingTable2 = ObstacleFactory.createCraftingTableForest();
+    craftingTable2.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable2, new GridPoint2(47, 100), true, true);
+    Entity craftingTable3 = ObstacleFactory.createCraftingTableForest();
+    craftingTable3.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable3, new GridPoint2(96, 139), true, true);
+    Entity craftingTable4 = ObstacleFactory.createCraftingTableForest();
+    craftingTable4.setEntityType(EntityTypes.CRAFTINGTABLE);
+    spawnEntityAt(craftingTable4, new GridPoint2(144, 111), true, true);
   }
 
   /**
@@ -840,15 +935,33 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawn gym bros in random positions.
+   * Spawn gym bros in positions.
    */
   private void spawnGymBro() {
     ArrayList<GridPoint2> positions = new ArrayList<>();
-    positions.add(new GridPoint2(129, 22));
     positions.add(new GridPoint2(99, 65));
-    positions.add(new GridPoint2(45, 47));
+    positions.add(new GridPoint2(89, 65));
+    positions.add(new GridPoint2(105, 62));
+
+    positions.add(new GridPoint2(34, 100));
+    positions.add(new GridPoint2(20, 106));
+    positions.add(new GridPoint2(25, 99));
+
+    positions.add(new GridPoint2(80, 100));
+    positions.add(new GridPoint2(63, 106));
+    positions.add(new GridPoint2(90, 99));
+
+    positions.add(new GridPoint2(118, 173));
     positions.add(new GridPoint2(118, 141));
-    positions.add(new GridPoint2(118, 175));
+    positions.add(new GridPoint2(145, 152));
+
+    positions.add(new GridPoint2(153, 123));
+    positions.add(new GridPoint2(153, 141));
+    positions.add(new GridPoint2(153, 130));
+
+    positions.add(new GridPoint2(153, 113));
+    positions.add(new GridPoint2(175, 113));
+    positions.add(new GridPoint2(178, 123));
 
     for (GridPoint2 position: positions) {
       Entity gymBro = NPCFactory.createGymBro(player);
@@ -858,10 +971,10 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawn Heracles in a random position.
+   * Spawn Heracles in a position.
    */
   private Entity spawnHeracles() {
-    GridPoint2 position = new GridPoint2(153, 113);
+    GridPoint2 position = new GridPoint2(174, 65);
     Entity heracles = NPCFactory.createHeracles(player);
     areaEntities.add(heracles);
     spawnEntityAt(heracles, position, true, true);
