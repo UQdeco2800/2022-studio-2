@@ -13,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.player.*;
@@ -57,9 +59,6 @@ public class GameAreaDisplay extends UIComponent {
     Entity currentWeapon;
     private Image catOneMenu;
     private Image catTwoMenu;
-    private Image pauseMenu;
-    private Image keyBindMenu;
-    private ImageButton material;
     private ImageButton firstToCraft;
     private ImageButton secondToCraft;
     private ImageButton resume;
@@ -76,7 +75,6 @@ public class GameAreaDisplay extends UIComponent {
     private Image firstMatText;
     private Image secondMatText;
     private Image craftText;
-    private String weaponType = "";
     private Image weapon;
     private Group craftingGroup = new Group();
     private Group materialsGroup = new Group();
@@ -95,7 +93,6 @@ public class GameAreaDisplay extends UIComponent {
     private Group inventoryGroup = new Group();
     private Image minimapImage;
     private Group minimapGroup = new Group();
-    private List<Entity> items;
 
     private Boolean currentScreenCrafting = false;
     private int gameLevel;
@@ -153,10 +150,10 @@ public class GameAreaDisplay extends UIComponent {
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
         logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
-        if (gameArea.getClass().getSimpleName().equals("ForestGameArea")) {
+        if (gameArea instanceof ForestGameArea) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_1_tiledmap/minimap1.png")));
-        } else if (gameArea.getClass().getSimpleName().equals("UndergroundGameArea")) {
+        } else if (gameArea instanceof UndergroundGameArea) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_2_tiledmap/minimap2.png")));
         } else {
@@ -189,7 +186,7 @@ public class GameAreaDisplay extends UIComponent {
         for (Entity item : inventoryComponent1.getEquipables()) {
             if (item != null) {
                 int itemSlot;
-                float padding = 128 + 64;
+                float padding = (float) 128 + 64;
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
                 Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -277,7 +274,7 @@ public class GameAreaDisplay extends UIComponent {
     public void displayItems() {
         float padding = 32f;
         InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-        items = inventoryComponent1.getInventory();
+        List<Entity> items = inventoryComponent1.getInventory();
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -479,6 +476,7 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void setPauseMenu() {
         logger.info("Opening Pause Menu");
+        Image pauseMenu;
         if (getGameAreaName().equals("Underground")) {
             pauseMenu = new Image(new Texture(Gdx.files.internal
                     ("images/PauseMenu/lvl2PauseScreen.png")));
@@ -558,6 +556,7 @@ public class GameAreaDisplay extends UIComponent {
      * Utilises modulo technique to ensure page changing simply loops.
      */
     public void setKeyBindMenu() {
+        Image keyBindMenu;
         if (getGameAreaName().equals("Underground")) {
             keyBindMenu = new Image(new Texture("images/keybind/level_2/ControlPage.png"));
         } else {
@@ -635,8 +634,8 @@ public class GameAreaDisplay extends UIComponent {
 
             // Create our label
             keyText = new Label(keyBind.description, skin);
-            keyText.setPosition((float)(OpenKeyBinds.keyTexturePosLUT[keyIndex][0] + OpenKeyBinds.keyLabelOffsetX),
-                    (float)(OpenKeyBinds.keyTexturePosLUT[keyIndex][1] + OpenKeyBinds.keyLabelOffsetY));
+            keyText.setPosition((OpenKeyBinds.keyTexturePosLUT[keyIndex][0] + OpenKeyBinds.keyLabelOffsetX),
+                    OpenKeyBinds.keyTexturePosLUT[keyIndex][1] + OpenKeyBinds.keyLabelOffsetY);
             keys[pos++] = keyText;
 
             keyIndex++;
@@ -690,14 +689,14 @@ public class GameAreaDisplay extends UIComponent {
                 if (item.checkEntityType((EntityTypes.WEAPON))){
                     materialDrawable.setMinSize(35, 35);
                 }
-                material = new ImageButton(materialDrawable);
+                ImageButton material = new ImageButton(materialDrawable);
                 if (!(item.checkEntityType((EntityTypes.WEAPON)))) {
                     material.setSize(50, 50);
                     material.setPosition(craftMenu.getX() + 172 + ((index % 4) * 68),
-                            (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 208)));
+                            (float) (craftMenu.getTop() - ((Math.floor(index / (double) 4) * 62) + 208)));
                 } else {
                     material.setPosition(craftMenu.getX() + 180 + ((index % 4) * 68),
-                            (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 200)));
+                            (float) (craftMenu.getTop() - ((Math.floor(index / (double) 4) * 62) + 200)));
                 }
                 displayAmount(inventoryComponent.getItemQuantity(item), index);
                 index++;
@@ -732,7 +731,7 @@ public class GameAreaDisplay extends UIComponent {
                             firstToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    if (currentScreenCrafting){
+                                    if (Boolean.TRUE.equals(currentScreenCrafting)){
                                         clearMaterials();
                                         disposeFirstBox();
                                         clearBoxes(1);
@@ -777,7 +776,7 @@ public class GameAreaDisplay extends UIComponent {
                             secondToCraft.addListener(new ChangeListener() {
                                 @Override
                                 public void changed(ChangeEvent event, Actor actor) {
-                                    if (currentScreenCrafting) {
+                                    if (Boolean.TRUE.equals(currentScreenCrafting)) {
                                         clearMaterials();
                                         disposeSecondBox();
                                         clearBoxes(2);
@@ -806,7 +805,7 @@ public class GameAreaDisplay extends UIComponent {
                 (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
         matAmount.setSize(18, 18);
         matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
-                (float) (craftMenu.getTop() - ((Math.floor(index / 4) * 62) + 168)));
+                (float) (craftMenu.getTop() - ((Math.floor(index / (double) 4) * 62) + 168)));
         Action upDown = Actions.forever(Actions.sequence(Actions.moveTo(matAmount.getX(), matAmount.getY()+4.5f,
                 0.5f), Actions.moveTo(matAmount.getX(), matAmount.getY()-4.5f, 0.5f)));
         matAmount.addAction(upDown);
@@ -1152,6 +1151,7 @@ public class GameAreaDisplay extends UIComponent {
             disposeFirstBox();
             disposeSecondBox();
         } catch (NullPointerException ignored) {
+            logger.info("NPE Caught");
         }
         disposeFirstTutorial();
         disposeSecondTutorial();
@@ -1171,7 +1171,6 @@ public class GameAreaDisplay extends UIComponent {
 
         if (Math.floor(item.damage) == 35) {
             weapon.setSize(60, 60);
-            weaponType = "Trident";
             //trident
             weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
         } else if (Math.floor(item.damage) == 30) {
