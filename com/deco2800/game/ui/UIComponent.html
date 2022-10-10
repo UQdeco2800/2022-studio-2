@@ -103,18 +103,15 @@ implements <a href="../rendering/Renderable.html" title="interface in com.deco28
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static int</code></div>
-<div class="col-second even-row-color"><code><a href="#potionEQ" class="member-name-link">potionEQ</a></code></div>
+<div class="col-first even-row-color"><code>protected static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;com.badlogic.gdx.graphics.Texture&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#potionsTex" class="member-name-link">potionsTex</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static com.badlogic.gdx.graphics.Texture</code></div>
-<div class="col-second odd-row-color"><code><a href="#potionTex" class="member-name-link">potionTex</a></code></div>
+<div class="col-first odd-row-color"><code>protected static final com.badlogic.gdx.scenes.scene2d.ui.Skin</code></div>
+<div class="col-second odd-row-color"><code><a href="#skin" class="member-name-link">skin</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>protected static final com.badlogic.gdx.scenes.scene2d.ui.Skin</code></div>
-<div class="col-second even-row-color"><code><a href="#skin" class="member-name-link">skin</a></code></div>
+<div class="col-first even-row-color"><code>protected static com.badlogic.gdx.scenes.scene2d.Stage</code></div>
+<div class="col-second even-row-color"><code><a href="#stage" class="member-name-link">stage</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>protected static com.badlogic.gdx.scenes.scene2d.Stage</code></div>
-<div class="col-second odd-row-color"><code><a href="#stage" class="member-name-link">stage</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.deco2800.game.components.Component">Fields inherited from class&nbsp;com.deco2800.game.components.<a href="../components/Component.html" title="class in com.deco2800.game.components">Component</a></h3>
@@ -139,7 +136,7 @@ implements <a href="../rendering/Renderable.html" title="interface in com.deco28
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
@@ -160,6 +157,9 @@ implements <a href="../rendering/Renderable.html" title="interface in com.deco28
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Z index controls rendering order within a layer.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#RemovePotionTextureAt(int)" class="member-name-link">RemovePotionTextureAt</a><wbr>(int&nbsp;index)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -202,15 +202,9 @@ implements <a href="../rendering/Renderable.html" title="interface in com.deco28
 </section>
 </li>
 <li>
-<section class="detail" id="potionEQ">
-<h3>potionEQ</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">potionEQ</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="potionTex">
-<h3>potionTex</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">com.badlogic.gdx.graphics.Texture</span>&nbsp;<span class="element-name">potionTex</span></div>
+<section class="detail" id="potionsTex">
+<h3>potionsTex</h3>
+<div class="member-signature"><span class="modifiers">protected static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;com.badlogic.gdx.graphics.Texture&gt;</span>&nbsp;<span class="element-name">potionsTex</span></div>
 </section>
 </li>
 </ul>
@@ -278,6 +272,12 @@ implements <a href="../rendering/Renderable.html" title="interface in com.deco28
 <dt>Returns:</dt>
 <dd>Z index</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="RemovePotionTextureAt(int)">
+<h3>RemovePotionTextureAt</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">RemovePotionTextureAt</span><wbr><span class="parameters">(int&nbsp;index)</span></div>
 </section>
 </li>
 </ul>
