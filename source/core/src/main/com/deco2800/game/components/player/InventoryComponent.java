@@ -31,6 +31,60 @@ public class InventoryComponent extends Component {
     private Entity combatAnimator;
 
     /**
+     * The status of inventory display.
+     */
+    private boolean inventoryIsOpened = false;
+
+    /**
+     * Initial inventory size
+     */
+    private final static int INVENTORY_SIZE = 16;
+
+    /**
+     * The initial size of quick bar.
+     */
+    private final static int QUICKBAR_SIZE= 3;
+
+    /**
+     * Initial item equipment slot
+     */
+    private static final int EQUIP_SLOTS = 2;
+
+    /**
+     * An inventory unit for players to inspect and store their items.
+     */
+    private List<Entity> inventory = new ArrayList<>(INVENTORY_SIZE);
+
+    /**
+     * Temporary storage for players to store their potions.
+     */
+    private List<Entity> quickBarItems = new ArrayList<>(QUICKBAR_SIZE);
+
+    /**
+     * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
+     */
+    private Entity[] equipables = new Entity[EQUIP_SLOTS];
+
+    /**
+     * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
+     */
+    private int[] itemQuantity = new int[INVENTORY_SIZE];
+
+    /**
+     * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
+     */
+    private int[] quickBarQuantity = new int[QUICKBAR_SIZE];
+
+    /**
+     * Returns the current inventory
+     *
+     * @return inventory items
+     */
+    public List<Entity> getInventory() {
+        return List.copyOf(inventory);
+    }
+
+    /**
      * Set the animator for weapons
      *
      * @param combatAnimator animation handler
@@ -60,60 +114,6 @@ public class InventoryComponent extends Component {
     private void cancelAnimation() {
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
-    }
-
-    /**
-     * The status of inventory display.
-     */
-    private boolean inventoryIsOpened = false;
-
-    /**
-     * Initial inventory size
-     */
-    private final int inventorySize = 16;
-
-    /**
-     * The initial size of quick bar.
-     */
-    private final int quickBarSize = 3;
-
-    /**
-     * Initial item equipment slot
-     */
-    private static final int equipSlots = 2;
-
-    /**
-     * An inventory unit for players to inspect and store their items.
-     */
-    private List<Entity> inventory = new ArrayList<>(inventorySize);
-
-    /**
-     * Temporary storage for players to store their potions.
-     */
-    private List<Entity> quickBarItems = new ArrayList<>(quickBarSize);
-
-    /**
-     * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
-     */
-    private Entity[] equipables = new Entity[equipSlots];
-
-    /**
-     * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
-     */
-    private int[] itemQuantity = new int[inventorySize];
-
-    /**
-     * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
-     */
-    private int[] quickBarQuantity = new int[quickBarSize];
-
-    /**
-     * Returns the current inventory
-     *
-     * @return inventory items
-     */
-    public List<Entity> getInventory() {
-        return List.copyOf(inventory);
     }
 
     /**
@@ -153,7 +153,7 @@ public class InventoryComponent extends Component {
      * @param item item to add
      */
     public void addItem(Entity item) {
-        if (inventory.size() == inventorySize) {
+        if (inventory.size() == INVENTORY_SIZE) {
             logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
@@ -406,7 +406,7 @@ public class InventoryComponent extends Component {
      */
     public boolean unequipItem(int itemSlot) {
         boolean unequipped = false;
-        if (inventory.size() == inventorySize) {
+        if (inventory.size() == INVENTORY_SIZE) {
             logger.info("Inventory if full, cannot unequip");
         } else if (equipables[itemSlot] != null) {
             Entity item = equipables[itemSlot];
@@ -496,7 +496,7 @@ public class InventoryComponent extends Component {
                 added = true;
             }
         } else {
-            if (quickBarItems.size() == quickBarSize) {
+            if (quickBarItems.size() == QUICKBAR_SIZE) {
                 logger.info("Inventory is full");
             } else {
                 logger.info("Added to quick bar");
