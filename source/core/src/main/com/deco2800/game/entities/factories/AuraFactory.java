@@ -1,5 +1,7 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.components.CombatItemsComponents.AuraPickupComponent;
 import com.deco2800.game.components.CombatItemsComponents.WeaponAuraComponent;
@@ -12,7 +14,9 @@ import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
+import com.deco2800.game.services.ServiceLocator;
 
 /**
  * Factory to create Aura entities.
@@ -26,6 +30,8 @@ public class AuraFactory {
     private static final BaseAuraConfig configs =
             FileLoader.readClass(BaseAuraConfig.class, "configs/Auras.json");
 
+
+
     /**
      * Creates a generic Aura to be used as a base Aura entity by more specific aura creation methods.
      * @return base aura entity
@@ -35,8 +41,14 @@ public class AuraFactory {
                 .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
                 .addComponent(new AuraPickupComponent(PhysicsLayer.PLAYER));
+
+        AnimationRenderComponent auraBounce =
+                new AnimationRenderComponent(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/CombatItems/animations/BuffBounce/mapBounce.atlas", TextureAtlas.class));
+
         aura.setEntityType(EntityTypes.AURA);
-        aura.scaleHeight(5f);
+        aura.addComponent(auraBounce);
 
         return aura;
     }
@@ -48,11 +60,15 @@ public class AuraFactory {
     public static Entity createWeaponSpeedBuff() {
         Entity weaponSpeedBuff = createBaseAura();
         AuraConfig config = configs.speedBuff;
+        AnimationRenderComponent animation = weaponSpeedBuff.getComponent(AnimationRenderComponent.class);
+
+        animation.addAnimation("mapAttackBuff", 0.1f, Animation.PlayMode.LOOP);
         weaponSpeedBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier, "Speed"))
-                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Weapon Speed Buff.png"));
-        weaponSpeedBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+                        config.coolDownMultiplier, "Speed"));
+
+        animation.startAnimation("mapAttackBuff");
+
         return weaponSpeedBuff;
     }
 
@@ -78,11 +94,15 @@ public class AuraFactory {
     public static Entity createWeaponDmgBuff() {
         Entity weaponDmgBuff = createBaseAura();
         AuraConfig config = configs.dmgBuff;
+        AnimationRenderComponent animation = weaponDmgBuff.getComponent(AnimationRenderComponent.class);
+
+        animation.addAnimation("mapDamageBuff", 0.1f, Animation.PlayMode.LOOP);
+
         weaponDmgBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier, "Damage"))
-                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Damage Increase Buff.png"));
-        weaponDmgBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+                        config.coolDownMultiplier, "Damage"));
+
+        animation.startAnimation("mapDamageBuff");
         return weaponDmgBuff;
     }
 
@@ -108,11 +128,15 @@ public class AuraFactory {
     public static Entity createFireBuff() {
         Entity weaponFireBuff = createBaseAura();
         AuraConfig config = configs.fireBuff;
+        AnimationRenderComponent animation = weaponFireBuff.getComponent(AnimationRenderComponent.class);
+
+        animation.addAnimation("mapFireBuff", 0.1f, Animation.PlayMode.LOOP);
+
         weaponFireBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
                         config.coolDownMultiplier, "Fire"))
-                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png"));
-        weaponFireBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+                .addComponent(animation);
+        animation.startAnimation("mapFireBuff");
         return weaponFireBuff;
     }
 
@@ -123,11 +147,16 @@ public class AuraFactory {
     public static Entity createPoisonBuff() {
         Entity weaponPoisonBuff = createBaseAura();
         AuraConfig config = configs.poisonBuff;
+        AnimationRenderComponent animation = weaponPoisonBuff.getComponent(AnimationRenderComponent.class);
+
+        animation.addAnimation("mapPoisonBuff", 0.1f, Animation.PlayMode.LOOP);
+
+
         weaponPoisonBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
                         config.coolDownMultiplier, "Poison"))
-                .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/poisonBuff.png"));
-        weaponPoisonBuff.getComponent(TextureRenderComponent.class).scaleEntity();
+                .addComponent(animation);
+        animation.startAnimation("mapPoisonBuff");
         return weaponPoisonBuff;
     }
 

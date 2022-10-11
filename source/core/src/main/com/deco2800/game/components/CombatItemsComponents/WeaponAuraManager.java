@@ -63,7 +63,7 @@ public class WeaponAuraManager extends Component {
             weaponStats.setDamage(weaponStats.getDamage() * aura.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
             weaponStats.setCoolDown(weaponStats.getCoolDown() * aura.getComponent(WeaponAuraComponent.class).getCdMultiplier());
             //shows the applied buff in the game
-            entity.getComponent(BuffDisplayComponent.class).setBuff(aura.getComponent(TextureRenderComponent.class).getTexturePath());
+            //entity.getComponent(BuffDisplayComponent.class).setBuff(aura.getComponent(TextureRenderComponent.class).getTexturePath());
 
             //apply static aura animation
             Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);

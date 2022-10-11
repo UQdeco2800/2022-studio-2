@@ -10,6 +10,7 @@ import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -136,7 +137,9 @@ public class UndergroundGameArea extends GameArea {
             "images/countdown/2.png",
             "images/countdown/3.png",
             "images/countdown/4.png",
-            "images/countdown/5.png"
+            "images/countdown/5.png",
+            "images/CombatItems/animations/BuffBounce/mapBounce.png"
+
     };
 
     public static String[] newTextures;
@@ -146,7 +149,9 @@ public class UndergroundGameArea extends GameArea {
             "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
-            "images/NPC/friendly_creature npc/friendly_creature.atlas"
+            "images/NPC/friendly_creature npc/friendly_creature.atlas",
+            "images/CombatItems/animations/BuffBounce/mapBounce.atlas"
+
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -780,6 +785,9 @@ public class UndergroundGameArea extends GameArea {
         auraOnMap.remove(entityToRemove);
 
         Gdx.app.postRunnable(() -> entityToRemove.dispose());
+        if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+            Gdx.app.postRunnable(() -> entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation());
+        }
     }
 
     public static void removeItemOnMap(Entity entityToRemove) {

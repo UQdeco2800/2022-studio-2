@@ -94,9 +94,9 @@ public class PlayerFactory {
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createGoldenPlungerBow());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPipe());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());*/
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());*/
     return player;
   }
 
