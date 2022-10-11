@@ -404,9 +404,6 @@ class InventoryComponentTest {
     assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
   }
 
-  /**
-   * Handles the removal of the potion from the quickbar. Used when consume potion is called
-   */
   @Test
   void removePotion() {
     Entity player = PlayerFactory.createTestPlayer();

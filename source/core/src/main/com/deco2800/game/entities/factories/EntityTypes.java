@@ -9,6 +9,7 @@ public enum EntityTypes {
     MELEE,
     RANGED,
     BOSS,
+    MEGAPOOP,
     PROJECTILE,
     WEAPON,
     ARMOUR,
