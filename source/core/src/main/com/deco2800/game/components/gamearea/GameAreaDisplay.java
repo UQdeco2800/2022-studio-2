@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.areas.ForestGameArea;
@@ -931,6 +933,18 @@ public class GameAreaDisplay extends UIComponent {
                 }
                 displayAmount(inventoryComponent.getItemQuantity(item), index);
                 index++;
+                material.addListener(new ClickListener() {
+                    @Override
+                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        super.enter(event, x, y, pointer, fromActor);
+                        material.setSize(70, 70);
+                    }
+                    @Override
+                    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        super.exit(event, x, y, pointer, toActor);
+                        material.setSize(50, 50);
+                    }
+                });
                 material.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
