@@ -415,6 +415,14 @@ public class GameAreaDisplay extends UIComponent {
             }
             firstTime = 1;
         }
+        if (firstTime == 1 && getGameAreaName().equals("Forest")) {
+            if (!inventoryComponent.hasItem(MaterialFactory.createWood(), inventoryComponent.getInventory())) {
+                inventoryComponent.addItem(MaterialFactory.createWood());
+            }
+            if (!inventoryComponent.hasItem(MaterialFactory.createRubber(), inventoryComponent.getInventory())) {
+                inventoryComponent.addItem(MaterialFactory.createRubber());
+            }
+        }
         getInventory();
         currentScreenCrafting = true;
         buttonTexture = new Texture(Gdx.files.internal
@@ -881,7 +889,7 @@ public class GameAreaDisplay extends UIComponent {
                     }
                 }
                 if (numItems == 2) {
-                    if (firstTime == 3) {
+                    if (firstTime == 3 && getGameAreaName().equals("Forest")) {
                         stage.addActor(thirdTutorial);
                     }
                     displayWeapon(item);
@@ -964,7 +972,7 @@ public class GameAreaDisplay extends UIComponent {
                                 }
                             });
                             getInventory();
-                            if (firstTime == 1) {
+                            if (firstTime == 1 && getGameAreaName().equals("Forest")) {
                                 disposeFirstTutorial();
                                 stage.addActor(secondTutorial);
                                 firstTime = 2;
