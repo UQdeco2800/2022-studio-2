@@ -60,14 +60,14 @@ public class AuraFactory {
     public static Entity createWeaponSpeedBuff() {
         Entity weaponSpeedBuff = createBaseAura();
         AuraConfig config = configs.speedBuff;
-        AnimationRenderComponent animation = weaponSpeedBuff.getComponent(AnimationRenderComponent.class);
+        AnimationRenderComponent auraBounce = weaponSpeedBuff.getComponent(AnimationRenderComponent.class);
 
-        animation.addAnimation("mapAttackBuff", 0.1f, Animation.PlayMode.LOOP);
+        auraBounce.addAnimation("mapAttackBuff", 0.1f, Animation.PlayMode.LOOP);
         weaponSpeedBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
                         config.coolDownMultiplier, "Speed"));
 
-        animation.startAnimation("mapAttackBuff");
+        auraBounce.startAnimation("mapAttackBuff");
 
         return weaponSpeedBuff;
     }
@@ -94,15 +94,15 @@ public class AuraFactory {
     public static Entity createWeaponDmgBuff() {
         Entity weaponDmgBuff = createBaseAura();
         AuraConfig config = configs.dmgBuff;
-        AnimationRenderComponent animation = weaponDmgBuff.getComponent(AnimationRenderComponent.class);
+        AnimationRenderComponent auraBounce = weaponDmgBuff.getComponent(AnimationRenderComponent.class);
 
-        animation.addAnimation("mapDamageBuff", 0.1f, Animation.PlayMode.LOOP);
+        auraBounce.addAnimation("mapDamageBuff", 0.1f, Animation.PlayMode.LOOP);
 
         weaponDmgBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
                         config.coolDownMultiplier, "Damage"));
 
-        animation.startAnimation("mapDamageBuff");
+        auraBounce.startAnimation("mapDamageBuff");
         return weaponDmgBuff;
     }
 
@@ -128,15 +128,14 @@ public class AuraFactory {
     public static Entity createFireBuff() {
         Entity weaponFireBuff = createBaseAura();
         AuraConfig config = configs.fireBuff;
-        AnimationRenderComponent animation = weaponFireBuff.getComponent(AnimationRenderComponent.class);
+        AnimationRenderComponent auraBounce = weaponFireBuff.getComponent(AnimationRenderComponent.class);
 
-        animation.addAnimation("mapFireBuff", 0.1f, Animation.PlayMode.LOOP);
+        auraBounce.addAnimation("mapFireBuff", 0.1f, Animation.PlayMode.LOOP);
 
         weaponFireBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier, "Fire"))
-                .addComponent(animation);
-        animation.startAnimation("mapFireBuff");
+                        config.coolDownMultiplier, "Fire"));
+        auraBounce.startAnimation("mapFireBuff");
         return weaponFireBuff;
     }
 
@@ -147,16 +146,15 @@ public class AuraFactory {
     public static Entity createPoisonBuff() {
         Entity weaponPoisonBuff = createBaseAura();
         AuraConfig config = configs.poisonBuff;
-        AnimationRenderComponent animation = weaponPoisonBuff.getComponent(AnimationRenderComponent.class);
+        AnimationRenderComponent auraBounce = weaponPoisonBuff.getComponent(AnimationRenderComponent.class);
 
-        animation.addAnimation("mapPoisonBuff", 0.1f, Animation.PlayMode.LOOP);
+        auraBounce.addAnimation("mapPoisonBuff", 0.1f, Animation.PlayMode.LOOP);
 
 
         weaponPoisonBuff
                 .addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
-                        config.coolDownMultiplier, "Poison"))
-                .addComponent(animation);
-        animation.startAnimation("mapPoisonBuff");
+                        config.coolDownMultiplier, "Poison"));
+        auraBounce.startAnimation("mapPoisonBuff");
         return weaponPoisonBuff;
     }
 

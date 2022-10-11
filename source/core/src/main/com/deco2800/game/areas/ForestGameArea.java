@@ -136,7 +136,8 @@ public class ForestGameArea extends GameArea {
     "images/countdown/4.png",
     "images/countdown/5.png",
     "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
-          "images/CombatItems/animations/BuffBounce/mapBounce.png"
+          "images/CombatItems/animations/BuffBounce/mapBounce.png",
+          "images/CombatItems/animations/BuffAnimations/buff.png"
   };
 
   public static String[] newTextures;
@@ -155,8 +156,8 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/poop.atlas",
           "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
           "images/Enemies/heracles.atlas", "images/Skills/WrenchAnimation.atlas",
-          "images/CombatItems/animations/BuffBounce/mapBounce.atlas"
-
+          "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
+          "images/CombatItems/animations/BuffAnimations/buff.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";

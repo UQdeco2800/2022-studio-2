@@ -3,9 +3,12 @@ package com.deco2800.game.components.CombatItemsComponents;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -39,18 +42,22 @@ public class BuffDisplayComponent extends UIComponent {
         table.top();
         table.setFillParent(true);
         // Sets padding of table
-        table.padTop(50f);
+        table.padTop(60f);
 
         table.add(buff);
         stage.addActor(table);
     }
 
     /**
-     * Set the image of the applied buff as the current buff
-     * @param filename Texture path to the buff
+     * Set the buff to be displayed as the currently applied buff on the weapon.
      */
-    public void setBuff(String filename) {
-        buff = new Image(ServiceLocator.getResourceService().getAsset(filename, Texture.class));
+    public void setBuff(String auraDesc) {
+
+        TextureAtlas atlas = ServiceLocator.getResourceService()
+                .getAsset("images/CombatItems/animations/BuffAnimations/buff.atlas", TextureAtlas.class);
+        Animation animation1 = new Animation<TextureRegion>(0.05f, atlas.findRegions(auraDesc));
+
+        buff = new AnimatedImage(animation1);
         buff.scaleBy(1.2F);
         hasBuff = true;
         table.add(buff);

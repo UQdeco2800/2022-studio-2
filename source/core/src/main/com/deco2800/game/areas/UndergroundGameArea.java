@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /** Underground area for the demo game with trees, a player, and some enemies. */
@@ -138,7 +139,8 @@ public class UndergroundGameArea extends GameArea {
             "images/countdown/3.png",
             "images/countdown/4.png",
             "images/countdown/5.png",
-            "images/CombatItems/animations/BuffBounce/mapBounce.png"
+            "images/CombatItems/animations/BuffBounce/mapBounce.png",
+            "images/CombatItems/animations/BuffAnimations/buff.png"
 
     };
 
@@ -150,7 +152,8 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
             "images/NPC/friendly_creature npc/friendly_creature.atlas",
-            "images/CombatItems/animations/BuffBounce/mapBounce.atlas"
+            "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
+            "images/CombatItems/animations/BuffAnimations/buff.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
