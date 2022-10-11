@@ -13,10 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.deco2800.game.components.player.CooldownBarDisplay;
-import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerSkillComponent;
-import com.deco2800.game.components.player.QuickBarDisplay;
+import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
@@ -201,10 +198,10 @@ public class SkillsTreeDisplay extends UIComponent {
         equipTable.clear();
         entity.getComponent(CooldownBarDisplay.class).clearSkillIcons();
         addEquipText();
-        addEquippedSkill(PlayerSkillComponent.SkillTypes.DASH);
-        addEquippedSkill(skill1Type);
-        addEquippedSkill(skill2Type);
-        addEquippedSkill(skill3Type);
+        addEquippedSkill(PlayerSkillComponent.SkillTypes.DASH, 0);
+        addEquippedSkill(skill1Type, 1);
+        addEquippedSkill(skill2Type,2);
+        addEquippedSkill(skill3Type, 3);
         addClearButton();
     }
 
@@ -245,30 +242,68 @@ public class SkillsTreeDisplay extends UIComponent {
         skill1Type = PlayerSkillComponent.SkillTypes.NONE;
         skill2Type = PlayerSkillComponent.SkillTypes.NONE;
         skill3Type = PlayerSkillComponent.SkillTypes.NONE;
+        ServiceLocator.getGameArea().getPlayer().getComponent(Countdown.class).clearCountdownListeners();
         refreshEquippedSkillsUI();
         ServiceLocator.getGameArea().getPlayer().getComponent(PlayerActions.class)
                 .getSkillComponent().resetSkills(ServiceLocator.getGameArea().getPlayer());
+
     }
 
     /**
      * Adds an equipped skill to the skill tree based on the skill type
      * @param skillType the skill type from PlayerSkillComponent.SkillTypes
      */
-    private void addEquippedSkill(PlayerSkillComponent.SkillTypes skillType) {
+    private void addEquippedSkill(PlayerSkillComponent.SkillTypes skillType, int skillNum) {
         switch (skillType) {
             case NONE -> addEquipImage("blankSkillIcon");
-            case DASH -> addEquipImage("dash");
-            case TELEPORT -> addEquipImage("teleport");
-            case BLOCK -> addEquipImage("block");
-            case DODGE -> addEquipImage("dodge");
-            case FIREBALLULTIMATE -> addEquipImage("fireballUltimate");
-            case ULTIMATE -> addEquipImage("ultimate");
-            case ROOT -> addEquipImage("root");
-            case AOE -> addEquipImage("aoe");
-            case PROJECTILE -> addEquipImage("wrenchProjectile");
-            case BLEED -> addEquipImage("bleed");
-            case CHARGE -> addEquipImage("charge");
-            case INVULNERABILITY -> addEquipImage("invulnerability");
+            case DASH -> {
+                addEquipImage("dash");
+                addCountdownTrigger("dashCountdown", skillNum);
+            }
+            case TELEPORT -> {
+                addEquipImage("teleport");
+                addCountdownTrigger("teleportCountdown", skillNum);
+            }
+            case BLOCK -> {
+                addEquipImage("block");
+                addCountdownTrigger("blockCountdown", skillNum);
+            }
+            case DODGE -> {
+                addEquipImage("dodge");
+                addCountdownTrigger("dodgeCountdown", skillNum);
+            }
+            case FIREBALLULTIMATE -> {
+                addEquipImage("fireballUltimate");
+                addCountdownTrigger("fireballCountdown", skillNum);
+            }
+            case ULTIMATE -> {
+                addEquipImage("ultimate");
+                addCountdownTrigger("ultimateCountdown", skillNum);
+            }
+            case ROOT -> {
+                addEquipImage("root");
+                addCountdownTrigger("rootCountdown", skillNum);
+            }
+            case AOE -> {
+                addEquipImage("aoe");
+                addCountdownTrigger("aoeCountdown", skillNum);
+            }
+            case PROJECTILE -> {
+                addEquipImage("wrenchProjectile");
+                addCountdownTrigger("wrenchCountdown", skillNum);
+            }
+            case BLEED -> {
+                addEquipImage("bleed");
+                addCountdownTrigger("bleedCountdown", skillNum);
+            }
+            case CHARGE -> {
+                addEquipImage("charge");
+                addCountdownTrigger("chargeCountdown", skillNum);
+            }
+            case INVULNERABILITY -> {
+                addEquipImage("invulnerability");
+                addCountdownTrigger("invulnerabilityCountdown", skillNum);
+            }
         }
     }
 
@@ -284,7 +319,10 @@ public class SkillsTreeDisplay extends UIComponent {
         cooldownBar.addSkillIcon(new Image(new Texture(imagePath)));
     }
 
-
+    private void addCountdownTrigger(String listenerName, int skillNum) {
+        Countdown countdownController = ServiceLocator.getGameArea().getPlayer().getComponent(Countdown.class);
+        countdownController.setCountdownTrigger(skillNum, listenerName);
+    }
 
     /**
      * Adds the skill tree buttons to the skill tree boxes in the image skill tree
