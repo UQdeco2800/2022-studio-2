@@ -98,6 +98,11 @@ public class CraftingLogic {
         return buildables;
     }
 
+    /**
+     * Supporter method that takes a weapon config of any type and converts it to a weapon entity. Helps
+     * with reading configs off weapons.json.
+     * @return a weapon entity based on the config input
+     */
     public static Entity damageToWeapon(WeaponConfig weapon){
         double dam = weapon.damage;
         switch ((int) Math.floor(dam)){

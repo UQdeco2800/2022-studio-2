@@ -38,7 +38,8 @@ import java.util.Map;
 import static com.badlogic.gdx.math.MathUtils.ceil;
 
 /**
- * Displays the name of the current game area.
+ * Class that allows for overlaying the current map with displays and animation. Used for crafting, inventory, NPCs and
+ * puase menu
  */
 public class GameAreaDisplay extends UIComponent {
 
@@ -47,20 +48,29 @@ public class GameAreaDisplay extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
 
+
+    /* The image button the user clicks to craft something */
     private ImageButton craftButton;
+    /* The image button the user clicks to open the first catalogue */
     private ImageButton catalogueButton;
+    /* The image button the user clicks to open the first category */
     private ImageButton catOneButton;
+    /* The image button the user clicks to open the second category */
     private ImageButton catTwoButton;
     private ImageButton inventoryButton;
     private ImageButton exitButton;
     private Texture buttonTexture;
-    private Image testing;
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
+    /* The image of the crafting menu used to show it on the map */
     private Image craftMenu;
+    /* List of all the possible weapons the user can build */
     private List<WeaponConfig> possibleBuilds;
+    /* The current weapon being used */
     Entity currentWeapon;
+    /* Image for the first category of crafting menu */
     private Image catOneMenu;
+    /* Image for the second category of crafting menu */
     private Image catTwoMenu;
     private ImageButton firstToCraft;
     private ImageButton secondToCraft;
@@ -161,6 +171,9 @@ public class GameAreaDisplay extends UIComponent {
         stage.draw();
     }
 
+    /**
+     * Displays the minimap on screen
+     */
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
         logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
@@ -284,7 +297,6 @@ public class GameAreaDisplay extends UIComponent {
      * Displays each item in the inventory in the inventory storage blocks.
      * Implemented by Team 2.
      */
-
     public void displayItems() {
         float padding = 32f;
         InventoryComponent inventoryComponent1 = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
@@ -364,8 +376,8 @@ public class GameAreaDisplay extends UIComponent {
                                                         inventoryComponent1.removeItem(currentItem);
                                                         updateInventoryDisplay();
                                                         //TODO visualizePotion();
-                                                        potionEQ = 1;
-                                                        potionTex = itemTexture;
+                                                        //potionEQ = 1;
+                                                        //potionTex = itemTexture;
                                                     }
                                                     break;
                                             }
@@ -498,7 +510,7 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     /**
-     * Display the pause menu when ESC is clicked.
+     * Loads all the required elements for the overlay when the pause button is pressed by the user.
      */
     public void setPauseMenu() {
         logger.info("Opening Pause Menu");
@@ -597,7 +609,10 @@ public class GameAreaDisplay extends UIComponent {
         stage.draw();
     }
 
-    // looks very complicated i know, look closer...
+    /**
+     * Loads the elements required to provide tutorials for the player when first using the crafting system.
+     * @param filePath the asset to be loaded and showed when the tutorial is active.
+     */
     public void setPlayerGuideMenu(String filePath) {
         logger.info("Opening Player guide menu");
         playerGuideMenu = new Image(new Texture(filePath));
@@ -782,6 +797,9 @@ public class GameAreaDisplay extends UIComponent {
         stage.draw();
     }
 
+    /**
+     * Removes the elements of the player guide menu from the map.
+     */
     public void disposePlayerGuideMenu() {
         playerGuidGroup.remove();
     }
@@ -881,6 +899,9 @@ public class GameAreaDisplay extends UIComponent {
         return keys;
     }
 
+    /**
+     * Checks if a weapon is possibly buildable with the two materials the user has chosen to craft with
+     */
     private void checkBuildables() {
         if (boxes[0] != null && boxes[1] != null) {
             for (WeaponConfig item : possibleBuilds) {
@@ -907,9 +928,9 @@ public class GameAreaDisplay extends UIComponent {
 
     /**
      * If an item is craftable, display it in the crafting inventory and set up event handlers to add it to the right
-     * side of the menu to be crafted when clicked on
+     * side of the menu to be crafted when clicked on. Method scans the inventory, checks which items are craftable
+     * and then assigns those a specific position on the map
      */
-
     private void getInventory() {
         currentScreenCrafting = true;
         int index = 0;
@@ -1046,8 +1067,8 @@ public class GameAreaDisplay extends UIComponent {
 
     /**
      * Display an icon next to each material showing the quantity levels and add animations to them
-     * @param amount
-     * @param index
+     * @param amount the number of the item present in the users' inventory
+     * @param index position of the material on the crafting menu.
      */
     private void displayAmount(int amount, int index) {
         matAmount = new Image(new Texture(Gdx.files.internal
@@ -1127,8 +1148,8 @@ public class GameAreaDisplay extends UIComponent {
 
     /**
      * Checks what type of material is being passed and return the type
-     * @param entity
-     * @return
+     * @param entity the entity to be checked
+     * @return, null if the entity is not craftable, the type of the entity if it is.
      */
     private EntityTypes checkType(Entity entity) {
         List<EntityTypes> entityTypes = entity.getEntityTypes();
@@ -1141,8 +1162,9 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     /**
-     * Takes an entity type and creates the material corresponding to that entity type
-     * @param type
+     * Takes an entity type and creates the material corresponding to that entity type. It then adds the given element
+     * to the user inventory.
+     * @param type the entity type to be created
      */
     private void addToInventory(EntityTypes type) {
         switch(type) {
@@ -1181,6 +1203,11 @@ public class GameAreaDisplay extends UIComponent {
         }
     }
 
+    /**
+     * Converts an entityType class to a Material which is stored in a box to indicate it's being
+     * used for crafting
+     * @param type the entity the user clicked on
+     */
     private void addToBoxes(EntityTypes type) {
         Materials materials;
         if (type == EntityTypes.GOLD) {
@@ -1214,9 +1241,13 @@ public class GameAreaDisplay extends UIComponent {
         checkBuildables();
     }
 
-    //0 Clears both boxes
-    //1 Clears box 1
-    //2 Clears box 2
+    /**
+     * Clears the boxes used to indicate what materials were selected for crafting
+     * 0 clears both boxes
+     * 1 clears the first box
+     * 2 clears the first box
+     * @param number the number that indicates what box is being disposed
+     */
     private void clearBoxes(int number) {
         if (number == 0) {
             boxes[0] = null;
@@ -1300,7 +1331,7 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     /**
-     * Displays the second page of the catalogue menu and adds event handlers for buttons
+     * Displays the second page of the catalogue menu and adds event handlers for buttons.
      */
     private void displayCatTwo() {
         Sound catTwoSound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
@@ -1359,7 +1390,7 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     /**
-     * Dispose methods for various actors on stage
+     * Disposes the elements of the first category from the screen
      */
     private void disposeCatOne() {
         catOneMenu.remove();
@@ -1367,40 +1398,68 @@ public class GameAreaDisplay extends UIComponent {
         catTwoButton.remove();
     }
 
+    /**
+     * Disposes the elements of the second category from the screen
+     */
     private void disposeCatTwo() {
         catTwoMenu.remove();
         inventoryButton.remove();
         catOneButton.remove();
     }
 
+    /**
+     * Disposes the third first from the screen
+     */
     private void disposeFirstTutorial() {
         firstTutorial.remove();
     }
 
+    /**
+     * Disposes the second tutorial from the screen
+     */
     private void disposeSecondTutorial() {
         secondTutorial.remove();
     }
 
+    /**
+     * Disposes the third tutorial from the screen
+     */
     private void disposeThirdTutorial() {
         thirdTutorial.remove();
     }
 
+    /**
+     * Clears the materials from the boxes used for crafting
+     */
     private void clearMaterials() {
         materialsGroup.clear();
     }
 
+    /**
+     * Disposes the materials shown in the crafting menu
+     */
     private void disposeMaterials() {
         materialsGroup.remove();
     }
 
+    /**
+     * Disposes first box used for crafting
+     */
     private void disposeFirstBox() {
         firstToCraft.remove();
     }
 
+    /**
+     * Disposes second box used for crafting
+     */
     private void disposeSecondBox() {
         secondToCraft.remove();
     }
 
+    /**
+     * Disposes the crafting menu by deleting all the elements from the screen and also resets the boxes to make
+     * it like new when opened again.
+     */
     public void disposeCraftingMenu() {
         try {
             clearMaterials();
@@ -1416,10 +1475,18 @@ public class GameAreaDisplay extends UIComponent {
         craftingGroup.remove();
     }
 
+    /**
+     * Method that disposes the pause menu by removing all the elements present on the screen
+     */
     public void disposePauseMenu() {
         pausingGroup.remove();
     }
 
+    /**
+     * This method takes a weapon and draws the item in the location of the crafting menu. There are
+     * different scalings and positions for each weapons as the original weapons are different sizes.
+     * @param item the weapon to be drawn on the crafting menu.
+     */
     private void displayWeapon(WeaponConfig item) {
         Entity newItem = CraftingLogic.damageToWeapon(item);
         currentWeapon = newItem;
