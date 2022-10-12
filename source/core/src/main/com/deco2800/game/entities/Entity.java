@@ -7,6 +7,7 @@ import com.deco2800.game.components.CameraComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.ComponentType;
+import com.deco2800.game.components.npc.EnemyExperienceComponent;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -46,6 +47,7 @@ public class Entity {
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
   private boolean isDead = false;
+  private boolean playerWin = false;
   private List<EntityTypes> entityType;
   public Entity() {
     id = nextId;
@@ -229,6 +231,9 @@ public class Entity {
   public void dispose() {
     for (Component component : createdComponents) {
       if (!(component instanceof AnimationRenderComponent)) {
+        if (component instanceof EnemyExperienceComponent) {
+          ((EnemyExperienceComponent) component).triggerExperienceGain();
+        }
         component.dispose();
       } //this prevents the other entities using the same animation from having their atlases disposed (black box)
     }
@@ -277,6 +282,7 @@ public class Entity {
             component instanceof PlayerSkillAnimationController ||
             component instanceof PlayerKPAnimationController ||
             component instanceof PlayerCombatAnimationController ||
+            component instanceof PlayerTouchAttackComponent ||
             component instanceof PlayerModifier ||
             component instanceof PhysicsComponent ) {
 
@@ -295,10 +301,16 @@ public class Entity {
       return;
     }
     if (isDead) {
+      if (!checkEntityType(EntityTypes.ENEMY)) {
+        dispose();
+      }
+    }
+    if (playerWin) {
       dispose();
     }
     boolean timeStopped = EntityService.isTimeStopped();
-    for (Component component : createdComponents) {
+    for (int i = 0; i < createdComponents.size; ++i) {
+      Component component = createdComponents.get(i);
       if (!timeStopped) {
 
         component.triggerUpdate();
@@ -312,6 +324,7 @@ public class Entity {
                 component instanceof PlayerSkillAnimationController ||
                 component instanceof PlayerKPAnimationController ||
                 component instanceof PlayerCombatAnimationController ||
+                component instanceof PlayerTouchAttackComponent ||
                 component instanceof PlayerModifier ||
                 component instanceof PhysicsComponent) {
 
@@ -340,10 +353,16 @@ public class Entity {
                component instanceof PlayerSkillAnimationController ||
                component instanceof PlayerSkillProjectileComponent ||
                component instanceof PlayerCombatAnimationController ||
+               component instanceof PlayerTouchAttackComponent ||
                component instanceof PlayerKPAnimationController
                 ) {
           return;
         }
+      }
+    }
+    for (Component component : createdComponents) {
+      if (component instanceof PlayerCombatAnimationController) {
+        return;
       }
     }
     for (Component component : createdComponents) {
@@ -368,10 +387,20 @@ public class Entity {
   }
 
   /**
+   * Updates the playerWin variable to true, used to flag a win
+   */
+  public void flagWin() {
+    playerWin = true;
+  }
+
+  /**
    * A method that returns true if dead and false if not
    * @return true if dead, false if not
    */
   public boolean isDead() {
+    if (getComponent(CombatStatsComponent.class).getHealth() <= 0) {
+      isDead = true;
+    }
     return isDead;
   }
   public EventHandler getEvents() {
@@ -379,7 +408,7 @@ public class Entity {
   }
 
   /**
-   * Check if this entity equals another object
+   * Check if this entity equalsOther another object
    * @param obj - the object to compare this entity to
    *
    * @return true if equal, false if not

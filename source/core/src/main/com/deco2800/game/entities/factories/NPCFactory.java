@@ -238,7 +238,8 @@ public class NPCFactory {
 
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
+            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -252,12 +253,17 @@ public class NPCFactory {
     animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     gymBro
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new GymBroAnimationController());
+            .addComponent(new GymBroAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
     gymBro.setScale(2f, 2f);
     gymBro.setEntityType(EntityTypes.ENEMY);
     gymBro.setEntityType(EntityTypes.MELEE);
@@ -281,7 +287,8 @@ public class NPCFactory {
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            .addTask(new JumpTask(target, 11, 8f,180, 1.5f));
+            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f))
+            .addTask(new DeadTask(target,15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -299,12 +306,17 @@ public class NPCFactory {
     animator.addAnimation("jump_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("jump_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("jump_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     heracles
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new HeraclesAnimationController());
+            .addComponent(new HeraclesAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
 
     heracles.setEntityType(EntityTypes.ENEMY);
     heracles.setEntityType(EntityTypes.BOSS);
@@ -323,7 +335,8 @@ public class NPCFactory {
     String projectileType = "poopSludge";
     poops.getComponent(AITaskComponent.class)
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -333,11 +346,16 @@ public class NPCFactory {
     animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new PoopAnimationController());
+            .addComponent(new PoopAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
     poops.setEntityType(EntityTypes.ENEMY);
     poops.setEntityType(EntityTypes.RANGED);
     poops.setScale(2f, 2f);
@@ -353,11 +371,13 @@ public class NPCFactory {
     Entity megaPoop = createBaseNPC();
     MegaPoopConfig config = configs.megaPoop;
     List<EntityTypes> types = megaPoop.getEntityTypes();
-    String projectileType = "discus";
+    String projectileType = "poopSludge";
 
     megaPoop.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new TransportTask(target, 10, 10f));
+            .addTask(new TransportTask(target, 10, 10f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -367,15 +387,26 @@ public class NPCFactory {
     animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cast", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("projectile_attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     megaPoop
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
-            .addComponent(new MegaPoopAnimationController());
+            .addComponent(new MegaPoopAnimationController())
+            .addComponent(new EnemyExperienceComponent(1));
 
     megaPoop.setEntityType(EntityTypes.ENEMY);
     megaPoop.setEntityType(EntityTypes.BOSS);
+    megaPoop.setEntityType(EntityTypes.MEGAPOOP);
     megaPoop.setScale(3f, 3f);
     return megaPoop;
   }
