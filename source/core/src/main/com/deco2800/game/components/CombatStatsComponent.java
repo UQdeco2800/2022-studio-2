@@ -409,9 +409,23 @@ public class CombatStatsComponent extends Component {
     float y = getEntity().getPosition().y;
 
     int randomnum = random.nextInt(100);
+    Entity material = materialRand(randomnum);
 
+    if (randomnum <= 90) {
+      material.setScale(new Vector2(0.6f, 0.6f));
+
+      ServiceLocator.getEntityService().register(material);
+      material.setPosition((x), (y - 2));
+    }
+  }
+
+  /**
+   * Takes a number between 1 to 100 and returnss a material to be dropped
+   * @param randomnum a random number between 1 and 100
+   * @return an Entity to be dropped
+   */
+  private Entity materialRand(int randomnum){
     Entity material;
-
     if (randomnum < 10) {
       material = MaterialFactory.createSilver();
     } else if (randomnum < 30 && randomnum >= 10) {
@@ -431,13 +445,6 @@ public class CombatStatsComponent extends Component {
     } else {
       material = MaterialFactory.createWood();
     }
-
-    if (!(randomnum > 90)) {
-      material.setScale(new Vector2(0.6f, 0.6f));
-
-      ServiceLocator.getEntityService().register(material);
-
-      material.setPosition((x), (y - 2));
-    }
+    return material;
   }
 }

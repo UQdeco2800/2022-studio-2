@@ -15,12 +15,14 @@ import java.util.*;
  */
 public class CraftingLogic {
 
+    private CraftingLogic(){}
+
     public static final WeaponConfigSetup configs =
             FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
     /**
      * List containing the possible builds the user can make with their given inventory
      */
-    private static List<WeaponConfig> possibleBuilds =  new ArrayList<WeaponConfig>();
+    private static List<WeaponConfig> possibleBuilds =  new ArrayList<>();
 
 
     /**
@@ -92,7 +94,7 @@ public class CraftingLogic {
                 }
 
             }
-            if (buildable)
+            if (Boolean.TRUE.equals(buildable))
                 buildables.add(possibleWeapons.get(i));
         }
         return buildables;
@@ -108,28 +110,20 @@ public class CraftingLogic {
         switch ((int) Math.floor(dam)){
             case 12:
                 return WeaponFactory.createDagger();
-
             case 16:
                 return WeaponFactory.createHera();
-
             case 30:
                 return WeaponFactory.createSwordLvl2();
-
             case 15:
                 return WeaponFactory.createPipe();
-
             case 35:
                 return WeaponFactory.createTridentLvl2();
-
             case 40:
                 return WeaponFactory.createHeraAthenaDag();
-
             case 20:
                 return WeaponFactory.createPlungerBow();
-
             case 70:
                 return WeaponFactory.createGoldenPlungerBow();
-
             default:
                 return WeaponFactory.createPlunger();
         }

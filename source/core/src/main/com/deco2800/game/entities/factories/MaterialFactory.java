@@ -1,6 +1,7 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.utils.Null;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -12,6 +13,8 @@ import com.deco2800.game.rendering.TextureRenderComponent;
  * Factory style class used for creating materials of each type with certain components and base images.
  */
 public class MaterialFactory {
+
+    private MaterialFactory(){}
 
     /**
      * Creates a base material with the physics, hitbox and possibility to pick up. Used as a base for other materials.
@@ -173,6 +176,7 @@ public class MaterialFactory {
             case "rubber" -> material.setEntityType(EntityTypes.RUBBER);
             case "platinum" -> material.setEntityType(EntityTypes.PLATINUM);
             case "silver" -> material.setEntityType(EntityTypes.SILVER);
+            default -> new NullPointerException();
         }
         return material;
     }
