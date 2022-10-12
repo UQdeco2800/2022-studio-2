@@ -376,7 +376,8 @@ public class NPCFactory {
     megaPoop.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new TransportTask(target, 10, 10f))
-            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -391,6 +392,10 @@ public class NPCFactory {
     animator.addAnimation("projectile_attack_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("projectile_attack_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("projectile_attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     megaPoop
