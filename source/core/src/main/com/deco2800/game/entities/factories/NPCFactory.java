@@ -10,7 +10,6 @@ import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.npc.NPCAnimationController;
 import com.deco2800.game.components.npc.PoopAnimationController;
 import com.deco2800.game.components.npc.HeraclesAnimationController;
-import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.*;
 import com.deco2800.game.components.tasks.*;
 import com.deco2800.game.entities.Entity;
@@ -39,6 +38,38 @@ import java.util.*;
  * similar characteristics.
  */
 public class NPCFactory {
+  private static final String WALK_FRONT = "walk_front";
+  private static final String WALK_BACK = "walk_back";
+  private static final String WALK_RIGHT = "walk_right";
+  private static final String WALK_LEFT = "walk_left";
+
+  private static final String VANISH_FRONT = "vanish_front";
+  private static final String VANISH_BACK = "vanish_back";
+  private static final String VANISH_RIGHT = "vanish_right";
+  private static final String VANISH_LEFT = "vanish_left";
+
+  private static final String ATTACK_FRONT = "attack_front";
+  private static final String ATTACK_BACK = "attack_back";
+  private static final String ATTACK_RIGHT = "attack_right";
+  private static final String ATTACK_LEFT = "attack_left";
+
+  private static final String DISCUS_ATTACK_FRONT = "discus_attack_front";
+  private static final String DISCUS_ATTACK_BACK = "discus_attack_back";
+  private static final String DISCUS_ATTACK_RIGHT = "discus_attack_right";
+  private static final String DISCUS_ATTACK_LEFT = "discus_attack_left";
+
+  private static final String JUMP_FRONT = "jump_front";
+  private static final String JUMP_BACK = "jump_back";
+  private static final String JUMP_RIGHT = "jump_right";
+  private static final String JUMP_LEFT = "jump_left";
+
+  private static final String CAST = "cast";
+
+  private static final String PROJECTILE_ATTACK_FRONT = "projectile_attack_front";
+  private static final String PROJECTILE_ATTACK_BACK = "projectile_attack_back";
+  private static final String PROJECTILE_ATTACK_RIGHT = "projectile_attack_right";
+  private static final String PROJECTILE_ATTACK_LEFT = "projectile_attack_left";
+
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
@@ -245,18 +276,18 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Enemies/gym_bro.atlas", TextureAtlas.class));
-    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("attack_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(ATTACK_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(ATTACK_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(ATTACK_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(ATTACK_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_RIGHT, 0.1f, Animation.PlayMode.LOOP);
 
 
     gymBro
@@ -280,13 +311,11 @@ public class NPCFactory {
   public static Entity createHeracles(Entity target)  {
     Entity heracles = createBaseNPC();
     HeraclesConfig config = new NPCConfigs().heracles;
-    List<EntityTypes> types = heracles.getEntityTypes();
     String projectileType = "discus";
 
     heracles.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
-            //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
             .addTask(new JumpTask(target, 11, 8f,19f, 1.5f))
             .addTask(new DeadTask(target,15));
 
@@ -294,22 +323,22 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Enemies/heracles.atlas", TextureAtlas.class));
-    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("discus_attack_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("discus_attack_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("discus_attack_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("discus_attack_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("jump_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("jump_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("jump_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("jump_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(DISCUS_ATTACK_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(DISCUS_ATTACK_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(DISCUS_ATTACK_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(DISCUS_ATTACK_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(JUMP_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(JUMP_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(JUMP_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(JUMP_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_RIGHT, 0.1f, Animation.PlayMode.LOOP);
 
 
     heracles
@@ -342,14 +371,14 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Enemies/poop.atlas", TextureAtlas.class));
-    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_RIGHT, 0.1f, Animation.PlayMode.LOOP);
 
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
@@ -370,7 +399,7 @@ public class NPCFactory {
   public static Entity createMegaPoop(Entity target)  {
     Entity megaPoop = createBaseNPC();
     MegaPoopConfig config = configs.megaPoop;
-    List<EntityTypes> types = megaPoop.getEntityTypes();
+
     String projectileType = "poopSludge";
 
     megaPoop.getComponent(AITaskComponent.class)
@@ -383,19 +412,19 @@ public class NPCFactory {
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
                             .getAsset("images/Enemies/mega_poop.atlas", TextureAtlas.class));
-    animator.addAnimation("walk_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("cast", 0.2f, Animation.PlayMode.LOOP);
-    animator.addAnimation("projectile_attack_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("projectile_attack_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("projectile_attack_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("projectile_attack_right", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(WALK_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(CAST, 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation(PROJECTILE_ATTACK_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(PROJECTILE_ATTACK_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(PROJECTILE_ATTACK_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(PROJECTILE_ATTACK_RIGHT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_FRONT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_BACK, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_LEFT, 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation(VANISH_RIGHT, 0.1f, Animation.PlayMode.LOOP);
 
 
     megaPoop

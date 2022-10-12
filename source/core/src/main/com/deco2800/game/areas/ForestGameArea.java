@@ -164,7 +164,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private static Entity heracles;
+  private Entity heracles;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
