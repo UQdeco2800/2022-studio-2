@@ -149,7 +149,7 @@ public class CombatStatsComponent extends Component {
       Gdx.app.postRunnable(() -> {
         dropMaterial();
         dropWeapon();
-        entity.dispose();
+        //entity.dispose();
       });
 
       if (entity.getComponent(AnimationRenderComponent.class) != null) {

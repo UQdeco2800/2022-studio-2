@@ -282,7 +282,8 @@ public class NPCFactory {
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f));
+            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f))
+            .addTask(new DeadTask(target,15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -300,6 +301,10 @@ public class NPCFactory {
     animator.addAnimation("jump_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("jump_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("jump_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     heracles
