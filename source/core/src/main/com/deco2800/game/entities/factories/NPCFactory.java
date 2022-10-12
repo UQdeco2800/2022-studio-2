@@ -38,6 +38,9 @@ import java.util.*;
  * similar characteristics.
  */
 public class NPCFactory {
+  private static final NPCConfigs configs =
+      FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
+
   private static final String WALK_FRONT = "walk_front";
   private static final String WALK_BACK = "walk_back";
   private static final String WALK_RIGHT = "walk_right";
@@ -69,9 +72,6 @@ public class NPCFactory {
   private static final String PROJECTILE_ATTACK_BACK = "projectile_attack_back";
   private static final String PROJECTILE_ATTACK_RIGHT = "projectile_attack_right";
   private static final String PROJECTILE_ATTACK_LEFT = "projectile_attack_left";
-
-  private static final NPCConfigs configs =
-      FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
    * Creates an atlantis female NPC entity.
@@ -294,7 +294,7 @@ public class NPCFactory {
 
 
     gymBro
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new CombatStatsComponent(config.healthGymBro, config.baseAttackGymBro, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new GymBroAnimationController())
             .addComponent(new EnemyExperienceComponent(1));
@@ -345,7 +345,7 @@ public class NPCFactory {
 
 
     heracles
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new CombatStatsComponent(config.healthHeracles, config.baseAttackHeracles, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new HeraclesAnimationController())
             .addComponent(new EnemyExperienceComponent(1));
@@ -384,7 +384,7 @@ public class NPCFactory {
     animator.addAnimation(VANISH_RIGHT, 0.1f, Animation.PlayMode.LOOP);
 
     poops
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new CombatStatsComponent(config.healthPoops, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new PoopAnimationController())
             .addComponent(new EnemyExperienceComponent(1));

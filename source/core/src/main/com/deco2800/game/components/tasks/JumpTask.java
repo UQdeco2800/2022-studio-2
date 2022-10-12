@@ -31,7 +31,6 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private Vector2 lastPos;
     private MovementTask movementTask;
     private GameTime gameTime;
-    private CombatStatsComponent combatStats;
     private final PhysicsEngine physics;
     private final DebugRenderer debugRenderer;
     private final RaycastHit hit = new RaycastHit();
@@ -52,7 +51,6 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.glidingSpeed = glidingSpeed;
         gameTime = ServiceLocator.getTimeSource();
         lastJumpTime = gameTime.getTime() + 1000f;
-        combatStats = target.getComponent(CombatStatsComponent.class);
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
     }

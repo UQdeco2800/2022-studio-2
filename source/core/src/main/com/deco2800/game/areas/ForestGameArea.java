@@ -168,7 +168,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   private Entity player;
-  private Entity heracles;
+  private static Entity heracles;
   private static List<Entity> weaponOnMap = new ArrayList<>();
   private static List<Entity> ItemsOnMap = new ArrayList<>();
   private static List<Entity> auraOnMap = new ArrayList<>();
@@ -1079,10 +1079,10 @@ public class ForestGameArea extends GameArea {
    */
   private Entity spawnHeracles() {
     GridPoint2 position = new GridPoint2(174, 65);
-    Entity heracles = NPCFactory.createHeracles(player);
-    areaEntities.add(heracles);
-    spawnEntityAt(heracles, position, true, true);
-    return heracles;
+    Entity heraclesBoss = NPCFactory.createHeracles(player);
+    areaEntities.add(heraclesBoss);
+    spawnEntityAt(heraclesBoss, position, true, true);
+    return heraclesBoss;
   }
 
   private void playMusic() {
