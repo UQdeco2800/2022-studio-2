@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
@@ -15,6 +16,7 @@ import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
+import com.deco2800.game.components.player.CooldownBarDisplay;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
@@ -343,6 +345,8 @@ public class MainGameScreen extends ScreenAdapter {
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
             .addComponent(new QuickBarDisplay())
+            .addComponent(new SkillsTreeDisplay())
+            .addComponent(new CooldownBarDisplay())
             .addComponent(new PerformanceDisplay())
             .addComponent(mainGameActions)
             .addComponent(new MainGameExitDisplay())

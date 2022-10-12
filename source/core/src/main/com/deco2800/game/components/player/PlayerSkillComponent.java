@@ -582,6 +582,7 @@ public class PlayerSkillComponent extends Component {
         if (cooldownFinished("invulnerable", (INVULNERABILITY_LENGTH * 3))) {
             this.invulnerabilitySkill = true;
             skillAnimator.getEvents().trigger("invulnerabilityAnimation");
+            playerEntity.getEvents().trigger("invulnerabilityCountdown");
             long invulnerabilityStart = System.currentTimeMillis();
             this.invulnerabilitySkillEnd = invulnerabilityStart + INVULNERABILITY_LENGTH;
             setInvulnerable(INVULNERABILITY_LENGTH);
@@ -599,6 +600,7 @@ public class PlayerSkillComponent extends Component {
             this.dashDirection = moveDirection;
             this.dashing = true;
             skillAnimator.getEvents().trigger("dashAnimation");
+            playerEntity.getEvents().trigger("dashCountdown");
             long dashStart = System.currentTimeMillis();
             this.dashEnd = dashStart + DASH_LENGTH;
             setInvulnerable(DASH_LENGTH/2);
@@ -614,6 +616,7 @@ public class PlayerSkillComponent extends Component {
         if (cooldownFinished("teleport", TELEPORT_COOLDOWN)) {
             this.teleporting = true;
             skillAnimator.getEvents().trigger("teleportAnimation");
+            playerEntity.getEvents().trigger("teleportCountdown");
             long teleportStart = System.currentTimeMillis();
             this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
             setSkillCooldown("teleport");
@@ -629,6 +632,7 @@ public class PlayerSkillComponent extends Component {
             this.dodgeDirection = moveDirection;
             this.dodging = true;
             skillAnimator.getEvents().trigger("dodgeAnimation");
+            playerEntity.getEvents().trigger("dodgeCountdown");
             long dodgeStart = System.currentTimeMillis();
             this.dodgeEnd = dodgeStart + DODGE_LENGTH;
             setInvulnerable(DODGE_LENGTH);
@@ -644,6 +648,7 @@ public class PlayerSkillComponent extends Component {
         if (cooldownFinished("block", BLOCK_COOLDOWN)) {
             this.blocking = true;
             skillAnimator.getEvents().trigger("blockAnimation");
+            playerEntity.getEvents().trigger("blockCountdown");
             long blockStart = System.currentTimeMillis();
             this.blockEnd = blockStart + BLOCK_LENGTH;
             setInvulnerable(BLOCK_LENGTH);
@@ -658,6 +663,7 @@ public class PlayerSkillComponent extends Component {
      */
     public void startRoot() {
         skillAnimator.getEvents().trigger("rootAnimation");
+        playerEntity.getEvents().trigger("rootCountdown");
         this.rootAnimationRunning = true;
         long rootStart = System.currentTimeMillis();
         this.rootAnimationEnd = rootStart + ROOT_ANIMATION_LENGTH;
@@ -671,6 +677,7 @@ public class PlayerSkillComponent extends Component {
     public void startUltimate() {
         if (cooldownFinished("timestop", (long) (ULTIMATE_CHARGE_LENGTH * 3))) {
             skillAnimator.getEvents().trigger("ultimateAnimation");
+            playerEntity.getEvents().trigger("ultimateCountdown");
             chargingUltimate = true;
             long ultimateStart = System.currentTimeMillis();
             this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
@@ -685,6 +692,7 @@ public class PlayerSkillComponent extends Component {
      */
     public void startProjectileSkill() {
         if (cooldownFinished("projectile", 5000)) {
+            playerEntity.getEvents().trigger("wrenchCountdown");
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
                 ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
             }
@@ -699,6 +707,7 @@ public class PlayerSkillComponent extends Component {
         if (cooldownFinished("fireball", FIREBALL_CHARGE_LENGTH * 10)) {
             chargingUltimateFireball = true;
             skillAnimator.getEvents().trigger("fireballAnimation");
+            playerEntity.getEvents().trigger("fireballCountdown");
             long ultimateStart = System.currentTimeMillis();
             this.ultimateFireballChargeEnd = ultimateStart + FIREBALL_CHARGE_LENGTH;
             setSkillCooldown("fireball");
@@ -723,6 +732,7 @@ public class PlayerSkillComponent extends Component {
      */
     public void startBleed() {
         this.bleedApplied = true;
+        playerEntity.getEvents().trigger("bleedCountdown");
     }
 
     /**
@@ -903,6 +913,7 @@ public class PlayerSkillComponent extends Component {
             this.charging = true;
             this.chargeFirstHit = true;
             skillAnimator.getEvents().trigger("dashAnimation");
+            playerEntity.getEvents().trigger("chargeCountdown");
             this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
             setInvulnerable(DASH_LENGTH / 2);
             setSkillCooldown("charge");
@@ -958,6 +969,7 @@ public class PlayerSkillComponent extends Component {
             long aoeStart = System.currentTimeMillis();
             this.aoeAnimationEnd = aoeStart + AOE_ANIMATION_LENGTH;
             skillAnimator.getEvents().trigger("aoeAnimation");
+            playerEntity.getEvents().trigger("aoeCountdown");
             this.aoeAnimationRunning = true;
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
                 Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();

@@ -96,6 +96,7 @@ public class NPCFactory {
     oneLegGirl.getComponent(AnimationRenderComponent.class).scaleEntity();
     oneLegGirl.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     oneLegGirl.setScale(1, 1);
+    oneLegGirl.setEntityType(EntityTypes.NPC);
     return oneLegGirl;
   }
 
@@ -124,6 +125,7 @@ public class NPCFactory {
     child.getComponent(AnimationRenderComponent.class).scaleEntity();
     child.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     child.setScale(1, 1);
+    child.setEntityType(EntityTypes.NPC);
     return child;
   }
 
@@ -151,6 +153,7 @@ public class NPCFactory {
     guard.getComponent(AnimationRenderComponent.class).scaleEntity();
     guard.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
     guard.setScale(1, 1);
+    guard.setEntityType(EntityTypes.NPC);
     return guard;
   }
   public static Entity createHumanGuard (Entity target) {

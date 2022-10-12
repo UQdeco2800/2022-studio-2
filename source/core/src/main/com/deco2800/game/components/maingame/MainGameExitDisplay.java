@@ -54,8 +54,7 @@ public class MainGameExitDisplay extends UIComponent {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
           logger.debug("SkillsTree button clicked");
-          Entity playerEntity = ServiceLocator.getGameArea().getPlayer();
-          playerEntity.getComponent(SkillsTreeDisplay.class).toggleSkillTreeDisplay();
+          entity.getComponent(SkillsTreeDisplay.class).toggleSkillTreeDisplay();
         }
       });
 
