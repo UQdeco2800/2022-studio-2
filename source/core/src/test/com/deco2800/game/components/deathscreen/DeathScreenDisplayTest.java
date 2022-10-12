@@ -22,7 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(GameExtension.class)
 @ExtendWith(MockitoExtension.class)
-public class DeathScreenDisplayTest {
+class DeathScreenDisplayTest {
     Integer level;
     DeathScreenDisplay deathScreenDisplay;
     @Mock Entity entity;
