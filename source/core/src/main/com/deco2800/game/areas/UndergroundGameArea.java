@@ -551,6 +551,7 @@ public class UndergroundGameArea extends GameArea {
         Entity newKeyPromptAnimator = PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+        spawnEntityAt(newKeyPromptAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
         newPlayer.getComponent(PlayerKeyPrompt.class)
                 .setKeyPromptAnimator(newKeyPromptAnimator);
