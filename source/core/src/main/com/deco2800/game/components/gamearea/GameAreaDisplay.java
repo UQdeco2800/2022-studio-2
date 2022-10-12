@@ -13,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -149,10 +151,10 @@ public class GameAreaDisplay extends UIComponent {
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
         logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
-        if (gameArea.getClass().getSimpleName().equals("ForestGameArea")) {
+        if (gameArea.getClass().isInstance(ForestGameArea.class)) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_1_tiledmap/minimap1.png")));
-        } else if (gameArea.getClass().getSimpleName().equals("UndergroundGameArea")) {
+        } else if (gameArea.getClass().isInstance(UndergroundGameArea.class)) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_2_tiledmap/minimap2.png")));
         } else {
@@ -162,8 +164,8 @@ public class GameAreaDisplay extends UIComponent {
 
         //Note: the position of the asset is at the bottom left.
         minimapImage.setSize(800, 977);
-        minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
+        minimapImage.setPosition(Math.round((double)Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2),
+                Math.round((double)Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2));
         minimapGroup.addActor(minimapImage);
         stage.addActor(minimapGroup);
         stage.draw();
@@ -185,7 +187,7 @@ public class GameAreaDisplay extends UIComponent {
         for (Entity item : inventoryComponent1.getEquipables()) {
             if (item != null) {
                 int itemSlot;
-                float padding = 128 + 64;
+                float padding = (float) 128 + 64;
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
                 Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
