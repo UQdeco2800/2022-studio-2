@@ -29,6 +29,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
+import static com.deco2800.game.areas.UndergroundGameArea.getFriendlycreaturePosition;
+
 
 
 /**
@@ -231,7 +233,7 @@ public class DialogueDisplay extends UIComponent {
     }
 
     public void nextText() {
-        if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
+        if ((oneLegGirlPosition) != null && entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
             logger.info("new text loaded");
             countFemale++;
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
@@ -241,7 +243,7 @@ public class DialogueDisplay extends UIComponent {
                 countFemale = 0;
                 dialogueContainerFemale.remove();
             }
-        } else if (entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
+        } else if ((GuardPosition) != null && entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
             logger.info("new text loaded");
             countGuard++;
             textAreaGuard = new TextArea(textGuard[countGuard], skin);
@@ -274,7 +276,7 @@ public class DialogueDisplay extends UIComponent {
 
                 music.play();
             }
-        } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
+        } else if ((maleCitizenPosition) != null && entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
             logger.info("new text loaded");
             countMale++;
             textAreaMale = new TextArea(textMale[countMale], skin);
@@ -296,7 +298,7 @@ public class DialogueDisplay extends UIComponent {
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Male Citizen Audio/Male Citizen 3.wav"));
                 music.play();
             }
-        } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
+        } else if ((childPosition) != null && entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
             logger.info("new text loaded");
             countChild++;
             textAreaChild = new TextArea(textChild[countChild], skin);
@@ -350,7 +352,7 @@ public class DialogueDisplay extends UIComponent {
                 });
             }
 
-        } else if (entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
+        } else if ((HumanGuardPosition) != null && entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
             logger.info("new text loaded");
             countHumanGuard++;
             textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
@@ -386,7 +388,7 @@ public class DialogueDisplay extends UIComponent {
                 music.play();
             }
 
-        } else if (entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
+        } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
             logger.info("new text loaded");
             countFriendlyCreature++;
             textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
@@ -400,7 +402,7 @@ public class DialogueDisplay extends UIComponent {
                 inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             }
 
-        } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
+        } else if ((PlumberFriendPosition) != null && entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
             logger.info("new text loaded");
             countPlumberFriend++;
             textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
@@ -454,31 +456,31 @@ public class DialogueDisplay extends UIComponent {
     public void openDialogue() {
 
         if (state) {
-            if (entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
+            if ((oneLegGirlPosition) != null && entity.getCenterPosition().dst(GridPointToVector(oneLegGirlPosition)) < 1.5) {
                 logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerFemale);
                 state = false;
-            } else if (entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
+            } else if ((GuardPosition) != null && entity.getCenterPosition().dst(GridPointToVector(GuardPosition)) < 1.5) {
                 logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerGuard);
                 state = false;
-            } else if (entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
+            } else if ((maleCitizenPosition) != null && entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
                 logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerMale);
                 state = false;
-            } else if (entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
+            } else if ((childPosition) != null && entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
                 logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerChild);
                 state = false;
-            } else if (entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
+            } else if ((HumanGuardPosition) != null && entity.getCenterPosition().dst(GridPointToVector(HumanGuardPosition)) < 1.5) {
                 logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerHumanGuard);
                 state = false;
-            } else if (entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
+            } else if ((PlumberFriendPosition) != null && entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
                 logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerPlumberFriend);
                 state = false;
-            } else if (entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
+            } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
                 logger.info("dialogue closed manually");
                 stage.addActor(dialogueContainerFriendlyCreature);
                 state = false;
@@ -488,25 +490,25 @@ public class DialogueDisplay extends UIComponent {
     }
     //hide dialogue function
     public void hideDialogue() {
-        if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) < 1.5) {
+        if (!state && (oneLegGirlPosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(oneLegGirlPosition)) < 1.5) {
             dialogueContainerFemale.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) < 1.5) {
+        } else if (!state && (GuardPosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(GuardPosition)) < 1.5) {
             dialogueContainerGuard.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) < 1.5) {
+        } else if (!state && (maleCitizenPosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(maleCitizenPosition)) < 1.5) {
             dialogueContainerMale.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) < 1.5) {
+        } else if (!state && (childPosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(childPosition)) < 1.5) {
             dialogueContainerChild.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(HumanGuardPosition)) < 1.5) {
+        } else if (!state && (HumanGuardPosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(HumanGuardPosition)) < 1.5) {
             dialogueContainerHumanGuard.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) < 1.5) {
+        } else if (!state && (PlumberFriendPosition) != null && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(PlumberFriendPosition)) < 1.5) {
             dialogueContainerPlumberFriend.remove();
             state = true;
-        } else if (!state && entity.getCenterPosition().dst(ForestGameArea.GridPointToVector(friendlycreaturePosition)) < 1.5) {
+        } else if (!state && (friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
             dialogueContainerFriendlyCreature.remove();
             state = true;
         }
