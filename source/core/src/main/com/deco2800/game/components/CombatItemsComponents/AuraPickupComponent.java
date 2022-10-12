@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 //this is useless
 public class AuraPickupComponent extends ItemPickupComponent {
     private static Logger logger;
-    private HitboxComponent hitboxComponent;
 
     /**
      * Creates a component which allows an aura entity to be picked up from the map
@@ -39,7 +38,6 @@ public class AuraPickupComponent extends ItemPickupComponent {
      * @param other Fixture of the entity that is colliding with this aura on the map.
      */
     private void pickUpAura(Fixture me, Fixture other) {
-        hitboxComponent = entity.getComponent(HitboxComponent.class);
         Fixture f = ServiceLocator.getGameArea().getPlayer().getComponent(HitboxComponent.class).getFixture();
         //aura is only picked up if weapon equipped
         if (other == f) {
