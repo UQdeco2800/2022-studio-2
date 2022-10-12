@@ -238,7 +238,8 @@ public class NPCFactory {
 
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
+            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -252,6 +253,10 @@ public class NPCFactory {
     animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     gymBro
