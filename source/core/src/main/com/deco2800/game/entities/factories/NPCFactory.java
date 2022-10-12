@@ -241,7 +241,8 @@ public class NPCFactory {
 
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
+            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -255,6 +256,10 @@ public class NPCFactory {
     animator.addAnimation("attack_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     gymBro
@@ -285,7 +290,8 @@ public class NPCFactory {
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
             //.addTask(new ChaseTask(target, 10, 5f, 6f, config.speed));
-            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f));
+            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f))
+            .addTask(new DeadTask(target,15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -303,6 +309,10 @@ public class NPCFactory {
     animator.addAnimation("jump_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("jump_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("jump_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     heracles
@@ -328,7 +338,8 @@ public class NPCFactory {
     String projectileType = "poopSludge";
     poops.getComponent(AITaskComponent.class)
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -338,6 +349,10 @@ public class NPCFactory {
     animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
@@ -364,7 +379,8 @@ public class NPCFactory {
     megaPoop.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new TransportTask(target, 10, 10f))
-            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f));
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -379,6 +395,10 @@ public class NPCFactory {
     animator.addAnimation("projectile_attack_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("projectile_attack_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("projectile_attack_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
 
     megaPoop
