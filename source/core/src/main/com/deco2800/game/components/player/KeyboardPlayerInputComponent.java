@@ -26,7 +26,16 @@ import java.security.Provider;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
-  private static int keyPressedCounter = 1;
+  private static int keyPressedCounter;
+  private static boolean menuOpened = false;
+  private static Enum currentMenu = MenuTypes.NONE;
+  enum MenuTypes{
+    INVENTORY,
+    CRAFTING,
+    MINIMAP,
+    PAUSEMENU,
+    NONE
+  }
 
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
 
@@ -63,9 +72,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attack");
         return true;
       case Keys.Q:
-        entity.getEvents().trigger("can_open");
-//        EntityService.pauseGame();
-        return true;
+        if (currentMenu == MenuTypes.NONE
+                || currentMenu == MenuTypes.CRAFTING) {
+          currentMenu = MenuTypes.CRAFTING;
+          entity.getEvents().trigger("can_open");
+          menuOpened = !menuOpened;
+          if (!menuOpened) currentMenu = MenuTypes.NONE;
+          return true;
+        }
       case Keys.J:
         entity.getEvents().trigger("skill");
         return true;
@@ -79,8 +93,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("dash");
         return true;
       case Keys.I:
-        entity.getEvents().trigger("toggleInventory");
-        return true;
+        if (currentMenu == MenuTypes.NONE
+        || currentMenu == MenuTypes.INVENTORY) {
+          currentMenu = MenuTypes.INVENTORY;
+          entity.getEvents().trigger("toggleInventory");
+          menuOpened = !menuOpened;
+          if (!menuOpened) currentMenu = MenuTypes.NONE;
+          return true;
+        }
       case Keys.NUM_1:
         entity.getEvents().trigger("consumePotionSlot1");
         return true;
@@ -91,20 +111,23 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("consumePotionSlot3");
         return true;
       case Keys.ESCAPE:
-        entity.getEvents().trigger("escInput");
-        return true;
-//        if (!OpenCraftingComponent.getCraftingStatus()) {
-//
-//        }
-//        if (keyPressedCounter % 2 == 0) {
-//          entity.getEvents().trigger("escape input");
-//          return true;
-//        }
-//        entity.getEvents().trigger("game resumed");
-//        return true;
+        if (currentMenu == MenuTypes.NONE
+                || currentMenu == MenuTypes.PAUSEMENU) {
+          currentMenu = MenuTypes.PAUSEMENU;
+          entity.getEvents().trigger("escInput");
+          menuOpened = !menuOpened;
+          if (!menuOpened) currentMenu = MenuTypes.NONE;
+          return true;
+        }
       case Keys.M:
-        entity.getEvents().trigger("toggleMinimap");
-        return true;
+        if (currentMenu == MenuTypes.NONE
+                || currentMenu == MenuTypes.MINIMAP) {
+          currentMenu = MenuTypes.MINIMAP;
+          entity.getEvents().trigger("toggleMinimap");
+          menuOpened = !menuOpened;
+          if (!menuOpened) currentMenu = MenuTypes.NONE;
+          return true;
+        }
       case Keys.X:
         entity.getEvents().trigger("EquipWeapon");
         return true;
