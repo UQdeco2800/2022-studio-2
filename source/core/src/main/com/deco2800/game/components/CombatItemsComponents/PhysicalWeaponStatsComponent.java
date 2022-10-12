@@ -3,7 +3,7 @@ package com.deco2800.game.components.CombatItemsComponents;
 
 import com.deco2800.game.crafting.Materials;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Component used to store information and methods related to combat for melee weapons.
@@ -18,7 +18,7 @@ public class PhysicalWeaponStatsComponent extends WeaponStatsComponent {
      * @param weight    weight of the weapon (affects player's movement speed)
      * @param description description of the weapon (used to target weapon animations more effectively)
      */
-    public PhysicalWeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, double weight, String description) {
+    public PhysicalWeaponStatsComponent(double damage, double coolDown, Map<Materials, Integer> materials, double weight, String description) {
        super(damage, coolDown, materials, description);
         setWeight(weight);
     }
