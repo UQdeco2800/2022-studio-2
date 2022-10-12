@@ -13,7 +13,7 @@ public class WeaponAuraComponent extends Component {
     private double areaMultiplier;
     private int auraDuration; //in milliseconds preferably
 
-    public String description;
+    private String description;
 
     /**
      *

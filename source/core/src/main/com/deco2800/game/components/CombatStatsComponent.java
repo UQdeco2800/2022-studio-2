@@ -3,7 +3,6 @@ package com.deco2800.game.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -34,9 +33,6 @@ public class CombatStatsComponent extends Component {
   private int staminaRegenerationRate=1;
   private int baseAttack;
   private float damageReduction;
-
-  private int attackDmg;
-  private Entity playerWeapon;
 
   @Override
   public void create(){
@@ -133,10 +129,11 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
+    Entity playerWeapon;
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
             (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
 
-        attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
+      int attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
       } else { //if it's not a player, or if it is a player without a weapon
@@ -144,7 +141,7 @@ public class CombatStatsComponent extends Component {
       setHealth(newHealth);
     }
 
-    if (isDead() && entity.checkEntityType(EntityTypes.ENEMY)) {
+    if (Boolean.TRUE.equals(isDead()) && entity.checkEntityType(EntityTypes.ENEMY)) {
 
       Gdx.app.postRunnable(() -> {
         dropMaterial();
@@ -156,7 +153,7 @@ public class CombatStatsComponent extends Component {
         Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
       }
     }
-    if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+    if (Boolean.TRUE.equals(isDead()) && entity.checkEntityType(EntityTypes.PLAYER)) {
       entity.getEvents().trigger("death");
     }
   }
@@ -321,10 +318,7 @@ public class CombatStatsComponent extends Component {
    * @return
    */
   public boolean checkMana(int mana){
-    if (this.getMana()>=mana){
-      return true;
-    }
-    return false;
+    return this.getMana() >= mana;
   }
 
   /**
@@ -333,10 +327,7 @@ public class CombatStatsComponent extends Component {
    * @return
    */
   public boolean checkStamina(int stamina){
-    if (this.getStamina()>=stamina){
-      return true;
-    }
-    return false;
+    return this.getStamina() >= stamina;
   }
 
   /**
