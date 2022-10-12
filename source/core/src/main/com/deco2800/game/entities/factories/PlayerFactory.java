@@ -151,6 +151,7 @@ public class PlayerFactory {
 
     animator.addAnimation("default", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("Q", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("Npc", 0.1f, Animation.PlayMode.LOOP);
     Entity keyPromptAnimator =
             new Entity().addComponent(animator)
                     .addComponent(new PlayerKPAnimationController(playerEntity));
