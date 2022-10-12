@@ -47,6 +47,7 @@ public class PlayerKPAnimationController extends Component {
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         entity.getEvents().addListener("regularAnimation", this::animateRegular);
         entity.getEvents().addListener("KeyQAnimation", this::animateKeyQ);
+        entity.getEvents().addListener("KeyNpcAnimation", this::animateKeyNpc);
         entity.getEvents().trigger("regularAnimation");
     }
 
@@ -64,5 +65,9 @@ public class PlayerKPAnimationController extends Component {
         logger.info("TEST KEY PROMPT ANIMATION CALL");
         animator.startAnimation("Q");
     }
+     void animateKeyNpc() {
+            logger.info("TEST KEY PROMPT ANIMATION CALL");
+            animator.startAnimation("Npc");
+        }
 
 }
