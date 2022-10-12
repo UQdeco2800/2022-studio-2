@@ -463,6 +463,8 @@ public class GameAreaDisplay extends UIComponent {
         catalogueButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 302);
         catalogueButton.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
+                Sound catalogueSound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
+                catalogueSound.play();
                 logger.info("Catalogue button pressed");
                 currentScreenCrafting = false;
                 displayCatOne();
@@ -480,6 +482,8 @@ public class GameAreaDisplay extends UIComponent {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 logger.info("Exit Crafting menu");
+                Sound exitCraftMenu = ServiceLocator.getResourceService().getAsset("sounds/Scroll.wav", Sound.class);
+                exitCraftMenu.play();
                 disposeCraftingMenu();
                 EntityService.pauseAndResume();
                 OpenCraftingComponent.setCraftingStatus();
@@ -1241,6 +1245,8 @@ public class GameAreaDisplay extends UIComponent {
      * Displays the first page of the catalogue menu and adds event handlers for buttons
      */
     public void displayCatOne() {
+        Sound catOneSound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
+        catOneSound.play();
         disposeMaterials();
         disposeFirstTutorial();
         disposeSecondTutorial();
@@ -1261,6 +1267,8 @@ public class GameAreaDisplay extends UIComponent {
         inventoryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Sound inventorySound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
+                inventorySound.play();
                 disposeCatOne();
                 clearMaterials();
                 getInventory();
@@ -1295,6 +1303,8 @@ public class GameAreaDisplay extends UIComponent {
      * Displays the second page of the catalogue menu and adds event handlers for buttons
      */
     private void displayCatTwo() {
+        Sound catTwoSound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
+        catTwoSound.play();
         disposeMaterials();
         disposeFirstTutorial();
         disposeSecondTutorial();
@@ -1315,6 +1325,8 @@ public class GameAreaDisplay extends UIComponent {
         inventoryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Sound inventorySound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
+                inventorySound.play();
                 disposeCatTwo();
                 clearMaterials();
                 getInventory();
