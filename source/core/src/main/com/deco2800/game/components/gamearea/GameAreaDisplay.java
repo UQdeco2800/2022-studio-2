@@ -138,10 +138,10 @@ public class GameAreaDisplay extends UIComponent {
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
         logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
-        if (gameArea.getClass().isInstance(ForestGameArea.class)) {
+        if (gameArea.getClass().getSimpleName().equals(ForestGameArea.class.getSimpleName())) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_1_tiledmap/minimap1.png")));
-        } else if (gameArea.getClass().isInstance(UndergroundGameArea.class)) {
+        } else if (gameArea.getClass().getSimpleName().equals(UndergroundGameArea.class.getSimpleName())) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_2_tiledmap/minimap2.png")));
         } else {
