@@ -431,5 +431,36 @@ public class CombatStatsComponent extends Component {
     }
   }
 
+  /*
+   * drop material for test
+   * @return test material
+
+  public Entity testDropMaterial(int i) {
+
+    Entity material;
+
+    if (i < 10) {
+      material = MaterialFactory.creatTestMaterial("silver");
+    } else if (i < 30 && i >= 10) {
+      material = MaterialFactory.creatTestMaterial("gold");
+    } else if (i < 40 && i >= 30) {
+      material = MaterialFactory.creatTestMaterial("plastic");
+    } else if (i < 50 && i >= 40) {
+      material = MaterialFactory.creatTestMaterial("rubber");
+    } else if (i < 60 && i >= 50) {
+      material = MaterialFactory.creatTestMaterial("iron");
+    } else if (i < 70 && i >= 60) {
+      material = MaterialFactory.creatTestMaterial("platinum");
+    } else if (i < 80 && i >= 70) {
+      material = MaterialFactory.creatTestMaterial("wood");
+    } else if (i < 90 && i >= 80) {
+      material = MaterialFactory.creatTestMaterial("steel");
+    } else {
+      material = MaterialFactory.creatTestMaterial("wood");
+    }
+
+    return material;
+  }
+  */
 
 }

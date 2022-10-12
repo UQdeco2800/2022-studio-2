@@ -95,7 +95,6 @@ public class UndergroundGameArea extends GameArea {
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_5.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_6.png",
             "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_7.png",
-            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Athena.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
@@ -127,7 +126,16 @@ public class UndergroundGameArea extends GameArea {
             "images/level_2_tiledmap/pipe1.png",
             "images/level_2_tiledmap/pipe2.png",
             "images/level_2_tiledmap/statues.jpg",
+            "images/level_2_tiledmap/statues2.jpg",
             "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Trident.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
+            "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+            "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+            "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+            "images/CombatItems/Sprint-1/trident_Lvl2.png",
+            "images/CombatItems/Sprint-2/H&ADagger.png",
+            "images/CombatItems/Sprint-2/Plunger.png",
+            "images/CombatItems/Sprint-2/pipe.png",
             "images/countdown/1.png",
             "images/countdown/2.png",
             "images/countdown/3.png",
@@ -144,7 +152,9 @@ public class UndergroundGameArea extends GameArea {
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
             "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
     };
-    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
+    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
+            "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
+            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
@@ -188,6 +198,13 @@ public class UndergroundGameArea extends GameArea {
         spawnfriendlycreature();
         megaPoop = spawnMegaPoop();
         playMusic();
+
+        spawnSpeedDebuff();
+        spawnDmgBuff();
+        spawnDmgDebuff();
+        spawnFireBuff();
+        spawnPoisonBuff();
+        spawnSpeedBuff();
     }
 
     /**
@@ -536,19 +553,120 @@ public class UndergroundGameArea extends GameArea {
     }
 
     /**
+     * Spawns speed buff entity into the game
+     */
+    private void spawnSpeedBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(52,69));
+        locations.add(new GridPoint2(85,54));
+        locations.add(new GridPoint2(32,10));
+        locations.add(new GridPoint2(9,88));
+        for (GridPoint2 location : locations) {
+            Entity speedbuff = AuraFactory.createWeaponSpeedBuff();
+            auraOnMap.add(speedbuff);
+            spawnEntityAt(speedbuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns speed debuff entity into the game
+     */
+    private void spawnSpeedDebuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(35, 98));
+        locations.add(new GridPoint2(54, 47));
+        for (GridPoint2 location : locations) {
+            Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
+            auraOnMap.add(speedDebuff);
+            spawnEntityAt(speedDebuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns damage buff entity into the game
+     */
+    private void spawnDmgBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(35, 39));
+        locations.add(new GridPoint2(70, 70));
+        locations.add(new GridPoint2(29, 112));
+        for (GridPoint2 location : locations) {
+            Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
+            auraOnMap.add(dmgBuff);
+            spawnEntityAt(dmgBuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns damage debuff entity into the game
+     */
+    private void spawnDmgDebuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(80, 48));
+        locations.add(new GridPoint2(49, 110));
+        locations.add(new GridPoint2(20, 90));
+        for (GridPoint2 location : locations) {
+            Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
+            auraOnMap.add(dmgDebuff);
+            spawnEntityAt(dmgDebuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns fire buff entity into the game
+     */
+    private void spawnFireBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(22, 55));
+        locations.add(new GridPoint2(35, 24));
+        locations.add(new GridPoint2(65, 47));
+        locations.add(new GridPoint2(38, 85));
+
+        for (GridPoint2 location : locations) {
+            Entity fireBuff = AuraFactory.createFireBuff();
+            auraOnMap.add(fireBuff);
+            spawnEntityAt(fireBuff, location, true, false);
+        }
+    }
+
+    /**
+     * Spawns poison buff entity into the game
+     */
+    private void spawnPoisonBuff() {
+        List<GridPoint2> locations = new ArrayList<>();
+        locations.add(new GridPoint2(84, 64));
+        locations.add(new GridPoint2(37, 47));
+        locations.add(new GridPoint2(45, 74));
+        for (GridPoint2 location : locations) {
+            Entity fireBuff = AuraFactory.createPoisonBuff();
+            auraOnMap.add(fireBuff);
+            spawnEntityAt(fireBuff, location, true, false);
+        }
+    }
+
+    /**
      * Spawns the crafting table entity on the underground map
      */
     public void spawnCraftingTable() {
-        Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
-        craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
-        spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
+        Entity craftingTable1 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable1.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable1, new GridPoint2(36, 15), true, false);
+        Entity craftingTable2 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable2.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable2, new GridPoint2(11, 69), true, false);
+        Entity craftingTable3 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable3.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable3, new GridPoint2(49, 81), true, false);
+        Entity craftingTable4 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable4.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable4, new GridPoint2(90, 45), true, false);
     }
 
     /**
      * Spawn Mega Poop in a random position.
      */
     private Entity spawnMegaPoop() {
-        GridPoint2 position = new GridPoint2(35, 98);
+        GridPoint2 position = new GridPoint2(35, 102);
         Entity megaPoop = NPCFactory.createMegaPoop(player);
         spawnEntityAt(megaPoop, position, true, true);
         return megaPoop;
@@ -560,10 +678,25 @@ public class UndergroundGameArea extends GameArea {
     private void spawnPoops() {
         ArrayList<GridPoint2> positions = new ArrayList<>();
         positions.add(new GridPoint2(37, 47));
+        positions.add(new GridPoint2(32, 47));
+        positions.add(new GridPoint2(42, 42));
+
         positions.add(new GridPoint2(32, 67));
+        positions.add(new GridPoint2(45, 74));
+        positions.add(new GridPoint2(35, 69));
+
+        positions.add(new GridPoint2(9, 88));
+        positions.add(new GridPoint2(20, 90));
         positions.add(new GridPoint2(20, 80));
+
         positions.add(new GridPoint2(65, 47));
+        positions.add(new GridPoint2(60, 47));
+        positions.add(new GridPoint2(63, 54));
+
         positions.add(new GridPoint2(85, 54));
+        positions.add(new GridPoint2(80, 48));
+        positions.add(new GridPoint2(84, 60));
+
         for (GridPoint2 position : positions) {
             Entity poops = NPCFactory.createPoops(player);
             areaEntities.add(poops);

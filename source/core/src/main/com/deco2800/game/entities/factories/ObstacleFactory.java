@@ -139,6 +139,20 @@ public class ObstacleFactory {
   }
 
   /**
+   * Creates multiple columns entity on the map. - Team 5 1map4all @LYB
+   * @return Column entity.
+   */
+  public static Entity drawColumnsCollision(float width) {
+    Entity column =
+            new Entity()
+//                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/column.png"))
+                    .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+    column.setScale(width, 2f);
+    return column;
+  }
+
+  /**
    * Creates a rock entity on the map. - Team 5 1map4all @LYB
    * @return Column entity.
    */
