@@ -51,7 +51,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.knockBackForce = knockBackForce;
         this.glidingSpeed = glidingSpeed;
         gameTime = ServiceLocator.getTimeSource();
-        lastJumpTime = gameTime.getTime() + 1000L;
+        lastJumpTime = gameTime.getTime() + 1000f;
         combatStats = target.getComponent(CombatStatsComponent.class);
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();

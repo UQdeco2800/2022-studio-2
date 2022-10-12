@@ -95,10 +95,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
 
 
     public void shoot(String projectileType) {
-        if (projectileType == "poopSludge") {
+        if (projectileType.equals("poopSludge")) {
             projectile = createPoopsSludge(owner.getEntity(), target);
         }
-        if (projectileType == "discus") {
+        if (projectileType.equals("discus")) {
             projectile = createDiscus(owner.getEntity(), target);
         }
         if (projectile != null) {
