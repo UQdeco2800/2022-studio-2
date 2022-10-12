@@ -63,6 +63,9 @@ public class DeathScreen extends ScreenAdapter {
         playMusic();
     }
 
+    /**
+     * Plays level death or win specific sounds
+     */
     private void playMusic() {
         // Unsure why the load is needed here (a second time too), but otherwise it doesn't play
         ServiceLocator.getResourceService().loadMusic(deathMusic);
