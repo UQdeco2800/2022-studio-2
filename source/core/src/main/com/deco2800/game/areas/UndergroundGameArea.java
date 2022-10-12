@@ -10,6 +10,7 @@ import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /** Underground area for the demo game with trees, a player, and some enemies. */
@@ -137,7 +139,10 @@ public class UndergroundGameArea extends GameArea {
             "images/countdown/2.png",
             "images/countdown/3.png",
             "images/countdown/4.png",
-            "images/countdown/5.png"
+            "images/countdown/5.png",
+            "images/CombatItems/animations/BuffBounce/mapBounce.png",
+            "images/CombatItems/animations/BuffAnimations/buff.png"
+
     };
 
     public static String[] newTextures;
@@ -147,9 +152,14 @@ public class UndergroundGameArea extends GameArea {
             "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
-            "images/NPC/friendly_creature npc/friendly_creature.atlas"
+            "images/NPC/friendly_creature npc/friendly_creature.atlas",
+            "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
+            "images/CombatItems/animations/BuffAnimations/buff.atlas"
+
     };
-    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3", "sounds/buffPickupSound.wav"};
+    private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
+            "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
+            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
@@ -643,16 +653,25 @@ public class UndergroundGameArea extends GameArea {
      * Spawns the crafting table entity on the underground map
      */
     public void spawnCraftingTable() {
-        Entity craftingTable = ObstacleFactory.createCraftingTableUnderground();
-        craftingTable.setEntityType(EntityTypes.CRAFTINGTABLE);
-        spawnEntityAt(craftingTable, new GridPoint2(36, 15), true, false);
+        Entity craftingTable1 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable1.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable1, new GridPoint2(36, 15), true, false);
+        Entity craftingTable2 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable2.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable2, new GridPoint2(11, 69), true, false);
+        Entity craftingTable3 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable3.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable3, new GridPoint2(49, 81), true, false);
+        Entity craftingTable4 = ObstacleFactory.createCraftingTableUnderground();
+        craftingTable4.setEntityType(EntityTypes.CRAFTINGTABLE);
+        spawnEntityAt(craftingTable4, new GridPoint2(90, 45), true, false);
     }
 
     /**
      * Spawn Mega Poop in a random position.
      */
     private Entity spawnMegaPoop() {
-        GridPoint2 position = new GridPoint2(35, 98);
+        GridPoint2 position = new GridPoint2(35, 102);
         Entity megaPoop = NPCFactory.createMegaPoop(player);
         spawnEntityAt(megaPoop, position, true, true);
         return megaPoop;
@@ -664,10 +683,25 @@ public class UndergroundGameArea extends GameArea {
     private void spawnPoops() {
         ArrayList<GridPoint2> positions = new ArrayList<>();
         positions.add(new GridPoint2(37, 47));
+        positions.add(new GridPoint2(32, 47));
+        positions.add(new GridPoint2(42, 42));
+
         positions.add(new GridPoint2(32, 67));
+        positions.add(new GridPoint2(45, 74));
+        positions.add(new GridPoint2(35, 69));
+
+        positions.add(new GridPoint2(9, 88));
+        positions.add(new GridPoint2(20, 90));
         positions.add(new GridPoint2(20, 80));
+
         positions.add(new GridPoint2(65, 47));
+        positions.add(new GridPoint2(60, 47));
+        positions.add(new GridPoint2(63, 54));
+
         positions.add(new GridPoint2(85, 54));
+        positions.add(new GridPoint2(80, 48));
+        positions.add(new GridPoint2(84, 60));
+
         for (GridPoint2 position : positions) {
             Entity poops = NPCFactory.createPoops(player);
             areaEntities.add(poops);
@@ -781,6 +815,9 @@ public class UndergroundGameArea extends GameArea {
         auraOnMap.remove(entityToRemove);
 
         Gdx.app.postRunnable(() -> entityToRemove.dispose());
+        if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+            Gdx.app.postRunnable(() -> entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation());
+        }
     }
 
     public static void removeItemOnMap(Entity entityToRemove) {

@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuickBarDisplay extends UIComponent {
@@ -29,8 +30,7 @@ public class QuickBarDisplay extends UIComponent {
 
     //Potion display table:
     private Table potionTable = new Table();
-    private Image healthPotion;
-    private Texture texCheck = null;
+    private ArrayList<Image> potionImages = new ArrayList<>();
 
 
     /**
@@ -53,7 +53,7 @@ public class QuickBarDisplay extends UIComponent {
         quickBar.padBottom(0f).padLeft(50f);
         quickBar.add(new Image(ServiceLocator.getResourceService()
                 .getAsset("images/Inventory/quickbar_sprint3.png", Texture.class)))
-                .size(382,175).pad(5);
+                .size(382, 175).pad(5);
         stage.addActor(quickBar);
         potionTable.bottom();
     }
@@ -64,21 +64,25 @@ public class QuickBarDisplay extends UIComponent {
         updatePotionTable();
     }
 
-    public void updatePotionTable(){
-        if(potionEQ == 1) {
-            if(texCheck != potionTex){
-                healthPotion = new Image(new Texture(Gdx.files.internal
-                        (String.valueOf(potionTex))));
-                texCheck = potionTex;
+    public void updatePotionTable() {
+        if (potionsTex.size() == 0) {
+            for (Image potion : potionImages) {
+                potionTable.removeActor(potion);
             }
-            potionTable.add(healthPotion).size(64, 64);
-            healthPotion.setPosition(726, 60);
-
-            stage.addActor(potionTable);
-        } else {
-            //potionTable.removeActor(bombPotion);
-            potionTable.removeActor(healthPotion);
         }
+
+        if (potionImages.size() != potionsTex.size()) {
+            potionImages.clear();
+            for (int i = 0; i < potionsTex.size(); i++) {
+                potionImages.add(new Image(potionsTex.get(i)));
+            }
+        }
+        for (int i = 0; i < potionImages.size(); i++) {
+            Image potion = potionImages.get(i);
+            potionTable.add(potion).size(64, 64);
+            potion.setPosition(845 + i * 100, 60);
+        }
+        stage.addActor(potionTable);
     }
 
     @Override

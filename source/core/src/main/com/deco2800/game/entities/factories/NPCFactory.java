@@ -386,6 +386,7 @@ public class NPCFactory {
 
     megaPoop.setEntityType(EntityTypes.ENEMY);
     megaPoop.setEntityType(EntityTypes.BOSS);
+    megaPoop.setEntityType(EntityTypes.MEGAPOOP);
     megaPoop.setScale(3f, 3f);
     return megaPoop;
   }
