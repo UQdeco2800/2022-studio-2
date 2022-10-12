@@ -335,7 +335,8 @@ public class NPCFactory {
     String projectileType = "poopSludge";
     poops.getComponent(AITaskComponent.class)
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f));
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
@@ -345,6 +346,10 @@ public class NPCFactory {
     animator.addAnimation("walk_back", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_left", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walk_right", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_front", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_back", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_left", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("vanish_right", 0.1f, Animation.PlayMode.LOOP);
 
     poops
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))

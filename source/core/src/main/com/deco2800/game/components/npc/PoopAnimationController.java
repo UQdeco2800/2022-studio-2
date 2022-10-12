@@ -21,6 +21,10 @@ public class PoopAnimationController extends Component {
         entity.getEvents().addListener("walkBack", this::animateWalkBack);
         entity.getEvents().addListener("walkLeft", this::animateWalkLeft);
         entity.getEvents().addListener("walkRight", this::animateWalkRight);
+        entity.getEvents().addListener("vanishFront", this::animateVanishFront);
+        entity.getEvents().addListener("vanishBack", this::animateVanishBack);
+        entity.getEvents().addListener("vanishLeft", this::animateVanishLeft);
+        entity.getEvents().addListener("vanishRight", this::animateVanishRight);
         entity.getEvents().trigger("walkFront");
     }
 
@@ -57,6 +61,30 @@ public class PoopAnimationController extends Component {
     private void animateWalkFront() {
         if (animator.getCurrentAnimation() != "walk_front") {
             animator.startAnimation("walk_front");
+        }
+    }
+
+    private void animateVanishFront() {
+        if (!"vanish_front".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_front");
+        }
+    }
+
+    private void animateVanishBack() {
+        if (!"vanish_back".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_back");
+        }
+    }
+
+    private void animateVanishLeft() {
+        if (!"vanish_left".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_left");
+        }
+    }
+
+    private void animateVanishRight() {
+        if (!"vanish_right".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_right");
         }
     }
 }

@@ -33,7 +33,7 @@ public class DeadTask extends DefaultTask implements PriorityTask {
     public void  update() {
         super.update();
         animate();
-        if (gameTime.getTime() - startTime > 1000L) {
+        if (gameTime.getTime() - startTime > 900L) {
             owner.getEntity().getComponent(AnimationRenderComponent.class).stopAnimation();
             owner.getEntity().dispose();
         }
