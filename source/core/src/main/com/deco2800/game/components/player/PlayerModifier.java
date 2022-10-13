@@ -50,7 +50,7 @@ public class PlayerModifier extends Component{
     private CombatStatsComponent combatStatsComponent;
 
     // Variables for modifier management
-    private ArrayList<Modifier> modifiers;
+    private ArrayList<Modifier> modifiers = new ArrayList<>();
 
     // List of all modifiable stats and their associated string for the modifier to work
     // MOVESPEED
@@ -80,9 +80,6 @@ public class PlayerModifier extends Component{
      */
     @Override
     public void create() {
-        // Create our soon to exist modifiers
-        modifiers = new ArrayList<>();
-
         // Get the required components
         playerActions = entity.getComponent(PlayerActions.class);
         combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
