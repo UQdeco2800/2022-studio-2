@@ -1,4 +1,6 @@
 package com.deco2800.game.components.player;
+import com.badlogic.gdx.assets.AssetManager;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.ui.UIComponent;
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 
@@ -18,25 +20,35 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.spy;
 
 @ExtendWith(GameExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class PlayerStatsDisplayTest{
-    Entity entity;
+    @Mock Entity dummy;
     PlayerStatsDisplay display;
 
-//    @BeforeEach
-//
-//    void init() {
-//        entity = new Entity().addComponent(new PlayerStatsDisplay());
-//        display = entity.getComponent(PlayerStatsDisplay.class);
-//    }
-//
-//    @Test
-//    void checkImageTest(){
-//        int a =100;
-//        assertTrue("1.png" == display.checkImage(a));
-//    }
+    @BeforeEach
 
+    void init() {
+        dummy = new Entity();
+                //.addComponent(new PlayerStatsDisplay());
+       // display = entity.getComponent(PlayerStatsDisplay.class);
+        AssetManager assetManager = spy(AssetManager.class);
+        ResourceService resourceService = new ResourceService(assetManager);
+        ServiceLocator.registerResourceService(resourceService);
+
+
+    }
+
+    @Test
+    void checkImageTest(){
+        int a =100;
+        assertTrue("1.png" == display.checkImage(a));
+    }
 
 }
