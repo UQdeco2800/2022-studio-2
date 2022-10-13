@@ -42,6 +42,10 @@ public class ArmourFactory {
         return armour;
     }
 
+    /**
+     * Armour types from ArmourTypeConfig which are used in the game. Made for ease of use when
+     * referring to different armour types.
+     */
     public enum ArmourType {
         baseArmour,
         slowDiamond,
@@ -95,6 +99,11 @@ public class ArmourFactory {
         return texturePath;
     }
 
+    /**
+     * Gets the stats for the specific armour type being referred to and then creates that armour
+     * @param type This refers to the type of armour which is being used from ArmourTypeConfig
+     * @return
+     */
     public static Entity createArmour(ArmourType type) {
         Entity armour = createBaseArmour();
         ArmourConfig config = getConfig(type);

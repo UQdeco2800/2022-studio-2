@@ -2,11 +2,12 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
@@ -30,39 +31,19 @@ public class InventoryComponent extends Component {
     private Entity combatAnimator;
 
     /**
-     * Set the animator for weapons
-     * @param combatAnimator animation handler
+     * Initial inventory size
      */
-    public void setCombatAnimator(Entity combatAnimator){
-        this.combatAnimator = combatAnimator;
-    }
+    private static final  int INVENTORY_SIZE = 16;
 
     /**
-     * Register animation component for the weapon (IMPLEMENT ARMOUR ANIMATION)
-     * @param weapon Entity
+     * The initial size of quick bar.
      */
-    public void registerAnimation(Entity weapon) {
-        Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);
-        setCombatAnimator(newCombatAnimator);
-        entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
-        ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
-        String description = weapon.getComponent(PhyiscalWeaponStatsComponent.class).getDescription();
-        combatAnimator.getEvents().trigger(description);
-    }
+    private static final int QUICKBAR_SIZE= 3;
 
     /**
-     * Get the animation handler
-     * @return animation handler
+     * Initial item equipment slot
      */
-    public Entity getCombatAnimator() {
-        return this.combatAnimator;
-    }
-
-    //CANCEL_ANIMATION
-    private void cancelAnimation() {
-        combatAnimator.dispose();
-//        ServiceLocator.getEntityService().unregister(combatAnimator);
-    }
+    private static final int EQUIP_SLOTS = 2;
 
     /**
      * The status of inventory display.
@@ -70,44 +51,29 @@ public class InventoryComponent extends Component {
     private boolean inventoryIsOpened = false;
 
     /**
-     * Initial inventory size
-     */
-    private final int inventorySize = 16;
-
-    /**
-     * The initial size of quick bar.
-     */
-    private final int quickBarSize = 3;
-
-    /**
-     * Initial item equipment slot
-     */
-    private static final int equipSlots = 2;
-
-    /**
      * An inventory unit for players to inspect and store their items.
      */
-    private List<Entity> inventory = new ArrayList<>(inventorySize);
+    private List<Entity> inventory = new ArrayList<>(INVENTORY_SIZE);
 
     /**
      * Temporary storage for players to store their potions.
      */
-    private List<Entity> quickBarItems = new ArrayList<>(quickBarSize);
+    private List<Entity> quickBarItems = new ArrayList<>(QUICKBAR_SIZE);
 
     /**
      * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
      */
-    private Entity[] equipables = new Entity[equipSlots];
+    private Entity[] equipables = new Entity[EQUIP_SLOTS];
 
     /**
      * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
      */
-    private int[] itemQuantity = new int[inventorySize];
+    private int[] itemQuantity = new int[INVENTORY_SIZE];
 
     /**
      * Items' quantity, the indices of quick bar are corresponded to itemQuantity's indices
      */
-    private int[] quickBarQuantity = new int[quickBarSize];
+    private int[] quickBarQuantity = new int[QUICKBAR_SIZE];
 
     /**
      * Returns the current inventory
@@ -119,9 +85,41 @@ public class InventoryComponent extends Component {
     }
 
     /**
+     * Set the animator for weapons
+     *
+     * @param combatAnimator animation handler
+     */
+    public void setCombatAnimator(Entity combatAnimator) {
+        this.combatAnimator = combatAnimator;
+    }
+
+    /**
+     * Register animation component for the weapon (IMPLEMENT ARMOUR ANIMATION)
+     *
+     * @param weapon Entity
+     */
+    public void registerAnimation(Entity weapon) {
+        Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);
+        setCombatAnimator(newCombatAnimator);
+        entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
+        ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
+        String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
+        String staticAnimation = description+"Static";
+        combatAnimator.getEvents().trigger(staticAnimation);
+    }
+
+    /**
+     * Cancel the animation registered for equipped weapon
+     */
+    private void cancelAnimation() {
+        combatAnimator.dispose();
+        combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
+    }
+
+    /**
      * Checks if there is an item with the same type in the storage
      *
-     * @param item the Entity to be checked
+     * @param item    the Entity to be checked
      * @param storage the List of storage(e.g. can be quick bar, inventory)
      * @return true if there is a same kind of Entity, false otherwise
      */
@@ -137,7 +135,7 @@ public class InventoryComponent extends Component {
     /**
      * Returns the index in the storage if there is one with the same Entity type
      *
-     * @param item item to be found
+     * @param item    item to be found
      * @param storage the List of storage(e.g. can be quick bar, inventory)
      * @return index of the item, or -1 if item is not in the storage
      */
@@ -155,12 +153,11 @@ public class InventoryComponent extends Component {
      * @param item item to add
      */
     public void addItem(Entity item) {
-        if (inventory.size() == inventorySize) {
-            logger.info("Inventory if full");
+        if (inventory.size() == INVENTORY_SIZE) {
+            logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
-                    || item.checkEntityType(EntityTypes.ARMOUR))
-                    && !hasItem(item, inventory)) {
+                    || item.checkEntityType(EntityTypes.ARMOUR))) {
                 inventory.add(item);
                 ++itemQuantity[inventory.indexOf(item)];
             } else if (item.checkEntityType(EntityTypes.POTION)
@@ -169,27 +166,11 @@ public class InventoryComponent extends Component {
             }
         }
         if (getItemIndex(item, inventory) != -1
+                && getItemQuantity(item) < 9
                 && (item.checkEntityType(EntityTypes.POTION)
                 || (!item.checkEntityType(EntityTypes.WEAPON)
-                && item.checkEntityType(EntityTypes.CRAFTABLE)))
-                && getItemQuantity(item) < 9) {
+                && item.checkEntityType(EntityTypes.CRAFTABLE)))) {
             ++itemQuantity[getItemIndex(item, inventory)];
-        }
-    }
-
-    /**
-     * Adds item to player's inventory with the specified quantity. Use this for testing purposes
-     *
-     * @param item     item to add
-     * @param quantity item's quantity
-     */
-    public void addItem (Entity item, int quantity) {
-        if (inventory.size() == inventorySize) {
-            logger.info("Inventory if full");
-            //Error should end this block of code
-        } else if (!inventory.contains(item)) {
-            inventory.add(item);
-            itemQuantity[inventory.indexOf(item)] = quantity;
         }
     }
 
@@ -200,10 +181,10 @@ public class InventoryComponent extends Component {
      * @param list     the list of the inventory storage
      * @param quantity the quantity array of corresponding inventory
      */
-    public void sortInventory(int index, List list, int[] quantity) {
+    public void sortInventory(int index, List<Entity> list, int[] quantity) {
         if (list.size() > index) {
-            for (int i = index; i < list.size(); ) {
-                quantity[i] = quantity[++i];
+            for (int i = index; i < list.size(); ++i) {
+                quantity[i] = quantity[i + 1];
             }
         }
     }
@@ -216,12 +197,14 @@ public class InventoryComponent extends Component {
      */
     public boolean removeItem(Entity item) {
         boolean removed = false;
-        int index = inventory.indexOf(item);
-        --itemQuantity[index];
-        if (getItemQuantity(item) == 0) {
-            sortInventory(index, inventory, itemQuantity);
-            inventory.remove(item);
-            removed = true;
+        int index = getItemIndex(item, inventory);
+        if (index != -1) {
+            --itemQuantity[index];
+            if (getItemQuantity(item) == 0) {
+                sortInventory(index, inventory, itemQuantity);
+                inventory.remove(item);
+                removed = true;
+            }
         }
         return removed;
     }
@@ -285,9 +268,9 @@ public class InventoryComponent extends Component {
      * @param equip  boolean to determine equip or unequip item
      */
     private void applyWeaponEffect(Entity weapon, boolean equip) {
-        PhyiscalWeaponStatsComponent weaponStats;
+        PhysicalWeaponStatsComponent weaponStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
-        if ((weaponStats = weapon.getComponent(PhyiscalWeaponStatsComponent.class)) != null) {
+        if ((weaponStats = weapon.getComponent(PhysicalWeaponStatsComponent.class)) != null) {
             if (equip) {
                 //Equip weapon
                 pmComponent.createModifier(PlayerModifier.MOVESPEED, (float) (-weaponStats.getWeight() / 15), true, 0);
@@ -304,19 +287,15 @@ public class InventoryComponent extends Component {
      * @param armour the armour that is equipped
      * @param equip  boolean to determine equip or unequip item
      */
-    private void applyArmourEffect(Entity armour, boolean equip) {
+    public void applyArmourEffect(Entity armour, boolean equip) {
         ArmourStatsComponent armourStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
         //Applying the weight of the armour to player
         if ((armourStats = armour.getComponent(ArmourStatsComponent.class)) != null) {
             if (equip) {
                 pmComponent.createModifier(PlayerModifier.MOVESPEED, (-(float) armourStats.getWeight() / 10), true, 0);
-//                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
-//                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
             } else {
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10,false, 0);
-//                pmComponent.createModifier(PlayerModifier.DMGREDUCTION, (float) armourStats.getPhyResistance(), false, 0);
-//                pmComponent.createModifier(PlayerModifier.STAMINAMAX, (float) armourStats.getVitality(), false, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10, false, 0);
             }
         }
     }
@@ -352,6 +331,7 @@ public class InventoryComponent extends Component {
         if (equipables[itemSlot] != null) {
             equipables[itemSlot] = null;
             removed = true;
+            cancelAnimation();
         }
         return removed;
     }
@@ -360,11 +340,11 @@ public class InventoryComponent extends Component {
      * Equip the item and apply effect of the item to the player.
      *
      * @param item the item to be equipped
-     *             NOTE: This should check if the player has equipped a weapon or amour.
+     *
      */
     public boolean equipItem(Entity item) {
         boolean equipped = false;
-        int itemSlot = item.checkEntityType(EntityTypes.WEAPON)? 0 : 1;
+        int itemSlot = item.checkEntityType(EntityTypes.WEAPON) ? 0 : 1;
         if (inventory.contains(item)) {
             if (equipables[itemSlot] != null) {
                 swapItem(item);
@@ -391,10 +371,11 @@ public class InventoryComponent extends Component {
 
     /**
      * Swap the item in equipable
+     *
      * @param item the item to be swapped in
      */
     public void swapItem(Entity item) {
-        int itemSlot = item.checkEntityType(EntityTypes.WEAPON)? 0 : 1;
+        int itemSlot = item.checkEntityType(EntityTypes.WEAPON) ? 0 : 1;
         Entity swappedItem = equipables[itemSlot];
         if (swappedItem != null) {
             if (itemSlot == 0) {
@@ -425,7 +406,7 @@ public class InventoryComponent extends Component {
      */
     public boolean unequipItem(int itemSlot) {
         boolean unequipped = false;
-        if (inventory.size() == inventorySize) {
+        if (inventory.size() == INVENTORY_SIZE) {
             logger.info("Inventory if full, cannot unequip");
         } else if (equipables[itemSlot] != null) {
             Entity item = equipables[itemSlot];
@@ -472,26 +453,26 @@ public class InventoryComponent extends Component {
     /**
      * Check if two items are the same kind
      *
-     * @param item the item to be checked
+     * @param item  the item to be checked
      * @param other the comparison item
      * @return true if two items are the same type, false otherwise
      */
-    public boolean itemEquals (Entity item, Entity other) {
+    public boolean itemEquals(Entity item, Entity other) {
         boolean equals = false;
         if (item.checkEntityType(EntityTypes.POTION)
-        && other.checkEntityType(EntityTypes.POTION)){
+                && other.checkEntityType(EntityTypes.POTION)) {
             equals = item.getComponent(PotionEffectComponent.class).equals(other);
         } else if (item.checkEntityType(EntityTypes.ARMOUR)
-        && other.checkEntityType(EntityTypes.ARMOUR)) {
+                && other.checkEntityType(EntityTypes.ARMOUR)) {
             equals = item.getComponent(ArmourStatsComponent.class)
                     .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)
         && other.checkEntityType(EntityTypes.WEAPON)) {
-            equals = item.getComponent(PhyiscalWeaponStatsComponent.class)
-                    .equals(other.getComponent(PhyiscalWeaponStatsComponent.class));
+            equals = item.getComponent(PhysicalWeaponStatsComponent.class)
+                    .equalsOther(other.getComponent(PhysicalWeaponStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
-        && other.checkEntityType(EntityTypes.CRAFTABLE)){
-            for (EntityTypes type: other.getEntityTypes()) {
+                && other.checkEntityType(EntityTypes.CRAFTABLE)) {
+            for (EntityTypes type : other.getEntityTypes()) {
                 if (type != EntityTypes.CRAFTABLE) {
                     equals = item.checkEntityType(type);
                 }
@@ -510,14 +491,12 @@ public class InventoryComponent extends Component {
         boolean added = false;
 
         if (hasPotion) {
-            if(quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
+            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
-                logger.info("Added 1 to an existing potion");
             }
         } else {
-            if (quickBarItems.size() == quickBarSize)  // Check if inventory is full
-            {
+            if (quickBarItems.size() == QUICKBAR_SIZE) {
                 logger.info("Inventory is full");
             } else {
                 logger.info("Added to quick bar");
@@ -571,4 +550,5 @@ public class InventoryComponent extends Component {
             }
         }
     }
+
 }

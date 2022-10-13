@@ -119,7 +119,7 @@ public class PlayerModifier extends Component{
         // Iterate through modifiers to apply/remove their affects
         for (Modifier mod : modifiers) {
             if (mod.used) { // Found modifier that's been used, do we need to get rid of it?
-                if (mod.expiry <= System.currentTimeMillis()) {
+                if (mod.expiry <= System.currentTimeMillis()){
                     modifierHandler(mod, true); // Modifier time expired, remove
                     mod.expired = true;
                 }

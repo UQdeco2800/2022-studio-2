@@ -22,7 +22,8 @@ import com.deco2800.game.rendering.TextureRenderComponent;
 public class PotionFactory {
 
     /**
-     * Creates the base potion which can be modified to other types of potion.
+     * Creates the base potion which can be modified to other types of potion. This potion on its
+     * own has no effects
      * @return base potion
      */
     public static Entity createBasePotion() {
@@ -37,7 +38,7 @@ public class PotionFactory {
     }
 
     /**
-     * Creates speed potion
+     * Creates speed potion which increases the players movement speed by a set amount
      * @return speed potion
      */
     public static Entity createSpeedPotion() {
@@ -51,6 +52,11 @@ public class PotionFactory {
         return speedPotion;
     }
 
+    /**
+     * Creates a health potion which gives the player health all at once
+     * @return health potion
+     */
+
     public static Entity createHealthPotion() {
         Entity healthPotion = createBasePotion()
                 .addComponent(new TextureRenderComponent("images/Potions/health_potion.png"
@@ -61,6 +67,27 @@ public class PotionFactory {
         PhysicsUtils.setScaledCollider(healthPotion, 0.5f, 0.2f);
         return healthPotion;
     }
+
+    /**
+     * Create a health regen potion which slows gives the player health every few frames
+     * @return health regen potion
+     */
+
+    public static Entity createHealthRegenPotion() {
+        Entity healthRegenPotion = createBasePotion()
+                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
+                ))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "health"));
+        healthRegenPotion.getComponent(TextureRenderComponent.class).scaleEntity();
+        healthRegenPotion.scaleHeight(1.0f);
+        PhysicsUtils.setScaledCollider(healthRegenPotion, 0.5f, 0.2f);
+        return healthRegenPotion;
+    }
+
+    /**
+     * Creates a damage reduction potion which reduces the player's damage taken by a set amount
+     * @return damage reduction potion
+     */
 
     public static Entity createDamageReductionPotion() {
         Entity damageReductionPotion = createBasePotion()
@@ -83,6 +110,21 @@ public class PotionFactory {
         return speedPotion;
     }
 
+    /**
+     * Creates health potion without rendering Component.
+     * @return health potion for testing purposes
+     */
+    public static Entity createTestHealthPotion() {
+        Entity potion = createBasePotion()
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "health"));
+        return potion;
+    }
+
+    /**
+     * creates a defence potion. This is scheduled for removal as it is too similar to other
+     * potions and because too many potions already exist in the game
+     * @return defence potion
+     */
     public static Entity createDefencePotion() {
         Entity potion = createBasePotion()
                 .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"));
@@ -93,7 +135,9 @@ public class PotionFactory {
         return potion;
     }
 
-
+    /**
+     * made to hold images of different potions' image location.
+     */
     private static final String[] potionPictures = {
             "images/Potions/defence_potion.png",
             "images/Potions/agility_potion.png"
