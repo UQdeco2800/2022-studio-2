@@ -5,6 +5,7 @@ import com.deco2800.game.components.Component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Self-sufficient player modifier handler for temporarily or permanently modifying player
@@ -45,58 +46,31 @@ public class PlayerModifier extends Component{
     public static final String HEALTH = "health";
 
     // List of all components present in the parent entity
-    private static PlayerActions playerActions;
-    private static CombatStatsComponent combatStatsComponent;
+    private PlayerActions playerActions;
+    private CombatStatsComponent combatStatsComponent;
 
     // Variables for modifier management
-    private static ArrayList<Modifier> modifiers;
+    private ArrayList<Modifier> modifiers;
 
     // List of all modifiable stats and their associated string for the modifier to work
     // MOVESPEED
-    private static float refSpeed;
-    private static float modSpeed;
+    private float refSpeed;
+    private float modSpeed;
     // DMGREDUCTION
-    private static float refDamageReduction;
-    private static float modDamageReduction;
+    private float refDamageReduction;
+    private float modDamageReduction;
     // MANAREGEN
-    private static float refManaRegen;
-    private static float modManaRegen;
+    private float refManaRegen;
+    private float modManaRegen;
     // MANAMAX
-    private static float refManaMax;
-    private static float modManaMax;
+    private float refManaMax;
+    private float modManaMax;
     // STAMINAREGEN
-    private static float refStaminaRegen;
-    private static float modStaminaRegen;
+    private float refStaminaRegen;
+    private float modStaminaRegen;
     // STAMINAMAX
-    private static float refStaminaMax;
-    private static float modStaminaMax;
-
-
-
-    /**
-     * Initial define function for the modifier class.
-     * Creates the modifier array.
-     * Initialises all modifiable variables to zero.
-     * Used purely for Junit functionality.
-     */
-    public PlayerModifier() {
-
-        modifiers = new ArrayList<>();
-
-        // Temporarily exists for jUnit testing
-        refSpeed = 0;
-        modSpeed = 0;
-        refDamageReduction = 0;
-        modDamageReduction = 0;
-        refStaminaMax = 0;
-        modStaminaMax = 0;
-        refStaminaRegen = 0;
-        modStaminaRegen = 0;
-        refManaMax = 0;
-        modManaMax = 0;
-        refManaRegen = 0;
-        modManaRegen = 0;
-    }
+    private float refStaminaMax;
+    private float modStaminaMax;
 
     /**
      * Creation function to gather all necessary components for PlayerModified component
@@ -170,6 +144,24 @@ public class PlayerModifier extends Component{
     }
 
     /**
+     * Public facing function to get modifier array for custom inspection.
+     * @return ArrayList<Modifier>
+     */
+    public List<Modifier> getModifiers() { return modifiers; }
+
+    /**
+     * Public facing function to get CombatStatsComponent of the modifier system.
+     * @return CombatStatsComponent
+     */
+    public CombatStatsComponent getCombatStatsComponent() { return combatStatsComponent; }
+
+    /**
+     * Public facing function to get PlayerActions of the modifier system.
+     * @return PlayerActions
+     */
+    public PlayerActions getPlayerActions() { return playerActions; }
+
+    /**
      * Internal function to apply and remove temporary modifications. Sets the modifier value equal
      * to the increase/decrease in the reference statistic such that when this function is called for
      * modifier removal, the value is properly restored.
@@ -177,7 +169,7 @@ public class PlayerModifier extends Component{
      * @param mod       Target statistic
      * @param remove    Boolean to determine if a modifier is being removed
      */
-    private static void modifierHandler (Modifier mod, boolean remove) {
+    private void modifierHandler (Modifier mod, boolean remove) {
 
         float difference; // Used to return to original value if modifier is negative
 
@@ -368,35 +360,6 @@ public class PlayerModifier extends Component{
             case STAMINAMAX -> refStaminaMax;
             default -> -1;
         };
-    }
-
-    /**
-     * Temporary test functions for JUnit Testing until "mocking"
-     * is covered in the course.
-     */
-
-    public static void jUnitAddPlayerActions (PlayerActions actions) {
-        playerActions = actions;
-        refSpeed = playerActions.getMaxSpeed();
-        modSpeed = playerActions.getMaxSpeed();
-    }
-
-    public static void jUnitAddCombatStats (CombatStatsComponent combat) {
-        combatStatsComponent = combat;
-        refDamageReduction = combatStatsComponent.getDamageReduction();
-        modDamageReduction = combatStatsComponent.getDamageReduction();
-
-        refManaRegen = combatStatsComponent.getManaRegenerationRate();
-        modManaRegen = combatStatsComponent.getManaRegenerationRate();
-
-        refManaMax = combatStatsComponent.getMaxMana();
-        modManaMax = combatStatsComponent.getMaxMana();
-
-        refStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
-        modStaminaRegen = combatStatsComponent.getStaminaRegenerationRate();
-
-        refStaminaMax = combatStatsComponent.getMaxStamina();
-        modStaminaMax = combatStatsComponent.getMaxStamina();
     }
 }
 

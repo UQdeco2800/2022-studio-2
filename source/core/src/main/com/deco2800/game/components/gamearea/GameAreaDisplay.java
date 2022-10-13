@@ -530,7 +530,7 @@ public class GameAreaDisplay extends UIComponent {
     /**
      * Dispose the keybinding menu group
      */
-    public void disposeKeyBindMenu() { keyBindGroup.remove(); }
+    public void disposeKeyBindMenu() { keyBindGroup.clear(); }
 
     /**
      * Creates the appropriate image and label entries for key labelling
