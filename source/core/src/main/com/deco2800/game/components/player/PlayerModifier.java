@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class PlayerModifier extends Component{
 
-    private static class Modifier {
+    public static class Modifier {
         boolean used; // Flag to determine if the modifier has been used
         boolean expired; // Flag to determine if the modifier has been used
         boolean scalar; // Determine if modifier was originally a scalar function
