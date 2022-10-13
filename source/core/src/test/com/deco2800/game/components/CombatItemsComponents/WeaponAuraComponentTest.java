@@ -71,4 +71,9 @@ class WeaponAuraComponentTest {
     public void testGetDurationMultiplier() {
         assertEquals(1, aura2.getDurationMultiplier(), "Incorrect value was returned.");
     }
+
+    @Test
+    public void testGetDescription() {
+        assertEquals("fire", aura1.getDescription(), "Incorrect value was returned.");
+    }
 }
