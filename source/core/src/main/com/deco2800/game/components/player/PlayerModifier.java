@@ -142,19 +142,19 @@ public class PlayerModifier extends Component{
 
     /**
      * Public facing function to get modifier array for custom inspection.
-     * @return ArrayList<Modifier>
+     * @return List of modifiers
      */
     public List<Modifier> getModifiers() { return modifiers; }
 
     /**
      * Public facing function to get CombatStatsComponent of the modifier system.
-     * @return CombatStatsComponent
+     * @return CombatStatsComponent of the modifier system
      */
     public CombatStatsComponent getCombatStatsComponent() { return combatStatsComponent; }
 
     /**
      * Public facing function to get PlayerActions of the modifier system.
-     * @return PlayerActions
+     * @return PlayerActions of the modifier system
      */
     public PlayerActions getPlayerActions() { return playerActions; }
 
