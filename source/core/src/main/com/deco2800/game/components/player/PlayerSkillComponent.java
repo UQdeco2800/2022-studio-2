@@ -9,6 +9,7 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -790,7 +791,12 @@ public class PlayerSkillComponent extends Component {
         if (teleportPositionY > 24.68)
             teleportPositionY = 24.68f;
         playerEntity.setPosition(teleportPositionX, teleportPositionY);
-
+/*
+        if (physics.raycast(from, to, PhysicsLayer.OBSTACLE, hit)) {
+            debugRenderer.drawLine(from, hit.point);
+            return false;
+        }
+*/
     }
 
     /**
@@ -889,13 +895,13 @@ public class PlayerSkillComponent extends Component {
      * @param slow true to slow enemy, false to return to normal speed
      */
     private void changeSpeed(Entity target, long slowLength, boolean slow) {
-        if (slow) {
+        if (slow && !target.checkEntityType(EntityTypes.RANGED)) {
             target.getComponent(AITaskComponent.class).addTask
                     (new ChaseTask(playerEntity, 50, 5f, 6f, 1f));
             this.rooted = true;
             this.rootApplied = false;
             this.rootEnd = System.currentTimeMillis() + slowLength;
-        } else if (target != null){
+        } else if (target != null && !target.checkEntityType(EntityTypes.RANGED)){
             //target.getComponent(AITaskComponent.class).dispose();
             target.getComponent(AITaskComponent.class).getPriorityTasks().remove
                     (target.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
