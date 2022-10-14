@@ -393,15 +393,39 @@ public class CombatStatsComponent extends Component {
 
   }
 
+  /**
+   * Method that picks a random material on the map to drop once an enemy is killed.
+   * 20% change of gold
+   * 10% chance of silver
+   * 10% chance of rubber
+   * 10% chance of platinum
+   * 10% chance of iron
+   * 10% chance of wood
+   * 10% chance of steel
+   */
   public void dropMaterial() {
 
     float x = getEntity().getPosition().x;
     float y = getEntity().getPosition().y;
 
     int randomnum = random.nextInt(100);
+    Entity material = materialRand(randomnum);
 
+    if (randomnum <= 90) {
+      material.setScale(new Vector2(0.6f, 0.6f));
+
+      ServiceLocator.getEntityService().register(material);
+      material.setPosition((x), (y - 2));
+    }
+  }
+
+  /**
+   * Takes a number between 1 to 100 and returnss a material to be dropped
+   * @param randomnum a random number between 1 and 100
+   * @return an Entity to be dropped
+   */
+  private Entity materialRand(int randomnum){
     Entity material;
-
     if (randomnum < 10) {
       material = MaterialFactory.createSilver();
     } else if (randomnum < 30 && randomnum >= 10) {
@@ -421,46 +445,6 @@ public class CombatStatsComponent extends Component {
     } else {
       material = MaterialFactory.createWood();
     }
-
-    if (!(randomnum > 90)) {
-      material.setScale(new Vector2(0.6f, 0.6f));
-
-      ServiceLocator.getEntityService().register(material);
-
-      material.setPosition((x), (y - 2));
-    }
-  }
-
-  /*
-   * drop material for test
-   * @return test material
-
-  public Entity testDropMaterial(int i) {
-
-    Entity material;
-
-    if (i < 10) {
-      material = MaterialFactory.creatTestMaterial("silver");
-    } else if (i < 30 && i >= 10) {
-      material = MaterialFactory.creatTestMaterial("gold");
-    } else if (i < 40 && i >= 30) {
-      material = MaterialFactory.creatTestMaterial("plastic");
-    } else if (i < 50 && i >= 40) {
-      material = MaterialFactory.creatTestMaterial("rubber");
-    } else if (i < 60 && i >= 50) {
-      material = MaterialFactory.creatTestMaterial("iron");
-    } else if (i < 70 && i >= 60) {
-      material = MaterialFactory.creatTestMaterial("platinum");
-    } else if (i < 80 && i >= 70) {
-      material = MaterialFactory.creatTestMaterial("wood");
-    } else if (i < 90 && i >= 80) {
-      material = MaterialFactory.creatTestMaterial("steel");
-    } else {
-      material = MaterialFactory.creatTestMaterial("wood");
-    }
-
     return material;
   }
-  */
-
 }
