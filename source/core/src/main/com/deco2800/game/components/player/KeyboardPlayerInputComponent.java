@@ -60,7 +60,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.SPACE:
-        entity.getEvents().trigger("attack");
+        entity.getEvents().trigger("attackEnemy");
         return true;
       case Keys.Q:
         entity.getEvents().trigger("can_open");

@@ -23,6 +23,7 @@ class PhysicalStatsComponentTest {
 
     public PhysicalWeaponStatsComponent weapons1;
     public PhysicalWeaponStatsComponent weapons2;
+    public PhysicalWeaponStatsComponent weapons3;
 
 
     @BeforeEach
@@ -38,6 +39,7 @@ class PhysicalStatsComponentTest {
 
         weapons1 = new PhysicalWeaponStatsComponent(20, 10, materials1, 2, "pipe");
         weapons2 = new PhysicalWeaponStatsComponent(30, 20, materials2, 5, "pipe");
+        weapons3 = new PhysicalWeaponStatsComponent(20, 10, materials1, 2, "pipe");
 
     }
 
@@ -100,6 +102,18 @@ class PhysicalStatsComponentTest {
 
         weapons1.setMaterials(materialsTest);
         assertTrue(materialsTest2.equals(weapons1.getMaterials()));
+    }
+
+    @Test
+    public void testGetDescription() {
+        assertEquals("pipe", weapons1.getDescription(), "Incorrect value was returned.");
+    }
+
+    @Test
+    public void testEqualsOther() {
+        assertEquals(false, weapons1.equalsOther(weapons2), "Incorrect value was returned.");
+        assertEquals(true, weapons1.equalsOther(weapons3), "Incorrect value was returned.");
+
     }
 
    /* @Test
