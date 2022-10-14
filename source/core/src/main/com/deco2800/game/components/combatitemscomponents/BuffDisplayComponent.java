@@ -1,14 +1,11 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -72,7 +69,7 @@ public class BuffDisplayComponent extends UIComponent {
         table.clear();
     }
 
-    @Override
+
     public void dispose() {
         super.dispose();
     }

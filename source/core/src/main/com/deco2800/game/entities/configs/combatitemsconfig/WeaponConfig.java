@@ -1,9 +1,8 @@
-package com.deco2800.game.entities.configs.CombatItemsConfig;
+package com.deco2800.game.entities.configs.combatitemsconfig;
 
 import com.deco2800.game.crafting.Materials;
 
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Defines a basic set of (melee weapon) properties stored in Weapon config files to be loaded by Weapon Factory.
