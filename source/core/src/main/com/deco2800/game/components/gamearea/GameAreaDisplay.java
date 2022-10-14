@@ -102,6 +102,8 @@ public class GameAreaDisplay extends UIComponent {
     InventoryComponent inventoryComponent;
     private Image inventoryMenu;
     private Group inventoryGroup = new Group();
+    private Group itemButtonGroup = new Group();
+    private Group dropdownGroup = new Group();
     private Image minimapImage;
     private Group minimapGroup = new Group();
     private List<Entity> items;
@@ -167,25 +169,33 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     public void updateInventoryDisplay() {
-        inventoryGroup.clear();
-        ServiceLocator.getInventoryArea().displayInventoryMenu();
-        ServiceLocator.getInventoryArea().displayItems();
-        ServiceLocator.getInventoryArea().displayEquipables();
+        itemButtonGroup.clear();
+        dropdownGroup.clear();
+        displayItems();
+        displayEquipables();
+    }
+
+    /**
+     * Load the all assets required for displaying inventory
+     */
+    public void initialiseInventoryDisplay() {
+        inventoryMenu = new Image(new Texture(Gdx.files.internal
+                ("images/Inventory/Inventory_v3.png")));
+        //Note: the position of the asset is at the bottom left.
+        inventoryMenu.setSize(1024, 768);
+        inventoryMenu.setPosition((float)Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
+                (float)Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
+        inventoryGroup.addActor(inventoryMenu);
+        inventoryGroup.addActor(itemButtonGroup);
+        inventoryGroup.addActor(dropdownGroup);
     }
 
     /**
      * Displays the inventory UI.
      *
-     * INVENTORY_DISPLAY Self-made tag for the ease of searching
      */
     public void displayInventoryMenu() {
-        inventoryMenu = new Image(new Texture(Gdx.files.internal
-                ("images/Inventory/Inventory_v3.png")));
-        //Note: the position of the asset is at the bottom left.
-        inventoryMenu.setSize(1024, 768);
-        inventoryMenu.setPosition(Gdx.graphics.getWidth() / 2 - inventoryMenu.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - inventoryMenu.getHeight() / 2);
-        inventoryGroup.addActor(inventoryMenu);
+        initialiseInventoryDisplay();
         stage.addActor(inventoryGroup);
         stage.draw();
     }
@@ -204,6 +214,19 @@ public class GameAreaDisplay extends UIComponent {
 
         Button button = new Button(style);
         button.setSize(96,36);
+        return button;
+    }
+
+    /**
+     * Create an image button based on entity's default texture
+     * @param item the image button's texture source
+     * @param size the size of the button
+     * @return button
+     */
+    private ImageButton createImageButton (Entity item, float size) {
+        Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
+        ImageButton button = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
+        button.setSize(size, size);
         return button;
     }
 
@@ -239,37 +262,29 @@ public class GameAreaDisplay extends UIComponent {
                         unequipBtn.setPosition(horizontalPosition + 63, verticalPosition);
                         dropItemBtn.setPosition(horizontalPosition + 63, verticalPosition - 40);
 
-                        inventoryGroup.addActor(unequipBtn);
-                        inventoryGroup.addActor(dropItemBtn);
+                        dropdownGroup.addActor(unequipBtn);
+                        dropdownGroup.addActor(dropItemBtn);
                         unequipBtn.addListener(new ChangeListener() {
                                 @Override
                                     public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.unequipItem(itemSlot)) {
-                                            inventoryGroup.removeActor(equippedItem);
-                                            updateInventoryDisplay();
-                                        }
-                                        inventoryGroup.removeActor(unequipBtn);
-                                        inventoryGroup.removeActor(dropItemBtn);
+                                        if (inventory.unequipItem(itemSlot)) updateInventoryDisplay();
+                                        dropdownGroup.clear();
                                     }
                         });
                         dropItemBtn.addListener(
                                 new ChangeListener() {
                                     @Override
                                     public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.removeEquipable(itemSlot)) {
-                                            inventoryGroup.removeActor(equippedItem);
-                                            updateInventoryDisplay();
-                                        }
-                                        inventoryGroup.removeActor(unequipBtn);
-                                        inventoryGroup.removeActor(dropItemBtn);
+                                        if (inventory.removeEquipable(itemSlot)) updateInventoryDisplay();
+                                        dropdownGroup.clear();
                                     }
                                 }
                         );
-                        inventoryGroup.addActor(unequipBtn);
-                        inventoryGroup.addActor(dropItemBtn);
+                        dropdownGroup.addActor(unequipBtn);
+                        dropdownGroup.addActor(dropItemBtn);
                     }
                 });
-                inventoryGroup.addActor(equippedItem);
+                itemButtonGroup.addActor(equippedItem);
             }
         }
     }
@@ -308,10 +323,9 @@ public class GameAreaDisplay extends UIComponent {
                     new ChangeListener() {
                         @Override
                         public void changed(ChangeEvent changeEvent, Actor actor) {
-
+                            dropdownGroup.clear();
                             Button itemOpBtn = createInventoryButton("equip");
                             Button dropItemBtn = createInventoryButton("drop");
-
 
                             itemOpBtn.setPosition(horizontalPosition + 48, verticalPosition);
                             dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 42);
@@ -319,12 +333,8 @@ public class GameAreaDisplay extends UIComponent {
                                     new ChangeListener() {
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-                                            if (inventory.removeItem(currentItem)) {
-                                                inventoryGroup.removeActor(item);
-                                                updateInventoryDisplay();
-                                            }
-                                            inventoryGroup.removeActor(itemOpBtn);
-                                            inventoryGroup.removeActor(dropItemBtn);
+                                            if (inventory.removeItem(currentItem)) updateInventoryDisplay();
+                                            dropdownGroup.clear();
                                         }
                                     }
                             );
@@ -334,30 +344,25 @@ public class GameAreaDisplay extends UIComponent {
                                         public void changed(ChangeEvent event, Actor actor) {
                                             switch (buttonText) {
                                                 case "Equip item":
-                                                    if (inventory.equipItem(currentItem)) {
-                                                        updateInventoryDisplay();
-                                                    }
+                                                    if (inventory.equipItem(currentItem)) updateInventoryDisplay();
                                                     break;
                                                 case "Add to quick bar":
                                                     if (inventory.addQuickBarItems(currentItem)) {
-                                                        inventory.removeItem(currentItem);
+
                                                         updateInventoryDisplay();
                                                         potionsTex.add(itemTexture);
                                                     }
                                                     break;
                                             }
-                                            inventoryGroup.removeActor(itemOpBtn);
-                                            inventoryGroup.removeActor(dropItemBtn);
+                                            dropdownGroup.clear();
                                         }
                                     }
                             );
-                            if (!buttonText.equals("Crafting")) {
-                                inventoryGroup.addActor(itemOpBtn);
-                            }
-                            inventoryGroup.addActor(dropItemBtn);
+                            if (!buttonText.equals("Crafting")) dropdownGroup.addActor(itemOpBtn);
+                            dropdownGroup.addActor(dropItemBtn);
                         }
                     });
-            inventoryGroup.addActor(item);
+            itemButtonGroup.addActor(item);
         }
     }
 
@@ -366,6 +371,7 @@ public class GameAreaDisplay extends UIComponent {
      * Disposes the inventory display group.
      */
     public void disposeInventoryMenu() {
+        inventoryGroup.clear();
         inventoryGroup.remove();
     }
 
@@ -447,6 +453,7 @@ public class GameAreaDisplay extends UIComponent {
             public void changed(ChangeEvent event, Actor actor) {
                 logger.info("Exit Crafting menu");
                 disposeCraftingMenu();
+                KeyboardPlayerInputComponent.clearMenuOpening();
                 EntityService.pauseAndResume();
                 OpenCraftingComponent.setCraftingStatus();
             }
@@ -504,6 +511,7 @@ public class GameAreaDisplay extends UIComponent {
             public void changed(ChangeEvent event, Actor actor) {
                 logger.debug("Pause menu exit button clicked");
                 KeyboardPlayerInputComponent.incrementPauseCounter();
+                KeyboardPlayerInputComponent.clearMenuOpening();
                 PauseMenuActions.setQuitGameStatus();
             }
         });
