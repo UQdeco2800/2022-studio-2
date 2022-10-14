@@ -218,6 +218,19 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     /**
+     * Create an image button based on entity's default texture
+     * @param item the image button's texture source
+     * @param size the size of the button
+     * @return button
+     */
+    private ImageButton createImageButton (Entity item, float size) {
+        Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
+        ImageButton button = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
+        button.setSize(size, size);
+        return button;
+    }
+
+    /**
      * Displays the items that the player has equipped.
      */
     public void displayEquipables() {
