@@ -77,7 +77,7 @@ public class PotionFactory {
         potion.scaleHeight(1.5f);
         return potion;
     }
-    
+
     /**
      * Create a health regen potion which slows gives the player health every few frames
      * @return health regen potion

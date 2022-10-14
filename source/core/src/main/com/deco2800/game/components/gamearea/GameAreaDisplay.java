@@ -218,7 +218,7 @@ public class GameAreaDisplay extends UIComponent {
      * @param operation button action
      * @return button
      */
-    private Button createInventoryButton (String operation) {
+    private Button createInventoryButton (String operation, float x, float y) {
         Button.ButtonStyle style = new Button.ButtonStyle();
         style.up= new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal(String.format("images/Inventory/button/%s_up.png", operation)))));
@@ -226,20 +226,31 @@ public class GameAreaDisplay extends UIComponent {
                 new Texture(Gdx.files.internal(String.format("images/Inventory/button/%s_down.png", operation)))));
 
         Button button = new Button(style);
+        button.setPosition(x, y);
         button.setSize(96,36);
         return button;
     }
 
+    private Button createOperationButton(Button button, Entity item){
+        button.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+
+            }
+        });
+        return button;
+    }
     /**
      * Create an image button based on entity's default texture
      * @param item the image button's texture source
      * @param size the size of the button
      * @return button
      */
-    private ImageButton createImageButton (Entity item, float size) {
+    private ImageButton createImageButton (Entity item, float size, float x, float y) {
         Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
         ImageButton button = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
         button.setSize(size, size);
+        button.setPosition(x, y);
         return button;
     }
 
@@ -254,7 +265,6 @@ public class GameAreaDisplay extends UIComponent {
                 float padding = (float) 128 + 64;
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
-                ImageButton equippedItem = createImageButton(item, 128);
                 if (item.checkEntityType(EntityTypes.WEAPON)) {
                     verticalPosition = inventoryMenu.getY() + 416;
                     itemSlot = 0;
@@ -262,15 +272,13 @@ public class GameAreaDisplay extends UIComponent {
                     verticalPosition = inventoryMenu.getY() + 416 - padding;
                     itemSlot = 1;
                 }
+                ImageButton equippedItem = createImageButton(item, 128, horizontalPosition, verticalPosition);
                 equippedItem.setPosition(horizontalPosition, verticalPosition);
                 equippedItem.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        Button unequipBtn = createInventoryButton("unequip");
-                        Button dropItemBtn = createInventoryButton("drop");
-
-                        unequipBtn.setPosition(horizontalPosition + 63, verticalPosition);
-                        dropItemBtn.setPosition(horizontalPosition + 63, verticalPosition - 40);
+                        Button unequipBtn = createInventoryButton("unequip", horizontalPosition + 63, verticalPosition);
+                        Button dropItemBtn = createInventoryButton("drop",horizontalPosition + 63, verticalPosition - 40);
                         dropdownGroup.addActor(unequipBtn);
                         dropdownGroup.addActor(dropItemBtn);
                         unequipBtn.addListener(new ChangeListener() {
@@ -308,13 +316,10 @@ public class GameAreaDisplay extends UIComponent {
         List<Entity> items = inventory.getInventory();
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
-            ImageButton item = createImageButton(currentItem, 64);
-            int row = i / 4;
-            int column = i % 4;
-            float horizontalPosition = (inventoryMenu.getX() + 192) + column * (padding + 64);
-            float verticalPosition = (inventoryMenu.getY() + 496) - row * (padding + 64);
-            item.setPosition(horizontalPosition, verticalPosition);
-            // Triggers an event when the button is pressed.
+            float horizontalPosition = (inventoryMenu.getX() + 192) + (i % 4) * (padding + 64);
+            float verticalPosition = (inventoryMenu.getY() + 496) - (float)(i / 4) * (padding + 64);
+            ImageButton item = createImageButton(currentItem, 64, horizontalPosition, verticalPosition);
+
             String buttonText;
 
             if (items.get(i).checkEntityType(EntityTypes.WEAPON)
@@ -330,10 +335,8 @@ public class GameAreaDisplay extends UIComponent {
                         @Override
                         public void changed(ChangeEvent changeEvent, Actor actor) {
                             dropdownGroup.clear();
-                            Button itemOpBtn = createInventoryButton("equip");
-                            Button dropItemBtn = createInventoryButton("drop");
-                            itemOpBtn.setPosition(horizontalPosition + 48, verticalPosition);
-                            dropItemBtn.setPosition(horizontalPosition + 48, verticalPosition - 42);
+                            Button itemOpBtn = createInventoryButton("equip", horizontalPosition + 48, verticalPosition);
+                            Button dropItemBtn = createInventoryButton("drop", horizontalPosition + 48, verticalPosition - 42);
                             dropItemBtn.addListener(
                                     new ChangeListener() {
                                         @Override
