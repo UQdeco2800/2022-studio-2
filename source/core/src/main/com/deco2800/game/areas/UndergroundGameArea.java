@@ -723,9 +723,7 @@ public class UndergroundGameArea extends GameArea {
         return GuardPosition;
     }
 
-    /**
-     * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
-     */
+
 
     private void spawnfriendlycreature() {
         friendlycreaturePosition = new GridPoint2(35, 24);

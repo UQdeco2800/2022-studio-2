@@ -29,8 +29,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
-import static com.deco2800.game.areas.UndergroundGameArea.getFriendlycreaturePosition;
+import static com.deco2800.game.areas.UndergroundGameArea.*;
 
+import com.deco2800.game.areas.UndergroundGameArea.*;
 
 
 /**
@@ -184,52 +185,59 @@ public class DialogueDisplay extends UIComponent {
         // initialize the dialogue image for each NPCs
         dialogueImagefemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFemale), Texture.class));
+        dialogueImagefemale.setPosition(500,20);
         dialogueimageguard = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageGuard), Texture.class));
+        dialogueimageguard.setPosition(500,20);
         dialogueimagemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageMale), Texture.class));
+        dialogueimagemale.setPosition(500,20);
         dialogueimgchild = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageChild), Texture.class));
+        dialogueimgchild.setPosition(500,20);
         dialogueimagehumanguard = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageHumanGuard), Texture.class));
+        dialogueimagehumanguard.setPosition(500,20);
         dialogueimagefriendlycreature = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFriendlyCreature), Texture.class));
+        dialogueimagefriendlycreature.setPosition(500,20);
         dialogueimageplumberfriend = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImagePlumberFriend), Texture.class));
+        dialogueimageplumberfriend.setPosition(500,20);
 
         // initialize the text area for each NPCs
         textAreaFemale = new TextArea(textFemale[countFemale], skin);
         textAreaFemale.setWidth(480);
         textAreaFemale.setHeight(70);
-        textAreaFemale.setPosition(50,50);
+        textAreaFemale.setPosition(500,20);
         textAreaGuard = new TextArea(textGuard[countGuard], skin);
         textAreaGuard.setWidth(480);
         textAreaGuard.setHeight(70);
-        textAreaGuard.setPosition(50,50);
+        textAreaGuard.setPosition(500,20);
         textAreaMale = new TextArea(textMale[countMale], skin);
         textAreaMale.setWidth(480);
         textAreaMale.setHeight(70);
-        textAreaMale.setPosition(50,50);
+        textAreaMale.setPosition(500,20);
         textAreaChild = new TextArea(textChild[countChild], skin);
         textAreaChild.setWidth(480);
         textAreaChild.setHeight(70);
-        textAreaChild.setPosition(50,50);
+        textAreaChild.setPosition(500,20);
         textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
         textAreaHumanGuard.setWidth(480);
         textAreaHumanGuard.setHeight(70);
-        textAreaHumanGuard.setPosition(50,50);
+        textAreaHumanGuard.setPosition(500,20);
         textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin);
         textAreaHumanGuardAlready.setWidth(480);
         textAreaHumanGuardAlready.setHeight(70);
-        textAreaHumanGuardAlready.setPosition(50,50);
+        textAreaHumanGuardAlready.setPosition(500,20);
         textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
         textAreaFriendlyCreature.setWidth(480);
         textAreaFriendlyCreature.setHeight(70);
-        textAreaFriendlyCreature.setPosition(50,50);
+        textAreaFriendlyCreature.setPosition(500,20);
         textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
         textAreaPlumberFriend.setWidth(480);
         textAreaPlumberFriend.setHeight(70);
-        textAreaPlumberFriend.setPosition(50,50);
+        textAreaPlumberFriend.setPosition(500,20);
 
         // add dialogue image and dialogue text area to the container
         dialogueContainerFemale.addActor(dialogueImagefemale);
@@ -260,7 +268,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
             textAreaFemale.setWidth(480);
             textAreaFemale.setHeight(50);
-            textAreaFemale.setPosition(50,50);
+            textAreaFemale.setPosition(500,20);
             dialogueContainerFemale.addActor(textAreaFemale);
             if (countFemale == textFemale.length - 1) {
                 countFemale = 0;
@@ -284,7 +292,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaGuard = new TextArea(textGuard[countGuard], skin);
             textAreaGuard.setWidth(480);
             textAreaGuard.setHeight(50);
-            textAreaGuard.setPosition(50,50);
+            textAreaGuard.setPosition(500,20);
             dialogueContainerGuard.addActor(textAreaGuard);
 
             if (countGuard == textGuard.length - 1) {
@@ -318,6 +326,8 @@ public class DialogueDisplay extends UIComponent {
             countMale++;
             textAreaMale = new TextArea(textMale[countMale], skin);
             textAreaMale.setWidth(480);
+            textAreaMale.setHeight(50);
+            textAreaMale.setPosition(500,20);
             dialogueContainerMale.addActor(textAreaMale);
             if (countMale == textMale.length - 1) {
                 countMale = 0;
@@ -340,6 +350,8 @@ public class DialogueDisplay extends UIComponent {
             countChild++;
             textAreaChild = new TextArea(textChild[countChild], skin);
             textAreaChild.setWidth(480);
+            textAreaChild.setHeight(50);
+            textAreaChild.setPosition(500,20);
             dialogueContainerChild.addActor(textAreaChild);
             if (countChild == textChild.length - 1) {
                 countChild = 0;
@@ -394,6 +406,8 @@ public class DialogueDisplay extends UIComponent {
             countHumanGuard++;
             textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
             textAreaHumanGuard.setWidth(480);
+            textAreaHumanGuard.setHeight(50);
+            textAreaHumanGuard.setPosition(500,20);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuard);
 
             if (countHumanGuard == textHumanGuard.length - 1) {
@@ -432,6 +446,8 @@ public class DialogueDisplay extends UIComponent {
             countHumanGuardAlready++;
             textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin);
             textAreaHumanGuardAlready.setWidth(480);
+            textAreaHumanGuardAlready.setHeight(50);
+            textAreaHumanGuardAlready.setPosition(500,20);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuardAlready);
 
             if (countHumanGuardAlready == textHumanGuardAlready.length - 1) {
@@ -458,6 +474,8 @@ public class DialogueDisplay extends UIComponent {
             countFriendlyCreature++;
             textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
             textAreaFriendlyCreature.setWidth(480);
+            textAreaFriendlyCreature.setHeight(50);
+            textAreaFriendlyCreature.setPosition(500,20);
             dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreature);
             if (countFriendlyCreature == textFriendlyCreature.length - 1) {
                 countFriendlyCreature = 0;
@@ -472,6 +490,8 @@ public class DialogueDisplay extends UIComponent {
             countPlumberFriend++;
             textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
             textAreaPlumberFriend.setWidth(480);
+            textAreaPlumberFriend.setHeight(50);
+            textAreaPlumberFriend.setPosition(500,20);
             dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
             if (countPlumberFriend == textPlumberFriend.length - 1) {
                 countPlumberFriend = 0;
