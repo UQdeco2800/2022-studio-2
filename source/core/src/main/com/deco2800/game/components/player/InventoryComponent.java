@@ -489,10 +489,9 @@ public class InventoryComponent extends Component {
      * @param potion the potion to be added
      */
     public boolean addQuickBarItems(Entity potion) {
-        boolean hasPotion = hasItem(potion, quickBarItems);
         boolean added = false;
 
-        if (hasPotion) {
+        if (hasItem(potion, quickBarItems)) {
             if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
@@ -507,6 +506,7 @@ public class InventoryComponent extends Component {
                 added = true;
             }
         }
+        if (added) removeItem(potion);
         return added;
     }
 

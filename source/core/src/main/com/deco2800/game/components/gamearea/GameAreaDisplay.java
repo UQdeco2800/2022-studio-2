@@ -335,6 +335,7 @@ public class GameAreaDisplay extends UIComponent {
                                                     break;
                                                 case "Add to quick bar":
                                                     if (inventory.addQuickBarItems(currentItem)) {
+
                                                         updateInventoryDisplay();
                                                         potionsTex.add(itemTexture);
                                                     }
