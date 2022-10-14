@@ -941,7 +941,7 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                         super.enter(event, x, y, pointer, fromActor);
-                        material.setSize(70, 70);
+                        material.setSize(50, 60);
                     }
                     @Override
                     public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
