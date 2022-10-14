@@ -364,9 +364,18 @@ class PlayerSkillComponentTest {
 
     @Test
     void testStartCharge() {
-        Vector2 vec = new Vector2(1f, 1f);
+        assertFalse(skillManager.isChargingUp());
+        skillManager.startCharge();
+        assertTrue(skillManager.isChargingUp());
+        customWait(701);
+        skillManager.update();
+        assertFalse(skillManager.isChargingUp());
+    }
+
+    @Test
+    void testChargeMove() {
         assertFalse(skillManager.isCharging());
-        skillManager.startCharge(vec);
+        skillManager.chargeMove();
         assertTrue(skillManager.isCharging());
         customWait(301);
         skillManager.update();
@@ -375,7 +384,6 @@ class PlayerSkillComponentTest {
 
     @Test
     void testChargeHit() {
-        Vector2 vec = new Vector2(1f, 1f);
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
         Entity enemy =
@@ -386,12 +394,12 @@ class PlayerSkillComponentTest {
         enemy.create();
 
         skillManager.chargeHit(enemy);
-        skillManager.startCharge(vec);
+        skillManager.chargeMove();
         skillManager.chargeHit(enemy);
         assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
         skillManager.chargeHit(enemy);
         assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
-        skillManager.startCharge(vec);
+        skillManager.chargeMove();
         skillManager.chargeHit(enemy);
         assertEquals(0, enemy.getComponent(CombatStatsComponent.class).getHealth());
     }

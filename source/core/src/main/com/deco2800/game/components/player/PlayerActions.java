@@ -207,7 +207,7 @@ public class PlayerActions extends Component {
    */
   void charge() {
     if(mana >= 2){
-      skillManager.startCharge(this.walkDirection.cpy());
+      skillManager.startCharge();
       entity.getEvents().trigger("decreaseStamina", -2);
     }
 

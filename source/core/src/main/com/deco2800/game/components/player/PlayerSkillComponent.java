@@ -118,7 +118,10 @@ public class PlayerSkillComponent extends Component {
     private boolean charging;
     private long chargeEnd;
     private static final Vector2 CHARGE_SPEED = new Vector2(20f, 20f);
-    private int CHARGE_DAMAGE = 30;
+    private static final int CHARGE_DAMAGE = 30;
+    private boolean chargeUp = false;
+    private long chargeUpEnd;
+    private static final long CHARGE_UP_LENGTH = 700;
 
     private boolean chargingUltimate;
     private long ultimateChargeEnd;
@@ -206,6 +209,13 @@ public class PlayerSkillComponent extends Component {
                 skillAnimator.getEvents().trigger("regularAnimation");
             }
             this.charging = false;
+        }
+
+        // Check if the player is waiting to charge from charging
+        if (this.chargeUp && System.currentTimeMillis() > this.chargeUpEnd) {
+            this.chargeUp = false;
+            skillAnimator.getEvents().trigger("regularAnimation");
+            chargeMove();
         }
 
         // Check if the player is waiting to teleport from charging
@@ -368,7 +378,8 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean movementIsModified() {
 
-        return (isDashing() || isTeleporting() || isDodging() || isCharging() || this.dodgeSpeedBoost);
+        return (isDashing() || isTeleporting() || isDodging() || isCharging() || isChargingUp()
+                || this.dodgeSpeedBoost);
     }
 
     /**
@@ -407,7 +418,7 @@ public class PlayerSkillComponent extends Component {
             modifiedMovementVector = addVectors(reducedMovement, dashVelocity);
         }
 
-        if (isTeleporting()) {
+        if (isTeleporting() || isChargingUp()) {
             Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * TELEPORT_MOVEMENT_RESTRICTION,
                     modifiedMovementVector.y * TELEPORT_MOVEMENT_RESTRICTION);
             modifiedMovementVector = reducedMovement;
@@ -510,6 +521,15 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean isCharging() {
         return this.charging;
+    }
+
+    /**
+     * Checks if the player is in the charge up skill state
+     * @return true - if the player is charging up
+     *         false - otherwise
+     */
+    public boolean isChargingUp() {
+        return this.chargeUp;
     }
 
     /**
@@ -911,19 +931,28 @@ public class PlayerSkillComponent extends Component {
     /**
      * The functional start of the charge.
      * Should be called when player actions component registers charge event.
-     * @param moveDirection the direction of the players movement at the start of the charge event.
      */
-    public void startCharge(Vector2 moveDirection) {
+    public void startCharge() {
         if (1 < 2) {//cooldown
-            this.chargeDirection = moveDirection;
-            this.charging = true;
-            this.chargeFirstHit = true;
-            skillAnimator.getEvents().trigger("dashAnimation");
+            this.chargeUp = true;
+            this.chargeUpEnd = System.currentTimeMillis() + CHARGE_UP_LENGTH;
+            skillAnimator.getEvents().trigger("teleportAnimation");
             playerEntity.getEvents().trigger("chargeCountdown");
-            this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
-            setInvulnerable(DASH_LENGTH / 2);
             setSkillCooldown("charge");
         }
+    }
+
+    /**
+     * Speeds up player movement for charge attack
+     */
+    public void chargeMove() {
+        PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
+        this.chargeDirection = actions.getWalkDirection();
+        this.charging = true;
+        this.chargeFirstHit = true;
+        skillAnimator.getEvents().trigger("dashAnimation");
+        this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
+        setInvulnerable(DASH_LENGTH / 2);
     }
 
     /**
