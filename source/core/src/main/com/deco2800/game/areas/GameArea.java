@@ -82,4 +82,6 @@ public abstract class GameArea implements Disposable {
     return player;
   }
 
+  public void setPlayer(Entity customPlayer) { player = customPlayer; }
+
 }
