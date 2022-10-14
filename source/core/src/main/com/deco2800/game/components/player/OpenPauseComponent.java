@@ -91,11 +91,11 @@ public class OpenPauseComponent extends Component {
      * If the pause menu IS open, close it.
      */
     private void togglePauseMenu() {
-        if (keyBindOpen) {
+        if (Boolean.TRUE.equals(keyBindOpen)) {
             closeKeyBindings();
-        }else if (playerGuideOpen) {
+        }else if (Boolean.TRUE.equals(playerGuideOpen)) {
             closePlayerGuide();
-        } else if (pauseOpen) {
+        } else if (Boolean.TRUE.equals(pauseOpen)) {
             closePauseMenu();
         } else {
             openPauseMenu();

@@ -70,12 +70,14 @@ class OpenPauseComponentTest {
 
     @Test
     void shouldOpenInventory() {
+
         player.getEvents().trigger("toggleInventory");
         assertTrue(openPauseComponent.getInventoryToggled());
     }
 
     @Test
     void shouldCloseInventory() {
+
         player.getEvents().trigger("toggleInventory");
         player.getEvents().trigger("toggleInventory");
         assertFalse(openPauseComponent.getInventoryToggled());
@@ -83,12 +85,22 @@ class OpenPauseComponentTest {
 
     @Test
     void shouldOpenPauseMenu() {
+
+        player.getEvents().trigger("escInput");
+        assertTrue(openPauseComponent.getPauseOpen());
+    }
+
+    @Test
+    void shouldOpenPauseMenuInventoryToggle() {
+
+        player.getEvents().trigger("toggleInventory");
         player.getEvents().trigger("escInput");
         assertTrue(openPauseComponent.getPauseOpen());
     }
 
     @Test
     void shouldClosePauseMenu() {
+
         player.getEvents().trigger("escInput");
         player.getEvents().trigger("escInput");
         assertFalse(openPauseComponent.getPauseOpen());
@@ -144,6 +156,14 @@ class OpenPauseComponentTest {
 
         openPauseComponent.openKeyBindings();
         assertTrue(openPauseComponent.getKeyBindOpen());
+    }
+
+    @Test
+    void shouldOpenKeyBindingsInventoryToggle() {
+
+        player.getEvents().trigger("toggleInventory");
+        openPauseComponent.openKeyBindings();
+        assertTrue(openPauseComponent.getPauseOpen());
     }
 
     @Test

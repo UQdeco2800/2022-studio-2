@@ -105,10 +105,10 @@ class OpenKeyBindsTest {
             }
 
             for (int j = 0; j < realLength; j++) {
-                assertEquals(refKeys.get(refIndex).key, keys[j].key);
-                assertEquals(refKeys.get(refIndex).description, keys[j].description);
-                assertEquals(refKeys.get(refIndex).imagelvl1, keys[j].imagelvl1);
-                assertEquals(refKeys.get(refIndex).imagelvl2, keys[j].imagelvl2);
+                assertEquals(refKeys.get(refIndex).getKey(), keys[j].getKey());
+                assertEquals(refKeys.get(refIndex).getDescription(), keys[j].getDescription());
+                assertEquals(refKeys.get(refIndex).getImagelvl1(), keys[j].getImagelvl1());
+                assertEquals(refKeys.get(refIndex).getImagelvl2(), keys[j].getImagelvl2());
                 refIndex++;
             }
         }

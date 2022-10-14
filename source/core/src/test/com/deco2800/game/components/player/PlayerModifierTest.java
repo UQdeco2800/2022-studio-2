@@ -88,6 +88,7 @@ class PlayerModifierTest {
 
     @Test
     void shouldIncrementHealth() {
+
         combat.setHealth(80);
         modifier.createModifier("health", 2, true, 0);
         assertEquals(81, combat.getHealth());
@@ -95,11 +96,13 @@ class PlayerModifierTest {
 
     @Test
     void shouldNotGetModified() {
+
         assertEquals(-1, modifier.getModified("move_speed"));
     }
 
     @Test
     void shouldNotGetReference() {
+
         assertEquals(-1, modifier.getReference("move_speed"));
     }
 
