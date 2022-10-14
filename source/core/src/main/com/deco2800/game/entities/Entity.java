@@ -301,7 +301,9 @@ public class Entity {
       return;
     }
     if (isDead) {
-      dispose();
+      if (!checkEntityType(EntityTypes.ENEMY)) {
+        dispose();
+      }
     }
     if (playerWin) {
       dispose();
@@ -396,6 +398,9 @@ public class Entity {
    * @return true if dead, false if not
    */
   public boolean isDead() {
+    if (getComponent(CombatStatsComponent.class).getHealth() <= 0) {
+      isDead = true;
+    }
     return isDead;
   }
   public EventHandler getEvents() {

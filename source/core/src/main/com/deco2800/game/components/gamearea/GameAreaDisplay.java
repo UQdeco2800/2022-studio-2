@@ -13,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
@@ -53,6 +55,7 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton inventoryButton;
     private ImageButton exitButton;
     private Texture buttonTexture;
+    private Image testing;
     private TextureRegion buttonTextureRegion;
     private TextureRegionDrawable buttonDrawable;
     private Image craftMenu;
@@ -69,10 +72,20 @@ public class GameAreaDisplay extends UIComponent {
     private ImageButton resume;
     private ImageButton exit;
     private ImageButton controls;
+    private ImageButton howToCraft;
+    private ImageButton overviewBtn;
+    private ImageButton findItemsBtn;
+    private ImageButton weaponBuffsBtn;
+    private ImageButton skillTreeInfoBtn;
+    private ImageButton levelUpBtn;
+    private ImageButton accessInventoryBtn;
+    private ImageButton howToWinBtn;
+    private ImageButton playerGuideBtn;
     private Texture materialTexture;
     private TextureRegion materialTextureRegion;
     private TextureRegionDrawable materialDrawable;
     private Image matAmount;
+    private Image playerGuideMenu;
     private Image popUp;
     private String weaponType = "";
     private Image weapon;
@@ -80,6 +93,7 @@ public class GameAreaDisplay extends UIComponent {
     private Group materialsGroup = new Group();
     private Materials[] boxes = new Materials[2];
     private Group pausingGroup = new Group();
+    private Group playerGuidGroup = new Group();
     private Group keyBindGroup = new Group();
     private int keyBindPage = 0;
     private int keyBindMod = 0;
@@ -110,12 +124,12 @@ public class GameAreaDisplay extends UIComponent {
         gameLevel = (this.gameAreaName.equals("Underground"))? 2 : 1;
         ServiceLocator.registerInventoryArea(this);
         ServiceLocator.registerPauseArea(this);
+        ServiceLocator.registerPlayerGuideArea(this);
         ServiceLocator.registerKeyBindArea(this);
     }
 
     public String getGameAreaName() {
         return gameAreaName;
-
     }
 
     private void addActors() {
@@ -126,10 +140,10 @@ public class GameAreaDisplay extends UIComponent {
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
         logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
-        if (gameArea.getClass().getSimpleName().equals("ForestGameArea")) {
+        if (gameArea.getClass().getSimpleName().equals(ForestGameArea.class.getSimpleName())) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_1_tiledmap/minimap1.png")));
-        } else if (gameArea.getClass().getSimpleName().equals("UndergroundGameArea")) {
+        } else if (gameArea.getClass().getSimpleName().equals(UndergroundGameArea.class.getSimpleName())) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_2_tiledmap/minimap2.png")));
         } else {
@@ -139,8 +153,8 @@ public class GameAreaDisplay extends UIComponent {
 
         //Note: the position of the asset is at the bottom left.
         minimapImage.setSize(800, 977);
-        minimapImage.setPosition(Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2);
+        minimapImage.setPosition(Math.round((double)Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2),
+                Math.round((double)Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2));
         minimapGroup.addActor(minimapImage);
         stage.addActor(minimapGroup);
         stage.draw();
@@ -211,7 +225,7 @@ public class GameAreaDisplay extends UIComponent {
         for (Entity item : inventory.getEquipables()) {
             if (item != null) {
                 int itemSlot;
-                float padding = 128 + 64;
+                float padding = (float) 128 + 64;
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
                 Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
@@ -458,7 +472,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         resume = new ImageButton(buttonDrawable);
         resume.setSize(386f, 122.4f);
-        resume.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 570);
+        resume.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 576);
         resume.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -476,7 +490,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         exit = new ImageButton(buttonDrawable);
         exit.setSize(386, 122.4f);
-        exit.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 340);
+        exit.setPosition(pauseMenu.getX() + 765f, pauseMenu.getY() + 288);
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -495,7 +509,7 @@ public class GameAreaDisplay extends UIComponent {
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         controls = new ImageButton(buttonDrawable);
         controls.setSize(386, 122.4f);
-        controls.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 460);
+        controls.setPosition(pauseMenu.getX() + 762f, pauseMenu.getY() + 382);
         controls.addListener(
                 new ChangeListener() {
                     @Override
@@ -505,9 +519,222 @@ public class GameAreaDisplay extends UIComponent {
                     }
                 });
         pausingGroup.addActor(controls);
+
+        // Player guide menu added.
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        playerGuideBtn = new ImageButton(buttonDrawable);
+        playerGuideBtn.setSize(386, 122.4f);
+        playerGuideBtn.setPosition(pauseMenu.getX() + 762f, pauseMenu.getY() + 482);
+        playerGuideBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("Player guide button clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(1);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(1);
+                        }
+
+                    }
+                });
+        pausingGroup.addActor(playerGuideBtn);
         stage.addActor(pausingGroup);
 
         stage.draw();
+    }
+
+
+    // looks very complicated i know, look closer...
+    public void setPlayerGuideMenu(String filePath) {
+        logger.info("Opening Player guide menu");
+        playerGuideMenu = new Image(new Texture(filePath));
+
+        playerGuideMenu.setSize(1920, 1080);
+        playerGuideMenu.setPosition((float) ((float)Gdx.graphics.getWidth()/ (double)2 - playerGuideMenu.getWidth()/2),
+                (float) ((float)Gdx.graphics.getHeight()/(double) 2 - playerGuideMenu.getHeight()/2));
+        playerGuidGroup.addActor(playerGuideMenu);
+
+//        testing = new Image(new Texture("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl1.png"));
+//        testing.setSize(385, 97.4f);
+//        testing.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 675);
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        overviewBtn = new ImageButton(buttonDrawable);
+        overviewBtn.setSize(385, 97.4f);
+        overviewBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 745);
+        overviewBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("HowToCraft clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(1);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(1);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(overviewBtn);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        howToCraft = new ImageButton(buttonDrawable);
+        howToCraft.setSize(385, 97.4f);
+        howToCraft.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 675);
+        howToCraft.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("HowToCraft clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(2);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(2);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(howToCraft);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        findItemsBtn = new ImageButton(buttonDrawable);
+        findItemsBtn.setSize(385, 97.4f);
+        findItemsBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 605);
+        findItemsBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("find item section clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(3);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(3);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(findItemsBtn);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        weaponBuffsBtn = new ImageButton(buttonDrawable);
+        weaponBuffsBtn.setSize(385, 97.4f);
+        weaponBuffsBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 545);
+        weaponBuffsBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("weapon buff section clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(4);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(4);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(weaponBuffsBtn);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        skillTreeInfoBtn = new ImageButton(buttonDrawable);
+        skillTreeInfoBtn.setSize(385, 97.4f);
+        skillTreeInfoBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 475);
+        skillTreeInfoBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("skill tree info section clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(5);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(5);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(skillTreeInfoBtn);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        levelUpBtn = new ImageButton(buttonDrawable);
+        levelUpBtn.setSize(385, 97.4f);
+        levelUpBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 409);
+        levelUpBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("level up section clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(6);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(6);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(levelUpBtn);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        accessInventoryBtn = new ImageButton(buttonDrawable);
+        accessInventoryBtn.setSize(385, 97.4f);
+        accessInventoryBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 343);
+        accessInventoryBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("level up section clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(7);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(7);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(accessInventoryBtn);
+
+        buttonTexture = new Texture(Gdx.files.internal
+                ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
+        buttonTextureRegion = new TextureRegion(buttonTexture);
+        buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
+        howToWinBtn = new ImageButton(buttonDrawable);
+        howToWinBtn.setSize(385, 97.4f);
+        howToWinBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 275);
+        howToWinBtn.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.info("level up section clicked");
+                        if (getGameAreaName().equals("Underground")) {
+                            OpenPauseComponent.openPlayerGuideLevel2(8);
+                        } else {
+                            OpenPauseComponent.openPlayerGuide(8);
+                        }
+                    }
+                });
+        playerGuidGroup.addActor(howToWinBtn);
+        stage.addActor(playerGuidGroup);
+
+        stage.draw();
+    }
+
+    public void disposePlayerGuideMenu() {
+        playerGuidGroup.remove();
     }
 
     public void disposeResumeButton() {
@@ -566,7 +793,8 @@ public class GameAreaDisplay extends UIComponent {
     /**
      * Dispose the keybinding menu group
      */
-    public void disposeKeyBindMenu() { keyBindGroup.remove(); }
+    public void disposeKeyBindMenu() { keyBindGroup.clear(); }
+
 
     /**
      * Creates the appropriate image and label entries for key labelling

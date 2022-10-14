@@ -95,7 +95,7 @@ public class EntityService {
     pauseEndFlag = true;
   }
 
-  public static Boolean pauseCheck() {
+  public static boolean pauseCheck() {
     return paused;
   }
 
