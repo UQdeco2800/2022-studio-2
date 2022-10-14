@@ -128,6 +128,21 @@ class PlayerModifierTest {
     }
 
     @Test
+    void shouldNotHaveModifier() {
+
+        modifier.createModifier("moveSpeed", 2, false, 50);
+
+        modifier.update();
+        custom_wait(10);
+        modifier.update();
+
+        // Slightly different but nonexistent modifiers
+        assertFalse(modifier.checkModifier("moveSpeed", 3, false, 50));
+        assertFalse(modifier.checkModifier("moveSpeed", 2, true, 50));
+        assertFalse(modifier.checkModifier("moveSpeed", 2, false, 500));
+    }
+
+    @Test
     void shouldHaveAcceptedModifier () {
 
         modifier.createModifier("moveSpeed", 2, false, 0);
