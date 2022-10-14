@@ -106,6 +106,15 @@ class OpenPauseComponentTest {
         assertFalse(openPauseComponent.getPauseOpen());
     }
 
+    @Test
+    void shouldClosePauseMenuInventoryToggle() {
+
+        player.getEvents().trigger("toggleInventory");
+        player.getEvents().trigger("escInput");
+        player.getEvents().trigger("escInput");
+        assertFalse(openPauseComponent.getPauseOpen());
+    }
+
 
     @Test
     void shouldNotOpenPlayerGuide() {
@@ -156,14 +165,6 @@ class OpenPauseComponentTest {
 
         openPauseComponent.openKeyBindings();
         assertTrue(openPauseComponent.getKeyBindOpen());
-    }
-
-    @Test
-    void shouldOpenKeyBindingsInventoryToggle() {
-
-        player.getEvents().trigger("toggleInventory");
-        openPauseComponent.openKeyBindings();
-        assertTrue(openPauseComponent.getPauseOpen());
     }
 
     @Test
