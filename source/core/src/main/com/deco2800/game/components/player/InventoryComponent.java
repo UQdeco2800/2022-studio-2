@@ -38,7 +38,7 @@ public class InventoryComponent extends Component {
     /**
      * The maximum potion quantity
      */
-    private static final int MAX_POTION_QTY = 9;
+    private static final int MAX_QTY = 9;
 
     /**
      * The initial size of quick bar
@@ -497,7 +497,7 @@ public class InventoryComponent extends Component {
         boolean added = false;
 
         if (hasItem(potion, quickBarItems)) {
-            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < MAX_POTION_QTY) {// Maximum quantity for one potion
+            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < MAX_QTY) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
             }
@@ -533,7 +533,7 @@ public class InventoryComponent extends Component {
     /**
      * Removes the potion from the quickbar based on the input index
      *
-     * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+     * @param inputIndex the index that is returned from user actions
      */
     public void removePotion(int inputIndex) {
         quickBarItems.remove(inputIndex);

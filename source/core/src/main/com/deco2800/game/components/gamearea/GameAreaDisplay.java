@@ -241,9 +241,7 @@ public class GameAreaDisplay extends UIComponent {
                 float padding = (float) 128 + 64;
                 final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
-                Texture itemTexture = new Texture(item.getComponent(TextureRenderComponent.class).getTexturePath());
-                ImageButton equippedItem = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
-                equippedItem.setSize(128, 128);
+                ImageButton equippedItem = createImageButton(item, 128);
 
                 if (item.checkEntityType(EntityTypes.WEAPON)) {
                     verticalPosition = inventoryMenu.getY() + 416;
@@ -300,9 +298,7 @@ public class GameAreaDisplay extends UIComponent {
         items = inventory.getInventory();
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
-            Texture itemTexture = new Texture(currentItem.getComponent(TextureRenderComponent.class).getTexturePath());
-            ImageButton item = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
-            item.setSize(64, 64);
+            ImageButton item = createImageButton(currentItem, 64);
             int row = i / 4;
             int column = i % 4;
             float horizontalPosition = (inventoryMenu.getX() + 192) + column * (padding + 64);
@@ -348,9 +344,8 @@ public class GameAreaDisplay extends UIComponent {
                                                     break;
                                                 case "Add to quick bar":
                                                     if (inventory.addQuickBarItems(currentItem)) {
-
                                                         updateInventoryDisplay();
-                                                        potionsTex.add(itemTexture);
+                                                        QuickBarDisplay.updatePotionTable();
                                                     }
                                                     break;
                                             }
