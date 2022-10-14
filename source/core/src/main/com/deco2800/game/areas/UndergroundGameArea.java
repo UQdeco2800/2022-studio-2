@@ -201,9 +201,7 @@ public class UndergroundGameArea extends GameArea {
         megaPoop = spawnMegaPoop();
         playMusic();
 
-        spawnSpeedDebuff();
         spawnDmgBuff();
-        spawnDmgDebuff();
         spawnFireBuff();
         spawnPoisonBuff();
         spawnSpeedBuff();
@@ -570,9 +568,9 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+/*    *//**
      * Spawns speed debuff entity into the game
-     */
+     *//*
     private void spawnSpeedDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(35, 98));
@@ -582,7 +580,7 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(speedDebuff);
             spawnEntityAt(speedDebuff, location, true, false);
         }
-    }
+    }*/
 
     /**
      * Spawns damage buff entity into the game
@@ -599,9 +597,9 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+/*    *//**
      * Spawns damage debuff entity into the game
-     */
+     *//*
     private void spawnDmgDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(80, 48));
@@ -612,7 +610,7 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(dmgDebuff);
             spawnEntityAt(dmgDebuff, location, true, false);
         }
-    }
+    }*/
 
     /**
      * Spawns fire buff entity into the game

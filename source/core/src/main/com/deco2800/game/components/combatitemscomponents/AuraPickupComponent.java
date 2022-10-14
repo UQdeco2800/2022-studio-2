@@ -10,6 +10,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class AuraPickupComponent extends ItemPickupComponent {
@@ -25,7 +26,7 @@ public class AuraPickupComponent extends ItemPickupComponent {
 
     @Override
     public void create() {
-        //logger = LoggerFactory.getLogger(AuraPickupComponent.class);
+        logger = LoggerFactory.getLogger(AuraPickupComponent.class);
         entity.getEvents().addListener("collisionStart", this::pickUpAura);
     }
 
