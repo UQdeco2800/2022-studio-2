@@ -10,6 +10,7 @@ import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,18 +34,19 @@ public class InventoryComponent extends Component {
     /**
      * The initial size of inventory
      */
-    private static final  int INVENTORY_SIZE = 16;
+    private static final int INVENTORY_SIZE = 16;
 
     /**
      * The initial size of quick bar
      */
-    private static final int QUICKBAR_SIZE= 3;
+    private static final int QUICKBAR_SIZE = 3;
 
     /**
      * Initial item equipment slot
      */
     private static final int EQUIP_SLOTS = 2;
 
+    private final int MAX_POTIONS_QTY = 9;
     /**
      * The status of inventory display
      */
@@ -104,7 +106,7 @@ public class InventoryComponent extends Component {
         entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
         ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
         String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-        String staticAnimation = description+"Static";
+        String staticAnimation = description + "Static";
         combatAnimator.getEvents().trigger(staticAnimation);
     }
 
@@ -155,24 +157,25 @@ public class InventoryComponent extends Component {
      * @param item item to add
      */
     public void addItem(Entity item) {
-        if (inventory.size() == INVENTORY_SIZE) {
-            logger.info("Inventory is full");
-        } else if (!hasItem(item, inventory)) {
-            if ((item.checkEntityType(EntityTypes.WEAPON)
-                    || item.checkEntityType(EntityTypes.ARMOUR))) {
+        // If item doesn't exist in the inventory yet
+        if (!hasItem(item, inventory)) {
+            if (inventory.size() == INVENTORY_SIZE)
+                logger.info("Inventory is full");
+            else {
+                System.out.println("Somethin new to inventory");
                 inventory.add(item);
-                ++itemQuantity[inventory.indexOf(item)];
-            } else if (item.checkEntityType(EntityTypes.POTION)
-                    || item.checkEntityType(EntityTypes.CRAFTABLE)) {
-                inventory.add(item);
+                itemQuantity[inventory.indexOf(item)] = 1;
             }
         }
-        if (getItemIndex(item, inventory) != -1
-                && getItemQuantity(item) < 9
-                && (item.checkEntityType(EntityTypes.POTION)
-                || (!item.checkEntityType(EntityTypes.WEAPON)
-                && item.checkEntityType(EntityTypes.CRAFTABLE)))) {
-            ++itemQuantity[getItemIndex(item, inventory)];
+        // Item already exists in the inventory
+        else {
+            if (getItemQuantity(item) < MAX_POTIONS_QTY
+                    && ((item.checkEntityType(EntityTypes.POTION)
+                    || item.checkEntityType(EntityTypes.CRAFTABLE)))) {
+                System.out.println("Somethin existin to inventory");
+
+                ++itemQuantity[getItemIndex(item, inventory)];
+            }
         }
     }
 
@@ -201,12 +204,10 @@ public class InventoryComponent extends Component {
         boolean removed = false;
         int index = getItemIndex(item, inventory);
         if (index != -1) {
-            --itemQuantity[index];
-            if (getItemQuantity(item) == 0) {
-                sortInventory(index, inventory, itemQuantity);
-                inventory.remove(item);
-                removed = true;
-            }
+            itemQuantity[index] = 0;
+            sortInventory(index, inventory, itemQuantity);
+            inventory.remove(item);
+            removed = true;
         }
         return removed;
     }
@@ -342,7 +343,6 @@ public class InventoryComponent extends Component {
      * Equip the item and apply effect of the item to the player.
      *
      * @param item the item to be equipped
-     *
      */
     public boolean equipItem(Entity item) {
         boolean equipped = false;
@@ -469,7 +469,7 @@ public class InventoryComponent extends Component {
             equals = item.getComponent(ArmourStatsComponent.class)
                     .equals(other.getComponent(ArmourStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.WEAPON)
-        && other.checkEntityType(EntityTypes.WEAPON)) {
+                && other.checkEntityType(EntityTypes.WEAPON)) {
             equals = item.getComponent(PhysicalWeaponStatsComponent.class)
                     .equalsOther(other.getComponent(PhysicalWeaponStatsComponent.class));
         } else if (item.checkEntityType(EntityTypes.CRAFTABLE)
@@ -490,19 +490,29 @@ public class InventoryComponent extends Component {
      */
     public boolean addQuickBarItems(Entity potion) {
         boolean added = false;
-
         if (hasItem(potion, quickBarItems)) {
-            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
+            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < MAX_POTIONS_QTY) {
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
+            }
+            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
+
+        // If the potion type already existed on quickbar
+//        if (hasPotion) {
+//            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < MAX_POTIONS_QTY) {// Maximum quantity for one potion
+//                quickBarQuantity[getItemIndex(potion, quickBarItems)] += itemQuantity[inventory.indexOf(potion)];
+//                itemQuantity[inventory.indexOf(potion)] = 0;
+
                 added = true;
+                System.out.println("Added something new to quickbar, qty now " + quickBarQuantity[getItemIndex(potion, quickBarItems)]);
             }
         } else {
             if (quickBarItems.size() == QUICKBAR_SIZE) {
                 logger.info("Inventory is full");
             } else {
-                logger.info("Added to quick bar");
                 quickBarItems.add(potion);
-                ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
+                quickBarQuantity[getItemIndex(potion, quickBarItems)] = itemQuantity[inventory.indexOf(potion)];
+                System.out.println("Added something existing to quickbar, qty now " + quickBarQuantity[getItemIndex(potion, quickBarItems)]);
+                itemQuantity[inventory.indexOf(potion)] = 0;
                 added = true;
             }
         }
@@ -533,6 +543,7 @@ public class InventoryComponent extends Component {
     public void removePotion(int inputIndex) {
         quickBarItems.remove(inputIndex);
         quickBarQuantity[inputIndex] = 0;
+        UIComponent.RemovePotionTextureAt(inputIndex);
     }
 
     /**

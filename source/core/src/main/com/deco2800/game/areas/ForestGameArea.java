@@ -706,12 +706,20 @@ public class ForestGameArea extends GameArea {
     Entity speedPotion = PotionFactory.createSpeedPotion();
     ItemsOnMap.add(speedPotion);
     spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+    System.out.println("Spawnin speed potion");
+
+    Entity speedPotion2 = PotionFactory.createSpeedPotion();
+    ItemsOnMap.add(speedPotion2);
+    spawnEntityAt(speedPotion2, new GridPoint2(93, 8), true, true);
+    System.out.println("Spawnin speed potion 2");
+
   }
 
   private void spawnHealthPotion() {
     Entity speedPotion = PotionFactory.createHealthPotion();
     ItemsOnMap.add(speedPotion);
     spawnEntityAt(speedPotion, new GridPoint2(93, 10), true, true);
+    System.out.println("Spawnin health potion");
   }
 
   /**
