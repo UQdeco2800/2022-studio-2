@@ -29,6 +29,10 @@ public class HeraclesAnimationController extends Component {
         entity.getEvents().addListener("jumpBack", this::animateJumpBack);
         entity.getEvents().addListener("jumpLeft", this::animateJumpLeft);
         entity.getEvents().addListener("jumpRight", this::animateJumpRight);
+        entity.getEvents().addListener("vanishFront", this::animateVanishFront);
+        entity.getEvents().addListener("vanishBack", this::animateVanishBack);
+        entity.getEvents().addListener("vanishLeft", this::animateVanishLeft);
+        entity.getEvents().addListener("vanishRight", this::animateVanishRight);
         entity.getEvents().trigger("walkFront");
     }
 
@@ -137,6 +141,30 @@ public class HeraclesAnimationController extends Component {
     private void animateJumpRight() {
         if (!"jump_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("jump_right");
+        }
+    }
+
+    private void animateVanishFront() {
+        if (!"vanish_front".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_front");
+        }
+    }
+
+    private void animateVanishBack() {
+        if (!"vanish_back".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_back");
+        }
+    }
+
+    private void animateVanishLeft() {
+        if (!"vanish_left".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_left");
+        }
+    }
+
+    private void animateVanishRight() {
+        if (!"vanish_right".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_right");
         }
     }
 }

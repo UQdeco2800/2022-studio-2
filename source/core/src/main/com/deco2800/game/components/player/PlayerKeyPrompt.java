@@ -65,6 +65,7 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
         else if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.NPC)){
             logger.info("TEST KEY PROMPT NPC PRESS F TO OPEN DIALOGUE");
             logger.info("TEST KEY PROMPT NPC PRESS G TO CLOSE DIALOGUE");
+            keyPromptAnimator.getEvents().trigger("KeyNpcAnimation");
         }
 
 

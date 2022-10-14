@@ -1,7 +1,5 @@
 package com.deco2800.game.entities.factories;
 
-
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -27,6 +25,9 @@ import com.deco2800.game.services.ServiceLocator;
 
 public class ProjectileFactory {
 
+    private ProjectileFactory() {
+        throw new IllegalStateException("Instantiating static util class");
+    }
     /**
      * Creates base entity of projectile
      * @param ownerEntity the entity that throws this projectile
@@ -68,7 +69,7 @@ public class ProjectileFactory {
         //The alignment values come from 1/64 multiplied by the center point of the poop sludge (Since the poop sludge sprite is slightly off center)
         poops.getComponent(ColliderComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
         poops.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
-        poops.setEntityType(EntityTypes.ENEMY);
+        poops.setEntityType(EntityTypes.PROJECTILE);
 
         poops.setScale(2,2);
         return poops;
@@ -93,7 +94,7 @@ public class ProjectileFactory {
         discus.getComponent(HitboxComponent.class).setAsBoxAligned(new Vector2(0.28f, 0.125f),
                 PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.CENTER);
 
-        discus.setEntityType(EntityTypes.ENEMY);
+        discus.setEntityType(EntityTypes.PROJECTILE);
         discus.setScale(2,2);
         return discus;
     }
