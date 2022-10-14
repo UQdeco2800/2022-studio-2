@@ -205,6 +205,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
   }
 
+  public static void clearMenuOpening() {
+    menuOpened = false;
+    currentMenu = MenuTypes.NONE;
+  }
+
   private void triggerWalkEvent() {
     if (walkDirection.epsilonEquals(Vector2.Zero)) {
       entity.getEvents().trigger("walkStop");

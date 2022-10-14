@@ -440,6 +440,7 @@ public class GameAreaDisplay extends UIComponent {
             public void changed(ChangeEvent event, Actor actor) {
                 logger.info("Exit Crafting menu");
                 disposeCraftingMenu();
+                KeyboardPlayerInputComponent.clearMenuOpening();
                 EntityService.pauseAndResume();
                 OpenCraftingComponent.setCraftingStatus();
             }
@@ -497,6 +498,7 @@ public class GameAreaDisplay extends UIComponent {
             public void changed(ChangeEvent event, Actor actor) {
                 logger.debug("Pause menu exit button clicked");
                 KeyboardPlayerInputComponent.incrementPauseCounter();
+                KeyboardPlayerInputComponent.clearMenuOpening();
                 PauseMenuActions.setQuitGameStatus();
             }
         });
