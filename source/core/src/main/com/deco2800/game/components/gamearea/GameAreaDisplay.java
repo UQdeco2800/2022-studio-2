@@ -95,6 +95,7 @@ public class GameAreaDisplay extends UIComponent {
     private Group pausingGroup = new Group();
     private Group playerGuidGroup = new Group();
     private Group keyBindGroup = new Group();
+    private OpenKeyBinds openKeyBinds;
     private int keyBindPage = 0;
     private int keyBindMod = 0;
     private int firstTime = 0;
@@ -755,11 +756,15 @@ public class GameAreaDisplay extends UIComponent {
      * Utilises modulo technique to ensure page changing simply loops.
      */
     public void setKeyBindMenu() {
+
+        openKeyBinds = ServiceLocator.getGameArea().getPlayer().getComponent(OpenPauseComponent.class).getOpenKeyBinds();
+
         if (getGameAreaName().equals("Underground")) {
             keyBindMenu = new Image(new Texture("images/keybind/level_2/ControlPage.png"));
         } else {
             keyBindMenu = new Image(new Texture("images/keybind/level_1/ControlPage.png"));
         }
+
         keyBindMenu.setSize(1920, 1080);
         keyBindMenu.setPosition((float)Gdx.graphics.getWidth()/2 - keyBindMenu.getWidth()/2,
                 (float)Gdx.graphics.getHeight()/2 - keyBindMenu.getHeight()/2);
@@ -786,7 +791,7 @@ public class GameAreaDisplay extends UIComponent {
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.info("Moving to next keybinding page");
                         keyBindPage++;
-                        keyBindMod = ceil((float)OpenKeyBinds.getNumKeys() / (float)OpenKeyBinds.numKeysPerPage);
+                        keyBindMod = ceil((float)openKeyBinds.getNumKeys() / (float)openKeyBinds.KEYS_PER_PAGE);
                         keyBindPage = keyBindPage % keyBindMod;
                         disposeKeyBindMenu();
                         OpenPauseComponent.openKeyBindings();
@@ -810,9 +815,11 @@ public class GameAreaDisplay extends UIComponent {
      * @return Actor[]  Key images and label actors
      */
     public Actor[] createKeyBindings() {
-        OpenKeyBinds.KeyBind[] keyBinds = OpenKeyBinds.getKeyBinds(keyBindPage);
+        openKeyBinds = ServiceLocator.getGameArea().getPlayer().getComponent(OpenPauseComponent.class).getOpenKeyBinds();
+
+        OpenKeyBinds.KeyBind[] keyBinds = openKeyBinds.getKeyBinds(keyBindPage);
         OpenKeyBinds.KeyBind keyBind;
-        Actor[] keys = new Actor[OpenKeyBinds.numKeysPerPage * 2]; // x2, one for label, one for image
+        Actor[] keys = new Actor[OpenKeyBinds.KEYS_PER_PAGE * 2]; // x2, one for label, one for image
         Image keyTexture;
         Label keyText;
         int keyIndex = 0;
@@ -821,21 +828,23 @@ public class GameAreaDisplay extends UIComponent {
         while (keyIndex < keyBinds.length && keyBinds[keyIndex] != null) {
             // Create our key image
             keyBind = keyBinds[keyIndex];
+
             // Select image depending on level
             if (getGameAreaName().equals("Underground")) {
-                keyTexture = new Image(new Texture(keyBind.imagelvl2));
+                keyTexture = new Image(new Texture(keyBind.getImagelvl2()));
             } else {
-                keyTexture = new Image(new Texture(keyBind.imagelvl1));
+                keyTexture = new Image(new Texture(keyBind.getImagelvl1()));
             }
+
             keyTexture.setSize(128, 72);
-            keyTexture.setPosition(OpenKeyBinds.keyTexturePosLUT[keyIndex][0],
-                    OpenKeyBinds.keyTexturePosLUT[keyIndex][1]);
+            keyTexture.setPosition(openKeyBinds.getKeyPos(keyIndex,0),
+                    openKeyBinds.getKeyPos(keyIndex, 1));
             keys[pos++] = keyTexture;
 
             // Create our label
-            keyText = new Label(keyBind.description, skin);
-            keyText.setPosition((float)(OpenKeyBinds.keyTexturePosLUT[keyIndex][0] + OpenKeyBinds.keyLabelOffsetX),
-                    (float)(OpenKeyBinds.keyTexturePosLUT[keyIndex][1] + OpenKeyBinds.keyLabelOffsetY));
+            keyText = new Label(keyBind.getDescription(), skin);
+            keyText.setPosition((float)(openKeyBinds.getKeyPos(keyIndex, 0) + openKeyBinds.KEY_OFFSET_X),
+                    (float)(openKeyBinds.getKeyPos(keyIndex, 1) + openKeyBinds.KEY_OFFSET_Y));
             keys[pos++] = keyText;
 
             keyIndex++;

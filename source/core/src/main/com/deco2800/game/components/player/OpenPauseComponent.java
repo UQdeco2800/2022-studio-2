@@ -51,18 +51,19 @@ public class OpenPauseComponent extends Component {
 
         logger = LoggerFactory.getLogger(OpenPauseComponent.class);
         entity.getEvents().addListener("escInput", this::togglePauseMenu);
-        entity.getEvents().addListener("toggleInventory", this::setInventoryStatus);
         entity.getEvents().addListener("toggleMinimap", this::setMinimapStatus);
         pauseOpen = false;
         keyBindOpen = false;
         playerGuideOpen = false;
         inventoryToggled = false;
         minimapToggled = false;
-//        entity.getEvents().addListener("game paused", this::openPauseMenu);
-//        entity.getEvents().addListener("game resumed", this::closePauseMenu);
-        //entity.getEvents().addListener("is_opening", this::setCraftingStatus);
-        //entity.getEvents().addListener("is_closed", this::setCraftingStatus);
     }
+
+    /**
+     * Return the OpenKeyBinds component this utilises
+     * @return  As above.
+     */
+    public OpenKeyBinds getOpenKeyBinds() { return openKeyBinds; }
 
 
     private void setMinimapStatus() {
