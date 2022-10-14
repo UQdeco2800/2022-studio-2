@@ -690,7 +690,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnHealthPotion() {
     Entity healthPotion = PotionFactory.createHealthPotion();
-    ItemsOnMap.add(healthPotion);
+    itemsOnMap.add(healthPotion);
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
 
