@@ -647,8 +647,6 @@ public class ForestGameArea extends GameArea {
 
   /**
    * Spawn column in a certain position. - Team 5 1map4all @LYB
-   * @param x-axis for the position(horizontal).
-   * @param y-axis for the position (vertical).
    */
 //  private void spawnColumn(int x, int y) {
 //    Entity column = ObstacleFactory.createColumn();
