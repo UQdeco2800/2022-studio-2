@@ -267,8 +267,8 @@ public class GameAreaDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         Button unequipBtn = createInventoryButton("unequip");
-                        Button dropItemBtn = createInventoryButton("drop")
-                                
+                        Button dropItemBtn = createInventoryButton("drop");
+
                         unequipBtn.setPosition(horizontalPosition + 63, verticalPosition);
                         dropItemBtn.setPosition(horizontalPosition + 63, verticalPosition - 40);
                         dropdownGroup.addActor(unequipBtn);
