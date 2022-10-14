@@ -135,7 +135,9 @@ public class ForestGameArea extends GameArea {
     "images/countdown/3.png",
     "images/countdown/4.png",
     "images/countdown/5.png",
-    "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png"
+    "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
+          "images/CombatItems/animations/BuffBounce/mapBounce.png",
+          "images/CombatItems/animations/BuffAnimations/buff.png"
   };
 
   public static String[] newTextures;
@@ -153,8 +155,9 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/poop.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
     "images/Enemies/poop.atlas",
           "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
-          "images/Enemies/heracles.atlas", "images/Skills/WrenchAnimation.atlas"
-
+          "images/Enemies/heracles.atlas", "images/Skills/WrenchAnimation.atlas",
+          "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
+          "images/CombatItems/animations/BuffAnimations/buff.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
           "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
@@ -252,9 +255,7 @@ public class ForestGameArea extends GameArea {
     spawnArmour(ArmourFactory.ArmourType.fastLeather, 7, 7);
     spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
 
-    spawnSpeedDebuff();
     spawnDmgBuff();
-    spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
     spawnSpeedBuff();
@@ -273,18 +274,6 @@ public class ForestGameArea extends GameArea {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.LEVEL_ONE);
     spawnEntity(new Entity().addComponent(terrain));
-
-    //Place the columns
-//    spawnColumn(8, 3);
-//    spawnColumn(15, 3);
-
-    //Place the trees
-//    spawnTrees(2,15);
-//    spawnTrees(22,15);
-//    spawnSmallTrees(1,6);
-//    spawnSmallTrees(22,6);
-//    spawnRock(2,9);
-//    spawnRock(22, 8);
 
     // Terrain walls
     float tileSize = terrain.getTileSize();
@@ -408,6 +397,112 @@ public class ForestGameArea extends GameArea {
             false);
     spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(44, 81), false,
             false);
+
+    // Zone E Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 49f), new GridPoint2(89, 132), false,
+            false);
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(53f), new GridPoint2(89, 181), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(55f, 1f), new GridPoint2(95, 137), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 25f), new GridPoint2(141, 156), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(10f, 1f), new GridPoint2(141, 156), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 7f), new GridPoint2(150, 149), false,
+            false);
+
+    // Zone E Walls Pools
+    spawnEntityAt(ObstacleFactory.createWall(11f, 1f), new GridPoint2(106, 146), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(11f, 1f), new GridPoint2(119, 146), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(11f, 1f), new GridPoint2(106, 154), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(11f, 1f), new GridPoint2(119, 154), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(20f, 1f), new GridPoint2(108, 156), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(20f, 1f), new GridPoint2(108, 170), false,
+            false);
+
+    spawnEntityAt(ObstacleFactory.createWall(1f, 15f), new GridPoint2(108, 156), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 15f), new GridPoint2(127, 156), false,
+            false);
+
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(106, 146), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(117, 146), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(119, 146), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 9f), new GridPoint2(129, 146), false,
+            false);
+
+    // Zone F Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 12f), new GridPoint2(149, 125), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 23f), new GridPoint2(161, 125), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(6f, 1f), new GridPoint2(143, 125), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(21f, 1f), new GridPoint2(161, 125), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(6f, 1f), new GridPoint2(143, 110), false,
+            false);
+
+    // Zone G Walls
+    spawnEntityAt(ObstacleFactory.createWall(1f, 20f), new GridPoint2(169, 90), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 45f), new GridPoint2(181, 90), false,
+            false);
+
+    // Zone H Walls
+    spawnEntityAt(ObstacleFactory.createWall(4f, 1f), new GridPoint2(165, 90), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(4f, 1f), new GridPoint2(165, 89), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(3f, 1f), new GridPoint2(165, 88), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(2f, 1f), new GridPoint2(165, 87), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(5f, 1f), new GridPoint2(181, 90), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(4f, 1f), new GridPoint2(182, 89), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(3f, 1f), new GridPoint2(183, 88), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(2f, 1f), new GridPoint2(184, 87), false,
+            false);
+
+    spawnEntityAt(ObstacleFactory.createWall(20f, 1f), new GridPoint2(165, 50), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 40f), new GridPoint2(165, 50), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 40f), new GridPoint2(185, 50), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(4f, 1f), new GridPoint2(165, 51), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(2f, 1f), new GridPoint2(165, 52), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(4f, 1f), new GridPoint2(182, 51), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(2f, 1f), new GridPoint2(184, 52), false,
+            false);
+
+    // Zone G Walls pool
+    spawnEntityAt(ObstacleFactory.createWall(1f, 26f), new GridPoint2(171, 60), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(1f, 26f), new GridPoint2(179, 60), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(9f, 1f), new GridPoint2(171, 59), false,
+            false);
+    spawnEntityAt(ObstacleFactory.createWall(9f, 1f), new GridPoint2(171, 85), false,
+            false);
+
+    spawnEntityAt(ObstacleFactory.drawColumnsCollision(19f), new GridPoint2(166, 48), false,
+            false);
   }
 
   private void spawnTrees(int x, int y) {
@@ -421,6 +516,9 @@ public class ForestGameArea extends GameArea {
     auraOnMap.remove(entityToRemove);
 
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
+    if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+      Gdx.app.postRunnable(() -> entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation());
+    }
   }
 
   public static void removeItemOnMap(Entity entityToRemove) {
@@ -456,9 +554,12 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  /**
+/*
+  */
+/**
    * Spawns speed debuff entity into the game
-   */
+   *//*
+
   private void spawnSpeedDebuff() {
     List<GridPoint2> locations = new ArrayList<>();
     locations.add(new GridPoint2(84, 178));
@@ -469,6 +570,7 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(speedDebuff, location, true, false);
     }
   }
+*/
 
   /**
    * Spawns damage buff entity into the game
@@ -486,9 +588,9 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  /**
+/*  *//**
    * Spawns damage debuff entity into the game
-   */
+   *//*
   private void spawnDmgDebuff() {
     List<GridPoint2> locations = new ArrayList<>();
     locations.add(new GridPoint2(96, 65));
@@ -498,7 +600,7 @@ public class ForestGameArea extends GameArea {
       auraOnMap.add(dmgDebuff);
       spawnEntityAt(dmgDebuff, location, true, false);
     }
-  }
+  }*/
 
   /**
    * Spawns fire buff entity into the game
@@ -782,13 +884,15 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawns a projectile at the player entity's coordinates.
+   * Spawns a weapon bow projectile at the player entity's coordinates.
    */
   public void spawnWeaponProjectile() { //TEAM 04 WIP
+
     Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
     spawnEntityAt(newProjectile,
             new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
             true, true);
+
   }
 
 
@@ -975,10 +1079,10 @@ public class ForestGameArea extends GameArea {
    */
   private Entity spawnHeracles() {
     GridPoint2 position = new GridPoint2(174, 65);
-    Entity heracles = NPCFactory.createHeracles(player);
-    areaEntities.add(heracles);
-    spawnEntityAt(heracles, position, true, true);
-    return heracles;
+    Entity heraclesBoss = NPCFactory.createHeracles(player);
+    areaEntities.add(heraclesBoss);
+    spawnEntityAt(heraclesBoss, position, true, true);
+    return heraclesBoss;
   }
 
   private void playMusic() {

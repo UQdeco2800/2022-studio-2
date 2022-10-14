@@ -331,6 +331,7 @@ public class PlayerActions extends Component {
    * Registers call of the ultimate function to the skill manager component.
    */
   public void fireballUltimate() {
+    projectileSound.play();
     skillManager.startFireballUltimate();
   }
 

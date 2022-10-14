@@ -41,6 +41,9 @@ public class DeathScreenDisplayTest {
     Entity sockPuppet;
     @Mock Entity entity;
 
+    Entity dummy;
+
+
 
     /**
      * Does things before each test is run
@@ -48,22 +51,20 @@ public class DeathScreenDisplayTest {
     @BeforeEach
     void init() {
 
-        Entity mockk = mock(Entity.class);
-
+        dummy = new Entity();
         deathScreenDisplay = new DeathScreenDisplay();
+
+        // Create our service locator
         AssetManager assetManager = spy(AssetManager.class);
         ResourceService resourceService = new ResourceService(assetManager);
-        String deathTextures[] = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
+        ServiceLocator.registerResourceService(resourceService);
+
+        String deathTextures[] = {"images/DeathScreens/lvl_1_w_buttons.png", "images/DeathScreens/lvl_2_w_buttons.png",
+        "images/WinScreen/atlantis_sinks_no_island_win.png", };
         resourceService.loadTextures(deathTextures);
         resourceService.loadAll();
 
-        ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
-        ServiceLocator.registerInputService(new InputService());
-        ServiceLocator.registerResourceService(new ResourceService());
-        ServiceLocator.registerRenderService(new RenderService());
-
-        mockk.addComponent(deathScreenDisplay);
+        dummy.addComponent(deathScreenDisplay);
 
     }
 
@@ -72,6 +73,8 @@ public class DeathScreenDisplayTest {
      */
     @Test
     void levelBackgroundOne() {
+        //assertTrue();
+
 //        level = 1;
 //        deathScreenDisplay = new DeathScreenDisplay(level);
 //        Texture tex = ServiceLocator.getResourceService().getAsset("images/DeathScreens/lvl_1.png", Texture.class);
