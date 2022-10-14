@@ -11,22 +11,23 @@ import com.deco2800.game.entities.EntityService;
 import java.util.ArrayList;
 
 public class OpenPauseComponent extends Component {
-    private static Logger logger;
-    //private static Boolean isOpen = false;
+    private static Logger logger = LoggerFactory.getLogger(OpenPauseComponent.class);
     private static Boolean pauseOpen;
     private static Boolean keyBindOpen;
     private static Boolean playerGuideOpen;
     private static Boolean inventoryToggled;
-
-    private static Boolean minimapToggled;
     private static ArrayList<String> playerGuideAssets = new ArrayList<>();
     private static ArrayList<String> playerGuideAssetslevel2 = new ArrayList<>();
+    private OpenKeyBinds openKeyBinds;
 
-    public static OpenKeyBinds openKeyBinds;
+    static {
+        pauseOpen = false;
+        keyBindOpen = false;
+        playerGuideOpen = false;
+        inventoryToggled = false;
+    }
 
-    //private static Boolean craftingStatus = false;
-//    private GdxGame game;
-
+    @Override
     public void create() {
 
         openKeyBinds = new OpenKeyBinds();
@@ -48,15 +49,10 @@ public class OpenPauseComponent extends Component {
         playerGuideAssetslevel2.add("images/Player Guide/level_2/7.png");
         playerGuideAssetslevel2.add("images/Player Guide/level_2/8.png");
 
-
-        logger = LoggerFactory.getLogger(OpenPauseComponent.class);
         entity.getEvents().addListener("escInput", this::togglePauseMenu);
-        entity.getEvents().addListener("toggleMinimap", this::setMinimapStatus);
-        pauseOpen = false;
-        keyBindOpen = false;
-        playerGuideOpen = false;
-        inventoryToggled = false;
-        minimapToggled = false;
+        entity.getEvents().addListener("toggleInventory", this::setInventoryStatus);
+
+
     }
 
     /**
@@ -64,11 +60,6 @@ public class OpenPauseComponent extends Component {
      * @return  As above.
      */
     public OpenKeyBinds getOpenKeyBinds() { return openKeyBinds; }
-
-
-    private void setMinimapStatus() {
-        minimapToggled = !minimapToggled;
-    }
 
     /**
      * Handler function for any escape input key-press registered by the player
@@ -82,11 +73,15 @@ public class OpenPauseComponent extends Component {
         if (keyBindOpen || playerGuideOpen) {
             closeKeyBindings();
             closePlayerGuide();
-        } else if (!pauseOpen) {
+        } else if (Boolean.FALSE.equals(pauseOpen)) {
             openPauseMenu();
-        } else if (pauseOpen) {
+        } else {
             closePauseMenu();
         }
+    }
+
+    private void setInventoryStatus() {
+        inventoryToggled = !inventoryToggled;
     }
 
     /**
@@ -96,13 +91,7 @@ public class OpenPauseComponent extends Component {
         logger.info("Opening pause window");
         ServiceLocator.getPauseMenuArea().setPauseMenu();
         pauseOpen = true;
-        if (!inventoryToggled) { EntityService.pauseGame(); }
-    }
-
-    public static void openPlayerGuide1() {
-        logger.info("Opening player guide menu 1");
-        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(0));
-        playerGuideOpen = true;
+        if (Boolean.FALSE.equals(inventoryToggled)) { EntityService.pauseGame(); }
     }
 
     public static Boolean openPlayerGuide(Integer playerGuidePageNumber) {
@@ -198,22 +187,31 @@ public class OpenPauseComponent extends Component {
                 return false;
         }
     }
-    public static void openPlayerGuide2() {
-        logger.info("Opening player guide menu 2");
-        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(1));
-        playerGuideOpen = true;
-    }
 
-    public static void openPlayerGuide3() {
-        logger.info("Opening player guide menu 3");
-        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(2));
-        playerGuideOpen = true;
-    }
+//    public static void openPlayerGuide1() {
+//        logger.info("Opening player guide menu 1");
+//        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(0));
+//        playerGuideOpen = true;
+//    }
+//
+//    public static void openPlayerGuide2() {
+//        logger.info("Opening player guide menu 2");
+//        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(1));
+//        playerGuideOpen = true;
+//    }
+//
+//    public static void openPlayerGuide3() {
+//        logger.info("Opening player guide menu 3");
+//        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(2));
+//        playerGuideOpen = true;
+//    }
+
     public static void closePlayerGuide() {
         logger.info("Closing player guide menu");
         ServiceLocator.getPlayerGuidArea().disposePlayerGuideMenu();
         playerGuideOpen = false;
     }
+
     /**
      * Utility function to CLOSE pause window and UNPAUSE the game.
      */
@@ -221,7 +219,7 @@ public class OpenPauseComponent extends Component {
         logger.info("Closing pause window");
         ServiceLocator.getPauseMenuArea().disposePauseMenu();
         pauseOpen = false;
-        if (!inventoryToggled) { EntityService.pauseAndResume(); }
+        if (Boolean.FALSE.equals(inventoryToggled)) { EntityService.pauseAndResume(); }
     }
 
     /**
@@ -241,40 +239,4 @@ public class OpenPauseComponent extends Component {
         ServiceLocator.getKeyBindArea().disposeKeyBindMenu();
         keyBindOpen = false;
     }
-
-//    static Boolean getPauseOpen() {
-//        return pauseOpen;
-//    }
-
-    private void setInventoryStatus() {
-        inventoryToggled = !inventoryToggled;
-    }
-//
-//    public static boolean getPausingStatus() {
-//        return isOpen;
-//    }
-//
-//    private boolean getInventoryStatus() {
-//        return inventoryToggled;
-//    }
-
-    //    private void openPauseMenu() {
-//        if (isOpen == false && OpenCraftingComponent.craftingStatus == false && !inventoryToggled) {
-//            ServiceLocator.getPauseMenuArea().setPauseMenu();
-//            isOpen = true;
-//            EntityService.pauseGame();
-//        }
-//    }
-//
-//    private void closePauseMenu() {
-//        if (isOpen == true) {
-//            ServiceLocator.getPauseMenuArea().disposePauseMenu();
-//            isOpen = false;
-//            EntityService.pauseAndResume();
-//        }
-//    }
-
-//    public static void setPauseMenuStatus() {
-//        isOpen = !isOpen;
-//    }
 }
