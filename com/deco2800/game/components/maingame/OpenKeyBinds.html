@@ -107,17 +107,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static final int</code></div>
-<div class="col-second even-row-color"><code><a href="#keyLabelOffsetX" class="member-name-link">keyLabelOffsetX</a></code></div>
+<div class="col-second even-row-color"><code><a href="#KEY_OFFSET_X" class="member-name-link">KEY_OFFSET_X</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 <div class="col-first odd-row-color"><code>static final int</code></div>
-<div class="col-second odd-row-color"><code><a href="#keyLabelOffsetY" class="member-name-link">keyLabelOffsetY</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#KEY_OFFSET_Y" class="member-name-link">KEY_OFFSET_Y</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static final int[][]</code></div>
-<div class="col-second even-row-color"><code><a href="#keyTexturePosLUT" class="member-name-link">keyTexturePosLUT</a></code></div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#KEYS_PER_PAGE" class="member-name-link">KEYS_PER_PAGE</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static final int</code></div>
-<div class="col-second odd-row-color"><code><a href="#numKeysPerPage" class="member-name-link">numKeysPerPage</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-com.deco2800.game.components.Component">Fields inherited from class&nbsp;com.deco2800.game.components.<a href="../Component.html" title="class in com.deco2800.game.components">Component</a></h3>
@@ -142,25 +139,29 @@ loadScripts(document, 'script');</script>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="OpenKeyBinds.KeyBind.html" title="class in com.deco2800.game.components.maingame">OpenKeyBinds.KeyBind</a>[]</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getKeyBinds(int)" class="member-name-link">getKeyBinds</a><wbr>(int&nbsp;page)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="OpenKeyBinds.KeyBind.html" title="class in com.deco2800.game.components.maingame">OpenKeyBinds.KeyBind</a>[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getKeyBinds(int)" class="member-name-link">getKeyBinds</a><wbr>(int&nbsp;page)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the KeyBinds associated with the keybinding pause menu page number.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getNumKeys()" class="member-name-link">getNumKeys</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getKeyPos(int,int)" class="member-name-link">getKeyPos</a><wbr>(int&nbsp;index,
+ int&nbsp;level)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNumKeys()" class="member-name-link">getNumKeys</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Get the number of keys initialised.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#unloadKeyBindAssets()" class="member-name-link">unloadKeyBindAssets</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#unloadKeyBindAssets()" class="member-name-link">unloadKeyBindAssets</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Unload the keybinding key image assets.</div>
 </div>
 </div>
@@ -184,48 +185,42 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="numKeysPerPage">
-<h3>numKeysPerPage</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">numKeysPerPage</span></div>
+<section class="detail" id="KEYS_PER_PAGE">
+<h3>KEYS_PER_PAGE</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">KEYS_PER_PAGE</span></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../../../../../constant-values.html#com.deco2800.game.components.maingame.OpenKeyBinds.numKeysPerPage">Constant Field Values</a></li>
+<li><a href="../../../../../constant-values.html#com.deco2800.game.components.maingame.OpenKeyBinds.KEYS_PER_PAGE">Constant Field Values</a></li>
 </ul>
 </dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="keyTexturePosLUT">
-<h3>keyTexturePosLUT</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int[][]</span>&nbsp;<span class="element-name">keyTexturePosLUT</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="keyLabelOffsetX">
-<h3>keyLabelOffsetX</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">keyLabelOffsetX</span></div>
+<section class="detail" id="KEY_OFFSET_X">
+<h3>KEY_OFFSET_X</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">KEY_OFFSET_X</span></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../../../../../constant-values.html#com.deco2800.game.components.maingame.OpenKeyBinds.keyLabelOffsetX">Constant Field Values</a></li>
+<li><a href="../../../../../constant-values.html#com.deco2800.game.components.maingame.OpenKeyBinds.KEY_OFFSET_X">Constant Field Values</a></li>
 </ul>
 </dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="keyLabelOffsetY">
-<h3>keyLabelOffsetY</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">keyLabelOffsetY</span></div>
+<section class="detail" id="KEY_OFFSET_Y">
+<h3>KEY_OFFSET_Y</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">KEY_OFFSET_Y</span></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../../../../../constant-values.html#com.deco2800.game.components.maingame.OpenKeyBinds.keyLabelOffsetY">Constant Field Values</a></li>
+<li><a href="../../../../../constant-values.html#com.deco2800.game.components.maingame.OpenKeyBinds.KEY_OFFSET_Y">Constant Field Values</a></li>
 </ul>
 </dd>
 </dl>
@@ -254,6 +249,13 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="getKeyPos(int,int)">
+<h3>getKeyPos</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getKeyPos</span><wbr><span class="parameters">(int&nbsp;index,
+ int&nbsp;level)</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="unloadKeyBindAssets()">
 <h3>unloadKeyBindAssets</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">unloadKeyBindAssets</span>()</div>
@@ -263,7 +265,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getKeyBinds(int)">
 <h3>getKeyBinds</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="OpenKeyBinds.KeyBind.html" title="class in com.deco2800.game.components.maingame">OpenKeyBinds.KeyBind</a>[]</span>&nbsp;<span class="element-name">getKeyBinds</span><wbr><span class="parameters">(int&nbsp;page)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="OpenKeyBinds.KeyBind.html" title="class in com.deco2800.game.components.maingame">OpenKeyBinds.KeyBind</a>[]</span>&nbsp;<span class="element-name">getKeyBinds</span><wbr><span class="parameters">(int&nbsp;page)</span></div>
 <div class="block">Gets the KeyBinds associated with the keybinding pause menu page number.
  Returns up to a maximum of 8 KeyBind types.</div>
 <dl class="notes">
@@ -277,7 +279,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getNumKeys()">
 <h3>getNumKeys</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getNumKeys</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getNumKeys</span>()</div>
 <div class="block">Get the number of keys initialised.</div>
 <dl class="notes">
 <dt>Returns:</dt>
