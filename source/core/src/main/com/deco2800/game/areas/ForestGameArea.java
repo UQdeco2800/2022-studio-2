@@ -691,7 +691,6 @@ public class ForestGameArea extends GameArea {
   private void spawnHealthPotion() {
     Entity healthPotion = PotionFactory.createHealthPotion();
     itemsOnMap.add(healthPotion);
-    // checking if still broken
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
 
@@ -904,8 +903,8 @@ public class ForestGameArea extends GameArea {
   }
 
   public static Vector2 GridPointToVector(GridPoint2 position) {
-    int playerX = position.x;
-    int playerY = position.y;
+    int playerX = (int) position.x;
+    int playerY = (int) position.y;
     return new Vector2(playerX, playerY);
   }
 
