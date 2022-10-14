@@ -1,7 +1,5 @@
 package com.deco2800.game.entities.factories;
 
-
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -27,6 +25,9 @@ import com.deco2800.game.services.ServiceLocator;
 
 public class ProjectileFactory {
 
+    private ProjectileFactory() {
+        throw new IllegalStateException("Instantiating static util class");
+    }
     /**
      * Creates base entity of projectile
      * @param ownerEntity the entity that throws this projectile

@@ -143,13 +143,13 @@ public class CombatStatsComponent extends Component {
       int newHealth = getHealth() - (int) ((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
     }
-
-    if (isDead() && entity.checkEntityType(EntityTypes.ENEMY)) {
+    Boolean checkDead = this.isDead();
+    if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
 
       Gdx.app.postRunnable(() -> {
         dropMaterial();
         dropWeapon();
-        entity.dispose();
+        //entity.dispose();
       });
 
       if (entity.getComponent(AnimationRenderComponent.class) != null) {

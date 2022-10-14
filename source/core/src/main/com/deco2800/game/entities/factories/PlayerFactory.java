@@ -61,7 +61,6 @@ public class PlayerFactory {
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina, stats.mana))
             .addComponent(new PlayerActions())
             .addComponent(new PlayerSkillScreenOverlay())
-            .addComponent(new SkillsTreeDisplay())
             .addComponent(new InventoryComponent())
             .addComponent(new PlayerModifier())
             .addComponent(inputComponent)
@@ -94,9 +93,9 @@ public class PlayerFactory {
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createGoldenPlungerBow());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPipe());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());*/
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());*/
     return player;
   }
 
@@ -152,6 +151,7 @@ public class PlayerFactory {
 
     animator.addAnimation("default", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("Q", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("Npc", 0.1f, Animation.PlayMode.LOOP);
     Entity keyPromptAnimator =
             new Entity().addComponent(animator)
                     .addComponent(new PlayerKPAnimationController(playerEntity));

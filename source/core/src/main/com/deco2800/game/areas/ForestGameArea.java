@@ -135,7 +135,9 @@ public class ForestGameArea extends GameArea {
     "images/countdown/3.png",
     "images/countdown/4.png",
     "images/countdown/5.png",
-    "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png"
+    "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
+          "images/CombatItems/animations/BuffBounce/mapBounce.png",
+          "images/CombatItems/animations/BuffAnimations/buff.png"
   };
 
   public static String[] newTextures;
@@ -153,8 +155,9 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/poop.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
     "images/Enemies/poop.atlas",
           "images/CombatItems/animations/combatItemsAnimation.atlas", "images/Skills/projectileSprites.atlas",
-          "images/Enemies/heracles.atlas", "images/Skills/WrenchAnimation.atlas"
-
+          "images/Enemies/heracles.atlas", "images/Skills/WrenchAnimation.atlas",
+          "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
+          "images/CombatItems/animations/BuffAnimations/buff.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
           "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
@@ -252,9 +255,7 @@ public class ForestGameArea extends GameArea {
     spawnArmour(ArmourFactory.ArmourType.fastLeather, 7, 7);
     spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
 
-    spawnSpeedDebuff();
     spawnDmgBuff();
-    spawnDmgDebuff();
     spawnFireBuff();
     spawnPoisonBuff();
     spawnSpeedBuff();
@@ -515,6 +516,9 @@ public class ForestGameArea extends GameArea {
     auraOnMap.remove(entityToRemove);
 
     Gdx.app.postRunnable(() -> entityToRemove.dispose());
+    if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+      Gdx.app.postRunnable(() -> entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation());
+    }
   }
 
   public static void removeItemOnMap(Entity entityToRemove) {
@@ -550,9 +554,12 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  /**
+/*
+  */
+/**
    * Spawns speed debuff entity into the game
-   */
+   *//*
+
   private void spawnSpeedDebuff() {
     List<GridPoint2> locations = new ArrayList<>();
     locations.add(new GridPoint2(84, 178));
@@ -563,6 +570,7 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(speedDebuff, location, true, false);
     }
   }
+*/
 
   /**
    * Spawns damage buff entity into the game
@@ -580,9 +588,9 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  /**
+/*  *//**
    * Spawns damage debuff entity into the game
-   */
+   *//*
   private void spawnDmgDebuff() {
     List<GridPoint2> locations = new ArrayList<>();
     locations.add(new GridPoint2(96, 65));
@@ -592,7 +600,7 @@ public class ForestGameArea extends GameArea {
       auraOnMap.add(dmgDebuff);
       spawnEntityAt(dmgDebuff, location, true, false);
     }
-  }
+  }*/
 
   /**
    * Spawns fire buff entity into the game
@@ -876,13 +884,15 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Spawns a projectile at the player entity's coordinates.
+   * Spawns a weapon bow projectile at the player entity's coordinates.
    */
   public void spawnWeaponProjectile() { //TEAM 04 WIP
+
     Entity newProjectile = ProjectileFactory.createWeaponProjectile(player, 0);
     spawnEntityAt(newProjectile,
             new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
             true, true);
+
   }
 
 
@@ -1069,10 +1079,10 @@ public class ForestGameArea extends GameArea {
    */
   private Entity spawnHeracles() {
     GridPoint2 position = new GridPoint2(174, 65);
-    Entity heracles = NPCFactory.createHeracles(player);
-    areaEntities.add(heracles);
-    spawnEntityAt(heracles, position, true, true);
-    return heracles;
+    Entity heraclesBoss = NPCFactory.createHeracles(player);
+    areaEntities.add(heraclesBoss);
+    spawnEntityAt(heraclesBoss, position, true, true);
+    return heraclesBoss;
   }
 
   private void playMusic() {

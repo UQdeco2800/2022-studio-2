@@ -10,6 +10,7 @@ import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.services.ResourceService;
@@ -21,6 +22,7 @@ import com.deco2800.game.areas.ForestGameArea.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static com.deco2800.game.areas.ForestGameArea.GridPointToVector;
 
@@ -140,7 +142,10 @@ public class UndergroundGameArea extends GameArea {
             "images/countdown/2.png",
             "images/countdown/3.png",
             "images/countdown/4.png",
-            "images/countdown/5.png"
+            "images/countdown/5.png",
+            "images/CombatItems/animations/BuffBounce/mapBounce.png",
+            "images/CombatItems/animations/BuffAnimations/buff.png"
+
     };
 
     public static String[] newTextures;
@@ -150,7 +155,14 @@ public class UndergroundGameArea extends GameArea {
             "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
-            "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
+
+            "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/dialogue_indicator/dialogue.atlas",
+
+            "images/NPC/friendly_creature npc/friendly_creature.atlas",
+            "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
+            "images/CombatItems/animations/BuffAnimations/buff.atlas"
+
+
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
             "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
@@ -199,9 +211,7 @@ public class UndergroundGameArea extends GameArea {
         megaPoop = spawnMegaPoop();
         playMusic();
 
-        spawnSpeedDebuff();
         spawnDmgBuff();
-        spawnDmgDebuff();
         spawnFireBuff();
         spawnPoisonBuff();
         spawnSpeedBuff();
@@ -571,7 +581,7 @@ public class UndergroundGameArea extends GameArea {
     /**
      * Spawns speed debuff entity into the game
      */
-    private void spawnSpeedDebuff() {
+    /* private void spawnSpeedDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(35, 98));
         locations.add(new GridPoint2(54, 47));
@@ -600,7 +610,7 @@ public class UndergroundGameArea extends GameArea {
     /**
      * Spawns damage debuff entity into the game
      */
-    private void spawnDmgDebuff() {
+/*    private void spawnDmgDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(80, 48));
         locations.add(new GridPoint2(49, 110));
@@ -610,7 +620,7 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(dmgDebuff);
             spawnEntityAt(dmgDebuff, location, true, false);
         }
-    }
+    }*/
 
     /**
      * Spawns fire buff entity into the game
@@ -812,6 +822,9 @@ public class UndergroundGameArea extends GameArea {
         auraOnMap.remove(entityToRemove);
 
         Gdx.app.postRunnable(() -> entityToRemove.dispose());
+        if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+            Gdx.app.postRunnable(() -> entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation());
+        }
     }
 
     public static void removeItemOnMap(Entity entityToRemove) {

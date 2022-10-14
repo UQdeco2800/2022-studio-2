@@ -1,5 +1,4 @@
 package com.deco2800.game.components.tasks;
-
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
@@ -97,10 +96,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
 
 
     public void shoot(String projectileType) {
-        if (projectileType == "poopSludge") {
+        if (projectileType.equals("poopSludge")) {
             projectile = createPoopsSludge(owner.getEntity(), target);
         }
-        if (projectileType == "discus") {
+        if (projectileType.equals("discus")) {
             projectile = createDiscus(owner.getEntity(), target);
         }
         if (owner.getEntity().checkEntityType(EntityTypes.MEGAPOOP)) {
