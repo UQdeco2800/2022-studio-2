@@ -87,7 +87,7 @@ public class OpenKeyBinds extends Component {
                 numKeys++;
                 dummy = new KeyBind(key, description, imageLVL1, imageLVL2);
                 keys.add(dummy);
-                logger.info("{} key bound to action {}", component.getString("Key"),
+                logger.debug("{} key bound to action {}", component.getString("Key"),
                         component.getString("Description"));
 
                 /* Add the key texture to be loaded */
