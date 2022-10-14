@@ -4,9 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
-import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.ProjectileFactory;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
@@ -26,7 +24,7 @@ public abstract class GameArea implements Disposable {
   protected TerrainComponent terrain;
   protected List<Entity> areaEntities;
 
-  private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
+  private static final Logger logger = LoggerFactory.getLogger(GameArea.class);
   private Entity player;
 
   protected GameArea() {
@@ -41,10 +39,10 @@ public abstract class GameArea implements Disposable {
     for (Entity entity : areaEntities) {
       entity.dispose();
       if (entity.getComponent(AnimationRenderComponent.class) != null) {
-//        entity.getComponent(CombatStatsComponent.class).dropMaterial();
         entity.getComponent(AnimationRenderComponent.class).stopAnimation(); //this is the magic line
       }
     }
+    logger.debug("disposed assets");
   }
 
   /**
