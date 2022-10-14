@@ -259,6 +259,7 @@ public class ForestGameArea extends GameArea {
     spawnFireBuff();
     spawnPoisonBuff();
     spawnSpeedBuff();
+    spawnTestBuffs();
 
   }
 
@@ -634,6 +635,13 @@ public class ForestGameArea extends GameArea {
       auraOnMap.add(fireBuff);
       spawnEntityAt(fireBuff, location, true, false);
     }
+  }
+
+  private void spawnTestBuffs() {
+    spawnEntityAt(AuraFactory.createFireBuff(), new GridPoint2(89, 10), true, false);
+    spawnEntityAt(AuraFactory.createPoisonBuff(),new GridPoint2(92, 10), true, false);
+    spawnEntityAt(AuraFactory.createWeaponSpeedBuff(), new GridPoint2(94, 10), true, false);
+    spawnEntityAt(AuraFactory.createWeaponDmgBuff(), new GridPoint2(96, 10), true, false);
   }
 
   /**
