@@ -53,6 +53,14 @@ class InventoryComponentTest {
   }
 
   @Test
+  void setCombatAnimator() {
+    InventoryComponent inventory = new InventoryComponent();
+    Entity CombatAnimator = new InventoryComponent().getEntity();
+    inventory.setCombatAnimator(CombatAnimator);
+    assertEquals( inventory.getEntity(), CombatAnimator);
+  }
+
+  @Test
   void hasItem() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testWeapon = WeaponFactory.createTestDagger();

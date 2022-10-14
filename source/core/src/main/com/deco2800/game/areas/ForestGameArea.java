@@ -229,7 +229,6 @@ public class ForestGameArea extends GameArea {
     displayUI();
     spawnTerrain();
     spawnCraftingTables();
-    spawnPotion();
     player = spawnPlayer();
     spawnGymBro();
     heracles = spawnHeracles();
@@ -709,9 +708,9 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnHealthPotion() {
-    Entity speedPotion = PotionFactory.createHealthPotion();
-    ItemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(93, 10), true, true);
+    Entity healthPotion = PotionFactory.createHealthPotion();
+    ItemsOnMap.add(healthPotion);
+    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
 
   /**
@@ -799,19 +798,6 @@ public class ForestGameArea extends GameArea {
   //  spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
  // }
 
-  /**
-   * Spawn a potion in a random position.
-   */
-  private void spawnPotion() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-//    Entity potion = PotionFactory.createSpeedPotion();
-//    this.spawnEntityAt(potion, randomPos, true, false);
-    Entity potion = PotionFactory.createDamageReductionPotion();
-    this.spawnEntityAt(potion, new GridPoint2(5,5), true, false);
-  }
 
   /**
    * Spawns a plug Entity to assist with map transition. - Team 5 1map4all
@@ -1079,10 +1065,10 @@ public class ForestGameArea extends GameArea {
    */
   private Entity spawnHeracles() {
     GridPoint2 position = new GridPoint2(174, 65);
-    Entity heracles = NPCFactory.createHeracles(player);
-    areaEntities.add(heracles);
-    spawnEntityAt(heracles, position, true, true);
-    return heracles;
+    Entity heraclesBoss = NPCFactory.createHeracles(player);
+    areaEntities.add(heraclesBoss);
+    spawnEntityAt(heraclesBoss, position, true, true);
+    return heraclesBoss;
   }
 
   private void playMusic() {

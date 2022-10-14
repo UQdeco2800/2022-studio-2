@@ -32,7 +32,7 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing right
      */
     private void animateWalkRight() {
-        if (animator.getCurrentAnimation() != "walk_right") {
+        if (!"walk_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_right");
         }
     }
@@ -41,7 +41,7 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing left
      */
     private void animateWalkLeft() {
-        if (animator.getCurrentAnimation() != "walk_left") {
+        if (!"walk_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_left");
         }
     }
@@ -50,7 +50,7 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing backwards
      */
     private void animateWalkBack() {
-        if (animator.getCurrentAnimation() != "walk_back") {
+        if (!"walk_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_back");
         }
     }
@@ -59,7 +59,7 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing forwards
      */
     private void animateWalkFront() {
-        if (animator.getCurrentAnimation() != "walk_front") {
+        if (!"walk_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_front");
         }
     }

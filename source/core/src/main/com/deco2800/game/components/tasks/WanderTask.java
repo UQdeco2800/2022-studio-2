@@ -22,7 +22,6 @@ public class WanderTask extends DefaultTask implements PriorityTask {
   private Task currentTask;
 
   private Vector2 target;
-  private float speed = 1;
 
   /**
    * @param wanderRange Distance in X and Y the entity can move from its position when start() is
