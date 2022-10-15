@@ -259,7 +259,7 @@ public class ForestGameArea extends GameArea {
     spawnFireBuff();
     spawnPoisonBuff();
     spawnSpeedBuff();
-    spawnTestBuffs();
+   // spawnTestBuffs();
 
   }
 
