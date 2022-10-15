@@ -347,6 +347,7 @@ public class PlayerActions extends Component {
   }
 
   public void invulnerabilitySkill() {
+    invulnerabilitySound.play();
     skillManager.startInvulnerabilitySkill();
   }
 
