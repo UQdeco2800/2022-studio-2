@@ -69,30 +69,11 @@ public class GameAreaDisplay extends UIComponent {
     private Image catTwoMenu;
     private ImageButton firstToCraft;
     private ImageButton secondToCraft;
-    private ImageButton resume;
-    private ImageButton exit;
-    private ImageButton controls;
-    private ImageButton howToCraft;
-    private ImageButton overviewBtn;
-    private ImageButton findItemsBtn;
-    private ImageButton weaponBuffsBtn;
-    private ImageButton skillTreeInfoBtn;
-    private ImageButton levelUpBtn;
-    private ImageButton accessInventoryBtn;
-    private ImageButton howToWinBtn;
-    private ImageButton playerGuideBtn;
     private Texture materialTexture;
     private TextureRegion materialTextureRegion;
     private TextureRegionDrawable materialDrawable;
-    private Image matAmount;
-    private Image playerGuideMenu;
     private Image popUp;
-    private Image firstMatArrow;
-    private Image secondMatArrow;
-    private Image craftArrow;
     private Image firstMatText;
-    private Image secondMatText;
-    private Image craftText;
     private Image weapon;
     private Group craftingGroup = new Group();
     private Group materialsGroup = new Group();
@@ -112,7 +93,6 @@ public class GameAreaDisplay extends UIComponent {
     private Group inventoryGroup = new Group();
     private Group itemButtonGroup = new Group();
     private Group dropdownGroup = new Group();
-    private Image minimapImage;
     private Group minimapGroup = new Group();
 
     private Boolean currentScreenCrafting = false;
@@ -146,6 +126,7 @@ public class GameAreaDisplay extends UIComponent {
 
     public void displayMinimap() {
         GameArea gameArea = ServiceLocator.getGameArea();
+        Image minimapImage;
         logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
         if (gameArea.getClass().getSimpleName().equals(ForestGameArea.class.getSimpleName())) {
             minimapImage = new Image(new Texture(Gdx.files.internal
@@ -526,7 +507,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        resume = new ImageButton(buttonDrawable);
+        ImageButton resume = new ImageButton(buttonDrawable);
         resume.setSize(386f, 122.4f);
         resume.setPosition(pauseMenu.getX() + 760f, pauseMenu.getY() + 576);
         resume.addListener(new ChangeListener() {
@@ -544,7 +525,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        exit = new ImageButton(buttonDrawable);
+        ImageButton exit = new ImageButton(buttonDrawable);
         exit.setSize(386, 122.4f);
         exit.setPosition(pauseMenu.getX() + 765f, pauseMenu.getY() + 288);
         exit.addListener(new ChangeListener() {
@@ -564,7 +545,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        controls = new ImageButton(buttonDrawable);
+        ImageButton controls = new ImageButton(buttonDrawable);
         controls.setSize(386, 122.4f);
         controls.setPosition(pauseMenu.getX() + 762f, pauseMenu.getY() + 382);
         controls.addListener(
@@ -582,7 +563,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        playerGuideBtn = new ImageButton(buttonDrawable);
+        ImageButton playerGuideBtn = new ImageButton(buttonDrawable);
         playerGuideBtn.setSize(386, 122.4f);
         playerGuideBtn.setPosition(pauseMenu.getX() + 762f, pauseMenu.getY() + 482);
         playerGuideBtn.addListener(
@@ -610,7 +591,7 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void setPlayerGuideMenu(String filePath) {
         logger.info("Opening Player guide menu");
-        playerGuideMenu = new Image(new Texture(filePath));
+        Image playerGuideMenu = new Image(new Texture(filePath));
 
         playerGuideMenu.setSize(1920, 1080);
         playerGuideMenu.setPosition((float) ((float)Gdx.graphics.getWidth()/ (double)2 - playerGuideMenu.getWidth()/2),
@@ -624,7 +605,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        overviewBtn = new ImageButton(buttonDrawable);
+        ImageButton overviewBtn = new ImageButton(buttonDrawable);
         overviewBtn.setSize(385, 97.4f);
         overviewBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 745);
         overviewBtn.addListener(
@@ -645,7 +626,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        howToCraft = new ImageButton(buttonDrawable);
+        ImageButton howToCraft = new ImageButton(buttonDrawable);
         howToCraft.setSize(385, 97.4f);
         howToCraft.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 675);
         howToCraft.addListener(
@@ -666,7 +647,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        findItemsBtn = new ImageButton(buttonDrawable);
+        ImageButton findItemsBtn = new ImageButton(buttonDrawable);
         findItemsBtn.setSize(385, 97.4f);
         findItemsBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 605);
         findItemsBtn.addListener(
@@ -687,7 +668,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        weaponBuffsBtn = new ImageButton(buttonDrawable);
+        ImageButton weaponBuffsBtn = new ImageButton(buttonDrawable);
         weaponBuffsBtn.setSize(385, 97.4f);
         weaponBuffsBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 545);
         weaponBuffsBtn.addListener(
@@ -708,7 +689,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        skillTreeInfoBtn = new ImageButton(buttonDrawable);
+        ImageButton skillTreeInfoBtn = new ImageButton(buttonDrawable);
         skillTreeInfoBtn.setSize(385, 97.4f);
         skillTreeInfoBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 475);
         skillTreeInfoBtn.addListener(
@@ -729,7 +710,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        levelUpBtn = new ImageButton(buttonDrawable);
+        ImageButton levelUpBtn = new ImageButton(buttonDrawable);
         levelUpBtn.setSize(385, 97.4f);
         levelUpBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 409);
         levelUpBtn.addListener(
@@ -750,7 +731,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        accessInventoryBtn = new ImageButton(buttonDrawable);
+        ImageButton accessInventoryBtn = new ImageButton(buttonDrawable);
         accessInventoryBtn.setSize(385, 97.4f);
         accessInventoryBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 343);
         accessInventoryBtn.addListener(
@@ -771,7 +752,7 @@ public class GameAreaDisplay extends UIComponent {
                 ("images/crafting_assets_sprint2/transparent-texture-buttonClick.png"));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        howToWinBtn = new ImageButton(buttonDrawable);
+        ImageButton howToWinBtn = new ImageButton(buttonDrawable);
         howToWinBtn.setSize(385, 97.4f);
         howToWinBtn.setPosition(playerGuideMenu.getX() + 382f, playerGuideMenu.getY() + 275);
         howToWinBtn.addListener(
@@ -901,7 +882,7 @@ public class GameAreaDisplay extends UIComponent {
         if (boxes[0] != null && boxes[1] != null) {
             for (WeaponConfig item : possibleBuilds) {
                 int numItems = 0;
-                for (Map.Entry entry : item.materials.entrySet()) {
+                for (Map.Entry<Materials,Integer> entry : item.materials.entrySet()) {
                     String entryString = entry.toString().split("=")[0];
                     String upperCaseEntry = entryString.substring(0, 1).toUpperCase() + entryString.substring(1);
                     if (boxes[0].toString().equals(upperCaseEntry) ||
@@ -1066,7 +1047,7 @@ public class GameAreaDisplay extends UIComponent {
      * @param index position of the material on the crafting menu.
      */
     private void displayAmount(int amount, int index) {
-        matAmount = new Image(new Texture(Gdx.files.internal
+        Image matAmount = new Image(new Texture(Gdx.files.internal
                 (String.format("images/Crafting-assets-sprint1/popups/number%d_popup.png", amount))));
         matAmount.setSize(18, 18);
         matAmount.setPosition(craftMenu.getX() + 212 + ((index % 4) * 68),
@@ -1092,12 +1073,7 @@ public class GameAreaDisplay extends UIComponent {
         popUp.setHeight(5);
         popUp.setPosition((float) (Gdx.graphics.getWidth()/(double) 2-71.25f), (float) (Gdx.graphics.getHeight()/ (double) 2-23.75f));
         Action popUpAction = Actions.sequence(Actions.sizeTo(142.5f, 47.5f, 0.5f),
-                Actions.delay(0.5f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        popUp.remove();
-                    }
-                }));
+                Actions.delay(0.5f), Actions.run(() -> {popUp.remove();}));
         popUp.addAction(popUpAction);
         stage.addActor(popUp);
     }
@@ -1108,29 +1084,29 @@ public class GameAreaDisplay extends UIComponent {
     private void initTutorial() {
         Action firstArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, 5, 0.5f),
                 Actions.moveBy(-5, -5, 0.5f)));
-        firstMatArrow = new Image
+        Image firstMatArrow = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-right.png")));
         firstMatArrow.setPosition(craftMenu.getX() + 152, craftMenu.getTop() - 228);
         firstMatArrow.addAction(firstArrowAction);
         Action secondArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, 5, 0.5f),
                 Actions.moveBy(-5, -5, 0.5f)));
-        secondMatArrow = new Image
+        Image secondMatArrow = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-right.png")));
         secondMatArrow.setPosition(craftMenu.getX() + 152, craftMenu.getTop() - 228);
         secondMatArrow.addAction(secondArrowAction);
         Action craftArrowAction = Actions.forever(Actions.sequence(Actions.moveBy(5, -5, 0.5f),
                 Actions.moveBy(-5, 5, 0.5f)));
-        craftArrow = new Image
+        Image craftArrow = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/arrow-top-left.png")));
         craftArrow.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 145);
         craftArrow.addAction(craftArrowAction);
         firstMatText = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/first-mat-prompt.png")));
         firstMatText.setPosition(craftMenu.getX(), craftMenu.getY());
-        secondMatText = new Image
+        Image secondMatText = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/second-mat-prompt.png")));
         secondMatText.setPosition(craftMenu.getX(), craftMenu.getY());
-        craftText = new Image
+        Image craftText = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/craft-prompt.png")));
         craftText.setPosition(craftMenu.getX(), craftMenu.getY());
         firstTutorial.addActor(firstMatArrow);
