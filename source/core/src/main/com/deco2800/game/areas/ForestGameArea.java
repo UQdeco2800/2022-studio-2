@@ -230,6 +230,7 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnSpeedPotion();
     spawnHealthPotion();
+    spawnStaminaPotion();
 
     spawnDumbbell();
     spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
@@ -694,6 +695,12 @@ public class ForestGameArea extends GameArea {
     itemsOnMap.add(healthPotion);
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
+
+    private void spawnStaminaPotion() {
+        Entity healthPotion = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(healthPotion);
+        spawnEntityAt(healthPotion, new GridPoint2(93, 12), true, true);
+    }
 
   /**
    * Spawns Level 2 dagger entity into the game

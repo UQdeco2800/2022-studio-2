@@ -30,10 +30,13 @@ public class PotionEffectComponent extends Component {
                 this.effectValue = 1.5f;
                 break;
             case "health":
-                this.effectValue = 1;
+                this.effectValue = 20f;
                 break;
             case "damageReduction":
                 this.effectValue = 2f;
+                break;
+            case "stamina":
+                this.effectValue = 30f;
                 break;
             default:
                 break;
@@ -116,6 +119,9 @@ public class PotionEffectComponent extends Component {
                     break;
                 case "health":
                     playerModifier.createModifier(PlayerModifier.HEALTH, this.effectValue, false, 0);
+                    break;
+                case "stamina":
+                    playerModifier.createModifier(PlayerModifier.STAMINA, this.effectValue, false,0);
                     break;
                 case "damageReduction":
                     if (!playerModifier.checkModifier(PlayerModifier.DMGREDUCTION, this.effectValue, false,

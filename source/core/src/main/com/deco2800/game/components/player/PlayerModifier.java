@@ -43,6 +43,7 @@ public class PlayerModifier extends Component{
     public static final String MANAMAX = "manaMax";
     public static final String STAMINAREGEN = "staminaRegen";
     public static final String STAMINAMAX = "staminaMax";
+    public static final String STAMINA = "stamina";
     public static final String HEALTH = "health";
     public static final String DMGRETURN = "damageReturn";
 
@@ -315,7 +316,10 @@ public class PlayerModifier extends Component{
                 valChange = (scaling) ? (int)(refStaminaMax * value) : (int)value;
                 break;
             case HEALTH:
-                combatStatsComponent.addHealth(1);
+                combatStatsComponent.addHealth((int)value);
+                return true;
+            case STAMINA:
+                combatStatsComponent.addStamina((int)value);
                 return true;
             default:
                 return false;
