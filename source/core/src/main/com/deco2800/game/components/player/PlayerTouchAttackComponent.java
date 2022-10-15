@@ -10,6 +10,7 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -81,8 +82,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      */
     void attackEnemy() {
         if (canAttack) {
-            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-            attackSound.play();
+
             canAttack = false;
 
             // base damage variable for the logger
@@ -113,6 +113,16 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                 cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
             }
 
+            //play physical weapon sounds
+            if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.MELEE)
+                    && weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("plunger")) {
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
+                attackSound.play();
+            } else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.MELEE)) {
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/metalSword.wav", Sound.class);
+                attackSound.play();
+            }
+
             if (enemyCollide) {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
@@ -121,6 +131,10 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             }
 
             else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
+                //play ranged weapon sounds
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/rangeWeaponSound.mp3", Sound.class);
+                attackSound.play();
+
                 if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
                     ((ForestGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
                 }
