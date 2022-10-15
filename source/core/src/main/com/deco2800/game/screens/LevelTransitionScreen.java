@@ -28,7 +28,7 @@ public class LevelTransitionScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LevelTransitionScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
+    private static final String backgroundMusic = "sounds/music_sprint4/mainMenu_FinalBattle.wav";
     private static final String[] transitionMusic = {backgroundMusic};
     private static final String transitionPrefix = "images/loadingScreen/loadingscreenAnimation-";
     public static final int frameCount = 55;
