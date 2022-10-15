@@ -341,21 +341,21 @@ public class GameAreaDisplay extends UIComponent {
             float verticalPosition = (inventoryMenu.getY() + 496) - (float)(i / 4) * (padding + 64);
             ImageButton item = createImageButton(currentItem, 64, horizontalPosition, verticalPosition);
             item.addListener(
-                    new ChangeListener() {
-                        @Override
-                        public void changed(ChangeEvent changeEvent, Actor actor) {
-                            dropdownGroup.clear();
-                            addDropListener(
-                                    createInventoryButton("drop", horizontalPosition + 48, verticalPosition),
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        dropdownGroup.clear();
+                        addDropListener(
+                                createInventoryButton("drop", horizontalPosition + 48, verticalPosition),
+                                currentItem);
+                        if (!currentItem.checkEntityType(EntityTypes.CRAFTABLE)
+                                || currentItem.checkEntityType(EntityTypes.WEAPON)){
+                            addEquipListener(
+                                    createInventoryButton("equip", horizontalPosition + 48, verticalPosition - 42),
                                     currentItem);
-                            if (!currentItem.checkEntityType(EntityTypes.CRAFTABLE)
-                                    || currentItem.checkEntityType(EntityTypes.WEAPON)){
-                                addEquipListener(
-                                        createInventoryButton("equip", horizontalPosition + 48, verticalPosition - 42),
-                                        currentItem);
-                            }
                         }
-                    });
+                    }
+                });
         }
     }
 
