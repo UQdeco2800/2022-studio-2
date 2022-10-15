@@ -289,14 +289,12 @@ public class GameAreaDisplay extends UIComponent {
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                switch (operation) {
-                    case "unequip":
-                        if (inventory.unequipItem(itemSlot)) updateInventoryDisplay();
-                        break;
-                    case "drop":
-                        if (inventory.removeEquipable(itemSlot)) updateInventoryDisplay();
-                        break;
+                if (operation.equals("unequip")) {
+                    inventory.unequipItem(itemSlot);
+                } else {
+                    inventory.removeEquipable(itemSlot);
                 }
+                updateInventoryDisplay();
                 dropdownGroup.clear();
             }
         });
@@ -357,7 +355,7 @@ public class GameAreaDisplay extends UIComponent {
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             float horizontalPosition = (inventoryMenu.getX() + 192) + (i % 4) * (padding + 64);
-            float verticalPosition = (inventoryMenu.getY() + 496) - (float)(i / 4) * (padding + 64);
+            float verticalPosition = (inventoryMenu.getY() + 496) - (i / 4f) * (padding + 64);
             ImageButton item = createImageButton(currentItem, 64, horizontalPosition, verticalPosition);
             item.addListener(
                 new ChangeListener() {
