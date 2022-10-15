@@ -3,7 +3,6 @@ package com.deco2800.game.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -100,7 +99,6 @@ public class CombatStatsComponent extends Component {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
-    System.out.println("Setting health " + this.health);
 
   }
 
@@ -321,10 +319,8 @@ public class CombatStatsComponent extends Component {
    * @return
    */
   public boolean checkMana(int mana){
-    if (this.getMana()>=mana){
-      return true;
-    }
-    return false;
+
+    return this.getMana()>=mana ? true:false;
   }
 
   /**
@@ -333,10 +329,8 @@ public class CombatStatsComponent extends Component {
    * @return
    */
   public boolean checkStamina(int stamina){
-    if (this.getStamina()>=stamina){
-      return true;
-    }
-    return false;
+
+    return this.getStamina()>=stamina ? true:false;
   }
 
   /**
