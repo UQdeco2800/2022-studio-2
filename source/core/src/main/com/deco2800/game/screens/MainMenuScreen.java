@@ -29,7 +29,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/substitute main menu by Rey.png"};
-  private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
+  private static final String backgroundMusic = "sounds/music_sprint4/mainMenu_FinalBattle.wav";
   private static final String[] mainMenuMusic = {backgroundMusic};
 
   public MainMenuScreen(GdxGame game) {
