@@ -274,7 +274,7 @@ public class InventoryComponent extends Component {
      * @param weapon the weapon that is going to be equipped on
      * @param equip  boolean to determine equip or unequip item
      */
-    private void applyWeaponEffect(Entity weapon, boolean equip) {
+    public void applyWeaponEffect(Entity weapon, boolean equip) {
         PhysicalWeaponStatsComponent weaponStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
         if ((weaponStats = weapon.getComponent(PhysicalWeaponStatsComponent.class)) != null) {
