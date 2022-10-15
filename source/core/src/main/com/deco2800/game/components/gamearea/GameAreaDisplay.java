@@ -215,6 +215,8 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void displayInventoryMenu() {
         initialiseInventoryDisplay();
+        displayItems();
+        displayEquipables();
         stage.addActor(inventoryGroup);
         stage.draw();
     }
@@ -358,7 +360,7 @@ public class GameAreaDisplay extends UIComponent {
         for (int i = 0; i < items.size(); ++i) {
             Entity currentItem = items.get(i);
             float horizontalPosition = (inventoryMenu.getX() + 192) + (i % 4) * (padding + 64);
-            float verticalPosition = (inventoryMenu.getY() + 496) - (i / 4f) * (padding + 64);
+            float verticalPosition = (inventoryMenu.getY() + 496) - (i / 4) * (padding + 64);
             ImageButton item = createImageButton(currentItem, 64, horizontalPosition, verticalPosition);
             item.addListener(
                 new ChangeListener() {
