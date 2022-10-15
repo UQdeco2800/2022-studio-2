@@ -4,12 +4,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 
-import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.screens.LevelTransitionScreen;
 import com.deco2800.game.services.ResourceService;
