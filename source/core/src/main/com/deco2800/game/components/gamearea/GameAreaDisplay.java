@@ -231,11 +231,20 @@ public class GameAreaDisplay extends UIComponent {
         return button;
     }
 
-    private Button createOperationButton(Button button, Entity item){
+    private Button addEquippableListner(Button button, String operation, int itemSlot){
+        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-
+                switch (operation) {
+                    case "unequip":
+                        if (inventory.unequipItem(itemSlot)) updateInventoryDisplay();
+                        break;
+                    case "drop":
+                        if (inventory.removeEquipable(itemSlot)) updateInventoryDisplay();
+                        break;
+                }
+                dropdownGroup.clear();
             }
         });
         return button;
@@ -259,44 +268,31 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void displayEquipables() {
         InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        final float horizontalPosition = (inventoryMenu.getX() + 696);
         for (Entity item : inventory.getEquipables()) {
             if (item != null) {
                 int itemSlot;
-                float padding = (float) 128 + 64;
-                final float horizontalPosition = (inventoryMenu.getX() + 696);
                 float verticalPosition;
                 if (item.checkEntityType(EntityTypes.WEAPON)) {
                     verticalPosition = inventoryMenu.getY() + 416;
                     itemSlot = 0;
                 } else {
-                    verticalPosition = inventoryMenu.getY() + 416 - padding;
+                    verticalPosition = inventoryMenu.getY() + 416 - 192f;
                     itemSlot = 1;
                 }
                 ImageButton equippedItem = createImageButton(item, 128, horizontalPosition, verticalPosition);
-                equippedItem.setPosition(horizontalPosition, verticalPosition);
                 equippedItem.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        Button unequipBtn = createInventoryButton("unequip", horizontalPosition + 63, verticalPosition);
-                        Button dropItemBtn = createInventoryButton("drop",horizontalPosition + 63, verticalPosition - 40);
-                        dropdownGroup.addActor(unequipBtn);
-                        dropdownGroup.addActor(dropItemBtn);
-                        unequipBtn.addListener(new ChangeListener() {
-                                @Override
-                                    public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.unequipItem(itemSlot)) updateInventoryDisplay();
-                                        dropdownGroup.clear();
-                                    }
-                        });
-                        dropItemBtn.addListener(
-                                new ChangeListener() {
-                                    @Override
-                                    public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.removeEquipable(itemSlot)) updateInventoryDisplay();
-                                        dropdownGroup.clear();
-                                    }
-                                }
-                        );
+                        dropdownGroup.clear();
+                        Button unequipBtn = addEquippableListner(
+                                createInventoryButton("unequip", horizontalPosition + 63, verticalPosition),
+                                "unequip",
+                                itemSlot);
+                        Button dropItemBtn = addEquippableListner(
+                                createInventoryButton("drop",horizontalPosition + 63, verticalPosition - 40),
+                                "drop",
+                                itemSlot);
                         dropdownGroup.addActor(unequipBtn);
                         dropdownGroup.addActor(dropItemBtn);
                     }
