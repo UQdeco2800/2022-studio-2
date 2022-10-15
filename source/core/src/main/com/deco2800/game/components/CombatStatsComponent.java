@@ -63,7 +63,7 @@ public class CombatStatsComponent extends Component {
    * @return is player dead
    */
   public Boolean isDead() {
-    return health == 0;
+    return health <= 0;
   }
 
   /**
@@ -81,31 +81,30 @@ public class CombatStatsComponent extends Component {
    * @param health health
    */
   public void setHealth(int health) {
-    if(this.entity != null)
-      System.out.println("Setting health " + health  + " for " + (entity.checkEntityType(EntityTypes.ENEMY) ? "enemy" : "player"));
-    if (health >= 0 && health <= 100) {
-      this.health = health;
-    } else {
-      this.health = 0;
-    }
+    if(health < 0) this.health = 0;
+    else if(health > 100) this.health = 100;
+    else this.health = health;
+
     if (entity != null) {
       entity.getEvents().trigger("updateHealth", this.health);
     }
 
     Boolean checkDead = this.isDead();
-    if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
-      Gdx.app.postRunnable(() -> {
-        dropMaterial();
-        dropWeapon();
-        //entity.dispose();
-      });
+    if(entity != null) {
+      if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
+        Gdx.app.postRunnable(() -> {
+          dropMaterial();
+          dropWeapon();
+          //entity.dispose();
+        });
 
-      if (entity.getComponent(AnimationRenderComponent.class) != null) {
-        Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
+        }
       }
-    }
-    if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
-      entity.getEvents().trigger("death");
+      if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+        entity.getEvents().trigger("death");
+      }
     }
   }
 

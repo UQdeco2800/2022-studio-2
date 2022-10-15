@@ -198,7 +198,7 @@ class InventoryComponentTest {
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
 
     inventory.applyArmourEffect(testArmour, true);
-    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, true,0));
+    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false,0));
 
     inventory.applyArmourEffect(testArmour, false);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false, 0));
