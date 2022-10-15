@@ -23,9 +23,13 @@ public class BuffDisplayComponent extends UIComponent {
         addActors();
     }
 
+    /**
+     *
+     * @param batch Batch to render to.
+     */
     @Override
     protected void draw(SpriteBatch batch) {
-
+        // Draws the renderable
     }
 
     /**
@@ -52,7 +56,7 @@ public class BuffDisplayComponent extends UIComponent {
 
         TextureAtlas atlas = ServiceLocator.getResourceService()
                 .getAsset("images/CombatItems/animations/BuffAnimations/buff.atlas", TextureAtlas.class);
-        Animation animation1 = new Animation<TextureRegion>(0.05f, atlas.findRegions(auraDesc));
+        Animation<TextureRegion> animation1 = new Animation<>(0.05f, atlas.findRegions(auraDesc));
 
         buff = new AnimatedImage(animation1);
         buff.scaleBy(1.2F);

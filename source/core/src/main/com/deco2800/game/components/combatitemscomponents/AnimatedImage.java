@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class AnimatedImage extends Image
 {
-    protected Animation animation = null;
+    protected Animation<TextureRegion> animation = null;
     private float stateTime = 0;
 
-    public AnimatedImage(Animation animation) {
+    public AnimatedImage(Animation<TextureRegion> animation) {
         super((TextureRegion) animation.getKeyFrame(0));
         this.animation = animation;
     }
@@ -19,7 +19,8 @@ public class AnimatedImage extends Image
     @Override
     public void act(float delta)
     {
-        ((TextureRegionDrawable)getDrawable()).setRegion((TextureRegion) animation.getKeyFrame(stateTime+=delta, true));
+        stateTime = stateTime + delta;
+        ((TextureRegionDrawable)getDrawable()).setRegion((TextureRegion) animation.getKeyFrame(stateTime, true));
         super.act(delta);
     }
 }
