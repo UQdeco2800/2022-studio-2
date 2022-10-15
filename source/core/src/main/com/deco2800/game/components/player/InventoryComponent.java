@@ -439,8 +439,6 @@ public class InventoryComponent extends Component {
     public void toggleInventoryDisplay() {
         if (!inventoryIsOpened) {
             ServiceLocator.getInventoryArea().displayInventoryMenu();
-            ServiceLocator.getInventoryArea().displayItems();
-            ServiceLocator.getInventoryArea().displayEquipables();
         } else {
             ServiceLocator.getInventoryArea().disposeInventoryMenu();
         }
