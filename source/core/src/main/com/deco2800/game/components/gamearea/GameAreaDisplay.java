@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
+import static com.badlogic.gdx.math.MathUtils.E;
 import static com.badlogic.gdx.math.MathUtils.ceil;
 
 /**
@@ -234,14 +235,56 @@ public class GameAreaDisplay extends UIComponent {
         return button;
     }
 
-    private Button createOperationButton(Button button, Entity item){
+    private void addEquipListener(Button button, Entity item) {
+        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        button.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        if (item.checkEntityType(EntityTypes.POTION)) {
+                            inventory.addQuickBarItems(item);
+                            QuickBarDisplay.updatePotionTable();
+                        } else {
+                            inventory.equipItem(item);
+                        }
+                        updateInventoryDisplay();
+                        dropdownGroup.clear();
+                    }
+                }
+        );
+        dropdownGroup.addActor(button);
+    }
+    private void addDropListener(Button button, Entity item) {
+        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        button.addListener(
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        if (inventory.removeItem(item)) updateInventoryDisplay();
+                        dropdownGroup.clear();
+                    }
+                }
+        );
+        dropdownGroup.addActor(button);
+    }
+
+    private void addEquipableListner(Button button, String operation, int itemSlot){
+        InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-
+                switch (operation) {
+                    case "unequip":
+                        if (inventory.unequipItem(itemSlot)) updateInventoryDisplay();
+                        break;
+                    case "drop":
+                        if (inventory.removeEquipable(itemSlot)) updateInventoryDisplay();
+                        break;
+                }
+                dropdownGroup.clear();
             }
         });
-        return button;
+        dropdownGroup.addActor(button);
     }
     /**
      * Create an image button based on entity's default texture
@@ -254,6 +297,7 @@ public class GameAreaDisplay extends UIComponent {
         ImageButton button = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
         button.setSize(size, size);
         button.setPosition(x, y);
+        itemButtonGroup.addActor(button);
         return button;
     }
 
@@ -262,49 +306,26 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void displayEquipables() {
         InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+        final float horizontalPosition = (inventoryMenu.getX() + 696);
         for (Entity item : inventory.getEquipables()) {
             if (item != null) {
-                int itemSlot;
-                float padding = (float) 128 + 64;
-                final float horizontalPosition = (inventoryMenu.getX() + 696);
-                float verticalPosition;
-                if (item.checkEntityType(EntityTypes.WEAPON)) {
-                    verticalPosition = inventoryMenu.getY() + 416;
-                    itemSlot = 0;
-                } else {
-                    verticalPosition = inventoryMenu.getY() + 416 - padding;
-                    itemSlot = 1;
-                }
+                int itemSlot = item.checkEntityType(EntityTypes.WEAPON)? 0: 1;
+                final float verticalPosition = inventoryMenu.getY() + 416 - 192f * itemSlot;
                 ImageButton equippedItem = createImageButton(item, 128, horizontalPosition, verticalPosition);
-                equippedItem.setPosition(horizontalPosition, verticalPosition);
                 equippedItem.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        Button unequipBtn = createInventoryButton("unequip", horizontalPosition + 63, verticalPosition);
-                        Button dropItemBtn = createInventoryButton("drop",horizontalPosition + 63, verticalPosition - 40);
-                        dropdownGroup.addActor(unequipBtn);
-                        dropdownGroup.addActor(dropItemBtn);
-                        unequipBtn.addListener(new ChangeListener() {
-                                @Override
-                                    public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.unequipItem(itemSlot)) updateInventoryDisplay();
-                                        dropdownGroup.clear();
-                                    }
-                        });
-                        dropItemBtn.addListener(
-                                new ChangeListener() {
-                                    @Override
-                                    public void changed(ChangeEvent event, Actor actor) {
-                                        if (inventory.removeEquipable(itemSlot)) updateInventoryDisplay();
-                                        dropdownGroup.clear();
-                                    }
-                                }
-                        );
-                        dropdownGroup.addActor(unequipBtn);
-                        dropdownGroup.addActor(dropItemBtn);
+                        dropdownGroup.clear();
+                        addEquipableListner(
+                                createInventoryButton("drop",horizontalPosition + 63, verticalPosition),
+                                "drop",
+                                itemSlot);
+                        addEquipableListner(
+                                createInventoryButton("unequip", horizontalPosition + 63, verticalPosition - 40),
+                                "unequip",
+                                itemSlot);
                     }
                 });
-                itemButtonGroup.addActor(equippedItem);
             }
         }
     }
@@ -322,57 +343,22 @@ public class GameAreaDisplay extends UIComponent {
             float horizontalPosition = (inventoryMenu.getX() + 192) + (i % 4) * (padding + 64);
             float verticalPosition = (inventoryMenu.getY() + 496) - (float)(i / 4) * (padding + 64);
             ImageButton item = createImageButton(currentItem, 64, horizontalPosition, verticalPosition);
-
-            String buttonText;
-
-            if (items.get(i).checkEntityType(EntityTypes.WEAPON)
-                    || items.get(i).checkEntityType(EntityTypes.ARMOUR)) {
-                buttonText = "Equip item";
-            } else if (items.get(i).checkEntityType(EntityTypes.POTION)) {
-                buttonText = "Add to quick bar";
-            } else {
-                buttonText = "Crafting";
-            }
             item.addListener(
-                    new ChangeListener() {
-                        @Override
-                        public void changed(ChangeEvent changeEvent, Actor actor) {
-                            dropdownGroup.clear();
-                            Button itemOpBtn = createInventoryButton("equip", horizontalPosition + 48, verticalPosition);
-                            Button dropItemBtn = createInventoryButton("drop", horizontalPosition + 48, verticalPosition - 42);
-                            dropItemBtn.addListener(
-                                    new ChangeListener() {
-                                        @Override
-                                        public void changed(ChangeEvent event, Actor actor) {
-                                            if (inventory.removeItem(currentItem)) updateInventoryDisplay();
-                                            dropdownGroup.clear();
-                                        }
-                                    }
-                            );
-                            itemOpBtn.addListener(
-                                    new ChangeListener() {
-                                        @Override
-                                        public void changed(ChangeEvent event, Actor actor) {
-                                            switch (buttonText) {
-                                                case "Equip item":
-                                                    if (inventory.equipItem(currentItem)) updateInventoryDisplay();
-                                                    break;
-                                                case "Add to quick bar":
-                                                    if (inventory.addQuickBarItems(currentItem)) {
-                                                        updateInventoryDisplay();
-                                                        QuickBarDisplay.updatePotionTable();
-                                                    }
-                                                    break;
-                                            }
-                                            dropdownGroup.clear();
-                                        }
-                                    }
-                            );
-                            if (!buttonText.equals("Crafting")) dropdownGroup.addActor(itemOpBtn);
-                            dropdownGroup.addActor(dropItemBtn);
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        dropdownGroup.clear();
+                        addDropListener(
+                                createInventoryButton("drop", horizontalPosition + 48, verticalPosition),
+                                currentItem);
+                        if (!currentItem.checkEntityType(EntityTypes.CRAFTABLE)
+                                || currentItem.checkEntityType(EntityTypes.WEAPON)){
+                            addEquipListener(
+                                    createInventoryButton("equip", horizontalPosition + 48, verticalPosition - 42),
+                                    currentItem);
                         }
-                    });
-            itemButtonGroup.addActor(item);
+                    }
+                });
         }
     }
 
