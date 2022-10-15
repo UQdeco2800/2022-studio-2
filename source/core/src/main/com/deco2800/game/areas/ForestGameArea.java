@@ -234,7 +234,6 @@ public class ForestGameArea extends GameArea {
 
     spawnDumbbell();
     spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
-    spawnArmour(ArmourFactory.ArmourType.baseArmour, 90, 18);
     spawnArmour(ArmourFactory.ArmourType.fastLeather, 90, 22);
     spawnArmour(ArmourFactory.ArmourType.damageReturner, 90, 26);
 
