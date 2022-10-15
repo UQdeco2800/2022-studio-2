@@ -383,6 +383,8 @@ public class GameAreaDisplay extends UIComponent {
      * Disposes the inventory display group.
      */
     public void disposeInventoryMenu() {
+        dropdownGroup.clear();
+        itemButtonGroup.clear();;
         inventoryGroup.clear();
         inventoryGroup.remove();
     }
