@@ -117,7 +117,8 @@ class CombatStatsComponentTest {
 
     combat.setMana(80);
     assertEquals(80, combat.getMana());
-
+    combat.setMana(120);
+    assertEquals(100, combat.getMana());
     combat.setMana(-50);
     assertEquals(0, combat.getMana());
   }
