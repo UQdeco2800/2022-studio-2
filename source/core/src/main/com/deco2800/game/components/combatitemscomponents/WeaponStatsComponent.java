@@ -1,10 +1,9 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;
-import com.deco2800.game.entities.Entity;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Component used to store information and methods related to combat such as health, attack, etc. Any entities
@@ -15,7 +14,7 @@ public abstract class WeaponStatsComponent extends Component {
 
   protected double damage;
   protected double coolDown;
-  protected HashMap<Materials, Integer> materials;
+  protected Map<Materials, Integer> materials;
   private String description;
 
 
@@ -25,7 +24,7 @@ public abstract class WeaponStatsComponent extends Component {
    * @param coolDown duration before the next attack instance can be called
    * @param materials materials needed to craft the weapon
    */
-  protected WeaponStatsComponent(double damage, double coolDown, HashMap<Materials, Integer> materials, String description) {
+  protected WeaponStatsComponent(double damage, double coolDown, Map<Materials, Integer> materials, String description) {
     setDamage(damage);
     setCoolDown(coolDown);
     setMaterials(materials);
@@ -74,7 +73,7 @@ public abstract class WeaponStatsComponent extends Component {
    * Sets the materials required to craft the weapon
    * @param materials materials needed to craft the weapon
    */
-  public void setMaterials(HashMap<Materials, Integer> materials) {
+  public void setMaterials(Map<Materials, Integer> materials) {
     this.materials = materials;
   }
 
@@ -90,7 +89,7 @@ public abstract class WeaponStatsComponent extends Component {
    * Returns the materials required to craft the weapon
    * @return materials needed to craft the weapon
    */
-  public HashMap<Materials, Integer> getMaterials() {
+  public Map<Materials, Integer> getMaterials() {
     return materials;
   }
 

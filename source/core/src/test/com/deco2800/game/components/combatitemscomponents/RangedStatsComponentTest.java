@@ -1,9 +1,4 @@
-
-package com.deco2800.game.components.CombatItemsComponents;
-
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-
+package com.deco2800.game.components.combatitemscomponents;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.extensions.GameExtension;
 import java.util.HashMap;
@@ -14,21 +9,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * This class will test each function of the class WeaponsStatsComponent
- */
-
 @ExtendWith(GameExtension.class)
-class PhysicalStatsComponentTest {
-
-    public PhysicalWeaponStatsComponent weapons1;
-    public PhysicalWeaponStatsComponent weapons2;
-
+class RangedStatsComponentTest {
+    public PhysicalWeaponStatsComponent rangedweapon1;
+    public PhysicalWeaponStatsComponent rangedweapon2;
 
     @BeforeEach
     public void setUp() throws Exception {
-
-
         HashMap<Materials, Integer> materials1 = new HashMap<>();
         materials1.put(Materials.Steel, 10);
 
@@ -36,21 +23,20 @@ class PhysicalStatsComponentTest {
         materials2.put(Materials.Steel, 20);
         materials2.put(Materials.Wood, 5);
 
-        weapons1 = new PhysicalWeaponStatsComponent(20, 10, materials1, 2, "pipe");
-        weapons2 = new PhysicalWeaponStatsComponent(30, 20, materials2, 5, "pipe");
-
+        rangedweapon1 = new PhysicalWeaponStatsComponent(20, 10, materials1, 2, "desc");
+        rangedweapon2 = new PhysicalWeaponStatsComponent(30, 20, materials2, 5, "desc");
     }
 
     @Test
     public void testGetDamage() {
-        assertEquals(20, weapons1.getDamage(), "Incorrect value was returned.");
-        assertEquals(30, weapons2.getDamage(), "Incorrect value was returned.");
+        assertEquals(20, rangedweapon1.getDamage(), "Incorrect value was returned.");
+        assertEquals(30, rangedweapon2.getDamage(), "Incorrect value was returned.");
     }
 
     @Test
     public void testGetCoolDown() {
-        assertEquals(10, weapons1.getCoolDown(), "Incorrect value was returned.");
-        assertEquals(20, weapons2.getCoolDown(), "Incorrect value was returned.");
+        assertEquals(10, rangedweapon1.getCoolDown(), "Incorrect value was returned.");
+        assertEquals(20, rangedweapon2.getCoolDown(), "Incorrect value was returned.");
     }
 
     @Test
@@ -62,30 +48,30 @@ class PhysicalStatsComponentTest {
         materialsTest2.put(Materials.Steel, 20);
         materialsTest2.put(Materials.Wood, 5);
 
-        assertTrue(materialsTest1.equals(weapons1.getMaterials()));
+        assertTrue(materialsTest1.equals(rangedweapon1.getMaterials()));
     }
 
     @Test
     public void testGetWeight() {
-        assertEquals(2.0, weapons1.getWeight(), "Incorrect value was returned.");
+        assertEquals(2.0, rangedweapon1.getWeight(), "Incorrect value was returned.");
     }
 
     @Test
     public void testSetDamage() {
-        weapons1.setDamage(25);
-        assertEquals(25, weapons1.getDamage(), "Incorrect value was returned.");
+        rangedweapon1.setDamage(25);
+        assertEquals(25, rangedweapon1.getDamage(), "Incorrect value was returned.");
     }
 
     @Test
     public void testSetCoolDown() {
-        weapons1.setCoolDown(5.0);
-        assertEquals(5.0, weapons1.getCoolDown(), "Incorrect value was returned.");
+        rangedweapon1.setCoolDown(5.0);
+        assertEquals(5.0, rangedweapon1.getCoolDown(), "Incorrect value was returned.");
     }
 
     @Test
     public void testSetWeight() {
-        weapons1.setWeight(3.0);
-        assertEquals(3.0, weapons1.getWeight(), "Incorrect value was returned.");
+        rangedweapon1.setWeight(3.0);
+        assertEquals(3.0, rangedweapon1.getWeight(), "Incorrect value was returned.");
     }
 
     @Test
@@ -93,16 +79,15 @@ class PhysicalStatsComponentTest {
         HashMap<Materials, Integer> materialsTest = new HashMap<>();
         materialsTest.put(Materials.Wood, 3);
 
-        weapons1.setMaterials(materialsTest);
+        rangedweapon1.setMaterials(materialsTest);
 
         HashMap<Materials, Integer> materialsTest2 = new HashMap<>();
         materialsTest2.put(Materials.Wood, 3);
 
-        weapons1.setMaterials(materialsTest);
-        assertTrue(materialsTest2.equals(weapons1.getMaterials()));
+        rangedweapon1.setMaterials(materialsTest);
+        assertTrue(materialsTest2.equals(rangedweapon1.getMaterials()));
     }
-
-   /* @Test
+/*    @Test
     public void testAuraInEffect() {
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerPhysicsService(new PhysicsService());
@@ -114,7 +99,11 @@ class PhysicalStatsComponentTest {
         auraSpeedBuff.addComponent(new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
                 config.coolDownMultiplier, config.weightMultiplier));
 
-        weapons1.auraEffect(auraSpeedBuff);
-        assertEquals(5.0, weapons1.getCoolDown(), "Incorrect value was returned.");
+        rangedweapon1.auraEffect(auraSpeedBuff);
+        assertEquals(5.0, rangedweapon1.getCoolDown(), "Incorrect value was returned.");
     }*/
+
 }
+
+
+

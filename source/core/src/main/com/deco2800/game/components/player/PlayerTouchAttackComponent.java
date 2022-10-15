@@ -4,14 +4,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.components.CombatItemsComponents.*;
+import com.deco2800.game.components.combatitemscomponents.*;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private Entity combatAnimator;
     private boolean canAttack;
     private long  cooldownEnd;
-    private String animationDesc;
     private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
 
     /**
@@ -36,7 +34,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
 
     @Override
     public void create() {
-        entity.getEvents().addListener("attack", this::attack);
+        entity.getEvents().addListener("attackEnemy", this::attackEnemy);
         entity.getEvents().addListener("collisionStart", this::playerCollidesEnemyStart);
         combatStats = entity.getComponent(CombatStatsComponent.class); //or just get the currently equipped weapon's damage
         entity.getEvents().addListener("collisionEnd", this::playerCollidesEnemyEnd);
@@ -81,7 +79,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     /**
      * Method called when the player entity is attacking.
      */
-    void attack() {
+    void attackEnemy() {
         if (canAttack) {
             Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
             attackSound.play();
@@ -97,12 +95,13 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                     cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getCoolDown());
                     // set the damage value for logger
                     damage = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
-                    //Sets the attack animation dependent on the weapon that is currently equipped
+                    //Sets the attackEnemy animation dependent on the weapon that is currently equipped
                     String description = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
                     //When an aura is applied, play the respective aura animation
+                    String animationDesc;
                     if (auraEquipped != null) {
-                        String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
-                        animationDesc = description+current_aura;
+                        String currentAura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
+                        animationDesc = description+currentAura;
                     }
                     else {
                         animationDesc = description;
@@ -118,7 +117,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
                 String s_damage = String.valueOf(damage);
-                logger.trace("attack enemy: " + s_damage);
+                logger.trace("attackEnemy enemy: " + s_damage);
             }
 
             else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
