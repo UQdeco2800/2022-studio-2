@@ -30,7 +30,7 @@ public class UndergroundGameArea extends GameArea {
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static Entity megaPoop;
-    private static List<Entity> ItemsOnMap = new ArrayList<>();
+    private static List<Entity> itemsOnMap = new ArrayList<>();
     private static List<Entity> auraOnMap = new ArrayList<>();
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
@@ -145,7 +145,6 @@ public class UndergroundGameArea extends GameArea {
 
     };
 
-    public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
@@ -821,7 +820,7 @@ public class UndergroundGameArea extends GameArea {
     public static void removeItemOnMap(Entity entityToRemove) {
 
         entityToRemove.setEnabled(false);
-        ItemsOnMap.remove(entityToRemove);
+        itemsOnMap.remove(entityToRemove);
         Gdx.app.postRunnable(() -> entityToRemove.dispose());
     }
 }
