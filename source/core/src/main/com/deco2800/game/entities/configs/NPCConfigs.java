@@ -6,7 +6,7 @@ package com.deco2800.game.entities.configs;
 public class NPCConfigs {
 
   public PlugConfig plug = new PlugConfig();
-  public GymBroConfig gymBro = new GymBroConfig();
+  public static final GymBroConfig gymBro = new GymBroConfig();
   public FemaleCitizenConfig oneLegGirl = new FemaleCitizenConfig();
   public ChildConfig child = new ChildConfig();
   public GuardConfig guard = new GuardConfig();
@@ -14,9 +14,9 @@ public class NPCConfigs {
   public PlumberFriendConfig plumberfriend = new PlumberFriendConfig();
   public FriendlyCreatureConfig friendlycreature = new FriendlyCreatureConfig();
   public Male_citizenConfig male_citizen = new Male_citizenConfig();
-  public HeraclesConfig heracles = new HeraclesConfig();
-  public PoopsConfig poops = new PoopsConfig();
+  public static final HeraclesConfig heracles = new HeraclesConfig();
+  public static final PoopsConfig poops = new PoopsConfig();
 
-  public MegaPoopConfig megaPoop = new MegaPoopConfig();
+  public static final MegaPoopConfig megaPoop = new MegaPoopConfig();
   public FriendPetConfig pet = new FriendPetConfig();
 }

@@ -53,6 +53,10 @@ public class ObstacleFactory {
     return smallTree;
   }
 
+  /**
+   * Creates the crafting table entity for the forest map
+   * @return crafting table entity
+   */
   public static Entity createCraftingTableForest() {
     Entity craftingTable =
             new Entity()
@@ -68,6 +72,10 @@ public class ObstacleFactory {
     return craftingTable;
   }
 
+  /**
+   * Creates the crafting table entity for the underground map
+   * @return crafting table entity
+   */
   public static Entity createCraftingTableUnderground() {
     Entity craftingTable =
             new Entity()
@@ -127,6 +135,20 @@ public class ObstacleFactory {
     column.getComponent(TextureRenderComponent.class).scaleEntity();
     column.scaleHeight(2f);
     PhysicsUtils.setScaledCollider(column, 0.9f, 0.9f);
+    return column;
+  }
+
+  /**
+   * Creates multiple columns entity on the map. - Team 5 1map4all @LYB
+   * @return Column entity.
+   */
+  public static Entity drawColumnsCollision(float width) {
+    Entity column =
+            new Entity()
+//                    .addComponent(new TextureRenderComponent("images/level_1_tiledmap/32x32/column.png"))
+                    .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+    column.setScale(width, 2f);
     return column;
   }
 

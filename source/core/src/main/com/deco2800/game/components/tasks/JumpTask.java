@@ -31,7 +31,6 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     private Vector2 lastPos;
     private MovementTask movementTask;
     private GameTime gameTime;
-    private CombatStatsComponent combatStats;
     private final PhysicsEngine physics;
     private final DebugRenderer debugRenderer;
     private final RaycastHit hit = new RaycastHit();
@@ -51,8 +50,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.knockBackForce = knockBackForce;
         this.glidingSpeed = glidingSpeed;
         gameTime = ServiceLocator.getTimeSource();
-        lastJumpTime = gameTime.getTime() + 1000L;
-        combatStats = target.getComponent(CombatStatsComponent.class);
+        lastJumpTime = gameTime.getTime() + 1000f;
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
     }
@@ -63,7 +61,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
     @Override
     public void start() {
         super.start();
-        owner.getEntity().getComponent(ColliderComponent.class).setLayer(PhysicsLayer.NPC);
+        owner.getEntity().getComponent(ColliderComponent.class).setLayer(PhysicsLayer.NONE);
         owner.getEntity().getComponent(HitboxComponent.class).setSensor(false);
         owner.getEntity().getComponent(HitboxComponent.class).setLayer(PhysicsLayer.NONE);
         targetPos = target.getPosition();
@@ -112,7 +110,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     @Override
     public void stop() {
-        owner.getEntity().getComponent(HitboxComponent.class).setSensor(true);
+        owner.getEntity().getComponent(ColliderComponent.class).setLayer(PhysicsLayer.NPC);
         owner.getEntity().getComponent(HitboxComponent.class).setLayer(PhysicsLayer.NPC);
         super.stop();
         movementTask.stop();
@@ -125,7 +123,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         if (didMove()) {
             lastTimeMoved = gameTime.getTime();
             lastPos = owner.getEntity().getPosition();
-        } else if (gameTime.getTimeSince(lastTimeMoved) > 35L) {
+        } else if (gameTime.getTimeSince(lastTimeMoved) > 50L) {
             stop();
             lastJumpTime = gameTime.getTime();
             status = Status.FINISHED;
@@ -197,7 +195,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     private int getActivePriority() {
         float dst = getDistanceToTarget();
-        if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 1500L)
+        if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 3000L)
                 || !isTargetVisible()) {
             return -1;
         }
@@ -210,7 +208,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     private int getInactivePriority() {
         float dst = getDistanceToTarget();
-        if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 1500L)
+        if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 3000L)
             && isTargetVisible()) {
             return priority;
         }

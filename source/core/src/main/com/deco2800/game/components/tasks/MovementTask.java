@@ -8,6 +8,7 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
  * Move to a given position, finishing when you get close enough. Requires an entity with a
  * PhysicsMovementComponent.
@@ -41,6 +42,7 @@ public class MovementTask extends DefaultTask {
   public MovementTask(Vector2 target, float stopDistance, float speed) {
     this.target = target;
     this.speed = speed;
+    this.stopDistance = stopDistance;
     this.gameTime = ServiceLocator.getTimeSource();
   }
 
@@ -54,6 +56,10 @@ public class MovementTask extends DefaultTask {
     this.stopDistance = stopDistance;
   }
 
+  public void setSpeed(float speed) {
+    this.speed = speed;
+  }
+
   /**
    * Start movement task.
    */
@@ -61,8 +67,8 @@ public class MovementTask extends DefaultTask {
   public void start() {
     super.start();
     this.movementComponent = owner.getEntity().getComponent(PhysicsMovementComponent.class);
-    movementComponent.setTarget(target);
     movementComponent.setSpeed(this.speed);
+    movementComponent.setTarget(target);
     movementComponent.setMoving(true);
     logger.debug("Starting movement towards {}", target);
     lastTimeMoved = gameTime.getTime();

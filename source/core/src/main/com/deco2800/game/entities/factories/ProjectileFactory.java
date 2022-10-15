@@ -1,12 +1,10 @@
 package com.deco2800.game.entities.factories;
 
-
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.CombatItemsComponents.WeaponStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.WeaponArrowProjectileComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.EnemyProjectileComponent;
@@ -14,7 +12,6 @@ import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillProjectileComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
 import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -28,6 +25,9 @@ import com.deco2800.game.services.ServiceLocator;
 
 public class ProjectileFactory {
 
+    private ProjectileFactory() {
+        throw new IllegalStateException("Instantiating static util class");
+    }
     /**
      * Creates base entity of projectile
      * @param ownerEntity the entity that throws this projectile
@@ -69,7 +69,7 @@ public class ProjectileFactory {
         //The alignment values come from 1/64 multiplied by the center point of the poop sludge (Since the poop sludge sprite is slightly off center)
         poops.getComponent(ColliderComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
         poops.getComponent(HitboxComponent.class).setAsBox(new Vector2(0.17f, 0.09f), new Vector2(0.48f, 0.47f));
-        poops.setEntityType(EntityTypes.ENEMY);
+        poops.setEntityType(EntityTypes.PROJECTILE);
 
         poops.setScale(2,2);
         return poops;
@@ -94,14 +94,55 @@ public class ProjectileFactory {
         discus.getComponent(HitboxComponent.class).setAsBoxAligned(new Vector2(0.28f, 0.125f),
                 PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.CENTER);
 
-        discus.setEntityType(EntityTypes.ENEMY);
+        discus.setEntityType(EntityTypes.PROJECTILE);
         discus.setScale(2,2);
         return discus;
     }
 
     /**
-     * Creates a non-colliding projectile shooting in the walk direction of the player
+     * Creates a non-colliding wrench projectile shooting in the walk direction of the player
      * which damages enemies.
+     * @param player the player entity
+     * @param angle the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
+     *              from the walk direction of the player
+     * @return the projectile entity
+     */
+    public static Entity createWrenchPlayerProjectile(Entity player, double angle) {
+        PhysicsComponent physicsComponent = new PhysicsComponent();
+        PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
+
+        AnimationRenderComponent projectileAnimator = new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset("images/Skills/WrenchAnimation.atlas",
+                        TextureAtlas.class));
+        projectileAnimator.addAnimation("wrenchSpin",0.05f, Animation.PlayMode.LOOP);
+        Entity projectile = new Entity()
+                .addComponent(physicsComponent)
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 1.5f))
+                .addComponent(new CombatStatsComponent(1000, 5, 0, 0))
+                .addComponent(projectileAnimator)
+                .addComponent(playerSkillProjectileComponent);
+
+        PhysicsUtils.setScaledCollider(projectile, 0.8f, 0.8f);
+        projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
+        projectile.setEntityType(EntityTypes.PROJECTILE);
+
+        PlayerActions playerActions = player.getComponent(PlayerActions.class);
+        if(playerActions.getWalkDirection().cpy().x == 0 && playerActions.getWalkDirection().cpy().y == 0) {
+            playerSkillProjectileComponent.setProjectileDirection(new Vector2(1, 0));
+        } else {
+            double angleRadians = angle * Math.PI;
+            Vector2 rotatedVector = rotateVector(playerActions.getWalkDirection().cpy(), angleRadians);
+            playerSkillProjectileComponent.setProjectileDirection(rotatedVector.cpy());
+        }
+        projectileAnimator.startAnimation("wrenchSpin");
+        return projectile;
+    }
+
+    /**
+     * Creates a non-colliding projectile shooting in the walk direction of the player
+     * which damages enemies. Uses animations from images/Skills/projectileSprites.png
      * @param player the player entity
      * @param angle the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
      *              from the walk direction of the player
@@ -160,32 +201,31 @@ public class ProjectileFactory {
      */
     public static Entity createWeaponProjectile(Entity player, double angle) { //TEAM 04 WIP
        WeaponConfigSetup configs = FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
-        //WeaponConfig config = configs.plungerBow;
-        double dmg = player.getComponent(InventoryComponent.class).getEquipable(0).getComponent(PhyiscalWeaponStatsComponent.class).getDamage();
+        double dmg = player.getComponent(InventoryComponent.class).getEquipable(0).getComponent(PhysicalWeaponStatsComponent.class).getDamage();
 
         PhysicsComponent physicsComponent = new PhysicsComponent();
-        PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
+        WeaponArrowProjectileComponent weaponArrowProjectileComponent = new WeaponArrowProjectileComponent();
 
         AnimationRenderComponent projectileAnimator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset("images/Skills/projectileSprites.atlas",
+                ServiceLocator.getResourceService().getAsset("images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
                         TextureAtlas.class));
-        projectileAnimator.addAnimation("upright",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("right",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("downright",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("down",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("downleft",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("left",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("upleft",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("up",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("upright",0.05f,  Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("right",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("downright",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("down",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("downleft",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("left",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("upleft",0.05f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("up",0.05f, Animation.PlayMode.LOOP);
 
         Entity projectile = new Entity()
                 .addComponent(physicsComponent)
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 10.0f))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 5.0f))
                 .addComponent(new CombatStatsComponent(100000, (int)dmg, 0, 0))
                 .addComponent(projectileAnimator)
-                .addComponent(playerSkillProjectileComponent);
+                .addComponent(weaponArrowProjectileComponent);
 
         PhysicsUtils.setScaledCollider(projectile, 1.0f, 1.0f);
         projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
@@ -193,13 +233,13 @@ public class ProjectileFactory {
 
         PlayerActions playerActions = player.getComponent(PlayerActions.class);
         if(playerActions.getWalkDirection().cpy().x == 0 && playerActions.getWalkDirection().cpy().y == 0) {
-            playerSkillProjectileComponent.setProjectileDirection(new Vector2(1, 0));
+            weaponArrowProjectileComponent.setProjectileDirection(new Vector2(1, 0));
             projectileAnimator.startAnimation("right");
         } else {
             double angleRadians = angle * Math.PI;
             Vector2 rotatedVector = rotateVector(playerActions.getWalkDirection().cpy(), angleRadians);
             setAnimationDirection(getVectorAngle(rotatedVector.cpy()), projectileAnimator);
-            playerSkillProjectileComponent.setProjectileDirection(rotatedVector.cpy());
+            weaponArrowProjectileComponent.setProjectileDirection(rotatedVector.cpy());
         }
         return projectile;
     }
@@ -268,4 +308,53 @@ public class ProjectileFactory {
         }
     }
 
+    /**
+     * Creates an AOE attack. It is functionally a projectile with no movement.
+     * @param player the player entity
+     * @param angle the angle in multiples of pi radians, angle = 2 = 360deg (2pi radians)
+     *              from the walk direction of the player
+     * @return the projectile entity
+     */
+    public static Entity createPlayerAOE(Entity player, double angle) {
+        PhysicsComponent physicsComponent = new PhysicsComponent();
+        PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
+
+        AnimationRenderComponent projectileAnimator = new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset("images/Skills/projectileSprites.atlas",
+                        TextureAtlas.class));
+        projectileAnimator.addAnimation("upright",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("right",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("downright",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("down",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("downleft",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("left",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("upleft",0.2f, Animation.PlayMode.LOOP);
+        projectileAnimator.addAnimation("up",0.2f, Animation.PlayMode.LOOP);
+
+        Entity projectile = new Entity()
+                .addComponent(physicsComponent)
+                .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+                .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 150.0f))
+                .addComponent(new CombatStatsComponent(100000, 0, 0, 0))
+                .addComponent(projectileAnimator)
+                .addComponent(playerSkillProjectileComponent);
+
+        projectile.setScale(4, 4);
+        PhysicsUtils.setScaledCollider(projectile, 1, 1);
+        //projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
+        projectile.setEntityType(EntityTypes.PROJECTILE);
+
+        PlayerActions playerActions = player.getComponent(PlayerActions.class);
+        if(playerActions.getWalkDirection().cpy().x == 0 && playerActions.getWalkDirection().cpy().y == 0) {
+            playerSkillProjectileComponent.setProjectileDirection(new Vector2(1, 0).scl(0.001f));
+            projectileAnimator.startAnimation("right");
+        } else {
+            double angleRadians = angle * Math.PI;
+            Vector2 rotatedVector = rotateVector(playerActions.getWalkDirection().cpy(), angleRadians);
+            setAnimationDirection(getVectorAngle(rotatedVector.cpy()), projectileAnimator);
+            playerSkillProjectileComponent.setProjectileDirection(rotatedVector.cpy().scl(0.001f));
+        }
+        return projectile;
+    }
 }

@@ -2,7 +2,8 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.CombatItemsComponents.PhyiscalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -81,7 +82,7 @@ public class CombatStatsComponent extends Component {
    * @param health health
    */
   public void setHealth(int health) {
-    if (health >= 0) {
+    if (health >= 0 && health <= 100) {
       this.health = health;
     } else {
       this.health = 0;
@@ -135,20 +136,20 @@ public class CombatStatsComponent extends Component {
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
             (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
 
-        attackDmg = (int) playerWeapon.getComponent(PhyiscalWeaponStatsComponent.class).getDamage();
+        attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
         int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
         setHealth(newHealth);
       } else { //if it's not a player, or if it is a player without a weapon
       int newHealth = getHealth() - (int) ((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
     }
-
-    if (isDead() && entity.checkEntityType(EntityTypes.ENEMY)) {
+    Boolean checkDead = this.isDead();
+    if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
 
       Gdx.app.postRunnable(() -> {
         dropMaterial();
         dropWeapon();
-        entity.dispose();
+        //entity.dispose();
       });
 
       if (entity.getComponent(AnimationRenderComponent.class) != null) {
@@ -386,19 +387,45 @@ public class CombatStatsComponent extends Component {
       ServiceLocator.getEntityService().register(newWeapon);
 
       newWeapon.setPosition(x , (y - 1));
+
+      logger.trace("enemy drop weapon");
     }
 
   }
 
+  /**
+   * Method that picks a random material on the map to drop once an enemy is killed.
+   * 20% change of gold
+   * 10% chance of silver
+   * 10% chance of rubber
+   * 10% chance of platinum
+   * 10% chance of iron
+   * 10% chance of wood
+   * 10% chance of steel
+   */
   public void dropMaterial() {
 
     float x = getEntity().getPosition().x;
     float y = getEntity().getPosition().y;
 
     int randomnum = random.nextInt(100);
+    Entity material = materialRand(randomnum);
 
+    if (randomnum <= 90) {
+      material.setScale(new Vector2(0.6f, 0.6f));
+
+      ServiceLocator.getEntityService().register(material);
+      material.setPosition((x), (y - 2));
+    }
+  }
+
+  /**
+   * Takes a number between 1 to 100 and returnss a material to be dropped
+   * @param randomnum a random number between 1 and 100
+   * @return an Entity to be dropped
+   */
+  private Entity materialRand(int randomnum){
     Entity material;
-
     if (randomnum < 10) {
       material = MaterialFactory.createSilver();
     } else if (randomnum < 30 && randomnum >= 10) {
@@ -418,15 +445,6 @@ public class CombatStatsComponent extends Component {
     } else {
       material = MaterialFactory.createWood();
     }
-
-    if (!(randomnum > 90)) {
-      material.setScale(new Vector2(0.6f, 0.6f));
-
-      ServiceLocator.getEntityService().register(material);
-
-      material.setPosition((x), (y - 2));
-    }
+    return material;
   }
-
-
 }

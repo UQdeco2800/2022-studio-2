@@ -24,14 +24,22 @@ import org.slf4j.LoggerFactory;
 public class DeathScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreen.class);
     private final GdxGame game;
+    private final int level;
     private final Renderer renderer;
-    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png"};
+    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png",
+            "images/WinScreen/atlantis_sinks_no_island.png", "images/WinScreen/Win.png",
+            "images/WinScreen/atlantis_sinks_no_island_win.png",
+            "images/DeathScreens/lvl_2_w_buttons.png", "images/DeathScreens/lvl_1_w_buttons.png"
+    };
     private static final String[] deathBtnTextures = {"images/DeathScreens/widgets/main_menu_lvl_1.png",
                                                     "images/DeathScreens/widgets/main_menu_lvl_2.png",
                                                     "images/DeathScreens/widgets/play_again_lvl_1.png",
-                                                    "images/DeathScreens/widgets/play_again_lvl_2.png"};
-    private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
-    private static final String[] deathMusic = {backgroundMusic};
+                                                    "images/DeathScreens/widgets/play_again_lvl_2.png",
+                                                    "images/WinScreen/winbtn.png"};
+    private static final String BACKGROUND_MUSIC = "sounds/MenuSong-Overcast.mp3";
+    private static final String BUZZ_DEATH_SOUND = "sounds/buzz_death.mp3";
+    private static final String FLUSH_SOUND_SOUND = "sounds/flush_win.mp3";
+    private static final String[] deathMusic = {BACKGROUND_MUSIC, BUZZ_DEATH_SOUND, FLUSH_SOUND_SOUND};
 
 
     /**
@@ -41,7 +49,7 @@ public class DeathScreen extends ScreenAdapter {
      */
     public DeathScreen(GdxGame game, int level) {
         this.game = game;
-
+        this.level = level;
         logger.debug("Initialising death screen screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
@@ -55,11 +63,24 @@ public class DeathScreen extends ScreenAdapter {
         playMusic();
     }
 
+    /**
+     * Plays level death or win specific sounds
+     */
     private void playMusic() {
         // Unsure why the load is needed here (a second time too), but otherwise it doesn't play
         ServiceLocator.getResourceService().loadMusic(deathMusic);
-        Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
-        music.setLooping(true);
+        Music music;
+        if (level == 1 || level == 2) {
+            music = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
+            music.setLooping(true);
+        } else {
+            music = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
+            music.setLooping(false);
+            music.setVolume(0.2f);
+            Music bgMusic = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
+            bgMusic.setVolume(0.3f);
+            bgMusic.play();
+        }
         music.setVolume(0.3f);
         music.play();
     }
@@ -94,7 +115,8 @@ public class DeathScreen extends ScreenAdapter {
         unloadAssets();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getEntityService().dispose();
-        ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
+        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
+        ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class).stop();
 
         ServiceLocator.clear();
     }
