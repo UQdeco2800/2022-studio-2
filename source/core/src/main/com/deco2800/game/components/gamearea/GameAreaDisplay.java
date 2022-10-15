@@ -118,6 +118,9 @@ public class GameAreaDisplay extends UIComponent {
     private int firstTime = 0;
     List<Entity> inventoryList;
     InventoryComponent inventoryComponent;
+    private static final String OPERATION_1 = "drop";
+    private static final String OPERATION_2 = "unequip";
+    private static final String OPERATION_3 = "equip";
     private Image inventoryMenu;
     private Group inventoryGroup = new Group();
     private Group itemButtonGroup = new Group();
@@ -289,7 +292,7 @@ public class GameAreaDisplay extends UIComponent {
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                if (operation.equals("unequip")) {
+                if (operation.equals(OPERATION_2)) {
                     inventory.unequipItem(itemSlot);
                 } else {
                     inventory.removeEquipable(itemSlot);
@@ -331,12 +334,12 @@ public class GameAreaDisplay extends UIComponent {
                     public void changed(ChangeEvent event, Actor actor) {
                         dropdownGroup.clear();
                         addEquipableListner(
-                                createInventoryButton("drop",horizontalPosition + 63, verticalPosition),
-                                "drop",
+                                createInventoryButton(OPERATION_1,horizontalPosition + 63, verticalPosition),
+                                OPERATION_1,
                                 itemSlot);
                         addEquipableListner(
-                                createInventoryButton("unequip", horizontalPosition + 63, verticalPosition - 40),
-                                "unequip",
+                                createInventoryButton(OPERATION_2, horizontalPosition + 63, verticalPosition - 40),
+                                OPERATION_2,
                                 itemSlot);
                     }
                 });
@@ -363,12 +366,12 @@ public class GameAreaDisplay extends UIComponent {
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         dropdownGroup.clear();
                         addDropListener(
-                                createInventoryButton("drop", horizontalPosition + 48, verticalPosition),
+                                createInventoryButton(OPERATION_1, horizontalPosition + 48, verticalPosition),
                                 currentItem);
                         if (!currentItem.checkEntityType(EntityTypes.CRAFTABLE)
                                 || currentItem.checkEntityType(EntityTypes.WEAPON)){
                             addEquipListener(
-                                    createInventoryButton("equip", horizontalPosition + 48, verticalPosition - 42),
+                                    createInventoryButton(OPERATION_3, horizontalPosition + 48, verticalPosition - 42),
                                     currentItem);
                         }
                     }
@@ -382,7 +385,7 @@ public class GameAreaDisplay extends UIComponent {
      */
     public void disposeInventoryMenu() {
         dropdownGroup.clear();
-        itemButtonGroup.clear();;
+        itemButtonGroup.clear();
         inventoryGroup.clear();
         inventoryGroup.remove();
     }
