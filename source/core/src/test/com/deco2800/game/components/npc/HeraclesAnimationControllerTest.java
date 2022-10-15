@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class GymBroAnimationControllerTest {
+public class HeraclesAnimationControllerTest {
     @BeforeEach
     void beforeEach() {
         // Mock rendering, physics, game time
@@ -54,22 +54,26 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishFront"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishBack"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishLeft"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishRight"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackFront"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackBack"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackLeft"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackRight"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("discusAttackFront"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("discusAttackBack"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("discusAttackLeft"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("discusAttackRight"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkFront"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkBack"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkLeft"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkRight"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("jumpFront"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("jumpBack"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("jumpLeft"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("jumpRight"));
     }
 
     @Test
@@ -82,9 +86,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("walkRight");
         assertEquals("walk_right", animationRenderComponent.getCurrentAnimation());
@@ -102,9 +106,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("walkLeft");
         assertEquals("walk_left", animationRenderComponent.getCurrentAnimation());
@@ -122,9 +126,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("walkBack");
         assertEquals("walk_back", animationRenderComponent.getCurrentAnimation());
@@ -141,9 +145,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("walkFront");
         assertEquals("walk_front", animationRenderComponent.getCurrentAnimation());
@@ -152,83 +156,83 @@ public class GymBroAnimationControllerTest {
     }
 
     @Test
-    void animateAttackRightTest() {
+    void animateDiscusAttackRightTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_right", 1);
+        TextureAtlas atlas = createMockAtlas("discus_attack_right", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_right", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("discus_attack_right", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
-        entity.getEvents().trigger("attackRight");
-        assertEquals("attack_right", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackRight");
-        assertEquals("attack_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackRight");
+        assertEquals("discus_attack_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackRight");
+        assertEquals("discus_attack_right", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
-    void animateAttackLeftTest() {
+    void animateDiscusAttackLeftTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_left", 1);
+        TextureAtlas atlas = createMockAtlas("discus_attack_left", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_left", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("discus_attack_left", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
-        entity.getEvents().trigger("attackLeft");
-        assertEquals("attack_left", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackLeft");
-        assertEquals("attack_left", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackLeft");
+        assertEquals("discus_attack_left", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackLeft");
+        assertEquals("discus_attack_left", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
-    void animateAttackBackTest() {
+    void animateDiscusAttackBackTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_back", 1);
+        TextureAtlas atlas = createMockAtlas("discus_attack_back", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_back", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("discus_attack_back", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
-        entity.getEvents().trigger("attackBack");
-        assertEquals("attack_back", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackBack");
-        assertEquals("attack_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackBack");
+        assertEquals("discus_attack_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackBack");
+        assertEquals("discus_attack_back", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
-    void animateAttackFrontTest() {
+    void animateDiscusAttackFrontTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_front", 1);
+        TextureAtlas atlas = createMockAtlas("discus_attack_front", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_front", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("discus_attack_front", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
-        entity.getEvents().trigger("attackFront");
-        assertEquals("attack_front", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackFront");
-        assertEquals("attack_front", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackFront");
+        assertEquals("discus_attack_front", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("discusAttackFront");
+        assertEquals("discus_attack_front", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -241,9 +245,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("vanishRight");
         assertEquals("vanish_right", animationRenderComponent.getCurrentAnimation());
@@ -261,9 +265,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("vanishLeft");
         assertEquals("vanish_left", animationRenderComponent.getCurrentAnimation());
@@ -281,9 +285,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("vanishBack");
         assertEquals("vanish_back", animationRenderComponent.getCurrentAnimation());
@@ -301,13 +305,92 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
 
         entity.getEvents().trigger("vanishFront");
         assertEquals("vanish_front", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("vanishFront");
         assertEquals("vanish_front", animationRenderComponent.getCurrentAnimation());
+    }
+
+    @Test
+    void animateJumpRightTest() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("jump_right", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("jump_right", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("jump_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
+
+        entity.getEvents().trigger("jumpRight");
+        assertEquals("jump_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("jumpRight");
+        assertEquals("jump_right", animationRenderComponent.getCurrentAnimation());
+    }
+
+    @Test
+    void animateJumpLeftTest() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("jump_left", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("jump_left", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("jump_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
+
+        entity.getEvents().trigger("jumpLeft");
+        assertEquals("jump_left", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("jumpLeft");
+        assertEquals("jump_left", animationRenderComponent.getCurrentAnimation());
+    }
+
+    @Test
+    void animateJumpBackTest() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("jump_back", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("jump_back", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("jump_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
+
+        entity.getEvents().trigger("jumpBack");
+        assertEquals("jump_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("jumpBack");
+        assertEquals("jump_back", animationRenderComponent.getCurrentAnimation());
+    }
+
+    @Test
+    void animateJumpFrontTest() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("jump_front", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("jump_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        HeraclesAnimationController heraclesAnimationController = new HeraclesAnimationController();
+        heraclesAnimationController.setEntity(entity);
+        heraclesAnimationController.create();
+
+        entity.getEvents().trigger("jumpFront");
+        assertEquals("jump_front", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("jumpFront");
+        assertEquals("jump_front", animationRenderComponent.getCurrentAnimation());
     }
 }
