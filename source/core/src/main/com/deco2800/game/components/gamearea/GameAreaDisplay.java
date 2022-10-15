@@ -209,7 +209,6 @@ public class GameAreaDisplay extends UIComponent {
 
     /**
      * Displays the inventory UI.
-     *
      */
     public void displayInventoryMenu() {
         initialiseInventoryDisplay();
@@ -235,6 +234,11 @@ public class GameAreaDisplay extends UIComponent {
         return button;
     }
 
+    /**
+     * Add a change event listener to the button to equip items
+     * @param button button to add change listener
+     * @param item item associated with equip operation
+     */
     private void addEquipListener(Button button, Entity item) {
         InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         button.addListener(
@@ -254,6 +258,12 @@ public class GameAreaDisplay extends UIComponent {
         );
         dropdownGroup.addActor(button);
     }
+
+    /**
+     * Add a change event listener to the button to drop items
+     * @param button button to add change listener
+     * @param item item associated with drop operation
+     */
     private void addDropListener(Button button, Entity item) {
         InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         button.addListener(
@@ -268,6 +278,12 @@ public class GameAreaDisplay extends UIComponent {
         dropdownGroup.addActor(button);
     }
 
+    /**
+     * Add a change event listener to the button to modify equippable items
+     * @param button button to add change listener
+     * @param operation operation to be performed
+     * @param itemSlot the index of the item in equippables
+     */
     private void addEquipableListner(Button button, String operation, int itemSlot){
         InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         button.addListener(new ChangeListener() {
