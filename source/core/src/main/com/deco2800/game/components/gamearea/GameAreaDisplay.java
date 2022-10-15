@@ -18,7 +18,6 @@ import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.components.Component;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.player.*;
@@ -49,11 +48,6 @@ public class GameAreaDisplay extends UIComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(GameAreaDisplay.class);
 
-
-    /* The image button the user clicks to craft something */
-    private ImageButton craftButton;
-    /* The image button the user clicks to open the first catalogue */
-    private ImageButton catalogueButton;
     /* The image button the user clicks to open the first category */
     private ImageButton catOneButton;
     /* The image button the user clicks to open the second category */
@@ -442,7 +436,7 @@ public class GameAreaDisplay extends UIComponent {
                 (String.format("images/Crafting-assets-sprint1/widgets/craft_button_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        craftButton = new ImageButton(buttonDrawable);
+        ImageButton craftButton = new ImageButton(buttonDrawable);
         craftButton.setSize(146, 146);
         craftButton.setPosition(craftMenu.getX() + 527, craftMenu.getY() + 110.5f);
         craftButton.addListener(new ChangeListener() {
@@ -469,7 +463,7 @@ public class GameAreaDisplay extends UIComponent {
                 (String.format("images/Crafting-assets-sprint1/widgets/catalogue_button_lvl%d.png", gameLevel)));
         buttonTextureRegion = new TextureRegion(buttonTexture);
         buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
-        catalogueButton = new ImageButton(buttonDrawable);
+        ImageButton catalogueButton = new ImageButton(buttonDrawable);
         catalogueButton.setSize(146, 146);
         catalogueButton.setPosition(craftMenu.getX() + 300, craftMenu.getY() + 302);
         catalogueButton.addListener(new ChangeListener() {
@@ -1096,7 +1090,7 @@ public class GameAreaDisplay extends UIComponent {
         popUp = new Image
                 (new Texture(Gdx.files.internal("images/Crafting-assets-sprint1/popups/crafting_indicator.png")));
         popUp.setHeight(5);
-        popUp.setPosition(Gdx.graphics.getWidth()/2-71.25f, Gdx.graphics.getHeight()/2-23.75f);
+        popUp.setPosition((float) (Gdx.graphics.getWidth()/(double) 2-71.25f), (float) (Gdx.graphics.getHeight()/ (double) 2-23.75f));
         Action popUpAction = Actions.sequence(Actions.sizeTo(142.5f, 47.5f, 0.5f),
                 Actions.delay(0.5f), Actions.run(new Runnable() {
                     @Override
