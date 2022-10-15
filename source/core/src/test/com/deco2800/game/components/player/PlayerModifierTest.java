@@ -1,19 +1,29 @@
 package com.deco2800.game.components.player;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
+import com.deco2800.game.input.InputService;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.extensions.GameExtension;
 
+import static org.junit.jupiter.api.Assertions.*;
 
+import net.dermetfan.gdx.scenes.scene2d.ui.CircularGroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.lang.reflect.Modifier;
 
 @ExtendWith(GameExtension.class)
-public class PlayerModifierTest {
+@ExtendWith(MockitoExtension.class)
+class PlayerModifierTest {
 
     /**
      * Awaitility hides its secrets from me. So here is a custom delay function.
@@ -28,24 +38,71 @@ public class PlayerModifierTest {
     PlayerActions actions;
     PlayerModifier modifier;
     CombatStatsComponent combat;
+
     @BeforeEach
     void init() {
-        actions = new PlayerActions();
-        actions.updateMaxSpeed(2);
-        modifier = new PlayerModifier();
-        modifier.jUnitAddPlayerActions(actions);
-        combat = new CombatStatsComponent(100, 1, 100, 100);
-        combat.setDamageReduction(0.5f);
-        modifier.jUnitAddCombatStats(combat);
+        // Register our input services
+        // this must be done each time otherwise the physics service is lost
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerRenderService(new RenderService());
+
+        // Create our player
+        Entity player = PlayerFactory.createTestPlayer();
+        player.create();
+        modifier = player.getComponent(PlayerModifier.class);
+        actions = player.getComponent(PlayerActions.class);
+        combat = player.getComponent(CombatStatsComponent.class);
+    }
+
+    @Test
+    void shouldCreate() {
+        // Check initial array, should be empty!
+        assertEquals(0, modifier.getModifiers().size());
+
+        // Check initial components
+        assertEquals(actions, modifier.getPlayerActions());
+        assertEquals(combat, modifier.getCombatStatsComponent());
+
+        // Check all reference and modified variables are identical to components
+        assertEquals(actions.getMaxSpeed(), modifier.getModified(PlayerModifier.MOVESPEED));
+        assertEquals(actions.getMaxSpeed(), modifier.getReference(PlayerModifier.MOVESPEED));
+
+        assertEquals(combat.getDamageReduction(), modifier.getModified(PlayerModifier.DMGREDUCTION));
+        assertEquals(combat.getDamageReduction(), modifier.getReference(PlayerModifier.DMGREDUCTION));
+
+        assertEquals(combat.getManaRegenerationRate(), modifier.getModified(PlayerModifier.MANAREGEN));
+        assertEquals(combat.getManaRegenerationRate(), modifier.getReference(PlayerModifier.MANAREGEN));
+
+        assertEquals(combat.getMaxMana(), modifier.getModified(PlayerModifier.MANAMAX));
+        assertEquals(combat.getMaxMana(), modifier.getReference(PlayerModifier.MANAMAX));
+
+        assertEquals(combat.getStaminaRegenerationRate(), modifier.getModified(PlayerModifier.STAMINAREGEN));
+        assertEquals(combat.getStaminaRegenerationRate(), modifier.getReference(PlayerModifier.STAMINAREGEN));
+
+        assertEquals(combat.getMaxStamina(), modifier.getModified(PlayerModifier.STAMINAMAX));
+        assertEquals(combat.getMaxStamina(), modifier.getReference(PlayerModifier.STAMINAMAX));
+    }
+
+    @Test
+    void shouldIncrementHealth() {
+
+        combat.setHealth(80);
+        modifier.createModifier("health", 2, true, 0);
+        assertEquals(81, combat.getHealth());
     }
 
     @Test
     void shouldNotGetModified() {
+
         assertEquals(-1, modifier.getModified("move_speed"));
     }
 
     @Test
     void shouldNotGetReference() {
+
         assertEquals(-1, modifier.getReference("move_speed"));
     }
 
@@ -74,6 +131,21 @@ public class PlayerModifierTest {
     }
 
     @Test
+    void shouldNotHaveModifier() {
+
+        modifier.createModifier("moveSpeed", 2, false, 50);
+
+        modifier.update();
+        custom_wait(10);
+        modifier.update();
+
+        // Slightly different but nonexistent modifiers
+        assertFalse(modifier.checkModifier("moveSpeed", 3, false, 50));
+        assertFalse(modifier.checkModifier("moveSpeed", 2, true, 50));
+        assertFalse(modifier.checkModifier("moveSpeed", 2, false, 500));
+    }
+
+    @Test
     void shouldHaveAcceptedModifier () {
 
         modifier.createModifier("moveSpeed", 2, false, 0);
@@ -89,7 +161,7 @@ public class PlayerModifierTest {
         modifier.update();
         custom_wait(90);
         modifier.update();
-        assertEquals(4, actions.getMaxSpeed());
+        assertEquals(5, actions.getMaxSpeed());
     }
 
     @Test
@@ -98,13 +170,11 @@ public class PlayerModifierTest {
         modifier.createModifier("moveSpeed", 2, false, 5);
         modifier.update();
 
-        assertEquals(4, actions.getMaxSpeed());
         assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
 
         custom_wait(10);
         modifier.update();
 
-        assertEquals(2, actions.getMaxSpeed());
         assertEquals(actions.getMaxSpeed(), modifier.getModified("moveSpeed"));
     }
 
@@ -130,7 +200,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("moveSpeed", 2, true, 0));
         assertTrue(modifier.checkModifier("moveSpeed", 1, true, 20));
-        assertEquals(6, modifier.getReference("moveSpeed")); //2 + (2*2ref) = 6
+        assertEquals(9, modifier.getReference("moveSpeed")); //3 * (1(temp) + 2(ref)) = 9
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -153,7 +223,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("moveSpeed", 2, false, 0));
         assertTrue(modifier.checkModifier("moveSpeed", 1, false, 20));
-        assertEquals(4, modifier.getReference("moveSpeed")); //2 + 2ref = 4
+        assertEquals(5, modifier.getReference("moveSpeed")); //3(default) + 2(ref) = 5
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -176,7 +246,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("damageReduction", 2, true, 0));
         assertTrue(modifier.checkModifier("damageReduction", 1, true, 20));
-        assertEquals(1.5, modifier.getReference("damageReduction"));
+        assertEquals(0, modifier.getReference("damageReduction")); // Will be 0 since that is the default
 
         // Check for temporary to be removed
         custom_wait(20);
@@ -199,7 +269,7 @@ public class PlayerModifierTest {
         // Permanent modifier should now be gone
         assertFalse(modifier.checkModifier("damageReduction", 2, false, 0));
         assertTrue(modifier.checkModifier("damageReduction", 1, false, 20));
-        assertEquals(2.5, modifier.getReference("damageReduction"));
+        assertEquals(2, modifier.getReference("damageReduction"));
 
         // Check for temporary to be removed
         custom_wait(20);

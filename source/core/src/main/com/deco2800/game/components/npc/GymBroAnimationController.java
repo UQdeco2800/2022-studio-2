@@ -17,6 +17,10 @@ public class GymBroAnimationController extends Component {
     public void create() {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
+        entity.getEvents().addListener("vanishFront", this::animateVanishFront);
+        entity.getEvents().addListener("vanishBack", this::animateVanishBack);
+        entity.getEvents().addListener("vanishLeft", this::animateVanishLeft);
+        entity.getEvents().addListener("vanishRight", this::animateVanishRight);
         entity.getEvents().addListener("attackFront", this::animateAttackFront);
         entity.getEvents().addListener("attackBack", this::animateAttackBack);
         entity.getEvents().addListener("attackLeft", this::animateAttackLeft);
@@ -97,6 +101,30 @@ public class GymBroAnimationController extends Component {
     private void animateAttackBack() {
         if (!"attack_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("attack_back");
+        }
+    }
+
+    private void animateVanishFront() {
+        if (!"vanish_front".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_front");
+        }
+    }
+
+    private void animateVanishBack() {
+        if (!"vanish_back".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_back");
+        }
+    }
+
+    private void animateVanishLeft() {
+        if (!"vanish_left".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_left");
+        }
+    }
+
+    private void animateVanishRight() {
+        if (!"vanish_right".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_right");
         }
     }
 }
