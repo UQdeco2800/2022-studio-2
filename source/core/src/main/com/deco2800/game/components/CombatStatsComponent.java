@@ -2,11 +2,8 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-<<<<<<< HEAD
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
-=======
 import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
->>>>>>> main
+
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
