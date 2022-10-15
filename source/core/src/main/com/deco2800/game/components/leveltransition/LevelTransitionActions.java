@@ -1,4 +1,4 @@
-package com.deco2800.game.components.levelTransition;
+package com.deco2800.game.components.leveltransition;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * events is triggered.
  */
 public class LevelTransitionActions extends Component {
-    private static Logger logger;
+    private static Logger logger = LoggerFactory.getLogger(LevelTransitionActions.class);
     private GdxGame game;
 
     public LevelTransitionActions(GdxGame game) {
@@ -24,7 +24,6 @@ public class LevelTransitionActions extends Component {
      */
     @Override
     public void create() {
-        logger = LoggerFactory.getLogger(LevelTransitionActions.class);
         entity.getEvents().addListener("mapTransition", this::mapTransition);
     }
 
