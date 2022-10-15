@@ -29,7 +29,6 @@ class LevelTransitionDisplayTest {
         while ((System.currentTimeMillis() - start) < sleep);
     }
 
-    Entity screen;
     LevelTransitionDisplay levelTransitionDisplay;
     LevelTransitionScreen levelTransitionScreen;
 
@@ -48,12 +47,10 @@ class LevelTransitionDisplayTest {
         ServiceLocator.registerRenderService(renderService);
 
         game = new GdxGame();
-        screen = new Entity();
         levelTransitionScreen = mock(LevelTransitionScreen.class);
         levelTransitionScreen.loadAssets();
         levelTransitionDisplay = new LevelTransitionDisplay();
-        screen.addComponent(levelTransitionDisplay);
-        screen.create();
+        levelTransitionDisplay.create();
     }
 
     @Test
