@@ -75,7 +75,7 @@ class LevelTransitionDisplayTest {
     void shouldUpdateFrameWait() {
 
         assertEquals(1, levelTransitionDisplay.getFrame());
-        custom_wait(levelTransitionDisplay.getFrameDuration());
+        custom_wait(levelTransitionDisplay.getFrameDuration()+10);
         levelTransitionDisplay.update();
         assertEquals(2, levelTransitionDisplay.getFrame());
     }
@@ -109,7 +109,7 @@ class LevelTransitionDisplayTest {
 
         levelTransitionDisplay.setFrame(levelTransitionScreen.FRAME_COUNT);
         assertEquals(55, levelTransitionDisplay.getFrame());
-        custom_wait(levelTransitionDisplay.getFrameDuration());
+        custom_wait(levelTransitionDisplay.getFrameDuration()+10);
         levelTransitionDisplay.update();
         assertEquals(55, levelTransitionDisplay.getFrame());
     }
