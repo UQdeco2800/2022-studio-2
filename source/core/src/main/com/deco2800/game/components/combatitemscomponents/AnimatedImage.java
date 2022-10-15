@@ -1,18 +1,17 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class AnimatedImage extends Image
 {
-    protected Animation animation = null;
+    protected Animation<TextureRegion> animation = null;
     private float stateTime = 0;
 
-    public AnimatedImage(Animation animation) {
+    public AnimatedImage(Animation<TextureRegion> animation) {
         super((TextureRegion) animation.getKeyFrame(0));
         this.animation = animation;
     }
@@ -20,7 +19,8 @@ public class AnimatedImage extends Image
     @Override
     public void act(float delta)
     {
-        ((TextureRegionDrawable)getDrawable()).setRegion((TextureRegion) animation.getKeyFrame(stateTime+=delta, true));
+        stateTime = stateTime + delta;
+        ((TextureRegionDrawable)getDrawable()).setRegion((TextureRegion) animation.getKeyFrame(stateTime, true));
         super.act(delta);
     }
 }

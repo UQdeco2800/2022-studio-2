@@ -1,11 +1,8 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.deco2800.game.crafting.Materials;
-import com.deco2800.game.entities.Entity;
 
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Map;
 
 /**
  * Component used to store information and methods related to combat for aoe weapons.
@@ -27,7 +24,7 @@ public class AreaOfEffectStatsComponent extends WeaponStatsComponent {
                                       double areaRange,
                                       double duration,
                                       double coolDown,
-                                      HashMap<Materials, Integer> materials,
+                                      Map<Materials, Integer> materials,
                                       String description) {
         super(damage, coolDown, materials, description);
         setAreaRange(areaRange);

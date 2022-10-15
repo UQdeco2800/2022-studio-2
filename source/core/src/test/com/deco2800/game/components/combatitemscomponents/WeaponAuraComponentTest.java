@@ -1,7 +1,5 @@
-package com.deco2800.game.components.CombatItemsComponents;
-import com.deco2800.game.crafting.Materials;
+package com.deco2800.game.components.combatitemscomponents;
 import com.deco2800.game.extensions.GameExtension;
-import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -70,5 +68,10 @@ class WeaponAuraComponentTest {
     @Test
     public void testGetDurationMultiplier() {
         assertEquals(1, aura2.getDurationMultiplier(), "Incorrect value was returned.");
+    }
+
+    @Test
+    public void testGetDescription() {
+        assertEquals("fire", aura1.getDescription(), "Incorrect value was returned.");
     }
 }
