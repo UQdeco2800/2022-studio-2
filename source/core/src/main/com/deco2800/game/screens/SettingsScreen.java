@@ -48,7 +48,7 @@ public class SettingsScreen extends ScreenAdapter {
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
-    music.setVolume(0.2f);
+    music.setVolume(0.3f);
     music.play();
   }
 
