@@ -59,6 +59,31 @@ public class LevelTransitionDisplay extends UIComponent {
     }
 
     /**
+     * Utility function for returning the current frame.
+     * @return  The current frame of the display.
+     */
+    public int getFrame() { return frame; }
+
+    /**
+     * Utility function for returning the length a frame is displayed on screen.
+     * @return  The duration of an onscreen frame.
+     */
+    public long getFrameDuration() { return FRAME_DURATION; }
+
+    /**
+     * Utility for getting the table externally
+     * @return  The table used by the display
+     */
+    public Table getTable() {return table;}
+
+    /**
+     * Function for externally setting the frame. Helpful for debugging to avoid an additional
+     * 10 seconds of testing.
+     * @param newFrame  New frame index for the display to use
+     */
+    public void setFrame(int newFrame) { frame = newFrame;}
+
+    /**
      * Custom update function to work as a pseudo-animation controller.
      */
     @Override

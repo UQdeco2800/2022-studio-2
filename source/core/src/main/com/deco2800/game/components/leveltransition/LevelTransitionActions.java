@@ -36,4 +36,10 @@ public class LevelTransitionActions extends Component {
         logger.info("Enter key has beeen presssed, changing to next level");
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
+
+    /**
+     * Utility function to return the GdxGame object held by this component.
+     * @return  The GdxGame component used by this component.
+     */
+    public GdxGame getGame() { return game; }
 }

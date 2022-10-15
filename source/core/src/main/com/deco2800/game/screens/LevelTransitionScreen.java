@@ -99,7 +99,7 @@ public class LevelTransitionScreen extends ScreenAdapter {
     /**
      * Load individual animation screens for the level transition.
      */
-    private static void loadAssets() {
+    public static void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
 
