@@ -116,6 +116,7 @@ public class PlayerActions extends Component {
    */
   public void consumePotionSlot1() {
     entity.getComponent(InventoryComponent.class).consumePotion(1);
+    QuickBarDisplay.updatePotionTable();
   }
 
   /**
@@ -123,6 +124,7 @@ public class PlayerActions extends Component {
    */
   public void consumePotionSlot2() {
     entity.getComponent(InventoryComponent.class).consumePotion(2);
+    QuickBarDisplay.updatePotionTable();
   }
 
   /**
@@ -130,6 +132,7 @@ public class PlayerActions extends Component {
    */
   public void consumePotionSlot3() {
     entity.getComponent(InventoryComponent.class).consumePotion(3);
+    QuickBarDisplay.updatePotionTable();
   }
 
 
@@ -344,6 +347,7 @@ public class PlayerActions extends Component {
   }
 
   public void invulnerabilitySkill() {
+    invulnerabilitySound.play();
     skillManager.startInvulnerabilitySkill();
   }
 

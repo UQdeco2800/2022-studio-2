@@ -44,6 +44,7 @@ public class PlayerModifier extends Component{
     public static final String STAMINAREGEN = "staminaRegen";
     public static final String STAMINAMAX = "staminaMax";
     public static final String HEALTH = "health";
+    public static final String DMGRETURN = "damageReturn";
 
     // List of all components present in the parent entity
     private PlayerActions playerActions;
@@ -71,6 +72,9 @@ public class PlayerModifier extends Component{
     // STAMINAMAX
     private float refStaminaMax;
     private float modStaminaMax;
+    //DMGRETURN
+    private float refDamageReturn;
+    private float modDamageReturn;
 
     /**
      * Creation function to gather all necessary components for PlayerModified component
@@ -89,6 +93,9 @@ public class PlayerModifier extends Component{
 
         refDamageReduction = combatStatsComponent.getDamageReduction();
         modDamageReduction = combatStatsComponent.getDamageReduction();
+
+        refDamageReturn = combatStatsComponent.getDamageReturn();
+        modDamageReturn = combatStatsComponent.getDamageReturn();
 
         refManaRegen = combatStatsComponent.getManaRegenerationRate();
         modManaRegen = combatStatsComponent.getManaRegenerationRate();
@@ -183,6 +190,12 @@ public class PlayerModifier extends Component{
                 modDamageReduction = remove ? modDamageReduction - mod.value : modDamageReduction + mod.value;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
             }
+
+            case DMGRETURN -> {
+                modDamageReturn = remove ? modDamageReturn - mod.value : modDamageReturn + mod.value;
+                combatStatsComponent.setDamageReturn(modDamageReturn);
+            }
+
             case MANAREGEN -> {
                 modManaRegen = remove ? modManaRegen - mod.value : modManaRegen + mod.value;
                 combatStatsComponent.setManaRegenerationRate((int) modManaRegen);
@@ -220,9 +233,19 @@ public class PlayerModifier extends Component{
                 playerActions.updateMaxSpeed(modSpeed);
             }
             case DMGREDUCTION -> {
+                System.out.println("Applying perm dmg red");
                 modDamageReduction += mod.value;
                 refDamageReduction += mod.value;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
+                System.out.println("new dmg red " + modDamageReduction);
+            }
+
+            case DMGRETURN -> {
+                System.out.println("Applying perm dmg return");
+                modDamageReturn += mod.value;
+                refDamageReturn += mod.value;
+                combatStatsComponent.setDamageReturn(modDamageReturn);
+                System.out.println("new dmg return " + modDamageReturn);
             }
             case MANAREGEN -> {
                 modManaRegen += mod.value;
@@ -273,6 +296,11 @@ public class PlayerModifier extends Component{
                 break;
             case DMGREDUCTION:
                 valChange = (scaling) ? refDamageReduction * value : value;
+                System.out.println("Original reduc " + refDamageReduction + " change " + valChange);
+                break;
+            case DMGRETURN:
+                valChange = (scaling) ? refDamageReturn * value : value;
+                System.out.println("Original return " + refDamageReturn + " change " + valChange);
                 break;
             case MANAREGEN :
                 valChange = (scaling) ? (int)(refManaRegen * value) : (int)value;
@@ -332,6 +360,7 @@ public class PlayerModifier extends Component{
         return switch (target) {
             case MOVESPEED -> modSpeed;
             case DMGREDUCTION -> modDamageReduction;
+            case DMGRETURN -> modDamageReturn;
             case MANAREGEN -> modManaRegen;
             case MANAMAX -> modManaMax;
             case STAMINAREGEN -> modStaminaRegen;
@@ -355,6 +384,7 @@ public class PlayerModifier extends Component{
             case MANAMAX -> refManaMax;
             case STAMINAREGEN -> refStaminaRegen;
             case STAMINAMAX -> refStaminaMax;
+            case DMGRETURN -> refDamageReturn;
             default -> -1;
         };
     }

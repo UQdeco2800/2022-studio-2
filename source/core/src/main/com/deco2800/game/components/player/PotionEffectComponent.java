@@ -8,8 +8,6 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 
-import static com.deco2800.game.components.player.PlayerModifier.DMGREDUCTION;
-import static com.deco2800.game.components.player.PlayerModifier.MOVESPEED;
 import static java.util.Objects.isNull;
 
 public class PotionEffectComponent extends Component {
@@ -109,21 +107,24 @@ public class PotionEffectComponent extends Component {
         if (!isNull(playerModifier)) {
             switch (this.effectType) {
                 case "speed":
-                    if (!playerModifier.checkModifier(MOVESPEED, this.effectValue, true, 3000)) {
+                    if (!playerModifier.checkModifier(PlayerModifier.MOVESPEED, this.effectValue,
+                            true, 3000)) {
                         // Modify does not exist
-                        playerModifier.createModifier(MOVESPEED, this.effectValue, true, 3000);
+                        playerModifier.createModifier(PlayerModifier.MOVESPEED, this.effectValue,
+                                true, 3000);
                     }
                     break;
                 case "health":
-                    playerModifier.createModifier("health", this.effectValue, false, 0);
-                    break;
-                case "healthRegen":
-                    playerModifier.createModifier("healthRegen", this.effectValue, false, 5000);
+                    playerModifier.createModifier(PlayerModifier.HEALTH, this.effectValue, false, 0);
                     break;
                 case "damageReduction":
-                    if (!playerModifier.checkModifier(DMGREDUCTION, this.effectValue, true, 3000)) {
+                    if (!playerModifier.checkModifier(PlayerModifier.DMGREDUCTION, this.effectValue, false,
+                            3000)) {
                         // Modify does not exist
-                        playerModifier.createModifier(DMGREDUCTION, this.effectValue, true, 3000);
+                        playerModifier.createModifier(PlayerModifier.DMGREDUCTION,
+                                this.effectValue,
+                                false,
+                                3000);
                     }
                     break;
                 default:
