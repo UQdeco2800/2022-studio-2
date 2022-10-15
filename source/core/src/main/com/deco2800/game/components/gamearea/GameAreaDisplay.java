@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
+import static com.badlogic.gdx.math.MathUtils.E;
 import static com.badlogic.gdx.math.MathUtils.ceil;
 
 /**
@@ -231,7 +232,7 @@ public class GameAreaDisplay extends UIComponent {
         return button;
     }
 
-    private Button addEquippableListner(Button button, String operation, int itemSlot){
+    private Button addEquipableListner(Button button, String operation, int itemSlot){
         InventoryComponent inventory = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         button.addListener(new ChangeListener() {
             @Override
@@ -247,6 +248,7 @@ public class GameAreaDisplay extends UIComponent {
                 dropdownGroup.clear();
             }
         });
+        dropdownGroup.addActor(button);
         return button;
     }
     /**
@@ -260,6 +262,7 @@ public class GameAreaDisplay extends UIComponent {
         ImageButton button = new ImageButton(new TextureRegionDrawable(new TextureRegion(itemTexture)));
         button.setSize(size, size);
         button.setPosition(x, y);
+        itemButtonGroup.addActor(button);
         return button;
     }
 
@@ -271,33 +274,23 @@ public class GameAreaDisplay extends UIComponent {
         final float horizontalPosition = (inventoryMenu.getX() + 696);
         for (Entity item : inventory.getEquipables()) {
             if (item != null) {
-                int itemSlot;
-                float verticalPosition;
-                if (item.checkEntityType(EntityTypes.WEAPON)) {
-                    verticalPosition = inventoryMenu.getY() + 416;
-                    itemSlot = 0;
-                } else {
-                    verticalPosition = inventoryMenu.getY() + 416 - 192f;
-                    itemSlot = 1;
-                }
+                int itemSlot = item.checkEntityType(EntityTypes.WEAPON)? 0: 1;
+                final float verticalPosition = inventoryMenu.getY() + 416 - 192f * itemSlot;
                 ImageButton equippedItem = createImageButton(item, 128, horizontalPosition, verticalPosition);
                 equippedItem.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         dropdownGroup.clear();
-                        Button unequipBtn = addEquippableListner(
+                        addEquipableListner(
                                 createInventoryButton("unequip", horizontalPosition + 63, verticalPosition),
                                 "unequip",
                                 itemSlot);
-                        Button dropItemBtn = addEquippableListner(
+                        addEquipableListner(
                                 createInventoryButton("drop",horizontalPosition + 63, verticalPosition - 40),
                                 "drop",
                                 itemSlot);
-                        dropdownGroup.addActor(unequipBtn);
-                        dropdownGroup.addActor(dropItemBtn);
                     }
                 });
-                itemButtonGroup.addActor(equippedItem);
             }
         }
     }
@@ -365,7 +358,6 @@ public class GameAreaDisplay extends UIComponent {
                             dropdownGroup.addActor(dropItemBtn);
                         }
                     });
-            itemButtonGroup.addActor(item);
         }
     }
 
