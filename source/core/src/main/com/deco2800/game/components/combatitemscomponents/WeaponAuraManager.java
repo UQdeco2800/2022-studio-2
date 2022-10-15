@@ -1,13 +1,10 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerTouchAttackComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
-import com.deco2800.game.services.ServiceLocator;
 
 //this is tied to the player
 public class WeaponAuraManager extends Component {
@@ -63,15 +60,15 @@ public class WeaponAuraManager extends Component {
             weaponStats.setDamage(weaponStats.getDamage() * aura.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
             weaponStats.setCoolDown(weaponStats.getCoolDown() * aura.getComponent(WeaponAuraComponent.class).getCdMultiplier());
             //shows the applied buff in the game
-            String current_aura = auraApplied.getComponent(WeaponAuraComponent.class).getDescription();
+            String auraCurrent = auraApplied.getComponent(WeaponAuraComponent.class).getDescription();
 
-            entity.getComponent(BuffDisplayComponent.class).setBuff(current_aura);
+            entity.getComponent(BuffDisplayComponent.class).setBuff(auraCurrent);
 
             //apply static aura animation
             Entity newCombatAnimator = PlayerFactory.createCombatAnimator(entity);
             setCombatAnimator(newCombatAnimator);
             String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-            String animationToApply = description+current_aura+"Static";
+            String animationToApply = description+ auraCurrent +"Static";
             combatAnimator.getEvents().trigger(animationToApply);
             entity.getComponent(PlayerTouchAttackComponent.class).getCombatAnimator().getEvents().trigger(animationToApply);
         }

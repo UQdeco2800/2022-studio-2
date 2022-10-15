@@ -1,14 +1,11 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 
@@ -26,9 +23,13 @@ public class BuffDisplayComponent extends UIComponent {
         addActors();
     }
 
+    /**
+     *
+     * @param batch Batch to render to.
+     */
     @Override
     protected void draw(SpriteBatch batch) {
-
+        // Draws the renderable
     }
 
     /**
@@ -55,7 +56,7 @@ public class BuffDisplayComponent extends UIComponent {
 
         TextureAtlas atlas = ServiceLocator.getResourceService()
                 .getAsset("images/CombatItems/animations/BuffAnimations/buff.atlas", TextureAtlas.class);
-        Animation animation1 = new Animation<TextureRegion>(0.05f, atlas.findRegions(auraDesc));
+        Animation<TextureRegion> animation1 = new Animation<>(0.05f, atlas.findRegions(auraDesc));
 
         buff = new AnimatedImage(animation1);
         buff.scaleBy(1.2F);
@@ -72,7 +73,7 @@ public class BuffDisplayComponent extends UIComponent {
         table.clear();
     }
 
-    @Override
+
     public void dispose() {
         super.dispose();
     }

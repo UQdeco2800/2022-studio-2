@@ -3,8 +3,8 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
-import com.deco2800.game.components.CombatItemsComponents.BuffDisplayComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponAuraManager;
+import com.deco2800.game.components.combatitemscomponents.BuffDisplayComponent;
+import com.deco2800.game.components.combatitemscomponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
@@ -84,8 +84,8 @@ public class PlayerFactory {
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setEntityType(EntityTypes.PLAYER);
 
-    /*//FOR TESTING
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
+    //FOR TESTING
+    /*player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createSwordLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createDagger());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHera());

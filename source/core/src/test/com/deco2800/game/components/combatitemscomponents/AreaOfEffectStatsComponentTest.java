@@ -1,20 +1,9 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.deco2800.game.crafting.Materials;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
-import com.deco2800.game.entities.factories.AuraFactory;
 import com.deco2800.game.extensions.GameExtension;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
 
-import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;

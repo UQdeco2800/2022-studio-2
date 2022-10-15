@@ -2,7 +2,7 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -439,8 +439,6 @@ public class InventoryComponent extends Component {
     public void toggleInventoryDisplay() {
         if (!inventoryIsOpened) {
             ServiceLocator.getInventoryArea().displayInventoryMenu();
-            ServiceLocator.getInventoryArea().displayItems();
-            ServiceLocator.getInventoryArea().displayEquipables();
         } else {
             ServiceLocator.getInventoryArea().disposeInventoryMenu();
         }

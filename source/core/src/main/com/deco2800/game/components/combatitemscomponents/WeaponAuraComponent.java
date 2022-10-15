@@ -1,4 +1,4 @@
-package com.deco2800.game.components.CombatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.deco2800.game.components.Component;
 
@@ -13,7 +13,7 @@ public class WeaponAuraComponent extends Component {
     private double areaMultiplier;
     private int auraDuration; //in milliseconds preferably
 
-    public String description;
+    private String description;
 
     /**
      *

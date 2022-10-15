@@ -570,10 +570,12 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+
+/*    *//**
      * Spawns speed debuff entity into the game
-     */
-    /* private void spawnSpeedDebuff() {
+<<<<<<< HEAD
+     *//*
+     private void spawnSpeedDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(35, 98));
         locations.add(new GridPoint2(54, 47));
@@ -582,7 +584,7 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(speedDebuff);
             spawnEntityAt(speedDebuff, location, true, false);
         }
-    }
+    }*/
 
     /**
      * Spawns damage buff entity into the game
@@ -599,10 +601,14 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+/*
+    */
+/**
      * Spawns damage debuff entity into the game
-     */
-/*    private void spawnDmgDebuff() {
+<<<<<<< HEAD
+     *//*
+
+    private void spawnDmgDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(80, 48));
         locations.add(new GridPoint2(49, 110));
@@ -612,7 +618,8 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(dmgDebuff);
             spawnEntityAt(dmgDebuff, location, true, false);
         }
-    }*/
+    }
+*/
 
     /**
      * Spawns fire buff entity into the game

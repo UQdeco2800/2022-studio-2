@@ -53,6 +53,27 @@ class GameAreaDisplayTest {
     }
 
     @Test
+    void displayInventoryMenu() {
+        GameAreaDisplay gameAreaDisplay = mock(GameAreaDisplay.class);
+        gameAreaDisplay.displayInventoryMenu();
+        verify(gameAreaDisplay).displayInventoryMenu();
+    }
+
+    @Test
+    void displayItems() {
+        GameAreaDisplay gameAreaDisplay = mock(GameAreaDisplay.class);
+        gameAreaDisplay.displayItems();
+        verify(gameAreaDisplay).displayItems();
+    }
+
+    @Test
+    void displayEquipables() {
+        GameAreaDisplay gameAreaDisplay = mock(GameAreaDisplay.class);
+        gameAreaDisplay.displayEquipables();
+        verify(gameAreaDisplay).displayEquipables();
+    }
+
+    @Test
     void setPauseMenu() {
     }
 

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class GymBroAnimationControllerTest {
+public class MegaPoopAnimationControllerTest {
     @BeforeEach
     void beforeEach() {
         // Mock rendering, physics, game time
@@ -54,22 +54,23 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishFront"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishBack"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishLeft"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("vanishRight"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackFront"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackBack"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackLeft"));
-        assertEquals(1, entity.getEvents().getNumberOfListeners("attackRight"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("projectileAttackFront"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("projectileAttackBack"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("projectileAttackLeft"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("projectileAttackRight"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkFront"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkBack"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkLeft"));
         assertEquals(1, entity.getEvents().getNumberOfListeners("walkRight"));
+        assertEquals(1, entity.getEvents().getNumberOfListeners("cast"));
     }
 
     @Test
@@ -82,9 +83,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("walkRight");
         assertEquals("walk_right", animationRenderComponent.getCurrentAnimation());
@@ -102,9 +103,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("walkLeft");
         assertEquals("walk_left", animationRenderComponent.getCurrentAnimation());
@@ -122,9 +123,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("walkBack");
         assertEquals("walk_back", animationRenderComponent.getCurrentAnimation());
@@ -141,9 +142,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("walkFront");
         assertEquals("walk_front", animationRenderComponent.getCurrentAnimation());
@@ -152,83 +153,83 @@ public class GymBroAnimationControllerTest {
     }
 
     @Test
-    void animateAttackRightTest() {
+    void animateProjectileAttackRightTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_right", 1);
+        TextureAtlas atlas = createMockAtlas("projectile_attack_right", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_right", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("projectile_attack_right", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
-        entity.getEvents().trigger("attackRight");
-        assertEquals("attack_right", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackRight");
-        assertEquals("attack_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackRight");
+        assertEquals("projectile_attack_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackRight");
+        assertEquals("projectile_attack_right", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
-    void animateAttackLeftTest() {
+    void animateProjectileAttackLeftTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_left", 1);
+        TextureAtlas atlas = createMockAtlas("projectile_attack_left", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_left", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("projectile_attack_left", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
-        entity.getEvents().trigger("attackLeft");
-        assertEquals("attack_left", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackLeft");
-        assertEquals("attack_left", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackLeft");
+        assertEquals("projectile_attack_left", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackLeft");
+        assertEquals("projectile_attack_left", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
-    void animateAttackBackTest() {
+    void animateProjectileAttackBackTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_back", 1);
+        TextureAtlas atlas = createMockAtlas("projectile_attack_back", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_back", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("projectile_attack_back", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
-        entity.getEvents().trigger("attackBack");
-        assertEquals("attack_back", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackBack");
-        assertEquals("attack_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackBack");
+        assertEquals("projectile_attack_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackBack");
+        assertEquals("projectile_attack_back", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
-    void animateAttackFrontTest() {
+    void animateProjectileAttackFrontTest() {
         Entity entity = new Entity();
-        TextureAtlas atlas = createMockAtlas("attack_front", 1);
+        TextureAtlas atlas = createMockAtlas("projectile_attack_front", 1);
 
         AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
-        animationRenderComponent.addAnimation("attack_front", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("projectile_attack_front", 1f, Animation.PlayMode.LOOP);
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
-        entity.getEvents().trigger("attackFront");
-        assertEquals("attack_front", animationRenderComponent.getCurrentAnimation());
-        entity.getEvents().trigger("attackFront");
-        assertEquals("attack_front", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackFront");
+        assertEquals("projectile_attack_front", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("projectileAttackFront");
+        assertEquals("projectile_attack_front", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -241,9 +242,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("vanishRight");
         assertEquals("vanish_right", animationRenderComponent.getCurrentAnimation());
@@ -261,9 +262,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("vanishLeft");
         assertEquals("vanish_left", animationRenderComponent.getCurrentAnimation());
@@ -281,9 +282,9 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("vanishBack");
         assertEquals("vanish_back", animationRenderComponent.getCurrentAnimation());
@@ -301,13 +302,33 @@ public class GymBroAnimationControllerTest {
         animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
         entity.addComponent(animationRenderComponent);
 
-        GymBroAnimationController gymBroAnimationController = new GymBroAnimationController();
-        gymBroAnimationController.setEntity(entity);
-        gymBroAnimationController.create();
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
 
         entity.getEvents().trigger("vanishFront");
         assertEquals("vanish_front", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("vanishFront");
         assertEquals("vanish_front", animationRenderComponent.getCurrentAnimation());
+    }
+
+    @Test
+    void animateCast() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("cast", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("cast", 1f, Animation.PlayMode.LOOP);
+        animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        MegaPoopAnimationController megaPoopAnimationController = new MegaPoopAnimationController();
+        megaPoopAnimationController.setEntity(entity);
+        megaPoopAnimationController.create();
+
+        entity.getEvents().trigger("cast");
+        assertEquals("cast", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("cast");
+        assertEquals("cast", animationRenderComponent.getCurrentAnimation());
     }
 }
