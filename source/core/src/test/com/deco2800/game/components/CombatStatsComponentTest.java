@@ -82,7 +82,8 @@ class CombatStatsComponentTest {
 
     combat.setStamina(80);
     assertEquals(80, combat.getStamina());
-
+    combat.setStamina(120);
+    assertEquals(100, combat.getStamina());
     combat.setStamina(-50);
     assertEquals(0, combat.getStamina());
   }
@@ -117,7 +118,8 @@ class CombatStatsComponentTest {
 
     combat.setMana(80);
     assertEquals(80, combat.getMana());
-
+    combat.setMana(120);
+    assertEquals(100, combat.getMana());
     combat.setMana(-50);
     assertEquals(0, combat.getMana());
   }
@@ -144,6 +146,39 @@ class CombatStatsComponentTest {
     combat.setMaxMana(-50);
     assertEquals(0, combat.getMaxMana());
   }
+  @Test
+  void shouldAddMana() {
+      CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
+      combat.addMana(-500);
+      assertEquals(0, combat.getMana());
+
+      combat.addMana(100);
+      combat.addMana(-20);
+      assertEquals(80, combat.getMana());
+    }
+     @Test
+      void shouldAddStamina() {
+          CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
+          combat.addStamina(-500);
+          assertEquals(0, combat.getStamina());
+
+          combat.addStamina(100);
+          combat.addStamina(-20);
+          assertEquals(80, combat.getStamina());
+        }
+  @Test
+  void shouldCheckMana(){
+      CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
+      assertTrue(combat.checkMana(80));
+      assertFalse(combat.checkMana(120));
+  }
+  @Test
+  void shouldCheckStamina(){
+      CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100, 100);
+      assertTrue(combat.checkStamina(80));
+      assertFalse(combat.checkStamina(120));
+  }
+
 
   /*
   void playerDropWeaponTest() {
