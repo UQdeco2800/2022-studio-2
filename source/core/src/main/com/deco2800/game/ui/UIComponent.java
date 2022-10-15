@@ -19,8 +19,6 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
   protected static final Skin skin =
       new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
   protected static Stage stage;
-
-  //TODO
   protected static ArrayList<Texture> potionsTex = new ArrayList<>();
   @Override
   public void create() {
@@ -38,7 +36,4 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
     return 1f;
   }
 
-  public static void RemovePotionTextureAt(int index) {
-      potionsTex.remove(index);
-  }
 }
