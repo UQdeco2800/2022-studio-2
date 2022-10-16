@@ -11,22 +11,16 @@ import com.deco2800.game.entities.EntityService;
 import java.util.ArrayList;
 
 public class OpenPauseComponent extends Component {
-    private static Logger logger;
-    //private static Boolean isOpen = false;
-    private static Boolean pauseOpen;
-    private static Boolean keyBindOpen;
-    private static Boolean playerGuideOpen;
-    private static Boolean inventoryToggled;
+    private static Logger logger = LoggerFactory.getLogger(OpenPauseComponent.class);
+    private Boolean pauseOpen;
+    private Boolean keyBindOpen;
+    private Boolean playerGuideOpen;
+    private Boolean inventoryToggled;
+    private ArrayList<String> playerGuideAssets = new ArrayList<>();
+    private ArrayList<String> playerGuideAssetslevel2 = new ArrayList<>();
+    private OpenKeyBinds openKeyBinds;
 
-    private static Boolean minimapToggled;
-    private static ArrayList<String> playerGuideAssets = new ArrayList<>();
-    private static ArrayList<String> playerGuideAssetslevel2 = new ArrayList<>();
-
-    public static OpenKeyBinds openKeyBinds;
-
-    //private static Boolean craftingStatus = false;
-//    private GdxGame game;
-
+    @Override
     public void create() {
 
         openKeyBinds = new OpenKeyBinds();
@@ -48,26 +42,45 @@ public class OpenPauseComponent extends Component {
         playerGuideAssetslevel2.add("images/Player Guide/level_2/7.png");
         playerGuideAssetslevel2.add("images/Player Guide/level_2/8.png");
 
-
-        logger = LoggerFactory.getLogger(OpenPauseComponent.class);
         entity.getEvents().addListener("escInput", this::togglePauseMenu);
         entity.getEvents().addListener("toggleInventory", this::setInventoryStatus);
-        entity.getEvents().addListener("toggleMinimap", this::setMinimapStatus);
+
         pauseOpen = false;
         keyBindOpen = false;
         playerGuideOpen = false;
         inventoryToggled = false;
-        minimapToggled = false;
-//        entity.getEvents().addListener("game paused", this::openPauseMenu);
-//        entity.getEvents().addListener("game resumed", this::closePauseMenu);
-        //entity.getEvents().addListener("is_opening", this::setCraftingStatus);
-        //entity.getEvents().addListener("is_closed", this::setCraftingStatus);
     }
 
+    /**
+     * Utility function to get pause menu open status.
+     * @return  True if pause menu is open, else false
+     */
+    public Boolean getPauseOpen() { return pauseOpen; }
 
-    private void setMinimapStatus() {
-        minimapToggled = !minimapToggled;
-    }
+    /**
+     * Utility function to get keybind menu open status.
+     * @return  True if pause menu is open, else false
+     */
+    public Boolean getKeyBindOpen() { return keyBindOpen; }
+
+
+    /**
+     * Utility function to get player guide menu open status.
+     * @return  True if pause menu is open, else false
+     */
+    public Boolean getPlayerGuideOpen() { return playerGuideOpen; }
+
+    /**
+     * Utility function to get inventory menu open status.
+     * @return  True if pause menu is open, else false
+     */
+    public Boolean getInventoryToggled() { return inventoryToggled; }
+
+    /**
+     * Return the OpenKeyBinds component this utilises
+     * @return  As above.
+     */
+    public OpenKeyBinds getOpenKeyBinds() { return openKeyBinds; }
 
     /**
      * Handler function for any escape input key-press registered by the player
@@ -78,155 +91,88 @@ public class OpenPauseComponent extends Component {
      * If the pause menu IS open, close it.
      */
     private void togglePauseMenu() {
-        if (keyBindOpen || playerGuideOpen) {
+        if (Boolean.TRUE.equals(keyBindOpen)) {
             closeKeyBindings();
+        }else if (Boolean.TRUE.equals(playerGuideOpen)) {
             closePlayerGuide();
-        } else if (!pauseOpen) {
-            openPauseMenu();
-        } else if (pauseOpen) {
+        } else if (Boolean.TRUE.equals(pauseOpen)) {
             closePauseMenu();
+        } else {
+            openPauseMenu();
         }
+    }
+
+    /**
+     * Utility function to set the inventory open status boolean.
+     */
+    private void setInventoryStatus() {
+        inventoryToggled = !inventoryToggled;
     }
 
     /**
      * Utility function to OPEN pause window and PAUSE the game.
      */
-    public static void openPauseMenu() {
+    public void openPauseMenu() {
         logger.info("Opening pause window");
         ServiceLocator.getPauseMenuArea().setPauseMenu();
         pauseOpen = true;
-        if (!inventoryToggled) { EntityService.pauseGame(); }
+        if (Boolean.FALSE.equals(inventoryToggled)) { EntityService.pauseGame(); }
     }
 
-    public static void openPlayerGuide1() {
-        logger.info("Opening player guide menu 1");
-        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(0));
-        playerGuideOpen = true;
-    }
 
-    public static Boolean openPlayerGuide(Integer playerGuidePageNumber) {
-        switch (playerGuidePageNumber) {
-            case 1:
-                logger.info("Turn to player guide page 1");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(0));
-                playerGuideOpen = true;
-                return true;
-            case 2:
-                logger.info("Turn to player guide page 2");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(1));
-                playerGuideOpen = true;
-                return true;
-            case 3:
-                logger.info("Turn to player guide page 3");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(2));
-                playerGuideOpen = true;
-                return true;
-            case 4:
-                logger.info("Turn to player guide page 4");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(3));
-                playerGuideOpen = true;
-                return true;
-            case 5:
-                logger.info("Turn to player guide page 5");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(4));
-                playerGuideOpen = true;
-                return true;
-            case 6:
-                logger.info("Turn to player guide page 6");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(5));
-                playerGuideOpen = true;
-                return true;
-            case 7:
-                logger.info("Turn to player guide page 7");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(6));
-                playerGuideOpen = true;
-                return true;
-            case 8:
-                logger.info("Turn to player guide page 8");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(7));
-                playerGuideOpen = true;
-                return true;
-            default:
-                return false;
+    /**
+     * Open the player guide menu and appropriately set the information page
+     * and asset based on the given pageNumber and level.
+     *
+     * @param level         game level (either 1 or 2)
+     * @param pageNumber    number of the page, 1 indexing (page 1 = 1, page 1 != 0)
+     * @return              True on success else false
+     */
+    public Boolean openPlayerGuide(int level, int pageNumber) {
+
+        if (pageNumber > 8) {
+            logger.error("Invalid player guide page given");
+            return false;
         }
-    }
 
-    public static Boolean openPlayerGuideLevel2(Integer playerGuidePageNumber) {
-        switch (playerGuidePageNumber) {
-            case 1:
-                logger.info("Turn to player guide page 1");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(0));
-                playerGuideOpen = true;
-                return true;
-            case 2:
-                logger.info("Turn to player guide page 2");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(1));
-                playerGuideOpen = true;
-                return true;
-            case 3:
-                logger.info("Turn to player guide page 3");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(2));
-                playerGuideOpen = true;
-                return true;
-            case 4:
-                logger.info("Turn to player guide page 4");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(3));
-                playerGuideOpen = true;
-                return true;
-            case 5:
-                logger.info("Turn to player guide page 5");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(4));
-                playerGuideOpen = true;
-                return true;
-            case 6:
-                logger.info("Turn to player guide page 6");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(5));
-                playerGuideOpen = true;
-                return true;
-            case 7:
-                logger.info("Turn to player guide page 7");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(6));
-                playerGuideOpen = true;
-                return true;
-            case 8:
-                logger.info("Turn to player guide page 8");
-                ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(7));
-                playerGuideOpen = true;
-                return true;
-            default:
-                return false;
+        if (level == 1) {
+            ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(pageNumber - 1));
+        } else if (level == 2) {
+            ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssetslevel2.get(pageNumber - 1));
+        } else {
+            logger.error("Invalid player guide level given");
+            return false;
         }
-    }
-    public static void openPlayerGuide2() {
-        logger.info("Opening player guide menu 2");
-        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(1));
+
         playerGuideOpen = true;
+        logger.info("Turning to player guide level {} page {}", level, pageNumber);
+        return true;
     }
 
-    public static void openPlayerGuide3() {
-        logger.info("Opening player guide menu 3");
-        ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(2));
-        playerGuideOpen = true;
-    }
-    public static void closePlayerGuide() {
+    /**
+     * Utility function to CLOSE pause player guide window.
+     */
+    public void closePlayerGuide() {
         logger.info("Closing player guide menu");
         ServiceLocator.getPlayerGuidArea().disposePlayerGuideMenu();
         playerGuideOpen = false;
     }
+
     /**
      * Utility function to CLOSE pause window and UNPAUSE the game.
      */
-    public static void closePauseMenu() {
+    public void closePauseMenu() {
         logger.info("Closing pause window");
+        KeyboardPlayerInputComponent.clearMenuOpening();
         ServiceLocator.getPauseMenuArea().disposePauseMenu();
         pauseOpen = false;
-        if (!inventoryToggled) { EntityService.pauseAndResume(); }
+        if (Boolean.FALSE.equals(inventoryToggled)) { EntityService.pauseAndResume(); }
     }
 
     /**
      * Utility function to OPEN key binding window.
      */
-    public static void openKeyBindings() {
+    public void openKeyBindings() {
         logger.info("Opening key binding window");
         ServiceLocator.getKeyBindArea().setKeyBindMenu();
         keyBindOpen = true;
@@ -235,45 +181,9 @@ public class OpenPauseComponent extends Component {
     /**
      * Utility function to CLOSE key binding window.
      */
-    private static void closeKeyBindings() {
+    public void closeKeyBindings() {
         logger.info("Closing key binding window");
         ServiceLocator.getKeyBindArea().disposeKeyBindMenu();
         keyBindOpen = false;
     }
-
-//    static Boolean getPauseOpen() {
-//        return pauseOpen;
-//    }
-
-    private void setInventoryStatus() {
-        inventoryToggled = !inventoryToggled;
-    }
-//
-//    public static boolean getPausingStatus() {
-//        return isOpen;
-//    }
-//
-//    private boolean getInventoryStatus() {
-//        return inventoryToggled;
-//    }
-
-    //    private void openPauseMenu() {
-//        if (isOpen == false && OpenCraftingComponent.craftingStatus == false && !inventoryToggled) {
-//            ServiceLocator.getPauseMenuArea().setPauseMenu();
-//            isOpen = true;
-//            EntityService.pauseGame();
-//        }
-//    }
-//
-//    private void closePauseMenu() {
-//        if (isOpen == true) {
-//            ServiceLocator.getPauseMenuArea().disposePauseMenu();
-//            isOpen = false;
-//            EntityService.pauseAndResume();
-//        }
-//    }
-
-//    public static void setPauseMenuStatus() {
-//        isOpen = !isOpen;
-//    }
 }

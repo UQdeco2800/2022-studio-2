@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 @ExtendWith(MockitoExtension.class)
-public class OpenKeyBindsTest {
+class OpenKeyBindsTest {
 
     OpenKeyBinds openKeyBinds;
     JsonReader json;
@@ -42,7 +42,6 @@ public class OpenKeyBindsTest {
         // Create our json viewer
         json = new JsonReader();
         base = json.parse(Gdx.files.getFileHandle("configs/keybinds.json", Files.FileType.Local));
-
     }
 
     @Test
@@ -68,7 +67,7 @@ public class OpenKeyBindsTest {
         OpenKeyBinds.KeyBind dummy;
         String path_lvl1, path_lvl2, description, keyName, image_lvl1, image_lvl2;
         int refIndex = 0;
-        int pages = ceil((float)OpenKeyBinds.getNumKeys() / (float)OpenKeyBinds.numKeysPerPage);
+        int pages = ceil((float)openKeyBinds.getNumKeys() / (float)OpenKeyBinds.KEYS_PER_PAGE);
         int realLength;
 
         /* The below code is almost identical to the real class building code. It
@@ -106,10 +105,10 @@ public class OpenKeyBindsTest {
             }
 
             for (int j = 0; j < realLength; j++) {
-                assertEquals(refKeys.get(refIndex).key, keys[j].key);
-                assertEquals(refKeys.get(refIndex).description, keys[j].description);
-                assertEquals(refKeys.get(refIndex).imagelvl1, keys[j].imagelvl1);
-                assertEquals(refKeys.get(refIndex).imagelvl2, keys[j].imagelvl2);
+                assertEquals(refKeys.get(refIndex).getKey(), keys[j].getKey());
+                assertEquals(refKeys.get(refIndex).getDescription(), keys[j].getDescription());
+                assertEquals(refKeys.get(refIndex).getImagelvl1(), keys[j].getImagelvl1());
+                assertEquals(refKeys.get(refIndex).getImagelvl2(), keys[j].getImagelvl2());
                 refIndex++;
             }
         }

@@ -1,9 +1,7 @@
 package com.deco2800.game.components.npc;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -16,7 +14,6 @@ import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -91,6 +88,8 @@ public class GymBroAnimationControllerTest {
 
         entity.getEvents().trigger("walkRight");
         assertEquals("walk_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("walkRight");
+        assertEquals("walk_right", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -107,6 +106,8 @@ public class GymBroAnimationControllerTest {
         gymBroAnimationController.setEntity(entity);
         gymBroAnimationController.create();
 
+        entity.getEvents().trigger("walkLeft");
+        assertEquals("walk_left", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("walkLeft");
         assertEquals("walk_left", animationRenderComponent.getCurrentAnimation());
     }
@@ -127,6 +128,8 @@ public class GymBroAnimationControllerTest {
 
         entity.getEvents().trigger("walkBack");
         assertEquals("walk_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("walkBack");
+        assertEquals("walk_back", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -142,6 +145,8 @@ public class GymBroAnimationControllerTest {
         gymBroAnimationController.setEntity(entity);
         gymBroAnimationController.create();
 
+        entity.getEvents().trigger("walkFront");
+        assertEquals("walk_front", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("walkFront");
         assertEquals("walk_front", animationRenderComponent.getCurrentAnimation());
     }
@@ -162,6 +167,8 @@ public class GymBroAnimationControllerTest {
 
         entity.getEvents().trigger("attackRight");
         assertEquals("attack_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("attackRight");
+        assertEquals("attack_right", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -178,6 +185,8 @@ public class GymBroAnimationControllerTest {
         gymBroAnimationController.setEntity(entity);
         gymBroAnimationController.create();
 
+        entity.getEvents().trigger("attackLeft");
+        assertEquals("attack_left", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("attackLeft");
         assertEquals("attack_left", animationRenderComponent.getCurrentAnimation());
     }
@@ -198,6 +207,8 @@ public class GymBroAnimationControllerTest {
 
         entity.getEvents().trigger("attackBack");
         assertEquals("attack_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("attackBack");
+        assertEquals("attack_back", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -214,6 +225,8 @@ public class GymBroAnimationControllerTest {
         gymBroAnimationController.setEntity(entity);
         gymBroAnimationController.create();
 
+        entity.getEvents().trigger("attackFront");
+        assertEquals("attack_front", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("attackFront");
         assertEquals("attack_front", animationRenderComponent.getCurrentAnimation());
     }
@@ -234,6 +247,8 @@ public class GymBroAnimationControllerTest {
 
         entity.getEvents().trigger("vanishRight");
         assertEquals("vanish_right", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("vanishRight");
+        assertEquals("vanish_right", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -250,6 +265,8 @@ public class GymBroAnimationControllerTest {
         gymBroAnimationController.setEntity(entity);
         gymBroAnimationController.create();
 
+        entity.getEvents().trigger("vanishLeft");
+        assertEquals("vanish_left", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("vanishLeft");
         assertEquals("vanish_left", animationRenderComponent.getCurrentAnimation());
     }
@@ -270,6 +287,8 @@ public class GymBroAnimationControllerTest {
 
         entity.getEvents().trigger("vanishBack");
         assertEquals("vanish_back", animationRenderComponent.getCurrentAnimation());
+        entity.getEvents().trigger("vanishBack");
+        assertEquals("vanish_back", animationRenderComponent.getCurrentAnimation());
     }
 
     @Test
@@ -286,6 +305,8 @@ public class GymBroAnimationControllerTest {
         gymBroAnimationController.setEntity(entity);
         gymBroAnimationController.create();
 
+        entity.getEvents().trigger("vanishFront");
+        assertEquals("vanish_front", animationRenderComponent.getCurrentAnimation());
         entity.getEvents().trigger("vanishFront");
         assertEquals("vanish_front", animationRenderComponent.getCurrentAnimation());
     }
