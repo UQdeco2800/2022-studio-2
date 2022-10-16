@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatitemscomponents;
+package com.deco2800.game.components.CombatItemsComponents;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
