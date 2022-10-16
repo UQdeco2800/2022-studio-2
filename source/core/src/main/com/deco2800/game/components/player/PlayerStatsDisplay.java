@@ -27,6 +27,9 @@ public class PlayerStatsDisplay extends UIComponent {
   // Dimensions of the stamina image
   private int staminaWidth = 120;
 
+  //Static size large
+  private static final String LARGE ="large";
+
   /**
    * Creates reusable ui styles and adds actors to the stage.
    */
@@ -57,17 +60,17 @@ public class PlayerStatsDisplay extends UIComponent {
     // Health text
     int health = entity.getComponent(CombatStatsComponent.class).getHealth();
     CharSequence healthText = String.format("Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");
+    healthLabel = new Label(healthText, skin, LARGE);
 
     // Stamina text
     int stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
     CharSequence staminaText = String.format("Stamina: %d", stamina);
-    staminaLabel = new Label(staminaText, skin, "large");
+    staminaLabel = new Label(staminaText, skin, LARGE);
 
     // Mana text
     int mana = entity.getComponent(CombatStatsComponent.class).getMana();
     CharSequence manaText = String.format("Mana: %d", mana);
-    manaLabel = new Label(manaText, skin, "large");
+    manaLabel = new Label(manaText, skin, LARGE);
 
     // Adding health bar text and image to the table
     table.row();
@@ -121,25 +124,22 @@ public class PlayerStatsDisplay extends UIComponent {
     if (value ==100){
       filename= "1.png";
     }
-    else if(value >=80 &&value<100 ){
+    else if(value >= 80 &&value< 100 ){
       filename= "2.png";
     }
-    else if (value <80 && value >=60){
+    else if (value < 80 && value >= 60){
       filename= "3.png";
     }
-    else if (value <60 && value >=40){
+    else if (value < 60 && value >= 40){
       filename= "4.png";
     }
-    else if (value <40 && value >=20){
+    else if (value < 40 && value >= 20){
       filename= "5.png";
     }
-    else if (value <20 && value >=10){
+    else if (value < 20 && value >= 10){
       filename= "6.png";
     }
-    else if (value ==0 && isHealth){
-      filename = "8.png";
-    }
-    else if (value <10 && value >=0){
+    else if (value < 10 && value >= 0){
       filename= "7.png";
     }
     return filename;
@@ -179,7 +179,7 @@ public class PlayerStatsDisplay extends UIComponent {
       staminaWidth = 80;
     } else if (stamina < 20 && stamina >= 10) {
       staminaWidth = 70;
-    } else if (stamina == 0 && isHealth) {
+    } else if (stamina == 0 && Boolean.TRUE.equals(isHealth)) {
       staminaWidth = 60;
     } else if (stamina < 10 && stamina >= 0) {
       staminaWidth = 60;

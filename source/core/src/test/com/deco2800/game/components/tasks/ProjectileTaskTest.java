@@ -64,18 +64,52 @@ public class ProjectileTaskTest {
         }
 
 
+        @Test
+        void getActivePriorityTest() {
+            Entity target = new Entity();
+            ProjectileTask projectileTask = new ProjectileTask(target, "discus", 5, 10f, 10f, 10f, 1f);
+            AITaskComponent ai = new AITaskComponent().addTask(projectileTask);
+            Entity entity = makePhysicsEntity().addComponent(ai);
+            entity.create();
+
+            projectileTask.start();
+            target.setPosition(20f, 20f);
+            entity.setPosition(0f, 0f);
+            assertEquals(-1, projectileTask.getPriority());
+
+            target.setPosition(0.1f, 0.1f);
+            assertEquals(5, projectileTask.getPriority());
+        }
+
+
+    @Test
+    void getInactivePriorityTest() {
+        Entity target = new Entity();
+        ProjectileTask projectileTask = new ProjectileTask(target, "discus", 5, 10f, 10f, 10f, 1f);
+        AITaskComponent ai = new AITaskComponent().addTask(projectileTask);
+        Entity entity = makePhysicsEntity().addComponent(ai);
+        entity.create();
+
+        target.setPosition(20f, 20f);
+        entity.setPosition(0f, 0f);
+        assertEquals(-1, projectileTask.getPriority());
+
+        target.setPosition(0.1f, 0.1f);
+        assertEquals(5, projectileTask.getPriority());
+    }
+
     @Test
     void attackAnimateDiscusAttackBackTest() {
         ResourceService resourceService = new ResourceService();
         ServiceLocator.registerResourceService(resourceService);
-        String[] textures = {"images/Enemies/poopSludge.png"};
-        String[] textureAtlases = {"images/Enemies/poop.atlas"};
+        String[] textures = {"images/Enemies/discus.png"};
+        String[] textureAtlases = {"images/Enemies/heracles.atlas"};
         resourceService.loadTextures(textures);
         resourceService.loadTextureAtlases(textureAtlases);
         resourceService.loadAll();
 
         Entity target = new Entity();
-        ProjectileTask projectileTask = new ProjectileTask(target, "poopSludge", 5, 10f, 10f, 10f, 1f);
+        ProjectileTask projectileTask = new ProjectileTask(target, "discus", 5, 10f, 10f, 10f, 1f);
         AITaskComponent ai = new AITaskComponent().addTask(projectileTask);
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();
@@ -97,14 +131,14 @@ public class ProjectileTaskTest {
     void attackAnimateDiscusAttackFrontTest() {
         ResourceService resourceService = new ResourceService();
         ServiceLocator.registerResourceService(resourceService);
-        String[] textures = {"images/Enemies/poopSludge.png"};
-        String[] textureAtlases = {"images/Enemies/poop.atlas"};
+        String[] textures = {"images/Enemies/discus.png"};
+        String[] textureAtlases = {"images/Enemies/heracles.atlas"};
         resourceService.loadTextures(textures);
         resourceService.loadTextureAtlases(textureAtlases);
         resourceService.loadAll();
 
         Entity target = new Entity();
-        ProjectileTask projectileTask = new ProjectileTask(target, "poopSludge", 5, 10f, 10f, 10f, 1f);
+        ProjectileTask projectileTask = new ProjectileTask(target, "discus", 5, 10f, 10f, 10f, 1f);
         AITaskComponent ai = new AITaskComponent().addTask(projectileTask);
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();
@@ -126,14 +160,14 @@ public class ProjectileTaskTest {
     void attackAnimateDiscusAttackLeftTest() {
         ResourceService resourceService = new ResourceService();
         ServiceLocator.registerResourceService(resourceService);
-        String[] textures = {"images/Enemies/poopSludge.png"};
-        String[] textureAtlases = {"images/Enemies/poop.atlas"};
+        String[] textures = {"images/Enemies/discus.png"};
+        String[] textureAtlases = {"images/Enemies/heracles.atlas"};
         resourceService.loadTextures(textures);
         resourceService.loadTextureAtlases(textureAtlases);
         resourceService.loadAll();
 
         Entity target = new Entity();
-        ProjectileTask projectileTask = new ProjectileTask(target, "poopSludge", 5, 10f, 10f, 10f, 1f);
+        ProjectileTask projectileTask = new ProjectileTask(target, "discus", 5, 10f, 10f, 10f, 1f);
         AITaskComponent ai = new AITaskComponent().addTask(projectileTask);
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();
@@ -155,14 +189,14 @@ public class ProjectileTaskTest {
     void attackAnimateDiscusAttackRightTest() {
         ResourceService resourceService = new ResourceService();
         ServiceLocator.registerResourceService(resourceService);
-        String[] textures = {"images/Enemies/poopSludge.png"};
-        String[] textureAtlases = {"images/Enemies/poop.atlas"};
+        String[] textures = {"images/Enemies/discus.png"};
+        String[] textureAtlases = {"images/Enemies/heracles.atlas"};
         resourceService.loadTextures(textures);
         resourceService.loadTextureAtlases(textureAtlases);
         resourceService.loadAll();
 
         Entity target = new Entity();
-        ProjectileTask projectileTask = new ProjectileTask(target, "poopSludge", 5, 10f, 10f, 10f, 1f);
+        ProjectileTask projectileTask = new ProjectileTask(target, "discus", 5, 10f, 10f, 10f, 1f);
         AITaskComponent ai = new AITaskComponent().addTask(projectileTask);
         Entity entity = makePhysicsEntity().addComponent(ai);
         entity.create();

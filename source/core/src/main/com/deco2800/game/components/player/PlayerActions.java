@@ -45,7 +45,9 @@ public class PlayerActions extends Component {
   private Music dashSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dash.mp3"));
   private Music blockSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/block.mp3"));
   private Music dodgeSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dodge.mp3"));
-  private Music projectileSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/projectile.wav"));
+  private Music fireballSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/fireball.wav"));
+  private Music projectileSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/projectile.mp3"));
+  private Music rootSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/root.mp3"));
   private Music invulnerabilitySound= Gdx.audio.newMusic(Gdx.files.internal("sounds/invulnerability.mp3"));
   private Music oraSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/ora.mp3"));
   private Music zawarudoSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/zawarudo.mp3"));
@@ -69,7 +71,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
     entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     //entity.getEvents().addListener("kill switch", this::killEnemy);
-    //entity.getEvents().addListener("attack", this::attackAnimation);
+    //entity.getEvents().addListener("attackEnemy", this::attackAnimation);
 
 
     // Skills and Dash initialisation
@@ -116,6 +118,7 @@ public class PlayerActions extends Component {
    */
   public void consumePotionSlot1() {
     entity.getComponent(InventoryComponent.class).consumePotion(1);
+    QuickBarDisplay.updatePotionTable();
   }
 
   /**
@@ -123,6 +126,7 @@ public class PlayerActions extends Component {
    */
   public void consumePotionSlot2() {
     entity.getComponent(InventoryComponent.class).consumePotion(2);
+    QuickBarDisplay.updatePotionTable();
   }
 
   /**
@@ -130,6 +134,7 @@ public class PlayerActions extends Component {
    */
   public void consumePotionSlot3() {
     entity.getComponent(InventoryComponent.class).consumePotion(3);
+    QuickBarDisplay.updatePotionTable();
   }
 
 
@@ -271,7 +276,7 @@ public class PlayerActions extends Component {
 
 
   /**
-   * Applies bleed to the player's next attack. Registers call of the bleed function to the skill manager component.
+   * Applies bleed to the player's next attackEnemy. Registers call of the bleed function to the skill manager component.
    */
   void bleed() {
     if (mana>=10) {
@@ -281,17 +286,18 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Applies root to the player's next attack. Registers call of the root function to the skill manager component.
+   * Applies root to the player's next attackEnemy. Registers call of the root function to the skill manager component.
    */
   void root() {
     if (mana>=10) {
       entity.getEvents().trigger("decreaseMana", -10);
+      rootSound.play();
       skillManager.startRoot();
     }
   }
 
   /**
-   * Does an aoe attack around the player. Registers call of the aoe function to the skill manager component.
+   * Does an aoe attackEnemy around the player. Registers call of the aoe function to the skill manager component.
    */
   void aoe() {
     if (mana>=2) {
@@ -331,6 +337,7 @@ public class PlayerActions extends Component {
    * Registers call of the ultimate function to the skill manager component.
    */
   public void fireballUltimate() {
+    fireballSound.play();
     skillManager.startFireballUltimate();
   }
 
@@ -339,10 +346,12 @@ public class PlayerActions extends Component {
    * Registers call of the projectile function to the skill manager component.
    */
   public void coneProjectile() {
+    projectileSound.play();
     skillManager.startProjectileSkill();
   }
 
   public void invulnerabilitySkill() {
+    invulnerabilitySound.play();
     skillManager.startInvulnerabilitySkill();
   }
 

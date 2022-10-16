@@ -1,18 +1,14 @@
 package com.deco2800.game.services;
 
-import com.badlogic.gdx.Screen;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
-import com.deco2800.game.screens.DeathScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.reporters.jq.Main;
 
 /**
  * A simplified implementation of the Service Locator pattern:
@@ -38,6 +34,7 @@ public class ServiceLocator {
 
   private static GameAreaDisplay craftArea;
   private static GameAreaDisplay pauseMenuArea;
+  private static GameAreaDisplay playerGuidArea;
   private static GameAreaDisplay inventoryArea;
   private static GameAreaDisplay keyBindArea;
 
@@ -126,6 +123,7 @@ public class ServiceLocator {
   }
 
   public static void registerPauseArea(GameAreaDisplay area) {pauseMenuArea = area;}
+  public static void registerPlayerGuideArea(GameAreaDisplay area) {playerGuidArea = area;}
 
   public static void registerInventoryArea(GameAreaDisplay area){
     inventoryArea = area;
@@ -143,6 +141,10 @@ public class ServiceLocator {
 
   public static GameAreaDisplay getPauseMenuArea() {
     return pauseMenuArea;
+  }
+
+  public static GameAreaDisplay getPlayerGuidArea() {
+    return playerGuidArea;
   }
 
   public static GameAreaDisplay getInventoryArea() {

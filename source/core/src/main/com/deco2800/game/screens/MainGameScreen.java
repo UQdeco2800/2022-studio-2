@@ -2,10 +2,12 @@ package com.deco2800.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
@@ -15,6 +17,7 @@ import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.OpenKeyBinds;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
+import com.deco2800.game.components.player.CooldownBarDisplay;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.QuickBarDisplay;
 import com.deco2800.game.entities.Entity;
@@ -46,6 +49,9 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png"};
+  private static final String backgroundMusicMapOne = "sounds/music_sprint4/level0_1.wav";
+  private static final String backgroundMusicMapTwo = "sounds/music_sprint4/level0_2.wav";
+  private static final String[] mainMenuMusic = {backgroundMusicMapOne,backgroundMusicMapTwo};
   private static final String[] quickBar = {"images/Inventory/quickbar_sprint3.png"};
   private static final String[] healthBar = {"images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png","images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png"};
   private static final String[] staminaBar = {"images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png","images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png" };
@@ -157,6 +163,20 @@ public class MainGameScreen extends ScreenAdapter {
     player.getEvents().addListener("win", this::winScreenStart);
   }
 
+  private void playMusicOne() {
+    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapOne, Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
+  }
+
+  private void playMusicTwo() {
+    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapTwo, Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
+  }
+
   /**
    * Sets dead to true, changing the render of the game
    */
@@ -236,7 +256,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     renderer.dispose();
     unloadAssets();
-
+    ServiceLocator.getResourceService().getAsset(backgroundMusicMapOne, Music.class).stop();
+    ServiceLocator.getResourceService().getAsset(backgroundMusicMapTwo, Music.class).stop();
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getResourceService().dispose();
@@ -282,9 +303,10 @@ public class MainGameScreen extends ScreenAdapter {
   private ForestGameArea loadLevelOneMap() {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-
+    playMusicOne();
     forestGameArea.create();
     return forestGameArea;
+
   }
 
   /**
@@ -294,7 +316,7 @@ public class MainGameScreen extends ScreenAdapter {
   private UndergroundGameArea loadLevelTwoMap() {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     UndergroundGameArea undergroundGameArea = new UndergroundGameArea(terrainFactory);
-
+    playMusicTwo();
     undergroundGameArea.create();
     return undergroundGameArea;
   }
@@ -302,6 +324,7 @@ public class MainGameScreen extends ScreenAdapter {
   private void loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.loadMusic(mainMenuMusic);
     resourceService.loadTextures(mainGameTextures);
     resourceService.loadTextures(quickBar);
     resourceService.loadTextures(healthBar);
@@ -343,6 +366,8 @@ public class MainGameScreen extends ScreenAdapter {
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
             .addComponent(new QuickBarDisplay())
+            .addComponent(new SkillsTreeDisplay())
+            .addComponent(new CooldownBarDisplay())
             .addComponent(new PerformanceDisplay())
             .addComponent(mainGameActions)
             .addComponent(new MainGameExitDisplay())

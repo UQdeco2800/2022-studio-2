@@ -1,12 +1,10 @@
 package com.deco2800.game.entities.factories;
 
-
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.CombatItemsComponents.WeaponArrowProjectileComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.WeaponArrowProjectileComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.npc.EnemyProjectileComponent;
@@ -14,7 +12,7 @@ import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerSkillProjectileComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -27,6 +25,9 @@ import com.deco2800.game.services.ServiceLocator;
 
 public class ProjectileFactory {
 
+    private ProjectileFactory() {
+        throw new IllegalStateException("Instantiating static util class");
+    }
     /**
      * Creates base entity of projectile
      * @param ownerEntity the entity that throws this projectile

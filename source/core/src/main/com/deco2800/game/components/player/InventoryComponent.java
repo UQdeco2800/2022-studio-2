@@ -2,7 +2,7 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -34,6 +34,11 @@ public class InventoryComponent extends Component {
      * The initial size of inventory
      */
     private static final  int INVENTORY_SIZE = 16;
+
+    /**
+     * The maximum potion quantity
+     */
+    private static final int MAX_QTY = 9;
 
     /**
      * The initial size of quick bar
@@ -112,6 +117,7 @@ public class InventoryComponent extends Component {
      * Cancel the animation registered for equipped weapon
      */
     private void cancelAnimation() {
+        if(combatAnimator == null) return;
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
     }
@@ -269,7 +275,7 @@ public class InventoryComponent extends Component {
      * @param weapon the weapon that is going to be equipped on
      * @param equip  boolean to determine equip or unequip item
      */
-    private void applyWeaponEffect(Entity weapon, boolean equip) {
+    public void applyWeaponEffect(Entity weapon, boolean equip) {
         PhysicalWeaponStatsComponent weaponStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
         if ((weaponStats = weapon.getComponent(PhysicalWeaponStatsComponent.class)) != null) {
@@ -295,9 +301,16 @@ public class InventoryComponent extends Component {
         //Applying the weight of the armour to player
         if ((armourStats = armour.getComponent(ArmourStatsComponent.class)) != null) {
             if (equip) {
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, (-(float) armourStats.getWeight() / 10), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED,
+                        (-(float) armourStats.getWeight() / 10), false, 0);
+                pmComponent.createModifier(PlayerModifier.DMGREDUCTION,
+                        (float)armourStats.getPhyResistance(), false, 0);
+                pmComponent.createModifier(PlayerModifier.DMGRETURN,
+                        (float)armourStats.getDmgReturn(), false, 0);
             } else {
                 pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10, false, 0);
+                pmComponent.createModifier(PlayerModifier.DMGREDUCTION,
+                        -(float)armourStats.getPhyResistance(), false, 0);
             }
         }
     }
@@ -434,8 +447,6 @@ public class InventoryComponent extends Component {
     public void toggleInventoryDisplay() {
         if (!inventoryIsOpened) {
             ServiceLocator.getInventoryArea().displayInventoryMenu();
-            ServiceLocator.getInventoryArea().displayItems();
-            ServiceLocator.getInventoryArea().displayEquipables();
         } else {
             ServiceLocator.getInventoryArea().disposeInventoryMenu();
         }
@@ -489,11 +500,10 @@ public class InventoryComponent extends Component {
      * @param potion the potion to be added
      */
     public boolean addQuickBarItems(Entity potion) {
-        boolean hasPotion = hasItem(potion, quickBarItems);
         boolean added = false;
 
-        if (hasPotion) {
-            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
+        if (hasItem(potion, quickBarItems)) {
+            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < MAX_QTY) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
             }
@@ -507,6 +517,7 @@ public class InventoryComponent extends Component {
                 added = true;
             }
         }
+        if (added) removeItem(potion);
         return added;
     }
 
@@ -528,7 +539,7 @@ public class InventoryComponent extends Component {
     /**
      * Removes the potion from the quickbar based on the input index
      *
-     * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+     * @param inputIndex the index that is returned from user actions
      */
     public void removePotion(int inputIndex) {
         quickBarItems.remove(inputIndex);

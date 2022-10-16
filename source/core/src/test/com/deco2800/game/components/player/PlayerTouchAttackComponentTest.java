@@ -48,7 +48,7 @@ public class PlayerTouchAttackComponentTest {
 
         entity.getEvents().trigger("collisionStart", entityFixture, targetFixture);
 
-        entity.getEvents().trigger("attack");
+        entity.getEvents().trigger("attackEnemy");
 
         assertEquals(10, target.getComponent(CombatStatsComponent.class).getHealth());
 
@@ -57,7 +57,7 @@ public class PlayerTouchAttackComponentTest {
     @Test
     void collisionActiveNoAttackTest() {
 
-        // checks that even when collision is set to true and attack isn't called the health stays unchanged
+        // checks that even when collision is set to true and attackEnemy isn't called the health stays unchanged
 
         short targetLayer = (1 << 3);
         Entity entity = createAttacker(targetLayer);
@@ -66,7 +66,7 @@ public class PlayerTouchAttackComponentTest {
         Fixture entityFixture = entity.getComponent(HitboxComponent.class).getFixture();
         Fixture targetFixture = target.getComponent(HitboxComponent.class).getFixture();
 
-        entity.getEvents().trigger("attack");
+        entity.getEvents().trigger("attackEnemy");
 
         assertEquals(20, target.getComponent(CombatStatsComponent.class).getHealth());
 
@@ -75,13 +75,13 @@ public class PlayerTouchAttackComponentTest {
     @Test
     void collisionFalseAttackTest() {
 
-        // checks when collision is false and attack is called the health stays unchanged
+        // checks when collision is false and attackEnemy is called the health stays unchanged
 
         short targetLayer = (1 << 3);
         Entity entity = createAttacker(targetLayer);
 
         try {
-            entity.getEvents().trigger("attack");
+            entity.getEvents().trigger("attackEnemy");
         } catch (NullPointerException e) {
             System.out.println("Null Pointer Exception Error");
         }
