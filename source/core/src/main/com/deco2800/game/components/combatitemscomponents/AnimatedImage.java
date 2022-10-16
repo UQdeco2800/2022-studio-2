@@ -12,7 +12,7 @@ public class AnimatedImage extends Image
     private float stateTime = 0;
 
     public AnimatedImage(Animation<TextureRegion> animation) {
-        super((TextureRegion) animation.getKeyFrame(0));
+        super(animation.getKeyFrame(0));
         this.animation = animation;
     }
 
@@ -20,7 +20,7 @@ public class AnimatedImage extends Image
     public void act(float delta)
     {
         stateTime = stateTime + delta;
-        ((TextureRegionDrawable)getDrawable()).setRegion((TextureRegion) animation.getKeyFrame(stateTime, true));
+        ((TextureRegionDrawable)getDrawable()).setRegion(animation.getKeyFrame(stateTime, true));
         super.act(delta);
     }
 }

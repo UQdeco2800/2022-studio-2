@@ -47,11 +47,11 @@ public class AuraPickupComponent extends ItemPickupComponent {
                 Entity entityOfComponent = getEntity();
                 Sound pickupSound = ServiceLocator.getResourceService().getAsset("sounds/buffPickupSound.wav", Sound.class);
                 pickupSound.play();
-                if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
-                    ((ForestGameArea) ServiceLocator.getGameArea()).removeAuraOnMap(entityOfComponent);
+                if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
+                    ForestGameArea.removeAuraOnMap(entityOfComponent);
                 }
-                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
-                    ((UndergroundGameArea) ServiceLocator.getGameArea()).removeAuraOnMap(entityOfComponent);
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea undergroundgamearea){
+                    UndergroundGameArea.removeAuraOnMap(entityOfComponent);
                 }
                 logger.info("Aura picked up");
                 ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class)
