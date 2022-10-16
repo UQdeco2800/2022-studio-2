@@ -30,7 +30,7 @@ public class UndergroundGameArea extends GameArea {
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static Entity megaPoop;
-    private static List<Entity> ItemsOnMap = new ArrayList<>();
+    private static List<Entity> itemsOnMap = new ArrayList<>();
     private static List<Entity> auraOnMap = new ArrayList<>();
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
@@ -145,7 +145,6 @@ public class UndergroundGameArea extends GameArea {
 
     };
 
-    public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
@@ -549,6 +548,7 @@ public class UndergroundGameArea extends GameArea {
         Entity newKeyPromptAnimator = PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+        spawnEntityAt(newKeyPromptAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
         newPlayer.getComponent(PlayerKeyPrompt.class)
                 .setKeyPromptAnimator(newKeyPromptAnimator);
@@ -571,10 +571,12 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+
+/*    *//**
      * Spawns speed debuff entity into the game
-     */
-    /* private void spawnSpeedDebuff() {
+<<<<<<< HEAD
+     *//*
+     private void spawnSpeedDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(35, 98));
         locations.add(new GridPoint2(54, 47));
@@ -583,7 +585,7 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(speedDebuff);
             spawnEntityAt(speedDebuff, location, true, false);
         }
-    }
+    }*/
 
     /**
      * Spawns damage buff entity into the game
@@ -600,10 +602,14 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+/*
+    */
+/**
      * Spawns damage debuff entity into the game
-     */
-/*    private void spawnDmgDebuff() {
+<<<<<<< HEAD
+     *//*
+
+    private void spawnDmgDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(80, 48));
         locations.add(new GridPoint2(49, 110));
@@ -613,7 +619,8 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(dmgDebuff);
             spawnEntityAt(dmgDebuff, location, true, false);
         }
-    }*/
+    }
+*/
 
     /**
      * Spawns fire buff entity into the game
@@ -821,7 +828,7 @@ public class UndergroundGameArea extends GameArea {
     public static void removeItemOnMap(Entity entityToRemove) {
 
         entityToRemove.setEnabled(false);
-        ItemsOnMap.remove(entityToRemove);
+        itemsOnMap.remove(entityToRemove);
         Gdx.app.postRunnable(() -> entityToRemove.dispose());
     }
 }
