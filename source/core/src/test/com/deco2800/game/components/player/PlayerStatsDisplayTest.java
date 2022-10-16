@@ -32,15 +32,6 @@ public class PlayerStatsDisplayTest{
         ResourceService resourceService = new ResourceService(assetManager);
         ServiceLocator.registerResourceService(resourceService);
 
-        /*
-        Okay so current problem is the constructor of PlayStatDisplay
-        loads images as textures and for some reason
-        below isn't loading them as textures?
-         */
-        // hey eli im just leaving this message in, it seems to be the rendering service was null?
-        // I suspect it was due to you calling the playStatDisplay object before you registered
-        // the services and hence its resource service it had was null at the time of creation!
-        // Should be good now :P
         String statImages[] = {"images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png",
                 "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png",
                 "images/PlayerStatDisplayGraphics/Mana-bucket/bucket-mana_1.png"};
@@ -52,12 +43,98 @@ public class PlayerStatsDisplayTest{
         dummy.addComponent(playStatDisplay);
     }
 
-    @Test
-    void checkImageTest(){
 
+    /**
+     * Checking stat of 100 and that the class returns the 1.png string
+     */
+    @Test
+    void checkImage100Test(){
        assertEquals("1.png", playStatDisplay.checkImage(100));
     }
 
-    
+    /**
+     * Checking stat of 90 and that the class returns the 2.png string
+     */
+    @Test
+    void checkImage90Test(){
+        assertEquals("2.png", playStatDisplay.checkImage(90));
+    }
+
+    /**
+     * Checking stat of 80 and that the class returns the 2.png string
+     */
+    @Test
+    void checkImage80Test(){
+        assertEquals("2.png", playStatDisplay.checkImage(80));
+    }
+
+    /**
+     * Checking stat of 70 and that the class returns the 3.png string
+     */
+    @Test
+    void checkImage70Test(){
+        assertEquals("3.png", playStatDisplay.checkImage(70));
+    }
+
+    /**
+     * Checking stat of 60 and that the class returns the 3.png string
+     */
+    @Test
+    void checkImage60Test(){
+        assertEquals("3.png", playStatDisplay.checkImage(60));
+    }
+
+    /**
+     * Checking stat of 50 and that the class returns the 4.png string
+     */
+    @Test
+    void checkImage50Test(){
+        assertEquals("4.png", playStatDisplay.checkImage(50));
+    }
+
+    /**
+     * Checking stat of 40 and that the class returns the 4.png string
+     */
+    @Test
+    void checkImage40Test(){
+        assertEquals("4.png", playStatDisplay.checkImage(40));
+    }
+
+    /**
+     * Checking stat of 30 and that the class returns the 5.png string
+     */
+    @Test
+    void checkImage30Test(){
+        assertEquals("5.png", playStatDisplay.checkImage(30));
+    }
+
+    /**
+     * Checking stat of 20 and that the class returns the 5.png string
+     */
+    @Test
+    void checkImage20Test(){
+        assertEquals("5.png", playStatDisplay.checkImage(20));
+    }
+
+    /**
+     * Checking stat of 10 and that the class returns the 6.png string
+     */
+    @Test
+    void checkImage10Test(){
+        assertEquals("6.png", playStatDisplay.checkImage(10));
+    }
+
+    /**
+     * Checking stat of 5 and that the class returns the 7.png string
+     */
+    @Test
+    void checkImage5Test(){ assertEquals("7.png", playStatDisplay.checkImage(5));}
+
+    /**
+     * Checking stat of 0 and that the class returns the 7.png string
+     */
+    @Test
+    void checkImage0Test(){ assertEquals("7.png", playStatDisplay.checkImage(0));}
+
 
 }
