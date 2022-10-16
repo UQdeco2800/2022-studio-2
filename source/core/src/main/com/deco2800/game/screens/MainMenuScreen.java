@@ -28,10 +28,11 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final GdxGame game;
   private final Renderer renderer;
-  public static final int frameCount = 85;
+  public static final int frameCount = 190;
   private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/substitute main menu by Rey.png"};
   public static String[] transitionTextures = new String[frameCount];
-  private static final String animationPrefix = "images/Crafting-assets-sprint1/screens/main menu animation/atlantis sinks animation";
+  private static final String animationPrefix = "images/Crafting-assets-sprint1/screens/title animation/title_animation";
+
   private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
   private static final String[] mainMenuMusic = {backgroundMusic};
 

@@ -38,13 +38,13 @@ public class MainMenuDisplayProMax extends UIComponent {
 
     private static final float Z_INDEX = 2f;
     private int fps = 15;
-    private final long frameDuration =  (long)(300 / fps);
+    private final long frameDuration =  (long)(800 / fps);
 
     private Group menuGroup = new Group();
 
     @Override
     public void create() {
-        frame=0;
+        frame=1;
         super.create();
         addActors();
     }
@@ -124,12 +124,14 @@ public class MainMenuDisplayProMax extends UIComponent {
                     .getAsset(MainMenuScreen.transitionTextures[frame], Texture.class));
 
             transitionFrames.setWidth(Gdx.graphics.getWidth());
-            transitionFrames.setHeight(Gdx.graphics.getHeight()/2 + 200);
-            transitionFrames.setPosition(0, Gdx.graphics.getHeight()/2-250);
+            transitionFrames.setHeight(Gdx.graphics.getHeight()/2);
+            transitionFrames.setPosition(0, Gdx.graphics.getHeight()/2+15);
             frame++;
 //            logger.info("frame = " + frame);
             stage.addActor(transitionFrames);
             lastFrameTime = System.currentTimeMillis();
+        } else {
+            frame=1;
         }
     }
 
