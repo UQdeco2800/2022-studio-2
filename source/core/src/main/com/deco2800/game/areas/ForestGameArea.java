@@ -178,16 +178,15 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 HumanGuardDialoguePosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 PLumberFriendDialoguePosition;
-  public static GridPoint2 GuardPosition;
-  public static GridPoint2 GuardDialoguePosition;
-  public static GridPoint2 friendlycreaturePosition;
-  public static GridPoint2 friendlycreatureDialoguePosition;
+//  public static GridPoint2 GuardPosition;
+//  public static GridPoint2 GuardDialoguePosition;
+//  public static GridPoint2 friendlycreaturePosition;
+//  public static GridPoint2 friendlycreatureDialoguePosition;
 
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 maleCitizenDialoguePosition;
   public static GridPoint2 childPosition;
   public static GridPoint2 childDialoguePosition;
-//  public static GridPoint2 friendly_creaturePosition;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -236,8 +235,8 @@ public class ForestGameArea extends GameArea {
     spawnOneLegGirl();
     spawnPlug();
     spawnHumanGuard();
-    spawnfriendlycreature();
-    spawnGuard();
+//    spawnfriendlycreature();
+//    spawnGuard();
     spawnPlumberFriend();
     spawnChild();
     spawnMaleCitizen();
@@ -956,7 +955,7 @@ public class ForestGameArea extends GameArea {
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, childDialoguePosition, true, true);
-    //areaEntities.add(dialogue);
+    areaEntities.add(dialogue);
   }
 
   public static GridPoint2 getChildPosition() {
@@ -990,34 +989,34 @@ public class ForestGameArea extends GameArea {
     areaEntities.add(dialogue);
   }
 
-  private void spawnGuard() {
-    GuardPosition = new GridPoint2(100, 16);
-    GuardDialoguePosition = new GridPoint2(100, 17);
+//  private void spawnGuard() {
+//    GuardPosition = new GridPoint2(100, 16);
+//    GuardDialoguePosition = new GridPoint2(100, 17);
+//
+//    Entity guard = NPCFactory.createGuard(player);
+//    spawnEntityAt(guard, GuardPosition, true, true);
+//    areaEntities.add(guard);
+//
+//    Entity dialogue = DialogueFactory.createDialogue();
+//    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
+//    areaEntities.add(dialogue);
+//  }
+//  public static GridPoint2 getGuardPosition() {
+//    return GuardPosition;
+//  }
 
-    Entity guard = NPCFactory.createGuard(player);
-    spawnEntityAt(guard, GuardPosition, true, true);
-    areaEntities.add(guard);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
-    areaEntities.add(dialogue);
-  }
-  public static GridPoint2 getGuardPosition() {
-    return GuardPosition;
-  }
-
-  private void spawnfriendlycreature() {
-    friendlycreaturePosition = new GridPoint2(97, 16);
-    friendlycreatureDialoguePosition = new GridPoint2(97, 17);
-
-    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
-    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
-    areaEntities.add(friendlycreature);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-    areaEntities.add(dialogue);
-  }
+//  private void spawnfriendlycreature() {
+//    friendlycreaturePosition = new GridPoint2(97, 16);
+//    friendlycreatureDialoguePosition = new GridPoint2(97, 17);
+//
+//    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+//    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+//    areaEntities.add(friendlycreature);
+//
+//    Entity dialogue = DialogueFactory.createDialogue();
+//    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+//    areaEntities.add(dialogue);
+//  }
 
   /**
    * Spawn male NPC in random position. - Team 7 all-mid-npc
