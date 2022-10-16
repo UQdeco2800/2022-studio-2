@@ -472,21 +472,21 @@ class InventoryComponentTest {
 //    assertEquals(expectedList, inventory.getQuickBarItems());
 //  }
 
-//  /**
-//   * Tests whether the potion is at the correct place in the quickbar so that it may be used
-//   * correctly with hotkeys
-//   */
-//  @Test
-//  void getPotionIndex() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    inventory.addQuickBarItems(testSpeedPotion);
-//    int expectedIndex =  0;
-//
-//    assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
-//  }
+  /**
+   * Tests whether the potion is at the correct place in the quickbar so that it may be used
+   * correctly with hotkeys
+   */
+  @Test
+  void getPotionIndex() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    inventory.addQuickBarItems(testSpeedPotion);
+    int expectedIndex =  0;
+
+    assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
+  }
 
 //  @Test
 //  void removePotion() {
