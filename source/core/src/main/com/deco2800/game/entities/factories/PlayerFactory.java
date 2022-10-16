@@ -66,7 +66,6 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
-                //.addComponent(new TransitionMapComponent())
                 .addComponent(new DialogueKeybordInputComponent())
                 .addComponent(new DialogueDisplay())
             .addComponent(new OpenPauseComponent())
@@ -75,7 +74,8 @@ public class PlayerFactory {
             .addComponent(animator)
                 .addComponent(new BuffDisplayComponent())
             .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions())
+            .addComponent(new PlayerAnimationController())
+            .addComponent(new PauseMenuActions())
             .addComponent(new Countdown());
 
 
