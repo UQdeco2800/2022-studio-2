@@ -528,6 +528,7 @@ public class GameAreaDisplay extends UIComponent {
             public void changed(ChangeEvent event, Actor actor) {
                 logger.debug("Pause menu resume button clicked");
                 KeyboardPlayerInputComponent.incrementPauseCounter();
+                KeyboardPlayerInputComponent.clearMenuOpening();
                 openPauseComponent.closePauseMenu();
             }
         });

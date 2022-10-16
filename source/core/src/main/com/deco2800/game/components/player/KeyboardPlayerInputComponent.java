@@ -115,8 +115,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 || currentMenu == MenuTypes.PAUSEMENU) {
           currentMenu = MenuTypes.PAUSEMENU;
           entity.getEvents().trigger("escInput");
-          menuOpened = !menuOpened;
-          if (!menuOpened) currentMenu = MenuTypes.NONE;
           return true;
         }
       case Keys.M:
