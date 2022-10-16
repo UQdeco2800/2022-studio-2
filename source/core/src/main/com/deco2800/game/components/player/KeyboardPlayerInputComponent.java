@@ -138,8 +138,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         // Win logic for level 2
         if (ServiceLocator.getGameArea().getClass() == UndergroundGameArea.class &&
                 UndergroundGameArea.ifMegaPoopOnMap() &&
-                (entity.getPosition().x > 36 && entity.getPosition().x < 40) &&
-                (entity.getPosition().y > 113 && entity.getPosition().y < 117)) {
+                (entity.getPosition().x > 37 && entity.getPosition().x < 39) &&
+                (entity.getPosition().y > 114 && entity.getPosition().y < 116)) {
             logger.info("win state triggered");
             entity.getEvents().trigger("win");
         }
