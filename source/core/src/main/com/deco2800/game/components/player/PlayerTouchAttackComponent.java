@@ -112,11 +112,15 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             }
 
             //play physical weapon sounds
-            if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.MELEE)
+            if (weaponEquipped == null) {
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
+                attackSound.play();
+            }
+            else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
                     && weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("plunger")) {
                 Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
                 attackSound.play();
-            } else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.MELEE)) {
+            } else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)) {
                 Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/metalSword.wav", Sound.class);
                 attackSound.play();
             }
