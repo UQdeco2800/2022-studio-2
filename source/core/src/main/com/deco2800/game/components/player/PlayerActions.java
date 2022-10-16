@@ -95,13 +95,6 @@ public class PlayerActions extends Component {
     this.skillManager.update();
     this.playerModifier.update();
 
-//    logger.info("Pause check? walkStatus {} pauseCheck {}", walkStatus, EntityService.pauseCheck());
-//    if (walkStatus && EntityService.pauseCheck()) {
-//      Music walkingSound = ServiceLocator.getResourceService().getAsset(WALKING_SOUND, Music.class);
-//      walkingSound.stop();
-//      logger.info("We stopping the walk sound");
-//      walkStatus = false;
-//    }
   }
 
   /**

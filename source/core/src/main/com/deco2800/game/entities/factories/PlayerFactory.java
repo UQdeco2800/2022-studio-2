@@ -75,6 +75,7 @@ public class PlayerFactory {
                 .addComponent(new BuffDisplayComponent())
             .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
             .addComponent(new PlayerAnimationController())
+            .addComponent(new PauseMenuActions())
             .addComponent(new Countdown());
 
 
