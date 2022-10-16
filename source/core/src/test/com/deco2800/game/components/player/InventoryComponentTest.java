@@ -11,6 +11,8 @@ import com.deco2800.game.events.EventHandler;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.rendering.RenderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ResourceService;
@@ -498,6 +500,21 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testWeapon, testPotion));
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
+
+  @Test
+  void disposeAnimation() {
+    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
+    RenderComponent component = spy(AnimationRenderComponent.class);
+    component.create();
+    component.dispose();
+    verify(ServiceLocator.getRenderService()).unregister(component);
+  }
+
+  /*private void cancelAnimation() {
+    if(combatAnimator == null) return;
+    combatAnimator.dispose();
+    combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
+  }*/
 
 //  /**
 //   * Checks that the item has correctly been added to the quickbar
