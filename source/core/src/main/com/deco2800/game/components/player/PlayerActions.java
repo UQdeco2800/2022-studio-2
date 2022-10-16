@@ -262,8 +262,8 @@ public class PlayerActions extends Component {
    * Makes the player teleport. Registers call of the teleport function to the skill manager component.
    */
   void teleport() {
-    if (mana>=40) {
-      entity.getEvents().trigger("decreaseMana", -40);
+    if (mana>=20) {
+      entity.getEvents().trigger("decreaseMana", -20);
       skillManager.startTeleport();
       teleportSound.play();
     }

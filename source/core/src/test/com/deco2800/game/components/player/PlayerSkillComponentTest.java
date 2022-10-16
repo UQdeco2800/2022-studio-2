@@ -45,6 +45,7 @@ class PlayerSkillComponentTest {
                         .addComponent(new KeyboardPlayerInputComponent())
                         .addComponent(new PlayerModifier());
 
+        ServiceLocator.registerPhysicsService(new PhysicsService());
         skillManager = new PlayerSkillComponent(player);
         skillManager.setSkillAnimator(new Entity());
         ServiceLocator.registerTimeSource(new GameTime());
@@ -341,7 +342,6 @@ class PlayerSkillComponentTest {
 
     @Test
     void testRoot() {
-        ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerRenderService(new RenderService());
         Entity enemy =
                 new Entity()
@@ -385,7 +385,6 @@ class PlayerSkillComponentTest {
     @Test
     void testChargeHit() {
         ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
         Entity enemy =
                 new Entity()
                         .addComponent(new CombatStatsComponent(60, 1, 1, 1))
@@ -410,64 +409,7 @@ class PlayerSkillComponentTest {
         Vector2 beforePos = player.getPosition();
         skillManager.teleportPlayer();
         Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x + 4.0f, beforePos.y + 4.0f), afterPos);
-    }
-
-    @Test
-    void testTeleportPlayer2() {
-        player.getComponent(PlayerActions.class).walk(new Vector2(1,0));
-        Vector2 beforePos = player.getPosition();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x + 24.18f, beforePos.y + 0.11f), afterPos);
-    }
-
-    @Test
-    void testTeleportPlayer3() {
-        player.getComponent(PlayerActions.class).walk(new Vector2(-1,0));
-        Vector2 beforePos = player.getPosition();
-        skillManager.teleportPlayer();
-        Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x - 0.08f, beforePos.y + 0.11f), afterPos);
-    }
-
-    @Test
-    void testTeleportPlayer4() {
-        player.getComponent(PlayerActions.class).walk(new Vector2(0,1));
-        Vector2 beforePos = player.getPosition();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x, beforePos.y + 24.68f), afterPos);
-    }
-
-    @Test
-    void testTeleportPlayer5() {
-        player.getComponent(PlayerActions.class).walk(new Vector2(0,-1));
-        Vector2 beforePos = player.getPosition();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x, beforePos.y + 0.11f), afterPos);
+        assertEquals(new Vector2(beforePos.x + 8.0f, beforePos.y + 8.0f), afterPos);
     }
 
     @Test

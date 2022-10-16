@@ -9,8 +9,10 @@ import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -57,13 +59,15 @@ public class PlayerSkillComponent extends Component {
     Map<String, Long> skillCooldowns = new HashMap<>();
 
     // Teleport variables
-    private static final int TELEPORT_LENGTH = 4;
+    private static final int TELEPORT_LENGTH = 8;
     private long teleportEnd; // Teleport charge end system time
     private boolean teleporting;
     private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millisec = 1sec)
     private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
     private static final long TELEPORT_COOLDOWN = 3000;
     private boolean teleportEndEvent = false;
+    private final RaycastHit hit = new RaycastHit();
+    private final PhysicsEngine physics;
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
@@ -152,6 +156,7 @@ public class PlayerSkillComponent extends Component {
      */
     public PlayerSkillComponent(Entity playerEntity) {
         this.playerEntity = playerEntity;
+        physics = ServiceLocator.getPhysicsService().getPhysics();
     }
 
     /**
@@ -798,25 +803,26 @@ public class PlayerSkillComponent extends Component {
      */
     public void teleportPlayer() {
         PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
-        float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
-        float teleportPositionY = playerEntity.getPosition().y + actions.getWalkDirection().y * TELEPORT_LENGTH;
-
-        // Check if teleport is out of map bounds
-        if (teleportPositionX < -0.08)
-            teleportPositionX = -0.08f;
-        if (teleportPositionY < 0.11)
-            teleportPositionY = 0.11f;
-        if (teleportPositionX > 24.18)
-            teleportPositionX = 24.18f;
-        if (teleportPositionY > 24.68)
-            teleportPositionY = 24.68f;
-        playerEntity.setPosition(teleportPositionX, teleportPositionY);
-/*
-        if (physics.raycast(from, to, PhysicsLayer.OBSTACLE, hit)) {
-            debugRenderer.drawLine(from, hit.point);
-            return false;
+        Vector2 walkDirection = actions.getWalkDirection();
+        if (walkDirection.x == 0 && walkDirection.y == 0) {
+            return;
         }
-*/
+        float teleportPositionX = playerEntity.getPosition().x + walkDirection.x * TELEPORT_LENGTH;
+        float teleportPositionY = playerEntity.getPosition().y + walkDirection.y * TELEPORT_LENGTH;
+        Vector2 from = new Vector2(playerEntity.getPosition().x - walkDirection.x * 0.2f,
+                playerEntity.getPosition().y - walkDirection.y * 0.2f);
+        Vector2 fromCenter = playerEntity.getCenterPosition();
+        Vector2 to = new Vector2(teleportPositionX, teleportPositionY);
+
+        if (physics.raycast(from, to, PhysicsLayer.OBSTACLE, hit)) {
+            if (Math.abs(hit.point.x - fromCenter.x) < 0.75f && Math.abs(hit.point.y - fromCenter.y) < 0.75f) {
+                return;
+            }
+            playerEntity.setPosition(hit.point.x - walkDirection.x,
+                    hit.point.y - walkDirection.y);
+        } else {
+            playerEntity.setPosition(to);
+        }
     }
 
     /**
