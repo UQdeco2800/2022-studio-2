@@ -1,6 +1,8 @@
 package com.deco2800.game.components.tasks;
 
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.ai.tasks.DefaultTask;
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.events.listeners.EventListener0;
 import com.deco2800.game.extensions.GameExtension;
@@ -90,6 +92,22 @@ class ChaseTaskTest {
   }
 
   @Test
+  void stopTest() {
+    Entity target = new Entity();
+    target.setPosition(2f, 2f);
+
+    ChaseTask chaseTask = new ChaseTask(target, 10, 5, 10, 10f);
+    AITaskComponent ai = new AITaskComponent().addTask(chaseTask);
+    Entity entity = makePhysicsEntity().addComponent(ai);
+    entity.create();
+    entity.setPosition(0f, 0f);
+
+    chaseTask.start();
+    chaseTask.stop();
+    assertEquals(Task.Status.INACTIVE, chaseTask.getStatus());
+  }
+
+  @Test
   void createChaseTaskWithSpeedThatMovesTowardEnemyTest() {
     Entity target = new Entity();
     target.setPosition(2f, 2f);
@@ -108,6 +126,39 @@ class ChaseTaskTest {
     }
     float newDistance = entity.getPosition().dst(target.getPosition());
     assertTrue(newDistance < initialDistance);
+  }
+
+  @Test
+  void getActivePriorityTest() {
+    Entity target = new Entity();
+    ChaseTask chaseTask = new ChaseTask(target, 10, 5, 10, 10f);
+    AITaskComponent ai = new AITaskComponent().addTask(chaseTask);
+    Entity entity = makePhysicsEntity().addComponent(ai);
+    entity.create();
+
+    target.setPosition(20f, 20f);
+    entity.setPosition(0f, 0f);
+    chaseTask.start();
+    assertEquals(-1, chaseTask.getPriority());
+
+    target.setPosition(0.1f, 0.1f);
+    assertEquals(10, chaseTask.getPriority());
+  }
+
+  @Test
+  void getInactivePriorityTest() {
+    Entity target = new Entity();
+    ChaseTask chaseTask = new ChaseTask(target, 10, 5, 10, 10f);
+    AITaskComponent ai = new AITaskComponent().addTask(chaseTask);
+    Entity entity = makePhysicsEntity().addComponent(ai);
+    entity.create();
+
+    target.setPosition(0.1f, 0.1f);
+    entity.setPosition(0f, 0f);
+    assertEquals(10, chaseTask.getPriority());
+
+    target.setPosition(20f, 20f);
+    assertEquals(-1, chaseTask.getPriority());
   }
 
   @Test

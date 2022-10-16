@@ -129,12 +129,10 @@ public class OpenPauseComponent extends Component {
      * @return              True on success else false
      */
     public Boolean openPlayerGuide(int level, int pageNumber) {
-
         if (pageNumber > 8) {
             logger.error("Invalid player guide page given");
             return false;
         }
-
         if (level == 1) {
             ServiceLocator.getPlayerGuidArea().setPlayerGuideMenu(playerGuideAssets.get(pageNumber - 1));
         } else if (level == 2) {
@@ -143,7 +141,6 @@ public class OpenPauseComponent extends Component {
             logger.error("Invalid player guide level given");
             return false;
         }
-
         playerGuideOpen = true;
         logger.info("Turning to player guide level {} page {}", level, pageNumber);
         return true;
@@ -163,6 +160,7 @@ public class OpenPauseComponent extends Component {
      */
     public void closePauseMenu() {
         logger.info("Closing pause window");
+        KeyboardPlayerInputComponent.clearMenuOpening();
         ServiceLocator.getPauseMenuArea().disposePauseMenu();
         pauseOpen = false;
         if (Boolean.FALSE.equals(inventoryToggled)) { EntityService.pauseAndResume(); }

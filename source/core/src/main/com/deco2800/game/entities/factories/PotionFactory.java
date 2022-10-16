@@ -65,14 +65,30 @@ public class PotionFactory {
     }
 
     /**
+     * Creates a stamina potion which gives the player health all at once
+     * @return stamina potion
+     */
+
+    public static Entity createStaminaPotion() {
+        Entity staminaPotion = createBasePotion()
+                .addComponent(new TextureRenderComponent("images/Potions/swiftness_potion.png"
+                ))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "stamina"));
+        staminaPotion.getComponent(TextureRenderComponent.class).scaleEntity();
+        staminaPotion.scaleHeight(1.0f);
+        return staminaPotion;
+    }
+
+
+    /**
      * creates a defence potion. This is scheduled for removal as it is too similar to other
      * potions and because too many potions already exist in the game
      * @return defence potion
      */
     public static Entity createDefencePotion() {
         Entity potion = createBasePotion()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"));
-
+                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "damageReduction"));
         potion.getComponent(TextureRenderComponent.class).scaleEntity();
         potion.scaleHeight(1.5f);
         return potion;
@@ -92,20 +108,6 @@ public class PotionFactory {
         return healthRegenPotion;
     }
 
-    /**
-     * Creates a damage reduction potion which reduces the player's damage taken by a set amount
-     * @return damage reduction potion
-     */
-
-    public static Entity createDamageReductionPotion() {
-        Entity damageReductionPotion = createBasePotion()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
-                ))
-                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "damageReduction"));
-        damageReductionPotion.getComponent(TextureRenderComponent.class).scaleEntity();
-        damageReductionPotion.scaleHeight(1.0f);
-        return damageReductionPotion;
-    }
 
     /**
      * Creates speed potion without rendering Component.

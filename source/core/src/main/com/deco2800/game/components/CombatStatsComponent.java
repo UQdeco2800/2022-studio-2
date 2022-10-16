@@ -2,7 +2,8 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -33,6 +34,8 @@ public class CombatStatsComponent extends Component {
   private int staminaRegenerationRate=1;
   private int baseAttack;
   private float damageReduction;
+  private float damageReturn;
+  private Entity playerWeapon;
 
   @Override
   public void create(){
@@ -60,7 +63,7 @@ public class CombatStatsComponent extends Component {
    * @return is player dead
    */
   public Boolean isDead() {
-    return health == 0;
+    return health <= 0;
   }
 
   /**
@@ -78,14 +81,30 @@ public class CombatStatsComponent extends Component {
    * @param health health
    */
   public void setHealth(int health) {
-    if (health >= 0 && health <= 100) {
-      this.health = health;
-    } else {
-      this.health = 0;
-    }
+    if(health < 0) this.health = 0;
+    else if(health > 100) this.health = 100;
+    else this.health = health;
+
     if (entity != null) {
       entity.getEvents().trigger("updateHealth", this.health);
+    }
 
+    Boolean checkDead = this.isDead();
+    if(entity != null) {
+      if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
+        Gdx.app.postRunnable(() -> {
+          dropMaterial();
+          dropWeapon();
+          //entity.dispose();
+        });
+
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
+        }
+      }
+      if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+        entity.getEvents().trigger("death");
+      }
     }
   }
 
@@ -96,8 +115,10 @@ public class CombatStatsComponent extends Component {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
-    System.out.println("Setting health " + this.health);
+  }
 
+  public void reduceHealth(int health) {
+    setHealth(this.health - health);
   }
 
   /**
@@ -129,34 +150,16 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    Entity playerWeapon;
+    int attackDmg = 0;
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
             (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
-
-      int attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
-        int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
-        setHealth(newHealth);
-      } else { //if it's not a player, or if it is a player without a weapon
-      int newHealth = getHealth() - (int) ((1 - damageReduction) * attacker.getBaseAttack());
-      setHealth(newHealth);
+      attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
+    } else { //if it's not a player, or if it is a player without a weapon
+      attackDmg = attacker.getBaseAttack();
     }
-
-    Boolean checkDead = this.isDead();
-    if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
-
-      Gdx.app.postRunnable(() -> {
-        dropMaterial();
-        dropWeapon();
-        //entity.dispose();
-      });
-
-      if (entity.getComponent(AnimationRenderComponent.class) != null) {
-        Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
-      }
-    }
-    if (Boolean.TRUE.equals(isDead()) && entity.checkEntityType(EntityTypes.PLAYER)) {
-      entity.getEvents().trigger("death");
-    }
+    int newHealth = getHealth() - (int)(attackDmg - damageReduction);
+    setHealth(newHealth);
+    attacker.reduceHealth((int)damageReturn);
   }
 
   /**
@@ -328,6 +331,7 @@ public class CombatStatsComponent extends Component {
    * @return
    */
   public boolean checkStamina(int stamina){
+
     return this.getStamina() >= stamina;
   }
 
@@ -351,6 +355,25 @@ public class CombatStatsComponent extends Component {
    */
   public float getDamageReduction() { return damageReduction; }
 
+  /**
+   * Returns the current damageReturn stat.
+   *
+   * @return The float value of damageReturn.
+   */
+  public float getDamageReturn(){return damageReturn;}
+
+  /**
+   * Sets the entity's damage return. Damage reduction damage has a minimum bound of 0.
+   *
+   * @param damageReturn
+   */
+  public void setDamageReturn(float damageReturn) {
+    if (damageReturn >= 0) {
+      this.damageReturn = damageReturn;
+    } else {
+      logger.error("Can not set damage return to a negative value");
+    }
+}
   /**
    * If the current entity is a player, then the function is called on a key press and drops
    * a weapon on the map only if the player is equipped with a weapon.

@@ -77,8 +77,6 @@ public class ForestGameArea extends GameArea {
     "images/level_1_tiledmap/32x32/tree-2.png",
     "images/level_1_tiledmap/32x32/rock.png",
     "images/NPC/male_citizen/male_citizen.png",
-    "images/Potions/health_potion.png",
-    "images/Potions/defence_potion.png",
     "images/NPC/male_citizen/male_citizen.png",
     "images/playerTeleport.png",
     "images/NPC/female npc/npcfemale_1.png",
@@ -91,13 +89,15 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/AttackDamageDebuff.png",
     "images/CombatItems/Sprint-1/PeriPeriBuff_FIRE.png",
     "images/CombatItems/Sprint-1/poisonBuff.png",
+    "images/Potions/health_potion.png",
     "images/Potions/defence_potion.png",
+    "images/Potions/agility_potion.png",
+    "images/Potions/swiftness_potion.png",
     "images/NPC/dialogue_indicator/dialogue.png",
     "images/NPC/dialogue_indicator/dialogue_1.png",
     "images/NPC/dialogue_indicator/dialogue_2.png",
     "images/NPC/dialogue_indicator/dialogue_3.png",
     "images/NPC/dialogue_indicator/dialogue_indicator_sprite_sheet.png",
-    "images/Potions/agility_potion.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/CombatItems/Sprint-1/trident_Lvl2.png",
     "images/NPC/Male_citizen/male_citizen.png",
@@ -231,12 +231,13 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnSpeedPotion();
     spawnHealthPotion();
+    spawnStaminaPotion();
+    spawnDefencePotion();
 
     spawnDumbbell();
-    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 16, 16);
-    spawnArmour(ArmourFactory.ArmourType.baseArmour, 5, 5);
-    spawnArmour(ArmourFactory.ArmourType.fastLeather, 7, 7);
-    spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
+    spawnArmour(ArmourFactory.ArmourType.fastLeather, 90, 22);
+    spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
 
     spawnDmgBuff();
     spawnFireBuff();
@@ -691,12 +692,27 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
-    itemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      itemsOnMap.add(speedPotion);
+      spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      Entity speedPotion2 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion2);
+      spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
   }
 
   private void spawnHealthPotion() {
     Entity healthPotion = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion);
+    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
+  }
+
+    private void spawnStaminaPotion() {
+        Entity healthPotion = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(healthPotion);
+        spawnEntityAt(healthPotion, new GridPoint2(93, 12), true, true);
+    }
+
+  private void spawnDefencePotion() {
+    Entity healthPotion = PotionFactory.createDefencePotion();
     itemsOnMap.add(healthPotion);
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
