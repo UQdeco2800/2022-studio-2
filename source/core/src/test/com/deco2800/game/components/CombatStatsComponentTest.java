@@ -37,7 +37,7 @@ class CombatStatsComponentTest {
 
     //Modified because health cannot go over 100. Modified by Peter
     combat.setHealth(150);
-    assertEquals(0, combat.getHealth());
+    assertEquals(100, combat.getHealth());
 
     combat.setHealth(-50);
     assertEquals(0, combat.getHealth());

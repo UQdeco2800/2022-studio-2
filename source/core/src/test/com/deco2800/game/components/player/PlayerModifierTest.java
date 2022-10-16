@@ -91,7 +91,7 @@ class PlayerModifierTest {
 
         combat.setHealth(80);
         modifier.createModifier("health", 2, true, 0);
-        assertEquals(81, combat.getHealth());
+        assertEquals(82, combat.getHealth());
     }
 
     @Test

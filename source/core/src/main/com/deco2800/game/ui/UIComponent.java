@@ -19,7 +19,7 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
   protected static final Skin skin =
       new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
   protected static Stage stage;
-  protected static ArrayList<Texture> potionsTex = new ArrayList<>();
+
   @Override
   public void create() {
     super.create();

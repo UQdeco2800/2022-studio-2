@@ -230,12 +230,12 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnSpeedPotion();
     spawnHealthPotion();
+    spawnStaminaPotion();
 
     spawnDumbbell();
-    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 16, 16);
-    spawnArmour(ArmourFactory.ArmourType.baseArmour, 5, 5);
-    spawnArmour(ArmourFactory.ArmourType.fastLeather, 7, 7);
-    spawnArmour(ArmourFactory.ArmourType.damageReturner, 12, 12);
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
+    spawnArmour(ArmourFactory.ArmourType.fastLeather, 90, 22);
+    spawnArmour(ArmourFactory.ArmourType.damageReturner, 90, 26);
 
     spawnDmgBuff();
     spawnFireBuff();
@@ -690,8 +690,11 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
-    itemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      itemsOnMap.add(speedPotion);
+      spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      Entity speedPotion2 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion2);
+      spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
   }
 
   private void spawnHealthPotion() {
@@ -699,6 +702,12 @@ public class ForestGameArea extends GameArea {
     itemsOnMap.add(healthPotion);
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
+
+    private void spawnStaminaPotion() {
+        Entity healthPotion = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(healthPotion);
+        spawnEntityAt(healthPotion, new GridPoint2(93, 12), true, true);
+    }
 
   /**
    * Spawns Level 2 dagger entity into the game
