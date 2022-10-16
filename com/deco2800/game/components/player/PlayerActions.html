@@ -286,7 +286,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="walk(com.badlogic.gdx.math.Vector2)">
 <h3>walk</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">walk</span><wbr><span class="parameters">(com.badlogic.gdx.math.Vector2&nbsp;direction)</span></div>
-<div class="block">Moves the player towards a given direction.</div>
+<div class="block">Moves the player towards a given direction. Calls the walking sound effect.
+ Only fully calls when the game is not paused.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>direction</code> - direction to move in</dd>
