@@ -18,6 +18,7 @@ import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -43,7 +44,20 @@ class InventoryComponentTest {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
     String[] textures = {"images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
-                        "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"};
+                        "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+                        "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+                        "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+                        "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+                        "images/Crafting-assets-sprint1/materials/gold.png",
+                        "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
+                        "images/Crafting-assets-sprint1/materials/iron.png",
+                        "images/Crafting-assets-sprint1/materials/toilet_paper.png",
+                        "images/Crafting-assets-sprint1/materials/steel.png",
+                        "images/Crafting-assets-sprint1/materials/wood.png",
+                        "images/Crafting-assets-sprint1/materials/plastic.png",
+                        "images/Crafting-assets-sprint1/materials/rubber.png",
+                        "images/Crafting-assets-sprint1/materials/platinum.png",
+                        "images/Crafting-assets-sprint1/materials/silver.png"};
     resourceService.loadTextures(textures);
     String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
     resourceService.loadTextureAtlases(textureAtlases);
@@ -154,16 +168,46 @@ class InventoryComponentTest {
     List<Entity> expectedList = new ArrayList<>(16);
 
     Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity testSword = WeaponFactory.createSwordLvl2();
+    Entity testDumbbell = WeaponFactory.createDumbbell();
+    Entity testHera = WeaponFactory.createHera();
     Entity testArmour = ArmourFactory.createBaseArmour();
-    Entity testPotion = PotionFactory.createTestSpeedPotion();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+    Entity testHealthPotion = PotionFactory.createTestHealthPotion();
+    Entity gold = MaterialFactory.createGold();
+    Entity iron = MaterialFactory.createIron();
+    Entity steel = MaterialFactory.createSteel();
+    Entity wood = MaterialFactory.createWood();
+    Entity plastic = MaterialFactory.createPlastic();
+    Entity rubber = MaterialFactory.createRubber();
+    Entity platinum = MaterialFactory.createPlatinum();
+    Entity silver = MaterialFactory.createSilver();
+    Entity poop = MaterialFactory.createPoop();
+    Entity toiletPaper = MaterialFactory.createToiletPaper();
 
-    inventory.addItem(testWeapon);
-    inventory.addItem(testArmour);
-    inventory.addItem(testPotion);
     expectedList.add(testWeapon);
+    expectedList.add(testSword);
+    expectedList.add(testDumbbell);
+    expectedList.add(testHera);
     expectedList.add(testArmour);
-    expectedList.add(testPotion);
+    expectedList.add(testSpeedPotion);
+    expectedList.add(testHealthPotion);
+    expectedList.add(gold);
+    expectedList.add(iron);
+    expectedList.add(steel);
+    expectedList.add(wood);
+    expectedList.add(plastic);
+    expectedList.add(rubber);
+    expectedList.add(platinum);
+    expectedList.add(silver);
+    expectedList.add(poop);
+    expectedList.add(toiletPaper);
 
+    for (Entity entity : expectedList) {
+      inventory.addItem(entity);
+    }
+
+    expectedList.remove(toiletPaper);
     assertEquals(expectedList, inventory.getInventory());
   }
 
