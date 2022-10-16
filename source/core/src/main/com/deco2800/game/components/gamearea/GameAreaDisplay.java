@@ -26,7 +26,7 @@ import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfig;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -528,6 +528,7 @@ public class GameAreaDisplay extends UIComponent {
             public void changed(ChangeEvent event, Actor actor) {
                 logger.debug("Pause menu resume button clicked");
                 KeyboardPlayerInputComponent.incrementPauseCounter();
+                KeyboardPlayerInputComponent.clearMenuOpening();
                 openPauseComponent.closePauseMenu();
             }
         });

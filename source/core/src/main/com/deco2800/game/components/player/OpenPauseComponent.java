@@ -163,6 +163,7 @@ public class OpenPauseComponent extends Component {
      */
     public void closePauseMenu() {
         logger.info("Closing pause window");
+        KeyboardPlayerInputComponent.clearMenuOpening();
         ServiceLocator.getPauseMenuArea().disposePauseMenu();
         pauseOpen = false;
         if (Boolean.FALSE.equals(inventoryToggled)) { EntityService.pauseAndResume(); }

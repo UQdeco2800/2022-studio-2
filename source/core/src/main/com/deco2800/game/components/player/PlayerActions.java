@@ -71,7 +71,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("consumePotionSlot2", this::consumePotionSlot2);
     entity.getEvents().addListener("consumePotionSlot3", this::consumePotionSlot3);
     //entity.getEvents().addListener("kill switch", this::killEnemy);
-    //entity.getEvents().addListener("attack", this::attackAnimation);
+    //entity.getEvents().addListener("attackEnemy", this::attackAnimation);
 
 
     // Skills and Dash initialisation
@@ -276,7 +276,7 @@ public class PlayerActions extends Component {
 
 
   /**
-   * Applies bleed to the player's next attack. Registers call of the bleed function to the skill manager component.
+   * Applies bleed to the player's next attackEnemy. Registers call of the bleed function to the skill manager component.
    */
   void bleed() {
     if (mana>=10) {
@@ -286,7 +286,7 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Applies root to the player's next attack. Registers call of the root function to the skill manager component.
+   * Applies root to the player's next attackEnemy. Registers call of the root function to the skill manager component.
    */
   void root() {
     if (mana>=10) {
@@ -297,7 +297,7 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Does an aoe attack around the player. Registers call of the aoe function to the skill manager component.
+   * Does an aoe attackEnemy around the player. Registers call of the aoe function to the skill manager component.
    */
   void aoe() {
     if (mana>=2) {
