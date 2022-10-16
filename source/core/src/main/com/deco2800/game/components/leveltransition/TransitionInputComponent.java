@@ -1,8 +1,7 @@
-package com.deco2800.game.components.levelTransition;
+package com.deco2800.game.components.leveltransition;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-import com.deco2800.game.components.Component;
 import com.deco2800.game.input.InputComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TransitionInputComponent extends InputComponent {
 
-  private static final Logger logger = LoggerFactory.getLogger(Component.class);
+  private static final Logger logger = LoggerFactory.getLogger(TransitionInputComponent.class);
 
   public TransitionInputComponent() {
     super(5);
@@ -27,13 +26,13 @@ public class TransitionInputComponent extends InputComponent {
    */
   @Override
   public boolean keyDown(int keycode) {
-    switch (keycode) {
-      case Keys.ENTER:
-          logger.info("Exiting transition screen");
-          entity.getEvents().trigger("mapTransition");
-        return true;
-      default:
-        return false;
+
+    if (keycode == Keys.ENTER) {
+      logger.info("Exiting transition screen");
+      entity.getEvents().trigger("mapTransition");
+      return true;
     }
+
+    return false;
   }
 }

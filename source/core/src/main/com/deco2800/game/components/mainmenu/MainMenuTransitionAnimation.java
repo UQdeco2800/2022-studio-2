@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.deco2800.game.components.levelTransition.LevelTransitionDisplay;
-import com.deco2800.game.screens.LevelTransitionScreen;
 import com.deco2800.game.screens.MainMenuTransitionScreen;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
