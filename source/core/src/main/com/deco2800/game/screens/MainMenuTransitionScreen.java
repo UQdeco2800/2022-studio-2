@@ -27,6 +27,7 @@ public class MainMenuTransitionScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String animationPrefix = "images/Crafting-assets-sprint1/screens/main menu animation/atlantis sinks animation";
+
     public static final int frameCount = 85;
     public static String[] transitionTextures = new String[frameCount];
 

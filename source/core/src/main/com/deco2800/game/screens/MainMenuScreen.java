@@ -28,7 +28,10 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final GdxGame game;
   private final Renderer renderer;
+  public static final int frameCount = 85;
   private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/substitute main menu by Rey.png"};
+  public static String[] transitionTextures = new String[frameCount];
+  private static final String animationPrefix = "images/Crafting-assets-sprint1/screens/main menu animation/atlantis sinks animation";
   private static final String backgroundMusic = "sounds/MenuSong-Overcast.mp3";
   private static final String[] mainMenuMusic = {backgroundMusic};
 
@@ -43,6 +46,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
 
+//    loadFrames();
     loadAssets();
     createUI();
     playMusic();
@@ -94,7 +98,20 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
+    loadFrames();
     resourceService.loadMusic(mainMenuMusic);
+    ServiceLocator.getResourceService().loadAll();
+  }
+
+  private void loadFrames() {
+    logger.debug("Loading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+//    resourceService.loadMusic(mainMenuMusic);
+
+    for (int i = 0; i < frameCount; i++) {
+      transitionTextures[i] = animationPrefix + i + ".png";
+    }
+    resourceService.loadTextures(transitionTextures);
     ServiceLocator.getResourceService().loadAll();
   }
 
