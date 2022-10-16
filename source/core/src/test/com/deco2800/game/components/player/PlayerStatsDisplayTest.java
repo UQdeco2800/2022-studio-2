@@ -41,6 +41,7 @@ public class PlayerStatsDisplayTest{
         dummy = new Entity();
         playStatDisplay = new PlayerStatsDisplay();
         dummy.addComponent(playStatDisplay);
+
     }
 
 
