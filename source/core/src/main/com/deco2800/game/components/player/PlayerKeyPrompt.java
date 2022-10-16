@@ -2,7 +2,6 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.physics.components.HitboxComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.deco2800.game.components.TouchAttackComponent;
@@ -35,10 +34,7 @@ public class PlayerKeyPrompt extends TouchAttackComponent{
      */
     public void keyPrompt(Fixture me, Fixture other){
 
-        if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.POTION)){
-            logger.info("TEST KEY PROMPT POTION");
-        }
-        else if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.NPC)){
+      if (((BodyUserData) other.getBody().getUserData()).entity.checkEntityType(EntityTypes.NPC)){
             logger.info("TEST KEY PROMPT NPC PRESS F TO OPEN DIALOGUE");
             logger.info("TEST KEY PROMPT NPC PRESS G TO CLOSE DIALOGUE");
             keyPromptAnimator.getEvents().trigger("KeyNpcAnimation");
