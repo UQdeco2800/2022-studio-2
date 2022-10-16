@@ -10,7 +10,6 @@ import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
@@ -23,7 +22,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private Entity combatAnimator;
     private boolean canAttack;
     private long  cooldownEnd;
-    private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
+    private static final Logger logger = LoggerFactory.getLogger(PlayerTouchAttackComponent.class);
 
     /**
      * Create a component which attacks enemy entities on collision, without knockback.
@@ -126,8 +125,8 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             if (enemyCollide) {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
-                String s_damage = String.valueOf(damage);
-                logger.trace("attackEnemy enemy: " + s_damage);
+                String sDamage = String.valueOf(damage);
+                logger.trace("attackEnemy enemy: %s".formatted(sDamage));
             }
 
             else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
@@ -135,11 +134,11 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                 Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/rangeWeaponSound.mp3", Sound.class);
                 attackSound.play();
 
-                if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
-                    ((ForestGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
+                if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
+                    (forestgamearea).spawnWeaponProjectile();
                 }
-                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
-                    ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea undergroundgamearea){
+                    (undergroundgamearea).spawnWeaponProjectile();
                 }
             }
         }
