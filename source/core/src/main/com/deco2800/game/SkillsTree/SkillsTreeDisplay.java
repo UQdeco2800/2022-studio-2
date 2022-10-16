@@ -72,9 +72,10 @@ public class SkillsTreeDisplay extends UIComponent {
         equipTable = new Table();
         equipTable.bottom().left();
         Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
-        bgPixmap.setColor(Color.TEAL);
-        bgPixmap.fill();
-        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+//        bgPixmap.setColor(Color.TEAL);
+//        bgPixmap.fill();
+//        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture("images/Skill_tree/skill tree background.png")));
         skillTreeBackground.setBackground(textureRegionDrawableBg);
         exitTable.top().right();
         exitTable.setFillParent(true);
