@@ -54,6 +54,7 @@ public class QuickBarDisplay extends UIComponent {
             potions.addActor(potion);
         }
 
+
         for (int i = 0; i < potionImages.size(); i++) {
             Image potion = potionImages.get(i);
             potionTable.add(potion).size(64, 64);

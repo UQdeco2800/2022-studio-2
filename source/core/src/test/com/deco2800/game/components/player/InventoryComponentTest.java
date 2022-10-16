@@ -453,6 +453,11 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testWeapon, testArmour));
     assertFalse(inventory.itemEquals(testWeapon, testPotion));
     assertFalse(inventory.itemEquals(testArmour, testPotion));
+
+    Entity testCraftable = MaterialFactory.creatTestMaterial("A");
+    
+    assertTrue(inventory.itemEquals(testCraftable, testCraftable));
+    assertFalse(inventory.itemEquals(testCraftable, testCraftable));
   }
 
 //  /**
