@@ -96,17 +96,17 @@ public class WeaponFactory {
      * @return level 2 sword for player
      */
     public static Entity createSwordLvl2() {
-        Entity SwordLevelTwo = createBaseWeapon();
+        Entity swordLevelTwo = createBaseWeapon();
         WeaponConfig config = configs.SwordLvl2;
         PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "sword");
 
-        SwordLevelTwo
+        swordLevelTwo
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Sword_Lvl2.png"));
-        SwordLevelTwo.getComponent(TextureRenderComponent.class).scaleEntity();
-        SwordLevelTwo.scaleHeight(2f);
-        SwordLevelTwo.setEntityType(EntityTypes.MELEE);
-        return SwordLevelTwo;
+        swordLevelTwo.getComponent(TextureRenderComponent.class).scaleEntity();
+        swordLevelTwo.scaleHeight(2f);
+        swordLevelTwo.setEntityType(EntityTypes.MELEE);
+        return swordLevelTwo;
     }
 
     /**
@@ -114,17 +114,17 @@ public class WeaponFactory {
      * @return level 2 trident for players
      */
     public static Entity createTridentLvl2() {
-        Entity TridentLvl2 = createBaseWeapon();
+        Entity tridentLvl2 = createBaseWeapon();
         WeaponConfig config = configs.tridentLvl2;
         PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "trident");
 
-        TridentLvl2
+        tridentLvl2
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/trident_Lvl2.png"));
-        TridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
-        TridentLvl2.scaleHeight(2f);
-        TridentLvl2.setEntityType(EntityTypes.MELEE);
-        return TridentLvl2;
+        tridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
+        tridentLvl2.scaleHeight(2f);
+        tridentLvl2.setEntityType(EntityTypes.MELEE);
+        return tridentLvl2;
     }
 
     /**
