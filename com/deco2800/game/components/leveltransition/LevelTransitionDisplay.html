@@ -5,7 +5,7 @@
 <title>LevelTransitionDisplay (core 1.0 API)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: com.deco2800.game.components.levelTransition, class: LevelTransitionDisplay">
+<meta name="description" content="declaration: package: com.deco2800.game.components.leveltransition, class: LevelTransitionDisplay">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -67,14 +67,14 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.deco2800.game.components.levelTransition</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.deco2800.game.components.leveltransition</a></div>
 <h1 title="Class LevelTransitionDisplay" class="title">Class LevelTransitionDisplay</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="../Component.html" title="class in com.deco2800.game.components">com.deco2800.game.components.Component</a>
 <div class="inheritance"><a href="../../rendering/RenderComponent.html" title="class in com.deco2800.game.rendering">com.deco2800.game.rendering.RenderComponent</a>
 <div class="inheritance"><a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui">com.deco2800.game.ui.UIComponent</a>
-<div class="inheritance">com.deco2800.game.components.levelTransition.LevelTransitionDisplay</div>
+<div class="inheritance">com.deco2800.game.components.leveltransition.LevelTransitionDisplay</div>
 </div>
 </div>
 </div>
@@ -142,10 +142,30 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Draw the renderable.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getZIndex()" class="member-name-link">getZIndex</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFrame()" class="member-name-link">getFrame</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Utility function for returning the current frame.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFrameDuration()" class="member-name-link">getFrameDuration</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Utility function for returning the length a frame is displayed on screen.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.badlogic.gdx.scenes.scene2d.ui.Table</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTable()" class="member-name-link">getTable</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Utility for getting the table externally</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>float</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getZIndex()" class="member-name-link">getZIndex</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Z index controls rendering order within a layer.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setFrame(int)" class="member-name-link">setFrame</a><wbr>(int&nbsp;newFrame)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Function for externally setting the frame.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
@@ -208,6 +228,51 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="../../ui/UIComponent.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../ui/UIComponent.html" title="class in com.deco2800.game.ui">UIComponent</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getFrame()">
+<h3>getFrame</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getFrame</span>()</div>
+<div class="block">Utility function for returning the current frame.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The current frame of the display.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getFrameDuration()">
+<h3>getFrameDuration</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getFrameDuration</span>()</div>
+<div class="block">Utility function for returning the length a frame is displayed on screen.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The duration of an onscreen frame.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getTable()">
+<h3>getTable</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">com.badlogic.gdx.scenes.scene2d.ui.Table</span>&nbsp;<span class="element-name">getTable</span>()</div>
+<div class="block">Utility for getting the table externally</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The table used by the display</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setFrame(int)">
+<h3>setFrame</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setFrame</span><wbr><span class="parameters">(int&nbsp;newFrame)</span></div>
+<div class="block">Function for externally setting the frame. Helpful for debugging to avoid an additional
+ 10 seconds of testing.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>newFrame</code> - New frame index for the display to use</dd>
 </dl>
 </section>
 </li>
