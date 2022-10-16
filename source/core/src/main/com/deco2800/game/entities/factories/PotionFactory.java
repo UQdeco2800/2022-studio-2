@@ -87,8 +87,8 @@ public class PotionFactory {
      */
     public static Entity createDefencePotion() {
         Entity potion = createBasePotion()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"));
-
+                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"))
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "damageReduction"));
         potion.getComponent(TextureRenderComponent.class).scaleEntity();
         potion.scaleHeight(1.5f);
         return potion;
@@ -108,20 +108,6 @@ public class PotionFactory {
         return healthRegenPotion;
     }
 
-    /**
-     * Creates a damage reduction potion which reduces the player's damage taken by a set amount
-     * @return damage reduction potion
-     */
-
-    public static Entity createDamageReductionPotion() {
-        Entity damageReductionPotion = createBasePotion()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
-                ))
-                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "damageReduction"));
-        damageReductionPotion.getComponent(TextureRenderComponent.class).scaleEntity();
-        damageReductionPotion.scaleHeight(1.0f);
-        return damageReductionPotion;
-    }
 
     /**
      * Creates speed potion without rendering Component.
