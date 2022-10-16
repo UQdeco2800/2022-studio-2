@@ -71,7 +71,7 @@ public class PotionFactory {
 
     public static Entity createStaminaPotion() {
         Entity staminaPotion = createBasePotion()
-                .addComponent(new TextureRenderComponent("images/Potions/defence_potion.png"
+                .addComponent(new TextureRenderComponent("images/Potions/swiftness_potion.png"
                 ))
                 .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "stamina"));
         staminaPotion.getComponent(TextureRenderComponent.class).scaleEntity();
