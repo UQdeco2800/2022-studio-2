@@ -50,7 +50,8 @@ public class ArmourFactory {
         baseArmour,
         slowDiamond,
         fastLeather,
-        damageReturner
+        damageReturner,
+        darkArmour
     }
 
     /**
@@ -69,6 +70,9 @@ public class ArmourFactory {
                 break;
             case slowDiamond:
                 config = configs.slowDiamond;
+                break;
+            case darkArmour:
+                config = configs.darkArmour;
                 break;
             default:
                 config = configs.baseArmour;
@@ -92,6 +96,9 @@ public class ArmourFactory {
                  break;
             case slowDiamond:
                 texturePath = "images/Armour-assets-sprint2/slowDiamond.png";
+                break;
+            case darkArmour:
+                texturePath = "images/Armour-assets-sprint2/baseArmour.png";
                 break;
             default:
                texturePath = "images/Armour-assets-sprint2/baseArmour.png";

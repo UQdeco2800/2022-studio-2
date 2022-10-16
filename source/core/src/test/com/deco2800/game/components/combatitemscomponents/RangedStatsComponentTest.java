@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatitemscomponents;
+package com.deco2800.game.components.CombatItemsComponents;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.extensions.GameExtension;
 import java.util.HashMap;

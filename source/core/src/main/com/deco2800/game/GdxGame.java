@@ -30,8 +30,8 @@ public class GdxGame extends Game {
     logger.info("Creating game");
     loadSettings();
 
-    // Sets background to light yellow
-    Gdx.gl.glClearColor(248f/255f, 249/255f, 178/255f, 1);
+    // Sets background to blue colour for level 1
+    Gdx.gl.glClearColor(79/255f, 174/255f, 177/255f, 1);
 
     setScreen(ScreenType.MAIN_MENU);
 
@@ -91,6 +91,8 @@ public class GdxGame extends Game {
         return deathScreen;
       case LEVEL_TRANSITION:
         level = 2;
+        // Sets background to brown colour for level 2
+        Gdx.gl.glClearColor(69/255f, 62/255f, 58/255f, 2);
         levelTransitionScreen = new LevelTransitionScreen(this);
         return levelTransitionScreen;
       case WIN_SCREEN:

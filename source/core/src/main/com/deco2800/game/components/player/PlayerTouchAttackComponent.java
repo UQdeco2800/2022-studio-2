@@ -4,7 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.components.combatitemscomponents.*;
+import com.deco2800.game.components.CombatItemsComponents.*;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
 import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
