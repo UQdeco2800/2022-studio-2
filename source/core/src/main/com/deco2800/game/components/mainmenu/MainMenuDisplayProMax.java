@@ -56,7 +56,7 @@ public class MainMenuDisplayProMax extends UIComponent {
                 new Image(
                         ServiceLocator.getResourceService()
                                 .getAsset(
-                                        "images/Crafting-assets-sprint1/screens/substitute main menu by Rey.png",
+                                        "images/Crafting-assets-sprint1/screens/atlantis sinks main menu.png",
                                         Texture.class));
         mainMenu.setWidth(Gdx.graphics.getWidth());
         mainMenu.setHeight(Gdx.graphics.getHeight());

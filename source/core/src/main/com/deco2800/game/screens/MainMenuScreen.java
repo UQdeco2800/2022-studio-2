@@ -29,7 +29,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   public static final int frameCount = 190;
-  private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/substitute main menu by Rey.png"};
+  private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/atlantis sinks main menu.png"};
 
   public static String[] transitionTextures = new String[frameCount];
   private static final String animationPrefix = "images/Crafting-assets-sprint1/screens/title animation/title_animation";
@@ -109,7 +109,6 @@ public class MainMenuScreen extends ScreenAdapter {
   private void loadFrames() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
-//    resourceService.loadMusic(mainMenuMusic);
 
     for (int i = 0; i < frameCount; i++) {
       transitionTextures[i] = animationPrefix + i + ".png";
