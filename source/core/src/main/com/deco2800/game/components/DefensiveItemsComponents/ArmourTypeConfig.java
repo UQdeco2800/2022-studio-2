@@ -8,4 +8,6 @@ public class ArmourTypeConfig {
     public ArmourConfig slowDiamond = new ArmourConfig();
     public ArmourConfig fastLeather = new ArmourConfig();
     public ArmourConfig damageReturner = new ArmourConfig();
+    public ArmourConfig darkArmour = new ArmourConfig();
+
 }

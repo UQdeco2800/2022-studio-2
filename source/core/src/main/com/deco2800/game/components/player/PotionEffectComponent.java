@@ -64,11 +64,6 @@ public class PotionEffectComponent extends Component {
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
             return;
         }
-        Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-//        if (!target.checkEntityType(EntityTypes.PLAYER)) {
-//            System.out.println("Not player pickup, applying effect");
-//            applyEffect(target);
-//        }
     }
 
     /**
@@ -125,7 +120,7 @@ public class PotionEffectComponent extends Component {
                     break;
                 case "damageReduction":
                     if (!playerModifier.checkModifier(PlayerModifier.DMGREDUCTION, this.effectValue, false,
-                            3000)) {
+                            10000)) {
                         // Modify does not exist
                         playerModifier.createModifier(PlayerModifier.DMGREDUCTION,
                                 this.effectValue,
