@@ -1,7 +1,6 @@
 package com.deco2800.game.components.leveltransition;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.GameArea;
@@ -83,21 +82,6 @@ class LevelTransitionDisplayTest {
         custom_wait(levelTransitionDisplay.getFrameDuration() / 2);
         levelTransitionDisplay.jUnitUpdate();
         assertEquals(1, levelTransitionDisplay.getFrame());
-    }
-
-    @Test
-    void shouldFillTable() {
-
-        Table table = levelTransitionDisplay.getTable();
-        assertTrue(table.hasChildren());
-    }
-
-    @Test
-    void shouldEmptyTable() {
-
-        Table table = levelTransitionDisplay.getTable();
-        levelTransitionDisplay.dispose();
-        assertFalse(table.hasChildren());
     }
 
     @Test

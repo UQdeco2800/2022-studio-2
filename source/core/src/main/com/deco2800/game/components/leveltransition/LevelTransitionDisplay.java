@@ -82,7 +82,6 @@ public class LevelTransitionDisplay extends UIComponent {
         if (frame < LevelTransitionScreen.FRAME_COUNT) {
             frame++;
             lastFrameTime = System.currentTimeMillis();
-            logger.debug("JUnit update");
         }
     }
 
