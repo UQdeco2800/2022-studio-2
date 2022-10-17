@@ -116,7 +116,7 @@ public class InventoryComponent extends Component {
     /**
      * Cancel the animation registered for equipped weapon
      */
-    private void cancelAnimation() {
+    public void cancelAnimation() {
         if(combatAnimator == null) return;
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
@@ -235,7 +235,7 @@ public class InventoryComponent extends Component {
      * Removes an item to player's inventory.
      *
      * @param type type of the item that is to be removed
-     *             NOTE: Currently only work with crafting materials EntityTypes
+     *
      */
     public void removeItem(EntityTypes type) {
         for (int i = 0; i < inventory.size(); ++i) {
@@ -463,7 +463,7 @@ public class InventoryComponent extends Component {
         return List.copyOf(quickBarItems);
     }
 
-    /**
+    /**add
      * Check if two items are the same kind
      *
      * @param item  the item to be checked
