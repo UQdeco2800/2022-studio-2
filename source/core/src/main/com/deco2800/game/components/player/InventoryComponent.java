@@ -116,7 +116,7 @@ public class InventoryComponent extends Component {
     /**
      * Cancel the animation registered for equipped weapon
      */
-    private void cancelAnimation() {
+    public void cancelAnimation() {
         if(combatAnimator == null) return;
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();

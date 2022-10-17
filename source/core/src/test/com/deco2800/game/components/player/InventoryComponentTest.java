@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -264,8 +265,7 @@ class InventoryComponentTest {
 
     Entity testArmour = ArmourFactory.createBaseArmour();
 
-    Entity iron = MaterialFactory.createBaseMaterial();
-    iron.setEntityType(EntityTypes.IRON);
+    Entity iron = MaterialFactory.createIron();
 
     testInventory3.addItem(testArmour);
     testInventory3.addItem(iron);
@@ -295,13 +295,16 @@ class InventoryComponentTest {
     Entity player = PlayerFactory.createTestPlayer();
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     Entity testWeapon = WeaponFactory.createDagger();
+    Entity testBaseWeapon = WeaponFactory.createBaseWeapon();
 
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
     PhysicalWeaponStatsComponent stat = testWeapon.getComponent(PhysicalWeaponStatsComponent.class);
     inventory.applyWeaponEffect(testWeapon, true);
+    inventory.applyWeaponEffect(testBaseWeapon, true);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, (float) (-stat.getWeight() / 15), true, 0));
 
     inventory.applyWeaponEffect(testWeapon, false);
+    inventory.applyWeaponEffect(testBaseWeapon, false);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 3 * (float) (stat.getWeight() / 15) , false, 0));
   }
 
@@ -309,13 +312,16 @@ class InventoryComponentTest {
   void applyArmourEffect() {
     Entity player = PlayerFactory.createTestPlayer();
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity testBaseArmour = ArmourFactory.createBaseArmour();
+    Entity testArmour = ArmourFactory.createTestArmour();
 
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
 
+    inventory.applyArmourEffect(testBaseArmour, true);
     inventory.applyArmourEffect(testArmour, true);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false,0));
 
+    inventory.applyArmourEffect(testBaseArmour, false);
     inventory.applyArmourEffect(testArmour, false);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false, 0));
   }
