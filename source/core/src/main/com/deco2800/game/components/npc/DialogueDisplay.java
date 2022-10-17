@@ -107,7 +107,7 @@ public class DialogueDisplay extends UIComponent {
             ""
     };
     public static String[] textGuard = {
-            "Guard\n",
+            "Guard: \n",
             "Have you seen anyone suspicious? ",
             "No? Okay then...",
             "Would you mind telling me your name?",
@@ -125,7 +125,7 @@ public class DialogueDisplay extends UIComponent {
             ""
     };
     public static String[] textChild = {
-            "child\n",
+            "Child: \n",
             "Hello…Rabbit says he has not seen you around before\n",
             "Your..hands..they are stained…brown\n",
             "I know someone who can help you \n",
@@ -134,7 +134,7 @@ public class DialogueDisplay extends UIComponent {
     };
 
     public static String[] textHumanGuard = {
-            "George",
+            "George: \n",
             "Oh good, you are here!",
             "My hands are a bit full right now",
             "Would you mind holding onto this for me?",
@@ -159,7 +159,7 @@ public class DialogueDisplay extends UIComponent {
             ""
     };
     public static String[] textFriendlyCreature = {
-            "FriendlyCreature\n",
+            "FriendlyCreature: \n",
             "Hm? Why did u come here?",
             "Didn't I say never to come here again??!!!",
             "Never mind, why don't you sing me a song and I will give you something in return, you got 15 seconds for this",
@@ -174,7 +174,7 @@ public class DialogueDisplay extends UIComponent {
             ""
     };
     public static String[] textPlumberFriend = {
-            "PlumberFriend\n",
+            "PlumberFriend: \n",
             "Hey! I have not seen you in forever.",
             "Are you still going ahead with your plan?",
             "What do you mean 'what plan'?",
@@ -208,67 +208,69 @@ public class DialogueDisplay extends UIComponent {
         // initialize the dialogue image for each NPCs
         dialogueImagefemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFemale), Texture.class));
-        dialogueImagefemale.setPosition(220,0);
+        dialogueImagefemale.setPosition((Gdx.graphics.getWidth()/2) - (dialogueImagefemale.getWidth()/2), 0);
         dialogueimageguard = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageGuard), Texture.class));
-        dialogueimageguard.setPosition(220,0);
+        dialogueimageguard.setPosition((Gdx.graphics.getWidth()/2) - (dialogueimageguard.getWidth()/2),0);
         dialogueimagemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageMale), Texture.class));
-        dialogueimagemale.setPosition(220,0);
+        dialogueimagemale.setPosition((Gdx.graphics.getWidth()/2) - (dialogueimagemale.getWidth()/2),0);
         dialogueimgchild = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageChild), Texture.class));
-        dialogueimgchild.setPosition(220,0);
+        dialogueimgchild.setPosition((Gdx.graphics.getWidth()/2) - (dialogueimgchild.getWidth()/2),0);
         dialogueimagehumanguard = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageHumanGuard), Texture.class));
-        dialogueimagehumanguard.setPosition(220,0);
+        dialogueimagehumanguard.setPosition((Gdx.graphics.getWidth()/2) - (dialogueimagehumanguard.getWidth()/2),0);
         dialogueimagefriendlycreature = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFriendlyCreature), Texture.class));
-        dialogueimagefriendlycreature.setPosition(220,0);
+        dialogueimagefriendlycreature.setPosition((Gdx.graphics.getWidth()/2) - (dialogueimagefriendlycreature.getWidth()/2),0);
         dialogueimageplumberfriend = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImagePlumberFriend), Texture.class));
-        dialogueimageplumberfriend.setPosition(220,0);
+        //dialogueimageplumberfriend.setPosition(220,0);
+        dialogueimageplumberfriend.setPosition((Gdx.graphics.getWidth()/2) - (dialogueimageplumberfriend.getWidth()/2),0);
 
         // initialize the text area for each NPCs
         textAreaFemale = new TextArea(textFemale[countFemale], skin, "female");
         textAreaFemale.setWidth(480);
         textAreaFemale.setHeight(70);
-        textAreaFemale.setPosition(240,29);
+        textAreaFemale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFemale.getWidth()/2),29);
         textAreaGuard = new TextArea(textGuard[countGuard], skin, "guard");
         textAreaGuard.setWidth(480);
         textAreaGuard.setHeight(70);
-        textAreaGuard.setPosition(240,29);
+        textAreaGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaGuard.getWidth()/2),29);
         textAreaMale = new TextArea(textMale[countMale], skin, "male");
         textAreaMale.setWidth(480);
         textAreaMale.setHeight(70);
-        textAreaMale.setPosition(240,29);
+        textAreaMale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaMale.getWidth()/2),29);
         textAreaChild = new TextArea(textChild[countChild], skin, "child");
         textAreaChild.setWidth(480);
         textAreaChild.setHeight(70);
-        textAreaChild.setPosition(240,29);
+        textAreaChild.setPosition((Gdx.graphics.getWidth()/2) - (textAreaChild.getWidth()/2),29);
         textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin, "humanguard");
         textAreaHumanGuard.setWidth(480);
         textAreaHumanGuard.setHeight(70);
-        textAreaHumanGuard.setPosition(240,29);
+        textAreaHumanGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuard.getWidth()/2),29);
         textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin, "humanguard");
         textAreaHumanGuardAlready.setWidth(480);
         textAreaHumanGuardAlready.setHeight(70);
-        textAreaHumanGuardAlready.setPosition(240,29);
+        textAreaHumanGuardAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuardAlready.getWidth()/2),29);
         textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin, "friendlycreature");
-        textAreaFriendlyCreature.setWidth(750);
+        textAreaFriendlyCreature.setWidth(700);
         textAreaFriendlyCreature.setHeight(88);
-        textAreaFriendlyCreature.setPosition(240,29);
+        textAreaFriendlyCreature.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFriendlyCreature.getWidth()/2),29);
         textAreaFriendlyCreatureAlready = new TextArea(textFriendlyCreatureAlready[countFriendlyCreatureAlready], skin, "friendlycreature");
-        textAreaFriendlyCreatureAlready.setWidth(750);
+        textAreaFriendlyCreatureAlready.setWidth(700);
         textAreaFriendlyCreatureAlready.setHeight(88);
-        textAreaFriendlyCreatureAlready.setPosition(240,29);
+        textAreaFriendlyCreatureAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFriendlyCreatureAlready.getWidth()/2),29);
         textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin, "plumberfriend");
-        textAreaPlumberFriend.setWidth(850);
+        textAreaPlumberFriend.setWidth(480);
         textAreaPlumberFriend.setHeight(63);
-        textAreaPlumberFriend.setPosition(240,29);
+        textAreaPlumberFriend.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriend.getWidth()/2),29);
         textAreaPlumberFriendAlready = new TextArea(textPlumberFriendAlready[countPlumberFriendAlready], skin, "plumberfriend");
-        textAreaPlumberFriendAlready.setWidth(850);
+        textAreaPlumberFriendAlready.setWidth(480);
         textAreaPlumberFriendAlready.setHeight(63);
-        textAreaPlumberFriendAlready.setPosition(240,29);
+        //textAreaPlumberFriendAlready.setPosition(240,29);
+        textAreaPlumberFriendAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriend.getWidth()/2), 29);
 
         // add dialogue image and dialogue text area to the container
         dialogueContainerFemale.addActor(dialogueImagefemale);
@@ -299,7 +301,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaFemale = new TextArea(textFemale[countFemale], skin, "female");
             textAreaFemale.setWidth(480);
             textAreaFemale.setHeight(50);
-            textAreaFemale.setPosition(240,29);
+            textAreaFemale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFemale.getWidth()/2),29);
             dialogueContainerFemale.addActor(textAreaFemale);
             if (countFemale == textFemale.length - 1) {
                 countFemale = 0;
@@ -323,7 +325,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaGuard = new TextArea(textGuard[countGuard], skin, "guard");
             textAreaGuard.setWidth(480);
             textAreaGuard.setHeight(50);
-            textAreaGuard.setPosition(240,29);
+            textAreaGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaGuard.getWidth()/2),29);
             dialogueContainerGuard.addActor(textAreaGuard);
 
             if (countGuard == textGuard.length - 1) {
@@ -357,7 +359,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaMale = new TextArea(textMale[countMale], skin, "male");
             textAreaMale.setWidth(480);
             textAreaMale.setHeight(50);
-            textAreaMale.setPosition(240,29);
+            textAreaMale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaMale.getWidth()/2),29);
             dialogueContainerMale.addActor(textAreaMale);
             if (countMale == textMale.length - 1) {
                 countMale = 0;
@@ -381,7 +383,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaChild = new TextArea(textChild[countChild], skin, "child");
             textAreaChild.setWidth(480);
             textAreaChild.setHeight(50);
-            textAreaChild.setPosition(240,29);
+            textAreaChild.setPosition((Gdx.graphics.getWidth()/2) - (textAreaChild.getWidth()/2),29);
             dialogueContainerChild.addActor(textAreaChild);
             if (countChild == textChild.length - 1) {
                 countChild = 0;
@@ -407,7 +409,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin, "humanguard");
             textAreaHumanGuard.setWidth(480);
             textAreaHumanGuard.setHeight(50);
-            textAreaHumanGuard.setPosition(240,29);
+            textAreaHumanGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuard.getWidth()/2),29);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuard);
 
             if (countHumanGuard == textHumanGuard.length - 1) {
@@ -448,7 +450,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin, "humanguard");
             textAreaHumanGuardAlready.setWidth(480);
             textAreaHumanGuardAlready.setHeight(50);
-            textAreaHumanGuardAlready.setPosition(240,29);
+            textAreaHumanGuardAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuardAlready.getWidth()/2),29);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuardAlready);
 
             if (countHumanGuardAlready == textHumanGuardAlready.length - 1) {
@@ -474,9 +476,9 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countFriendlyCreature++;
             textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin, "friendlycreature");
-            textAreaFriendlyCreature.setWidth(750);
+            textAreaFriendlyCreature.setWidth(700);
             textAreaFriendlyCreature.setHeight(68);
-            textAreaFriendlyCreature.setPosition(240,29);
+            textAreaFriendlyCreature.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFriendlyCreature.getWidth()/2),29);
             dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreature);
             if (countFriendlyCreature == textFriendlyCreature.length - 1) {
                 countFriendlyCreature = 0;
@@ -514,9 +516,9 @@ public class DialogueDisplay extends UIComponent {
 
             countFriendlyCreatureAlready++;
             textAreaFriendlyCreatureAlready = new TextArea(textFriendlyCreatureAlready[countFriendlyCreatureAlready], skin, "friendlycreature");
-            textAreaFriendlyCreatureAlready.setWidth(750);
+            textAreaFriendlyCreatureAlready.setWidth(700);
             textAreaFriendlyCreatureAlready.setHeight(68);
-            textAreaFriendlyCreatureAlready.setPosition(240,29);
+            textAreaFriendlyCreatureAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFriendlyCreatureAlready.getWidth()/2),29);
             dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreatureAlready);
 
             if (countFriendlyCreatureAlready == textFriendlyCreatureAlready.length - 1) {
@@ -529,9 +531,9 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countPlumberFriend++;
             textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin, "plumberfriend");
-            textAreaPlumberFriend.setWidth(850);
+            textAreaPlumberFriend.setWidth(480);
             textAreaPlumberFriend.setHeight(43);
-            textAreaPlumberFriend.setPosition(240,29);
+            textAreaPlumberFriend.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriend.getWidth()/2),29);
             dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
             if (countPlumberFriend == textPlumberFriend.length - 1) {
                 haveTalkedPlumberFriend = 1;
@@ -582,9 +584,9 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countPlumberFriendAlready++;
             textAreaPlumberFriendAlready = new TextArea(textPlumberFriendAlready[countPlumberFriendAlready], skin, "plumberfriend");
-            textAreaPlumberFriendAlready.setWidth(850);
+            textAreaPlumberFriendAlready.setWidth(480);
             textAreaPlumberFriendAlready.setHeight(43);
-            textAreaPlumberFriendAlready.setPosition(240,29);
+            textAreaPlumberFriendAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriendAlready.getWidth()/2),29);
             dialogueContainerPlumberFriend.addActor(textAreaPlumberFriendAlready);
 
             if (countPlumberFriendAlready == textPlumberFriendAlready.length - 1) {
