@@ -18,6 +18,7 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.deco2800.game.entities.factories.PotionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,11 @@ public class UndergroundGameArea extends GameArea {
             "images/countdown/4.png",
             "images/countdown/5.png",
             "images/CombatItems/animations/BuffBounce/mapBounce.png",
-            "images/CombatItems/animations/BuffAnimations/buff.png"
+            "images/CombatItems/animations/BuffAnimations/buff.png",
+            "images/Potions/health_potion.png",
+            "images/Potions/defence_potion.png",
+            "images/Potions/agility_potion.png",
+            "images/Potions/swiftness_potion.png",
 
     };
 
@@ -207,6 +212,8 @@ public class UndergroundGameArea extends GameArea {
         spawnFireBuff();
         spawnPoisonBuff();
         spawnSpeedBuff();
+        spawnStaminaPotion();
+        spawnDefencePotion();
     }
 
     /**
@@ -652,6 +659,66 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(fireBuff);
             spawnEntityAt(fireBuff, location, true, false);
         }
+    }
+
+    private void spawnStaminaPotion() {
+        Entity staminaPotion = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion);
+        spawnEntityAt(staminaPotion, new GridPoint2(35, 39), true, true);
+
+        Entity staminaPotion3 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion3);
+        spawnEntityAt(staminaPotion3, new GridPoint2(17, 69), true, true);
+
+        Entity staminaPotion4 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion4);
+        spawnEntityAt(staminaPotion4, new GridPoint2(54, 47), true, true);
+
+        Entity staminaPotion5 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion5);
+        spawnEntityAt(staminaPotion5, new GridPoint2(80, 48), true, true);
+
+        Entity staminaPotion6 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion6);
+        spawnEntityAt(staminaPotion6, new GridPoint2(84, 64), true, true);
+
+        Entity staminaPotion7 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion7);
+        spawnEntityAt(staminaPotion7, new GridPoint2(52, 69), true, true);
+
+        Entity staminaPotion8 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion8);
+        spawnEntityAt(staminaPotion8, new GridPoint2(20, 90), true, true);
+
+        Entity staminaPotion9 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion9);
+        spawnEntityAt(staminaPotion9, new GridPoint2(38, 85), true, true);
+    }
+
+    private void spawnDefencePotion() {
+        Entity defencePotion = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion);
+        spawnEntityAt(defencePotion, new GridPoint2(35, 12), true, true);
+
+        Entity defencePotion1 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion1);
+        spawnEntityAt(defencePotion, new GridPoint2(35, 55), true, true);
+
+        Entity defencePotion2 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion2);
+        spawnEntityAt(defencePotion2, new GridPoint2(17, 74), true, true);
+
+        Entity defencePotion3 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion3);
+        spawnEntityAt(defencePotion3, new GridPoint2(38, 90), true, true);
+
+        Entity defencePotion4 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion4);
+        spawnEntityAt(defencePotion4, new GridPoint2(29, 110), true, true);
+
+        Entity defencePotion5 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion5);
+        spawnEntityAt(defencePotion5, new GridPoint2(49, 108), true, true);
     }
 
     /**

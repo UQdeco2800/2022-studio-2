@@ -230,8 +230,8 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnSpeedPotion();
     spawnHealthPotion();
-    spawnStaminaPotion();
-    spawnDefencePotion();
+    //spawnStaminaPotion();
+    //spawnDefencePotion();
 
     spawnDumbbell();
     spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
@@ -621,6 +621,10 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * These buffs were made specifically to help with unit tests and buffs
+   */
+
   private void spawnTestBuffs() {
     spawnEntityAt(AuraFactory.createFireBuff(), new GridPoint2(89, 10), true, false);
     spawnEntityAt(AuraFactory.createPoisonBuff(),new GridPoint2(92, 10), true, false);
@@ -696,6 +700,13 @@ public class ForestGameArea extends GameArea {
       Entity speedPotion2 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion2);
       spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
+      Entity speedPotion3 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion3);
+      spawnEntityAt(speedPotion3, new GridPoint2(34, 80), true, true);
+      Entity speedPotion4 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion4);
+      spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
+
   }
 
   private void spawnHealthPotion() {
@@ -703,7 +714,8 @@ public class ForestGameArea extends GameArea {
     itemsOnMap.add(healthPotion);
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
-
+  /**
+   * This is for lower levels only
     private void spawnStaminaPotion() {
         Entity healthPotion = PotionFactory.createStaminaPotion();
         itemsOnMap.add(healthPotion);
@@ -715,6 +727,7 @@ public class ForestGameArea extends GameArea {
     itemsOnMap.add(healthPotion);
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
   }
+  **/
 
   /**
    * Spawns Level 2 dagger entity into the game
