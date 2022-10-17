@@ -14,6 +14,7 @@ public class ArmourConfig {
     public double phyResistance = 10;
     //vitality is staminamax modifier
     public double vitality = 10;
+    //remove durability
     public double durability = 2;
     //move speed modifier
     public double weight = 1;

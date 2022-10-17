@@ -8,8 +8,6 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 
-import static com.deco2800.game.components.player.PlayerModifier.DMGREDUCTION;
-import static com.deco2800.game.components.player.PlayerModifier.MOVESPEED;
 import static java.util.Objects.isNull;
 
 public class PotionEffectComponent extends Component {
@@ -32,10 +30,13 @@ public class PotionEffectComponent extends Component {
                 this.effectValue = 1.5f;
                 break;
             case "health":
-                this.effectValue = 1;
+                this.effectValue = 20f;
                 break;
             case "damageReduction":
                 this.effectValue = 2f;
+                break;
+            case "stamina":
+                this.effectValue = 30f;
                 break;
             default:
                 break;
@@ -63,11 +64,6 @@ public class PotionEffectComponent extends Component {
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
             return;
         }
-        Entity target = ((BodyUserData) other.getBody().getUserData()).entity;
-//        if (!target.checkEntityType(EntityTypes.PLAYER)) {
-//            System.out.println("Not player pickup, applying effect");
-//            applyEffect(target);
-//        }
     }
 
     /**
@@ -109,21 +105,27 @@ public class PotionEffectComponent extends Component {
         if (!isNull(playerModifier)) {
             switch (this.effectType) {
                 case "speed":
-                    if (!playerModifier.checkModifier(MOVESPEED, this.effectValue, true, 3000)) {
+                    if (!playerModifier.checkModifier(PlayerModifier.MOVESPEED, this.effectValue,
+                            true, 3000)) {
                         // Modify does not exist
-                        playerModifier.createModifier(MOVESPEED, this.effectValue, true, 3000);
+                        playerModifier.createModifier(PlayerModifier.MOVESPEED, this.effectValue,
+                                true, 3000);
                     }
                     break;
                 case "health":
-                    playerModifier.createModifier("health", this.effectValue, false, 0);
+                    playerModifier.createModifier(PlayerModifier.HEALTH, this.effectValue, false, 0);
                     break;
-                case "healthRegen":
-                    playerModifier.createModifier("healthRegen", this.effectValue, false, 5000);
+                case "stamina":
+                    playerModifier.createModifier(PlayerModifier.STAMINA, this.effectValue, false,0);
                     break;
                 case "damageReduction":
-                    if (!playerModifier.checkModifier(DMGREDUCTION, this.effectValue, true, 3000)) {
+                    if (!playerModifier.checkModifier(PlayerModifier.DMGREDUCTION, this.effectValue, false,
+                            10000)) {
                         // Modify does not exist
-                        playerModifier.createModifier(DMGREDUCTION, this.effectValue, true, 3000);
+                        playerModifier.createModifier(PlayerModifier.DMGREDUCTION,
+                                this.effectValue,
+                                false,
+                                3000);
                     }
                     break;
                 default:

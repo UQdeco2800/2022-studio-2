@@ -1,8 +1,8 @@
 package com.deco2800.game.crafting;
 
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfigSetup;
 import com.deco2800.game.entities.factories.WeaponFactory;
 import com.deco2800.game.files.FileLoader;
 
@@ -15,12 +15,14 @@ import java.util.*;
  */
 public class CraftingLogic {
 
+    private CraftingLogic(){}
+
     public static final WeaponConfigSetup configs =
             FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
     /**
      * List containing the possible builds the user can make with their given inventory
      */
-    private static List<WeaponConfig> possibleBuilds =  new ArrayList<WeaponConfig>();
+    private static List<WeaponConfig> possibleBuilds =  new ArrayList<>();
 
 
     /**
@@ -92,39 +94,36 @@ public class CraftingLogic {
                 }
 
             }
-            if (buildable)
+            if (Boolean.TRUE.equals(buildable))
                 buildables.add(possibleWeapons.get(i));
         }
         return buildables;
     }
 
+    /**
+     * Supporter method that takes a weapon config of any type and converts it to a weapon entity. Helps
+     * with reading configs off weapons.json.
+     * @return a weapon entity based on the config input
+     */
     public static Entity damageToWeapon(WeaponConfig weapon){
         double dam = weapon.damage;
         switch ((int) Math.floor(dam)){
             case 12:
                 return WeaponFactory.createDagger();
-
             case 16:
                 return WeaponFactory.createHera();
-
             case 30:
                 return WeaponFactory.createSwordLvl2();
-
             case 15:
                 return WeaponFactory.createPipe();
-
             case 35:
                 return WeaponFactory.createTridentLvl2();
-
             case 40:
                 return WeaponFactory.createHeraAthenaDag();
-
             case 20:
                 return WeaponFactory.createPlungerBow();
-
             case 70:
                 return WeaponFactory.createGoldenPlungerBow();
-
             default:
                 return WeaponFactory.createPlunger();
         }
