@@ -112,11 +112,11 @@ public class InventoryComponent extends Component {
 
         //add exception for golden plunger
         if (description.equals("goldenPlungerBow")){
-            String staticAnimation = description+"Static";
-            combatAnimator.getEvents().trigger(staticAnimation);
+            combatAnimator.getEvents().trigger(description);
         }
         else {
-            combatAnimator.getEvents().trigger(description);
+            String staticAnimation = description+"Static";
+            combatAnimator.getEvents().trigger(staticAnimation);
         }
     }
 
