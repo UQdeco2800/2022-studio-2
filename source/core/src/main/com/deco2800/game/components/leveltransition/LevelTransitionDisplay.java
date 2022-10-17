@@ -98,12 +98,6 @@ public class LevelTransitionDisplay extends UIComponent {
     public long getFrameDuration() { return FRAME_DURATION; }
 
     /**
-     * Utility for getting the table externally
-     * @return  The table used by the display
-     */
-    public Table getTable() {return table;}
-
-    /**
      * Function for externally setting the frame. Helpful for debugging to avoid an additional
      * 10 seconds of testing.
      * @param newFrame  New frame index for the display to use
