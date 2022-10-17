@@ -436,5 +436,7 @@ public class PlayerCombatAnimationController extends Component {
     void animatePlungerBowStatic() {
         animator.startAnimation("plungerBowStatic");
     }
+
+    void animateGoldenPlungerBow() {animator.startAnimation("goldenBow");}
 }
 

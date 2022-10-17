@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DeathScreenActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreenActions.class);
-    private GdxGame game;
+    private final GdxGame game;
     private Sound sound;
 
     public DeathScreenActions(GdxGame game) {
@@ -35,7 +35,7 @@ public class DeathScreenActions extends Component {
     private void onContinue() {
         sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
         sound.play(1.0f);
-        logger.info("Continue playing game after death");
+        logger.info("Event to continue playing game after death occurred");
         game.setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 
@@ -46,7 +46,7 @@ public class DeathScreenActions extends Component {
     private void onExit() {
         sound = Gdx.audio.newSound(Gdx.files.internal("sounds/ButtonSoundtrack.wav"));
         sound.play(1.0f);
-        logger.info("Return to main menu");
+        logger.info("Event to return to main menu occurred");
         game.setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 }

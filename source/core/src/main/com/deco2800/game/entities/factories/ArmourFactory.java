@@ -127,4 +127,13 @@ public class ArmourFactory {
         armour.scaleHeight(1f);
         return armour;
     }
+
+    public static Entity createTestArmour() {
+        Entity armour = new Entity()
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
+        armour.setEntityType(EntityTypes.ARMOUR);
+        return armour;
+    }
 }
