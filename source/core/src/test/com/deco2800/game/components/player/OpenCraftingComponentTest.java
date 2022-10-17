@@ -10,6 +10,7 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.ResourceService;
@@ -117,8 +118,7 @@ class OpenCraftingComponentTest {
         ServiceLocator.registerRenderService(renderService);
         ServiceLocator.registerInventoryArea(craftingArea);
         craftingArea.create();
-//        playerGuidArea.create();
-        player = new Entity();
+        player = PlayerFactory.createTestPlayer();
         openCraftingComponent = new OpenCraftingComponent();
         player.addComponent(openCraftingComponent);
         player.create();
@@ -136,6 +136,18 @@ class OpenCraftingComponentTest {
 
     @Test
     void shouldOpenCrafting() {
+//        Entity player = PlayerFactory.createTestPlayer();
+//        ServiceLocator serviceLocator = mock(ServiceLocator.class);
+//
+//        PhysicsService physicsService = new PhysicsService(new PhysicsEngine());
+//        serviceLocator.registerPhysicsService(physicsService);
+//
+//        when(serviceLocator.getGameArea().getPlayer()).thenReturn(player);
+//
+//        OpenCraftingComponent craftingComponent = spy(OpenCraftingComponent.class);
+//        craftingComponent.openCrafting();
+//
+//        verify(craftingComponent).openCrafting();
 //        player.setPosition(1111, 15);
 //        player.getEvents().trigger("can_open");
 //        assertTrue(openCraftingComponent.getCraftingStatus());
@@ -147,17 +159,17 @@ class OpenCraftingComponentTest {
 //        OpenCraftingComponent.setCraftingStatus();
 //        assertFalse(openCraftingComponent.getCraftingStatus());
 
-//        Entity entity = PlayerFactory.createTestPlayer();
-//        entity.setPosition(100, 10);
+//        player.setPosition(100, 10);
 //        OpenCraftingComponent.setCraftingStatus();
+//
 //        ServiceLocator serviceLocator = mock(ServiceLocator.class);
 //
-//        when(serviceLocator.getGameArea().getPlayer()).thenReturn(entity);
+//        when(serviceLocator.getGameArea().getPlayer()).thenReturn(player);
 //
 //        OpenCraftingComponent openCraftingComponent1 = spy(OpenCraftingComponent.class);
-//        openCraftingComponent1.openCrafting();
+//        openCraftingComponent.openCrafting();
 //
-//        verify(openCraftingComponent1).openCrafting();
+//        verify(openCraftingComponent).openCrafting();
     }
 
     @Test

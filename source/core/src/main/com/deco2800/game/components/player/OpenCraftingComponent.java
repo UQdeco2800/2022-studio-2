@@ -26,7 +26,7 @@ public class OpenCraftingComponent extends Component {
 
     }
 
-    private void openCrafting() {
+    public void openCrafting() {
         if (inRange(entity.getCenterPosition()) && craftingStatus == false) {
             ServiceLocator.getCraftArea().openCraftingMenu();
             Sound openCraftMenu = ServiceLocator.getResourceService().getAsset("sounds/Scroll.wav", Sound.class);

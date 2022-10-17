@@ -1325,7 +1325,7 @@ public class GameAreaDisplay extends UIComponent {
     /**
      * Displays the second page of the catalogue menu and adds event handlers for buttons.
      */
-    private void displayCatTwo() {
+    public void displayCatTwo() {
         Sound catTwoSound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
         catTwoSound.play();
         disposeMaterials();
@@ -1507,6 +1507,10 @@ public class GameAreaDisplay extends UIComponent {
             weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
         }
         craftingGroup.addActor(weapon);
+    }
+
+    public int getFirstTime() {
+        return firstTime;
     }
 
     /**
