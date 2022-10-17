@@ -487,7 +487,7 @@ class InventoryComponentTest {
 //  }
 
   @Test
-  void itemEquals () {
+  void itemEquals() {
     InventoryComponent inventory = new InventoryComponent();
     Entity testWeapon = WeaponFactory.createTestDagger();
     Entity testArmour = ArmourFactory.createBaseArmour();
