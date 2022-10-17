@@ -2,7 +2,7 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.combatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.Combatitemscomponents.PhysicalWeaponStatsComponent;
 
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
