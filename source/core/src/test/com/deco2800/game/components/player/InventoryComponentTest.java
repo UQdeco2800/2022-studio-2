@@ -55,7 +55,8 @@ class InventoryComponentTest {
                         "images/Crafting-assets-sprint1/materials/plastic.png",
                         "images/Crafting-assets-sprint1/materials/rubber.png",
                         "images/Crafting-assets-sprint1/materials/platinum.png",
-                        "images/Crafting-assets-sprint1/materials/silver.png"};
+                        "images/Crafting-assets-sprint1/materials/silver.png",
+                        "images/Potions/agility_potion.png"};
     resourceService.loadTextures(textures);
     String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
     resourceService.loadTextureAtlases(textureAtlases);
@@ -489,22 +490,22 @@ class InventoryComponentTest {
     combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
   }*/
 
-//  /**
-//   * Checks that the item has correctly been added to the quickbar
-//   */
-//  @Test
-//  void addQuickBarItems() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    inventory.addQuickBarItems(testPotion);
-//    expectedList.add(testPotion);
-//
-//    assertEquals(expectedList, inventory.getQuickBarItems());
-//  }
+  /**
+   * Checks that the item has correctly been added to the quickbar
+   */
+  @Test
+  void addQuickBarItems() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+
+    inventory.addQuickBarItems(testPotion);
+    expectedList.add(testPotion);
+
+    assertEquals(expectedList, inventory.getQuickBarItems());
+  }
 
   /**
    * Tests whether the potion is at the correct place in the quickbar so that it may be used
@@ -514,8 +515,9 @@ class InventoryComponentTest {
   void getPotionIndex() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
-
+    int expectedSentinel = -1;
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    assertEquals(-1, inventory.getPotionIndex(testSpeedPotion));
     inventory.addQuickBarItems(testSpeedPotion);
     int expectedIndex =  0;
 
@@ -545,7 +547,9 @@ class InventoryComponentTest {
   void consumePotion() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testPotion1 = PotionFactory.createTestSpeedPotion();
+    Entity speedPotion = PotionFactory.createSpeedPotion();
     List<Entity> expectedList = new ArrayList<>(3);
+    int expectedQuantity = 8;
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
@@ -555,8 +559,17 @@ class InventoryComponentTest {
 
     //Tests if the potion effect is applied to the player
     inventory.consumePotion(1);
+    //Test if the function is properlly ended or not
+    inventory.consumePotion(5);
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
     assertEquals(expectedList, inventory.getQuickBarItems());
+    System.out.println(inventory.getQuickBarItems());
+    for (int i = 0; i < 9; ++i) {
+      inventory.addItem(testPotion1);
+      inventory.addQuickBarItems(speedPotion);
+    }
+
+    assertEquals(expectedQuantity, inventory.getQuickBarQuantity()[inventory.getPotionIndex(speedPotion)]);
   }
 }

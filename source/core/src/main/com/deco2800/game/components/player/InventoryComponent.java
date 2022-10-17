@@ -111,7 +111,7 @@ public class InventoryComponent extends Component {
         String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
 
         //add exception for golden plunger
-        if (description != "goldenPlungerBow"){
+        if (description.equals("goldenPlungerBow")){
             String staticAnimation = description+"Static";
             combatAnimator.getEvents().trigger(staticAnimation);
         }
@@ -470,7 +470,15 @@ public class InventoryComponent extends Component {
         return List.copyOf(quickBarItems);
     }
 
-    /**add
+    /**
+     * Returns the current quantity of all potions in the quick bar
+     * @return quantity array
+     */
+    public int[] getQuickBarQuantity() {
+        return Arrays.copyOf(quickBarQuantity, 3);
+    }
+
+    /**
      * Check if two items are the same kind
      *
      * @param item  the item to be checked
