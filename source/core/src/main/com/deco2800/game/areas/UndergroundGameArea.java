@@ -158,7 +158,8 @@ public class UndergroundGameArea extends GameArea {
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
             "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
-            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav"};
+            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav","sounds/combatitems/metalSword.wav","sounds/combatitems/plungerSound.mp3",
+            "sounds/combatitems/rangeWeaponSound.mp3"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
