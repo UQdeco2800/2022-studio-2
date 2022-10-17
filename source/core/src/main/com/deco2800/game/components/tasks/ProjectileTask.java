@@ -65,6 +65,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         currentTask = taskShoot;
     }
 
+    /**
+     * Get the priority of this task
+     * @return the priority of this task
+     */
     @Override
     public int getPriority() {
         if (status == Status.ACTIVE) {
@@ -89,12 +93,18 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         currentTask.update();
     }
 
-
+    /**
+     * If entity is waiting, set its task to shoot
+     */
     public void waiting() {
         setTask(taskShoot);
     }
 
 
+    /**
+     * Shoot projectile
+     * @param projectileType the type of projectile to shoot
+     */
     public void shoot(String projectileType) {
         if (projectileType.equals("poopSludge")) {
             projectile = createPoopsSludge(owner.getEntity(), target);
@@ -117,7 +127,11 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         }
         setTask(taskWait);
     }
-    
+
+    /**
+     * Set the task
+     * @param task the task to set it to
+     */
     public void setTask(Task task) {
         if (currentTask != null) {
             currentTask.stop();
@@ -158,6 +172,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         return -1;
     }
 
+    /**
+     * Returns if the target is visible or not
+     * @return true if target visible, false otherwise
+     */
     private boolean isTargetVisible() {
         Vector2 from = owner.getEntity().getCenterPosition();
         Vector2 to = target.getCenterPosition();
@@ -172,6 +190,9 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     }
 
 
+    /**
+     * Animate the projectile attack
+     */
     private void attackAnimate() {
         Vector2 enemy = owner.getEntity().getCenterPosition();
         Vector2 player = target.getCenterPosition();
