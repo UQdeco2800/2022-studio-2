@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.extensions.GameExtension;
@@ -31,5 +32,16 @@ class GameAreaTest {
 
     gameArea.dispose();
     verify(entity).dispose();
+  }
+
+  // Tests if minimap is successfully called.
+  @Test
+    void checkMinimap() {
+      GameArea gameArea = mock(ForestGameArea.class);
+      ServiceLocator.registerGameArea(gameArea);
+    GameAreaDisplay gameAreaDisplay = mock(GameAreaDisplay.class);
+
+    gameAreaDisplay.displayMinimap();
+    verify(gameAreaDisplay).displayMinimap();
   }
 }
