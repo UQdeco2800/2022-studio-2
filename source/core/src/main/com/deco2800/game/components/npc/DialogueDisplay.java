@@ -166,10 +166,10 @@ public class DialogueDisplay extends UIComponent {
             "Now, LEAVE ME ALONE!!!",
     };
     public static String[] textFriendlyCreatureAlready = {
-            "afdesdf",
-            "aefaef",
-            "feafaef",
-            "faefae"
+            "Why are you still here?",
+            "LEAVE",
+            "ME",
+            "ALONE"
     };
     public static String[] textPlumberFriend = {
             "PlumberFriend\n",
