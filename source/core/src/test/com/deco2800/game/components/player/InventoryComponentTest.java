@@ -492,11 +492,14 @@ class InventoryComponentTest {
     Entity testWeapon = WeaponFactory.createTestDagger();
     Entity testArmour = ArmourFactory.createBaseArmour();
     Entity testPotion = PotionFactory.createTestSpeedPotion();
+    Entity testIron = MaterialFactory.createIron();
 
     assertTrue(inventory.itemEquals(testArmour, testArmour));
     assertFalse(inventory.itemEquals(testWeapon, testArmour));
     assertFalse(inventory.itemEquals(testWeapon, testPotion));
     assertFalse(inventory.itemEquals(testArmour, testPotion));
+    assertTrue(inventory.itemEquals(testIron, testIron));
+    assertFalse(inventory.itemEquals(testIron, testArmour));
   }
 
 //  @Test
