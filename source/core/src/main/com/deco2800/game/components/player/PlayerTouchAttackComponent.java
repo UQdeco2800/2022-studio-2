@@ -76,7 +76,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     }
 
     /**
-     * Method called when the player entity is attacking.
+     * Method called when the player entity is attacking. This is the main attack function which calls subsequent related functions
      */
     void attackEnemy() {
         if (canAttack) {
@@ -112,6 +112,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         }
     }
 
+    /**
+     * Method called to if the player can attack
+     */
     public void checkCanAttack() {
         if (System.currentTimeMillis() > cooldownEnd) {
             canAttack = true;
@@ -119,6 +122,10 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         }
     }
 
+    /**
+     * Plays attack sounds for combat weapons dependent on the weapon in hand
+     * @param weaponEquipped The entity representing the weapon the player is currently holding
+     */
     public void playAttackSounds(Entity weaponEquipped) {
         //play physical weapon sounds
         if (weaponEquipped == null) {
@@ -140,6 +147,11 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         }
     }
 
+    /**
+     * Plays attack animation dependent on weapon in hand
+     * @param weaponEquipped The entity representing the weapon the player is currently holding
+     * @param auraEquipped The entity representing the aura that is currently active
+     */
     public void playAttackAnimation(Entity weaponEquipped, Entity auraEquipped){
         //Sets the attackEnemy animation dependent on the weapon that is currently equipped
         String description = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
@@ -155,6 +167,11 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         combatAnimator.getEvents().trigger(animationDesc);
     }
 
+    /**
+     * Method to set attack cooldown and trigger attack animation dependent on the weapon and aura equipped
+     * @param weaponEquipped The entity representing the weapon the player is currently holding
+     * @param auraEquipped The entity representing the aura that is currently active
+     */
     public void attackWithPhysicalWeapon(Entity weaponEquipped, Entity auraEquipped) {
         cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getCoolDown());
         playAttackAnimation(weaponEquipped, auraEquipped);
@@ -165,10 +182,16 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         }
     }
 
+    /**
+     * Method which sets the base cooldown to 4 seconds when attack with a fist
+     */
     public void attackWithNoWeapon(){
         cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
     }
 
+    /**
+     * Method triggered when the player is holding a ranged weapon, which creates the projectiles on the map
+     */
     public void attackRanged() {
         if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
             (forestgamearea).spawnWeaponProjectile();
