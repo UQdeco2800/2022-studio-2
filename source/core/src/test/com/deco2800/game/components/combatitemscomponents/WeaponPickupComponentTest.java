@@ -1,4 +1,4 @@
-package com.deco2800.game.components.Combatitemscomponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.extension.ExtendWith;

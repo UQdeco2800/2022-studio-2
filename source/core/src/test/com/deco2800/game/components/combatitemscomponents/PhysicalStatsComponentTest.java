@@ -1,5 +1,5 @@
 
-package com.deco2800.game.components.Combatitemscomponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;

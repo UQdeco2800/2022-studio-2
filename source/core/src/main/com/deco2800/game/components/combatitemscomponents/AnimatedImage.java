@@ -1,4 +1,4 @@
-package com.deco2800.game.components.Combatitemscomponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 
 import com.badlogic.gdx.graphics.g2d.Animation;

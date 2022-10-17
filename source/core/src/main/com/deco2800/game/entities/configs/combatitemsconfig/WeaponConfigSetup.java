@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.configs.Combatitemsconfig;
+package com.deco2800.game.entities.configs.combatitemsconfig;
 
 
 /**
