@@ -1,6 +1,8 @@
 package com.deco2800.game.components.tasks;
 
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.ai.tasks.DefaultTask;
+import com.deco2800.game.ai.tasks.Task;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.events.listeners.EventListener0;
 import com.deco2800.game.extensions.GameExtension;
