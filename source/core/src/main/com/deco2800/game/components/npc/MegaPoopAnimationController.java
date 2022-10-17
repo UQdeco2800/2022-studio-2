@@ -79,7 +79,7 @@ public class MegaPoopAnimationController extends Component {
     }
 
     /**
-     * Animates Mega Poop walking when attacking right
+     * Animates Mega Poop attacking right
      */
     private void animateAttackRight() {
         if (!"projectile_attack_right".equals(animator.getCurrentAnimation())) {
@@ -88,7 +88,7 @@ public class MegaPoopAnimationController extends Component {
     }
 
     /**
-     * Animates Mega Poop walking when attacking left
+     * Animates Mega Poop attacking left
      */
     private void animateAttackLeft() {
         if (!"projectile_attack_left".equals(animator.getCurrentAnimation())) {
@@ -97,7 +97,7 @@ public class MegaPoopAnimationController extends Component {
     }
 
     /**
-     * Animates Mega Poop walking when attacking backwards
+     * Animates Mega Poop attacking backwards
      */
     private void animateAttackBack() {
         if (!"projectile_attack_back".equals(animator.getCurrentAnimation())) {
@@ -106,7 +106,7 @@ public class MegaPoopAnimationController extends Component {
     }
 
     /**
-     * Animates Mega Poop walking when attacking forwards
+     * Animates Mega Poop attacking forwards
      */
     private void animateAttackFront() {
         if (!"projectile_attack_front".equals(animator.getCurrentAnimation())) {
@@ -114,24 +114,36 @@ public class MegaPoopAnimationController extends Component {
         }
     }
 
+    /**
+     * Animates Mega Poop vanishing when facing front
+     */
     private void animateVanishFront() {
         if (!"vanish_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_front");
         }
     }
 
+    /**
+     * Animates Mega Poop vanishing when facing back
+     */
     private void animateVanishBack() {
         if (!"vanish_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_back");
         }
     }
 
+    /**
+     * Animates Mega Poop vanishing when facing left
+     */
     private void animateVanishLeft() {
         if (!"vanish_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_left");
         }
     }
 
+    /**
+     * Animates Mega Poop vanishing when facing right
+     */
     private void animateVanishRight() {
         if (!"vanish_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_right");

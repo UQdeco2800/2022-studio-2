@@ -673,7 +673,7 @@ public class UndergroundGameArea extends GameArea {
     }
 
     /**
-     * Spawn Mega Poop in a random position.
+     * Spawn Mega Poop in position
      */
     private Entity spawnMegaPoop() {
         GridPoint2 position = new GridPoint2(35, 102);
@@ -683,7 +683,7 @@ public class UndergroundGameArea extends GameArea {
     }
 
     /**
-     * Spawn poops in random positions.
+     * Spawn poops in positions
      */
     private void spawnPoops() {
         ArrayList<GridPoint2> positions = new ArrayList<>();

@@ -15,12 +15,20 @@ public class DeadTask extends DefaultTask implements PriorityTask {
     private float startTime;
     private GameTime gameTime;
 
+    /**
+     * Create DeadTask
+     * @param target the target of this entity
+     * @param priority the priority of this task
+     */
     public DeadTask(Entity target, int priority) {
         this.target = target;
         this.priority = priority;
         gameTime = ServiceLocator.getTimeSource();
     }
 
+    /**
+     * Start this task
+     */
     @Override
     public void start() {
         super.start();
@@ -29,8 +37,11 @@ public class DeadTask extends DefaultTask implements PriorityTask {
         owner.getEntity().getComponent(HitboxComponent.class).setLayer(PhysicsLayer.OBSTACLE);
     }
 
+    /**
+     * Update this task
+     */
     @Override
-    public void  update() {
+    public void update() {
         super.update();
         animate();
         if (gameTime.getTime() - startTime > 900L) {
@@ -39,6 +50,10 @@ public class DeadTask extends DefaultTask implements PriorityTask {
         }
     }
 
+    /**
+     * Get the priority of this task
+     * @return the priority of this task
+     */
     @Override
     public int getPriority() {
         if (owner.getEntity().isDead()) {
@@ -47,6 +62,9 @@ public class DeadTask extends DefaultTask implements PriorityTask {
         return -1;
     }
 
+    /**
+     * Animate the enemy vanishing/dying
+     */
     private void animate() {
         Vector2 enemy = owner.getEntity().getCenterPosition();
         Vector2 player = target.getCenterPosition();

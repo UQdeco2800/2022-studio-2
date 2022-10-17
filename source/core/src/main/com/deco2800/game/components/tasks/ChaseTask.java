@@ -178,7 +178,7 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
   }
 
   /**
-   * Animates enemy based on which direction they are facing
+   * Animates enemy waking based on which direction they are facing
    */
   private void walkAnimate() {
     Vector2 enemy = owner.getEntity().getCenterPosition();
@@ -202,6 +202,9 @@ public class ChaseTask extends DefaultTask implements PriorityTask {
     }
   }
 
+  /**
+   * Animates enemy attacking based on which direction they are facing
+   */
   private void attackAnimate() {
     Vector2 enemy = owner.getEntity().getCenterPosition();
     Vector2 player = target.getCenterPosition();
