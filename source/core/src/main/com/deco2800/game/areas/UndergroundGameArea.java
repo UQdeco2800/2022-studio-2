@@ -155,12 +155,10 @@ public class UndergroundGameArea extends GameArea {
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
 
-            "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/dialogue_indicator/dialogue.atlas",
-
             "images/NPC/friendly_creature npc/friendly_creature.atlas",
             "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
-            "images/CombatItems/animations/BuffAnimations/buff.atlas"
-
+            "images/CombatItems/animations/BuffAnimations/buff.atlas",
+            "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
