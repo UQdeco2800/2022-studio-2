@@ -2,7 +2,7 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -31,12 +31,17 @@ public class InventoryComponent extends Component {
     private Entity combatAnimator;
 
     /**
-     * Initial inventory size
+     * The initial size of inventory
      */
     private static final  int INVENTORY_SIZE = 16;
 
     /**
-     * The initial size of quick bar.
+     * The maximum potion quantity
+     */
+    private static final int MAX_QTY = 9;
+
+    /**
+     * The initial size of quick bar
      */
     private static final int QUICKBAR_SIZE= 3;
 
@@ -46,27 +51,27 @@ public class InventoryComponent extends Component {
     private static final int EQUIP_SLOTS = 2;
 
     /**
-     * The status of inventory display.
+     * The status of inventory display
      */
     private boolean inventoryIsOpened = false;
 
     /**
-     * An inventory unit for players to inspect and store their items.
+     * An inventory unit for players to inspect and store their items
      */
     private List<Entity> inventory = new ArrayList<>(INVENTORY_SIZE);
 
     /**
-     * Temporary storage for players to store their potions.
+     * The storage dedicated for players to store and use their potions
      */
     private List<Entity> quickBarItems = new ArrayList<>(QUICKBAR_SIZE);
 
     /**
-     * Slot 1(index 0) is set to be weapon and slot2(index 2) for armour.
+     * Slot 1(index 0) is set to be weapon and slot2(index 1) for armour
      */
     private Entity[] equipables = new Entity[EQUIP_SLOTS];
 
     /**
-     * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices.
+     * Items' quantity, the indices of inventory are corresponded to itemQuantity's indices
      */
     private int[] itemQuantity = new int[INVENTORY_SIZE];
 
@@ -111,7 +116,8 @@ public class InventoryComponent extends Component {
     /**
      * Cancel the animation registered for equipped weapon
      */
-    private void cancelAnimation() {
+    public void cancelAnimation() {
+        if(combatAnimator == null) return;
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
     }
@@ -124,8 +130,8 @@ public class InventoryComponent extends Component {
      * @return true if there is a same kind of Entity, false otherwise
      */
     public boolean hasItem(Entity item, List<Entity> storage) {
-        for (int i = 0; i < storage.size(); ++i) {
-            if (itemEquals(item, storage.get(i))) {
+        for (Entity other : storage) {
+            if (itemEquals(item, other)) {
                 return true;
             }
         }
@@ -142,7 +148,9 @@ public class InventoryComponent extends Component {
     public int getItemIndex(Entity item, List<Entity> storage) {
         int index = -1;
         for (int i = 0; i < storage.size(); ++i) {
-            if (itemEquals(item, storage.get(i))) index = i;
+            if (itemEquals(item, storage.get(i))) {
+                return i;
+            }
         }
         return index;
     }
@@ -227,7 +235,7 @@ public class InventoryComponent extends Component {
      * Removes an item to player's inventory.
      *
      * @param type type of the item that is to be removed
-     *             NOTE: Currently only work with crafting materials EntityTypes
+     *
      */
     public void removeItem(EntityTypes type) {
         for (int i = 0; i < inventory.size(); ++i) {
@@ -267,7 +275,7 @@ public class InventoryComponent extends Component {
      * @param weapon the weapon that is going to be equipped on
      * @param equip  boolean to determine equip or unequip item
      */
-    private void applyWeaponEffect(Entity weapon, boolean equip) {
+    public void applyWeaponEffect(Entity weapon, boolean equip) {
         PhysicalWeaponStatsComponent weaponStats;
         PlayerModifier pmComponent = entity.getComponent(PlayerModifier.class);
         if ((weaponStats = weapon.getComponent(PhysicalWeaponStatsComponent.class)) != null) {
@@ -293,9 +301,16 @@ public class InventoryComponent extends Component {
         //Applying the weight of the armour to player
         if ((armourStats = armour.getComponent(ArmourStatsComponent.class)) != null) {
             if (equip) {
-                pmComponent.createModifier(PlayerModifier.MOVESPEED, (-(float) armourStats.getWeight() / 10), true, 0);
+                pmComponent.createModifier(PlayerModifier.MOVESPEED,
+                        (-(float) armourStats.getWeight() / 10), false, 0);
+                pmComponent.createModifier(PlayerModifier.DMGREDUCTION,
+                        (float)armourStats.getPhyResistance(), false, 0);
+                pmComponent.createModifier(PlayerModifier.DMGRETURN,
+                        (float)armourStats.getDmgReturn(), false, 0);
             } else {
                 pmComponent.createModifier(PlayerModifier.MOVESPEED, 3 * (float) armourStats.getWeight() / 10, false, 0);
+                pmComponent.createModifier(PlayerModifier.DMGREDUCTION,
+                        -(float)armourStats.getPhyResistance(), false, 0);
             }
         }
     }
@@ -432,8 +447,6 @@ public class InventoryComponent extends Component {
     public void toggleInventoryDisplay() {
         if (!inventoryIsOpened) {
             ServiceLocator.getInventoryArea().displayInventoryMenu();
-            ServiceLocator.getInventoryArea().displayItems();
-            ServiceLocator.getInventoryArea().displayEquipables();
         } else {
             ServiceLocator.getInventoryArea().disposeInventoryMenu();
         }
@@ -450,7 +463,7 @@ public class InventoryComponent extends Component {
         return List.copyOf(quickBarItems);
     }
 
-    /**
+    /**add
      * Check if two items are the same kind
      *
      * @param item  the item to be checked
@@ -487,11 +500,10 @@ public class InventoryComponent extends Component {
      * @param potion the potion to be added
      */
     public boolean addQuickBarItems(Entity potion) {
-        boolean hasPotion = hasItem(potion, quickBarItems);
         boolean added = false;
 
-        if (hasPotion) {
-            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < 9) {// Maximum quantity for one potion
+        if (hasItem(potion, quickBarItems)) {
+            if (quickBarQuantity[getItemIndex(potion, quickBarItems)] < MAX_QTY) {// Maximum quantity for one potion
                 ++quickBarQuantity[getItemIndex(potion, quickBarItems)];
                 added = true;
             }
@@ -505,6 +517,7 @@ public class InventoryComponent extends Component {
                 added = true;
             }
         }
+        if (added) removeItem(potion);
         return added;
     }
 
@@ -526,7 +539,7 @@ public class InventoryComponent extends Component {
     /**
      * Removes the potion from the quickbar based on the input index
      *
-     * @param inputIndex the index that is returned from user actions(TO BE IMPLEMENTED)
+     * @param inputIndex the index that is returned from user actions
      */
     public void removePotion(int inputIndex) {
         quickBarItems.remove(inputIndex);

@@ -19,25 +19,24 @@ public enum Materials {
 
     ToiletPaper("ToiletPaper", 1, "images/Crafting-assets-sprint1/materials/toilet_paper.png");
 
+    /* The name of the material */
     private final String material;
+
+    /* The amound of material present */
     private final int amount;
+
+    /* location of the image for the material */
     private final String image;
 
+    /**
+     * Creates the enum material objext
+     * @param material the name of the material
+     * @param amount the amount present
+     * @param image the location of the image for the material
+     */
     Materials(String material, int amount, String image) {
         this.material = material;
         this.amount = amount;
         this.image = image;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public String getImage() {
-        return image;
     }
 }

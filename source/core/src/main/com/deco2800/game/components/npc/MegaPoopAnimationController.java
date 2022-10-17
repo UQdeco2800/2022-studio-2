@@ -26,6 +26,10 @@ public class MegaPoopAnimationController extends Component {
         entity.getEvents().addListener("projectileAttackLeft", this::animateAttackLeft);
         entity.getEvents().addListener("projectileAttackRight", this::animateAttackRight);
         entity.getEvents().addListener("cast", this::animateCast);
+        entity.getEvents().addListener("vanishFront", this::animateVanishFront);
+        entity.getEvents().addListener("vanishBack", this::animateVanishBack);
+        entity.getEvents().addListener("vanishLeft", this::animateVanishLeft);
+        entity.getEvents().addListener("vanishRight", this::animateVanishRight);
         entity.getEvents().trigger("walkFront");
     }
 
@@ -110,4 +114,27 @@ public class MegaPoopAnimationController extends Component {
         }
     }
 
+    private void animateVanishFront() {
+        if (!"vanish_front".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_front");
+        }
+    }
+
+    private void animateVanishBack() {
+        if (!"vanish_back".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_back");
+        }
+    }
+
+    private void animateVanishLeft() {
+        if (!"vanish_left".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_left");
+        }
+    }
+
+    private void animateVanishRight() {
+        if (!"vanish_right".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_right");
+        }
+    }
 }

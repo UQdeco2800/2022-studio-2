@@ -18,10 +18,13 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.deco2800.game.areas.ForestGameArea.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static com.deco2800.game.areas.ForestGameArea.GridPointToVector;
 
 
 /** Underground area for the demo game with trees, a player, and some enemies. */
@@ -30,7 +33,7 @@ public class UndergroundGameArea extends GameArea {
     private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(35, 10);
     private static final float WALL_WIDTH = 0.1f;
     private static Entity megaPoop;
-    private static List<Entity> ItemsOnMap = new ArrayList<>();
+    private static List<Entity> itemsOnMap = new ArrayList<>();
     private static List<Entity> auraOnMap = new ArrayList<>();
     private static final String[] undergroundTextures = {
             "images/box_boy_leaf.png",
@@ -145,29 +148,33 @@ public class UndergroundGameArea extends GameArea {
 
     };
 
-    public static String[] newTextures;
     private static final String[] undergroundTextureAtlases = {
             "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
             "images/Skills/skillAnimations.atlas", "images/Enemies/gym_bro.atlas",
             "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
+
+            "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/dialogue_indicator/dialogue.atlas",
+
             "images/NPC/friendly_creature npc/friendly_creature.atlas",
             "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
             "images/CombatItems/animations/BuffAnimations/buff.atlas"
 
+
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
             "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
-            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav"};
+            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav","sounds/combatitems/metalSword.wav","sounds/combatitems/plungerSound.mp3",
+            "sounds/combatitems/rangeWeaponSound.mp3"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
-//    public static GridPoint2 GuardPosition;
-//    public static GridPoint2 GuardDialoguePosition;
-//    public static GridPoint2 friendlycreaturePosition;
-//    public static GridPoint2 friendlycreatureDialoguePosition;
+    public static GridPoint2 GuardPosition;
+    public static GridPoint2 GuardDialoguePosition;
+    public static GridPoint2 friendlycreaturePosition;
+    public static GridPoint2 friendlycreatureDialoguePosition;
 
     private Entity player;
 
@@ -199,14 +206,12 @@ public class UndergroundGameArea extends GameArea {
         spawnCraftingTable();
         player = spawnPlayer();
         spawnPoops();
-//        spawnGuard();
-//        spawnfriendlycreature();
+        spawnGuard();
+        spawnfriendlycreature();
         megaPoop = spawnMegaPoop();
         playMusic();
 
-        spawnSpeedDebuff();
         spawnDmgBuff();
-        spawnDmgDebuff();
         spawnFireBuff();
         spawnPoisonBuff();
         spawnSpeedBuff();
@@ -551,6 +556,7 @@ public class UndergroundGameArea extends GameArea {
         Entity newKeyPromptAnimator = PlayerFactory.createKeyPromptAnimator(newPlayer);
         spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
         spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
+        spawnEntityAt(newKeyPromptAnimator, PLAYER_SPAWN, true, true);
         newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
         newPlayer.getComponent(PlayerKeyPrompt.class)
                 .setKeyPromptAnimator(newKeyPromptAnimator);
@@ -573,10 +579,12 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+
+/*    *//**
      * Spawns speed debuff entity into the game
-     */
-    private void spawnSpeedDebuff() {
+<<<<<<< HEAD
+     *//*
+     private void spawnSpeedDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(35, 98));
         locations.add(new GridPoint2(54, 47));
@@ -585,7 +593,7 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(speedDebuff);
             spawnEntityAt(speedDebuff, location, true, false);
         }
-    }
+    }*/
 
     /**
      * Spawns damage buff entity into the game
@@ -602,9 +610,13 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
-    /**
+/*
+    */
+/**
      * Spawns damage debuff entity into the game
-     */
+<<<<<<< HEAD
+     *//*
+
     private void spawnDmgDebuff() {
         List<GridPoint2> locations = new ArrayList<>();
         locations.add(new GridPoint2(80, 48));
@@ -616,6 +628,7 @@ public class UndergroundGameArea extends GameArea {
             spawnEntityAt(dmgDebuff, location, true, false);
         }
     }
+*/
 
     /**
      * Spawns fire buff entity into the game
@@ -712,39 +725,39 @@ public class UndergroundGameArea extends GameArea {
     /**
      * Spawn guard NPC in random position. - Team 7 all-mid-npc
      */
-//    private void spawnGuard() {
-//        GuardPosition = new GridPoint2(10, 8);
-//        GuardDialoguePosition = new GridPoint2(10, 9);
-//
-//        Entity guard = NPCFactory.createGuard(player);
-//        spawnEntityAt(guard, GuardPosition, true, true);
-//        areaEntities.add(guard);
-//
-//        Entity dialogue = DialogueFactory.createDialogue();
-//        spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
-//        areaEntities.add(dialogue);
-//    }
-//    public static GridPoint2 getGuardPosition() {
-//        return GuardPosition;
-//    }
+    private void spawnGuard() {
+        GuardPosition = new GridPoint2(37, 24);
+        GuardDialoguePosition = new GridPoint2(37, 25);
 
-    /**
-     * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
-     */
+        Entity guard = NPCFactory.createGuard(player);
+        spawnEntityAt(guard, GuardPosition, true, true);
+        areaEntities.add(guard);
 
-//    private void spawnfriendlycreature() {
-//        friendlycreaturePosition = new GridPoint2(5, 10);
-//        friendlycreatureDialoguePosition = new GridPoint2(5, 11);
-//
-//        Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
-//        spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
-//        areaEntities.add(friendlycreature);
-//
-//        Entity dialogue = DialogueFactory.createDialogue();
-//        spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-//        areaEntities.add(dialogue);
-//    }
+        Entity dialogue = DialogueFactory.createDialogue();
+        spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
+        areaEntities.add(dialogue);
+    }
+    public static GridPoint2 getGuardPosition() {
+        return GuardPosition;
+    }
 
+
+
+    private void spawnfriendlycreature() {
+        friendlycreaturePosition = new GridPoint2(35, 24);
+        friendlycreatureDialoguePosition = new GridPoint2(35, 25);
+
+        Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+        spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+        areaEntities.add(friendlycreature);
+
+        Entity dialogue = DialogueFactory.createDialogue();
+        spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+        areaEntities.add(dialogue);
+    }
+    public static Vector2 getFriendlycreaturePosition(GridPoint2 friendlycreaturePosition) {
+        return GridPointToVector(friendlycreaturePosition);
+    }
 
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);
@@ -823,7 +836,7 @@ public class UndergroundGameArea extends GameArea {
     public static void removeItemOnMap(Entity entityToRemove) {
 
         entityToRemove.setEnabled(false);
-        ItemsOnMap.remove(entityToRemove);
+        itemsOnMap.remove(entityToRemove);
         Gdx.app.postRunnable(() -> entityToRemove.dispose());
     }
 }

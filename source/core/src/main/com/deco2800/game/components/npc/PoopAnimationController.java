@@ -21,6 +21,10 @@ public class PoopAnimationController extends Component {
         entity.getEvents().addListener("walkBack", this::animateWalkBack);
         entity.getEvents().addListener("walkLeft", this::animateWalkLeft);
         entity.getEvents().addListener("walkRight", this::animateWalkRight);
+        entity.getEvents().addListener("vanishFront", this::animateVanishFront);
+        entity.getEvents().addListener("vanishBack", this::animateVanishBack);
+        entity.getEvents().addListener("vanishLeft", this::animateVanishLeft);
+        entity.getEvents().addListener("vanishRight", this::animateVanishRight);
         entity.getEvents().trigger("walkFront");
     }
 
@@ -28,7 +32,7 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing right
      */
     private void animateWalkRight() {
-        if (animator.getCurrentAnimation() != "walk_right") {
+        if (!"walk_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_right");
         }
     }
@@ -37,7 +41,7 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing left
      */
     private void animateWalkLeft() {
-        if (animator.getCurrentAnimation() != "walk_left") {
+        if (!"walk_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_left");
         }
     }
@@ -46,7 +50,7 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing backwards
      */
     private void animateWalkBack() {
-        if (animator.getCurrentAnimation() != "walk_back") {
+        if (!"walk_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_back");
         }
     }
@@ -55,8 +59,32 @@ public class PoopAnimationController extends Component {
      * Animates the gym bro walking when facing forwards
      */
     private void animateWalkFront() {
-        if (animator.getCurrentAnimation() != "walk_front") {
+        if (!"walk_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("walk_front");
+        }
+    }
+
+    private void animateVanishFront() {
+        if (!"vanish_front".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_front");
+        }
+    }
+
+    private void animateVanishBack() {
+        if (!"vanish_back".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_back");
+        }
+    }
+
+    private void animateVanishLeft() {
+        if (!"vanish_left".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_left");
+        }
+    }
+
+    private void animateVanishRight() {
+        if (!"vanish_right".equals(animator.getCurrentAnimation())) {
+            animator.startAnimation("vanish_right");
         }
     }
 }

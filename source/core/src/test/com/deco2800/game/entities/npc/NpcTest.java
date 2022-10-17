@@ -5,20 +5,41 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.deco2800.game.components.CombatItemsComponents.AreaOfEffectStatsComponent;
+
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.terrain.TerrainFactory;
+//import com.deco2800.game.components.CombatItemsComponents.AreaOfEffectStatsComponent;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.factories.NPCFactory;
+
+
 import com.deco2800.game.extensions.GameExtension;
 
+import com.deco2800.game.physics.PhysicsEngine;
+import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.DebugRenderer;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(GameExtension.class)
 @ExtendWith(MockitoExtension.class)
@@ -178,7 +199,7 @@ class npcTest {
 
     @Test
     void MaleCitizenExist() {
-
+//        spawnMaleCitizen();
         GridPoint2 maleCitizenPosition = new GridPoint2(74,121);
         assertTrue(maleCitizenPosition.x>0&&maleCitizenPosition.x<=201 && maleCitizenPosition.y>0&&maleCitizenPosition.y<=200);
 
@@ -186,6 +207,22 @@ class npcTest {
         assertTrue(maleCitizenDialoguePosition.x>0&&maleCitizenDialoguePosition.x<=200 && maleCitizenDialoguePosition.y>0&&maleCitizenDialoguePosition.y<=200);
 
     }
+
+//    @Test
+//    void shouldSpawnMale() {
+//        TerrainFactory terrainFactory = mock(TerrainFactory.class);
+//        ForestGameArea forestGameArea =
+//                new ForestGameArea(terrainFactory) {
+//                    @Override
+//                    public void create() {}
+//                };
+//        ServiceLocator.registerEntityService(new EntityService());
+//        Entity entity = mock(Entity.class);
+//
+//        forestGameArea.spawn(entity);
+//        verify(entity).create();
+//    }
+
 
     @Test
     void ChildExist() {
@@ -322,4 +359,39 @@ class npcTest {
         assertTrue(addItem(item));
 
     }
+
+//    @Test
+//    void shouldSpawnMale() {
+//
+////        ServiceLocator.registerEntityService(new EntityService());
+////        NPCFactory npcFactory =
+////                new NPCFactory() {
+////                    public void create() {
+////                    }
+////                };
+////        Entity entity = mock(Entity.class);
+////
+////        npcFactory.createBaseNPC();
+////        verify(entity).create();
+//
+//        PhysicsEngine engine = new PhysicsService().getPhysics();
+//        PhysicsService physicsService = new PhysicsService();
+////        PhysicsComponent physicsComponent = mock(PhysicsComponent.class);
+//        ServiceLocator serviceLocator = mock(ServiceLocator.class);
+////        RenderService renderService = mock(RenderService.class);
+////        when(serviceLocator.getPhysicsService()).thenReturn(physicsService);
+////        when(physicsService.getPhysics()).thenReturn(engine);
+//
+//
+//        Entity expectedNPC =
+//                new Entity()
+//                        .addComponent(new PhysicsComponent())
+//                        .addComponent(new PhysicsMovementComponent())
+//                        .addComponent(new ColliderComponent())
+//                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
+//
+//        Entity npc = NPCFactory.createBaseNPC();
+//
+//        assertEquals(expectedNPC, npc);
+//    }
 }

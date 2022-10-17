@@ -21,10 +21,16 @@
       "Description" : "Inventory"
     },
     { "Key" : "e",
-      "Description" : "Activate skill 1"
+      "Description" : ""
     },
     { "Key" : "j",
+      "Description" : "Activate skill 1"
+    },
+    { "Key" : "k",
       "Description" : "Activate skill 2"
+    },
+    { "Key" : "l",
+      "Description" : "Activate skill 3"
     },
     { "Key" : "shift",
       "Description" : "Dodge"
@@ -39,7 +45,7 @@
       "Description" : "Quickbar Slot 3"
     },
     { "Key" : "4",
-      "Description" : "Quickbar Slot 4"
+      "Description" : ""
     },
     { "Key" : "esc",
       "Description" : "Pause menu"
@@ -51,32 +57,32 @@
       "Key" : "enter",
       "Description" : "Enter plughole"
     },
-    { "Key" : "b",
-      "Description" : ""
-    },
     { "Key" : "c",
       "Description" : ""
     },
     { "Key" : "f",
-      "Description" : ""
+      "Description" : "Interact with NPC"
     },
     { "Key" : "g",
-      "Description" : ""
+      "Description" : "Close NPC Interaction"
     },
     { "Key" : "h",
       "Description" : ""
     },
-    { "Key" : "k",
-      "Description" : ""
-    },
-    { "Key" : "l",
-      "Description" : ""
-    },
     { "Key" : "m",
-      "Description" : ""
+      "Description" : "Toggle minimap"
+    },
+    { "Key" : "x",
+      "Description" : "Equip weapon"
+    },
+    { "Key" : "y",
+      "Description" : "Drop weapon"
     },
     { "Key" : "n",
-      "Description" : ""
+      "Description" : "Go to stage 2 - Tutor use only ;)"
+    },
+    { "Key" : "b",
+      "Description" : "Instant win key - Tutor use only ;)"
     },
     { "Key" : "o",
       "Description" : ""
@@ -94,12 +100,6 @@
       "Description" : ""
     },
     { "Key" : "v",
-      "Description" : ""
-    },
-    { "Key" : "x",
-      "Description" : ""
-    },
-    { "Key" : "y",
       "Description" : ""
     },
     { "Key" : "z",

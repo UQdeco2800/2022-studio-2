@@ -2,9 +2,8 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
-import com.deco2800.game.components.CombatItemsComponents.BuffDisplayComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponAuraManager;
+import com.deco2800.game.components.combatitemsComponents.BuffDisplayComponent;
+import com.deco2800.game.components.combatitemsComponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
@@ -66,7 +65,6 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
-                //.addComponent(new TransitionMapComponent())
                 .addComponent(new DialogueKeybordInputComponent())
                 .addComponent(new DialogueDisplay())
             .addComponent(new OpenPauseComponent())
@@ -75,7 +73,8 @@ public class PlayerFactory {
             .addComponent(animator)
                 .addComponent(new BuffDisplayComponent())
             .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions())
+            .addComponent(new PlayerAnimationController())
+            .addComponent(new PauseMenuActions())
             .addComponent(new Countdown());
 
 
@@ -151,6 +150,7 @@ public class PlayerFactory {
 
     animator.addAnimation("default", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("Q", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("Npc", 0.1f, Animation.PlayMode.LOOP);
     Entity keyPromptAnimator =
             new Entity().addComponent(animator)
                     .addComponent(new PlayerKPAnimationController(playerEntity));

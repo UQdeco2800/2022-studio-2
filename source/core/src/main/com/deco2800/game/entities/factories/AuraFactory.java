@@ -3,12 +3,12 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatItemsComponents.AuraPickupComponent;
-import com.deco2800.game.components.CombatItemsComponents.WeaponAuraComponent;
-import com.deco2800.game.components.ItemPickupComponent;
+import com.deco2800.game.components.combatitemsComponents.AuraPickupComponent;
+import com.deco2800.game.components.combatitemsComponents.WeaponAuraComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.AuraConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.BaseAuraConfig;
+import com.deco2800.game.entities.configs.combatitemsConfig.AuraConfig;
+import com.deco2800.game.entities.configs.combatitemsConfig.BaseAuraConfig;
+
 import com.deco2800.game.files.FileLoader;
 
 import com.deco2800.game.physics.PhysicsLayer;
@@ -156,6 +156,26 @@ public class AuraFactory {
                         config.coolDownMultiplier, "Poison"));
         auraBounce.startAnimation("mapPoisonBuff");
         return weaponPoisonBuff;
+    }
+
+
+    /**
+     * Creates a dagger for testing
+     * @return test weapon
+     */
+    public static Entity createTestAura() {
+
+        Entity aura = new Entity()
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new AuraPickupComponent(PhysicsLayer.PLAYER));
+
+        aura.setEntityType(EntityTypes.AURA);
+        AuraConfig config = configs.fireBuff;
+        WeaponAuraComponent weaponStats = new WeaponAuraComponent(config.auraDuration, config.damageMultiplier,
+                config.coolDownMultiplier, "Fire");
+        aura.addComponent(weaponStats);
+        return aura;
     }
 
 }

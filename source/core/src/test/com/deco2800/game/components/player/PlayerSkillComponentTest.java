@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.deco2800.game.ai.tasks.AITaskComponent;
@@ -14,6 +15,7 @@ import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.GameTime;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +41,17 @@ class PlayerSkillComponentTest {
 
     @BeforeEach
     void initialisation() {
+        // Resource service code to preventing asset loading breaks
+        AssetManager assetManager = spy(AssetManager.class);
+        ResourceService resourceService = new ResourceService(assetManager);
+        ServiceLocator.registerResourceService(resourceService);
+        ServiceLocator.registerTimeSource(new GameTime());
+
+        // Load walk sound to avoid breaking tests (.create() on player breaks even more -_-)
+        String[] soundEffects = {"sounds/walk_on_sand.wav"};
+        resourceService.loadMusic(soundEffects);
+        resourceService.loadAll();
+
         player = new Entity()
                         .addComponent(new PhysicsComponent(new PhysicsEngine(
                                 new World(Vector2.Zero, true),
@@ -51,7 +64,7 @@ class PlayerSkillComponentTest {
         ServiceLocator.registerPhysicsService(new PhysicsService());
         skillManager = new PlayerSkillComponent(player);
         skillManager.setSkillAnimator(new Entity());
-        ServiceLocator.registerTimeSource(new GameTime());
+
     }
 
     @Test
