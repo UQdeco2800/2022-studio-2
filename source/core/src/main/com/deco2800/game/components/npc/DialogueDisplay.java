@@ -138,8 +138,8 @@ public class DialogueDisplay extends UIComponent {
             "Oh good, you are here!",
             "My hands are a bit full right now",
             "Would you mind holding onto this for me?",
-            "There was a special mission today… Wait…",
-            "...Mission…I can’t remember what it was",
+            "There was a special mission today... Wait...",
+            "...Mission...I can't remember what it was",
             ""
     };
 
@@ -231,27 +231,27 @@ public class DialogueDisplay extends UIComponent {
 
         // initialize the text area for each NPCs
         textAreaFemale = new TextArea(textFemale[countFemale], skin, "female");
-        textAreaFemale.setWidth(480);
+        textAreaFemale.setWidth(700);
         textAreaFemale.setHeight(70);
         textAreaFemale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFemale.getWidth()/2),29);
         textAreaGuard = new TextArea(textGuard[countGuard], skin, "guard");
-        textAreaGuard.setWidth(480);
+        textAreaGuard.setWidth(700);
         textAreaGuard.setHeight(70);
         textAreaGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaGuard.getWidth()/2),29);
         textAreaMale = new TextArea(textMale[countMale], skin, "male");
-        textAreaMale.setWidth(480);
+        textAreaMale.setWidth(700);
         textAreaMale.setHeight(70);
         textAreaMale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaMale.getWidth()/2),29);
         textAreaChild = new TextArea(textChild[countChild], skin, "child");
-        textAreaChild.setWidth(480);
+        textAreaChild.setWidth(700);
         textAreaChild.setHeight(70);
         textAreaChild.setPosition((Gdx.graphics.getWidth()/2) - (textAreaChild.getWidth()/2),29);
         textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin, "humanguard");
-        textAreaHumanGuard.setWidth(480);
+        textAreaHumanGuard.setWidth(700);
         textAreaHumanGuard.setHeight(70);
         textAreaHumanGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuard.getWidth()/2),29);
         textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin, "humanguard");
-        textAreaHumanGuardAlready.setWidth(480);
+        textAreaHumanGuardAlready.setWidth(700);
         textAreaHumanGuardAlready.setHeight(70);
         textAreaHumanGuardAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuardAlready.getWidth()/2),29);
         textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin, "friendlycreature");
@@ -263,11 +263,11 @@ public class DialogueDisplay extends UIComponent {
         textAreaFriendlyCreatureAlready.setHeight(88);
         textAreaFriendlyCreatureAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFriendlyCreatureAlready.getWidth()/2),29);
         textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin, "plumberfriend");
-        textAreaPlumberFriend.setWidth(480);
+        textAreaPlumberFriend.setWidth(700);
         textAreaPlumberFriend.setHeight(63);
         textAreaPlumberFriend.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriend.getWidth()/2),29);
         textAreaPlumberFriendAlready = new TextArea(textPlumberFriendAlready[countPlumberFriendAlready], skin, "plumberfriend");
-        textAreaPlumberFriendAlready.setWidth(480);
+        textAreaPlumberFriendAlready.setWidth(700);
         textAreaPlumberFriendAlready.setHeight(63);
         //textAreaPlumberFriendAlready.setPosition(240,29);
         textAreaPlumberFriendAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriend.getWidth()/2), 29);
@@ -299,7 +299,7 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countFemale++;
             textAreaFemale = new TextArea(textFemale[countFemale], skin, "female");
-            textAreaFemale.setWidth(480);
+            textAreaFemale.setWidth(700);
             textAreaFemale.setHeight(50);
             textAreaFemale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFemale.getWidth()/2),29);
             dialogueContainerFemale.addActor(textAreaFemale);
@@ -323,7 +323,7 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countGuard++;
             textAreaGuard = new TextArea(textGuard[countGuard], skin, "guard");
-            textAreaGuard.setWidth(480);
+            textAreaGuard.setWidth(700);
             textAreaGuard.setHeight(50);
             textAreaGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaGuard.getWidth()/2),29);
             dialogueContainerGuard.addActor(textAreaGuard);
@@ -335,29 +335,34 @@ public class DialogueDisplay extends UIComponent {
             } else if (countGuard == 1) {
                 logger.info("Guard1 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 1.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countGuard == 2) {
                 logger.info("Guard2 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 2.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countGuard == 3) {
                 logger.info("Guard3 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 3.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countGuard == 4) {
                 logger.info("Guard4 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/GuardLines/Guard Audio 4.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countGuard == 5) {
                 logger.info("Guard5 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 5.wav"));
+                music.setVolume(0.3f);
                 music.play();
             }
         } else if ((maleCitizenPosition) != null && entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {
             logger.info("new text loaded");
             countMale++;
             textAreaMale = new TextArea(textMale[countMale], skin, "male");
-            textAreaMale.setWidth(480);
+            textAreaMale.setWidth(700);
             textAreaMale.setHeight(50);
             textAreaMale.setPosition((Gdx.graphics.getWidth()/2) - (textAreaMale.getWidth()/2),29);
             dialogueContainerMale.addActor(textAreaMale);
@@ -367,21 +372,24 @@ public class DialogueDisplay extends UIComponent {
             } else if (countMale == 1) {
                 logger.info("Male1 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Male Citizen Audio/Male Citizen 1.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countMale == 2) {
                 logger.info("Male2 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Male Citizen Audio/Male Citizen 2.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countMale == 3) {
                 logger.info("Male3 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Male Citizen Audio/Male Citizen 3.wav"));
+                music.setVolume(0.3f);
                 music.play();
             }
         } else if ((childPosition) != null && entity.getCenterPosition().dst(GridPointToVector(childPosition)) < 1.5) {
             logger.info("new text loaded");
             countChild++;
             textAreaChild = new TextArea(textChild[countChild], skin, "child");
-            textAreaChild.setWidth(480);
+            textAreaChild.setWidth(700);
             textAreaChild.setHeight(50);
             textAreaChild.setPosition((Gdx.graphics.getWidth()/2) - (textAreaChild.getWidth()/2),29);
             dialogueContainerChild.addActor(textAreaChild);
@@ -407,7 +415,7 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countHumanGuard++;
             textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin, "humanguard");
-            textAreaHumanGuard.setWidth(480);
+            textAreaHumanGuard.setWidth(700);
             textAreaHumanGuard.setHeight(50);
             textAreaHumanGuard.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuard.getWidth()/2),29);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuard);
@@ -419,14 +427,17 @@ public class DialogueDisplay extends UIComponent {
             } else if (countHumanGuard == 1) {
                 logger.info("HumanGuard1 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human Guard 1.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countHumanGuard == 2) {
                 logger.info("HumanGuard2 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_2.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countHumanGuard == 3) {
                 logger.info("HumanGuard3 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_3.wav"));
+                music.setVolume(0.3f);
                 music.play();
 
                 inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
@@ -437,10 +448,12 @@ public class DialogueDisplay extends UIComponent {
             } else if (countHumanGuard == 4) {
                 logger.info("HumanGuard4 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_4.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countHumanGuard == 5) {
                 logger.info("HumanGuard5 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_5.wav"));
+                music.setVolume(0.3f);
                 music.play();
             }
 
@@ -531,7 +544,7 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countPlumberFriend++;
             textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin, "plumberfriend");
-            textAreaPlumberFriend.setWidth(480);
+            textAreaPlumberFriend.setWidth(700);
             textAreaPlumberFriend.setHeight(43);
             textAreaPlumberFriend.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriend.getWidth()/2),29);
             dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
@@ -543,40 +556,49 @@ public class DialogueDisplay extends UIComponent {
             } else if (countPlumberFriend == 1) {
                 logger.info("PlumberFriend1 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 1.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 2) {
                 logger.info("PlumberFriend2 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 2.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 3) {
                 logger.info("PlumberFriend3 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 3.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 4) {
                 logger.info("PlumberFriend4 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 4.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 5) {
                 logger.info("PlumberFriend5 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 5.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 6) {
                 logger.info("PlumberFriend6 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 6.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 7) {
                 logger.info("PlumberFriend7 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 7.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 8) {
                 logger.info("PlumberFriend8 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 8.wav"));
+                music.setVolume(0.3f);
                 music.play();
             } else if (countPlumberFriend == 9) {
                 logger.info("PlumberFriend9 sound displayed");
                 inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
                 inventoryComponent.addItem(MaterialFactory.createPoop());
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 9.wav"));
+                music.setVolume(0.3f);
                 music.play();
 
             }
@@ -584,7 +606,7 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countPlumberFriendAlready++;
             textAreaPlumberFriendAlready = new TextArea(textPlumberFriendAlready[countPlumberFriendAlready], skin, "plumberfriend");
-            textAreaPlumberFriendAlready.setWidth(480);
+            textAreaPlumberFriendAlready.setWidth(700);
             textAreaPlumberFriendAlready.setHeight(43);
             textAreaPlumberFriendAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaPlumberFriendAlready.getWidth()/2),29);
             dialogueContainerPlumberFriend.addActor(textAreaPlumberFriendAlready);
