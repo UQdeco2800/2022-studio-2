@@ -34,7 +34,7 @@ public class LevelTransitionDisplay extends UIComponent {
      */
     public void jUnitCreate() {
         frame = 0;
-        addActors();
+        jUnitAddActors();
     }
 
     @Override

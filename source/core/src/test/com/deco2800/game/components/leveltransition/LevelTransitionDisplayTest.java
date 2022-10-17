@@ -46,10 +46,7 @@ class LevelTransitionDisplayTest {
 
         // Render service handling
         RenderService renderService = new RenderService();
-        renderService.setStage(mock(Stage.class));
         ServiceLocator.registerRenderService(renderService);
-        GameArea gameArea = spy(GameArea.class);
-        ServiceLocator.registerGameArea(gameArea);
 
         game = new GdxGame();
         levelTransitionScreen = mock(LevelTransitionScreen.class);
