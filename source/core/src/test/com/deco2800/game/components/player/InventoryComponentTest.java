@@ -112,6 +112,20 @@ class InventoryComponentTest {
   }
 
   @Test
+  void removeEquipable(){
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
+    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity notAddedWeapon = WeaponFactory.createDagger();
+    Entity wood = MaterialFactory.createWood();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    inventory.addItem(testWeapon);
+    inventory.equipItem(testWeapon);
+    assertTrue(inventory.removeEquipable(0));
+    assertFalse(inventory.removeEquipable(1));
+  }
+  @Test
   void cancelAnimation() {
 //    Entity player = PlayerFactory.createTestPlayer();
 //    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
@@ -209,9 +223,8 @@ class InventoryComponentTest {
     expectedList.add(testDumbbell);
     expectedList.add(testHera);
     expectedList.add(testArmour);
-    for (int i = 0; i < 9; i++) {
-      expectedList.add(testSpeedPotion);
-    }
+    for (int i = 0; i < 10; i++) expectedList.add(testSpeedPotion);
+
     expectedList.add(testHealthPotion);
     expectedList.add(gold);
     expectedList.add(iron);
@@ -224,13 +237,10 @@ class InventoryComponentTest {
     expectedList.add(poop);
     expectedList.add(toiletPaper);
 
-    for (Entity entity : expectedList) {
-      inventory.addItem(entity);
-    }
+    for (Entity entity : expectedList) inventory.addItem(entity);
 
-    for (int j = 0; j < 8; j++) {
-      expectedList.remove(testSpeedPotion);
-    }
+    for (int j = 0; j < 9; j++) expectedList.remove(testSpeedPotion);
+
     expectedList.remove(toiletPaper);
     assertEquals(expectedList, inventory.getInventory());
   }
@@ -364,6 +374,8 @@ class InventoryComponentTest {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testWeapon = WeaponFactory.createTestWeapon("hera");
     Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity notAddedWeapon = WeaponFactory.createDagger();
+    Entity wood = MaterialFactory.createWood();
     Entity animator = new Entity();
     animator.getComponent(AnimationRenderComponent.class);
     Entity entity = mock(Entity.class);
@@ -388,6 +400,12 @@ class InventoryComponentTest {
     inventory.equipItem(testWeapon);
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+
+    assertFalse(inventory.equipItem(wood));
+    assertFalse(inventory.equipItem(notAddedWeapon));
+
+    inventory.addItem(notAddedWeapon);
+    assertTrue(inventory.equipItem(notAddedWeapon));
   }
 
   @Test
@@ -515,20 +533,20 @@ class InventoryComponentTest {
     assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
   }
 
-//  @Test
-//  void removePotion() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent testInventory6 = player.getComponent(InventoryComponent.class);
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    testInventory6.addQuickBarItems(testSpeedPotion);
-//
-//    testInventory6.removePotion(testInventory6.getPotionIndex(testSpeedPotion));
-//
-//    assertEquals(expectedList, testInventory6.getInventory());
-//  }
+  @Test
+  void removePotion() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+
+    InventoryComponent testInventory6 = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+
+    testInventory6.addQuickBarItems(testSpeedPotion);
+
+    testInventory6.removePotion(testInventory6.getPotionIndex(testSpeedPotion));
+
+    assertEquals(expectedList, testInventory6.getInventory());
+  }
 
   /**
    * This test checks that when a potion is consumed that it is removed from the quickbar and
