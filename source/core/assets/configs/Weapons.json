@@ -1,13 +1,13 @@
 {
   "athenaDag": {
-    "damage": 23,
+    "damage": 20.6,
     "coolDown": 700,
     "weight": 1,
     "materials": {"gold": 1, "platinum": 1}
   },
 
   "heraDag": {
-    "damage": 24,
+    "damage": 20.5,
     "coolDown": 700,
     "weight": 1,
     "materials": {"gold": 1, "steel": 1}
