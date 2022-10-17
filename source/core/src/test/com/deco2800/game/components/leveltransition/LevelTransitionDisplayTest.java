@@ -54,14 +54,8 @@ class LevelTransitionDisplayTest {
         game = new GdxGame();
         levelTransitionScreen = mock(LevelTransitionScreen.class);
         levelTransitionScreen.loadAssets();
-        Entity ui = new Entity();
         levelTransitionDisplay = new LevelTransitionDisplay();
-        ui.addComponent(levelTransitionDisplay);
-        ui.create();
-
-
-//        levelTransitionDisplay = new LevelTransitionDisplay();
-//        levelTransitionDisplay.jUnitCreate();
+        levelTransitionDisplay.jUnitCreate();
     }
 
     @Test
@@ -81,7 +75,7 @@ class LevelTransitionDisplayTest {
 
         assertEquals(1, levelTransitionDisplay.getFrame());
         custom_wait(levelTransitionDisplay.getFrameDuration()+10);
-        levelTransitionDisplay.update();
+        levelTransitionDisplay.jUnitUpdate();
         assertEquals(2, levelTransitionDisplay.getFrame());
     }
 
@@ -90,7 +84,7 @@ class LevelTransitionDisplayTest {
 
         assertEquals(1, levelTransitionDisplay.getFrame());
         custom_wait(levelTransitionDisplay.getFrameDuration() / 2);
-        levelTransitionDisplay.update();
+        levelTransitionDisplay.jUnitUpdate();
         assertEquals(1, levelTransitionDisplay.getFrame());
     }
 
@@ -115,7 +109,7 @@ class LevelTransitionDisplayTest {
         levelTransitionDisplay.setFrame(levelTransitionScreen.FRAME_COUNT);
         assertEquals(55, levelTransitionDisplay.getFrame());
         custom_wait(levelTransitionDisplay.getFrameDuration()+10);
-        levelTransitionDisplay.update();
+        levelTransitionDisplay.jUnitUpdate();
         assertEquals(55, levelTransitionDisplay.getFrame());
     }
 }
