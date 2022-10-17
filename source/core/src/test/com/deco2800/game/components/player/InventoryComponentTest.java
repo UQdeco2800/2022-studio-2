@@ -1,6 +1,4 @@
 package com.deco2800.game.components.player;
-
-
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -362,26 +360,6 @@ class InventoryComponentTest {
 
     assertArrayEquals(expectedList, inventory.getEquipables());
   }
-/**
-  @Test
-  void removeEquipable(int i) {
-    //Needs work, Incomplete test
-
-//    Entity player = PlayerFactory.createTestPlayer();
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    Entity testWeapon = WeaponFactory.createHera();
-//    Entity[] expectedList = new Entity[2];
-//
-////    InventoryComponent inventoryComponent = spy(InventoryComponent.class);
-////    doNothing().when(inventoryComponent).cancelAnimation();
-//
-//    inventory.addItem(testWeapon);
-//    inventory.equipItem(testWeapon);
-//    inventory.removeEquipable(0);
-//
-//    assertArrayEquals(expectedList, inventory.getEquipables());
-  }
-**/
 
   @Test
   void equipItem() {

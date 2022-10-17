@@ -26,7 +26,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(GameExtension.class)
-public class PotionFactoryTest {
+ class PotionFactoryTest {
+
+    @Mock
+    ShapeRenderer shapeRenderer;
+    @Mock
+    Box2DDebugRenderer physicsRenderer;
+    @Mock
+    Matrix4 projMatrix;
+
+    DebugRenderer debugRenderer;
+
+    @BeforeEach
+    void setUp() {
+        debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerResourceService(new ResourceService());
+        ServiceLocator.registerRenderService(new RenderService());
+    }
 
     @Test
     void createSpeedPotion() {
