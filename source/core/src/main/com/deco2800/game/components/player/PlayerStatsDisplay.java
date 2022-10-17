@@ -124,25 +124,22 @@ public class PlayerStatsDisplay extends UIComponent {
     if (value ==100){
       filename= "1.png";
     }
-    else if(value >=80 &&value<100 ){
+    else if(value >= 80 &&value< 100 ){
       filename= "2.png";
     }
-    else if (value <80 && value >=60){
+    else if (value < 80 && value >= 60){
       filename= "3.png";
     }
-    else if (value <60 && value >=40){
+    else if (value < 60 && value >= 40){
       filename= "4.png";
     }
-    else if (value <40 && value >=20){
+    else if (value < 40 && value >= 20){
       filename= "5.png";
     }
-    else if (value <20 && value >=10){
+    else if (value < 20 && value >= 10){
       filename= "6.png";
     }
-    else if (value ==0 && Boolean.TRUE.equals(isHealth)){
-      filename = "8.png";
-    }
-    else if (value <10 && value >=0){
+    else if (value < 10 && value >= 0){
       filename= "7.png";
     }
     return filename;

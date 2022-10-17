@@ -1,10 +1,7 @@
 package com.deco2800.game.entities;
 
 import static com.deco2800.game.entities.factories.NPCFactory.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -23,6 +20,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 
+import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.npc.GymBroAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
@@ -263,7 +261,14 @@ class EntityTest {
     System.out.println(entity.getScale().y);
   }
 
-
+@Test
+void checkIsDead() {
+    Entity entity = new Entity();
+    entity.addComponent(new CombatStatsComponent(90, 5, 100, 100));
+    assertFalse(entity.isDead());
+    entity.getComponent(CombatStatsComponent.class).setHealth(0);
+    assertTrue(entity.isDead());
+}
 
 
 

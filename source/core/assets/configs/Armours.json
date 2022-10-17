@@ -1,6 +1,6 @@
 {
   "baseArmour": {
-    "phyResistance": 7.5,
+    "phyResistance": 2,
     "durability": 2,
     "weight": 0,
     "dmgReturn": 0,
@@ -9,7 +9,7 @@
   },
 
   "fastLeather": {
-    "phyResistance": 4.5,
+    "phyResistance": 1,
     "durability": 3,
     "weight": -5,
     "dmgReturn": 0,
@@ -18,7 +18,7 @@
   },
 
   "slowDiamond": {
-    "phyResistance": 7.5,
+    "phyResistance": 3,
     "durability": 2,
     "weight": 5,
     "dmgReturn": 0,
@@ -27,10 +27,10 @@
   },
 
   "damageReturner": {
-    "phyResistance": 7.5,
+    "phyResistance": 2,
     "durability": 2,
     "weight": 0,
-    "dmgReturn": 0,
+    "dmgReturn": 5,
     "vitality": 1,
     "materials": {"gold": 1, "steel": 1}
   }

@@ -1,7 +1,7 @@
 package com.deco2800.game.crafting;
 
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 
 import java.util.*;
@@ -30,21 +30,10 @@ public class CraftingSystem implements Runnable{
      * determines what items the users can build with it. Class then calls an instance of the display to be made and
      * creates a daemon that checks the users inventory.
      */
-    public void CraftingSystem() {
+    public CraftingSystem() {
 
-         builtItems = new ArrayList<>();
+        builtItems = new ArrayList<>();
 
-         //Set Possible Builds by finding all weapons that implement Buildable component
-        ArrayList<WeaponConfig> possibleWeapons = new ArrayList<>();
-    //    possibleWeapons.add(configs.Sword);
-  //      possibleWeapons.add(configs.dagger);
-//        possibleWeapons.add(configs.daggerTwo);
-      //  possibleWeapons.add(configs.dumbbell);
-       // possibleWeapons.add(configs.SwordLvl2);
-        //possibleWeapons.add(configs.tridentLvl2);
-
-
-         //List<Materials> inventoryContents = getInventoryContents();
         inventoryContents = new ArrayList<>();
         inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel);
 
@@ -56,10 +45,10 @@ public class CraftingSystem implements Runnable{
 
     /**
      * Checks if an item can be build, then adds it to the list of built items if possible.
-     * @param Item
+     * @param item
      */
-    public void buildItem(Object Item){
-        if (CraftingLogic.getPossibleBuilds().contains(Item)){
+    public void buildItem(Object item){
+        if (CraftingLogic.getPossibleBuilds().contains(item)){
             builtItems.add("Sword");
             inventoryContents.remove(Materials.Steel);
             inventoryContents.remove(Materials.Wood);
@@ -73,15 +62,10 @@ public class CraftingSystem implements Runnable{
      * conflicts.
      */
     public synchronized List<Materials> getInventoryContents(){
-        inventoryContents = new ArrayList<Materials>(Arrays.asList(Materials.values()));
+        inventoryContents = new ArrayList<>(Arrays.asList(Materials.values()));
         return inventoryContents;
     }
 
-    //iterates through Weapons.json file and adds all weapons to the possible weapons list
-    public void getRecipes(){
-
-
-    }
 
     /**
      * Sets the users inventory contents to be used by the crafting classes. Synchronised to prevent write conflicts.

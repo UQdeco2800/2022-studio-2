@@ -1,17 +1,16 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
-//import com.deco2800.game.entities.factories.WeaponFactory.configs;
 
 /**
  * Factory to create Weapon entities.
@@ -97,17 +96,17 @@ public class WeaponFactory {
      * @return level 2 sword for player
      */
     public static Entity createSwordLvl2() {
-        Entity SwordLvl2 = createBaseWeapon();
+        Entity SwordLevelTwo = createBaseWeapon();
         WeaponConfig config = configs.SwordLvl2;
         PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "sword");
 
-        SwordLvl2
+        SwordLevelTwo
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Sword_Lvl2.png"));
-        SwordLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
-        SwordLvl2.scaleHeight(2f);
-        SwordLvl2.setEntityType(EntityTypes.MELEE);
-        return SwordLvl2;
+        SwordLevelTwo.getComponent(TextureRenderComponent.class).scaleEntity();
+        SwordLevelTwo.scaleHeight(2f);
+        SwordLevelTwo.setEntityType(EntityTypes.MELEE);
+        return SwordLevelTwo;
     }
 
     /**

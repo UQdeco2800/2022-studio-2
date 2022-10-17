@@ -2,7 +2,6 @@ package com.deco2800.game.components.player;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.components.player.PlayerKeyPrompt;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,7 @@ public class PlayerKPAnimationController extends Component {
 
     Entity playerEntity;
     AnimationRenderComponent animator;
-    private static Logger logger;
+    private static Logger logger = LoggerFactory.getLogger(PlayerKPAnimationController.class);
 
     /**
      * Creates a player skill animation controller with the joined player entity with
@@ -43,7 +42,7 @@ public class PlayerKPAnimationController extends Component {
     @Override
     public void create() {
         super.create();
-        logger = LoggerFactory.getLogger(PlayerKPAnimationController.class);
+
         animator = this.entity.getComponent(AnimationRenderComponent.class);
         entity.getEvents().addListener("regularAnimation", this::animateRegular);
         entity.getEvents().addListener("KeyQAnimation", this::animateKeyQ);

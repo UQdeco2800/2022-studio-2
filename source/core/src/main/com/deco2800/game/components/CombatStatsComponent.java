@@ -2,8 +2,8 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
-import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
+
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -34,8 +34,7 @@ public class CombatStatsComponent extends Component {
   private int staminaRegenerationRate=1;
   private int baseAttack;
   private float damageReduction;
-
-  private int attackDmg;
+  private float damageReturn;
   private Entity playerWeapon;
 
   @Override
@@ -64,7 +63,7 @@ public class CombatStatsComponent extends Component {
    * @return is player dead
    */
   public Boolean isDead() {
-    return health == 0;
+    return health <= 0;
   }
 
   /**
@@ -82,14 +81,30 @@ public class CombatStatsComponent extends Component {
    * @param health health
    */
   public void setHealth(int health) {
-    if (health >= 0 && health <= 100) {
-      this.health = health;
-    } else {
-      this.health = 0;
-    }
+    if(health < 0) this.health = 0;
+    else if(health > 100) this.health = 100;
+    else this.health = health;
+
     if (entity != null) {
       entity.getEvents().trigger("updateHealth", this.health);
+    }
 
+    Boolean checkDead = this.isDead();
+    if(entity != null) {
+      if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
+        Gdx.app.postRunnable(() -> {
+          dropMaterial();
+          dropWeapon();
+          //entity.dispose();
+        });
+
+        if (entity.getComponent(AnimationRenderComponent.class) != null) {
+          Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
+        }
+      }
+      if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+        entity.getEvents().trigger("death");
+      }
     }
   }
 
@@ -100,8 +115,10 @@ public class CombatStatsComponent extends Component {
    */
   public void addHealth(int health) {
     setHealth(this.health + health);
-    System.out.println("Setting health " + this.health);
+  }
 
+  public void reduceHealth(int health) {
+    setHealth(this.health - health);
   }
 
   /**
@@ -133,16 +150,18 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
+    Entity playerWeapon;
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
             (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
 
-        attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
-        int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
-        setHealth(newHealth);
-      } else { //if it's not a player, or if it is a player without a weapon
+      int attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
+      int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
+      setHealth(newHealth);
+    } else { //if it's not a player, or if it is a player without a weapon
       int newHealth = getHealth() - (int) ((1 - damageReduction) * attacker.getBaseAttack());
       setHealth(newHealth);
     }
+
     Boolean checkDead = this.isDead();
     if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
 
@@ -156,9 +175,20 @@ public class CombatStatsComponent extends Component {
         Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
       }
     }
-    if (isDead() && entity.checkEntityType(EntityTypes.PLAYER)) {
+    if (Boolean.TRUE.equals(isDead()) && entity.checkEntityType(EntityTypes.PLAYER)) {
       entity.getEvents().trigger("death");
     }
+    //Code from Inventory branch or Lachlan's reference
+//    int attackDmg = 0;
+//    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
+//            (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
+//      attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
+//    } else { //if it's not a player, or if it is a player without a weapon
+//      attackDmg = attacker.getBaseAttack();
+//    }
+//    int newHealth = getHealth() - (int)(attackDmg - damageReduction);
+//    setHealth(newHealth);
+//    attacker.reduceHealth((int)damageReturn);
   }
 
   /**
@@ -321,10 +351,7 @@ public class CombatStatsComponent extends Component {
    * @return
    */
   public boolean checkMana(int mana){
-    if (this.getMana()>=mana){
-      return true;
-    }
-    return false;
+    return this.getMana() >= mana;
   }
 
   /**
@@ -333,10 +360,8 @@ public class CombatStatsComponent extends Component {
    * @return
    */
   public boolean checkStamina(int stamina){
-    if (this.getStamina()>=stamina){
-      return true;
-    }
-    return false;
+
+    return this.getStamina() >= stamina;
   }
 
   /**
@@ -359,6 +384,25 @@ public class CombatStatsComponent extends Component {
    */
   public float getDamageReduction() { return damageReduction; }
 
+  /**
+   * Returns the current damageReturn stat.
+   *
+   * @return The float value of damageReturn.
+   */
+  public float getDamageReturn(){return damageReturn;}
+
+  /**
+   * Sets the entity's damage return. Damage reduction damage has a minimum bound of 0.
+   *
+   * @param damageReturn
+   */
+  public void setDamageReturn(float damageReturn) {
+    if (damageReturn >= 0) {
+      this.damageReturn = damageReturn;
+    } else {
+      logger.error("Can not set damage return to a negative value");
+    }
+}
   /**
    * If the current entity is a player, then the function is called on a key press and drops
    * a weapon on the map only if the player is equipped with a weapon.
@@ -393,15 +437,39 @@ public class CombatStatsComponent extends Component {
 
   }
 
+  /**
+   * Method that picks a random material on the map to drop once an enemy is killed.
+   * 20% change of gold
+   * 10% chance of silver
+   * 10% chance of rubber
+   * 10% chance of platinum
+   * 10% chance of iron
+   * 10% chance of wood
+   * 10% chance of steel
+   */
   public void dropMaterial() {
 
     float x = getEntity().getPosition().x;
     float y = getEntity().getPosition().y;
 
     int randomnum = random.nextInt(100);
+    Entity material = materialRand(randomnum);
 
+    if (randomnum <= 90) {
+      material.setScale(new Vector2(0.6f, 0.6f));
+
+      ServiceLocator.getEntityService().register(material);
+      material.setPosition((x), (y - 2));
+    }
+  }
+
+  /**
+   * Takes a number between 1 to 100 and returnss a material to be dropped
+   * @param randomnum a random number between 1 and 100
+   * @return an Entity to be dropped
+   */
+  private Entity materialRand(int randomnum){
     Entity material;
-
     if (randomnum < 10) {
       material = MaterialFactory.createSilver();
     } else if (randomnum < 30 && randomnum >= 10) {
@@ -421,46 +489,6 @@ public class CombatStatsComponent extends Component {
     } else {
       material = MaterialFactory.createWood();
     }
-
-    if (!(randomnum > 90)) {
-      material.setScale(new Vector2(0.6f, 0.6f));
-
-      ServiceLocator.getEntityService().register(material);
-
-      material.setPosition((x), (y - 2));
-    }
-  }
-
-  /*
-   * drop material for test
-   * @return test material
-
-  public Entity testDropMaterial(int i) {
-
-    Entity material;
-
-    if (i < 10) {
-      material = MaterialFactory.creatTestMaterial("silver");
-    } else if (i < 30 && i >= 10) {
-      material = MaterialFactory.creatTestMaterial("gold");
-    } else if (i < 40 && i >= 30) {
-      material = MaterialFactory.creatTestMaterial("plastic");
-    } else if (i < 50 && i >= 40) {
-      material = MaterialFactory.creatTestMaterial("rubber");
-    } else if (i < 60 && i >= 50) {
-      material = MaterialFactory.creatTestMaterial("iron");
-    } else if (i < 70 && i >= 60) {
-      material = MaterialFactory.creatTestMaterial("platinum");
-    } else if (i < 80 && i >= 70) {
-      material = MaterialFactory.creatTestMaterial("wood");
-    } else if (i < 90 && i >= 80) {
-      material = MaterialFactory.creatTestMaterial("steel");
-    } else {
-      material = MaterialFactory.creatTestMaterial("wood");
-    }
-
     return material;
   }
-  */
-
 }

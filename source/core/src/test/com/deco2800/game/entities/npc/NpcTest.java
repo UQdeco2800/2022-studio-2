@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.deco2800.game.components.CombatItemsComponents.AreaOfEffectStatsComponent;
 import com.deco2800.game.extensions.GameExtension;
 
 import com.deco2800.game.rendering.DebugRenderer;
