@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * A ui component for displaying the Death Screen.
+ * AN ui component for displaying the Death Screen.
  */
 public class DeathScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(DeathScreenDisplay.class);
@@ -30,26 +30,28 @@ public class DeathScreenDisplay extends UIComponent {
     /**
      * Constructor of DeathScreenDisplay, default empty
      */
-    public DeathScreenDisplay(){ }
+    public DeathScreenDisplay(){
+        logger.debug("DeathScreenDisplay was not given a level.");
+    }
 
     /**
-     * Constructor of DeathScreenDisplay, instantiates the varibles given
+     * Constructor of DeathScreenDisplay, instantiates the variables given
      * @param level is the level the game is on
      */
     public DeathScreenDisplay(int level) {
         this.level = level;
-
     }
 
     @Override
     public void create() {
+        logger.debug("DeathScreenDisplay has been created.");
         super.create();
         addActors();
     }
     
     /**
-     * Sets 'background' to the appropriate image depedning on levelBackground, stages the image, and then
-     * adds the buttons using setButtonDisplay.
+     * Sets 'background' to the appropriate image depending on levelBackground, stages the image, and then
+     * adds the transparent buttons using setButtonDisplay.
      */
     private void addActors() {
         // Set's background image based on the level
@@ -78,18 +80,21 @@ public class DeathScreenDisplay extends UIComponent {
         TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(buttonTextureRegion);
         ImageButton playAgainBtn = new ImageButton(buttonDrawable);
 
-        //playAgain
+        //playAgain button, if level is 3 then it's a win screen
         if (getLevel() == 3) {
             playAgainBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
             playAgainBtn.setPosition(908, 370);
             playAgainBtn.setSize(88, 80);
+            logger.debug("Win screen play again btn size has been set");
         } else {
             playAgainBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
             playAgainBtn.setWidth(340);
             playAgainBtn.setHeight(270);
             playAgainBtn.setPosition(1565,0);
+            logger.debug("Death screen play again btn size has been set for level {}", getLevel());
+
         }
-        // play again/ restart level 1 listner
+        // play again/ restart level 1 listener
         playAgainBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -106,11 +111,14 @@ public class DeathScreenDisplay extends UIComponent {
             playAgainBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
             exitBtn.setPosition(988, 290);
             exitBtn.setSize(88, 80);
+            logger.debug("Win screen exit btn size has been set");
+
         } else {
             exitBtn.setOrigin(playAgainBtn.getWidth()/3, playAgainBtn.getHeight()/3);
             exitBtn.setWidth(340);
             exitBtn.setHeight(270);
             exitBtn.setPosition(1167, 0);
+            logger.debug("Death screen exit btn size has been set for level {}", getLevel());
         }
         // exit button/ return to main menu button listener
         exitBtn.addListener(
@@ -131,37 +139,42 @@ public class DeathScreenDisplay extends UIComponent {
     /**
      * Adjusts DeathScreens background image based on given level, it checks what value the level is and outputs the
      * appropriate level background image
-     * @return deathBackground if level is 1 it returns level 1 image, if level is 2 it reyurns level 2, else level 1
+     * @return deathBackground if level is 1 it returns level 1 image, if level is 2 it returns level 2, else level 1
      */
     public Image levelBackground () {
-
         switch (getLevel()) {
             case 1 -> {
-                logger.info("setting level 1 deathscreen from DeathScreenDisplay");
+                logger.info("setting level 1 deathScreen as background image from DeathScreenDisplay");
                  deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_1_w_buttons.png", Texture.class));
             }
             case 2 -> {
-                logger.info("setting level 2 deathscreen from DeathScreenDisplay");
+                logger.info("setting level 2 deathScreen as background image from DeathScreenDisplay");
                 deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_2_w_buttons.png", Texture.class));
             }
             case 3 -> {
-                logger.info("setting win screen from DeathScreenDisplay");
+                logger.info("setting win screen as background image from DeathScreenDisplay");
                 deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/WinScreen/atlantis_sinks_no_island_win.png", Texture.class));
             }
-            default -> deathBackground = new Image(ServiceLocator.getResourceService()
+            default -> {
+                logger.info("A number other than 1,2,3 was given to DeathScreenDisplay, " +
+                        "the background has been set to the default level 1 deathScreen image");
+                deathBackground = new Image(ServiceLocator.getResourceService()
                         .getAsset("images/DeathScreens/lvl_1_w_buttons.png", Texture.class));
+            }
         }
+        logger.info("DeathBackground is: {}", deathBackground.getName());
         return deathBackground;
     }
 
     /**
-     * Gets current level of game as passed in to the contructor
+     * Gets current level of game as passed in to the constructor
      * @return level - the games current level
      */
     public int getLevel() {
+        logger.debug("The level given to DeathScreenDisplay is {}", level);
         return level;
     }
 
@@ -178,6 +191,7 @@ public class DeathScreenDisplay extends UIComponent {
 
     @Override
     public void dispose() {
+        logger.debug("DeathScreenDisplay has been disposed.");
         deathBackground.remove();
         super.dispose();
     }

@@ -4,17 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
+import com.deco2800.game.components.player.PlayerModifier;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.entities.factories.PotionFactory;
+import com.deco2800.game.physics.PhysicsEngine;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.services.GameTime;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -141,15 +148,14 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 HumanGuardDialoguePosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 PLumberFriendDialoguePosition;
-  public static GridPoint2 GuardPosition;
-  public static GridPoint2 GuardDialoguePosition;
-  public static GridPoint2 friendlycreaturePosition;
-  public static GridPoint2 friendlycreatureDialoguePosition;
+
+
+
+
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 maleCitizenDialoguePosition;
   public static GridPoint2 childPosition;
   public static GridPoint2 childDialoguePosition;
-//  public static GridPoint2 friendly_creaturePosition;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -165,14 +171,6 @@ public class ForestGameArea extends GameArea {
   @Override
   public Entity getPlayer() {
     return player;
-  }
-
-  /**
-   * Get Heracles the level 1 boss
-   * @return Heracles
-   */
-  public Entity getHeracles() {
-    return heracles;
   }
 
   /**
@@ -195,8 +193,7 @@ public class ForestGameArea extends GameArea {
     heracles = spawnHeracles();
     spawnOneLegGirl();
     spawnHumanGuard();
-    spawnfriendlycreature();
-    spawnGuard();
+
     spawnPlumberFriend();
     spawnChild();
     spawnMaleCitizen();
@@ -749,7 +746,7 @@ public class ForestGameArea extends GameArea {
    * Spawn child NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnChild() {
-    childPosition = new GridPoint2(33,95);
+    childPosition = new GridPoint2(93,13);
     childDialoguePosition = new GridPoint2(33, 96);
 
     Entity child = NPCFactory.createChild(player);
@@ -758,6 +755,9 @@ public class ForestGameArea extends GameArea {
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, childDialoguePosition, true, true);
+
+    areaEntities.add(dialogue);
+
   }
 
   public static GridPoint2 getChildPosition() {
@@ -791,39 +791,12 @@ public class ForestGameArea extends GameArea {
     areaEntities.add(dialogue);
   }
 
-  private void spawnGuard() {
-    GuardPosition = new GridPoint2(100, 16);
-    GuardDialoguePosition = new GridPoint2(100, 17);
 
-    Entity guard = NPCFactory.createGuard(player);
-    spawnEntityAt(guard, GuardPosition, true, true);
-    areaEntities.add(guard);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
-    areaEntities.add(dialogue);
-  }
-  public static GridPoint2 getGuardPosition() {
-    return GuardPosition;
-  }
-
-  private void spawnfriendlycreature() {
-    friendlycreaturePosition = new GridPoint2(97, 16);
-    friendlycreatureDialoguePosition = new GridPoint2(97, 17);
-
-    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
-    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
-    areaEntities.add(friendlycreature);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-    areaEntities.add(dialogue);
-  }
 
   /**
    * Spawn male NPC in random position. - Team 7 all-mid-npc
    */
-  private void spawnMaleCitizen() {
+  public void spawnMaleCitizen() {
     maleCitizenPosition = new GridPoint2(74,121);
     maleCitizenDialoguePosition = new GridPoint2(74, 122);
 
