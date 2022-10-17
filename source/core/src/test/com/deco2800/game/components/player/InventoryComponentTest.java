@@ -1,8 +1,11 @@
 package com.deco2800.game.components.player;
 
+<<<<<<< HEAD
+=======
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+>>>>>>> a9e405d0d593d9bc929f4dfd0f97e1ade0e877b6
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
@@ -15,8 +18,6 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.RenderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -140,6 +141,15 @@ class InventoryComponentTest {
 //
 //    verify(combatAnimator).dispose();
   }
+
+  /*@Test
+  void disposeAnimation() {
+    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
+    RenderComponent component = spy(AnimationRenderComponent.class);
+    component.create();
+    component.dispose();
+    verify(ServiceLocator.getRenderService()).unregister(component);
+  }*/
 
   @Test
   void hasItem() {
@@ -356,7 +366,7 @@ class InventoryComponentTest {
   }
 
   @Test
-  void removeEquipable() {
+  void removeEquipable(int i) {
     //Needs work, Incomplete test
 
 //    Entity player = PlayerFactory.createTestPlayer();
@@ -502,6 +512,9 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
 
+<<<<<<< HEAD
+
+=======
 //  @Test
 //  void disposeAnimation() {
 //    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
@@ -510,6 +523,7 @@ class InventoryComponentTest {
 //    component.dispose();
 //    verify(ServiceLocator.getRenderService()).unregister(component);
 //  }
+>>>>>>> a9e405d0d593d9bc929f4dfd0f97e1ade0e877b6
 
   /*private void cancelAnimation() {
     if(combatAnimator == null) return;
