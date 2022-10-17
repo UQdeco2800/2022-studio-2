@@ -826,8 +826,8 @@ public class ForestGameArea extends GameArea {
 
 
   private void spawnHumanGuard() {
-    HumanGuardPosition = new GridPoint2(110, 41);
-    HumanGuardDialoguePosition = new GridPoint2(110, 42);
+    HumanGuardPosition = new GridPoint2(110, 34);
+    HumanGuardDialoguePosition = new GridPoint2(110, 35);
 
     Entity humanguard = NPCFactory.createHumanGuard(player);
     spawnEntityAt(humanguard, HumanGuardPosition, true, true);
@@ -912,7 +912,7 @@ public class ForestGameArea extends GameArea {
    * Spawn Heracles in a position.
    */
   private Entity spawnHeracles() {
-    GridPoint2 position = new GridPoint2(174, 65);
+    GridPoint2 position = new GridPoint2(170, 50);
     Entity heraclesBoss = NPCFactory.createHeracles(player);
     areaEntities.add(heraclesBoss);
     spawnEntityAt(heraclesBoss, position, true, true);

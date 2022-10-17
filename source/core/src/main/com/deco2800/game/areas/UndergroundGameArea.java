@@ -822,8 +822,8 @@ public class UndergroundGameArea extends GameArea {
 
 
     private void spawnfriendlycreature() {
-        friendlycreaturePosition = new GridPoint2(35, 24);
-        friendlycreatureDialoguePosition = new GridPoint2(35, 25);
+        friendlycreaturePosition = new GridPoint2(34, 24);
+        friendlycreatureDialoguePosition = new GridPoint2(34, 25);
 
         Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
         spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
