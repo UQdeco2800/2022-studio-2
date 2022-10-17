@@ -461,7 +461,7 @@ public class DialogueDisplay extends UIComponent {
             logger.info("new text loaded");
             countHumanGuardAlready++;
             textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin, "humanguard");
-            textAreaHumanGuardAlready.setWidth(480);
+            textAreaHumanGuardAlready.setWidth(700);
             textAreaHumanGuardAlready.setHeight(50);
             textAreaHumanGuardAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaHumanGuardAlready.getWidth()/2),29);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuardAlready);
