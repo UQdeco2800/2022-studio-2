@@ -100,4 +100,40 @@ public class NPCAnimationControllerTest {
         assertEquals("femaleShake", animationRenderComponent.getCurrentAnimation());
 
     }
+
+    @Test
+    void childShakeStart() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("childShake", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("childShake", 1f, Animation.PlayMode.LOOP);animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        NPCAnimationController npcAnimationController = new NPCAnimationController();
+        npcAnimationController.setEntity(entity);
+        npcAnimationController.create();
+
+        entity.getEvents().trigger("childShake");
+        assertEquals("childShake", animationRenderComponent.getCurrentAnimation());
+
+    }
+
+    @Test
+    void guardShakeStart() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("guardShake", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("guardShake", 1f, Animation.PlayMode.LOOP);animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        NPCAnimationController npcAnimationController = new NPCAnimationController();
+        npcAnimationController.setEntity(entity);
+        npcAnimationController.create();
+
+        entity.getEvents().trigger("guardShake");
+        assertEquals("guardShake", animationRenderComponent.getCurrentAnimation());
+
+    }
 }
