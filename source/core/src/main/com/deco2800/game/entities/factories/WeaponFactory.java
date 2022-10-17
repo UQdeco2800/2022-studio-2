@@ -2,11 +2,11 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.components.combatItemsComponents.*;
-import com.deco2800.game.entities.configs.combatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.configs.combatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;

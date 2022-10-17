@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -47,10 +47,10 @@ public class AuraPickupComponent extends ItemPickupComponent {
                 Entity entityOfComponent = getEntity();
                 Sound pickupSound = ServiceLocator.getResourceService().getAsset("sounds/buffPickupSound.wav", Sound.class);
                 pickupSound.play();
-                if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
+                if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
                     ForestGameArea.removeAuraOnMap(entityOfComponent);
                 }
-                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea undergroundgamearea){
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
                     UndergroundGameArea.removeAuraOnMap(entityOfComponent);
                 }
                 logger.info("Aura picked up");

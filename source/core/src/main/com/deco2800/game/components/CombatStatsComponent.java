@@ -2,7 +2,7 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.combatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
@@ -35,7 +35,7 @@ public class CombatStatsComponent extends Component {
   private int baseAttack;
   private float damageReduction;
   private float damageReturn;
-  private Entity playerWeapon;
+  public Entity playerWeapon;
 
   @Override
   public void create(){
