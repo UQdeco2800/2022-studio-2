@@ -84,13 +84,13 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/charge_disabled.png"
   };
   private static final String[] dialogueImg = {
-          "images/NPC/Dialogue/dialoguesboxmale.png",
-          "images/NPC/Dialogue/dialoguesboxguard.png",
-          "images/NPC/Dialogue/dialoguesboxchild.png",
+          "images/NPC/Dialogue/dialoguesboxmale2.png",
+          "images/NPC/Dialogue/dialoguesboxguard2.png",
+          "images/NPC/Dialogue/dialoguesboxchild2.png",
           "images/NPC/Dialogue/dialoguesboxfemale2.png",
-          "images/NPC/Dialogue/HumanGuardDialogue.png",
-          "images/NPC/Dialogue/FriendlyCreatureDialogue.png",
-          "images/NPC/Dialogue/PlumberFriend.png"
+          "images/NPC/Dialogue/humanguarddialogue2.png",
+          "images/NPC/Dialogue/friendlycreaturedialogue2.png",
+          "images/NPC/Dialogue/plumberfriend2.png"
   };
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final String[] skillScreenOverlays = {
