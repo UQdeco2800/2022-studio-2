@@ -90,8 +90,6 @@ public class Entity {
 
   /**
    * Set the entity's game grid position.
-   *
-   * @return position
    */
   public void setGridPosition(GridPoint2 position) {
     this.gridPosition = position;
