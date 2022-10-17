@@ -373,6 +373,7 @@ public class GameAreaDisplay extends UIComponent {
      * and creates button event handlers to test for user clicks.
      */
     public void openCraftingMenu() {
+        KeyboardPlayerInputComponent.setCurrentMenu(true, KeyboardPlayerInputComponent.MenuTypes.CRAFTING);
         logger.info("Opening Crafting Menu");
         inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +

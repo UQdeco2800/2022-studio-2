@@ -22,7 +22,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private static int keyPressedCounter;
   private static boolean menuOpened = false;
   private static Enum currentMenu = MenuTypes.NONE;
-  enum MenuTypes{
+  public enum MenuTypes{
     INVENTORY,
     CRAFTING,
     MINIMAP,
@@ -191,6 +191,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       default:
         return false;
     }
+  }
+
+  public static void setCurrentMenu(Boolean opened, MenuTypes menu) {
+    menuOpened = opened;
+    currentMenu = menu;
   }
 
   public static void clearMenuOpening() {
