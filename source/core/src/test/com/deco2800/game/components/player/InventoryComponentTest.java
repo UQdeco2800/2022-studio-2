@@ -58,7 +58,11 @@ class InventoryComponentTest {
                         "images/Crafting-assets-sprint1/materials/rubber.png",
                         "images/Crafting-assets-sprint1/materials/platinum.png",
                         "images/Crafting-assets-sprint1/materials/silver.png",
-                        "images/Potions/agility_potion.png"};
+                        "images/Potions/agility_potion.png",
+                        "images/Potions/health_potion.png",
+                        "images/Potions/defence_potion.png",
+                        "images/Potions/swiftness_potion.png"
+    };
     resourceService.loadTextures(textures);
     String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
     resourceService.loadTextureAtlases(textureAtlases);
@@ -406,6 +410,7 @@ class InventoryComponentTest {
 
     inventory.addItem(notAddedWeapon);
     assertTrue(inventory.equipItem(notAddedWeapon));
+    inventory.equipItem(testWeapon);
   }
 
   @Test
@@ -506,14 +511,24 @@ class InventoryComponentTest {
   void addQuickBarItems() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testPotion = PotionFactory.createTestSpeedPotion();
+    Entity staminaPotion = PotionFactory.createStaminaPotion();
+    Entity healthPotion = PotionFactory.createHealthPotion();
+    Entity defencePotion = PotionFactory.createDefencePotion();
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     List<Entity> expectedList = new ArrayList<>(3);
-
-    inventory.addQuickBarItems(testPotion);
+    List<Entity> expectedInventory = new ArrayList<>(16);
+    for (int i = 0; i < 9; ++i) inventory.addQuickBarItems(testPotion);
     expectedList.add(testPotion);
 
     assertEquals(expectedList, inventory.getQuickBarItems());
+    assertEquals(expectedInventory, inventory.getInventory());
+
+    inventory.addQuickBarItems(staminaPotion);
+
+    inventory.addQuickBarItems(healthPotion);
+
+    assertFalse(inventory.addQuickBarItems(defencePotion));
   }
 
   /**
