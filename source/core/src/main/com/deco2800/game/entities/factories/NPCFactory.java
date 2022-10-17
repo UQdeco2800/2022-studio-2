@@ -448,7 +448,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC() {
+  public static Entity createBaseNPC() {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()
@@ -480,7 +480,7 @@ public class NPCFactory {
     return plug;
   }
 
-  private NPCFactory() {
+  public NPCFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }
 }
