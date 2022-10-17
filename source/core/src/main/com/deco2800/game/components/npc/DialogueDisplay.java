@@ -347,7 +347,6 @@ public class DialogueDisplay extends UIComponent {
             } else if (countGuard == 5) {
                 logger.info("Guard5 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Guard Audio 5.wav"));
-
                 music.play();
             }
         } else if ((maleCitizenPosition) != null && entity.getCenterPosition().dst(GridPointToVector(maleCitizenPosition)) < 1.5) {

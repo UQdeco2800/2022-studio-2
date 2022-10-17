@@ -167,14 +167,14 @@ public class MainGameScreen extends ScreenAdapter {
   private void playMusicOne() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapOne, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.2f);
     music.play();
   }
 
   private void playMusicTwo() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapTwo, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.2f);
     music.play();
   }
 
