@@ -319,42 +319,18 @@ public class ProjectileFactory {
         PhysicsComponent physicsComponent = new PhysicsComponent();
         PlayerSkillProjectileComponent playerSkillProjectileComponent = new PlayerSkillProjectileComponent();
 
-        AnimationRenderComponent projectileAnimator = new AnimationRenderComponent(
-                ServiceLocator.getResourceService().getAsset("images/Skills/projectileSprites.atlas",
-                        TextureAtlas.class));
-        projectileAnimator.addAnimation("upright",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("right",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("downright",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("down",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("downleft",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("left",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("upleft",0.2f, Animation.PlayMode.LOOP);
-        projectileAnimator.addAnimation("up",0.2f, Animation.PlayMode.LOOP);
-
         Entity projectile = new Entity()
                 .addComponent(physicsComponent)
                 .addComponent(new ColliderComponent().setLayer(PhysicsLayer.NONE))
                 .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
                 .addComponent(new TouchAttackComponent(PhysicsLayer.NPC, 150.0f))
                 .addComponent(new CombatStatsComponent(100000, 0, 0, 0))
-                .addComponent(projectileAnimator)
                 .addComponent(playerSkillProjectileComponent);
 
         projectile.setScale(4, 4);
         PhysicsUtils.setScaledCollider(projectile, 1, 1);
-        //projectile.getComponent(AnimationRenderComponent.class).scaleEntity();
         projectile.setEntityType(EntityTypes.PROJECTILE);
-
-        PlayerActions playerActions = player.getComponent(PlayerActions.class);
-        if(playerActions.getWalkDirection().cpy().x == 0 && playerActions.getWalkDirection().cpy().y == 0) {
-            playerSkillProjectileComponent.setProjectileDirection(new Vector2(1, 0).scl(0.001f));
-            projectileAnimator.startAnimation("right");
-        } else {
-            double angleRadians = angle * Math.PI;
-            Vector2 rotatedVector = rotateVector(playerActions.getWalkDirection().cpy(), angleRadians);
-            setAnimationDirection(getVectorAngle(rotatedVector.cpy()), projectileAnimator);
-            playerSkillProjectileComponent.setProjectileDirection(rotatedVector.cpy().scl(0.001f));
-        }
+        playerSkillProjectileComponent.setProjectileDirection(new Vector2(1, 0).scl(0.001f));
         return projectile;
     }
 }

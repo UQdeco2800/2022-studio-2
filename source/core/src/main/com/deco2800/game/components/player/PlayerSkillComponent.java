@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
@@ -64,7 +65,7 @@ public class PlayerSkillComponent extends Component {
     private boolean teleporting;
     private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millisec = 1sec)
     private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
-    private static final long TELEPORT_COOLDOWN = 3000;
+    private static final long TELEPORT_COOLDOWN = 5000;
     private boolean teleportEndEvent = false;
     private final RaycastHit hit = new RaycastHit();
     private final PhysicsEngine physics;
@@ -942,7 +943,7 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers charge event.
      */
     public void startCharge() {
-        if (1 < 2) {//cooldown
+        if (cooldownFinished("charge", TELEPORT_COOLDOWN)) {//cooldown
             this.chargeUp = true;
             this.chargeUpEnd = System.currentTimeMillis() + CHARGE_UP_LENGTH;
             skillAnimator.getEvents().trigger("teleportAnimation");
@@ -1015,12 +1016,16 @@ public class PlayerSkillComponent extends Component {
             skillAnimator.getEvents().trigger("aoeAnimation");
             playerEntity.getEvents().trigger("aoeCountdown");
             this.aoeAnimationRunning = true;
+            Entity projectile;
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-                Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+                projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
                 ForestGameArea.removeProjectileOnMap(projectile);
-                if (projectile.getComponent(AnimationRenderComponent.class) != null) {
-                    projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
-                }
+            } else {
+                projectile = ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+                UndergroundGameArea.removeProjectileOnMap(projectile);
+            }
+            if (projectile.getComponent(AnimationRenderComponent.class) != null) {
+                projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
             }
             setSkillCooldown("aoe");
         }

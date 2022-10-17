@@ -796,6 +796,25 @@ public class UndergroundGameArea extends GameArea {
                 true, true);
     }
 
+    /**
+     * Spawns an AOE attack at the player entity's coordinates.
+     */
+    public Entity spawnPlayerAOE() {
+        Entity newProjectile = ProjectileFactory.createPlayerAOE(player, 0);
+        spawnEntityAt(newProjectile,
+                new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+                true, true);
+        return newProjectile;
+    }
+
+    public static void removeProjectileOnMap(Entity entityToRemove) {
+        entityToRemove.setEnabled(false);
+        Gdx.app.postRunnable(entityToRemove::dispose);
+        if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+            entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation();
+        }
+    }
+
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
