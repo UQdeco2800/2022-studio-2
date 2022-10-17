@@ -1,7 +1,11 @@
 package com.deco2800.game.entities;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.PlayerActions;
+import com.deco2800.game.screens.MainGameScreen;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,6 +99,10 @@ public class EntityService {
     pauseEndFlag = true;
   }
 
+  /**
+   * Check if the game is currently paused.
+   * @return  Boolean of the game pause status.
+   */
   public static boolean pauseCheck() {
     return paused;
   }

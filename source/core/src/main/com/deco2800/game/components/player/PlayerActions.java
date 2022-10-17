@@ -9,6 +9,7 @@ import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
@@ -24,7 +25,6 @@ public class PlayerActions extends Component {
 
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
   private Entity combatAnimator;
-
   private Vector2 maxWalkSpeed = new Vector2(3f, 3f); // Metres per second
   private PhysicsComponent physicsComponent;
   private PlayerSkillComponent skillManager;
@@ -36,11 +36,11 @@ public class PlayerActions extends Component {
   private int maxStamina =100;
   private int maxMana=100;
   private int mana=100;
-
-  private boolean resting = false;
+  private boolean walkStatus = false;
   private long restStart=0;
   private long restEnd;
-  private Music walkingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/walk_on_sand.wav"));
+  private final String WALKING_SOUND = "sounds/walk_on_sand.wav";
+  private final String[] SOUND_EFFECTS = {WALKING_SOUND};
   private Music teleportSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/teleport_sound.wav"));
   private Music dashSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dash.mp3"));
   private Music blockSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/block.mp3"));
@@ -74,6 +74,10 @@ public class PlayerActions extends Component {
     //entity.getEvents().addListener("kill switch", this::killEnemy);
     //entity.getEvents().addListener("attackEnemy", this::attackAnimation);
 
+    // Allocate sound resources
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    resourceService.loadMusic(SOUND_EFFECTS);
+    resourceService.loadAll();
 
     // Skills and Dash initialisation
     skillManager = new PlayerSkillComponent(entity);
@@ -91,6 +95,7 @@ public class PlayerActions extends Component {
     updateSpeed();
     this.skillManager.update();
     this.playerModifier.update();
+
   }
 
   /**
@@ -159,24 +164,32 @@ public class PlayerActions extends Component {
   }
 
   /**
-   * Moves the player towards a given direction.
+   * Moves the player towards a given direction. Calls the walking sound effect.
+   * Only fully calls when the game is not paused.
    *
    * @param direction direction to move in
    */
   public void walk(Vector2 direction) {
-    walkingSound.setLooping(true);
-    walkingSound.play();
 
-    this.walkDirection = direction;
+    if(!EntityService.pauseCheck()) {
+      Music walkingSound = ServiceLocator.getResourceService().getAsset(WALKING_SOUND, Music.class);
+      walkingSound.setLooping(true);
+      walkingSound.play();
+      this.walkDirection = direction;
+      walkStatus = true;
+    }
   }
 
   /**
    * Stops the player from walking.
    */
   public void stopWalking() {
+
+    Music walkingSound = ServiceLocator.getResourceService().getAsset(WALKING_SOUND, Music.class);
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
     walkingSound.stop();
+    walkStatus = false;
   }
 
   /**
@@ -372,6 +385,4 @@ public class PlayerActions extends Component {
   public void setSkillAnimator(Entity skillAnimator) {
     this.skillManager.setSkillAnimator(skillAnimator);
   }
-
-
 }
