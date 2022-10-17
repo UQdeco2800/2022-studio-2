@@ -18,6 +18,12 @@ class AITaskComponentTest {
   }
 
   @Test
+  void shouldDisposeNothingWithNoTask() {
+    AITaskComponent taskComponent = new AITaskComponent();
+    taskComponent.dispose();
+  }
+
+  @Test
   void shouldNotRunNegativePriorityTask() {
     AITaskComponent taskComponent = new AITaskComponent();
     PriorityTask task = mock(PriorityTask.class);

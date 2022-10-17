@@ -88,18 +88,21 @@ class PlayerModifierTest {
 
     @Test
     void shouldIncrementHealth() {
+
         combat.setHealth(80);
         modifier.createModifier("health", 2, true, 0);
-        assertEquals(81, combat.getHealth());
+        assertEquals(82, combat.getHealth());
     }
 
     @Test
     void shouldNotGetModified() {
+
         assertEquals(-1, modifier.getModified("move_speed"));
     }
 
     @Test
     void shouldNotGetReference() {
+
         assertEquals(-1, modifier.getReference("move_speed"));
     }
 
@@ -125,6 +128,21 @@ class PlayerModifierTest {
         modifier.update();
 
         assertTrue(modifier.checkModifier("moveSpeed", 2, false, 50));
+    }
+
+    @Test
+    void shouldNotHaveModifier() {
+
+        modifier.createModifier("moveSpeed", 2, false, 50);
+
+        modifier.update();
+        custom_wait(10);
+        modifier.update();
+
+        // Slightly different but nonexistent modifiers
+        assertFalse(modifier.checkModifier("moveSpeed", 3, false, 50));
+        assertFalse(modifier.checkModifier("moveSpeed", 2, true, 50));
+        assertFalse(modifier.checkModifier("moveSpeed", 2, false, 500));
     }
 
     @Test

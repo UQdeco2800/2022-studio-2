@@ -24,4 +24,10 @@ class DefaultTaskTest {
     task.stop();
     assertEquals(Status.INACTIVE, task.getStatus());
   }
+
+  @Test
+  void updateTest() {
+    DefaultTask task = spy(DefaultTask.class);
+    task.update();
+  }
 }
