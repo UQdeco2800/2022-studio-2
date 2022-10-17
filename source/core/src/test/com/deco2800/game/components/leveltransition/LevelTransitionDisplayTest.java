@@ -4,6 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 
@@ -46,6 +48,8 @@ class LevelTransitionDisplayTest {
         RenderService renderService = new RenderService();
         renderService.setStage(mock(Stage.class));
         ServiceLocator.registerRenderService(renderService);
+        GameArea gameArea = spy(GameArea.class);
+        ServiceLocator.registerGameArea(gameArea);
 
         game = new GdxGame();
         levelTransitionScreen = mock(LevelTransitionScreen.class);
