@@ -508,7 +508,7 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testWeapon, testPotion));
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
-  
+
 
   /*private void cancelAnimation() {
     if(combatAnimator == null) return;
