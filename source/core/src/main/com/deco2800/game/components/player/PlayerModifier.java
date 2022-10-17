@@ -234,19 +234,15 @@ public class PlayerModifier extends Component{
                 playerActions.updateMaxSpeed(modSpeed);
             }
             case DMGREDUCTION -> {
-                System.out.println("Applying perm dmg red");
                 modDamageReduction += mod.value;
                 refDamageReduction += mod.value;
                 combatStatsComponent.setDamageReduction(modDamageReduction);
-                System.out.println("new dmg red " + modDamageReduction);
             }
 
             case DMGRETURN -> {
-                System.out.println("Applying perm dmg return");
                 modDamageReturn += mod.value;
                 refDamageReturn += mod.value;
                 combatStatsComponent.setDamageReturn(modDamageReturn);
-                System.out.println("new dmg return " + modDamageReturn);
             }
             case MANAREGEN -> {
                 modManaRegen += mod.value;

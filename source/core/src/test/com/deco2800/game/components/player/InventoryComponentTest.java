@@ -398,7 +398,7 @@ class InventoryComponentTest {
 
   }
 
-  /** Currently not working since mock is not implemented
+
   @Test
   void unequip() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -438,7 +438,7 @@ class InventoryComponentTest {
     //Test case 5: unequip while inventory is full
     //Currently unavailable since the total number of items existing in this game is < 16
   }
-   */
+
 
   @Test
   void toggleInventoryDisplay() {
@@ -454,22 +454,22 @@ class InventoryComponentTest {
     verify(inventory).toggleInventoryDisplay();
   }
 
-//  /**
-//   * Checks whether the quickbar items are what they are expected to be when items are added to
-//   * the quickbar
-//   */
-//  @Test
-//  void getQuickBarItems() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    inventory.addQuickBarItems(testPotion);
-//
-//    assertNotEquals(expectedList, inventory.getQuickBarItems());
-//  }
+  /**
+   * Checks whether the quickbar items are what they are expected to be when items are added to
+   * the quickbar
+   */
+  @Test
+  void getQuickBarItems() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+
+    inventory.addQuickBarItems(testPotion);
+
+    assertNotEquals(expectedList, inventory.getQuickBarItems());
+  }
 
   @Test
   void itemEquals() {
@@ -483,12 +483,6 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testWeapon, testPotion));
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
-
-  /*private void cancelAnimation() {
-    if(combatAnimator == null) return;
-    combatAnimator.dispose();
-    combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
-  }*/
 
   /**
    * Checks that the item has correctly been added to the quickbar
@@ -564,12 +558,13 @@ class InventoryComponentTest {
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
     assertEquals(expectedList, inventory.getQuickBarItems());
-    System.out.println(inventory.getQuickBarItems());
+
     for (int i = 0; i < 9; ++i) {
       inventory.addItem(testPotion1);
       inventory.addQuickBarItems(speedPotion);
     }
 
+    inventory.consumePotion(1);
     assertEquals(expectedQuantity, inventory.getQuickBarQuantity()[inventory.getPotionIndex(speedPotion)]);
   }
 }
