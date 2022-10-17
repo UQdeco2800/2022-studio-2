@@ -17,7 +17,7 @@ athena
   orig: 64, 64
   offset: 0, 0
   index: -1
-athena 
+athena
   rotate: false
   xy: 128, 0
   size: 64, 64

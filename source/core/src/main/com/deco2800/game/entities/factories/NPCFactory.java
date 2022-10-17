@@ -235,29 +235,29 @@ public class NPCFactory {
    * @param target entity to stand
    * @return entity
    */
-  public static Entity createMale_citizen (Entity target) {
+  public static Entity createmaleCitizen (Entity target) {
 
-    Entity male_citizen = createBaseNPC();
-    Male_citizenConfig config = configs.male_citizen;
+    Entity maleCitizen = createBaseNPC();
+    maleCitizenConfig config = configs.maleCitizen;
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/NPC/male_citizen/male-atlas.atlas", TextureAtlas.class));
+                            .getAsset("images/NPC/maleCitizen/male-atlas.atlas", TextureAtlas.class));
     animator.addAnimation("MaleShake", 0.1f, Animation.PlayMode.LOOP);
 
-    male_citizen
+    maleCitizen
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new NPCAnimationController());
     ;
 
-//images/NPC/male_citizen/male-atlas.atlas
+//images/NPC/maleCitizen/male-atlas.atlas
 
-    male_citizen.getComponent(AITaskComponent.class);
-    male_citizen.getComponent(AnimationRenderComponent.class).scaleEntity();
-    male_citizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
-    male_citizen.setScale(1, 1);
-    return male_citizen;
+    maleCitizen.getComponent(AITaskComponent.class);
+    maleCitizen.getComponent(AnimationRenderComponent.class).scaleEntity();
+    maleCitizen.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    maleCitizen.setScale(1, 1);
+    return maleCitizen;
   }
 
   /**
@@ -448,7 +448,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC() {
+  public static Entity createBaseNPC() {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()
@@ -480,7 +480,7 @@ public class NPCFactory {
     return plug;
   }
 
-  private NPCFactory() {
+  public NPCFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }
 }
