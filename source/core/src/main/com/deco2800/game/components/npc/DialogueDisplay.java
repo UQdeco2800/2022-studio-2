@@ -180,10 +180,10 @@ public class DialogueDisplay extends UIComponent {
             "What do you mean 'what plan'?",
             "You were gonna sink Atlantis",
             "Me? Come with you?",
-            "Hmm...maybe it’s best I don't go..",
-            "Instead I’ll help by keeping you out of any suspicions",
+            "Hmm...maybe it's best I don't go...",
+            "Instead I'll help by keeping you out of any suspicions",
             "Also I found some poop after fixing a toilet",
-            "I don’t have any use for it so you can have it.",
+            "I don't have any use for it so you can have it.",
             ""
     };
 
