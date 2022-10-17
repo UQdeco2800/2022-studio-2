@@ -147,6 +147,10 @@ public class UndergroundGameArea extends GameArea {
             "images/Potions/defence_potion.png",
             "images/Potions/agility_potion.png",
             "images/Potions/swiftness_potion.png",
+            "images/Armour-assets-sprint2/Dark_Armour.png",
+            "images/Armour-assets-sprint2/baseArmour.png",
+            "images/Armour-assets-sprint2/Dark_Armour.png",
+            "images/Armour-assets-sprint2/damageReturner.png",
 
     };
 
@@ -215,6 +219,8 @@ public class UndergroundGameArea extends GameArea {
         spawnSpeedBuff();
         spawnStaminaPotion();
         spawnDefencePotion();
+        spawnArmour(ArmourFactory.ArmourType.darkArmour, 38, 80);
+        spawnArmour(ArmourFactory.ArmourType.damageReturner, 35, 35);
     }
 
     /**
@@ -610,6 +616,15 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
+    /**
+     * spawn an armour on the map based on the input armour type
+     * @param armourType armourType of the armour to be spawned
+     */
+    private void spawnArmour(ArmourFactory.ArmourType armourType, int x, int y) {
+        Entity armour = ArmourFactory.createArmour(armourType);
+        itemsOnMap.add(armour);
+        spawnEntityAt(armour, new GridPoint2( x,y), true, false);
+    }
 /*
     */
 /**

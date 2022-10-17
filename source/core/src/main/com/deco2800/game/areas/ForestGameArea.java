@@ -38,6 +38,7 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/gym_bro.png",
     "images/Enemies/discus.png",
     "images/Armour-assets-sprint2/baseArmour.png",
+          "images/Armour-assets-sprint2/Dark_Armour.png",
     "images/Armour-assets-sprint2/slowDiamond.png",
     "images/Armour-assets-sprint2/damageReturner.png",
     "images/Armour-assets-sprint2/fastLeather.png",
@@ -207,9 +208,9 @@ public class ForestGameArea extends GameArea {
     //spawnDefencePotion();
 
     spawnDumbbell();
-    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 145, 146);
     spawnArmour(ArmourFactory.ArmourType.fastLeather, 90, 22);
-    spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
+    //spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
 
     spawnDmgBuff();
     spawnFireBuff();
@@ -615,29 +616,68 @@ public class ForestGameArea extends GameArea {
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion);
-      spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      spawnEntityAt(speedPotion, new GridPoint2(90, 11), true, true);
+
       Entity speedPotion2 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion2);
-      spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
+      spawnEntityAt(speedPotion2, new GridPoint2(90, 9), true, true);
+
       Entity speedPotion3 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion3);
-      spawnEntityAt(speedPotion3, new GridPoint2(34, 80), true, true);
+      spawnEntityAt(speedPotion3, new GridPoint2(34, 97), true, true);
+
       Entity speedPotion4 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion4);
       spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
+
+    Entity speedPotion5 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion5);
+    spawnEntityAt(speedPotion5, new GridPoint2(90, 92), true, true);
+
+    Entity speedPotion6 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion6);
+    spawnEntityAt(speedPotion6, new GridPoint2(120, 22), true, true);
+
+    Entity speedPotion7 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion7);
+    spawnEntityAt(speedPotion7, new GridPoint2(150, 153), true, true);
+
+    Entity speedPotion8 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion8);
+    spawnEntityAt(speedPotion8, new GridPoint2(175, 92), true, true);
   }
 
   private void spawnHealthPotion() {
     Entity healthPotion = PotionFactory.createHealthPotion();
     itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
+    spawnEntityAt(healthPotion, new GridPoint2(93, 13), true, true);
+
+    Entity healthPotion2 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion2);
+    spawnEntityAt(healthPotion2, new GridPoint2(100, 63), true, true);
+
+    Entity healthPotion3 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion3);
+    spawnEntityAt(healthPotion3, new GridPoint2(90, 113), true, true);
+
+    Entity healthPotion4 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion4);
+    spawnEntityAt(healthPotion4, new GridPoint2(130, 143), true, true);
+
+    Entity healthPotion5 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion5);
+    spawnEntityAt(healthPotion5, new GridPoint2(150, 153), true, true);
+
+    Entity healthPotion6 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion6);
+    spawnEntityAt(healthPotion6, new GridPoint2(110, 159), true, true);
+
+    Entity healthPotion7 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion7);
+    spawnEntityAt(healthPotion7, new GridPoint2(175, 104), true, true);
   }
 
-  private void spawnDefencePotion() {
-    Entity healthPotion = PotionFactory.createDefencePotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
-  }
+
 
   /**
    * Spawns dumbbell entity into the game
