@@ -37,7 +37,7 @@ public class OpenCraftingComponent extends Component {
         }
     }
 
-    private boolean inRange(Vector2 playerPosition) {
+    public boolean inRange(Vector2 playerPosition) {
         if (ServiceLocator.getCraftArea().getGameAreaName().equals("Underground")) {
             if (playerPosition.dst(36, 15) < 3 || playerPosition.dst(11, 69) < 3 ||
                     playerPosition.dst(49, 81) < 3 || playerPosition.dst(90, 45) < 3) {
