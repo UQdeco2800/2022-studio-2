@@ -18,11 +18,13 @@ import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.deco2800.game.entities.factories.PotionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.deco2800.game.areas.ForestGameArea.GridPointToVector;
 
 /** Underground area for the demo game with trees, a player, and some enemies. */
 public class UndergroundGameArea extends GameArea {
@@ -141,7 +143,15 @@ public class UndergroundGameArea extends GameArea {
             "images/countdown/4.png",
             "images/countdown/5.png",
             "images/CombatItems/animations/BuffBounce/mapBounce.png",
-            "images/CombatItems/animations/BuffAnimations/buff.png"
+            "images/CombatItems/animations/BuffAnimations/buff.png",
+            "images/Potions/health_potion.png",
+            "images/Potions/defence_potion.png",
+            "images/Potions/agility_potion.png",
+            "images/Potions/swiftness_potion.png",
+            "images/Armour-assets-sprint2/Dark_Armour.png",
+            "images/Armour-assets-sprint2/baseArmour.png",
+            "images/Armour-assets-sprint2/Dark_Armour.png",
+            "images/Armour-assets-sprint2/damageReturner.png",
 
     };
 
@@ -151,22 +161,25 @@ public class UndergroundGameArea extends GameArea {
             "images/Movement/movement.atlas", "images/KeyPrompt/KEY_Q_!.atlas",
             "images/CombatItems/animations/combatItemsAnimation.atlas", "images/CombatItems/animations/PlungerBow/plungerBowProjectile.atlas",
             "images/Enemies/mega_poop.atlas", "images/Enemies/poop.atlas", "images/NPC/guard npc/npcguard.atlas" ,
+
             "images/NPC/friendly_creature npc/friendly_creature.atlas",
             "images/CombatItems/animations/BuffBounce/mapBounce.atlas",
-            "images/CombatItems/animations/BuffAnimations/buff.atlas"
+            "images/CombatItems/animations/BuffAnimations/buff.atlas",
+            "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/dialogue_indicator/dialogue.atlas"
 
     };
     private static final String[] undergroundSounds = {"sounds/Impact4.ogg", "sounds/plungerArrowSound.mp3",
             "sounds/buffPickupSound.wav", "sounds/WeaponCrafted.wav", "sounds/Blueprint.wav", "sounds/ItemClick.wav",
-            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav"};
+            "sounds/Scroll.wav", "sounds/new_Weapon_Crafted.wav","sounds/combatitems/metalSword.wav","sounds/combatitems/plungerSound.mp3",
+            "sounds/combatitems/rangeWeaponSound.mp3"};
     private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
     private final String[] undergroundMusic = {backgroundMusic};
 
     private final TerrainFactory terrainFactory;
-//    public static GridPoint2 GuardPosition;
-//    public static GridPoint2 GuardDialoguePosition;
-//    public static GridPoint2 friendlycreaturePosition;
-//    public static GridPoint2 friendlycreatureDialoguePosition;
+    public static GridPoint2 GuardPosition;
+    public static GridPoint2 GuardDialoguePosition;
+    public static GridPoint2 friendlycreaturePosition;
+    public static GridPoint2 friendlycreatureDialoguePosition;
 
     private Entity player;
 
@@ -198,8 +211,8 @@ public class UndergroundGameArea extends GameArea {
         spawnCraftingTable();
         player = spawnPlayer();
         spawnPoops();
-//        spawnGuard();
-//        spawnfriendlycreature();
+        spawnGuard();
+        spawnfriendlycreature();
         megaPoop = spawnMegaPoop();
         playMusic();
 
@@ -207,6 +220,10 @@ public class UndergroundGameArea extends GameArea {
         spawnFireBuff();
         spawnPoisonBuff();
         spawnSpeedBuff();
+        spawnStaminaPotion();
+        spawnDefencePotion();
+        spawnArmour(ArmourFactory.ArmourType.darkArmour, 38, 80);
+        spawnArmour(ArmourFactory.ArmourType.damageReturner, 35, 35);
     }
 
     /**
@@ -602,6 +619,15 @@ public class UndergroundGameArea extends GameArea {
         }
     }
 
+    /**
+     * spawn an armour on the map based on the input armour type
+     * @param armourType armourType of the armour to be spawned
+     */
+    private void spawnArmour(ArmourFactory.ArmourType armourType, int x, int y) {
+        Entity armour = ArmourFactory.createArmour(armourType);
+        itemsOnMap.add(armour);
+        spawnEntityAt(armour, new GridPoint2( x,y), true, false);
+    }
 /*
     */
 /**
@@ -652,6 +678,66 @@ public class UndergroundGameArea extends GameArea {
             auraOnMap.add(fireBuff);
             spawnEntityAt(fireBuff, location, true, false);
         }
+    }
+
+    private void spawnStaminaPotion() {
+        Entity staminaPotion = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion);
+        spawnEntityAt(staminaPotion, new GridPoint2(35, 39), true, true);
+
+        Entity staminaPotion3 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion3);
+        spawnEntityAt(staminaPotion3, new GridPoint2(17, 69), true, true);
+
+        Entity staminaPotion4 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion4);
+        spawnEntityAt(staminaPotion4, new GridPoint2(54, 47), true, true);
+
+        Entity staminaPotion5 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion5);
+        spawnEntityAt(staminaPotion5, new GridPoint2(80, 48), true, true);
+
+        Entity staminaPotion6 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion6);
+        spawnEntityAt(staminaPotion6, new GridPoint2(84, 64), true, true);
+
+        Entity staminaPotion7 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion7);
+        spawnEntityAt(staminaPotion7, new GridPoint2(52, 69), true, true);
+
+        Entity staminaPotion8 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion8);
+        spawnEntityAt(staminaPotion8, new GridPoint2(20, 90), true, true);
+
+        Entity staminaPotion9 = PotionFactory.createStaminaPotion();
+        itemsOnMap.add(staminaPotion9);
+        spawnEntityAt(staminaPotion9, new GridPoint2(38, 85), true, true);
+    }
+
+    private void spawnDefencePotion() {
+        Entity defencePotion = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion);
+        spawnEntityAt(defencePotion, new GridPoint2(35, 12), true, true);
+
+        Entity defencePotion1 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion1);
+        spawnEntityAt(defencePotion, new GridPoint2(35, 55), true, true);
+
+        Entity defencePotion2 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion2);
+        spawnEntityAt(defencePotion2, new GridPoint2(17, 74), true, true);
+
+        Entity defencePotion3 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion3);
+        spawnEntityAt(defencePotion3, new GridPoint2(38, 90), true, true);
+
+        Entity defencePotion4 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion4);
+        spawnEntityAt(defencePotion4, new GridPoint2(29, 110), true, true);
+
+        Entity defencePotion5 = PotionFactory.createDefencePotion();
+        itemsOnMap.add(defencePotion5);
+        spawnEntityAt(defencePotion5, new GridPoint2(49, 108), true, true);
     }
 
     /**
@@ -717,39 +803,39 @@ public class UndergroundGameArea extends GameArea {
     /**
      * Spawn guard NPC in random position. - Team 7 all-mid-npc
      */
-//    private void spawnGuard() {
-//        GuardPosition = new GridPoint2(10, 8);
-//        GuardDialoguePosition = new GridPoint2(10, 9);
-//
-//        Entity guard = NPCFactory.createGuard(player);
-//        spawnEntityAt(guard, GuardPosition, true, true);
-//        areaEntities.add(guard);
-//
-//        Entity dialogue = DialogueFactory.createDialogue();
-//        spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
-//        areaEntities.add(dialogue);
-//    }
-//    public static GridPoint2 getGuardPosition() {
-//        return GuardPosition;
-//    }
+    private void spawnGuard() {
+        GuardPosition = new GridPoint2(37, 24);
+        GuardDialoguePosition = new GridPoint2(37, 25);
 
-    /**
-     * Spawn friendly creature NPC in random position. - Team 7 all-mid-npc
-     */
+        Entity guard = NPCFactory.createGuard(player);
+        spawnEntityAt(guard, GuardPosition, true, true);
+        areaEntities.add(guard);
 
-//    private void spawnfriendlycreature() {
-//        friendlycreaturePosition = new GridPoint2(5, 10);
-//        friendlycreatureDialoguePosition = new GridPoint2(5, 11);
-//
-//        Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
-//        spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
-//        areaEntities.add(friendlycreature);
-//
-//        Entity dialogue = DialogueFactory.createDialogue();
-//        spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-//        areaEntities.add(dialogue);
-//    }
+        Entity dialogue = DialogueFactory.createDialogue();
+        spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
+        areaEntities.add(dialogue);
+    }
+    public static GridPoint2 getGuardPosition() {
+        return GuardPosition;
+    }
 
+
+
+    private void spawnfriendlycreature() {
+        friendlycreaturePosition = new GridPoint2(34, 24);
+        friendlycreatureDialoguePosition = new GridPoint2(34, 25);
+
+        Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
+        spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
+        areaEntities.add(friendlycreature);
+
+        Entity dialogue = DialogueFactory.createDialogue();
+        spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
+        areaEntities.add(dialogue);
+    }
+    public static Vector2 getFriendlycreaturePosition(GridPoint2 friendlycreaturePosition) {
+        return GridPointToVector(friendlycreaturePosition);
+    }
 
     private GridPoint2 randomPositon() {
         GridPoint2 minPos = new GridPoint2(0, 0);

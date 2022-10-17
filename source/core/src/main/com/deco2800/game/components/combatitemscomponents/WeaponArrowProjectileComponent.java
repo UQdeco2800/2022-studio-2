@@ -64,7 +64,7 @@ public class WeaponArrowProjectileComponent extends Component {
     private void onCollisionStart(Fixture me, Fixture other) {
         Entity enemy = ((BodyUserData) other.getBody().getUserData()).entity;
         if (enemy.checkEntityType(EntityTypes.ENEMY)) {
-            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/plungerArrowSound.mp3", Sound.class);
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
             attackSound.play();
         }
     }

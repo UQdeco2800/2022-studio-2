@@ -14,7 +14,7 @@
     "weight": -5,
     "dmgReturn": 0,
     "vitality": 1,
-    "materials": {"gold": 1, "steel": 1}
+    "materials": {"gold": 1, "steel": 2}
   },
 
   "slowDiamond": {
@@ -23,7 +23,7 @@
     "weight": 5,
     "dmgReturn": 0,
     "vitality": 1,
-    "materials": {"gold": 1, "steel": 1}
+    "materials": {"gold": 5, "steel": 3}
   },
 
   "damageReturner": {
@@ -32,6 +32,15 @@
     "weight": 0,
     "dmgReturn": 5,
     "vitality": 1,
-    "materials": {"gold": 1, "steel": 1}
+    "materials": {"gold": 5, "steel": 5}
+  },
+
+  "darkArmour": {
+    "phyResistance": 3,
+    "durability": 3,
+    "weight": -5,
+    "dmgReturn": 3,
+    "vitality": 1,
+    "materials": {"gold": 10, "steel": 10}
   }
 }

@@ -52,6 +52,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String backgroundMusicMapOne = "sounds/music_sprint4/level0_1.wav";
   private static final String backgroundMusicMapTwo = "sounds/music_sprint4/level0_2.wav";
   private static final String[] mainMenuMusic = {backgroundMusicMapOne,backgroundMusicMapTwo};
+  private static final String WALKING_SOUND = "sounds/walk_on_sand.wav";
   private static final String[] quickBar = {"images/Inventory/quickbar_sprint3.png"};
   private static final String[] healthBar = {"images/PlayerStatDisplayGraphics/Health-plunger/plunger_1.png","images/PlayerStatDisplayGraphics/Health-plunger/plunger_2.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_3.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_4.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_5.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_6.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_7.png", "images/PlayerStatDisplayGraphics/Health-plunger/plunger_8.png"};
   private static final String[] staminaBar = {"images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_1.png","images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_2.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_3.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_4.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_5.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_6.png", "images/PlayerStatDisplayGraphics/Stamina-tp/tp-stamina_7.png" };
@@ -83,13 +84,13 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/charge_disabled.png"
   };
   private static final String[] dialogueImg = {
-          "images/NPC/Dialogue/dialoguesboxmale.png",
-          "images/NPC/Dialogue/dialoguesboxguard.png",
-          "images/NPC/Dialogue/dialoguesboxchild.png",
-          "images/NPC/Dialogue/dialoguesboxfemale.png",
-          "images/NPC/Dialogue/HumanGuardDialogue.png",
-          "images/NPC/Dialogue/FriendlyCreatureDialogue.png",
-          "images/NPC/Dialogue/PlumberFriend.png"
+          "images/NPC/Dialogue/dialoguesboxmale2.png",
+          "images/NPC/Dialogue/dialoguesboxguard2.png",
+          "images/NPC/Dialogue/dialoguesboxchild2.png",
+          "images/NPC/Dialogue/dialoguesboxfemale2.png",
+          "images/NPC/Dialogue/humanguarddialogue2.png",
+          "images/NPC/Dialogue/friendlycreaturedialogue2.png",
+          "images/NPC/Dialogue/plumberfriend2.png"
   };
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final String[] skillScreenOverlays = {
@@ -166,31 +167,45 @@ public class MainGameScreen extends ScreenAdapter {
   private void playMusicOne() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapOne, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.2f);
     music.play();
   }
 
   private void playMusicTwo() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapTwo, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.2f);
     music.play();
+  }
+
+  private void stopWalkingSound() {
+    Music music = ServiceLocator.getResourceService().getAsset(WALKING_SOUND, Music.class);
+    music.stop();
   }
 
   /**
    * Sets dead to true, changing the render of the game
    */
-  public void deathScreenStart() { dead = true; }
+  public void deathScreenStart() {
+    stopWalkingSound();
+    dead = true;
+  }
 
   /**
    * Sets transition to true
    */
-  public void transitionScreenStart() { transition = true; }
+  public void transitionScreenStart() {
+    stopWalkingSound();
+    transition = true;
+  }
 
   /**
    * Sets win to true
    */
-  public void winScreenStart() { win = true;}
+  public void winScreenStart() {
+    stopWalkingSound();
+    win = true;
+  }
 
 
   /**

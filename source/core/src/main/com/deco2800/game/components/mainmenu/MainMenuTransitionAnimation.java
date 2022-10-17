@@ -24,7 +24,7 @@ public class MainMenuTransitionAnimation extends UIComponent {
 
     @Override
     public void create() {
-        frame = 0;
+        frame = 1;
         super.create();
         addActors();
     }

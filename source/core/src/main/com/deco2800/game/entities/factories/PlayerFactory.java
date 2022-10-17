@@ -2,7 +2,6 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.deco2800.game.SkillsTree.SkillsTreeDisplay;
 import com.deco2800.game.components.combatitemscomponents.BuffDisplayComponent;
 import com.deco2800.game.components.combatitemscomponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
@@ -66,7 +65,6 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new OpenCraftingComponent())
-                //.addComponent(new TransitionMapComponent())
                 .addComponent(new DialogueKeybordInputComponent())
                 .addComponent(new DialogueDisplay())
             .addComponent(new OpenPauseComponent())
@@ -75,7 +73,8 @@ public class PlayerFactory {
             .addComponent(animator)
                 .addComponent(new BuffDisplayComponent())
             .addComponent(new PlayerKeyPrompt(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerAnimationController()).addComponent(new PauseMenuActions())
+            .addComponent(new PlayerAnimationController())
+            .addComponent(new PauseMenuActions())
             .addComponent(new Countdown());
 
 
@@ -91,11 +90,11 @@ public class PlayerFactory {
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHera());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHeraAthenaDag());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createGoldenPlungerBow());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPipe());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());*/
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createGoldenPlungerBow());*/
     return player;
   }
 
@@ -264,6 +263,9 @@ public class PlayerFactory {
     animator.addAnimation("plungerBowSpeed", 0.1f);
     animator.addAnimation("plungerBowSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerBowStatic", 0.1f);
+
+    /*golden plunger bow animations*/
+    animator.addAnimation("goldenPlungerBow", 0.1f);
 
     Entity combatAnimator =
             new Entity().addComponent(animator)

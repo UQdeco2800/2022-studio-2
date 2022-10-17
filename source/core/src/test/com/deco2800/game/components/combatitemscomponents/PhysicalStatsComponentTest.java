@@ -24,6 +24,8 @@ class PhysicalStatsComponentTest {
     public PhysicalWeaponStatsComponent weapons1;
     public PhysicalWeaponStatsComponent weapons2;
     public PhysicalWeaponStatsComponent weapons3;
+    public PhysicalWeaponStatsComponent weapons4;
+    public PhysicalWeaponStatsComponent weapons5;
 
 
     @BeforeEach
@@ -38,15 +40,18 @@ class PhysicalStatsComponentTest {
         materials2.put(Materials.Wood, 5);
 
         weapons1 = new PhysicalWeaponStatsComponent(20, 10, materials1, 2, "pipe");
-        weapons2 = new PhysicalWeaponStatsComponent(30, 20, materials2, 5, "pipe");
+        weapons2 = new PhysicalWeaponStatsComponent(20, 20, materials2, 2, "pipe");
         weapons3 = new PhysicalWeaponStatsComponent(20, 10, materials1, 2, "pipe");
+
+        weapons4 = new PhysicalWeaponStatsComponent(30, 10, materials2, 2, "pipe");
+        weapons5 = new PhysicalWeaponStatsComponent(20, 10, materials2, 5, "pipe");
 
     }
 
     @Test
     public void testGetDamage() {
         assertEquals(20, weapons1.getDamage(), "Incorrect value was returned.");
-        assertEquals(30, weapons2.getDamage(), "Incorrect value was returned.");
+        assertEquals(30, weapons4.getDamage(), "Incorrect value was returned.");
     }
 
     @Test
@@ -110,11 +115,19 @@ class PhysicalStatsComponentTest {
     }
 
     @Test
-    public void testEqualsOther() {
+    public void testEqualsOtherFalse() {
+        // checks for each potential difference
         assertEquals(false, weapons1.equalsOther(weapons2), "Incorrect value was returned.");
-        assertEquals(true, weapons1.equalsOther(weapons3), "Incorrect value was returned.");
-
+        assertEquals(false, weapons1.equalsOther(weapons4), "Incorrect value was returned.");
+        assertEquals(false, weapons1.equalsOther(weapons5), "Incorrect value was returned.");
     }
+
+    @Test
+    public void testEqualsOtherTrue() {
+        assertEquals(true, weapons1.equalsOther(weapons3), "Incorrect value was returned.");
+    }
+
+
 
    /* @Test
     public void testAuraInEffect() {

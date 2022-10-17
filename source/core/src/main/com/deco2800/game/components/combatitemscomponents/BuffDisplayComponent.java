@@ -74,8 +74,4 @@ public class BuffDisplayComponent extends UIComponent {
     }
 
 
-    public void dispose() {
-        super.dispose();
-    }
-
 }
