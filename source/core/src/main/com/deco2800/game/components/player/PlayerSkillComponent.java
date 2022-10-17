@@ -59,6 +59,8 @@ public class PlayerSkillComponent extends Component {
 
     Map<String, Long> skillCooldowns = new HashMap<>();
 
+    private static final long MAX_COOLDOWN = 5000;
+
     // Teleport variables
     private static final int TELEPORT_LENGTH = 8;
     private long teleportEnd; // Teleport charge end system time
@@ -699,6 +701,7 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers root event.
      */
     public void startRoot() {
+
         if (cooldownFinished("root", 5000)) {
             skillAnimator.getEvents().trigger("rootAnimation");
             playerEntity.getEvents().trigger("rootCountdown");
