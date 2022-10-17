@@ -255,7 +255,7 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
-  private void spawnTerrain() {
+  public void spawnTerrain() {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.LEVEL_ONE);
     spawnEntity(new Entity().addComponent(terrain));
@@ -817,7 +817,7 @@ public class ForestGameArea extends GameArea {
    * Spawns the player entity, with a skill and combat animator overlaid above the player.
    * @return the player entity
    */
-  private Entity spawnPlayer() {
+  public Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
