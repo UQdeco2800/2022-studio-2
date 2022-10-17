@@ -11,7 +11,7 @@ public class PoopAnimationController extends Component {
     AnimationRenderComponent animator;
 
     /**
-     * Creates the gym bro animation controller
+     * Creates the poop animation controller
      */
     @Override
     public void create() {
@@ -29,7 +29,7 @@ public class PoopAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing right
+     * Animates the poop walking when facing right
      */
     private void animateWalkRight() {
         if (!"walk_right".equals(animator.getCurrentAnimation())) {
@@ -38,7 +38,7 @@ public class PoopAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing left
+     * Animates the poop walking when facing left
      */
     private void animateWalkLeft() {
         if (!"walk_left".equals(animator.getCurrentAnimation())) {
@@ -47,7 +47,7 @@ public class PoopAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing backwards
+     * Animates the poop walking when facing backwards
      */
     private void animateWalkBack() {
         if (!"walk_back".equals(animator.getCurrentAnimation())) {
@@ -56,7 +56,7 @@ public class PoopAnimationController extends Component {
     }
 
     /**
-     * Animates the gym bro walking when facing forwards
+     * Animates the poop walking when facing forwards
      */
     private void animateWalkFront() {
         if (!"walk_front".equals(animator.getCurrentAnimation())) {
@@ -64,24 +64,36 @@ public class PoopAnimationController extends Component {
         }
     }
 
+    /**
+     * Animates the poop vanishing when facing front
+     */
     private void animateVanishFront() {
         if (!"vanish_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_front");
         }
     }
 
+    /**
+     * Animates the poop vanishing when facing backwards
+     */
     private void animateVanishBack() {
         if (!"vanish_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_back");
         }
     }
 
+    /**
+     * Animates the poop vanishing when facing left
+     */
     private void animateVanishLeft() {
         if (!"vanish_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_left");
         }
     }
 
+    /**
+     * Animates the poop vanishing when facing right
+     */
     private void animateVanishRight() {
         if (!"vanish_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_right");
