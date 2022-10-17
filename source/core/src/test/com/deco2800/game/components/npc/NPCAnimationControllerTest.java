@@ -83,4 +83,21 @@ public class NPCAnimationControllerTest {
         assertEquals("MaleShake", animationRenderComponent.getCurrentAnimation());
 
     }
+    @Test
+    void femaleShakeStart() {
+        Entity entity = new Entity();
+        TextureAtlas atlas = createMockAtlas("femaleShake", 1);
+
+        AnimationRenderComponent animationRenderComponent = new AnimationRenderComponent(atlas);
+        animationRenderComponent.addAnimation("femaleShake", 1f, Animation.PlayMode.LOOP);animationRenderComponent.addAnimation("walk_front", 1f, Animation.PlayMode.LOOP);
+        entity.addComponent(animationRenderComponent);
+
+        NPCAnimationController npcAnimationController = new NPCAnimationController();
+        npcAnimationController.setEntity(entity);
+        npcAnimationController.create();
+
+        entity.getEvents().trigger("femaleShake");
+        assertEquals("femaleShake", animationRenderComponent.getCurrentAnimation());
+
+    }
 }

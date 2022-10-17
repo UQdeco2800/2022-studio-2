@@ -30,6 +30,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
 import static com.deco2800.game.areas.UndergroundGameArea.*;
+import static com.deco2800.game.areas.UndergroundGameArea.GuardPosition;
+import static com.deco2800.game.areas.UndergroundGameArea.friendlycreaturePosition;
 
 
 /**
