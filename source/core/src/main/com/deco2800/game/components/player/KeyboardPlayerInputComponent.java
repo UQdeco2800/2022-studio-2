@@ -4,21 +4,14 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.components.Component;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.components.Component;
 import com.deco2800.game.input.InputComponent;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.utils.math.Vector2Utils;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.EntityTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.Provider;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
@@ -136,32 +129,29 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         // The coordinates below are for the new plug hole to go to forest game area
         //transition state for level 1
 
-        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-          if ((entity.getPosition().x > 174 && entity.getPosition().x < 176) &&
+        if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class &&
+                (entity.getPosition().x > 174 && entity.getPosition().x < 176) &&
                   (entity.getPosition().y > 54 && entity.getPosition().y < 55)
                   && (ForestGameArea.ifHeraclesOnMap())) {
-
             entity.getEvents().trigger("mapTransition");
-            }
         }
         // Win logic for level 2
-        if (ServiceLocator.getGameArea().getClass() == UndergroundGameArea.class) {
-          logger.info("entity positon: X " + entity.getPosition().x + " y " + entity.getPosition().y);
-          if (UndergroundGameArea.ifMegaPoopOnMap() &&
-                (entity.getPosition().x > 36 && entity.getPosition().x < 40) &&
-                (entity.getPosition().y > 113 && entity.getPosition().y < 117))
-          {
+        if (ServiceLocator.getGameArea().getClass() == UndergroundGameArea.class &&
+                UndergroundGameArea.ifMegaPoopOnMap() &&
+                (entity.getPosition().x > 37 && entity.getPosition().x < 39) &&
+                (entity.getPosition().y > 114 && entity.getPosition().y < 116)) {
             logger.info("win state triggered");
             entity.getEvents().trigger("win");
-          }
         }
 
         return true;
       case Keys.N:
-        //entity.getEvents().trigger("win");
-
         // Use to skip to level 2.
         entity.getEvents().trigger("mapTransition");
+        return true;
+      case Keys.B:
+        // Use to skip to win screen.
+        entity.getEvents().trigger("win");
         return true;
       default:
         return false;
