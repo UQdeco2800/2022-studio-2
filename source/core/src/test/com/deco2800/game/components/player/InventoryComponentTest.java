@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
-import com.deco2800.game.components.combatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
@@ -133,6 +133,15 @@ class InventoryComponentTest {
 //    verify(combatAnimator).dispose();
   }
 
+  /*@Test
+  void disposeAnimation() {
+    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
+    RenderComponent component = spy(AnimationRenderComponent.class);
+    component.create();
+    component.dispose();
+    verify(ServiceLocator.getRenderService()).unregister(component);
+  }*/
+
   @Test
   void hasItem() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -250,6 +259,8 @@ class InventoryComponentTest {
     Entity testArmour = ArmourFactory.createBaseArmour();
     Entity testPotion = PotionFactory.createTestHealthPotion();
 
+    testInventory3.removeItem(testWeapon);
+
     testInventory3.addItem(testWeapon);
     testInventory3.addItem(testArmour);
 
@@ -267,6 +278,8 @@ class InventoryComponentTest {
   void removeItem2() {
     InventoryComponent testInventory3 = new InventoryComponent();
     Entity iron = MaterialFactory.createIron();
+
+    testInventory3.removeItem(EntityTypes.IRON);
 
     testInventory3.addItem(iron);
     testInventory3.removeItem(EntityTypes.IRON);
@@ -342,26 +355,6 @@ class InventoryComponentTest {
 
     assertArrayEquals(expectedList, inventory.getEquipables());
   }
-
-  @Test
-  void removeEquipable() {
-    //Needs work, Incomplete test
-
-//    Entity player = PlayerFactory.createTestPlayer();
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    Entity testWeapon = WeaponFactory.createHera();
-//    Entity[] expectedList = new Entity[2];
-//
-////    InventoryComponent inventoryComponent = spy(InventoryComponent.class);
-////    doNothing().when(inventoryComponent).cancelAnimation();
-//
-//    inventory.addItem(testWeapon);
-//    inventory.equipItem(testWeapon);
-//    inventory.removeEquipable(0);
-//
-//    assertArrayEquals(expectedList, inventory.getEquipables());
-  }
-
 
   @Test
   void equipItem() {
@@ -489,15 +482,6 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testWeapon, testPotion));
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
-
-//  @Test
-//  void disposeAnimation() {
-//    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
-//    RenderComponent component = spy(AnimationRenderComponent.class);
-//    component.create();
-//    component.dispose();
-//    verify(ServiceLocator.getRenderService()).unregister(component);
-//  }
 
   /*private void cancelAnimation() {
     if(combatAnimator == null) return;

@@ -2,7 +2,7 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.combatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -109,8 +109,15 @@ public class InventoryComponent extends Component {
         entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
         ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
         String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-        String staticAnimation = description+"Static";
-        combatAnimator.getEvents().trigger(staticAnimation);
+
+        //add exception for golden plunger
+        if (description != "goldenPlungerBow"){
+            String staticAnimation = description+"Static";
+            combatAnimator.getEvents().trigger(staticAnimation);
+        }
+        else {
+            combatAnimator.getEvents().trigger(description);
+        }
     }
 
     /**

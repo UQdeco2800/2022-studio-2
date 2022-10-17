@@ -22,7 +22,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   private static int keyPressedCounter;
   private static boolean menuOpened = false;
   private static Enum currentMenu = MenuTypes.NONE;
-  enum MenuTypes{
+  public enum MenuTypes{
     INVENTORY,
     CRAFTING,
     MINIMAP,
@@ -65,14 +65,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attackEnemy");
         return true;
       case Keys.Q:
-        if (currentMenu == MenuTypes.NONE
-                || currentMenu == MenuTypes.CRAFTING) {
-          currentMenu = MenuTypes.CRAFTING;
           entity.getEvents().trigger("can_open");
-          menuOpened = !menuOpened;
-          if (!menuOpened) currentMenu = MenuTypes.NONE;
           return true;
-        }
       case Keys.J:
         entity.getEvents().trigger("skill");
         return true;
@@ -191,6 +185,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       default:
         return false;
     }
+  }
+
+  public static void setCurrentMenu(Boolean opened, MenuTypes menu) {
+    menuOpened = opened;
+    currentMenu = menu;
   }
 
   public static void clearMenuOpening() {
