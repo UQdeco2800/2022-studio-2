@@ -2,9 +2,12 @@ package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
@@ -18,6 +21,7 @@ import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.ui.UIComponent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,6 +69,15 @@ class InventoryComponentTest {
     String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
     resourceService.loadTextureAtlases(textureAtlases);
     resourceService.loadAll();
+
+    GameArea gameArea = spy(GameArea.class);
+    RenderService renderService = new RenderService();
+    renderService.setStage(mock(Stage.class));
+    GameAreaDisplay inventoryArea = new GameAreaDisplay("");
+    ServiceLocator.registerGameArea(gameArea);
+    ServiceLocator.registerRenderService(renderService);
+    ServiceLocator.registerInventoryArea(inventoryArea);
+    inventoryArea.create();
   }
 
   @Test
@@ -348,8 +361,8 @@ class InventoryComponentTest {
 //    Entity testWeapon = WeaponFactory.createHera();
 //    Entity[] expectedList = new Entity[2];
 //
-//    InventoryComponent inventoryComponent = mock(InventoryComponent.class);
-//    inventoryComponent.cancelAnimation();
+////    InventoryComponent inventoryComponent = spy(InventoryComponent.class);
+////    doNothing().when(inventoryComponent).cancelAnimation();
 //
 //    inventory.addItem(testWeapon);
 //    inventory.equipItem(testWeapon);
@@ -444,40 +457,16 @@ class InventoryComponentTest {
 
   @Test
   void toggleInventoryDisplay() {
-    /*
-    not working but trying to fix it.
-    if anyone can make it, just delete all the comment :)
-     */
 
-////    ServiceLocator serviceLocator = spy(ServiceLocator.class);
-//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
-//    Entity player = PlayerFactory.createTestPlayer();
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//
-//    GameAreaDisplay gameArea = mock(GameAreaDisplay.class);
-////    GameAreaDisplay gameArea = new GameAreaDisplay("1");
-//
-////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea);
-//    doThrow(new Exception("null")).when(serviceLocator.getInventoryArea());
-//
-////    GameAreaDisplay gameArea1 = mock(GameAreaDisplay.class);
-////    GameAreaDisplay gameArea2 = mock(GameAreaDisplay.class);
-////    GameAreaDisplay gameArea3 = mock(GameAreaDisplay.class);
-////
-////    String gameAreaName1 = "one";
-////    String gameAreaName2 = "two";
-////    String gameAreaName3 = "three";
-////    gameArea1.setGameAreaName(gameAreaName1);
-////    gameArea2.setGameAreaName(gameAreaName2);
-////    gameArea3.setGameAreaName(gameAreaName3);
-////
-////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea1)
-////            .thenReturn(gameArea2)
-////            .thenReturn(gameArea3);
-//
-//    inventory.toggleInventoryDisplay();
-//
-//    verify(serviceLocator.getInventoryArea()).displayInventoryMenu();
+    Entity player = PlayerFactory.createTestPlayer();
+    ServiceLocator serviceLocator = mock(ServiceLocator.class);
+
+    when(serviceLocator.getGameArea().getPlayer()).thenReturn(player);
+
+    InventoryComponent inventory = spy(InventoryComponent.class);
+    inventory.toggleInventoryDisplay();
+
+    verify(inventory).toggleInventoryDisplay();
   }
 
 //  /**
