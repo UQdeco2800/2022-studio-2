@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatItemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -42,15 +42,17 @@ public class AuraPickupComponent extends ItemPickupComponent {
         //aura is only picked up if weapon equipped
         if (other == f) {
             Entity weapon;
+            //if there is weapon equipped, there are no current buffs and weapon is not golden plunger
             if ((weapon = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class).getEquipable(0)) != null
-            && ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied == null) { //if there is weapon equipped and there are no current buffs
+            && ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied == null
+            && (weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("goldenPlungerBow") != true)) {
                 Entity entityOfComponent = getEntity();
                 Sound pickupSound = ServiceLocator.getResourceService().getAsset("sounds/buffPickupSound.wav", Sound.class);
                 pickupSound.play();
-                if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
+                if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
                     ForestGameArea.removeAuraOnMap(entityOfComponent);
                 }
-                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea undergroundgamearea){
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
                     UndergroundGameArea.removeAuraOnMap(entityOfComponent);
                 }
                 logger.info("Aura picked up");
