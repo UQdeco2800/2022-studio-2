@@ -35,7 +35,7 @@ public class CombatStatsComponent extends Component {
   private int baseAttack;
   private float damageReduction;
   private float damageReturn;
-  private Entity playerWeapon;
+  public Entity playerWeapon;
 
   @Override
   public void create(){
