@@ -79,24 +79,10 @@ public class LevelTransitionDisplay extends UIComponent {
      */
     public void jUnitAddActors() {
 
-        Image transitionImage;
-
         if (frame < LevelTransitionScreen.FRAME_COUNT) {
-            // Clear the stage before doing anything
-
-            // Create table for display
-            table = new Table();
-            table.setFillParent(true);
-
-            // Load the new frame
-            transitionImage = new Image(ServiceLocator.getResourceService()
-                    .getAsset(LevelTransitionScreen.getTransitionTexture(frame), Texture.class));
-
-            // Update variables for pseudo-animation management and then display it
             frame++;
-            table.add(transitionImage);
             lastFrameTime = System.currentTimeMillis();
-            logger.debug("Updating transition display animation");
+            logger.debug("JUnit update");
         }
     }
 
