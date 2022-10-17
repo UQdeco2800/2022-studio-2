@@ -120,26 +120,55 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkCanAttack()" class="member-name-link">checkCanAttack</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Called when the entity is created and registered.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCombatAnimator()" class="member-name-link">getCombatAnimator</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#attackRanged()" class="member-name-link">attackRanged</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the combat item animator</div>
+<div class="block">Method triggered when the player is holding a ranged weapon, which creates the projectiles on the map</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCombatAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setCombatAnimator</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;combatAnimator)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#attackWithNoWeapon()" class="member-name-link">attackWithNoWeapon</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sets the combat item animator for this actions component</div>
+<div class="block">Method which sets the base cooldown to 4 seconds when attack with a fist</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#attackWithPhysicalWeapon(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)" class="member-name-link">attackWithPhysicalWeapon</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weaponEquipped,
+ <a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraEquipped)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Method to set attack cooldown and trigger attack animation dependent on the weapon and aura equipped</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#checkCanAttack()" class="member-name-link">checkCanAttack</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Method called to check if the player can attack</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#create()" class="member-name-link">create</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called when the entity is created and registered.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCombatAnimator()" class="member-name-link">getCombatAnimator</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the combat item animator</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#playAttackAnimation(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)" class="member-name-link">playAttackAnimation</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weaponEquipped,
+ <a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraEquipped)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Plays attack animation dependent on weapon in hand</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#playAttackSounds(com.deco2800.game.entities.Entity)" class="member-name-link">playAttackSounds</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weaponEquipped)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Plays attack sounds for combat weapons dependent on the weapon in hand</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCombatAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setCombatAnimator</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;combatAnimator)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the combat item animator for this actions component</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called once per frame of the game, and should be used for most component logic.</div>
 </div>
 </div>
@@ -234,6 +263,58 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="checkCanAttack()">
 <h3>checkCanAttack</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">checkCanAttack</span>()</div>
+<div class="block">Method called to check if the player can attack</div>
+</section>
+</li>
+<li>
+<section class="detail" id="playAttackSounds(com.deco2800.game.entities.Entity)">
+<h3>playAttackSounds</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">playAttackSounds</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weaponEquipped)</span></div>
+<div class="block">Plays attack sounds for combat weapons dependent on the weapon in hand</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>weaponEquipped</code> - The entity representing the weapon the player is currently holding</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="playAttackAnimation(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)">
+<h3>playAttackAnimation</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">playAttackAnimation</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weaponEquipped,
+ <a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraEquipped)</span></div>
+<div class="block">Plays attack animation dependent on weapon in hand</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>weaponEquipped</code> - The entity representing the weapon the player is currently holding</dd>
+<dd><code>auraEquipped</code> - The entity representing the aura that is currently active</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="attackWithPhysicalWeapon(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)">
+<h3>attackWithPhysicalWeapon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">attackWithPhysicalWeapon</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weaponEquipped,
+ <a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;auraEquipped)</span></div>
+<div class="block">Method to set attack cooldown and trigger attack animation dependent on the weapon and aura equipped</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>weaponEquipped</code> - The entity representing the weapon the player is currently holding</dd>
+<dd><code>auraEquipped</code> - The entity representing the aura that is currently active</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="attackWithNoWeapon()">
+<h3>attackWithNoWeapon</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">attackWithNoWeapon</span>()</div>
+<div class="block">Method which sets the base cooldown to 4 seconds when attack with a fist</div>
+</section>
+</li>
+<li>
+<section class="detail" id="attackRanged()">
+<h3>attackRanged</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">attackRanged</span>()</div>
+<div class="block">Method triggered when the player is holding a ranged weapon, which creates the projectiles on the map</div>
 </section>
 </li>
 </ul>
