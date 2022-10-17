@@ -1,6 +1,6 @@
 package com.deco2800.game.crafting;
 
-import com.deco2800.game.entities.configs.combatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.configs.Combatitemsconfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 
 import java.util.*;
