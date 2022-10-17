@@ -65,14 +65,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attackEnemy");
         return true;
       case Keys.Q:
-        if (currentMenu == MenuTypes.NONE
-                || currentMenu == MenuTypes.CRAFTING) {
-          currentMenu = MenuTypes.CRAFTING;
           entity.getEvents().trigger("can_open");
-          menuOpened = !menuOpened;
-          if (!menuOpened) currentMenu = MenuTypes.NONE;
           return true;
-        }
       case Keys.J:
         entity.getEvents().trigger("skill");
         return true;
