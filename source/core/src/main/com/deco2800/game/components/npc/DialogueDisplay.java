@@ -128,10 +128,7 @@ public class DialogueDisplay extends UIComponent {
             "Hello…Rabbit says he has not seen you around before\n",
             "Your..hands..they are stained…brown\n",
             "I know someone who can help you \n",
-            "You might want to speak to crocodile, they live in the drains of the city\n",
-            "5",
-            "6",
-            "7"
+            "You might want to speak to crocodile, they live in the drains of the city\n"
     };
 
     public static String[] textHumanGuard = {
@@ -145,17 +142,19 @@ public class DialogueDisplay extends UIComponent {
     };
 
     public static String[] textHumanGuardAlready = {
-            "1",
-            "2",
-            "3",
-            "4"
+            "Can I help you with something",
+            "No? Alright then leave me be",
+            "I just received a special mission",
+            "I'm just trying to recall what it was"
     };
 
     public static String[] textPlumberFriendAlready = {
-            "1",
-            "2",
-            "3",
-            "4"
+            "Hey! You're still here?",
+            "Do you need some help?",
+            "I'll give you some advice",
+            "Talk to other NPCs around the map to make some progress in your adventure",
+            "That is all from me",
+            "Good Luck!"
     };
     public static String[] textFriendlyCreature = {
             "FriendlyCreature\n",
@@ -178,10 +177,10 @@ public class DialogueDisplay extends UIComponent {
             "What do you mean 'what plan'?",
             "You were gonna sink Atlantis",
             "Me? Come with you?",
-            "Hmm...maybe it’s best I don't go..",
-            "Instead I’ll help by keeping you out of any suspicions",
+            "Hmm...maybe it's best I don't go...",
+            "Instead I'll help by keeping you out of any suspicions",
             "Also I found some poop after fixing a toilet",
-            "I don’t have any use for it so you can have it.",
+            "I don't have any use for it so you can have it.",
             ""
     };
 
