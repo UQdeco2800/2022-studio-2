@@ -83,8 +83,8 @@ public class PlayerFactory {
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setEntityType(EntityTypes.PLAYER);
 
-    /*//FOR TESTING
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
+    //FOR TESTING
+    /*player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createSwordLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createDagger());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHera());
@@ -263,6 +263,9 @@ public class PlayerFactory {
     animator.addAnimation("plungerBowSpeed", 0.1f);
     animator.addAnimation("plungerBowSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerBowStatic", 0.1f);
+
+    /*golden plunger bow animations*/
+    animator.addAnimation("goldenPlungerBow", 0.1f);
 
     Entity combatAnimator =
             new Entity().addComponent(animator)

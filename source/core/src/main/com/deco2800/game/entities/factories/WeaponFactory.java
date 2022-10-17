@@ -205,7 +205,7 @@ public class WeaponFactory {
     public static Entity createGoldenPlungerBow() {
         Entity goldenPlungerBow = createBaseWeapon();
         WeaponConfig config = configs.goldenPlungerBow;
-        PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "goldenBow");
+        PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "goldenPlungerBow");
         goldenPlungerBow
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"));

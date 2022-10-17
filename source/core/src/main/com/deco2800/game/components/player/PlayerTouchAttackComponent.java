@@ -80,7 +80,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      */
     void attackEnemy() {
         if (canAttack) {
-
             canAttack = false;
 
             // base damage variable for the logger
@@ -113,7 +112,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     }
 
     /**
-     * Method called to if the player can attack
+     * Method called to check if the player can attack
      */
     public void checkCanAttack() {
         if (System.currentTimeMillis() > cooldownEnd) {
