@@ -203,8 +203,8 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnSpeedPotion();
     spawnHealthPotion();
-    spawnStaminaPotion();
-    spawnDefencePotion();
+    //spawnStaminaPotion();
+    //spawnDefencePotion();
 
     spawnDumbbell();
     spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
@@ -556,6 +556,26 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * These buffs were made specifically to help with unit tests and buffs
+   */
+
+  private void spawnTestBuffs() {
+    spawnEntityAt(AuraFactory.createFireBuff(), new GridPoint2(89, 10), true, false);
+    spawnEntityAt(AuraFactory.createPoisonBuff(),new GridPoint2(92, 10), true, false);
+    spawnEntityAt(AuraFactory.createWeaponSpeedBuff(), new GridPoint2(94, 10), true, false);
+    spawnEntityAt(AuraFactory.createWeaponDmgBuff(), new GridPoint2(96, 10), true, false);
+  }
+
+  /**
+   * Spawn rock in a certain position. - Team 5 1map4all @LYB
+   */
+//  private void spawnRock(int x, int y) {
+//    Entity rock = ObstacleFactory.createRock();
+//    spawnEntityAt(rock, new GridPoint2(x, y), false, false);
+//  }
+
+
+  /**
    * spawn an armour on the map based on the input armour type
    * @param armourType armourType of the armour to be spawned
    */
@@ -594,23 +614,23 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
-    itemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
-    Entity speedPotion2 = PotionFactory.createSpeedPotion();
-    itemsOnMap.add(speedPotion2);
-    spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
+      itemsOnMap.add(speedPotion);
+      spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      Entity speedPotion2 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion2);
+      spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
+      Entity speedPotion3 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion3);
+      spawnEntityAt(speedPotion3, new GridPoint2(34, 80), true, true);
+      Entity speedPotion4 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion4);
+      spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
   }
 
   private void spawnHealthPotion() {
     Entity healthPotion = PotionFactory.createHealthPotion();
     itemsOnMap.add(healthPotion);
     spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
-  }
-
-  private void spawnStaminaPotion() {
-    Entity healthPotion = PotionFactory.createStaminaPotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 12), true, true);
   }
 
   private void spawnDefencePotion() {
