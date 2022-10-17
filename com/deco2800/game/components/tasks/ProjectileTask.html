@@ -137,13 +137,19 @@ implements <a href="../../ai/tasks/PriorityTask.html" title="interface in com.de
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPriority()" class="member-name-link">getPriority</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Get the priority of this task</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTask(com.deco2800.game.ai.tasks.Task)" class="member-name-link">setTask</a><wbr>(<a href="../../ai/tasks/Task.html" title="interface in com.deco2800.game.ai.tasks">Task</a>&nbsp;task)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Set the task</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#shoot(java.lang.String)" class="member-name-link">shoot</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;projectileType)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Shoot projectile</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -156,7 +162,9 @@ implements <a href="../../ai/tasks/PriorityTask.html" title="interface in com.de
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#waiting()" class="member-name-link">waiting</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">If entity is waiting, set its task to shoot</div>
+</div>
 </div>
 </div>
 </div>
@@ -222,9 +230,12 @@ implements <a href="../../ai/tasks/PriorityTask.html" title="interface in com.de
 <section class="detail" id="getPriority()">
 <h3>getPriority</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getPriority</span>()</div>
+<div class="block">Get the priority of this task</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../../ai/tasks/PriorityTask.html#getPriority()">getPriority</a></code>&nbsp;in interface&nbsp;<code><a href="../../ai/tasks/PriorityTask.html" title="interface in com.deco2800.game.ai.tasks">PriorityTask</a></code></dd>
+<dt>Returns:</dt>
+<dd>the priority of this task</dd>
 </dl>
 </section>
 </li>
@@ -245,18 +256,29 @@ implements <a href="../../ai/tasks/PriorityTask.html" title="interface in com.de
 <section class="detail" id="waiting()">
 <h3>waiting</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">waiting</span>()</div>
+<div class="block">If entity is waiting, set its task to shoot</div>
 </section>
 </li>
 <li>
 <section class="detail" id="shoot(java.lang.String)">
 <h3>shoot</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">shoot</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;projectileType)</span></div>
+<div class="block">Shoot projectile</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>projectileType</code> - the type of projectile to shoot</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setTask(com.deco2800.game.ai.tasks.Task)">
 <h3>setTask</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTask</span><wbr><span class="parameters">(<a href="../../ai/tasks/Task.html" title="interface in com.deco2800.game.ai.tasks">Task</a>&nbsp;task)</span></div>
+<div class="block">Set the task</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>task</code> - the task to set it to</dd>
+</dl>
 </section>
 </li>
 </ul>
