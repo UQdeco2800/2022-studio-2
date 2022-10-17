@@ -13,7 +13,7 @@ public class NPCConfigs {
   public HumanGuardConfig humanguard = new HumanGuardConfig();
   public PlumberFriendConfig plumberfriend = new PlumberFriendConfig();
   public FriendlyCreatureConfig friendlycreature = new FriendlyCreatureConfig();
-  public Male_citizenConfig male_citizen = new Male_citizenConfig();
+  public maleCitizenConfig maleCitizen = new maleCitizenConfig();
   public static final HeraclesConfig heracles = new HeraclesConfig();
   public static final PoopsConfig poops = new PoopsConfig();
 

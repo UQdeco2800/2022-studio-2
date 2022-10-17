@@ -35,19 +35,10 @@ public class ForestGameArea extends GameArea {
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
-    "images/tree.png",
     "images/Enemies/gym_bro.png",
     "images/Enemies/discus.png",
-    "images/grass_1.png",
-    "images/grass_2.png",
-    "images/grass_3.png",
-    "images/hex_grass_1.png",
-    "images/hex_grass_2.png",
-    "images/hex_grass_3.png",
-    "images/iso_grass_1.png",
-    "images/iso_grass_2.png",
-    "images/iso_grass_3.png",
     "images/Armour-assets-sprint2/baseArmour.png",
+          "images/Armour-assets-sprint2/Dark_Armour.png",
     "images/Armour-assets-sprint2/slowDiamond.png",
     "images/Armour-assets-sprint2/damageReturner.png",
     "images/Armour-assets-sprint2/fastLeather.png",
@@ -57,27 +48,9 @@ public class ForestGameArea extends GameArea {
     "images/CombatItems/Sprint-1/AttackSpeedDebuff.png",
     "images/Crafting-assets-sprint1/widgets/craftButton.png",
     "images/Crafting-assets-sprint1/crafting table/craftingTable.png",
-    "images/gold_cobble.png",
-    "images/gold_drain.png",
-    "images/Map_assets/sprint_1/column.png",
-    "images/Map_assets/sprint_1/tree-1_1.png",
-    "images/Map_assets/sprint_1/tree-2_2.png",
-    "images/level_1_tiledmap/32x32/tree.png",
     "images/level_1_tiledmap/32x32/gold_cobble.png",
-    "images/level_1_tiledmap/32x32/grass.png",
-    "images/level_1_tiledmap/32x32/gold_drain.png",
-    "images/level_1_tiledmap/32x32/water_tile.png",
-    "images/level_1_tiledmap/32x32/wall_tile.png",
-    "images/level_1_tiledmap/32x32/tile_wet.png",
-    "images/level_1_tiledmap/32x32/stairs.png",
-    "images/level_1_tiledmap/32x32/tree.png",
-    "images/level_1_tiledmap/32x32/column.png",
-    "images/level_1_tiledmap/32x32/drain_empty.png",
-    "images/level_1_tiledmap/32x32/drain_plug.png",
-    "images/level_1_tiledmap/32x32/tree-2.png",
-    "images/level_1_tiledmap/32x32/rock.png",
-    "images/NPC/male_citizen/male_citizen.png",
-    "images/NPC/male_citizen/male_citizen.png",
+    "images/NPC/maleCitizen/maleCitizen.png",
+    "images/NPC/maleCitizen/maleCitizen.png",
     "images/playerTeleport.png",
     "images/NPC/female npc/npcfemale_1.png",
     "images/NPC/child npc/npcchild_1.png",
@@ -100,7 +73,7 @@ public class ForestGameArea extends GameArea {
     "images/NPC/dialogue_indicator/dialogue_indicator_sprite_sheet.png",
     "images/CombatWeapons-assets-sprint1/trident_Lvl2.png",
     "images/CombatItems/Sprint-1/trident_Lvl2.png",
-    "images/NPC/Male_citizen/male_citizen.png",
+    "images/NPC/maleCitizen/maleCitizen.png",
     "images/Movement/movement.png",
     "images/CombatItems/Sprint-2/H&ADagger.png",
     "images/CombatItems/Sprint-2/Plunger.png",
@@ -137,7 +110,7 @@ public class ForestGameArea extends GameArea {
           "images/Skills/skillAnimations.atlas", "images/KeyPrompt/KEY_Q_!.atlas","images/Enemies/gym_bro.atlas",
           "images/terrain_iso_grass.atlas", "images/playerTeleport.atlas",
           "images/Skills/skillAnimations.atlas", "images/Movement/movement.atlas",
-          "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/male_citizen/male-atlas.atlas",
+          "images/NPC/dialogue_indicator/dialogue.atlas", "images/NPC/maleCitizen/male-atlas.atlas",
           "images/NPC/child npc/npcchild.atlas","images/NPC/female npc/npcfemale.atlas",
           "images/NPC/plumber_friend/plumber_friend.atlas", "images/NPC/guard npc/npcguard.atlas",
           "images/NPC/friendly_creature npc/friendly_creature.atlas", "images/NPC/human_guard/human_guard.atlas",
@@ -231,13 +204,13 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnSpeedPotion();
     spawnHealthPotion();
-    spawnStaminaPotion();
-    spawnDefencePotion();
+    //spawnStaminaPotion();
+    //spawnDefencePotion();
 
     spawnDumbbell();
-    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 145, 146);
     spawnArmour(ArmourFactory.ArmourType.fastLeather, 90, 22);
-    spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
+    //spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
 
     spawnDmgBuff();
     spawnFireBuff();
@@ -489,13 +462,6 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(ObstacleFactory.drawColumnsCollision(19f), new GridPoint2(166, 48), false,
             false);
   }
-  /**
-   * Spawns Proper Trees as an entity into the game
-   */
-//  private void spawnTrees(int x, int y) {
-//      Entity tree = ObstacleFactory.createTree();
-//      spawnEntityAt(tree, new GridPoint2(x, y), true, false);
-//  }
 
   public static void removeAuraOnMap(Entity entityToRemove) {
 
@@ -540,24 +506,6 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-/*
-  */
-/**
-   * Spawns speed debuff entity into the game
-   *//*
-
-  private void spawnSpeedDebuff() {
-    List<GridPoint2> locations = new ArrayList<>();
-    locations.add(new GridPoint2(84, 178));
-    locations.add(new GridPoint2(79, 26));
-    for (GridPoint2 location : locations) {
-      Entity speedDebuff = AuraFactory.createWeaponSpeedDeBuff();
-      auraOnMap.add(speedDebuff);
-      spawnEntityAt(speedDebuff, location, true, false);
-    }
-  }
-*/
-
   /**
    * Spawns damage buff entity into the game
    */
@@ -565,7 +513,7 @@ public class ForestGameArea extends GameArea {
     List<GridPoint2> locations = new ArrayList<>();
     locations.add(new GridPoint2(45, 47));
     locations.add(new GridPoint2(34, 90));
-    locations.add(new GridPoint2(96, 22));
+    locations.add(new GridPoint2(96, 19));
     locations.add(new GridPoint2(145, 152));
     for (GridPoint2 location : locations) {
       Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
@@ -573,20 +521,6 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(dmgBuff, location, true, false);
     }
   }
-
-/*  *//**
-   * Spawns damage debuff entity into the game
-   *//*
-  private void spawnDmgDebuff() {
-    List<GridPoint2> locations = new ArrayList<>();
-    locations.add(new GridPoint2(96, 65));
-    locations.add(new GridPoint2(79, 26));
-    for (GridPoint2 location : locations) {
-      Entity dmgDebuff = AuraFactory.createWeaponDmgDebuff();
-      auraOnMap.add(dmgDebuff);
-      spawnEntityAt(dmgDebuff, location, true, false);
-    }
-  }*/
 
   /**
    * Spawns fire buff entity into the game
@@ -622,6 +556,10 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+  /**
+   * These buffs were made specifically to help with unit tests and buffs
+   */
+
   private void spawnTestBuffs() {
     spawnEntityAt(AuraFactory.createFireBuff(), new GridPoint2(89, 10), true, false);
     spawnEntityAt(AuraFactory.createPoisonBuff(),new GridPoint2(92, 10), true, false);
@@ -637,6 +575,7 @@ public class ForestGameArea extends GameArea {
 //    spawnEntityAt(rock, new GridPoint2(x, y), false, false);
 //  }
 
+
   /**
    * spawn an armour on the map based on the input armour type
    * @param armourType armourType of the armour to be spawned
@@ -646,22 +585,6 @@ public class ForestGameArea extends GameArea {
     itemsOnMap.add(armour);
     spawnEntityAt(armour, new GridPoint2( x,y), true, false);
   }
-
-  /**
-   * Spawn small tress in a certain position. - Team 5 1map4all @LYB
-   */
-//  private void spawnSmallTrees(int x, int y) {
-//    Entity tree = ObstacleFactory.createSmallTree();
-//    spawnEntityAt(tree, new GridPoint2(x, y), false, false);
-//  }
-
-  /**
-   * Spawn column in a certain position. - Team 5 1map4all @LYB
-   */
-//  private void spawnColumn(int x, int y) {
-//    Entity column = ObstacleFactory.createColumn();
-//    spawnEntityAt(column, new GridPoint2(x, y), false, false);
-//    }
 
   public void spawnEntityOnMap(Entity entity,GridPoint2 position, Boolean centreX, Boolean centreY) {
     spawnEntityAt(entity, position, centreX, centreY);
@@ -693,50 +616,69 @@ public class ForestGameArea extends GameArea {
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion);
-      spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      spawnEntityAt(speedPotion, new GridPoint2(90, 11), true, true);
+
       Entity speedPotion2 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion2);
-      spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
+      spawnEntityAt(speedPotion2, new GridPoint2(90, 9), true, true);
+
+      Entity speedPotion3 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion3);
+      spawnEntityAt(speedPotion3, new GridPoint2(34, 97), true, true);
+
+      Entity speedPotion4 = PotionFactory.createSpeedPotion();
+      itemsOnMap.add(speedPotion4);
+      spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
+
+    Entity speedPotion5 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion5);
+    spawnEntityAt(speedPotion5, new GridPoint2(90, 92), true, true);
+
+    Entity speedPotion6 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion6);
+    spawnEntityAt(speedPotion6, new GridPoint2(120, 22), true, true);
+
+    Entity speedPotion7 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion7);
+    spawnEntityAt(speedPotion7, new GridPoint2(150, 153), true, true);
+
+    Entity speedPotion8 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion8);
+    spawnEntityAt(speedPotion8, new GridPoint2(175, 92), true, true);
   }
 
   private void spawnHealthPotion() {
     Entity healthPotion = PotionFactory.createHealthPotion();
     itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
+    spawnEntityAt(healthPotion, new GridPoint2(93, 13), true, true);
+
+    Entity healthPotion2 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion2);
+    spawnEntityAt(healthPotion2, new GridPoint2(100, 63), true, true);
+
+    Entity healthPotion3 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion3);
+    spawnEntityAt(healthPotion3, new GridPoint2(90, 113), true, true);
+
+    Entity healthPotion4 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion4);
+    spawnEntityAt(healthPotion4, new GridPoint2(130, 143), true, true);
+
+    Entity healthPotion5 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion5);
+    spawnEntityAt(healthPotion5, new GridPoint2(150, 153), true, true);
+
+    Entity healthPotion6 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion6);
+    spawnEntityAt(healthPotion6, new GridPoint2(110, 159), true, true);
+
+    Entity healthPotion7 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion7);
+    spawnEntityAt(healthPotion7, new GridPoint2(175, 104), true, true);
   }
 
-    private void spawnStaminaPotion() {
-        Entity healthPotion = PotionFactory.createStaminaPotion();
-        itemsOnMap.add(healthPotion);
-        spawnEntityAt(healthPotion, new GridPoint2(93, 12), true, true);
-    }
 
-  private void spawnDefencePotion() {
-    Entity healthPotion = PotionFactory.createDefencePotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
-  }
 
-  /**
-   * Spawns Level 2 dagger entity into the game
-   * Spawns x-pos 10
-   * Spawns y-pos 10
-   */
-  //private void spawnDagger() {
-   // Entity dagger = WeaponFactory.createDagger();
-   // weaponOnMap.add(dagger);
-   // spawnEntityAt(dagger, new GridPoint2(20, 20), true, false);
- // }
-  /**
-   * Spawns second Level 2 dagger entity into the game
-   * Spawns x-pos 18
-   * Spawns y-pos 10
-   */
- // private void spawnDaggerTwo() {
-  //  Entity daggerTwo = WeaponFactory.createDaggerTwo();
-  //  weaponOnMap.add(daggerTwo);
-  //  spawnEntityAt(daggerTwo, new GridPoint2(18,10), true, false);
-  //}
   /**
    * Spawns dumbbell entity into the game
    * Spawns x-pos 5
@@ -756,62 +698,8 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnHeraAndAthena() {
     Entity heraAthenaDag = WeaponFactory.createHeraAthenaDag();
-  //  weaponOnMap.add(heraAthenaDag);
     spawnEntityAt(heraAthenaDag, new GridPoint2(10,4), true, false);
   }
-
-  /**
-   * Spawns basic plunger into game
-   * Spawns x-pos 20
-   * Spawns y-pos 4
-   */
-  //private void spawnPlunger() {
-  //  Entity plunger = WeaponFactory.createPlunger();
-  //  weaponOnMap.add(plunger);
-  //  spawnEntityAt(plunger, new GridPoint2(20,4), true, false);
- // }
-
-  /**
-   * Spawns basic PVC pipe into game
-   * Spawns x-pos 15
-   * Spawns y-pos 10
-   */
- // private void spawnPipe() {
- //   Entity plunger = WeaponFactory.createPipe();
- //   weaponOnMap.add(plunger);
- //   spawnEntityAt(plunger, new GridPoint2(15,10), true, false);
- // }
-
-  /**
-   * Spawns Level 2 Sword entity into the game
-   * Spawns x-pos 20
-   * Spawns y-pos 20
-   */
- // private void spawnSwordLvl2() {
- //   Entity SwordLvl2 = WeaponFactory.createSwordLvl2();
-  //  weaponOnMap.add(SwordLvl2);
-  //  spawnEntityAt(SwordLvl2, new GridPoint2(16,18), true, false);
- // }
-
-  /**
-   * Spawns Level 2 Trident entity into the game
-   */
- // private void spawnTridentLvl2() {
-  //  Entity tridentLvl2 = WeaponFactory.createTridentLvl2();
-  //  weaponOnMap.add(tridentLvl2);
-  //  spawnEntityAt(tridentLvl2, new GridPoint2(12,15), true, false);
- // }
-
-  /**
-   * Spawns a plug Entity to assist with map transition. - Team 5 1map4all
-   */
-//  private void spawnPlug() {
-//    GridPoint2 plugPosition = new GridPoint2(12, 17);
-//    Entity plug = NPCFactory.createPlug(player);
-//    areaEntities.add(plug);
-//
-//    spawnEntityAt(plug, plugPosition, true, true);
-//  }
 
   /**
    * Spawns the player entity, with a skill and combat animator overlaid above the player.
@@ -821,17 +709,12 @@ public class ForestGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
-
-//    Entity newCombatAnimator = PlayerFactory.createCombatAnimator(newPlayer);
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     spawnEntityAt(newSkillAnimator, PLAYER_SPAWN, true, true);
     spawnEntityAt(newKeyPromptAnimator, PLAYER_SPAWN, true, true);
-//    spawnEntityAt(newCombatAnimator, PLAYER_SPAWN, true, true);
     newPlayer.getComponent(PlayerActions.class).setSkillAnimator(newSkillAnimator);
     newPlayer.getComponent(PlayerKeyPrompt.class)
             .setKeyPromptAnimator(newKeyPromptAnimator);
-//    newPlayer.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
-//    newPlayer.getComponent(InventoryComponent.class).setCombatAnimator(newCombatAnimator);
 
     return newPlayer;
   }
@@ -896,15 +779,6 @@ public class ForestGameArea extends GameArea {
     return newProjectile;
   }
 
-/*
->>>>>>> e73afe5ba69f8264e7bb25c687ce9c6feaba9d20
-   private void spawnPlungerBow() {
-    Entity c = WeaponFactory.createPlungerBow();
-    itemsOnMap.add(c);
-    spawnEntityAt(c, new GridPoint2(5,4), true, false);
-   }
-*/
-
   /**
    * Spawn female NPC in random position. - Team 7 all-mid-npc
    */
@@ -926,8 +800,8 @@ public class ForestGameArea extends GameArea {
   }
 
   public static Vector2 GridPointToVector(GridPoint2 position) {
-    int playerX = (int) position.x;
-    int playerY = (int) position.y;
+    int playerX = position.x;
+    int playerY = position.y;
     return new Vector2(playerX, playerY);
   }
 
@@ -944,7 +818,6 @@ public class ForestGameArea extends GameArea {
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, childDialoguePosition, true, true);
-    //areaEntities.add(dialogue);
   }
 
   public static GridPoint2 getChildPosition() {
@@ -1014,9 +887,9 @@ public class ForestGameArea extends GameArea {
     maleCitizenPosition = new GridPoint2(74,121);
     maleCitizenDialoguePosition = new GridPoint2(74, 122);
 
-    Entity male_citizen = NPCFactory.createMale_citizen(player);
-    spawnEntityAt(male_citizen, maleCitizenPosition, true, true);
-    areaEntities.add(male_citizen);
+    Entity maleCitizen = NPCFactory.createmaleCitizen(player);
+    spawnEntityAt(maleCitizen, maleCitizenPosition, true, true);
+    areaEntities.add(maleCitizen);
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, maleCitizenDialoguePosition, true, true);

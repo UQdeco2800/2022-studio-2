@@ -4,9 +4,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.components.CombatItemsComponents.*;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.components.combatitemsComponents.*;
+import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;

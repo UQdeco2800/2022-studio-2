@@ -2,7 +2,7 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -116,7 +116,7 @@ public class InventoryComponent extends Component {
     /**
      * Cancel the animation registered for equipped weapon
      */
-    private void cancelAnimation() {
+    public void cancelAnimation() {
         if(combatAnimator == null) return;
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
