@@ -2,8 +2,8 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.deco2800.game.components.combatitemsComponents.BuffDisplayComponent;
-import com.deco2800.game.components.combatitemsComponents.WeaponAuraManager;
+import com.deco2800.game.components.combatItemsComponents.BuffDisplayComponent;
+import com.deco2800.game.components.combatItemsComponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;

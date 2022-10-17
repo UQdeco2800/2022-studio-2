@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatitemsComponents;
+package com.deco2800.game.components.combatItemsComponents;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;

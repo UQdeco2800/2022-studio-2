@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.configs.combatitemsConfig;
+package com.deco2800.game.entities.configs.combatItemsConfig;
 
 /**
  * Defines all Aura configs to be loaded by the Aura Factory.
