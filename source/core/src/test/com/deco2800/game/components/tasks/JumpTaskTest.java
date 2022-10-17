@@ -37,26 +37,6 @@ class JumpTaskTest {
         ServiceLocator.registerPhysicsService(new PhysicsService());
     }
 
-    @Test
-    void shouldJumpTowardTarget() {
-        Entity target = new Entity();
-        target.setPosition(2f, 2f);
-
-        AITaskComponent ai = new AITaskComponent().addTask(new JumpTask(target, 10, 5f, 2f, 2f));
-        Entity entity = makePhysicsEntity().addComponent(ai);
-        entity.create();
-        entity.setPosition(0f, 0f);
-
-        float initialDistance = entity.getPosition().dst(target.getPosition());
-        for (int i = 0; i < 1; i++) {
-            entity.earlyUpdate();
-            entity.update();
-            ServiceLocator.getPhysicsService().getPhysics().update();
-        }
-        float newDistance = entity.getPosition().dst(target.getPosition());
-        assertTrue(newDistance < initialDistance);
-    }
-
     private Entity makePhysicsEntity() {
         return new Entity()
                 .addComponent(new PhysicsComponent())
