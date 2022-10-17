@@ -1,30 +1,22 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.combatitemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatItemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.RenderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
-import com.deco2800.game.ui.UIComponent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;

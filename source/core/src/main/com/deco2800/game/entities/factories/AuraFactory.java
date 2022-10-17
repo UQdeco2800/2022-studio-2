@@ -3,11 +3,11 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.combatitemsComponents.AuraPickupComponent;
-import com.deco2800.game.components.combatitemsComponents.WeaponAuraComponent;
+import com.deco2800.game.components.combatItemsComponents.AuraPickupComponent;
+import com.deco2800.game.components.combatItemsComponents.WeaponAuraComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.combatitemsConfig.AuraConfig;
-import com.deco2800.game.entities.configs.combatitemsConfig.BaseAuraConfig;
+import com.deco2800.game.entities.configs.combatItemsConfig.AuraConfig;
+import com.deco2800.game.entities.configs.combatItemsConfig.BaseAuraConfig;
 
 import com.deco2800.game.files.FileLoader;
 

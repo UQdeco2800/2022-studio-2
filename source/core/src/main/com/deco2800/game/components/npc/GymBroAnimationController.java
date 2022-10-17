@@ -104,24 +104,36 @@ public class GymBroAnimationController extends Component {
         }
     }
 
+    /**
+     * Animates the gym bro vanishing when facing front
+     */
     private void animateVanishFront() {
         if (!"vanish_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_front");
         }
     }
 
+    /**
+     * Animates the gym bro vanishing when facing backwards
+     */
     private void animateVanishBack() {
         if (!"vanish_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_back");
         }
     }
 
+    /**
+     * Animates the gym bro vanishing when facing left
+     */
     private void animateVanishLeft() {
         if (!"vanish_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_left");
         }
     }
 
+    /**
+     * Animates the gym bro vanishing when facing right
+     */
     private void animateVanishRight() {
         if (!"vanish_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_right");

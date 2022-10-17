@@ -174,14 +174,6 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
-   * Get Heracles the level 1 boss
-   * @return Heracles
-   */
-  public Entity getHeracles() {
-    return heracles;
-  }
-
-  /**
    * Check if Heracles is alive on map
    */
   public static boolean ifHeraclesOnMap() {

@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatitemsComponents;
+package com.deco2800.game.components.combatItemsComponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.InventoryComponent;
@@ -47,15 +47,32 @@ public class WeaponAuraManager extends Component {
     }
 
     /**
+     * Sets the given aura to the applied aura
+     * @param aura
+     */
+    public void setAura(Entity aura) {
+        auraApplied = aura;
+    }
+
+    /**
+     * Sets the weapon stats if player is equipped with a weapon
+     * @param weapon
+     */
+    public void setWeaponStats(Entity weapon) {
+        weaponStats = weapon.getComponent(PhysicalWeaponStatsComponent.class);
+    }
+
+    /**
      * Applies the given aura to the given weapon.
      * @param aura Aura to apply to the weapon
      * @param weapon Weapon to apply the aura to
      */
     public void applyAura(Entity aura, Entity weapon) {
         auraEndTime = System.currentTimeMillis() + aura.getComponent(WeaponAuraComponent.class).getAuraDuration();
-        auraApplied = aura;
+        setAura(aura);
         if (weapon.getComponent(PhysicalWeaponStatsComponent.class) != null) {
-            weaponStats = weapon.getComponent(PhysicalWeaponStatsComponent.class);
+
+            setWeaponStats(weapon);
 
             weaponStats.setDamage(weaponStats.getDamage() * aura.getComponent(WeaponAuraComponent.class).getDmgMultiplier());
             weaponStats.setCoolDown(weaponStats.getCoolDown() * aura.getComponent(WeaponAuraComponent.class).getCdMultiplier());
@@ -80,5 +97,9 @@ public class WeaponAuraManager extends Component {
      */
     public Entity getAura(){
         return auraApplied;
+    }
+
+    public WeaponStatsComponent getWeaponStats() {
+        return weaponStats;
     }
 }
