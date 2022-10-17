@@ -394,10 +394,6 @@ public class GameAreaDisplay extends UIComponent {
         if (firstTime == 1 && getGameAreaName().equals("Forest")) {
             if (!inventoryComponent.hasItem(MaterialFactory.createWood(), inventoryComponent.getInventory())) {
                 inventoryComponent.addItem(MaterialFactory.createWood());
-                inventoryComponent.addItem(MaterialFactory.createGold());
-                inventoryComponent.addItem(MaterialFactory.createPlatinum());
-                inventoryComponent.addItem(MaterialFactory.createGold());
-                inventoryComponent.addItem(MaterialFactory.createIron());
             }
             if (!inventoryComponent.hasItem(MaterialFactory.createRubber(), inventoryComponent.getInventory())) {
                 inventoryComponent.addItem(MaterialFactory.createRubber());
