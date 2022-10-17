@@ -1,11 +1,8 @@
 package com.deco2800.game.components.player;
 
-<<<<<<< HEAD
-=======
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
->>>>>>> a9e405d0d593d9bc929f4dfd0f97e1ade0e877b6
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
@@ -511,19 +508,7 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testWeapon, testPotion));
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
-
-<<<<<<< HEAD
-
-=======
-//  @Test
-//  void disposeAnimation() {
-//    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
-//    RenderComponent component = spy(AnimationRenderComponent.class);
-//    component.create();
-//    component.dispose();
-//    verify(ServiceLocator.getRenderService()).unregister(component);
-//  }
->>>>>>> a9e405d0d593d9bc929f4dfd0f97e1ade0e877b6
+  
 
   /*private void cancelAnimation() {
     if(combatAnimator == null) return;
