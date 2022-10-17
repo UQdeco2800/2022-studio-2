@@ -59,6 +59,8 @@ public class PlayerSkillComponent extends Component {
 
     Map<String, Long> skillCooldowns = new HashMap<>();
 
+    private static final long MAX_COOLDOWN = 5000;
+
     // Teleport variables
     private static final int TELEPORT_LENGTH = 8;
     private long teleportEnd; // Teleport charge end system time
@@ -689,12 +691,15 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers root event.
      */
     public void startRoot() {
-        skillAnimator.getEvents().trigger("rootAnimation");
-        playerEntity.getEvents().trigger("rootCountdown");
-        this.rootAnimationRunning = true;
-        long rootStart = System.currentTimeMillis();
-        this.rootAnimationEnd = rootStart + ROOT_ANIMATION_LENGTH;
-        this.rootApplied = true;
+        if (cooldownFinished("root", MAX_COOLDOWN)) {
+            skillAnimator.getEvents().trigger("rootAnimation");
+            playerEntity.getEvents().trigger("rootCountdown");
+            this.rootAnimationRunning = true;
+            long rootStart = System.currentTimeMillis();
+            this.rootAnimationEnd = rootStart + ROOT_ANIMATION_LENGTH;
+            this.rootApplied = true;
+            setSkillCooldown("root");
+        }
     }
 
     /**
@@ -758,8 +763,11 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers bleed event.
      */
     public void startBleed() {
-        this.bleedApplied = true;
-        playerEntity.getEvents().trigger("bleedCountdown");
+        if (cooldownFinished("bleed", MAX_COOLDOWN)) {
+            this.bleedApplied = true;
+            playerEntity.getEvents().trigger("bleedCountdown");
+            setSkillCooldown("bleed");
+        }
     }
 
     /**
@@ -943,7 +951,7 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers charge event.
      */
     public void startCharge() {
-        if (cooldownFinished("charge", TELEPORT_COOLDOWN)) {//cooldown
+        if (cooldownFinished("charge", MAX_COOLDOWN)) {
             this.chargeUp = true;
             this.chargeUpEnd = System.currentTimeMillis() + CHARGE_UP_LENGTH;
             skillAnimator.getEvents().trigger("teleportAnimation");
