@@ -818,8 +818,7 @@ public class PlayerSkillComponent extends Component {
             if (Math.abs(hit.point.x - fromCenter.x) < 0.75f && Math.abs(hit.point.y - fromCenter.y) < 0.75f) {
                 return;
             }
-            playerEntity.setPosition(hit.point.x - walkDirection.x,
-                    hit.point.y - walkDirection.y);
+            playerEntity.setPosition(hit.point.x - walkDirection.x, hit.point.y - walkDirection.y);
         } else {
             playerEntity.setPosition(to);
         }

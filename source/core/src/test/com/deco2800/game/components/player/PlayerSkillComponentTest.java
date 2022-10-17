@@ -3,9 +3,11 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.spy;
 
 @ExtendWith(GameExtension.class)
 class PlayerSkillComponentTest {
@@ -410,6 +413,29 @@ class PlayerSkillComponentTest {
         skillManager.teleportPlayer();
         Vector2 afterPos = player.getPosition();
         assertEquals(new Vector2(beforePos.x + 8.0f, beforePos.y + 8.0f), afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer2() {
+        player.getComponent(PlayerActions.class).walk(new Vector2(0,0));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(beforePos, afterPos);
+    }
+
+    @Test
+    void testTeleportPlayer3() {
+        ServiceLocator.registerEntityService(new EntityService());
+        GameArea ga = spy(GameArea.class);
+        player.getComponent(PlayerActions.class).walk(new Vector2(1,0));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        ga.spawnEntity(ObstacleFactory.createWall(5, 5));
+        player.getComponent(PlayerActions.class).walk(new Vector2(-1,0));
+        skillManager.teleportPlayer();
+        Vector2 afterPos = player.getPosition();
+        assertEquals(new Vector2(beforePos.x + 6.0f, beforePos.y), afterPos);
     }
 
     @Test
