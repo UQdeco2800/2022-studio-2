@@ -262,18 +262,11 @@ class InventoryComponentTest {
   @Test
   void removeItem2() {
     InventoryComponent testInventory3 = new InventoryComponent();
-
-    Entity testArmour = ArmourFactory.createBaseArmour();
-
     Entity iron = MaterialFactory.createIron();
 
-    testInventory3.addItem(testArmour);
     testInventory3.addItem(iron);
-
     testInventory3.removeItem(EntityTypes.IRON);
-    testInventory3.removeItem(EntityTypes.ARMOUR);
 
-    assertFalse(testInventory3.hasItem(testArmour, testInventory3.getInventory()));
     assertFalse(testInventory3.hasItem(iron, testInventory3.getInventory()));
   }
 
