@@ -50,7 +50,22 @@ public class PlayerSkillAnimationController extends Component {
         entity.getEvents().addListener("invulnerabilityAnimation", this::animateInvulnerability);
         entity.getEvents().addListener("aoeAnimation", this::animateAOE);
         entity.getEvents().addListener("dashAnimation", this::animateDash);
+        entity.getEvents().addListener("chargeAnimation", this::animateCharge);
+        entity.getEvents().addListener("chargemoveAnimation", this::animateChargemove);
+        entity.getEvents().addListener("bleedAnimation", this::animateBleed);
         entity.getEvents().trigger("regularAnimation");
+    }
+
+    private void animateChargemove() {
+        animator.startAnimation("chargemove");
+    }
+
+    private void animateBleed() {
+        animator.startAnimation("bleed");
+    }
+
+    private void animateCharge() {
+        animator.startAnimation("charge");
     }
 
     private void animateAOE() {
@@ -111,6 +126,6 @@ public class PlayerSkillAnimationController extends Component {
      * Triggers the attackspeed animation.
      */
     void animateRoot() {
-        animator.startAnimation("attackSpeed");
+        animator.startAnimation("root");
     }
 }

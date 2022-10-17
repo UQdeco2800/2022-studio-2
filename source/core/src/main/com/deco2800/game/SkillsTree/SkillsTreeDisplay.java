@@ -71,7 +71,6 @@ public class SkillsTreeDisplay extends UIComponent {
         exitTable = new Table();
         equipTable = new Table();
         equipTable.bottom().left();
-        Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
         TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture("images/Skill_tree/skill tree background.png")));
         skillTreeBackground.setBackground(textureRegionDrawableBg);
         exitTable.top().right();
@@ -256,51 +255,51 @@ public class SkillsTreeDisplay extends UIComponent {
             case NONE -> addEquipImage("blankSkillIcon");
             case DASH -> {
                 addEquipImage("dash");
-                addCountdownTrigger("dashCountdown", skillNum);
+                addCountdownTrigger("dashCountdown", skillNum, 500);
             }
             case TELEPORT -> {
                 addEquipImage("teleport");
-                addCountdownTrigger("teleportCountdown", skillNum);
+                addCountdownTrigger("teleportCountdown", skillNum, 10000);
             }
             case BLOCK -> {
                 addEquipImage("block");
-                addCountdownTrigger("blockCountdown", skillNum);
+                addCountdownTrigger("blockCountdown", skillNum, 3000);
             }
             case DODGE -> {
                 addEquipImage("dodge");
-                addCountdownTrigger("dodgeCountdown", skillNum);
+                addCountdownTrigger("dodgeCountdown", skillNum, 3000);
             }
             case FIREBALLULTIMATE -> {
                 addEquipImage("fireballUltimate");
-                addCountdownTrigger("fireballCountdown", skillNum);
+                addCountdownTrigger("fireballCountdown", skillNum, 20000);
             }
             case ULTIMATE -> {
                 addEquipImage("ultimate");
-                addCountdownTrigger("ultimateCountdown", skillNum);
+                addCountdownTrigger("ultimateCountdown", skillNum, 20000);
             }
             case ROOT -> {
                 addEquipImage("root");
-                addCountdownTrigger("rootCountdown", skillNum);
+                addCountdownTrigger("rootCountdown", skillNum, 5000);
             }
             case AOE -> {
                 addEquipImage("aoe");
-                addCountdownTrigger("aoeCountdown", skillNum);
+                addCountdownTrigger("aoeCountdown", skillNum, 5000);
             }
             case PROJECTILE -> {
                 addEquipImage("wrenchProjectile");
-                addCountdownTrigger("wrenchCountdown", skillNum);
+                addCountdownTrigger("wrenchCountdown", skillNum, 5000);
             }
             case BLEED -> {
                 addEquipImage("bleed");
-                addCountdownTrigger("bleedCountdown", skillNum);
+                addCountdownTrigger("bleedCountdown", skillNum, 5000);
             }
             case CHARGE -> {
                 addEquipImage("charge");
-                addCountdownTrigger("chargeCountdown", skillNum);
+                addCountdownTrigger("chargeCountdown", skillNum, 10000);
             }
             case INVULNERABILITY -> {
                 addEquipImage("invulnerability");
-                addCountdownTrigger("invulnerabilityCountdown", skillNum);
+                addCountdownTrigger("invulnerabilityCountdown", skillNum, 10000);
             }
         }
     }
@@ -317,9 +316,9 @@ public class SkillsTreeDisplay extends UIComponent {
         cooldownBar.addSkillIcon(new Image(new Texture(imagePath)));
     }
 
-    private void addCountdownTrigger(String listenerName, int skillNum) {
+    private void addCountdownTrigger(String listenerName, int skillNum, long cooldownLength) {
         Countdown countdownController = ServiceLocator.getGameArea().getPlayer().getComponent(Countdown.class);
-        countdownController.setCountdownTrigger(skillNum, listenerName);
+        countdownController.setCountdownTrigger(skillNum, listenerName, cooldownLength);
     }
 
     /**

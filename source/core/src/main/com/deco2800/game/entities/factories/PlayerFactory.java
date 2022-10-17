@@ -131,6 +131,10 @@ public class PlayerFactory {
     animator.addAnimation("invulnerability", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("fireballUltimate", 0.1f, Animation.PlayMode.NORMAL);
     animator.addAnimation("aoe", 0.05f, Animation.PlayMode.LOOP);
+    animator.addAnimation("charge", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("chargemove", 0.03f, Animation.PlayMode.LOOP);
+    animator.addAnimation("bleed", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("root", 0.1f, Animation.PlayMode.LOOP);
 
     Entity skillAnimator =
             new Entity().addComponent(animator)

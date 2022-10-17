@@ -22,10 +22,15 @@ public class Countdown extends UIComponent {
     long startTimeSkill2;
     long startTimeSkill3;
 
+    long skill0CountdownLength;
+    long skill1CountdownLength;
+    long skill2CountdownLength;
+    long skill3CountdownLength;
+
     private static final Logger logger = LoggerFactory.getLogger(Countdown.class);
 
-    private int MAX_NUMBER = 5;
-    private long COUNTDOWN_DURATION_MILLIS = 5000;
+    private int MAX_NUMBER = 20;
+    private long COUNTDOWN_DURATION_MILLIS = 20000;
     private ArrayList<String> addedCountdownListeners = new ArrayList<>();
 
     HashMap<Integer, ArrayList<Image>> numberImages;
@@ -55,6 +60,21 @@ public class Countdown extends UIComponent {
         initialiseImages(3, "images/countdown/3.png");
         initialiseImages(4, "images/countdown/4.png");
         initialiseImages(5, "images/countdown/5.png");
+        initialiseImages(6, "images/countdown/6.png");
+        initialiseImages(7, "images/countdown/7.png");
+        initialiseImages(8, "images/countdown/8.png");
+        initialiseImages(9, "images/countdown/9.png");
+        initialiseImages(10, "images/countdown/10.png");
+        initialiseImages(11, "images/countdown/11.png");
+        initialiseImages(12, "images/countdown/12.png");
+        initialiseImages(13, "images/countdown/13.png");
+        initialiseImages(14, "images/countdown/14.png");
+        initialiseImages(15, "images/countdown/15.png");
+        initialiseImages(16, "images/countdown/16.png");
+        initialiseImages(17, "images/countdown/17.png");
+        initialiseImages(18, "images/countdown/18.png");
+        initialiseImages(19, "images/countdown/19.png");
+        initialiseImages(20, "images/countdown/20.png");
 
         entity.getEvents().addListener("dashCountdown",
                 () -> this.startCountdown(0));
@@ -69,11 +89,17 @@ public class Countdown extends UIComponent {
         }
     }
 
-    public void setCountdownTrigger(int skillNum, String listenerName) {
+    public void setCountdownTrigger(int skillNum, String listenerName, long cooldownLength) {
         entity.getEvents().addListener(listenerName,
                 () -> this.startCountdown(skillNum));
 
         addedCountdownListeners.add(listenerName);
+        switch (skillNum) {
+            case 0 -> skill0CountdownLength = cooldownLength;
+            case 1 -> skill1CountdownLength = cooldownLength;
+            case 2 -> skill2CountdownLength = cooldownLength;
+            case 3 -> skill3CountdownLength = cooldownLength;
+        }
     }
 
     public void clearCountdownListeners() {
@@ -118,19 +144,24 @@ public class Countdown extends UIComponent {
         int numberToDisplay2 = getNumToDisplay(elapsedTime2, 2);
         int numberToDisplay3 = getNumToDisplay(elapsedTime3, 3);
 
-        if (true) { // temp disable flag until fixed
-            alterTable(0, numberToDisplay0);
-            alterTable(1, numberToDisplay1);
-            alterTable(2, numberToDisplay2);
-            alterTable(3, numberToDisplay3);
-        }
 
+        alterTable(0, numberToDisplay0);
+        alterTable(1, numberToDisplay1);
+        alterTable(2, numberToDisplay2);
+        alterTable(3, numberToDisplay3);
     }
 
     private int getNumToDisplay(long elapsedTime, int skillNum) {
         int numberToDisplay = 0;
-        if (elapsedTime < COUNTDOWN_DURATION_MILLIS) {
-            numberToDisplay = ((int) (((COUNTDOWN_DURATION_MILLIS - elapsedTime) / 1000) + 1));
+        long cooldownLength = 0;
+        switch (skillNum) {
+            case 0 -> cooldownLength = skill0CountdownLength;
+            case 1 -> cooldownLength = skill1CountdownLength;
+            case 2 -> cooldownLength = skill2CountdownLength;
+            case 3 -> cooldownLength = skill3CountdownLength;
+        }
+        if (elapsedTime < cooldownLength) {
+            numberToDisplay = ((int) (((cooldownLength - elapsedTime) / 1000) + 1));
         }
         if (numberToDisplay > MAX_NUMBER) {
             numberToDisplay = MAX_NUMBER;
