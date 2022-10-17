@@ -29,8 +29,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 import static com.deco2800.game.areas.ForestGameArea.*;
-import static com.deco2800.game.areas.UndergroundGameArea.getFriendlycreaturePosition;
-
+import static com.deco2800.game.areas.UndergroundGameArea.*;
 
 
 /**
@@ -56,7 +55,7 @@ public class DialogueDisplay extends UIComponent {
     public int dialogueImagePlumberFriend = 6;
     private final HashMap<Integer, String> dialogueMap = new HashMap<Integer, String>() {
         {
-            put(0, "images/NPC/Dialogue/dialoguesboxfemale.png");
+            put(0, "images/NPC/Dialogue/dialoguesboxfemale2.png");
             put(1, "images/NPC/Dialogue/dialoguesboxchild.png");
             put(2, "images/NPC/Dialogue/dialoguesboxguard.png");
             put(3, "images/NPC/Dialogue/dialoguesboxmale.png");
@@ -73,7 +72,9 @@ public class DialogueDisplay extends UIComponent {
 
     static int countHumanGuardAlready = 0;
     static int countFriendlyCreature = 0;
+    static int countFriendlyCreatureAlready = 0;
     static int countPlumberFriend = 0;
+    static int countPlumberFriendAlready;
     public static Table dialogueContainerFemale;
     public static Table dialogueContainerGuard;
     public static Table dialogueContainerMale;
@@ -88,9 +89,14 @@ public class DialogueDisplay extends UIComponent {
     public static TextArea textAreaHumanGuard;
     public static TextArea textAreaHumanGuardAlready;
     public static TextArea textAreaFriendlyCreature;
+    public static TextArea textAreaFriendlyCreatureAlready;
     public static TextArea textAreaPlumberFriend;
+    public static TextArea textAreaPlumberFriendAlready;
     public static Boolean state = false;
     public static TextButton childButton = new TextButton("yes", skin);
+    public int haveTalked = 0;
+    public int haveTalkedPlumberFriend = 0;
+    public int haveTalkedFriendlyCreature = 0;
     public static String[] textFemale = {
             "Nat:\n",
             "Oh good heavens, are you balding?\nThat's quite horrific.",
@@ -126,7 +132,7 @@ public class DialogueDisplay extends UIComponent {
             "7"
     };
 
-    public int haveTalked = 0;
+
     public static String[] textHumanGuard = {
             "George",
             "Oh good, you are here!",
@@ -150,6 +156,12 @@ public class DialogueDisplay extends UIComponent {
             "3",
             "4"
     };
+    public static String[] textFriendlyCreatureAlready = {
+            "afdesdf",
+            "aefaef",
+            "feafaef",
+            "faefae"
+    };
     public static String[] textPlumberFriend = {
             "PlumberFriend\n",
             "Hey! I have not seen you in forever.",
@@ -163,6 +175,14 @@ public class DialogueDisplay extends UIComponent {
             "I don’t have any use for it so you can have it.",
             ""
     };
+
+    public static String[] textPlumberFriendAlready = {
+            "1",
+            "2",
+            "3",
+            "4"
+    };
+
     @Override
     public void create() {
         //initialize the dialogue container for each NPCs
@@ -184,52 +204,67 @@ public class DialogueDisplay extends UIComponent {
         // initialize the dialogue image for each NPCs
         dialogueImagefemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFemale), Texture.class));
+        dialogueImagefemale.setPosition(220,0);
         dialogueimageguard = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageGuard), Texture.class));
+        dialogueimageguard.setPosition(500,20);
         dialogueimagemale = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageMale), Texture.class));
+        dialogueimagemale.setPosition(500,20);
         dialogueimgchild = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageChild), Texture.class));
+        dialogueimgchild.setPosition(500,20);
         dialogueimagehumanguard = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageHumanGuard), Texture.class));
+        dialogueimagehumanguard.setPosition(500,20);
         dialogueimagefriendlycreature = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImageFriendlyCreature), Texture.class));
+        dialogueimagefriendlycreature.setPosition(500,20);
         dialogueimageplumberfriend = new Image(ServiceLocator.getResourceService()
                 .getAsset(dialogueMap.get(dialogueImagePlumberFriend), Texture.class));
+        dialogueimageplumberfriend.setPosition(500,20);
 
         // initialize the text area for each NPCs
         textAreaFemale = new TextArea(textFemale[countFemale], skin);
         textAreaFemale.setWidth(480);
         textAreaFemale.setHeight(70);
-        textAreaFemale.setPosition(50,50);
+        textAreaFemale.setPosition(500,20);
         textAreaGuard = new TextArea(textGuard[countGuard], skin);
         textAreaGuard.setWidth(480);
         textAreaGuard.setHeight(70);
-        textAreaGuard.setPosition(50,50);
+        textAreaGuard.setPosition(500,20);
         textAreaMale = new TextArea(textMale[countMale], skin);
         textAreaMale.setWidth(480);
         textAreaMale.setHeight(70);
-        textAreaMale.setPosition(50,50);
+        textAreaMale.setPosition(500,20);
         textAreaChild = new TextArea(textChild[countChild], skin);
         textAreaChild.setWidth(480);
         textAreaChild.setHeight(70);
-        textAreaChild.setPosition(50,50);
+        textAreaChild.setPosition(500,20);
         textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
         textAreaHumanGuard.setWidth(480);
         textAreaHumanGuard.setHeight(70);
-        textAreaHumanGuard.setPosition(50,50);
+        textAreaHumanGuard.setPosition(500,20);
         textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin);
         textAreaHumanGuardAlready.setWidth(480);
         textAreaHumanGuardAlready.setHeight(70);
-        textAreaHumanGuardAlready.setPosition(50,50);
+        textAreaHumanGuardAlready.setPosition(500,20);
         textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
         textAreaFriendlyCreature.setWidth(480);
         textAreaFriendlyCreature.setHeight(70);
-        textAreaFriendlyCreature.setPosition(50,50);
+        textAreaFriendlyCreature.setPosition(500,20);
+        textAreaFriendlyCreatureAlready = new TextArea(textFriendlyCreatureAlready[countFriendlyCreatureAlready], skin);
+        textAreaFriendlyCreatureAlready.setWidth(480);
+        textAreaFriendlyCreatureAlready.setHeight(70);
+        textAreaFriendlyCreatureAlready.setPosition(500,20);
         textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
         textAreaPlumberFriend.setWidth(480);
         textAreaPlumberFriend.setHeight(70);
-        textAreaPlumberFriend.setPosition(50,50);
+        textAreaPlumberFriend.setPosition(500,20);
+        textAreaPlumberFriendAlready = new TextArea(textPlumberFriendAlready[countPlumberFriendAlready], skin);
+        textAreaPlumberFriendAlready.setWidth(480);
+        textAreaPlumberFriendAlready.setHeight(70);
+        textAreaPlumberFriendAlready.setPosition(500,20);
 
         // add dialogue image and dialogue text area to the container
         dialogueContainerFemale.addActor(dialogueImagefemale);
@@ -260,7 +295,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaFemale = new TextArea(textFemale[countFemale], skin);
             textAreaFemale.setWidth(480);
             textAreaFemale.setHeight(50);
-            textAreaFemale.setPosition(50,50);
+            textAreaFemale.setPosition(500,20);
             dialogueContainerFemale.addActor(textAreaFemale);
             if (countFemale == textFemale.length - 1) {
                 countFemale = 0;
@@ -284,7 +319,7 @@ public class DialogueDisplay extends UIComponent {
             textAreaGuard = new TextArea(textGuard[countGuard], skin);
             textAreaGuard.setWidth(480);
             textAreaGuard.setHeight(50);
-            textAreaGuard.setPosition(50,50);
+            textAreaGuard.setPosition(500,20);
             dialogueContainerGuard.addActor(textAreaGuard);
 
             if (countGuard == textGuard.length - 1) {
@@ -318,6 +353,8 @@ public class DialogueDisplay extends UIComponent {
             countMale++;
             textAreaMale = new TextArea(textMale[countMale], skin);
             textAreaMale.setWidth(480);
+            textAreaMale.setHeight(50);
+            textAreaMale.setPosition(500,20);
             dialogueContainerMale.addActor(textAreaMale);
             if (countMale == textMale.length - 1) {
                 countMale = 0;
@@ -340,6 +377,8 @@ public class DialogueDisplay extends UIComponent {
             countChild++;
             textAreaChild = new TextArea(textChild[countChild], skin);
             textAreaChild.setWidth(480);
+            textAreaChild.setHeight(50);
+            textAreaChild.setPosition(500,20);
             dialogueContainerChild.addActor(textAreaChild);
             if (countChild == textChild.length - 1) {
                 countChild = 0;
@@ -394,6 +433,8 @@ public class DialogueDisplay extends UIComponent {
             countHumanGuard++;
             textAreaHumanGuard = new TextArea(textHumanGuard[countHumanGuard], skin);
             textAreaHumanGuard.setWidth(480);
+            textAreaHumanGuard.setHeight(50);
+            textAreaHumanGuard.setPosition(500,20);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuard);
 
             if (countHumanGuard == textHumanGuard.length - 1) {
@@ -432,6 +473,8 @@ public class DialogueDisplay extends UIComponent {
             countHumanGuardAlready++;
             textAreaHumanGuardAlready = new TextArea(textHumanGuardAlready[countHumanGuardAlready], skin);
             textAreaHumanGuardAlready.setWidth(480);
+            textAreaHumanGuardAlready.setHeight(50);
+            textAreaHumanGuardAlready.setPosition(500,20);
             dialogueContainerHumanGuard.addActor(textAreaHumanGuardAlready);
 
             if (countHumanGuardAlready == textHumanGuardAlready.length - 1) {
@@ -453,29 +496,49 @@ public class DialogueDisplay extends UIComponent {
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_4.wav"));
                 music.play();
             }
-        } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5) {
+        } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5  && haveTalkedFriendlyCreature == 0) {
             logger.info("new text loaded");
             countFriendlyCreature++;
             textAreaFriendlyCreature = new TextArea(textFriendlyCreature[countFriendlyCreature], skin);
             textAreaFriendlyCreature.setWidth(480);
+            textAreaFriendlyCreature.setHeight(50);
+            textAreaFriendlyCreature.setPosition(500,20);
             dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreature);
             if (countFriendlyCreature == textFriendlyCreature.length - 1) {
                 countFriendlyCreature = 0;
                 dialogueContainerFriendlyCreature.remove();
+                haveTalkedFriendlyCreature = 1;
             } else if (countFriendlyCreature == 1) {
                 inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
                 inventoryComponent.addItem(MaterialFactory.createToiletPaper());
             }
 
-        } else if ((PlumberFriendPosition) != null && entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5) {
+        } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5 && haveTalkedFriendlyCreature == 1) {
+            logger.info("new text loaded");
+
+            countFriendlyCreatureAlready++;
+            textAreaFriendlyCreatureAlready = new TextArea(textFriendlyCreatureAlready[countFriendlyCreatureAlready], skin);
+            textAreaFriendlyCreatureAlready.setWidth(480);
+            textAreaFriendlyCreatureAlready.setHeight(50);
+            textAreaFriendlyCreatureAlready.setPosition(500,20);
+            dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreatureAlready);
+
+            if (countFriendlyCreatureAlready == textFriendlyCreatureAlready.length - 1) {
+                countFriendlyCreatureAlready = 0;
+                dialogueContainerPlumberFriend.remove();
+            }
+        } else if ((PlumberFriendPosition) != null && entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5 && haveTalkedPlumberFriend == 0) {
             logger.info("new text loaded");
             countPlumberFriend++;
             textAreaPlumberFriend = new TextArea(textPlumberFriend[countPlumberFriend], skin);
             textAreaPlumberFriend.setWidth(480);
+            textAreaPlumberFriend.setHeight(50);
+            textAreaPlumberFriend.setPosition(500,20);
             dialogueContainerPlumberFriend.addActor(textAreaPlumberFriend);
             if (countPlumberFriend == textPlumberFriend.length - 1) {
                 countPlumberFriend = 0;
                 dialogueContainerPlumberFriend.remove();
+                haveTalkedPlumberFriend = 1;
             } else if (countPlumberFriend == 1) {
                 logger.info("PlumberFriend1 sound displayed");
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 1.wav"));
@@ -515,7 +578,34 @@ public class DialogueDisplay extends UIComponent {
                 Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Plumber Friend Audio/Plumber Friend 9.wav"));
                 music.play();
             }
+        } else if ((PlumberFriendPosition) != null && entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5 && haveTalkedPlumberFriend == 1) {
+            logger.info("new text loaded");
+            countPlumberFriendAlready++;
+            textAreaPlumberFriendAlready = new TextArea(textPlumberFriendAlready[countPlumberFriendAlready], skin);
+            textAreaPlumberFriendAlready.setWidth(480);
+            textAreaPlumberFriendAlready.setHeight(50);
+            textAreaPlumberFriendAlready.setPosition(500, 20);
+            dialogueContainerPlumberFriend.addActor(textAreaPlumberFriendAlready);
 
+            if (countPlumberFriendAlready == textPlumberFriendAlready.length - 1) {
+                countPlumberFriendAlready = 0;
+                dialogueContainerPlumberFriend.remove();
+            } else if (countPlumberFriendAlready == 1) {
+                logger.info("HumanGuard1 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human Guard 1.wav"));
+                music.play();
+            } else if (countPlumberFriendAlready == 2) {
+                logger.info("HumanGuard2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_2.wav"));
+                music.play();
+            } else if (countPlumberFriendAlready == 3) {
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_3.wav"));
+                music.play();
+            } else if (countPlumberFriendAlready == 4) {
+                logger.info("HumanGuard4 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_4.wav"));
+                music.play();
+            }
         }
     }
     public void openDialogue() {
