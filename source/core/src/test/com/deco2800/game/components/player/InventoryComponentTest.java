@@ -1,20 +1,14 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
-import com.deco2800.game.events.EventHandler;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.RenderComponent;
 import com.deco2800.game.rendering.RenderService;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
@@ -113,6 +107,15 @@ class InventoryComponentTest {
 //
 //    verify(combatAnimator).dispose();
   }
+
+  /*@Test
+  void disposeAnimation() {
+    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
+    RenderComponent component = spy(AnimationRenderComponent.class);
+    component.create();
+    component.dispose();
+    verify(ServiceLocator.getRenderService()).unregister(component);
+  }*/
 
   @Test
   void hasItem() {
@@ -287,7 +290,7 @@ class InventoryComponentTest {
   }
 
   @Test
-  void removeEquipable() {
+  void removeEquipable(int i) {
     //Needs work, Incomplete test
 
 //    Entity player = PlayerFactory.createTestPlayer();
@@ -457,14 +460,7 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
 
-  @Test
-  void disposeAnimation() {
-    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
-    RenderComponent component = spy(AnimationRenderComponent.class);
-    component.create();
-    component.dispose();
-    verify(ServiceLocator.getRenderService()).unregister(component);
-  }
+
 
   /*private void cancelAnimation() {
     if(combatAnimator == null) return;
