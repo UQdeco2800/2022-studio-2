@@ -61,8 +61,8 @@ class InventoryComponentTest {
                         "images/Potions/agility_potion.png",
                         "images/Potions/health_potion.png",
                         "images/Potions/defence_potion.png",
-                        "images/Potions/swiftness_potion.png"
-    };
+                        "images/Potions/swiftness_potion.png",
+                        "images/Armour-assets-sprint2/Dark_Armour.png",};
     resourceService.loadTextures(textures);
     String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
     resourceService.loadTextureAtlases(textureAtlases);
@@ -415,6 +415,33 @@ class InventoryComponentTest {
 
   @Test
   void swapItem(){
+//    Entity player = PlayerFactory.createTestPlayer();
+//    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
+//    Entity testArmour = ArmourFactory.createBaseArmour();
+//    Entity darkArmour = ArmourFactory.createArmour(ArmourFactory.ArmourType.darkArmour);
+//    Entity dumbbell = WeaponFactory.createDumbbell();
+//    Entity wood = MaterialFactory.createWood();
+//
+//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+//    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+//
+//    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
+//    PhysicalWeaponStatsComponent meleeStats = dumbbell.getComponent(PhysicalWeaponStatsComponent.class);
+//
+//    inventory.addItem(testWeapon);
+//    inventory.addItem(testArmour);
+//    inventory.addItem(dumbbell);
+//
+//    inventory.swapItem(testWeapon);
+//    inventory.equipItem(dumbbell);
+//
+//    inventory.swapItem(testWeapon);
+//    assertFalse(pmComponent.
+//            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+//
+//    inventory.equipItem(testArmour);
+//    inventory.swapItem(darkArmour);
+//    assertFalse(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false,0));
 
   }
 
