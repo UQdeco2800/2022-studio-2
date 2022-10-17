@@ -37,7 +37,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the Heracles walking when facing right
+     * Animates Heracles walking when facing right
      */
     private void animateWalkRight() {
         if (!"walk_right".equals(animator.getCurrentAnimation())) {
@@ -109,7 +109,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the Heracles attacking when facing forwards
+     * Animates Heracles jumping when facing forwards
      */
     private void animateJumpFront() {
         if (!"jump_front".equals(animator.getCurrentAnimation())) {
@@ -118,7 +118,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the Heracles attacking when facing backwards
+     * Animates Heracles jumping when facing backwards
      */
     private void animateJumpBack() {
         if (!"jump_back".equals(animator.getCurrentAnimation())) {
@@ -127,7 +127,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the Heracles attacking when facing left
+     * Animates Heracles jumping when facing left
      */
     private void animateJumpLeft() {
         if (!"jump_left".equals(animator.getCurrentAnimation())) {
@@ -136,7 +136,7 @@ public class HeraclesAnimationController extends Component {
     }
 
     /**
-     * Animates the Heracles attacking when facing right
+     * Animates Heracles jumping when facing right
      */
     private void animateJumpRight() {
         if (!"jump_right".equals(animator.getCurrentAnimation())) {
@@ -144,24 +144,36 @@ public class HeraclesAnimationController extends Component {
         }
     }
 
+    /**
+     * Animates Heracles vanishing when facing front
+     */
     private void animateVanishFront() {
         if (!"vanish_front".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_front");
         }
     }
 
+    /**
+     * Animates Heracles vanishing when facing back
+     */
     private void animateVanishBack() {
         if (!"vanish_back".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_back");
         }
     }
 
+    /**
+     * Animates Heracles vanishing when facing left
+     */
     private void animateVanishLeft() {
         if (!"vanish_left".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_left");
         }
     }
 
+    /**
+     * Animates Heracles vanishing when facing right
+     */
     private void animateVanishRight() {
         if (!"vanish_right".equals(animator.getCurrentAnimation())) {
             animator.startAnimation("vanish_right");

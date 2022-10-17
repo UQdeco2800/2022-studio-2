@@ -45,6 +45,7 @@ class WanderTaskTest {
     entity.getEvents().addListener("walkRight", callback);
 
     wanderTask.start();
+    wanderTask.update();
 
     verify(callback).handle();
   }
