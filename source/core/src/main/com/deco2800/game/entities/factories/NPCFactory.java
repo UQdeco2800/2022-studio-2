@@ -319,7 +319,7 @@ public class NPCFactory {
     heracles.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.SPEED, 2f))
-            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f))
+            .addTask(new JumpTask(target, 10, 8f,19f, 1.5f))
             .addTask(new DeadTask(target,15));
 
     AnimationRenderComponent animator =
