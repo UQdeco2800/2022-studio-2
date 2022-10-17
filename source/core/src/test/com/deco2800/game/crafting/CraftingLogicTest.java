@@ -1,10 +1,22 @@
 package com.deco2800.game.crafting;
 
 //import com.deco2800.game.CombatItems.Weapon;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfig;
 import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.input.InputService;
+import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.services.ResourceService;
+import com.deco2800.game.services.ServiceLocator;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,13 +24,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 @ExtendWith(GameExtension.class)
 public class CraftingLogicTest {
 
+    Entity entity;
 
     @Before
     public void setup() {
+        ForestGameArea fga = mock(ForestGameArea.class);
+        ServiceLocator.registerGameArea(fga);
+        ServiceLocator.registerEntityService(new EntityService());
+        ServiceLocator.registerPhysicsService(new PhysicsService());
+        ServiceLocator.registerInputService(new InputService());
+        ServiceLocator.registerRenderService(new RenderService());
+        ResourceService resourceService = new ResourceService();
+        ServiceLocator.registerResourceService(resourceService);
+
+        String[] textures = {
+                "images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
+                "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+                "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+                "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+                "images/CombatItems/Sprint-1/trident_Lvl2.png",
+                "images/CombatItems/Sprint-2/H&ADagger.png",
+                "images/CombatItems/Sprint-2/Plunger.png",
+                "images/CombatItems/Sprint-2/pipe.png",
+                "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/Bow.png",
+                "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png",
+                "images/Crafting-assets-sprint1/materials/gold.png",
+                "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
+                "images/Crafting-assets-sprint1/materials/iron.png",
+                "images/Crafting-assets-sprint1/materials/toilet_paper.png",
+                "images/Crafting-assets-sprint1/materials/steel.png",
+                "images/Crafting-assets-sprint1/materials/wood.png",
+                "images/Crafting-assets-sprint1/materials/plastic.png",
+                "images/Crafting-assets-sprint1/materials/rubber.png",
+                "images/Crafting-assets-sprint1/materials/platinum.png",
+                "images/Crafting-assets-sprint1/materials/silver.png"};
+        resourceService.loadTextures(textures);
+        String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
+        resourceService.loadTextureAtlases(textureAtlases);
+        resourceService.loadAll();
+
+        GameArea gameArea = spy(GameArea.class);
+        RenderService renderService = new RenderService();
+        renderService.setStage(mock(Stage.class));
+        GameAreaDisplay crafting = new GameAreaDisplay("");
+        ServiceLocator.registerGameArea(gameArea);
+        ServiceLocator.registerRenderService(renderService);
+        ServiceLocator.registerInventoryArea(crafting);
+        crafting.create();
+        entity = new Entity();
     }
 
     @Test
@@ -98,10 +157,11 @@ public class CraftingLogicTest {
         assertEquals(CraftingLogic.canBuild(inventoryContentsTest), buildItemsTest);
     }
 
-//    @Test
-//    void damageToWeaponTest() {
+    @Test
+    void damageToWeaponTest() {
 //        WeaponConfigSetup configs =
 //                FileLoader.readClass(WeaponConfigSetup.class, "configs/Weapons.json");
+//
 //        WeaponConfig athenaDag = configs.athenaDag;
 //        WeaponConfig heraDag = configs.heraDag;
 //        WeaponConfig dumbbell = configs.dumbbell;
@@ -112,11 +172,13 @@ public class CraftingLogicTest {
 //        WeaponConfig pipe = configs.pipe;
 //        WeaponConfig plungerBow = configs.plungerBow;
 //        WeaponConfig goldenPlungerBow = configs.goldenPlungerBow;
+//        entity = CraftingLogic.damageToWeapon(athenaDag);
+//        assertTrue(entity.checkEntityType(EntityTypes.MELEE));
 //        assertTrue(CraftingLogic.damageToWeapon(athenaDag).checkEntityType(EntityTypes.WEAPON));
 //        assertEquals(WeaponFactory.createDagger() ,CraftingLogic.damageToWeapon(athenaDag));
 //        MeleeConfig daggerConfig = new MeleeConfig();
 //        daggerConfig.damage = 7;
 //        double damage = daggerConfig.damage;
 //        assertEquals(CraftingLogic.damageToWeapon(daggerConfig), WeaponFactory.createDagger());
-//        }
+        }
 }
