@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
@@ -1036,12 +1037,16 @@ public class PlayerSkillComponent extends Component {
             skillAnimator.getEvents().trigger("aoeAnimation");
             playerEntity.getEvents().trigger("aoeCountdown");
             this.aoeAnimationRunning = true;
+            Entity projectile;
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-                Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+                projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
                 ForestGameArea.removeProjectileOnMap(projectile);
-                if (projectile.getComponent(AnimationRenderComponent.class) != null) {
-                    projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
-                }
+            } else {
+                projectile = ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+                UndergroundGameArea.removeProjectileOnMap(projectile);
+            }
+            if (projectile.getComponent(AnimationRenderComponent.class) != null) {
+                projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
             }
             setSkillCooldown("aoe");
         }

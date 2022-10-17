@@ -225,12 +225,10 @@ public class PlayerActions extends Component {
    *  Makes the player charge. Registers call of the charge function to the skill manager component.
    */
   void charge() {
-    if(mana >= 2){
+    if(mana >= 20){
       skillManager.startCharge();
-      entity.getEvents().trigger("decreaseStamina", -2);
+      entity.getEvents().trigger("decreaseMana", -20);
     }
-
-    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
 
   /**
@@ -315,8 +313,8 @@ public class PlayerActions extends Component {
    * Does an aoe attackEnemy around the player. Registers call of the aoe function to the skill manager component.
    */
   void aoe() {
-    if (mana>=2) {
-      entity.getEvents().trigger("decreaseMana", -2);
+    if (mana>=5) {
+      entity.getEvents().trigger("decreaseMana", -5);
       skillManager.aoeAttack();
     }
   }
