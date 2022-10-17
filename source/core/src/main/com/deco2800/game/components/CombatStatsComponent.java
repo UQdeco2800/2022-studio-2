@@ -2,7 +2,7 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemsComponents.PhysicalWeaponStatsComponent;
 
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.entities.Entity;
@@ -150,45 +150,16 @@ public class CombatStatsComponent extends Component {
    * @param attacker  Attacking entity combatstats component
    */
   public void hit(CombatStatsComponent attacker) {
-    Entity playerWeapon;
+    int attackDmg = 0;
     if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
             (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
-
-      int attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
-      int newHealth = getHealth() - (int)((1 - damageReduction) * attackDmg);
-      setHealth(newHealth);
+      attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
     } else { //if it's not a player, or if it is a player without a weapon
-      int newHealth = getHealth() - (int) ((1 - damageReduction) * attacker.getBaseAttack());
-      setHealth(newHealth);
+      attackDmg = attacker.getBaseAttack();
     }
-
-    Boolean checkDead = this.isDead();
-    if (checkDead && entity.checkEntityType(EntityTypes.ENEMY)) {
-
-      Gdx.app.postRunnable(() -> {
-        dropMaterial();
-        dropWeapon();
-        //entity.dispose();
-      });
-
-      if (entity.getComponent(AnimationRenderComponent.class) != null) {
-        Gdx.app.postRunnable(() -> entity.getComponent(AnimationRenderComponent.class).stopAnimation()); //this is the magic line)
-      }
-    }
-    if (Boolean.TRUE.equals(isDead()) && entity.checkEntityType(EntityTypes.PLAYER)) {
-      entity.getEvents().trigger("death");
-    }
-    //Code from Inventory branch or Lachlan's reference
-//    int attackDmg = 0;
-//    if (attacker.getEntity().checkEntityType(EntityTypes.PLAYER) &&
-//            (playerWeapon = attacker.getEntity().getComponent(InventoryComponent.class).getEquipable(0)) != null) {
-//      attackDmg = (int) playerWeapon.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
-//    } else { //if it's not a player, or if it is a player without a weapon
-//      attackDmg = attacker.getBaseAttack();
-//    }
-//    int newHealth = getHealth() - (int)(attackDmg - damageReduction);
-//    setHealth(newHealth);
-//    attacker.reduceHealth((int)damageReturn);
+    int newHealth = getHealth() - (int)(attackDmg - damageReduction);
+    setHealth(newHealth);
+    attacker.reduceHealth((int)damageReturn);
   }
 
   /**

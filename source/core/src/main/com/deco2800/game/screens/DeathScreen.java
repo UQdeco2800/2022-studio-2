@@ -26,31 +26,24 @@ public class DeathScreen extends ScreenAdapter {
     private final GdxGame game;
     private final int level;
     private final Renderer renderer;
-    private static final String[] deathTextures = {"images/DeathScreens/lvl_1.png", "images/DeathScreens/lvl_2.png",
-            "images/WinScreen/atlantis_sinks_no_island.png", "images/WinScreen/Win.png",
-            "images/WinScreen/atlantis_sinks_no_island_win.png",
-            "images/DeathScreens/lvl_2_w_buttons.png", "images/DeathScreens/lvl_1_w_buttons.png"
-    };
-    private static final String[] deathBtnTextures = {"images/DeathScreens/widgets/main_menu_lvl_1.png",
-                                                    "images/DeathScreens/widgets/main_menu_lvl_2.png",
-                                                    "images/DeathScreens/widgets/play_again_lvl_1.png",
-                                                    "images/DeathScreens/widgets/play_again_lvl_2.png",
-                                                    "images/WinScreen/winbtn.png"};
-    private static final String BACKGROUND_MUSIC = "sounds/MenuSong-Overcast.mp3";
+    private static final String[] deathTextures = {"images/WinScreen/atlantis_sinks_no_island_win.png",
+                                                    "images/DeathScreens/lvl_2_w_buttons.png",
+                                                    "images/DeathScreens/lvl_1_w_buttons.png"};
+    private static final String WIN_MUSIC = "sounds/music_sprint4/setting_DD.wav";
     private static final String BUZZ_DEATH_SOUND = "sounds/buzz_death.mp3";
-    private static final String FLUSH_SOUND_SOUND = "sounds/flush_win.mp3";
-    private static final String[] deathMusic = {BACKGROUND_MUSIC, BUZZ_DEATH_SOUND, FLUSH_SOUND_SOUND};
+    private static final String FLUSH_SOUND = "sounds/flush_win.mp3";
+    private static final String[] deathMusic = {WIN_MUSIC, BUZZ_DEATH_SOUND, FLUSH_SOUND};
 
 
     /**
      * DeathScreen constructor
-     * @param game
-     * @param level
+     * @param game The current game passed in by GdxGame
+     * @param level The current level pass in by GdxGame
      */
     public DeathScreen(GdxGame game, int level) {
         this.game = game;
         this.level = level;
-        logger.debug("Initialising death screen screen services");
+        logger.debug("Initialising death screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -74,10 +67,10 @@ public class DeathScreen extends ScreenAdapter {
             music = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
             music.setLooping(true);
         } else {
-            music = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
+            music = ServiceLocator.getResourceService().getAsset(FLUSH_SOUND, Music.class);
             music.setLooping(false);
             music.setVolume(0.2f);
-            Music bgMusic = ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class);
+            Music bgMusic = ServiceLocator.getResourceService().getAsset(WIN_MUSIC, Music.class);
             bgMusic.setVolume(0.3f);
             bgMusic.play();
         }
@@ -115,35 +108,38 @@ public class DeathScreen extends ScreenAdapter {
         unloadAssets();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getEntityService().dispose();
-        ServiceLocator.getResourceService().getAsset(BACKGROUND_MUSIC, Music.class).stop();
+        ServiceLocator.getResourceService().getAsset(WIN_MUSIC, Music.class).stop();
         ServiceLocator.getResourceService().getAsset(BUZZ_DEATH_SOUND, Music.class).stop();
-
         ServiceLocator.clear();
     }
 
+    /**
+     * Load's assets of DeathScreen from the resourceService
+     */
     private void loadAssets() {
-        logger.debug("Loading assets");
+        logger.debug("Loading assets for DeathScreen");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(deathTextures);
-        resourceService.loadTextures(deathBtnTextures);
         resourceService.loadMusic(deathMusic);
         ServiceLocator.getResourceService().loadAll();
     }
 
+    /**
+     * Unloads assets of DeathScreen from the resourceService
+     */
     private void unloadAssets() {
-        logger.debug("Unloading assets");
+        logger.debug("Unloading assets for DeathScreen");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(deathTextures);
-        resourceService.unloadAssets(deathBtnTextures);
         resourceService.unloadAssets(deathMusic);
     }
 
     /**
-     * Creates the death screens's ui including components for rendering ui elements to the screen and
+     * Creates the death screen's ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
     private void createUI(int level) {
-        logger.debug("Creating ui");
+        logger.debug("Creating ui for DeathScreen");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         ui.addComponent(new DeathScreenDisplay(level))
