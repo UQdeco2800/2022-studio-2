@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatItemsComponents;
+package com.deco2800.game.components.Combatitemscomponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.InventoryComponent;
