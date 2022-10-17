@@ -46,6 +46,7 @@ public class PlayerActions extends Component {
   private Music blockSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/block.mp3"));
   private Music dodgeSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dodge.mp3"));
   private Music fireballSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/fireball.wav"));
+  private Music bleedingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/bleeding.wav"));
   private Music projectileSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/projectile.mp3"));
   private Music rootSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/root.mp3"));
   private Music invulnerabilitySound= Gdx.audio.newMusic(Gdx.files.internal("sounds/invulnerability.mp3"));
@@ -281,6 +282,7 @@ public class PlayerActions extends Component {
   void bleed() {
     if (mana>=10) {
       entity.getEvents().trigger("decreaseMana", -10);
+      bleedingSound.play();
       skillManager.startBleed();
     }
   }
