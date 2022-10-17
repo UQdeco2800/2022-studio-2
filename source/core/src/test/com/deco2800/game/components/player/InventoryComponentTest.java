@@ -3,7 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;

@@ -28,8 +28,14 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final GdxGame game;
   private final Renderer renderer;
-  private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/substitute main menu by Rey.png"};
+  public static final int frameCount = 190;
+  private static final String[] mainMenuTextures = {"images/Crafting-assets-sprint1/screens/atlantis sinks main menu.png"};
+
+  public static String[] transitionTextures = new String[frameCount];
+  private static final String animationPrefix = "images/Crafting-assets-sprint1/screens/title animation/title_animation";
+
   private static final String backgroundMusic = "sounds/music_sprint4/mainMenu_FinalBattle.wav";
+
   private static final String[] mainMenuMusic = {backgroundMusic};
 
   public MainMenuScreen(GdxGame game) {
@@ -43,6 +49,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
 
+//    loadFrames();
     loadAssets();
     createUI();
     playMusic();
@@ -94,7 +101,19 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
+    loadFrames();
     resourceService.loadMusic(mainMenuMusic);
+    ServiceLocator.getResourceService().loadAll();
+  }
+
+  private void loadFrames() {
+    logger.debug("Loading assets");
+    ResourceService resourceService = ServiceLocator.getResourceService();
+
+    for (int i = 0; i < frameCount; i++) {
+      transitionTextures[i] = animationPrefix + i + ".png";
+    }
+    resourceService.loadTextures(transitionTextures);
     ServiceLocator.getResourceService().loadAll();
   }
 

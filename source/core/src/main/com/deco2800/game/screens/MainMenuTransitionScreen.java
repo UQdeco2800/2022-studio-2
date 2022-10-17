@@ -26,7 +26,8 @@ public class MainMenuTransitionScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String animationPrefix = "images/Crafting-assets-sprint1/screens/main menu animation/atlantis sinks animation";
-    public static final int frameCount = 85;
+
+    public static final int frameCount = 63;
     public static String[] transitionTextures = new String[frameCount];
 
     public MainMenuTransitionScreen(GdxGame game) {
@@ -68,7 +69,7 @@ public class MainMenuTransitionScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
 
-        for (int i = 0; i < frameCount; i++) {
+        for (int i = 1; i < frameCount; i++) {
             transitionTextures[i] = animationPrefix + i + ".png";
         }
         resourceService.loadTextures(transitionTextures);
