@@ -138,6 +138,9 @@ public class PlayerCombatAnimationController extends Component {
         entity.getEvents().addListener("plungerBowSpeedStatic", this::animatePlungerBowSpeedStatic);
         entity.getEvents().addListener("plungerBowStatic", this::animatePlungerBowStatic);
 
+        /*gold plunger bow animation listeners*/
+        entity.getEvents().addListener("goldenPlungerBow", this::animateGoldenPlungerBow);
+
         entity.getEvents().trigger("attackEnemy");
     }
 
@@ -437,6 +440,6 @@ public class PlayerCombatAnimationController extends Component {
         animator.startAnimation("plungerBowStatic");
     }
 
-    void animateGoldenPlungerBow() {animator.startAnimation("goldenBow");}
+    void animateGoldenPlungerBow() {animator.startAnimation("goldenPlungerBow");}
 }
 

@@ -17,6 +17,9 @@ public class EnemyProjectileComponent extends Component {
     private Vector2 projectileVector;
     private Vector2 projectileVelocity = new Vector2(1,1);
 
+    /**
+     * Create enemy projectile component
+     */
     @Override
     public void create() {
         physicsComponent = entity.getComponent(PhysicsComponent.class);
