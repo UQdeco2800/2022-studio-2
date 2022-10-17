@@ -812,12 +812,16 @@ public class PlayerSkillComponent extends Component {
         Vector2 from = new Vector2(playerEntity.getPosition().x - walkDirection.x * 0.2f,
                 playerEntity.getPosition().y - walkDirection.y * 0.2f);
         Vector2 fromCenter = playerEntity.getCenterPosition();
+        Vector2 fromCenterEdges = new Vector2(fromCenter.x - walkDirection.x * 0.2f,
+                fromCenter.y - walkDirection.y * 0.2f);
         Vector2 to = new Vector2(teleportPositionX, teleportPositionY);
 
         if (physics.raycast(from, to, PhysicsLayer.OBSTACLE, hit)) {
             if (Math.abs(hit.point.x - fromCenter.x) < 0.75f && Math.abs(hit.point.y - fromCenter.y) < 0.75f) {
                 return;
             }
+            playerEntity.setPosition(hit.point.x - walkDirection.x, hit.point.y - walkDirection.y);
+        } else if (walkDirection.x == 0 && physics.raycast(fromCenterEdges, to, PhysicsLayer.OBSTACLE, hit)) {
             playerEntity.setPosition(hit.point.x - walkDirection.x, hit.point.y - walkDirection.y);
         } else {
             playerEntity.setPosition(to);
