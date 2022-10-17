@@ -29,6 +29,15 @@ public class LevelTransitionDisplay extends UIComponent {
         logger.info("Creating level transition display");
     }
 
+    /**
+     * Special JUnit create function to avoid GitHub exceptions.
+     */
+    public void jUnitCreate() {
+        frame = 0;
+        stage = ServiceLocator.getRenderService().getStage();
+        addActors();
+    }
+
     @Override
     public void create() {
         frame = 0;

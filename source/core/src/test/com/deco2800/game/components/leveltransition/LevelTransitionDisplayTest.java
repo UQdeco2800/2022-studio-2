@@ -51,7 +51,7 @@ class LevelTransitionDisplayTest {
         levelTransitionScreen = mock(LevelTransitionScreen.class);
         levelTransitionScreen.loadAssets();
         levelTransitionDisplay = new LevelTransitionDisplay();
-        levelTransitionDisplay.create();
+        levelTransitionDisplay.jUnitCreate();
     }
 
     @Test
