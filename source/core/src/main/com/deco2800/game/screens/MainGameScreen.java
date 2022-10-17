@@ -80,7 +80,7 @@ public class MainGameScreen extends ScreenAdapter {
           "images/NPC/Dialogue/dialoguesboxmale.png",
           "images/NPC/Dialogue/dialoguesboxguard.png",
           "images/NPC/Dialogue/dialoguesboxchild.png",
-          "images/NPC/Dialogue/dialoguesboxfemale.png",
+          "images/NPC/Dialogue/dialoguesboxfemale2.png",
           "images/NPC/Dialogue/HumanGuardDialogue.png",
           "images/NPC/Dialogue/FriendlyCreatureDialogue.png",
           "images/NPC/Dialogue/PlumberFriend.png"
