@@ -105,8 +105,6 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             if (enemyCollide) {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
-                //String sDamage = String.valueOf(damage);
-                //logger.trace("attackEnemy enemy: %s".formatted(sDamage));
                 logger.trace("attackEnemy enemy: {} ",damage);
             }
             playAttackSounds(weaponEquipped);
