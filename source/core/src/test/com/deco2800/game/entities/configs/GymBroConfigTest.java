@@ -9,8 +9,8 @@ public class GymBroConfigTest {
     @Test
     void createTest() {
         GymBroConfig gymBroConfig = new GymBroConfig();
-        assertEquals(2f, gymBroConfig.speed);
-        assertEquals(5, gymBroConfig.baseAttackGymBro);
-        assertEquals(70, gymBroConfig.healthGymBro);
+        assertEquals(2f, gymBroConfig.SPEED);
+        assertEquals(5, gymBroConfig.BASEATTACKGYMBRO);
+        assertEquals(70, gymBroConfig.HEALTHGYMBRO);
     }
 }
