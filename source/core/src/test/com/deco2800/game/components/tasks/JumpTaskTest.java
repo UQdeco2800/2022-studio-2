@@ -44,7 +44,7 @@ class JumpTaskTest {
         entity.setPosition(0f, 0f);
 
         float initialDistance = entity.getPosition().dst(target.getPosition());
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             entity.earlyUpdate();
             entity.update();
             ServiceLocator.getPhysicsService().getPhysics().update();
@@ -52,6 +52,7 @@ class JumpTaskTest {
         float newDistance = entity.getPosition().dst(target.getPosition());
         assertTrue(newDistance < initialDistance);
     }
+
     private Entity makePhysicsEntity() {
         return new Entity()
                 .addComponent(new PhysicsComponent())
@@ -67,24 +68,27 @@ class JumpTaskTest {
         entity.create();
         entity.setPosition(0f, 0f);
 
-        JumpTask jumpTask = new JumpTask(target, 10, 5f, 2f, 2f);
-        jumpTask.create(() -> entity);
+        JumpTask jumpTask1 = new JumpTask(target, 10, 5f, 2f, 2f);
+        jumpTask1.create(() -> entity);
 
         // Not currently active, target is too far, should have negative priority
-        assertTrue(jumpTask.getPriority() < 0);
+        assertTrue(jumpTask1.getPriority() < 0);
+    }
 
-        // When in view distance, should give higher priority
-        target.setPosition(0f, 4f);
-        assertEquals(10, jumpTask.getPriority());
+    @Test
+    void stopTest() {
+        Entity target = new Entity();
+        target.setPosition(2f, 2f);
 
-        // When active, should chase if within chase distance
-        target.setPosition(0f, 8f);
+        JumpTask jumpTask = new JumpTask(target, 10, 5f, 10, 10f);
+        AITaskComponent ai = new AITaskComponent().addTask(jumpTask);
+        Entity entity = makePhysicsEntity().addComponent(ai);
+        entity.create();
+        entity.setPosition(0f, 0f);
+
         jumpTask.start();
-        assertEquals(10, jumpTask.getPriority());
-
-        // When active, should not chase outside chase distance
-        target.setPosition(0f, 12f);
-        assertTrue(jumpTask.getPriority() < 0);
+        jumpTask.stop();
+        assertEquals(Task.Status.INACTIVE, jumpTask.getStatus());
     }
 
     @Test
@@ -97,7 +101,7 @@ class JumpTaskTest {
 
         //enemy above target
         target.setPosition(0f, 0f);
-        entity.setPosition(0f, 2f);
+        entity.setPosition(0f, 0.5f);
 
         // Register callbacks
         EventListener0 callback = mock(EventListener0.class);
@@ -116,7 +120,7 @@ class JumpTaskTest {
         entity.create();
 
         //enemy behind target
-        target.setPosition(0f, 2f);
+        target.setPosition(0f, 0.5f);
         entity.setPosition(0f, 0f);
 
         // Register callbacks
@@ -136,7 +140,7 @@ class JumpTaskTest {
         entity.create();
 
         //target is left of enemy
-        target.setPosition(-2f, 0f);
+        target.setPosition(-0.5f, 0f);
         entity.setPosition(0f, 0f);
 
         // Register callbacks
@@ -156,7 +160,7 @@ class JumpTaskTest {
         entity.create();
 
         //enemy is right of target
-        target.setPosition(2f, 0f);
+        target.setPosition(0.5f, 0f);
         entity.setPosition(0f, 0f);
 
         // Register callbacks
