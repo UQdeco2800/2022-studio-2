@@ -86,64 +86,29 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             // base damage variable for the logger
             double damage = entity.getComponent(CombatStatsComponent.class).getDamageReduction();
 
+            //set weapon and aura entities
             Entity weaponEquipped = entity.getComponent(InventoryComponent.class).getEquipable(0);
             Entity auraEquipped = ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied;
+
             if (weaponEquipped != null) {
                 if (weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class) != null) {
-                    cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getCoolDown());
+                    attackWithPhysicalWeapon(weaponEquipped, auraEquipped);
                     // set the damage value for logger
                     damage = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
-                    //Sets the attackEnemy animation dependent on the weapon that is currently equipped
-                    String description = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-                    //When an aura is applied, play the respective aura animation
-                    String animationDesc;
-                    if (auraEquipped != null) {
-                        String currentAura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
-                        animationDesc = description+currentAura;
-                    }
-                    else {
-                        animationDesc = description;
-                    }
-                    combatAnimator.getEvents().trigger(animationDesc);
                 }
 
             } else {
-                cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
+                attackWithNoWeapon();
             }
 
-            //play physical weapon sounds
-            if (weaponEquipped == null) {
-                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-                attackSound.play();
-            }
-            else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
-                    && weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("plunger")) {
-                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
-                attackSound.play();
-            } else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)) {
-                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/metalSword.wav", Sound.class);
-                attackSound.play();
-            }
-
+            //check for collision
             if (enemyCollide) {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
                 String sDamage = String.valueOf(damage);
                 logger.trace("attackEnemy enemy: %s".formatted(sDamage));
             }
-
-            else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
-                //play ranged weapon sounds
-                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/rangeWeaponSound.mp3", Sound.class);
-                attackSound.play();
-
-                if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
-                    (forestgamearea).spawnWeaponProjectile();
-                }
-                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea undergroundgamearea){
-                    (undergroundgamearea).spawnWeaponProjectile();
-                }
-            }
+            playAttackSounds(weaponEquipped);
         }
     }
 
@@ -151,6 +116,65 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         if (System.currentTimeMillis() > cooldownEnd) {
             canAttack = true;
             cooldownEnd = 0;
+        }
+    }
+
+    public void playAttackSounds(Entity weaponEquipped) {
+        //play physical weapon sounds
+        if (weaponEquipped == null) {
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
+            attackSound.play();
+        }
+        else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
+                && weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("plunger")) {
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
+            attackSound.play();
+        } else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)) {
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/metalSword.wav", Sound.class);
+            attackSound.play();
+        }
+        //play ranged weapon sounds
+        else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/rangeWeaponSound.mp3", Sound.class);
+            attackSound.play();
+        }
+    }
+
+    public void playAttackAnimation(Entity weaponEquipped, Entity auraEquipped){
+        //Sets the attackEnemy animation dependent on the weapon that is currently equipped
+        String description = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
+        //When an aura is applied, play the respective aura animation
+        String animationDesc;
+        if (auraEquipped != null) {
+            String currentAura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
+            animationDesc = description+currentAura;
+        }
+        else {
+            animationDesc = description;
+        }
+        combatAnimator.getEvents().trigger(animationDesc);
+    }
+
+    public void attackWithPhysicalWeapon(Entity weaponEquipped, Entity auraEquipped) {
+        cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getCoolDown());
+        playAttackAnimation(weaponEquipped, auraEquipped);
+
+        //check if ranged
+        if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
+            attackRanged();
+        }
+    }
+
+    public void attackWithNoWeapon(){
+        cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
+    }
+
+    public void attackRanged() {
+        if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
+            (forestgamearea).spawnWeaponProjectile();
+        }
+        else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea undergroundgamearea){
+            (undergroundgamearea).spawnWeaponProjectile();
         }
     }
 
