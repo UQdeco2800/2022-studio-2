@@ -512,7 +512,7 @@ public class ForestGameArea extends GameArea {
     List<GridPoint2> locations = new ArrayList<>();
     locations.add(new GridPoint2(45, 47));
     locations.add(new GridPoint2(34, 90));
-    locations.add(new GridPoint2(96, 22));
+    locations.add(new GridPoint2(96, 19));
     locations.add(new GridPoint2(145, 152));
     for (GridPoint2 location : locations) {
       Entity dmgBuff = AuraFactory.createWeaponDmgBuff();
