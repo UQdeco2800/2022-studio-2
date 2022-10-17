@@ -8,7 +8,7 @@ public class HeraclesConfigTest {
     @Test
     void createTest() {
         HeraclesConfig heraclesConfig = new HeraclesConfig();
-        assertEquals(10, heraclesConfig.healthHeracles);
+        assertEquals(100, heraclesConfig.healthHeracles);
         assertEquals(10, heraclesConfig.baseAttackHeracles);
         assertEquals(2f, heraclesConfig.speed);
     }
