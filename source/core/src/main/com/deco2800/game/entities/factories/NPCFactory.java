@@ -100,6 +100,7 @@ public class NPCFactory {
     return oneLegGirl;
   }
 
+
   /**
    * Creates an atlantis child NPC entity.
    *
@@ -482,5 +483,22 @@ public class NPCFactory {
 
   public NPCFactory() {
     throw new IllegalStateException("Instantiating static util class");
+  }
+
+
+  public static Entity creatTestNPC(String NPCName) {
+    Entity npc = createBaseNPC();
+    npc.setEntityType(EntityTypes.NPC);
+    switch (NPCName) {
+      case "male" -> npc.setEntityType(EntityTypes.MALE);
+      case "female" -> npc.setEntityType(EntityTypes.FEMALE);
+      case "child" -> npc.setEntityType(EntityTypes.CHILD);
+      case "guard" -> npc.setEntityType(EntityTypes.GUARD);
+      case "humanguard" -> npc.setEntityType(EntityTypes.HUMANGUARD);
+      case "plumberfriend" -> npc.setEntityType(EntityTypes.PLUMBERFRIEND);
+      case "creature" -> npc.setEntityType(EntityTypes.CREATURE);
+      default -> new NullPointerException();
+    }
+    return npc;
   }
 }
