@@ -140,14 +140,27 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the aura currently applied to the equipped weapon of the player</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="WeaponStatsComponent.html" title="class in com.deco2800.game.components.combatitemsComponents">WeaponStatsComponent</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWeaponStats()" class="member-name-link">getWeaponStats</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAura(com.deco2800.game.entities.Entity)" class="member-name-link">setAura</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;aura)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the given aura to the applied aura</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCombatAnimator(com.deco2800.game.entities.Entity)" class="member-name-link">setCombatAnimator</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;combatAnimator)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the combat item animator for this actions component</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setWeaponStats(com.deco2800.game.entities.Entity)" class="member-name-link">setWeaponStats</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weapon)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the weapon stats if player is equipped with a weapon</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update()" class="member-name-link">update</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called once per frame of the game, and should be used for most component logic.</div>
 </div>
 </div>
@@ -231,6 +244,28 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="setAura(com.deco2800.game.entities.Entity)">
+<h3>setAura</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setAura</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;aura)</span></div>
+<div class="block">Sets the given aura to the applied aura</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aura</code> - </dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setWeaponStats(com.deco2800.game.entities.Entity)">
+<h3>setWeaponStats</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setWeaponStats</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;weapon)</span></div>
+<div class="block">Sets the weapon stats if player is equipped with a weapon</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>weapon</code> - </dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="applyAura(com.deco2800.game.entities.Entity,com.deco2800.game.entities.Entity)">
 <h3>applyAura</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">applyAura</span><wbr><span class="parameters">(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;aura,
@@ -252,6 +287,12 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>Aura currently applied to the equipped weapon of the player.</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getWeaponStats()">
+<h3>getWeaponStats</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="WeaponStatsComponent.html" title="class in com.deco2800.game.components.combatitemsComponents">WeaponStatsComponent</a></span>&nbsp;<span class="element-name">getWeaponStats</span>()</div>
 </section>
 </li>
 </ul>
