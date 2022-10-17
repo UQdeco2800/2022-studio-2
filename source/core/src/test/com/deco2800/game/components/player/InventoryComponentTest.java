@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
 import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
@@ -11,6 +12,7 @@ import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -359,38 +361,33 @@ class InventoryComponentTest {
 
   @Test
   void equipItem() {
-    /*
-     have no idea why methods still report errors after they have been mocked
-     */
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
+    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity animator = new Entity();
+    animator.getComponent(AnimationRenderComponent.class);
+    Entity entity = mock(Entity.class);
+    PlayerFactory playerFactory = mock(PlayerFactory.class);
+    ServiceLocator serviceLocator = mock(ServiceLocator.class);
 
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
-//    Entity testArmour = ArmourFactory.createBaseArmour();
-//    Entity animator = new Entity();
-//    animator.getComponent(AnimationRenderComponent.class);
-//    Entity entity = mock(Entity.class);
-//    PlayerFactory playerFactory = mock(PlayerFactory.class);
-//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
-//
 //    when(playerFactory.createCombatAnimator(entity)).thenReturn(animator);
 //    when(serviceLocator.getGameArea()).thenReturn(gameArea);
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
-//
-//    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
-//    PhyiscalWeaponStatsComponent meleeStats = testWeapon.getComponent(PhyiscalWeaponStatsComponent.class);
-//
-//    inventory.addItem(testWeapon);
-//    inventory.addItem(testArmour);
-//
-//    inventory.equipItem(testArmour);
-//    assertTrue(pmComponent.
-//            checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
-//
-//    inventory.equipItem(testWeapon);
-//    assertTrue(pmComponent.
-//            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+
+    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
+    PhysicalWeaponStatsComponent meleeStats = testWeapon.getComponent(PhysicalWeaponStatsComponent.class);
+
+    inventory.addItem(testWeapon);
+    inventory.addItem(testArmour);
+
+    inventory.equipItem(testArmour);
+    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false,0));
+
+    inventory.equipItem(testWeapon);
+    assertTrue(pmComponent.
+            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
   }
 
   @Test

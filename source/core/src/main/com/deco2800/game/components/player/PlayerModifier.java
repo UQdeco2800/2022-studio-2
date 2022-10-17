@@ -293,11 +293,9 @@ public class PlayerModifier extends Component{
                 break;
             case DMGREDUCTION:
                 valChange = (scaling) ? refDamageReduction * value : value;
-                System.out.println("Original reduc " + refDamageReduction + " change " + valChange);
                 break;
             case DMGRETURN:
                 valChange = (scaling) ? refDamageReturn * value : value;
-                System.out.println("Original return " + refDamageReturn + " change " + valChange);
                 break;
             case MANAREGEN :
                 valChange = (scaling) ? (int)(refManaRegen * value) : (int)value;
