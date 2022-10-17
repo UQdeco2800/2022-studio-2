@@ -35,77 +35,77 @@ class LevelTransitionDisplayTest {
     GdxGame game;
 
     // Commented out until I find a solution to the server runtime error
-//    @BeforeEach
-//    void init() {
-//        // Load the service locator and resource service thangs
-//        AssetManager assetManager = spy(AssetManager.class);
-//        ResourceService resourceService = new ResourceService(assetManager);
-//        ServiceLocator.registerResourceService(resourceService);
-//
-//        // Render service handling
-//        RenderService renderService = new RenderService();
-//        renderService.setStage(mock(Stage.class));
-//        ServiceLocator.registerRenderService(renderService);
-//
-//        game = new GdxGame();
-//        levelTransitionScreen = mock(LevelTransitionScreen.class);
-//        levelTransitionScreen.loadAssets();
-//        levelTransitionDisplay = new LevelTransitionDisplay();
-//        levelTransitionDisplay.create();
-//    }
-//
-//    @Test
-//    void shouldGetZIndex () {
-//
-//        assertEquals(2, levelTransitionDisplay.getZIndex());
-//    }
-//
-//    @Test
-//    void shouldGetFrameAfterCreate() {
-//
-//        assertEquals(1, levelTransitionDisplay.getFrame());
-//    }
-//
-//    @Test
-//    void shouldUpdateFrameWait() {
-//
-//        assertEquals(1, levelTransitionDisplay.getFrame());
-//        custom_wait(levelTransitionDisplay.getFrameDuration()+10);
-//        levelTransitionDisplay.update();
-//        assertEquals(2, levelTransitionDisplay.getFrame());
-//    }
-//
-//    @Test
-//    void shouldNotUpdateFrameWait() {
-//
-//        assertEquals(1, levelTransitionDisplay.getFrame());
-//        custom_wait(levelTransitionDisplay.getFrameDuration() / 2);
-//        levelTransitionDisplay.update();
-//        assertEquals(1, levelTransitionDisplay.getFrame());
-//    }
-//
-//    @Test
-//    void shouldFillTable() {
-//
-//        Table table = levelTransitionDisplay.getTable();
-//        assertTrue(table.hasChildren());
-//    }
-//
-//    @Test
-//    void shouldEmptyTable() {
-//
-//        Table table = levelTransitionDisplay.getTable();
-//        levelTransitionDisplay.dispose();
-//        assertFalse(table.hasChildren());
-//    }
-//
-//    @Test
-//    void shouldNotExceedFrameLimit() {
-//
-//        levelTransitionDisplay.setFrame(levelTransitionScreen.FRAME_COUNT);
-//        assertEquals(55, levelTransitionDisplay.getFrame());
-//        custom_wait(levelTransitionDisplay.getFrameDuration()+10);
-//        levelTransitionDisplay.update();
-//        assertEquals(55, levelTransitionDisplay.getFrame());
-//    }
+    @BeforeEach
+    void init() {
+        // Load the service locator and resource service thangs
+        AssetManager assetManager = spy(AssetManager.class);
+        ResourceService resourceService = new ResourceService(assetManager);
+        ServiceLocator.registerResourceService(resourceService);
+
+        // Render service handling
+        RenderService renderService = new RenderService();
+        renderService.setStage(mock(Stage.class));
+        ServiceLocator.registerRenderService(renderService);
+
+        game = new GdxGame();
+        levelTransitionScreen = mock(LevelTransitionScreen.class);
+        levelTransitionScreen.loadAssets();
+        levelTransitionDisplay = new LevelTransitionDisplay();
+        levelTransitionDisplay.create();
+    }
+
+    @Test
+    void shouldGetZIndex () {
+
+        assertEquals(2, levelTransitionDisplay.getZIndex());
+    }
+
+    @Test
+    void shouldGetFrameAfterCreate() {
+
+        assertEquals(1, levelTransitionDisplay.getFrame());
+    }
+
+    @Test
+    void shouldUpdateFrameWait() {
+
+        assertEquals(1, levelTransitionDisplay.getFrame());
+        custom_wait(levelTransitionDisplay.getFrameDuration()+10);
+        levelTransitionDisplay.update();
+        assertEquals(2, levelTransitionDisplay.getFrame());
+    }
+
+    @Test
+    void shouldNotUpdateFrameWait() {
+
+        assertEquals(1, levelTransitionDisplay.getFrame());
+        custom_wait(levelTransitionDisplay.getFrameDuration() / 2);
+        levelTransitionDisplay.update();
+        assertEquals(1, levelTransitionDisplay.getFrame());
+    }
+
+    @Test
+    void shouldFillTable() {
+
+        Table table = levelTransitionDisplay.getTable();
+        assertTrue(table.hasChildren());
+    }
+
+    @Test
+    void shouldEmptyTable() {
+
+        Table table = levelTransitionDisplay.getTable();
+        levelTransitionDisplay.dispose();
+        assertFalse(table.hasChildren());
+    }
+
+    @Test
+    void shouldNotExceedFrameLimit() {
+
+        levelTransitionDisplay.setFrame(levelTransitionScreen.FRAME_COUNT);
+        assertEquals(55, levelTransitionDisplay.getFrame());
+        custom_wait(levelTransitionDisplay.getFrameDuration()+10);
+        levelTransitionDisplay.update();
+        assertEquals(55, levelTransitionDisplay.getFrame());
+    }
 }

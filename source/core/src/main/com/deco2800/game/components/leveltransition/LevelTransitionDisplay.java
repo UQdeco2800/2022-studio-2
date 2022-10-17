@@ -22,6 +22,13 @@ public class LevelTransitionDisplay extends UIComponent {
     private int frame;
     private long lastFrameTime;
 
+    /**
+     * Created purely for the appeasement of the JUnit tests on GitHub.
+     */
+    public LevelTransitionDisplay() {
+        logger.info("Creating level transition display");
+    }
+
     @Override
     public void create() {
         frame = 0;
