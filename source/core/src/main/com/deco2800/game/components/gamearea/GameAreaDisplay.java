@@ -394,6 +394,10 @@ public class GameAreaDisplay extends UIComponent {
         if (firstTime == 1 && getGameAreaName().equals("Forest")) {
             if (!inventoryComponent.hasItem(MaterialFactory.createWood(), inventoryComponent.getInventory())) {
                 inventoryComponent.addItem(MaterialFactory.createWood());
+                inventoryComponent.addItem(MaterialFactory.createGold());
+                inventoryComponent.addItem(MaterialFactory.createPlatinum());
+                inventoryComponent.addItem(MaterialFactory.createGold());
+                inventoryComponent.addItem(MaterialFactory.createIron());
             }
             if (!inventoryComponent.hasItem(MaterialFactory.createRubber(), inventoryComponent.getInventory())) {
                 inventoryComponent.addItem(MaterialFactory.createRubber());
@@ -1477,27 +1481,27 @@ public class GameAreaDisplay extends UIComponent {
         String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
         weapon = new Image(new Texture(Gdx.files.internal(image)));
 
-        if (Math.floor(item.damage) == 35) {
+        if (item.damage == 27) {
             weapon.setSize(60, 60);
             //trident
             weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
-        } else if (Math.floor(item.damage) == 30) {
+        } else if (item.damage == 25) {
             //sword
             weapon.setSize(60, 60);
             weapon.setPosition(craftMenu.getX() + 675, craftMenu.getY() + 235);
-        } else if (Math.floor(item.damage) == 15) {
+        } else if (item.damage == 19.5) {
             //pipe
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 210);
-        } else if (Math.floor(item.damage) == 10) {
+        } else if (item.damage == 17) {
             //plunger
             weapon.setSize(110, 110);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 40) {
+        } else if (item.damage == 32) {
             //herathena
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 20 || Math.floor(item.damage) == 70) {
+        } else if (item.damage == 20 || item.damage == 70) {
             //bows
             weapon.setSize(50, 50);
             weapon.setPosition(craftMenu.getX() + 665, craftMenu.getY() + 230);
