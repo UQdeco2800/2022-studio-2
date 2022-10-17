@@ -276,6 +276,8 @@ class InventoryComponentTest {
     InventoryComponent testInventory3 = new InventoryComponent();
     Entity iron = MaterialFactory.createIron();
 
+    testInventory3.removeItem(EntityTypes.IRON);
+
     testInventory3.addItem(iron);
     testInventory3.removeItem(EntityTypes.IRON);
 
