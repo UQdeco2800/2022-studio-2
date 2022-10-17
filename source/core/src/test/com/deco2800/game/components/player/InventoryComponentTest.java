@@ -258,6 +258,8 @@ class InventoryComponentTest {
     Entity testArmour = ArmourFactory.createBaseArmour();
     Entity testPotion = PotionFactory.createTestHealthPotion();
 
+    testInventory3.removeItem(testWeapon);
+
     testInventory3.addItem(testWeapon);
     testInventory3.addItem(testArmour);
 
