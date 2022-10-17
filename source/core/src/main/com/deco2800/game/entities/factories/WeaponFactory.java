@@ -1,17 +1,17 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.components.combatitemsComponents.*;
+import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsConfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
-//import com.deco2800.game.entities.factories.WeaponFactory.configs;
 
 /**
  * Factory to create Weapon entities.
@@ -45,7 +45,8 @@ public class WeaponFactory {
     public static Entity createDagger() {
         Entity dagger = createBaseWeapon();
         WeaponConfig config = configs.athenaDag;
-        PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "athena");
+        PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage,
+                config.coolDown, config.materials, config.weight, "athena");
 
        dagger
                 .addComponent(weaponStats)
@@ -97,17 +98,17 @@ public class WeaponFactory {
      * @return level 2 sword for player
      */
     public static Entity createSwordLvl2() {
-        Entity SwordLvl2 = createBaseWeapon();
+        Entity swordLevelTwo = createBaseWeapon();
         WeaponConfig config = configs.SwordLvl2;
         PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "sword");
 
-        SwordLvl2
+        swordLevelTwo
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/Sword_Lvl2.png"));
-        SwordLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
-        SwordLvl2.scaleHeight(2f);
-        SwordLvl2.setEntityType(EntityTypes.MELEE);
-        return SwordLvl2;
+        swordLevelTwo.getComponent(TextureRenderComponent.class).scaleEntity();
+        swordLevelTwo.scaleHeight(2f);
+        swordLevelTwo.setEntityType(EntityTypes.MELEE);
+        return swordLevelTwo;
     }
 
     /**
@@ -115,17 +116,17 @@ public class WeaponFactory {
      * @return level 2 trident for players
      */
     public static Entity createTridentLvl2() {
-        Entity TridentLvl2 = createBaseWeapon();
+        Entity tridentLvl2 = createBaseWeapon();
         WeaponConfig config = configs.tridentLvl2;
         PhysicalWeaponStatsComponent weaponStats = new PhysicalWeaponStatsComponent(config.damage, config.coolDown, config.materials, config.weight, "trident");
 
-        TridentLvl2
+        tridentLvl2
                 .addComponent(weaponStats)
                 .addComponent(new TextureRenderComponent("images/CombatItems/Sprint-1/trident_Lvl2.png"));
-        TridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
-        TridentLvl2.scaleHeight(2f);
-        TridentLvl2.setEntityType(EntityTypes.MELEE);
-        return TridentLvl2;
+        tridentLvl2.getComponent(TextureRenderComponent.class).scaleEntity();
+        tridentLvl2.scaleHeight(2f);
+        tridentLvl2.setEntityType(EntityTypes.MELEE);
+        return tridentLvl2;
     }
 
     /**

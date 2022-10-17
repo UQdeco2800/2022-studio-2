@@ -26,6 +26,14 @@ public enum EntityTypes {
     CRAFTINGTABLE,
     POOP,
     AURA,
-    TOILETPAPER
+    TOILETPAPER,
+    MALE,
+    FEMALE,
+    CHILD,
+    GUARD,
+    HUMANGUARD,
+    CREATURE,
+    PLUMBERFRIEND,
+
 
 }

@@ -4,14 +4,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.UndergroundGameArea;
-import com.deco2800.game.components.CombatItemsComponents.*;
+import com.deco2800.game.components.combatitemsComponents.*;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.settingsmenu.SettingsMenuDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.BodyUserData;
-import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +21,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     private Entity combatAnimator;
     private boolean canAttack;
     private long  cooldownEnd;
-    private String animationDesc;
-    private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
+    private static final Logger logger = LoggerFactory.getLogger(PlayerTouchAttackComponent.class);
 
     /**
      * Create a component which attacks enemy entities on collision, without knockback.
@@ -36,7 +33,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
 
     @Override
     public void create() {
-        entity.getEvents().addListener("attack", this::attack);
+        entity.getEvents().addListener("attackEnemy", this::attackEnemy);
         entity.getEvents().addListener("collisionStart", this::playerCollidesEnemyStart);
         combatStats = entity.getComponent(CombatStatsComponent.class); //or just get the currently equipped weapon's damage
         entity.getEvents().addListener("collisionEnd", this::playerCollidesEnemyEnd);
@@ -81,10 +78,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
     /**
      * Method called when the player entity is attacking.
      */
-    void attack() {
+    void attackEnemy() {
         if (canAttack) {
-            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-            attackSound.play();
+
             canAttack = false;
 
             // base damage variable for the logger
@@ -97,12 +93,13 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                     cooldownEnd = (long) (System.currentTimeMillis() + weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getCoolDown());
                     // set the damage value for logger
                     damage = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDamage();
-                    //Sets the attack animation dependent on the weapon that is currently equipped
+                    //Sets the attackEnemy animation dependent on the weapon that is currently equipped
                     String description = weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
                     //When an aura is applied, play the respective aura animation
+                    String animationDesc;
                     if (auraEquipped != null) {
-                        String current_aura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
-                        animationDesc = description+current_aura;
+                        String currentAura = auraEquipped.getComponent(WeaponAuraComponent.class).getDescription();
+                        animationDesc = description+currentAura;
                     }
                     else {
                         animationDesc = description;
@@ -114,19 +111,37 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
                 cooldownEnd = (System.currentTimeMillis() + 4000); //cooldown when no weapon equipped
             }
 
+            //play physical weapon sounds
+            if (weaponEquipped == null) {
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
+                attackSound.play();
+            }
+            else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
+                    && weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("plunger")) {
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
+                attackSound.play();
+            } else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)) {
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/metalSword.wav", Sound.class);
+                attackSound.play();
+            }
+
             if (enemyCollide) {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
-                String s_damage = String.valueOf(damage);
-                logger.trace("attack enemy: " + s_damage);
+                String sDamage = String.valueOf(damage);
+                logger.trace("attackEnemy enemy: %s".formatted(sDamage));
             }
 
             else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
-                if (ServiceLocator.getGameArea() instanceof ForestGameArea) {
-                    ((ForestGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
+                //play ranged weapon sounds
+                Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/rangeWeaponSound.mp3", Sound.class);
+                attackSound.play();
+
+                if (ServiceLocator.getGameArea() instanceof ForestGameArea forestgamearea) {
+                    (forestgamearea).spawnWeaponProjectile();
                 }
-                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea){
-                    ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnWeaponProjectile();
+                else if (ServiceLocator.getGameArea() instanceof UndergroundGameArea undergroundgamearea){
+                    (undergroundgamearea).spawnWeaponProjectile();
                 }
             }
         }

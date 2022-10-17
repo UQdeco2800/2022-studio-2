@@ -7,8 +7,7 @@ import com.deco2800.game.services.GameTime;
 import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.deco2800.game.entities.factories.EntityTypes;
-import com.deco2800.game.entities.Entity;
+
 
 /**
  * Move to a given position, finishing when you get close enough. Requires an entity with a
