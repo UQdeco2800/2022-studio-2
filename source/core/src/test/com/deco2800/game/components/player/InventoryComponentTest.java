@@ -243,12 +243,17 @@ class InventoryComponentTest {
 
     Entity testWeapon = WeaponFactory.createTestDagger();
     Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity testPotion = PotionFactory.createTestHealthPotion();
 
     testInventory3.addItem(testWeapon);
     testInventory3.addItem(testArmour);
 
     testInventory3.removeItem(testWeapon);
     testInventory3.removeItem(0);
+
+    testInventory3.removeItem(testWeapon);
+    testInventory3.removeItem(0);
+    testInventory3.removeItem(testPotion);
 
     assertEquals(expectedList, testInventory3.getInventory());
   }
