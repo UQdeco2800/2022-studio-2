@@ -85,6 +85,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             // base damage variable for the logger
             double damage = entity.getComponent(CombatStatsComponent.class).getDamageReduction();
 
+
             //set weapon and aura entities
             Entity weaponEquipped = entity.getComponent(InventoryComponent.class).getEquipable(0);
             Entity auraEquipped = ServiceLocator.getGameArea().getPlayer().getComponent(WeaponAuraManager.class).auraApplied;
@@ -104,8 +105,9 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             if (enemyCollide) {
                 applyDamageToTarget(target);
                 entity.getEvents().trigger("hitEnemy", target); // for skill listener
-                String sDamage = String.valueOf(damage);
-                logger.trace("attackEnemy enemy: %s".formatted(sDamage));
+                //String sDamage = String.valueOf(damage);
+                //logger.trace("attackEnemy enemy: %s".formatted(sDamage));
+                logger.trace("attackEnemy enemy: {} ",damage);
             }
             playAttackSounds(weaponEquipped);
         }
@@ -127,11 +129,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      */
     public void playAttackSounds(Entity weaponEquipped) {
         //play physical weapon sounds
-        if (weaponEquipped == null) {
-            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-            attackSound.play();
-        }
-        else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
+        if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
                 && weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("plunger")) {
             Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
             attackSound.play();
@@ -140,8 +138,12 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             attackSound.play();
         }
         //play ranged weapon sounds
-        else if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
+        else if (weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
             Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/rangeWeaponSound.mp3", Sound.class);
+            attackSound.play();
+        }
+        else {
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
             attackSound.play();
         }
     }
@@ -176,7 +178,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
         playAttackAnimation(weaponEquipped, auraEquipped);
 
         //check if ranged
-        if (weaponEquipped != null && weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
+        if (weaponEquipped.checkEntityType(EntityTypes.RANGED)) {
             attackRanged();
         }
     }
