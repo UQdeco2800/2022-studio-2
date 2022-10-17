@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.configs.CombatItemsConfig;
+package com.deco2800.game.entities.configs.combatitemsConfig;
 
 import com.deco2800.game.crafting.Materials;
 
