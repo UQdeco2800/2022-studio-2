@@ -33,8 +33,8 @@ class LevelTransitionDisplayTest {
 
     LevelTransitionDisplay levelTransitionDisplay;
     LevelTransitionScreen levelTransitionScreen;
-
     GdxGame game;
+
 
     // Commented out until I find a solution to the server runtime error
     @BeforeEach
@@ -54,8 +54,14 @@ class LevelTransitionDisplayTest {
         game = new GdxGame();
         levelTransitionScreen = mock(LevelTransitionScreen.class);
         levelTransitionScreen.loadAssets();
+        Entity ui = new Entity();
         levelTransitionDisplay = new LevelTransitionDisplay();
-        levelTransitionDisplay.jUnitCreate();
+        ui.addComponent(levelTransitionDisplay);
+        ui.create();
+
+
+//        levelTransitionDisplay = new LevelTransitionDisplay();
+//        levelTransitionDisplay.jUnitCreate();
     }
 
     @Test
