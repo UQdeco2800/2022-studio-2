@@ -139,6 +139,15 @@ class OpenCraftingComponentTest {
 //        Entity player = PlayerFactory.createTestPlayer();
 //        ServiceLocator serviceLocator = mock(ServiceLocator.class);
 //
+//        when(serviceLocator.getGameArea().getPlayer()).thenReturn(player);
+//
+//        OpenCraftingComponent openCraftingComponent1 = spy(OpenCraftingComponent.class);
+//        openCraftingComponent1.openCrafting();
+//
+//        verify(openCraftingComponent1).openCrafting();
+//        Entity player = PlayerFactory.createTestPlayer();
+//        ServiceLocator serviceLocator = mock(ServiceLocator.class);
+//
 //        PhysicsService physicsService = new PhysicsService(new PhysicsEngine());
 //        serviceLocator.registerPhysicsService(physicsService);
 //
