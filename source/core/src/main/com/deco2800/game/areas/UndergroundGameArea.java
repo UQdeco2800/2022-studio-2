@@ -928,4 +928,30 @@ public class UndergroundGameArea extends GameArea {
         itemsOnMap.remove(entityToRemove);
         Gdx.app.postRunnable(() -> entityToRemove.dispose());
     }
+
+    /**
+     * Spawns a spray of projectiles at the player entity's coordinates.
+     */
+    public void spawnPlayerProjectileSpray() {
+        double[] sprayAngles = {0,0.25,0.5,0.75,1,1.25,1.5,1.75};
+        for (int i = 0; i < sprayAngles.length; ++i) {
+            Entity newProjectile = ProjectileFactory.createBasePlayerProjectile(player,sprayAngles[i]);
+            spawnEntityAt(newProjectile,
+                    new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+                    true, true);
+        }
+    }
+
+    /**
+     * Spawns a spray of projectiles at the player entity's coordinates.
+     */
+    public void spawnPlayerProjectileCone() {
+        double[] sprayAngles = {0,0.06,0.11,1.89,1.94};
+        for (int i = 0; i < sprayAngles.length; ++i) {
+            Entity newProjectile = ProjectileFactory.createWrenchPlayerProjectile(player,sprayAngles[i]);
+            spawnEntityAt(newProjectile,
+                    new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+                    true, true);
+        }
+    }
 }

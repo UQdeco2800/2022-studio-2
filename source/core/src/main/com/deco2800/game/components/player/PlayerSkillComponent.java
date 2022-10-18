@@ -170,6 +170,7 @@ public class PlayerSkillComponent extends Component {
 
     private static final String NO_ANIMATION_LISTENER = "regularAnimation";
     private static final String ENEMY_HIT_LISTENER = "hitEnemy";
+    private static final String FLASH_LISTENER = "skillScreenOverlayFlash";
 
 
     /**
@@ -285,15 +286,15 @@ public class PlayerSkillComponent extends Component {
         if (this.chargingUltimate) {
 
             if (System.currentTimeMillis() > this.ultimateChargeEnd) {
-                playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
+                playerEntity.getEvents().trigger(FLASH_LISTENER, false);
                 skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
                 this.chargingUltimate = false;
                 ServiceLocator.getEntityService().toggleTimeStop();
                 this.timeStopped = true;
             } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1500) {
-                playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
+                playerEntity.getEvents().trigger(FLASH_LISTENER, false);
             } else if (System.currentTimeMillis() > this.ultimateChargeEnd - 1800) {
-                playerEntity.getEvents().trigger("skillScreenOverlayFlash", true);
+                playerEntity.getEvents().trigger(FLASH_LISTENER, true);
             }
         }
         if (this.timeStopped) {
@@ -309,6 +310,8 @@ public class PlayerSkillComponent extends Component {
                 skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
                 if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
                     ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
+                } else if (ServiceLocator.getGameArea().getClass() == UndergroundGameArea.class) {
+                    ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
                 }
             }
         }
@@ -753,6 +756,8 @@ public class PlayerSkillComponent extends Component {
             playerEntity.getEvents().trigger("wrenchCountdown");
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
                 ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
+            } else if (ServiceLocator.getGameArea().getClass() == UndergroundGameArea.class) {
+                ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
             }
             setSkillCooldown(PROJECTILE_NAME);
         }
