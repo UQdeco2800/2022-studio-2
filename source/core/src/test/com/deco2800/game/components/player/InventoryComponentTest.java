@@ -227,8 +227,7 @@ class InventoryComponentTest {
     expectedList.add(testDumbbell);
     expectedList.add(testHera);
     expectedList.add(testArmour);
-    for (int i = 0; i < 10; i++) expectedList.add(testSpeedPotion);
-
+    expectedList.add(testSpeedPotion);
     expectedList.add(testHealthPotion);
     expectedList.add(gold);
     expectedList.add(iron);
@@ -242,9 +241,8 @@ class InventoryComponentTest {
     expectedList.add(toiletPaper);
 
     for (Entity entity : expectedList) inventory.addItem(entity);
-
-    for (int j = 0; j < 9; j++) expectedList.remove(testSpeedPotion);
-
+    for (int i = 0; i < 9; i++) inventory.addItem(testSpeedPotion);
+    for (int i = 0; i < 9; i++) inventory.addItem(toiletPaper);
     expectedList.remove(toiletPaper);
     assertEquals(expectedList, inventory.getInventory());
   }

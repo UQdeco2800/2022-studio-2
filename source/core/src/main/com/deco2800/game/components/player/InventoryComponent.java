@@ -169,7 +169,7 @@ public class InventoryComponent extends Component {
      */
     public void addItem(Entity item) {
         if (inventory.size() == INVENTORY_SIZE) {
-            logger.info("Inventory is full");
+            if (!hasItem(item, inventory)) logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR))) {
@@ -180,6 +180,7 @@ public class InventoryComponent extends Component {
                 inventory.add(item);
             }
         }
+
         if (getItemIndex(item, inventory) != -1
                 && getItemQuantity(item) < 9
                 && (item.checkEntityType(EntityTypes.POTION)
