@@ -30,16 +30,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(GameExtension.class)
  class PotionFactoryTest {
-
     @Mock
     ShapeRenderer shapeRenderer;
     @Mock
     Box2DDebugRenderer physicsRenderer;
     @Mock
     Matrix4 projMatrix;
-
     DebugRenderer debugRenderer;
-
     @BeforeEach
     void setUp() {
         debugRenderer = new DebugRenderer(physicsRenderer, shapeRenderer);
@@ -59,6 +56,12 @@ import static org.junit.jupiter.api.Assertions.*;
     @Test
     void createHealthPotion() {
         Entity entity = PotionFactory.createTestHealthPotion();
+        assertTrue(entity.checkEntityType(EntityTypes.POTION));
+    }
+
+    @Test
+    void createHealthRegenPotion() {
+        Entity entity = PotionFactory.createTestHealthRegenPotion();
         assertTrue(entity.checkEntityType(EntityTypes.POTION));
     }
 }
