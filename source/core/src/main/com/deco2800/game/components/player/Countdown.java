@@ -30,16 +30,11 @@ public class Countdown extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(Countdown.class);
 
     private int MAX_NUMBER = 20;
-    private long COUNTDOWN_DURATION_MILLIS = 20000;
     private ArrayList<String> addedCountdownListeners = new ArrayList<>();
 
     HashMap<Integer, ArrayList<Image>> numberImages;
 
     private Table bar;
-
-    //private enum Ability {
-        //DASH, BLOCK, DODGE, INVULNERABLE, TELEPORT, NONE
-    //}
 
     /**
      * Creates reusable ui styles and adds actors to the stage.

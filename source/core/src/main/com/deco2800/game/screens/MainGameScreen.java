@@ -112,8 +112,11 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/EquippedSkillsText.png",
           "images/Skills/clearSkillsButton.png",
           "images/Skills/clearSkillsButton_down.png",
-          "images/Skills/skill-tree-icon.png"
+          "images/Skills/skill-tree-icon.png",
+          "images/Skills/skillExitButton.png",
+          "images/Skills/skillExitButtonDown.png"
   };
+
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity player;
   private final GdxGame game;

@@ -91,9 +91,15 @@ public class SkillsTreeDisplay extends UIComponent {
         skillbarImage.setPosition((float) 280, -45);
 
 
-
-        TextButton mainMenuBtn = new TextButton("Exit", skin);
-        mainMenuBtn.addListener(
+        TextureRegionDrawable exitTextureUp = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/skillExitButton.png", Texture.class));
+        TextureRegionDrawable exitTextureDown = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/skillExitButtonDown.png", Texture.class));
+        ImageButton exitButton = new ImageButton(exitTextureUp);
+        ImageButton.ImageButtonStyle style = exitButton.getStyle();
+        style.imageUp = exitTextureUp;
+        style.imageDown = exitTextureDown;
+        exitButton.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -102,7 +108,7 @@ public class SkillsTreeDisplay extends UIComponent {
                     }
                 });
 
-        exitTable.add(mainMenuBtn).padTop(10f).padRight(10f);
+        exitTable.add(exitButton).padTop(10f).padRight(10f);
 
         refreshEquippedSkillsUI();
 
@@ -128,13 +134,13 @@ public class SkillsTreeDisplay extends UIComponent {
         if (playerSkillPoints >= 0) {
             row1Lock = false;
         }
-        if (playerSkillPoints >= 0) {
+        if (playerSkillPoints >= 1) {
             row2Lock = false;
         }
-        if (playerSkillPoints >= 0) {
+        if (playerSkillPoints >= 3) {
             row3Lock = false;
         }
-        if (playerSkillPoints >= 0) {
+        if (playerSkillPoints >= 6) {
             row4Lock = false;
         }
 
@@ -331,6 +337,12 @@ public class SkillsTreeDisplay extends UIComponent {
         cooldownBar.addSkillIcon(new Image(new Texture(imagePath)));
     }
 
+    /**
+     * Adds a countdown trigger to the cooldown display.
+     * @param listenerName The name of the countdown controller listener
+     * @param skillNum the equipped skill number, 1 based and up to 3 equipped skills
+     * @param cooldownLength the length of the cooldown for the countdown visual display
+     */
     private void addCountdownTrigger(String listenerName, int skillNum, long cooldownLength) {
         Countdown countdownController = ServiceLocator.getGameArea().getPlayer().getComponent(Countdown.class);
         countdownController.setCountdownTrigger(skillNum, listenerName, cooldownLength);
