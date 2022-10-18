@@ -625,6 +625,9 @@ class InventoryComponentTest {
     expectedList[0] = expectedQuantity;
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     inventory.setPotionQuantity(0, expectedQuantity);
+    //Edge cases input > threshold
+    inventory.setPotionQuantity(0, 10);
+    inventory.setPotionQuantity(3, expectedQuantity);
     assertArrayEquals(expectedList, inventory.getQuickBarQuantity());
   }
 
