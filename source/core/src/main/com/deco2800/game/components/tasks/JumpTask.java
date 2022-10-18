@@ -50,7 +50,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
         this.knockBackForce = knockBackForce;
         this.glidingSpeed = glidingSpeed;
         gameTime = ServiceLocator.getTimeSource();
-        lastJumpTime = gameTime.getTime() + 1000f;
+        this.lastJumpTime = gameTime.getTime() + 1000f;
         physics = ServiceLocator.getPhysicsService().getPhysics();
         debugRenderer = ServiceLocator.getRenderService().getDebug();
     }
@@ -195,8 +195,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     private int getActivePriority() {
         float dst = getDistanceToTarget();
-        if (dst > attackRange || (gameTime.getTime() - lastJumpTime < 3000L)
-                || !isTargetVisible()) {
+        if (dst > attackRange || !isTargetVisible()) {
             return -1;
         }
         return priority;
@@ -208,8 +207,7 @@ public class JumpTask extends DefaultTask implements PriorityTask {
      */
     private int getInactivePriority() {
         float dst = getDistanceToTarget();
-        if (dst < attackRange && (gameTime.getTime() - lastJumpTime > 3000L)
-            && isTargetVisible()) {
+        if (dst < attackRange && isTargetVisible()) {
             return priority;
         }
         return -1;

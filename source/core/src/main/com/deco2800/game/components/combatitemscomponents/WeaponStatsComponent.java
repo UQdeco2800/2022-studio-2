@@ -1,4 +1,4 @@
-package com.deco2800.game.components.combatitemsComponents;
+package com.deco2800.game.components.combatitemscomponents;
 
 import com.deco2800.game.components.Component;
 import com.deco2800.game.crafting.Materials;

@@ -4,17 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
+import com.deco2800.game.components.CombatStatsComponent;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.components.player.PlayerActions;
 import com.deco2800.game.components.player.PlayerKeyPrompt;
+import com.deco2800.game.components.player.PlayerModifier;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.entities.factories.PotionFactory;
+import com.deco2800.game.physics.PhysicsEngine;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.AnimationRenderComponent;
+import com.deco2800.game.services.GameTime;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
@@ -38,6 +45,7 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/gym_bro.png",
     "images/Enemies/discus.png",
     "images/Armour-assets-sprint2/baseArmour.png",
+          "images/Armour-assets-sprint2/Dark_Armour.png",
     "images/Armour-assets-sprint2/slowDiamond.png",
     "images/Armour-assets-sprint2/damageReturner.png",
     "images/Armour-assets-sprint2/fastLeather.png",
@@ -141,15 +149,14 @@ public class ForestGameArea extends GameArea {
   public static GridPoint2 HumanGuardDialoguePosition;
   public static GridPoint2 PlumberFriendPosition;
   public static GridPoint2 PLumberFriendDialoguePosition;
-  public static GridPoint2 GuardPosition;
-  public static GridPoint2 GuardDialoguePosition;
-  public static GridPoint2 friendlycreaturePosition;
-  public static GridPoint2 friendlycreatureDialoguePosition;
+
+
+
+
   public static GridPoint2 maleCitizenPosition;
   public static GridPoint2 maleCitizenDialoguePosition;
   public static GridPoint2 childPosition;
   public static GridPoint2 childDialoguePosition;
-//  public static GridPoint2 friendly_creaturePosition;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -165,14 +172,6 @@ public class ForestGameArea extends GameArea {
   @Override
   public Entity getPlayer() {
     return player;
-  }
-
-  /**
-   * Get Heracles the level 1 boss
-   * @return Heracles
-   */
-  public Entity getHeracles() {
-    return heracles;
   }
 
   /**
@@ -195,8 +194,7 @@ public class ForestGameArea extends GameArea {
     heracles = spawnHeracles();
     spawnOneLegGirl();
     spawnHumanGuard();
-    spawnfriendlycreature();
-    spawnGuard();
+
     spawnPlumberFriend();
     spawnChild();
     spawnMaleCitizen();
@@ -207,9 +205,9 @@ public class ForestGameArea extends GameArea {
     //spawnDefencePotion();
 
     spawnDumbbell();
-    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 145, 146);
     spawnArmour(ArmourFactory.ArmourType.fastLeather, 90, 22);
-    spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
+    //spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
 
     spawnDmgBuff();
     spawnFireBuff();
@@ -227,7 +225,7 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
-  private void spawnTerrain() {
+  public void spawnTerrain() {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.LEVEL_ONE);
     spawnEntity(new Entity().addComponent(terrain));
@@ -615,29 +613,68 @@ public class ForestGameArea extends GameArea {
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion);
-      spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
+      spawnEntityAt(speedPotion, new GridPoint2(90, 11), true, true);
+
       Entity speedPotion2 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion2);
-      spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
+      spawnEntityAt(speedPotion2, new GridPoint2(90, 9), true, true);
+
       Entity speedPotion3 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion3);
-      spawnEntityAt(speedPotion3, new GridPoint2(34, 80), true, true);
+      spawnEntityAt(speedPotion3, new GridPoint2(34, 97), true, true);
+
       Entity speedPotion4 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion4);
       spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
+
+    Entity speedPotion5 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion5);
+    spawnEntityAt(speedPotion5, new GridPoint2(90, 92), true, true);
+
+    Entity speedPotion6 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion6);
+    spawnEntityAt(speedPotion6, new GridPoint2(120, 22), true, true);
+
+    Entity speedPotion7 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion7);
+    spawnEntityAt(speedPotion7, new GridPoint2(150, 153), true, true);
+
+    Entity speedPotion8 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion8);
+    spawnEntityAt(speedPotion8, new GridPoint2(175, 92), true, true);
   }
 
   private void spawnHealthPotion() {
     Entity healthPotion = PotionFactory.createHealthPotion();
     itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
+    spawnEntityAt(healthPotion, new GridPoint2(93, 13), true, true);
+
+    Entity healthPotion2 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion2);
+    spawnEntityAt(healthPotion2, new GridPoint2(100, 63), true, true);
+
+    Entity healthPotion3 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion3);
+    spawnEntityAt(healthPotion3, new GridPoint2(90, 113), true, true);
+
+    Entity healthPotion4 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion4);
+    spawnEntityAt(healthPotion4, new GridPoint2(130, 143), true, true);
+
+    Entity healthPotion5 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion5);
+    spawnEntityAt(healthPotion5, new GridPoint2(150, 153), true, true);
+
+    Entity healthPotion6 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion6);
+    spawnEntityAt(healthPotion6, new GridPoint2(110, 159), true, true);
+
+    Entity healthPotion7 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion7);
+    spawnEntityAt(healthPotion7, new GridPoint2(175, 104), true, true);
   }
 
-  private void spawnDefencePotion() {
-    Entity healthPotion = PotionFactory.createDefencePotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
-  }
+
 
   /**
    * Spawns dumbbell entity into the game
@@ -665,7 +702,7 @@ public class ForestGameArea extends GameArea {
    * Spawns the player entity, with a skill and combat animator overlaid above the player.
    * @return the player entity
    */
-  private Entity spawnPlayer() {
+  public Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
@@ -778,6 +815,9 @@ public class ForestGameArea extends GameArea {
 
     Entity dialogue = DialogueFactory.createDialogue();
     spawnEntityAt(dialogue, childDialoguePosition, true, true);
+
+    areaEntities.add(dialogue);
+
   }
 
   public static GridPoint2 getChildPosition() {
@@ -786,8 +826,8 @@ public class ForestGameArea extends GameArea {
 
 
   private void spawnHumanGuard() {
-    HumanGuardPosition = new GridPoint2(110, 41);
-    HumanGuardDialoguePosition = new GridPoint2(110, 42);
+    HumanGuardPosition = new GridPoint2(110, 34);
+    HumanGuardDialoguePosition = new GridPoint2(110, 35);
 
     Entity humanguard = NPCFactory.createHumanGuard(player);
     spawnEntityAt(humanguard, HumanGuardPosition, true, true);
@@ -811,39 +851,12 @@ public class ForestGameArea extends GameArea {
     areaEntities.add(dialogue);
   }
 
-  private void spawnGuard() {
-    GuardPosition = new GridPoint2(100, 16);
-    GuardDialoguePosition = new GridPoint2(100, 17);
 
-    Entity guard = NPCFactory.createGuard(player);
-    spawnEntityAt(guard, GuardPosition, true, true);
-    areaEntities.add(guard);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, GuardDialoguePosition, true, true);
-    areaEntities.add(dialogue);
-  }
-  public static GridPoint2 getGuardPosition() {
-    return GuardPosition;
-  }
-
-  private void spawnfriendlycreature() {
-    friendlycreaturePosition = new GridPoint2(97, 16);
-    friendlycreatureDialoguePosition = new GridPoint2(97, 17);
-
-    Entity friendlycreature = NPCFactory.createFriendlyCreature(player);
-    spawnEntityAt(friendlycreature, friendlycreaturePosition, true, true);
-    areaEntities.add(friendlycreature);
-
-    Entity dialogue = DialogueFactory.createDialogue();
-    spawnEntityAt(dialogue, friendlycreaturePosition, true, true);
-    areaEntities.add(dialogue);
-  }
 
   /**
    * Spawn male NPC in random position. - Team 7 all-mid-npc
    */
-  private void spawnMaleCitizen() {
+  public void spawnMaleCitizen() {
     maleCitizenPosition = new GridPoint2(74,121);
     maleCitizenDialoguePosition = new GridPoint2(74, 122);
 
@@ -899,7 +912,7 @@ public class ForestGameArea extends GameArea {
    * Spawn Heracles in a position.
    */
   private Entity spawnHeracles() {
-    GridPoint2 position = new GridPoint2(174, 65);
+    GridPoint2 position = new GridPoint2(170, 50);
     Entity heraclesBoss = NPCFactory.createHeracles(player);
     areaEntities.add(heraclesBoss);
     spawnEntityAt(heraclesBoss, position, true, true);
