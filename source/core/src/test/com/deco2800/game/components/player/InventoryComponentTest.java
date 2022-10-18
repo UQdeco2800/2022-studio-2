@@ -129,6 +129,8 @@ class InventoryComponentTest {
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     Entity combatAnimator = mock(Entity.class);
 
+    inventory.cancelAnimation();
+
     AnimationRenderComponent animator = new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset(
                     "images/CombatItems/animations/combatItemsAnimation.atlas", TextureAtlas.class));
@@ -613,6 +615,19 @@ class InventoryComponentTest {
     assertEquals(expectedList, testInventory6.getInventory());
   }
 
+  @Test
+  void setPotionQuantity() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testPotion1 = PotionFactory.createTestSpeedPotion();
+    Entity speedPotion = PotionFactory.createSpeedPotion();
+    int[] expectedList = new int[3];
+    int expectedQuantity = 3;
+    expectedList[0] = expectedQuantity;
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    inventory.setPotionQuantity(0, expectedQuantity);
+    assertArrayEquals(expectedList, inventory.getQuickBarQuantity());
+  }
+
   /**
    * This test checks that when a potion is consumed that it is removed from the quickbar and
    * applies the intended effect to the player
@@ -635,7 +650,6 @@ class InventoryComponentTest {
     inventory.consumePotion(1);
     //Test if the function has properly ended or not
     inventory.consumePotion(5);
-    inventory.consumePotion(1);
 
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
@@ -648,5 +662,7 @@ class InventoryComponentTest {
 
     inventory.consumePotion(1);
     assertEquals(expectedQuantity, inventory.getQuickBarQuantity()[inventory.getPotionIndex(speedPotion)]);
+    inventory.setPotionQuantity(0, -1);
+    inventory.consumePotion(1);
   }
 }

@@ -565,6 +565,15 @@ public class InventoryComponent extends Component {
     }
 
     /**
+     * Set the quantity of the potion based on its index on the quick bar
+     * @param index index of the potion
+     */
+    public void setPotionQuantity(int index, int quantity) {
+        if (index >= QUICKBAR_SIZE || quantity > MAX_QTY) return;
+        quickBarQuantity[index] = quantity;
+    }
+
+    /**
      * Consume the potion from quickbar based on the input index.
      *
      * @param inputIndex the index that is returned from user actions
