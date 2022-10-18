@@ -618,10 +618,6 @@ public class ForestGameArea extends GameArea {
       itemsOnMap.add(speedPotion);
       spawnEntityAt(speedPotion, new GridPoint2(90, 11), true, true);
 
-      Entity speedPotion2 = PotionFactory.createSpeedPotion();
-      itemsOnMap.add(speedPotion2);
-      spawnEntityAt(speedPotion2, new GridPoint2(90, 9), true, true);
-
       Entity speedPotion3 = PotionFactory.createSpeedPotion();
       itemsOnMap.add(speedPotion3);
       spawnEntityAt(speedPotion3, new GridPoint2(34, 97), true, true);
@@ -648,9 +644,6 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnHealthPotion() {
-    Entity healthPotion = PotionFactory.createHealthPotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 13), true, true);
 
     Entity healthPotion2 = PotionFactory.createHealthPotion();
     itemsOnMap.add(healthPotion2);
