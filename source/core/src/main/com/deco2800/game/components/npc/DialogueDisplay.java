@@ -160,10 +160,10 @@ public class DialogueDisplay extends UIComponent {
     };
     public static String[] textFriendlyCreature = {
             "FriendlyCreature: \n",
-            "Hm? Why did u come here?",
+            "Hm? Why the hell did u come here?",
             "Didn't I say never to come here again??!!!",
-            "Never mind, why don't you sing me a song and I will give you something in return, you got 15 seconds for this",
-            "Alright, here you go",
+            "Whatever... sing me a song and I will give you something good",
+            "As expected... anyway, a promise is a promise. Here, the legendary toilet paper.",
             "Now, LEAVE ME ALONE!!!",
     };
     public static String[] textFriendlyCreatureAlready = {
