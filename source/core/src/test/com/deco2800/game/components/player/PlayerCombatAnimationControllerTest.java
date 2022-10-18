@@ -266,8 +266,8 @@ public class PlayerCombatAnimationControllerTest {
 
     @Test
     void playPipeFireStaticAnimation() {
-        animator.addAnimation("pipeStatic", 0.1f);
-        entity.getEvents().trigger("pipeStatic");
+        animator.addAnimation("pipeFireStatic", 0.1f);
+        entity.getEvents().trigger("pipeFireStatic");
     }
 
     @Test
@@ -538,6 +538,11 @@ public class PlayerCombatAnimationControllerTest {
     void playPlungerBowStaticAnimation() {
         animator.addAnimation("plungerBowStatic", 0.1f);
         entity.getEvents().trigger("plungerBowStatic");
+    }
+    @Test
+    void playGoldenPlungerBowStaticAnimation() {
+        animator.addAnimation("goldenPlungerBow", 0.1f);
+        entity.getEvents().trigger("goldenPlungerBow");
     }
 
 }

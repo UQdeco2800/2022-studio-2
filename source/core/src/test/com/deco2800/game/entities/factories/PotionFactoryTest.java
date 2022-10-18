@@ -52,4 +52,10 @@ import static org.junit.jupiter.api.Assertions.*;
         //Entity entity = PotionFactory.createSpeedPotion();
         //assertTrue(entity.checkEntityType(EntityTypes.POTION));
     }
+
+    @Test
+    void createHealthPotion() {
+        Entity entity = PotionFactory.createHealthPotion();
+        assertTrue(entity.checkEntityType(EntityTypes.POTION));
+    }
 }
