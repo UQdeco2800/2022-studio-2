@@ -169,7 +169,7 @@ public class InventoryComponent extends Component {
      */
     public void addItem(Entity item) {
         if (inventory.size() == INVENTORY_SIZE) {
-            logger.info("Inventory is full");
+            if (!hasItem(item, inventory)) logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR))) {
@@ -180,6 +180,7 @@ public class InventoryComponent extends Component {
                 inventory.add(item);
             }
         }
+
         if (getItemIndex(item, inventory) != -1
                 && getItemQuantity(item) < 9
                 && (item.checkEntityType(EntityTypes.POTION)
@@ -197,9 +198,10 @@ public class InventoryComponent extends Component {
      * @param quantity the quantity array of corresponding inventory
      */
     public void sortInventory(int index, List<Entity> list, int[] quantity) {
-        if (list.size() > index) {
-            for (int i = index; i < list.size(); ++i) {
-                quantity[i] = quantity[i + 1];
+        final int size = list.size();
+        if (size > index) {
+            for (int i = index; i < size; ++i) {
+                if (i != size - 1) quantity[i] = quantity[i + 1];
             }
         }
     }
@@ -395,6 +397,7 @@ public class InventoryComponent extends Component {
      * Swap the item in equipable
      *
      * @param item the item to be swapped in
+     * @requires getEquipables().size() > 1 AND item.checkEntityType(ARMOUR || WEAPON)
      */
     public void swapItem(Entity item) {
         int itemSlot = item.checkEntityType(EntityTypes.WEAPON) ? 0 : 1;
