@@ -16,7 +16,7 @@
     "health": 1,
     "baseAttack": 0
   },
-  "male_citizen": {
+  "maleCitizen": {
     "health": 1,
     "baseAttack": 0
   }

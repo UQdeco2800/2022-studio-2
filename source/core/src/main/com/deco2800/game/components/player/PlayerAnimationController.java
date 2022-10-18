@@ -8,7 +8,6 @@ import com.deco2800.game.utils.math.Vector2Utils;
 public class PlayerAnimationController extends Component {
 
     AnimationRenderComponent animator;
-
     public static final String MOVEIDLE = "moveIdle";
     public static final String MOVEUP = "moveUp";
     public static final String MOVEDOWN = "moveDown";
@@ -18,13 +17,11 @@ public class PlayerAnimationController extends Component {
     public static final String MOVERIGHT = "moveRight";
     public static final String MOVERIGHTUP = "moveRightUp";
     public static final String MOVERIGHTDOWN = "moveRightDown";
-
     private static final Vector2 LEFTUP = new Vector2(-1f, 1f);
     private static final Vector2 LEFTDOWN = new Vector2(-1f, -1f);
     private static final Vector2 RIGHTUP = new Vector2(1f, 1f);
     private static final Vector2 RIGHTDOWN = new Vector2(1f, -1f);
-
-    private static String currentAnimation;
+    private String currentAnimation;
 
     @Override
     public void create() {
