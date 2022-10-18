@@ -34,6 +34,7 @@ public class SkillsTreeDisplay extends UIComponent {
     private Table exitTable;
     private Table equipTable;
     private Image skillTreeImage;
+    private Image skillbarImage;
     private boolean skillTreeOpen = false;
     private ArrayList<ImageButton> skillTreeIcons = new ArrayList<>();
     private Image activeTooltip;
@@ -85,6 +86,9 @@ public class SkillsTreeDisplay extends UIComponent {
         skillTreeImage = new Image(new Texture(Gdx.files.internal("images/Skill_tree/skill_tree_2.png")));
         skillTreeImage.setSize(850f, 850f);
         skillTreeImage.setPosition(250,0);
+        skillbarImage = new Image(new Texture("images/Skills/skillbar.png"));
+        skillbarImage.setSize(350,160);
+        skillbarImage.setPosition((float) 280, -45);
 
 
 
@@ -105,6 +109,7 @@ public class SkillsTreeDisplay extends UIComponent {
         stage.addActor(skillTreeBackground);
         stage.addActor(exitTable);
         stage.addActor(skillTreeImage);
+        stage.addActor(skillbarImage);
         stage.addActor(equipTable);
         addAllSkillsToTree();
     }
@@ -181,6 +186,11 @@ public class SkillsTreeDisplay extends UIComponent {
         if (skillTreeImage != null) {
             skillTreeImage.clear();
             skillTreeImage.remove();
+        }
+
+        if (skillbarImage != null) {
+            skillbarImage.clear();
+            skillbarImage.remove();
         }
 
         if (!skillTreeIcons.isEmpty()) {
