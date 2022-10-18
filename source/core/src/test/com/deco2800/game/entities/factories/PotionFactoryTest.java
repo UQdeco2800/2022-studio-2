@@ -3,13 +3,16 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.deco2800.game.components.player.PotionEffectComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.DebugRenderer;
 import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,13 +52,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     void createSpeedPotion() {
-        //Entity entity = PotionFactory.createSpeedPotion();
-        //assertTrue(entity.checkEntityType(EntityTypes.POTION));
+        Entity entity = PotionFactory.createTestSpeedPotion();
+        assertTrue(entity.checkEntityType(EntityTypes.POTION));
     }
 
     @Test
     void createHealthPotion() {
-        Entity entity = PotionFactory.createHealthPotion();
+        Entity entity = PotionFactory.createTestHealthPotion();
         assertTrue(entity.checkEntityType(EntityTypes.POTION));
     }
 }
