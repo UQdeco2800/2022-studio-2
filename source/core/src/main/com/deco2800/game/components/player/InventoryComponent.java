@@ -231,6 +231,7 @@ public class InventoryComponent extends Component {
         }
     }
 
+
     /**
      * Removes an item to player's inventory.
      *
