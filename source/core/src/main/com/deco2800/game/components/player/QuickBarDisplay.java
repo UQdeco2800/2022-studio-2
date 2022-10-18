@@ -29,7 +29,7 @@ public class QuickBarDisplay extends UIComponent {
     /**
      * This function visualizes potions in the item bar when equipped from the inventory.
      */
-    private void addActors() {
+    private static void addActors() {
         potions = new Group();
         Image quickBarImage = new Image(new Texture("images/Inventory/quickbar_sprint3.png"));
         quickBarImage.setSize(382,175);
@@ -38,8 +38,13 @@ public class QuickBarDisplay extends UIComponent {
         stage.addActor(potions);
     }
 
+    /**
+     * Draw the quick bar by default UI behavior
+     * @param batch Batch to render to.
+     */
     @Override
-    public void draw(SpriteBatch batch) {}
+    public void draw(SpriteBatch batch) {
+    }
 
     public static void updatePotionTable() {
 
@@ -53,14 +58,6 @@ public class QuickBarDisplay extends UIComponent {
             potion.setSize(64, 64);
             potions.addActor(potion);
         }
-
-
-        /*for (int i = 0; i < potionImages.size(); i++) {
-            Image potion = potionImages.get(i);
-            potionTable.add(potion).size(64, 64);
-            potion.setPosition(845 + i * 100, 60);
-        }
-        stage.addActor(potionTable);*/
 
     }
 
