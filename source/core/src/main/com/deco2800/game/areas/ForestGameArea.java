@@ -45,6 +45,7 @@ public class ForestGameArea extends GameArea {
     "images/Enemies/gym_bro.png",
     "images/Enemies/discus.png",
     "images/Armour-assets-sprint2/baseArmour.png",
+          "images/Armour-assets-sprint2/Dark_Armour.png",
     "images/Armour-assets-sprint2/slowDiamond.png",
     "images/Armour-assets-sprint2/damageReturner.png",
     "images/Armour-assets-sprint2/fastLeather.png",
@@ -106,6 +107,10 @@ public class ForestGameArea extends GameArea {
     "images/countdown/3.png",
     "images/countdown/4.png",
     "images/countdown/5.png",
+    "images/countdown/6.png", "images/countdown/7.png", "images/countdown/8.png", "images/countdown/9.png",
+    "images/countdown/10.png", "images/countdown/11.png", "images/countdown/12.png", "images/countdown/13.png",
+    "images/countdown/14.png", "images/countdown/15.png", "images/countdown/16.png", "images/countdown/17.png",
+    "images/countdown/18.png", "images/countdown/19.png", "images/countdown/20.png",
     "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
     "images/CombatItems/animations/BuffBounce/mapBounce.png",
     "images/CombatItems/animations/BuffAnimations/buff.png"
@@ -200,13 +205,13 @@ public class ForestGameArea extends GameArea {
     playMusic();
     spawnSpeedPotion();
     spawnHealthPotion();
-    spawnStaminaPotion();
-    spawnDefencePotion();
+    //spawnStaminaPotion();
+    //spawnDefencePotion();
 
     spawnDumbbell();
-    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 90, 15);
+    spawnArmour(ArmourFactory.ArmourType.slowDiamond, 145, 146);
     spawnArmour(ArmourFactory.ArmourType.fastLeather, 90, 22);
-    spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
+    //spawnArmour(ArmourFactory.ArmourType.darkArmour, 90, 26);
 
     spawnDmgBuff();
     spawnFireBuff();
@@ -224,7 +229,7 @@ public class ForestGameArea extends GameArea {
     spawnEntity(ui);
   }
 
-  private void spawnTerrain() {
+  public void spawnTerrain() {
     // Background terrain
     terrain = terrainFactory.createTerrain(TerrainType.LEVEL_ONE);
     spawnEntity(new Entity().addComponent(terrain));
@@ -553,6 +558,26 @@ public class ForestGameArea extends GameArea {
   }
 
   /**
+   * These buffs were made specifically to help with unit tests and buffs
+   */
+
+  private void spawnTestBuffs() {
+    spawnEntityAt(AuraFactory.createFireBuff(), new GridPoint2(89, 10), true, false);
+    spawnEntityAt(AuraFactory.createPoisonBuff(),new GridPoint2(92, 10), true, false);
+    spawnEntityAt(AuraFactory.createWeaponSpeedBuff(), new GridPoint2(94, 10), true, false);
+    spawnEntityAt(AuraFactory.createWeaponDmgBuff(), new GridPoint2(96, 10), true, false);
+  }
+
+  /**
+   * Spawn rock in a certain position. - Team 5 1map4all @LYB
+   */
+//  private void spawnRock(int x, int y) {
+//    Entity rock = ObstacleFactory.createRock();
+//    spawnEntityAt(rock, new GridPoint2(x, y), false, false);
+//  }
+
+
+  /**
    * spawn an armour on the map based on the input armour type
    * @param armourType armourType of the armour to be spawned
    */
@@ -592,29 +617,61 @@ public class ForestGameArea extends GameArea {
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
     itemsOnMap.add(speedPotion);
-    spawnEntityAt(speedPotion, new GridPoint2(90, 10), true, true);
-    Entity speedPotion2 = PotionFactory.createSpeedPotion();
-    itemsOnMap.add(speedPotion2);
-    spawnEntityAt(speedPotion2, new GridPoint2(90, 8), true, true);
+    spawnEntityAt(speedPotion, new GridPoint2(90, 11), true, true);
+
+    Entity speedPotion3 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion3);
+    spawnEntityAt(speedPotion3, new GridPoint2(34, 97), true, true);
+
+    Entity speedPotion4 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion4);
+    spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
+
+    Entity speedPotion5 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion5);
+    spawnEntityAt(speedPotion5, new GridPoint2(90, 92), true, true);
+
+    Entity speedPotion6 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion6);
+    spawnEntityAt(speedPotion6, new GridPoint2(120, 22), true, true);
+
+    Entity speedPotion7 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion7);
+    spawnEntityAt(speedPotion7, new GridPoint2(150, 153), true, true);
+
+    Entity speedPotion8 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion8);
+    spawnEntityAt(speedPotion8, new GridPoint2(175, 92), true, true);
   }
 
   private void spawnHealthPotion() {
-    Entity healthPotion = PotionFactory.createHealthPotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
+
+    Entity healthPotion2 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion2);
+    spawnEntityAt(healthPotion2, new GridPoint2(100, 63), true, true);
+
+    Entity healthPotion3 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion3);
+    spawnEntityAt(healthPotion3, new GridPoint2(90, 113), true, true);
+
+    Entity healthPotion4 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion4);
+    spawnEntityAt(healthPotion4, new GridPoint2(130, 143), true, true);
+
+    Entity healthPotion5 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion5);
+    spawnEntityAt(healthPotion5, new GridPoint2(150, 153), true, true);
+
+    Entity healthPotion6 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion6);
+    spawnEntityAt(healthPotion6, new GridPoint2(110, 159), true, true);
+
+    Entity healthPotion7 = PotionFactory.createHealthPotion();
+    itemsOnMap.add(healthPotion7);
+    spawnEntityAt(healthPotion7, new GridPoint2(175, 104), true, true);
   }
 
-  private void spawnStaminaPotion() {
-    Entity healthPotion = PotionFactory.createStaminaPotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 12), true, true);
-  }
 
-  private void spawnDefencePotion() {
-    Entity healthPotion = PotionFactory.createDefencePotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 10), true, true);
-  }
 
   /**
    * Spawns dumbbell entity into the game
@@ -642,7 +699,7 @@ public class ForestGameArea extends GameArea {
    * Spawns the player entity, with a skill and combat animator overlaid above the player.
    * @return the player entity
    */
-  private Entity spawnPlayer() {
+  public Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     Entity newSkillAnimator = PlayerFactory.createSkillAnimator(newPlayer);
     Entity newKeyPromptAnimator= PlayerFactory.createKeyPromptAnimator(newPlayer);
@@ -746,7 +803,7 @@ public class ForestGameArea extends GameArea {
    * Spawn child NPC in random position. - Team 7 all-mid-npc
    */
   private void spawnChild() {
-    childPosition = new GridPoint2(93,13);
+    childPosition = new GridPoint2(33,95);
     childDialoguePosition = new GridPoint2(33, 96);
 
     Entity child = NPCFactory.createChild(player);
@@ -766,8 +823,8 @@ public class ForestGameArea extends GameArea {
 
 
   private void spawnHumanGuard() {
-    HumanGuardPosition = new GridPoint2(110, 41);
-    HumanGuardDialoguePosition = new GridPoint2(110, 42);
+    HumanGuardPosition = new GridPoint2(110, 34);
+    HumanGuardDialoguePosition = new GridPoint2(110, 35);
 
     Entity humanguard = NPCFactory.createHumanGuard(player);
     spawnEntityAt(humanguard, HumanGuardPosition, true, true);
@@ -852,7 +909,7 @@ public class ForestGameArea extends GameArea {
    * Spawn Heracles in a position.
    */
   private Entity spawnHeracles() {
-    GridPoint2 position = new GridPoint2(174, 65);
+    GridPoint2 position = new GridPoint2(170, 50);
     Entity heraclesBoss = NPCFactory.createHeracles(player);
     areaEntities.add(heraclesBoss);
     spawnEntityAt(heraclesBoss, position, true, true);

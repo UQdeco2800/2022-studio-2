@@ -1,8 +1,12 @@
 package com.deco2800.game.areas;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
 import com.deco2800.game.components.npc.NPCAnimationController;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -38,6 +42,61 @@ class GameAreaTest {
     gameArea.dispose();
     verify(entity).dispose();
   }
+
+  // Tests if minimap is successfully called.
+  @Test
+    void checkMinimap() {
+      GameArea gameArea = mock(ForestGameArea.class);
+      ServiceLocator.registerGameArea(gameArea);
+    GameAreaDisplay gameAreaDisplay = mock(GameAreaDisplay.class);
+
+    gameAreaDisplay.displayMinimap();
+    verify(gameAreaDisplay).displayMinimap();
+  }
+
+    @Test
+    void testCreate() {
+        GameArea gameArea = mock(GameArea.class);
+        gameArea.create();
+        verify(gameArea).create();
+    }
+
+    @Test
+    void testDispose() {
+        GameArea gameArea = mock(GameArea.class);
+        gameArea.dispose();
+        verify(gameArea).dispose();
+    }
+
+    @Test
+    void testSpawnEntity() {
+        GameArea gameArea = mock(GameArea.class);
+        gameArea.dispose();
+        verify(gameArea).dispose();
+    }
+
+    @Test
+    void testSpawnEntityAt() {
+        GameArea gameArea = mock(GameArea.class);
+        Entity entity = new Entity();
+        gameArea.spawnEntityAt(entity, new GridPoint2(10,10), true, true);
+        verify(gameArea).spawnEntityAt(entity, new GridPoint2(10,10), true, true);
+    }
+
+    @Test
+    void getPlayer() {
+        GameArea gameArea = mock(GameArea.class);
+        gameArea.getPlayer();
+        verify(gameArea).getPlayer();
+    }
+
+    @Test
+    void setPlayer() {
+        GameArea gameArea = mock(GameArea.class);
+        Entity customPlayer = new Entity();
+        gameArea.setPlayer(customPlayer);
+        verify(gameArea).setPlayer(customPlayer);
+    }
 
 //    @Test
 //    void shouldSpawnMale() {

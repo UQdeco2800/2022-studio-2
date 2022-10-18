@@ -8,6 +8,6 @@ public class MegaPoopConfigTest {
     @Test
     void createTest() {
         MegaPoopConfig megaPoopConfig = new MegaPoopConfig();
-        assertEquals(100f, megaPoopConfig.speed);
+        assertEquals(100f, megaPoopConfig.SPEED);
     }
 }

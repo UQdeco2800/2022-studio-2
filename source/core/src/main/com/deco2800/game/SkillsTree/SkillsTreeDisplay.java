@@ -1,21 +1,19 @@
 package com.deco2800.game.SkillsTree;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -32,12 +30,16 @@ public class SkillsTreeDisplay extends UIComponent {
     private Table exitTable;
     private Table equipTable;
     private Image skillTreeImage;
+    private Image skillbarImage;
     private boolean skillTreeOpen = false;
     private ArrayList<ImageButton> skillTreeIcons = new ArrayList<>();
+    private Image activeTooltip;
+    private boolean toolTipDisplaying;
 
     private PlayerSkillComponent.SkillTypes skill1Type = PlayerSkillComponent.SkillTypes.NONE;
     private PlayerSkillComponent.SkillTypes skill2Type = PlayerSkillComponent.SkillTypes.NONE;
     private PlayerSkillComponent.SkillTypes skill3Type = PlayerSkillComponent.SkillTypes.NONE;
+
 
     @Override
     public void create() {
@@ -71,10 +73,7 @@ public class SkillsTreeDisplay extends UIComponent {
         exitTable = new Table();
         equipTable = new Table();
         equipTable.bottom().left();
-        Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
-        bgPixmap.setColor(Color.TEAL);
-        bgPixmap.fill();
-        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture("images/Skill_tree/skill tree background.png")));
         skillTreeBackground.setBackground(textureRegionDrawableBg);
         exitTable.top().right();
         exitTable.setFillParent(true);
@@ -83,11 +82,20 @@ public class SkillsTreeDisplay extends UIComponent {
         skillTreeImage = new Image(new Texture(Gdx.files.internal("images/Skill_tree/skill_tree_2.png")));
         skillTreeImage.setSize(850f, 850f);
         skillTreeImage.setPosition(250,0);
+        skillbarImage = new Image(new Texture("images/Skills/skillbar.png"));
+        skillbarImage.setSize(350,160);
+        skillbarImage.setPosition( 280, -45);
 
 
-
-        TextButton mainMenuBtn = new TextButton("Exit", skin);
-        mainMenuBtn.addListener(
+        TextureRegionDrawable exitTextureUp = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/skillExitButton.png", Texture.class));
+        TextureRegionDrawable exitTextureDown = new TextureRegionDrawable(ServiceLocator.getResourceService()
+                .getAsset("images/Skills/skillExitButtonDown.png", Texture.class));
+        ImageButton exitButton = new ImageButton(exitTextureUp);
+        ImageButton.ImageButtonStyle style = exitButton.getStyle();
+        style.imageUp = exitTextureUp;
+        style.imageDown = exitTextureDown;
+        exitButton.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -96,13 +104,14 @@ public class SkillsTreeDisplay extends UIComponent {
                     }
                 });
 
-        exitTable.add(mainMenuBtn).padTop(10f).padRight(10f);
+        exitTable.add(exitButton).padTop(10f).padRight(10f);
 
         refreshEquippedSkillsUI();
 
         stage.addActor(skillTreeBackground);
         stage.addActor(exitTable);
         stage.addActor(skillTreeImage);
+        stage.addActor(skillbarImage);
         stage.addActor(equipTable);
         addAllSkillsToTree();
     }
@@ -121,13 +130,13 @@ public class SkillsTreeDisplay extends UIComponent {
         if (playerSkillPoints >= 0) {
             row1Lock = false;
         }
-        if (playerSkillPoints >= 0) {
+        if (playerSkillPoints >= 1) {
             row2Lock = false;
         }
-        if (playerSkillPoints >= 0) {
+        if (playerSkillPoints >= 3) {
             row3Lock = false;
         }
-        if (playerSkillPoints >= 0) {
+        if (playerSkillPoints >= 6) {
             row4Lock = false;
         }
 
@@ -179,6 +188,11 @@ public class SkillsTreeDisplay extends UIComponent {
         if (skillTreeImage != null) {
             skillTreeImage.clear();
             skillTreeImage.remove();
+        }
+
+        if (skillbarImage != null) {
+            skillbarImage.clear();
+            skillbarImage.remove();
         }
 
         if (!skillTreeIcons.isEmpty()) {
@@ -258,51 +272,51 @@ public class SkillsTreeDisplay extends UIComponent {
             case NONE -> addEquipImage("blankSkillIcon");
             case DASH -> {
                 addEquipImage("dash");
-                addCountdownTrigger("dashCountdown", skillNum);
+                addCountdownTrigger("dashCountdown", skillNum, 500);
             }
             case TELEPORT -> {
                 addEquipImage("teleport");
-                addCountdownTrigger("teleportCountdown", skillNum);
+                addCountdownTrigger("teleportCountdown", skillNum, 10000);
             }
             case BLOCK -> {
                 addEquipImage("block");
-                addCountdownTrigger("blockCountdown", skillNum);
+                addCountdownTrigger("blockCountdown", skillNum, 3000);
             }
             case DODGE -> {
                 addEquipImage("dodge");
-                addCountdownTrigger("dodgeCountdown", skillNum);
+                addCountdownTrigger("dodgeCountdown", skillNum, 3000);
             }
             case FIREBALLULTIMATE -> {
                 addEquipImage("fireballUltimate");
-                addCountdownTrigger("fireballCountdown", skillNum);
+                addCountdownTrigger("fireballCountdown", skillNum, 20000);
             }
             case ULTIMATE -> {
                 addEquipImage("ultimate");
-                addCountdownTrigger("ultimateCountdown", skillNum);
+                addCountdownTrigger("ultimateCountdown", skillNum, 20000);
             }
             case ROOT -> {
                 addEquipImage("root");
-                addCountdownTrigger("rootCountdown", skillNum);
+                addCountdownTrigger("rootCountdown", skillNum, 5000);
             }
             case AOE -> {
                 addEquipImage("aoe");
-                addCountdownTrigger("aoeCountdown", skillNum);
+                addCountdownTrigger("aoeCountdown", skillNum, 5000);
             }
             case PROJECTILE -> {
                 addEquipImage("wrenchProjectile");
-                addCountdownTrigger("wrenchCountdown", skillNum);
+                addCountdownTrigger("wrenchCountdown", skillNum, 5000);
             }
             case BLEED -> {
                 addEquipImage("bleed");
-                addCountdownTrigger("bleedCountdown", skillNum);
+                addCountdownTrigger("bleedCountdown", skillNum, 5000);
             }
             case CHARGE -> {
                 addEquipImage("charge");
-                addCountdownTrigger("chargeCountdown", skillNum);
+                addCountdownTrigger("chargeCountdown", skillNum, 10000);
             }
             case INVULNERABILITY -> {
                 addEquipImage("invulnerability");
-                addCountdownTrigger("invulnerabilityCountdown", skillNum);
+                addCountdownTrigger("invulnerabilityCountdown", skillNum, 10000);
             }
         }
     }
@@ -319,9 +333,15 @@ public class SkillsTreeDisplay extends UIComponent {
         cooldownBar.addSkillIcon(new Image(new Texture(imagePath)));
     }
 
-    private void addCountdownTrigger(String listenerName, int skillNum) {
+    /**
+     * Adds a countdown trigger to the cooldown display.
+     * @param listenerName The name of the countdown controller listener
+     * @param skillNum the equipped skill number, 1 based and up to 3 equipped skills
+     * @param cooldownLength the length of the cooldown for the countdown visual display
+     */
+    private void addCountdownTrigger(String listenerName, int skillNum, long cooldownLength) {
         Countdown countdownController = ServiceLocator.getGameArea().getPlayer().getComponent(Countdown.class);
-        countdownController.setCountdownTrigger(skillNum, listenerName);
+        countdownController.setCountdownTrigger(skillNum, listenerName, cooldownLength);
     }
 
     /**
@@ -353,6 +373,7 @@ public class SkillsTreeDisplay extends UIComponent {
             case 10 -> addSkillTreeButton(844, 344, imageFileName, skillType, disabled);
             case 11 -> addSkillTreeButton(781, 210, imageFileName, skillType, disabled);
             case 12 -> addSkillTreeButton(850, 210, imageFileName, skillType, disabled);
+            default -> addSkillTreeButton(0, 0, imageFileName, skillType, disabled);
         }
     }
 
@@ -380,12 +401,53 @@ public class SkillsTreeDisplay extends UIComponent {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     equipSkill(skillType);
+                    removeActiveTooltip();
+                }
+            });
+            button.addListener(new ClickListener() {
+                @Override
+                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    addTooltipImage(imageFilePath, xCoord, yCoord);
+                }
+
+                @Override
+                public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    removeActiveTooltip();
                 }
             });
         }
 
         stage.addActor(button);
         skillTreeIcons.add(button);
+    }
+
+    /**
+     * Adds tooltip image to skill tree icon.
+     * @param imageFilePath the name of the skill tree icon
+     * @param xCoord the x coordinates of the skill icon, taken directly from its placement on the skill tree
+     * @param yCoord the y coordinates of the skill icon, taken directly from its placement on the skill tree
+     */
+    private void addTooltipImage(String imageFilePath, float xCoord, float yCoord) {
+        if (!this.toolTipDisplaying) {
+            this.toolTipDisplaying = true;
+            this.activeTooltip = new Image(new TextureRegionDrawable(ServiceLocator.getResourceService()
+                    .getAsset("images/Skill_tree/tooltips/" + imageFilePath + "Tooltip.png", Texture.class)));
+            this.activeTooltip.setPosition(xCoord - SKILL_ICON_BUTTON_SIZE/2f , yCoord + SKILL_ICON_BUTTON_SIZE);
+            this.activeTooltip.setSize(SKILL_ICON_BUTTON_SIZE * 3f, SKILL_ICON_BUTTON_SIZE * 2f);
+            stage.addActor(this.activeTooltip);
+        }
+
+    }
+
+    /**
+     * Removes the active tooltip for a skill icon
+     */
+    private void removeActiveTooltip() {
+        if (this.activeTooltip != null) {
+            this.activeTooltip.remove();
+            this.activeTooltip = null;
+            this.toolTipDisplaying = false;
+        }
     }
 
     /**
@@ -423,12 +485,8 @@ public class SkillsTreeDisplay extends UIComponent {
      *          false otherwise
      */
     private boolean isDuplicateSkillEquip(PlayerSkillComponent.SkillTypes skillType) {
-        if (skillType == skill1Type || skillType == skill2Type || skillType == skill3Type) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
+        return (skillType == skill1Type || skillType == skill2Type || skillType == skill3Type);
+    }
 
 }

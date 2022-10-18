@@ -539,5 +539,10 @@ public class PlayerCombatAnimationControllerTest {
         animator.addAnimation("plungerBowStatic", 0.1f);
         entity.getEvents().trigger("plungerBowStatic");
     }
+    @Test
+    void playGoldenPlungerBowStaticAnimation() {
+        animator.addAnimation("goldenPlungerBow", 0.1f);
+        entity.getEvents().trigger("goldenPlungerBow");
+    }
 
 }

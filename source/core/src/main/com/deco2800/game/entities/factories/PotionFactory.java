@@ -130,6 +130,16 @@ public class PotionFactory {
     }
 
     /**
+     * Creates health regen potion without rendering Component.
+     * @return health regen potion for testing purposes
+     */
+    public static Entity createTestHealthRegenPotion() {
+        Entity potion = createBasePotion()
+                .addComponent(new PotionEffectComponent(PhysicsLayer.PLAYER, "health"));
+        return potion;
+    }
+
+    /**
      * made to hold images of different potions' image location.
      */
     private static final String[] potionPictures = {

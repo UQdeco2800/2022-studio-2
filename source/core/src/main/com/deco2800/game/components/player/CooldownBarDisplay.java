@@ -7,7 +7,6 @@ import com.deco2800.game.ui.UIComponent;
 public class CooldownBarDisplay extends UIComponent {
 
     private Table cooldownBar;
-    private Table cooldownTable;
 
 
     @Override
@@ -32,12 +31,11 @@ public class CooldownBarDisplay extends UIComponent {
         stage.addActor(cooldownBar);
     }
 
-    //private boolean cooldownImageNeedsUpdating() {
-
-    //}
 
     public void addSkillIcon(Image skillIcon) {
-        cooldownBar.add(skillIcon).size(96,96).pad(3f);
+        if (cooldownBar != null) {
+            cooldownBar.add(skillIcon).size(96,96).pad(3f);
+        }
     }
 
     public void clearSkillIcons() {
@@ -48,6 +46,5 @@ public class CooldownBarDisplay extends UIComponent {
     public void dispose() {
         super.dispose();
         cooldownBar.clear();
-        //cooldownTable.clear();
     }
 }
