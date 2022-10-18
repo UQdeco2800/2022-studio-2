@@ -2,8 +2,8 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.deco2800.game.components.combatitemsComponents.BuffDisplayComponent;
-import com.deco2800.game.components.combatitemsComponents.WeaponAuraManager;
+import com.deco2800.game.components.combatitemscomponents.BuffDisplayComponent;
+import com.deco2800.game.components.combatitemscomponents.WeaponAuraManager;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.maingame.PauseMenuActions;
 import com.deco2800.game.components.npc.DialogueDisplay;
@@ -83,8 +83,8 @@ public class PlayerFactory {
     player.getComponent(AnimationRenderComponent.class).scaleEntity();
     player.setEntityType(EntityTypes.PLAYER);
 
-    /*//FOR TESTING
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
+    //FOR TESTING
+    /*player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createSwordLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createDagger());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createHera());
@@ -93,8 +93,8 @@ public class PlayerFactory {
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPipe());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createTridentLvl2());
     player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlunger());
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());*/
-    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createGoldenPlungerBow());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createPlungerBow());
+    player.getComponent(InventoryComponent.class).addItem(WeaponFactory.createGoldenPlungerBow());*/
     return player;
   }
 
@@ -131,6 +131,10 @@ public class PlayerFactory {
     animator.addAnimation("invulnerability", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("fireballUltimate", 0.1f, Animation.PlayMode.NORMAL);
     animator.addAnimation("aoe", 0.05f, Animation.PlayMode.LOOP);
+    animator.addAnimation("charge", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("chargemove", 0.03f, Animation.PlayMode.LOOP);
+    animator.addAnimation("bleed", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("root", 0.1f, Animation.PlayMode.LOOP);
 
     Entity skillAnimator =
             new Entity().addComponent(animator)
@@ -263,6 +267,9 @@ public class PlayerFactory {
     animator.addAnimation("plungerBowSpeed", 0.1f);
     animator.addAnimation("plungerBowSpeedStatic", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("plungerBowStatic", 0.1f);
+
+    /*golden plunger bow animations*/
+    animator.addAnimation("goldenPlungerBow", 0.1f);
 
     Entity combatAnimator =
             new Entity().addComponent(animator)

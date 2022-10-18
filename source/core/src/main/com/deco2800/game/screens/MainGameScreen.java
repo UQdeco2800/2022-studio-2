@@ -81,16 +81,29 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/bleed.png",
           "images/Skills/bleed_disabled.png",
           "images/Skills/charge.png",
-          "images/Skills/charge_disabled.png"
+          "images/Skills/charge_disabled.png",
+          "images/Skill_tree/tooltips/aoeTooltip.png",
+          "images/Skill_tree/tooltips/bleedTooltip.png",
+          "images/Skill_tree/tooltips/blockTooltip.png",
+          "images/Skill_tree/tooltips/chargeTooltip.png",
+          "images/Skill_tree/tooltips/dashTooltip.png",
+          "images/Skill_tree/tooltips/dodgeTooltip.png",
+          "images/Skill_tree/tooltips/fireballUltimateTooltip.png",
+          "images/Skill_tree/tooltips/invulnerabilityTooltip.png",
+          "images/Skill_tree/tooltips/wrenchProjectileTooltip.png",
+          "images/Skill_tree/tooltips/rootTooltip.png",
+          "images/Skill_tree/tooltips/teleportTooltip.png",
+          "images/Skill_tree/tooltips/ultimateTooltip.png"
   };
+
   private static final String[] dialogueImg = {
-          "images/NPC/Dialogue/dialoguesboxmale.png",
-          "images/NPC/Dialogue/dialoguesboxguard.png",
-          "images/NPC/Dialogue/dialoguesboxchild.png",
+          "images/NPC/Dialogue/dialoguesboxmale2.png",
+          "images/NPC/Dialogue/dialoguesboxguard2.png",
+          "images/NPC/Dialogue/dialoguesboxchild2.png",
           "images/NPC/Dialogue/dialoguesboxfemale2.png",
-          "images/NPC/Dialogue/HumanGuardDialogue.png",
-          "images/NPC/Dialogue/FriendlyCreatureDialogue.png",
-          "images/NPC/Dialogue/PlumberFriend.png"
+          "images/NPC/Dialogue/humanguarddialogue2.png",
+          "images/NPC/Dialogue/friendlycreaturedialogue2.png",
+          "images/NPC/Dialogue/plumberfriend2.png"
   };
   private static final String[] teleportImg = {"images/Skills/teleport.png"};
   private static final String[] skillScreenOverlays = {
@@ -99,8 +112,11 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/EquippedSkillsText.png",
           "images/Skills/clearSkillsButton.png",
           "images/Skills/clearSkillsButton_down.png",
-          "images/Skills/skill-tree-icon.png"
+          "images/Skills/skill-tree-icon.png",
+          "images/Skills/skillExitButton.png",
+          "images/Skills/skillExitButtonDown.png"
   };
+
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity player;
   private final GdxGame game;
@@ -167,14 +183,14 @@ public class MainGameScreen extends ScreenAdapter {
   private void playMusicOne() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapOne, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.2f);
     music.play();
   }
 
   private void playMusicTwo() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusicMapTwo, Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.2f);
     music.play();
   }
 
