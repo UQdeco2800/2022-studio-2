@@ -4,12 +4,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.UndergroundGameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.EntityTypes;
+import com.deco2800.game.physics.PhysicsEngine;
+import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 
@@ -55,14 +59,18 @@ public class PlayerSkillComponent extends Component {
 
     Map<String, Long> skillCooldowns = new HashMap<>();
 
+    private static final long MAX_COOLDOWN = 5000;
+
     // Teleport variables
-    private static final int TELEPORT_LENGTH = 4;
+    private static final int TELEPORT_LENGTH = 8;
     private long teleportEnd; // Teleport charge end system time
     private boolean teleporting;
     private static final long TELEPORT_CHARGE_LENGTH = 1000; // In MilliSec (1000millisec = 1sec)
     private static final float TELEPORT_MOVEMENT_RESTRICTION = 0.5f; // As a proportion of regular move (0.8 = 80%)
-    private static final long TELEPORT_COOLDOWN = 3000;
+    private static final long TELEPORT_COOLDOWN = 10000;
     private boolean teleportEndEvent = false;
+    private final RaycastHit hit = new RaycastHit();
+    private final PhysicsEngine physics;
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
@@ -82,7 +90,7 @@ public class PlayerSkillComponent extends Component {
     private static final long DODGE_LENGTH = 300; // In MilliSec (1000millsec = 1sec)
     private static final Vector2 DODGE_SPEED = new Vector2(-4.5f, -4.5f); // As a proportion of regular move (0.8 = 80%)
     private static final float DODGE_SIDE_MOVE = 3.0f;
-    private static final long DODGE_COOLDOWN = 500;
+    private static final long DODGE_COOLDOWN = 3000;
     private boolean dodgeEndEvent = false;
     private Vector2 dodgeDirection;
 
@@ -90,7 +98,7 @@ public class PlayerSkillComponent extends Component {
     private boolean blocking;
     private long blockEnd;
     private static final long BLOCK_LENGTH = 400;
-    private static final long BLOCK_COOLDOWN = 500;
+    private static final long BLOCK_COOLDOWN = 3000;
     private boolean blockEndEvent;
 
     // Root Variables
@@ -117,7 +125,10 @@ public class PlayerSkillComponent extends Component {
     private boolean charging;
     private long chargeEnd;
     private static final Vector2 CHARGE_SPEED = new Vector2(20f, 20f);
-    private int CHARGE_DAMAGE = 30;
+    private static final int CHARGE_DAMAGE = 30;
+    private boolean chargeUp = false;
+    private long chargeUpEnd;
+    private static final long CHARGE_UP_LENGTH = 700;
 
     private boolean chargingUltimate;
     private long ultimateChargeEnd;
@@ -142,12 +153,17 @@ public class PlayerSkillComponent extends Component {
     private boolean rootAnimationRunning;
     private static final long ROOT_ANIMATION_LENGTH = 500;
 
+    private long bleedAnimationEnd;
+    private boolean bleedAnimationRunning;
+    private static final long BLEED_ANIMATION_LENGTH = 500;
+
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
      * @param playerEntity the player entity this skill component is a subcomponent of
      */
     public PlayerSkillComponent(Entity playerEntity) {
         this.playerEntity = playerEntity;
+        physics = ServiceLocator.getPhysicsService().getPhysics();
     }
 
     /**
@@ -205,6 +221,13 @@ public class PlayerSkillComponent extends Component {
                 skillAnimator.getEvents().trigger("regularAnimation");
             }
             this.charging = false;
+        }
+
+        // Check if the player is waiting to charge from charging
+        if (this.chargeUp && System.currentTimeMillis() > this.chargeUpEnd) {
+            this.chargeUp = false;
+            skillAnimator.getEvents().trigger("regularAnimation");
+            chargeMove();
         }
 
         // Check if the player is waiting to teleport from charging
@@ -294,6 +317,12 @@ public class PlayerSkillComponent extends Component {
                 skillAnimator.getEvents().trigger("regularAnimation");
             }
         }
+        if (this.bleedAnimationRunning) {
+            if (System.currentTimeMillis() > this.bleedAnimationEnd) {
+                this.bleedAnimationRunning = false;
+                skillAnimator.getEvents().trigger("regularAnimation");
+            }
+        }
     }
 
     public void addSkillPoints(int skillPoints) {
@@ -367,7 +396,8 @@ public class PlayerSkillComponent extends Component {
      */
     public boolean movementIsModified() {
 
-        return (isDashing() || isTeleporting() || isDodging() || isCharging() || this.dodgeSpeedBoost);
+        return (isDashing() || isTeleporting() || isDodging() || isCharging() || isChargingUp()
+                || this.dodgeSpeedBoost);
     }
 
     /**
@@ -406,7 +436,7 @@ public class PlayerSkillComponent extends Component {
             modifiedMovementVector = addVectors(reducedMovement, dashVelocity);
         }
 
-        if (isTeleporting()) {
+        if (isTeleporting() || isChargingUp()) {
             Vector2 reducedMovement = new Vector2(modifiedMovementVector.x * TELEPORT_MOVEMENT_RESTRICTION,
                     modifiedMovementVector.y * TELEPORT_MOVEMENT_RESTRICTION);
             modifiedMovementVector = reducedMovement;
@@ -512,6 +542,15 @@ public class PlayerSkillComponent extends Component {
     }
 
     /**
+     * Checks if the player is in the charge up skill state
+     * @return true - if the player is charging up
+     *         false - otherwise
+     */
+    public boolean isChargingUp() {
+        return this.chargeUp;
+    }
+
+    /**
      * Checks if the player is in the teleport skill state
      * @return true - if the player is charging a teleport
      *         false - otherwise
@@ -579,7 +618,7 @@ public class PlayerSkillComponent extends Component {
      * Should be called when the player actions component registers invulnerability skill
      */
     public void startInvulnerabilitySkill() {
-        if (cooldownFinished("invulnerable", (INVULNERABILITY_LENGTH * 3))) {
+        if (cooldownFinished("invulnerable", 10000)) {
             this.invulnerabilitySkill = true;
             skillAnimator.getEvents().trigger("invulnerabilityAnimation");
             playerEntity.getEvents().trigger("invulnerabilityCountdown");
@@ -596,7 +635,7 @@ public class PlayerSkillComponent extends Component {
      * @param moveDirection the direction of the players movement at the start of the dash event.
      */
     public void startDash(Vector2 moveDirection) {
-        if (cooldownFinished("dash", (long) (DASH_LENGTH * 1.2))) {
+        if (cooldownFinished("dash", 500)) {
             this.dashDirection = moveDirection;
             this.dashing = true;
             skillAnimator.getEvents().trigger("dashAnimation");
@@ -662,12 +701,16 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers root event.
      */
     public void startRoot() {
-        skillAnimator.getEvents().trigger("rootAnimation");
-        playerEntity.getEvents().trigger("rootCountdown");
-        this.rootAnimationRunning = true;
-        long rootStart = System.currentTimeMillis();
-        this.rootAnimationEnd = rootStart + ROOT_ANIMATION_LENGTH;
-        this.rootApplied = true;
+
+        if (cooldownFinished("root", 5000)) {
+            skillAnimator.getEvents().trigger("rootAnimation");
+            playerEntity.getEvents().trigger("rootCountdown");
+            this.rootAnimationRunning = true;
+            long rootStart = System.currentTimeMillis();
+            this.rootAnimationEnd = rootStart + ROOT_ANIMATION_LENGTH;
+            this.rootApplied = true;
+            setSkillCooldown("root");
+        }
     }
 
     /**
@@ -675,7 +718,7 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers ultimate event.
      */
     public void startUltimate() {
-        if (cooldownFinished("timestop", (long) (ULTIMATE_CHARGE_LENGTH * 3))) {
+        if (cooldownFinished("timestop", 20000)) {
             skillAnimator.getEvents().trigger("ultimateAnimation");
             playerEntity.getEvents().trigger("ultimateCountdown");
             chargingUltimate = true;
@@ -696,6 +739,7 @@ public class PlayerSkillComponent extends Component {
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
                 ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
             }
+            setSkillCooldown("projectile");
         }
     }
 
@@ -704,7 +748,7 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers ultimate event.
      */
     public void startFireballUltimate() {
-        if (cooldownFinished("fireball", FIREBALL_CHARGE_LENGTH * 10)) {
+        if (cooldownFinished("fireball", 20000)) {
             chargingUltimateFireball = true;
             skillAnimator.getEvents().trigger("fireballAnimation");
             playerEntity.getEvents().trigger("fireballCountdown");
@@ -731,8 +775,15 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers bleed event.
      */
     public void startBleed() {
-        this.bleedApplied = true;
-        playerEntity.getEvents().trigger("bleedCountdown");
+        if (cooldownFinished("fireball", 5000)) {
+            this.bleedApplied = true;
+            playerEntity.getEvents().trigger("bleedCountdown");
+            skillAnimator.getEvents().trigger("bleedAnimation");
+            this.bleedAnimationRunning = true;
+            long bleedStart = System.currentTimeMillis();
+            this.bleedAnimationEnd = bleedStart + ROOT_ANIMATION_LENGTH;
+            setSkillCooldown("bleed");
+        }
     }
 
     /**
@@ -777,20 +828,29 @@ public class PlayerSkillComponent extends Component {
      */
     public void teleportPlayer() {
         PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
-        float teleportPositionX = playerEntity.getPosition().x + actions.getWalkDirection().x * TELEPORT_LENGTH;
-        float teleportPositionY = playerEntity.getPosition().y + actions.getWalkDirection().y * TELEPORT_LENGTH;
+        Vector2 walkDirection = actions.getWalkDirection();
+        if (walkDirection.x == 0 && walkDirection.y == 0) {
+            return;
+        }
+        float teleportPositionX = playerEntity.getPosition().x + walkDirection.x * TELEPORT_LENGTH;
+        float teleportPositionY = playerEntity.getPosition().y + walkDirection.y * TELEPORT_LENGTH;
+        Vector2 from = new Vector2(playerEntity.getPosition().x - walkDirection.x * 0.2f,
+                playerEntity.getPosition().y - walkDirection.y * 0.2f);
+        Vector2 fromCenter = playerEntity.getCenterPosition();
+        Vector2 fromCenterEdges = new Vector2(fromCenter.x - walkDirection.x * 0.2f,
+                fromCenter.y - walkDirection.y * 0.2f);
+        Vector2 to = new Vector2(teleportPositionX, teleportPositionY);
 
-        // Check if teleport is out of map bounds
-        if (teleportPositionX < -0.08)
-            teleportPositionX = -0.08f;
-        if (teleportPositionY < 0.11)
-            teleportPositionY = 0.11f;
-        if (teleportPositionX > 24.18)
-            teleportPositionX = 24.18f;
-        if (teleportPositionY > 24.68)
-            teleportPositionY = 24.68f;
-        playerEntity.setPosition(teleportPositionX, teleportPositionY);
-
+        if (physics.raycast(from, to, PhysicsLayer.OBSTACLE, hit)) {
+            if (Math.abs(hit.point.x - fromCenter.x) < 0.75f && Math.abs(hit.point.y - fromCenter.y) < 0.75f) {
+                return;
+            }
+            playerEntity.setPosition(hit.point.x - walkDirection.x, hit.point.y - walkDirection.y);
+        } else if (walkDirection.x == 0 && physics.raycast(fromCenterEdges, to, PhysicsLayer.OBSTACLE, hit)) {
+            playerEntity.setPosition(hit.point.x - walkDirection.x, hit.point.y - walkDirection.y);
+        } else {
+            playerEntity.setPosition(to);
+        }
     }
 
     /**
@@ -889,13 +949,13 @@ public class PlayerSkillComponent extends Component {
      * @param slow true to slow enemy, false to return to normal speed
      */
     private void changeSpeed(Entity target, long slowLength, boolean slow) {
-        if (slow) {
+        if (slow && !target.checkEntityType(EntityTypes.RANGED)) {
             target.getComponent(AITaskComponent.class).addTask
                     (new ChaseTask(playerEntity, 50, 5f, 6f, 1f));
             this.rooted = true;
             this.rootApplied = false;
             this.rootEnd = System.currentTimeMillis() + slowLength;
-        } else if (target != null){
+        } else if (target != null && !target.checkEntityType(EntityTypes.RANGED)){
             //target.getComponent(AITaskComponent.class).dispose();
             target.getComponent(AITaskComponent.class).getPriorityTasks().remove
                     (target.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
@@ -905,19 +965,28 @@ public class PlayerSkillComponent extends Component {
     /**
      * The functional start of the charge.
      * Should be called when player actions component registers charge event.
-     * @param moveDirection the direction of the players movement at the start of the charge event.
      */
-    public void startCharge(Vector2 moveDirection) {
-        if (1 < 2) {//cooldown
-            this.chargeDirection = moveDirection;
-            this.charging = true;
-            this.chargeFirstHit = true;
-            skillAnimator.getEvents().trigger("dashAnimation");
+    public void startCharge() {
+        if (cooldownFinished("charge", 10000)) {//cooldown
+            this.chargeUp = true;
+            this.chargeUpEnd = System.currentTimeMillis() + CHARGE_UP_LENGTH;
+            skillAnimator.getEvents().trigger("chargeAnimation");
             playerEntity.getEvents().trigger("chargeCountdown");
-            this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
-            setInvulnerable(DASH_LENGTH / 2);
             setSkillCooldown("charge");
         }
+    }
+
+    /**
+     * Speeds up player movement for charge attack
+     */
+    public void chargeMove() {
+        PlayerActions actions = playerEntity.getComponent(PlayerActions.class);
+        this.chargeDirection = actions.getWalkDirection();
+        this.charging = true;
+        this.chargeFirstHit = true;
+        skillAnimator.getEvents().trigger("chargemoveAnimation");
+        this.chargeEnd = System.currentTimeMillis() + DASH_LENGTH;
+        setInvulnerable(DASH_LENGTH / 2);
     }
 
     /**
@@ -965,18 +1034,22 @@ public class PlayerSkillComponent extends Component {
      * Damages all enemies around player and knocks them back.
      */
     public void aoeAttack() {
-        if (cooldownFinished("aoe", AOE_ANIMATION_LENGTH * 10)) {
+        if (cooldownFinished("aoe", 5000)) {
             long aoeStart = System.currentTimeMillis();
             this.aoeAnimationEnd = aoeStart + AOE_ANIMATION_LENGTH;
             skillAnimator.getEvents().trigger("aoeAnimation");
             playerEntity.getEvents().trigger("aoeCountdown");
             this.aoeAnimationRunning = true;
+            Entity projectile;
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
-                Entity projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+                projectile = ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
                 ForestGameArea.removeProjectileOnMap(projectile);
-                if (projectile.getComponent(AnimationRenderComponent.class) != null) {
-                    projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
-                }
+            } else {
+                projectile = ((UndergroundGameArea) ServiceLocator.getGameArea()).spawnPlayerAOE();
+                UndergroundGameArea.removeProjectileOnMap(projectile);
+            }
+            if (projectile.getComponent(AnimationRenderComponent.class) != null) {
+                projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
             }
             setSkillCooldown("aoe");
         }

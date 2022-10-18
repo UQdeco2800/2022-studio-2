@@ -25,7 +25,7 @@ import com.deco2800.game.crafting.CraftingLogic;
 import com.deco2800.game.crafting.Materials;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfig;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfig;
 import com.deco2800.game.entities.factories.*;
 import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
@@ -374,6 +374,7 @@ public class GameAreaDisplay extends UIComponent {
      * and creates button event handlers to test for user clicks.
      */
     public void openCraftingMenu() {
+        KeyboardPlayerInputComponent.setCurrentMenu(true, KeyboardPlayerInputComponent.MenuTypes.CRAFTING);
         logger.info("Opening Crafting Menu");
         inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
         craftMenu = new Image(new Texture(Gdx.files.internal(String.format("images/Crafting-assets-sprint1/" +
@@ -1325,7 +1326,7 @@ public class GameAreaDisplay extends UIComponent {
     /**
      * Displays the second page of the catalogue menu and adds event handlers for buttons.
      */
-    private void displayCatTwo() {
+    public void displayCatTwo() {
         Sound catTwoSound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
         catTwoSound.play();
         disposeMaterials();
@@ -1478,27 +1479,27 @@ public class GameAreaDisplay extends UIComponent {
         String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
         weapon = new Image(new Texture(Gdx.files.internal(image)));
 
-        if (Math.floor(item.damage) == 35) {
+        if (item.damage == 27) {
             weapon.setSize(60, 60);
             //trident
             weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
-        } else if (Math.floor(item.damage) == 30) {
+        } else if (item.damage == 25) {
             //sword
             weapon.setSize(60, 60);
             weapon.setPosition(craftMenu.getX() + 675, craftMenu.getY() + 235);
-        } else if (Math.floor(item.damage) == 15) {
+        } else if (item.damage == 19.5) {
             //pipe
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 210);
-        } else if (Math.floor(item.damage) == 10) {
+        } else if (item.damage == 17) {
             //plunger
             weapon.setSize(110, 110);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 40) {
+        } else if (item.damage == 32) {
             //herathena
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 20 || Math.floor(item.damage) == 70) {
+        } else if (item.damage == 20 || item.damage == 70) {
             //bows
             weapon.setSize(50, 50);
             weapon.setPosition(craftMenu.getX() + 665, craftMenu.getY() + 230);
@@ -1507,6 +1508,10 @@ public class GameAreaDisplay extends UIComponent {
             weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
         }
         craftingGroup.addActor(weapon);
+    }
+
+    public int getFirstTime() {
+        return firstTime;
     }
 
     /**

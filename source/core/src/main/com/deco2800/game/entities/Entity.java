@@ -1,5 +1,6 @@
 package com.deco2800.game.entities;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
@@ -44,6 +45,7 @@ public class Entity {
   private boolean enabled = true;
   private boolean created = false;
   private Vector2 position = Vector2.Zero.cpy();
+  private GridPoint2 gridPosition;
   private Vector2 scale = new Vector2(1, 1);
   private Array<Component> createdComponents;
   private boolean isDead = false;
@@ -69,12 +71,28 @@ public class Entity {
   }
 
   /**
+   * Get the entity's game grid position.
+   *
+   * @return position
+   */
+  public GridPoint2 getGridPosition() {
+    return gridPosition; // Cpy gives us pass-by-value to prevent bugs
+  }
+
+  /**
    * Get the entity's game position.
    *
    * @return position
    */
   public Vector2 getPosition() {
     return position.cpy(); // Cpy gives us pass-by-value to prevent bugs
+  }
+
+  /**
+   * Set the entity's game grid position.
+   */
+  public void setGridPosition(GridPoint2 position) {
+    this.gridPosition = position;
   }
 
   /**

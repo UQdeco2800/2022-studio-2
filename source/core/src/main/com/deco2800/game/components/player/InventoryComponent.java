@@ -2,7 +2,7 @@ package com.deco2800.game.components.player;
 
 
 import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.components.Component;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -109,14 +109,21 @@ public class InventoryComponent extends Component {
         entity.getComponent(PlayerTouchAttackComponent.class).setCombatAnimator(newCombatAnimator);
         ServiceLocator.getGameArea().spawnEntity(newCombatAnimator);
         String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-        String staticAnimation = description+"Static";
-        combatAnimator.getEvents().trigger(staticAnimation);
+
+        //add exception for golden plunger
+        if (description.equals("goldenPlungerBow")){
+            combatAnimator.getEvents().trigger(description);
+        }
+        else {
+            String staticAnimation = description+"Static";
+            combatAnimator.getEvents().trigger(staticAnimation);
+        }
     }
 
     /**
      * Cancel the animation registered for equipped weapon
      */
-    private void cancelAnimation() {
+    public void cancelAnimation() {
         if(combatAnimator == null) return;
         combatAnimator.dispose();
         combatAnimator.getComponent(AnimationRenderComponent.class).stopAnimation();
@@ -162,7 +169,7 @@ public class InventoryComponent extends Component {
      */
     public void addItem(Entity item) {
         if (inventory.size() == INVENTORY_SIZE) {
-            logger.info("Inventory is full");
+            if (!hasItem(item, inventory)) logger.info("Inventory is full");
         } else if (!hasItem(item, inventory)) {
             if ((item.checkEntityType(EntityTypes.WEAPON)
                     || item.checkEntityType(EntityTypes.ARMOUR))) {
@@ -173,6 +180,7 @@ public class InventoryComponent extends Component {
                 inventory.add(item);
             }
         }
+
         if (getItemIndex(item, inventory) != -1
                 && getItemQuantity(item) < 9
                 && (item.checkEntityType(EntityTypes.POTION)
@@ -190,9 +198,10 @@ public class InventoryComponent extends Component {
      * @param quantity the quantity array of corresponding inventory
      */
     public void sortInventory(int index, List<Entity> list, int[] quantity) {
-        if (list.size() > index) {
-            for (int i = index; i < list.size(); ++i) {
-                quantity[i] = quantity[i + 1];
+        final int size = list.size();
+        if (size > index) {
+            for (int i = index; i < size; ++i) {
+                if (i != size - 1) quantity[i] = quantity[i + 1];
             }
         }
     }
@@ -235,7 +244,7 @@ public class InventoryComponent extends Component {
      * Removes an item to player's inventory.
      *
      * @param type type of the item that is to be removed
-     *             NOTE: Currently only work with crafting materials EntityTypes
+     *
      */
     public void removeItem(EntityTypes type) {
         for (int i = 0; i < inventory.size(); ++i) {
@@ -388,6 +397,7 @@ public class InventoryComponent extends Component {
      * Swap the item in equipable
      *
      * @param item the item to be swapped in
+     * @requires getEquipables().size() > 1 AND item.checkEntityType(ARMOUR || WEAPON)
      */
     public void swapItem(Entity item) {
         int itemSlot = item.checkEntityType(EntityTypes.WEAPON) ? 0 : 1;
@@ -461,6 +471,14 @@ public class InventoryComponent extends Component {
      */
     public List<Entity> getQuickBarItems() {
         return List.copyOf(quickBarItems);
+    }
+
+    /**
+     * Returns the current quantity of all potions in the quick bar
+     * @return quantity array
+     */
+    public int[] getQuickBarQuantity() {
+        return Arrays.copyOf(quickBarQuantity, 3);
     }
 
     /**

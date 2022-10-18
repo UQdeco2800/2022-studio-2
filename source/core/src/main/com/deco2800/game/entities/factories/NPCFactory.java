@@ -100,6 +100,7 @@ public class NPCFactory {
     return oneLegGirl;
   }
 
+
   /**
    * Creates an atlantis child NPC entity.
    *
@@ -272,7 +273,7 @@ public class NPCFactory {
 
     gymBro.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 5f, 6f, config.speed))
+            .addTask(new ChaseTask(target, 10, 5f, 6f, config.SPEED))
             .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
@@ -294,7 +295,7 @@ public class NPCFactory {
 
 
     gymBro
-            .addComponent(new CombatStatsComponent(config.healthGymBro, config.baseAttackGymBro, config.stamina, config.mana))
+            .addComponent(new CombatStatsComponent(config.HEALTHGYMBRO, config.BASEATTACKGYMBRO, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new GymBroAnimationController())
             .addComponent(new EnemyExperienceComponent(1));
@@ -318,8 +319,8 @@ public class NPCFactory {
 
     heracles.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
-            .addTask(new JumpTask(target, 11, 8f,19f, 1.5f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.SPEED, 2f))
+            .addTask(new JumpTask(target, 10, 8f,19f, 1.5f))
             .addTask(new DeadTask(target,15));
 
     AnimationRenderComponent animator =
@@ -345,7 +346,7 @@ public class NPCFactory {
 
 
     heracles
-            .addComponent(new CombatStatsComponent(config.healthHeracles, config.baseAttackHeracles, config.stamina, config.mana))
+            .addComponent(new CombatStatsComponent(config.HEALTHHERACLES, config.BASEATTACKHERACLES, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new HeraclesAnimationController())
             .addComponent(new EnemyExperienceComponent(1));
@@ -366,7 +367,7 @@ public class NPCFactory {
     PoopsConfig config = new NPCConfigs().poops;
     String projectileType = "poopSludge";
     poops.getComponent(AITaskComponent.class)
-            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.SPEED, 2f))
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new DeadTask(target, 15));
 
@@ -384,7 +385,7 @@ public class NPCFactory {
     animator.addAnimation(VANISH_RIGHT, 0.1f, Animation.PlayMode.LOOP);
 
     poops
-            .addComponent(new CombatStatsComponent(config.healthPoops, config.baseAttack, config.stamina, config.mana))
+            .addComponent(new CombatStatsComponent(config.HEALTHPOOPS, config.baseAttack, config.stamina, config.mana))
             .addComponent(animator)
             .addComponent(new PoopAnimationController())
             .addComponent(new EnemyExperienceComponent(1));
@@ -408,7 +409,7 @@ public class NPCFactory {
     megaPoop.getComponent(AITaskComponent.class)
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new TransportTask(target, 10, 10f))
-            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.speed, 2f))
+            .addTask(new ProjectileTask(target, projectileType, 10, 5f, 6f,config.SPEED, 2f))
             .addTask(new DeadTask(target, 15));
 
     AnimationRenderComponent animator =
@@ -448,7 +449,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC() {
+  public static Entity createBaseNPC() {
     AITaskComponent aiComponent = new AITaskComponent();
     Entity npc =
         new Entity()
@@ -480,7 +481,24 @@ public class NPCFactory {
     return plug;
   }
 
-  private NPCFactory() {
+  public NPCFactory() {
     throw new IllegalStateException("Instantiating static util class");
+  }
+
+
+  public static Entity creatTestNPC(String NPCName) {
+    Entity npc = createBaseNPC();
+    npc.setEntityType(EntityTypes.NPC);
+    switch (NPCName) {
+      case "male" -> npc.setEntityType(EntityTypes.MALE);
+      case "female" -> npc.setEntityType(EntityTypes.FEMALE);
+      case "child" -> npc.setEntityType(EntityTypes.CHILD);
+      case "guard" -> npc.setEntityType(EntityTypes.GUARD);
+      case "humanguard" -> npc.setEntityType(EntityTypes.HUMANGUARD);
+      case "plumberfriend" -> npc.setEntityType(EntityTypes.PLUMBERFRIEND);
+      case "creature" -> npc.setEntityType(EntityTypes.CREATURE);
+      default -> new NullPointerException();
+    }
+    return npc;
   }
 }

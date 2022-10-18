@@ -8,7 +8,7 @@ public class PoopsConfigTest {
     @Test
     void createTest() {
         PoopsConfig poopsConfig = new PoopsConfig();
-        assertEquals(1f, poopsConfig.speed);
-        assertEquals(60, poopsConfig.healthPoops);
+        assertEquals(1f, poopsConfig.SPEED);
+        assertEquals(60, poopsConfig.HEALTHPOOPS);
     }
 }

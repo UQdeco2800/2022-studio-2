@@ -1,18 +1,19 @@
 package com.deco2800.game.components.player;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.components.CombatItemsComponents.PhysicalWeaponStatsComponent;
+import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.components.DefensiveItemsComponents.ArmourStatsComponent;
+import com.deco2800.game.components.gamearea.GameAreaDisplay;
+import com.deco2800.game.components.combatitemscomponents.PhysicalWeaponStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.*;
-import com.deco2800.game.events.EventHandler;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.rendering.RenderService;
-import com.deco2800.game.rendering.TextureRenderComponent;
 import com.deco2800.game.services.ResourceService;
 import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,11 +44,39 @@ class InventoryComponentTest {
     ResourceService resourceService = new ResourceService();
     ServiceLocator.registerResourceService(resourceService);
     String[] textures = {"images/CombatItems/Sprint-1/Level 2 Dagger 1.png",
-                        "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png"};
+                        "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+                        "images/CombatItems/Sprint-1/Enemy_dumbbell.png",
+                        "images/CombatItems/Sprint-1/Level 2 Dagger 2png.png",
+                        "images/CombatItems/Sprint-1/Sword_Lvl2.png",
+                        "images/Crafting-assets-sprint1/materials/gold.png",
+                        "images/Crafting-assets-sprint1/materials/rainbow_poop.png",
+                        "images/Crafting-assets-sprint1/materials/iron.png",
+                        "images/Crafting-assets-sprint1/materials/toilet_paper.png",
+                        "images/Crafting-assets-sprint1/materials/steel.png",
+                        "images/Crafting-assets-sprint1/materials/wood.png",
+                        "images/Crafting-assets-sprint1/materials/plastic.png",
+                        "images/Crafting-assets-sprint1/materials/rubber.png",
+                        "images/Crafting-assets-sprint1/materials/platinum.png",
+                        "images/Crafting-assets-sprint1/materials/silver.png",
+                        "images/Potions/agility_potion.png",
+                        "images/Potions/health_potion.png",
+                        "images/Potions/defence_potion.png",
+                        "images/Potions/swiftness_potion.png",
+                        "images/Armour-assets-sprint2/Dark_Armour.png",
+                        "images/Armour-assets-sprint2/slowDiamond.png"};
     resourceService.loadTextures(textures);
     String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
     resourceService.loadTextureAtlases(textureAtlases);
     resourceService.loadAll();
+
+    GameArea gameArea = spy(GameArea.class);
+    RenderService renderService = new RenderService();
+    renderService.setStage(mock(Stage.class));
+    GameAreaDisplay inventoryArea = new GameAreaDisplay("");
+    ServiceLocator.registerGameArea(gameArea);
+    ServiceLocator.registerRenderService(renderService);
+    ServiceLocator.registerInventoryArea(inventoryArea);
+    inventoryArea.create();
   }
 
   @Test
@@ -88,6 +117,20 @@ class InventoryComponentTest {
   }
 
   @Test
+  void removeEquipable(){
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
+    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity notAddedWeapon = WeaponFactory.createDagger();
+    Entity wood = MaterialFactory.createWood();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    inventory.addItem(testWeapon);
+    inventory.equipItem(testWeapon);
+    assertTrue(inventory.removeEquipable(0));
+    assertFalse(inventory.removeEquipable(1));
+  }
+  @Test
   void cancelAnimation() {
 //    Entity player = PlayerFactory.createTestPlayer();
 //    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
@@ -111,6 +154,15 @@ class InventoryComponentTest {
 //
 //    verify(combatAnimator).dispose();
   }
+
+  /*@Test
+  void disposeAnimation() {
+    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
+    RenderComponent component = spy(AnimationRenderComponent.class);
+    component.create();
+    component.dispose();
+    verify(ServiceLocator.getRenderService()).unregister(component);
+  }*/
 
   @Test
   void hasItem() {
@@ -154,16 +206,46 @@ class InventoryComponentTest {
     List<Entity> expectedList = new ArrayList<>(16);
 
     Entity testWeapon = WeaponFactory.createTestDagger();
+    Entity testSword = WeaponFactory.createSwordLvl2();
+    Entity testDumbbell = WeaponFactory.createDumbbell();
+    Entity testHera = WeaponFactory.createHera();
     Entity testArmour = ArmourFactory.createBaseArmour();
-    Entity testPotion = PotionFactory.createTestSpeedPotion();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+    Entity testHealthPotion = PotionFactory.createTestHealthPotion();
+    Entity gold = MaterialFactory.createGold();
+    Entity iron = MaterialFactory.createIron();
+    Entity steel = MaterialFactory.createSteel();
+    Entity wood = MaterialFactory.createWood();
+    Entity plastic = MaterialFactory.createPlastic();
+    Entity rubber = MaterialFactory.createRubber();
+    Entity platinum = MaterialFactory.createPlatinum();
+    Entity silver = MaterialFactory.createSilver();
+    Entity poop = MaterialFactory.createPoop();
+    Entity toiletPaper = MaterialFactory.createToiletPaper();
 
-    inventory.addItem(testWeapon);
-    inventory.addItem(testArmour);
-    inventory.addItem(testPotion);
     expectedList.add(testWeapon);
+    expectedList.add(testSword);
+    expectedList.add(testDumbbell);
+    expectedList.add(testHera);
     expectedList.add(testArmour);
-    expectedList.add(testPotion);
+    expectedList.add(testSpeedPotion);
+    expectedList.add(testHealthPotion);
+    expectedList.add(gold);
+    expectedList.add(iron);
+    expectedList.add(steel);
+    expectedList.add(wood);
+    expectedList.add(plastic);
+    expectedList.add(rubber);
+    expectedList.add(platinum);
+    expectedList.add(silver);
+    expectedList.add(poop);
+    expectedList.add(toiletPaper);
+  //Test case 1 adding player to inventory should do nothing
+    inventory.addItem(player);
+    for (Entity entity : expectedList) inventory.addItem(entity);
+    for (int i = 0; i < 9; i++) inventory.addItem(testSpeedPotion);
 
+    expectedList.remove(toiletPaper);
     assertEquals(expectedList, inventory.getInventory());
   }
 
@@ -192,6 +274,9 @@ class InventoryComponentTest {
 
     Entity testWeapon = WeaponFactory.createTestDagger();
     Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity testPotion = PotionFactory.createTestHealthPotion();
+
+    testInventory3.removeItem(testWeapon);
 
     testInventory3.addItem(testWeapon);
     testInventory3.addItem(testArmour);
@@ -199,26 +284,27 @@ class InventoryComponentTest {
     testInventory3.removeItem(testWeapon);
     testInventory3.removeItem(0);
 
+    testInventory3.removeItem(testWeapon);
+    testInventory3.removeItem(0);
+    testInventory3.removeItem(testPotion);
+
     assertEquals(expectedList, testInventory3.getInventory());
   }
 
   @Test
   void removeItem2() {
     InventoryComponent testInventory3 = new InventoryComponent();
-
-    Entity testArmour = ArmourFactory.createBaseArmour();
-
-    Entity iron = MaterialFactory.createBaseMaterial();
-    iron.setEntityType(EntityTypes.IRON);
-
-    testInventory3.addItem(testArmour);
-    testInventory3.addItem(iron);
+    Entity iron = MaterialFactory.createIron();
 
     testInventory3.removeItem(EntityTypes.IRON);
-    testInventory3.removeItem(EntityTypes.ARMOUR);
 
-    assertFalse(testInventory3.hasItem(testArmour, testInventory3.getInventory()));
+    testInventory3.addItem(iron);
+    testInventory3.removeItem(EntityTypes.IRON);
     assertFalse(testInventory3.hasItem(iron, testInventory3.getInventory()));
+
+    //Should do nothing
+    testInventory3.addItem(iron);
+    testInventory3.removeItem(EntityTypes.WOOD);
   }
 
   @Test
@@ -239,13 +325,16 @@ class InventoryComponentTest {
     Entity player = PlayerFactory.createTestPlayer();
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     Entity testWeapon = WeaponFactory.createDagger();
+    Entity testBaseWeapon = WeaponFactory.createBaseWeapon();
 
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
     PhysicalWeaponStatsComponent stat = testWeapon.getComponent(PhysicalWeaponStatsComponent.class);
     inventory.applyWeaponEffect(testWeapon, true);
+    inventory.applyWeaponEffect(testBaseWeapon, true);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, (float) (-stat.getWeight() / 15), true, 0));
 
     inventory.applyWeaponEffect(testWeapon, false);
+    inventory.applyWeaponEffect(testBaseWeapon, false);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 3 * (float) (stat.getWeight() / 15) , false, 0));
   }
 
@@ -253,13 +342,16 @@ class InventoryComponentTest {
   void applyArmourEffect() {
     Entity player = PlayerFactory.createTestPlayer();
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity testBaseArmour = ArmourFactory.createBaseArmour();
+    Entity testArmour = ArmourFactory.createTestArmour();
 
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
 
+    inventory.applyArmourEffect(testBaseArmour, true);
     inventory.applyArmourEffect(testArmour, true);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false,0));
 
+    inventory.applyArmourEffect(testBaseArmour, false);
     inventory.applyArmourEffect(testArmour, false);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false, 0));
   }
@@ -285,67 +377,85 @@ class InventoryComponentTest {
   }
 
   @Test
-  void removeEquipable() {
-    //Needs work, Incomplete test
-
-//    Entity player = PlayerFactory.createTestPlayer();
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    Entity testWeapon = WeaponFactory.createHera();
-//    Entity[] expectedList = new Entity[2];
-//
-//    InventoryComponent inventoryComponent = mock(InventoryComponent.class);
-//    inventoryComponent.cancelAnimation();
-//
-//    inventory.addItem(testWeapon);
-//    inventory.equipItem(testWeapon);
-//    inventory.removeEquipable(0);
-//
-//    assertArrayEquals(expectedList, inventory.getEquipables());
-  }
-
-
-  @Test
   void equipItem() {
-    /*
-     have no idea why methods still report errors after they have been mocked
-     */
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
+    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity notAddedWeapon = WeaponFactory.createDagger();
+    Entity wood = MaterialFactory.createWood();
+    List<Entity> expectedList = new ArrayList<>(16);
 
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
-//    Entity testArmour = ArmourFactory.createBaseArmour();
-//    Entity animator = new Entity();
-//    animator.getComponent(AnimationRenderComponent.class);
-//    Entity entity = mock(Entity.class);
-//    PlayerFactory playerFactory = mock(PlayerFactory.class);
-//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
-//
+    Entity animator = new Entity();
+    animator.getComponent(AnimationRenderComponent.class);
+    Entity entity = mock(Entity.class);
+    PlayerFactory playerFactory = mock(PlayerFactory.class);
+    ServiceLocator serviceLocator = mock(ServiceLocator.class);
+
 //    when(playerFactory.createCombatAnimator(entity)).thenReturn(animator);
 //    when(serviceLocator.getGameArea()).thenReturn(gameArea);
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
-//
-//    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
-//    PhyiscalWeaponStatsComponent meleeStats = testWeapon.getComponent(PhyiscalWeaponStatsComponent.class);
-//
-//    inventory.addItem(testWeapon);
-//    inventory.addItem(testArmour);
-//
-//    inventory.equipItem(testArmour);
-//    assertTrue(pmComponent.
-//            checkModifier(PlayerModifier.MOVESPEED, (-(float)armourStats.getWeight()), true, 0));
-//
-//    inventory.equipItem(testWeapon);
-//    assertTrue(pmComponent.
-//            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+
+    ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
+    PhysicalWeaponStatsComponent meleeStats = testWeapon.getComponent(PhysicalWeaponStatsComponent.class);
+
+
+    inventory.addItem(testArmour);
+
+    inventory.equipItem(testArmour);
+    assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false,0));
+    assertEquals(expectedList, inventory.getInventory());
+
+    inventory.addItem(testWeapon);
+    inventory.equipItem(testWeapon);
+    assertTrue(pmComponent.
+            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+
+    assertFalse(inventory.equipItem(wood));
+    assertFalse(inventory.equipItem(notAddedWeapon));
+
+    inventory.addItem(notAddedWeapon);
+    assertTrue(inventory.equipItem(notAddedWeapon));
+    inventory.equipItem(testWeapon);
   }
 
   @Test
   void swapItem(){
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testWeapon = WeaponFactory.createTestWeapon("hera");
+    Entity testArmour = ArmourFactory.createBaseArmour();
+    Entity slowDiamond = ArmourFactory.createArmour(ArmourFactory.ArmourType.slowDiamond);
+    Entity dumbbell = WeaponFactory.createDumbbell();
+    Entity wood = MaterialFactory.createWood();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
+
+    ArmourStatsComponent armourStats = slowDiamond.getComponent(ArmourStatsComponent.class);
+    PhysicalWeaponStatsComponent meleeStats = dumbbell.getComponent(PhysicalWeaponStatsComponent.class);
+
+    inventory.addItem(testWeapon);
+    inventory.addItem(testArmour);
+    inventory.addItem(dumbbell);
+
+    inventory.swapItem(testWeapon);
+    assertFalse(pmComponent.
+            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+    inventory.equipItem(dumbbell);
+
+    assertTrue(pmComponent.
+            checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
+    inventory.swapItem(slowDiamond);
+    assertFalse(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 5, true,0));
+    inventory.equipItem(testArmour);
+    
+    inventory.swapItem(slowDiamond);
+    assertFalse(pmComponent.checkModifier(PlayerModifier.MOVESPEED, (float)-5 / 10, true,0));
 
   }
 
-  /** Currently not working since mock is not implemented
+
   @Test
   void unequip() {
     Entity player = PlayerFactory.createTestPlayer();
@@ -382,68 +492,80 @@ class InventoryComponentTest {
     inventory.unequipItem(0);
     assertEquals(refSpeed, pmComponent.getModified(PlayerModifier.MOVESPEED));
 
-    //Test case 5: unequip while inventory is full
-    //Currently unavailable since the total number of items existing in this game is < 16
+    //Test case 5 unequiping slot with no item
+    assertFalse(inventory.unequipItem(0));
+
+    //Test case 6: unequip while inventory is full
+    Entity testSword = WeaponFactory.createSwordLvl2();
+    Entity testDumbbell = WeaponFactory.createDumbbell();
+    Entity testHera = WeaponFactory.createHera();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+    Entity testHealthPotion = PotionFactory.createTestHealthPotion();
+    Entity staminaPotion = PotionFactory.createStaminaPotion();
+    Entity gold = MaterialFactory.createGold();
+    Entity iron = MaterialFactory.createIron();
+    Entity steel = MaterialFactory.createSteel();
+    Entity wood = MaterialFactory.createWood();
+    Entity plastic = MaterialFactory.createPlastic();
+    Entity rubber = MaterialFactory.createRubber();
+    Entity platinum = MaterialFactory.createPlatinum();
+    Entity silver = MaterialFactory.createSilver();
+    Entity poop = MaterialFactory.createPoop();
+    Entity toiletPaper = MaterialFactory.createToiletPaper();
+    inventory.addItem(testSword);
+    inventory.addItem(testDumbbell);
+    inventory.addItem(testHera);
+    inventory.addItem(testSpeedPotion);
+    inventory.addItem(testHealthPotion);
+    inventory.addItem(gold);
+    inventory.addItem(iron);
+    inventory.addItem(steel);
+    inventory.addItem(wood);
+    inventory.addItem(plastic);
+    inventory.addItem(rubber);
+    inventory.addItem(platinum);
+    inventory.addItem(silver);
+    inventory.addItem(poop);
+    inventory.addItem(toiletPaper);
+    inventory.equipItem(testWeapon);
+    inventory.addItem(staminaPotion);
+    inventory.unequipItem(0);
   }
-   */
+
 
   @Test
   void toggleInventoryDisplay() {
-    /*
-    not working but trying to fix it.
-    if anyone can make it, just delete all the comment :)
-     */
 
-////    ServiceLocator serviceLocator = spy(ServiceLocator.class);
-//    ServiceLocator serviceLocator = mock(ServiceLocator.class);
-//    Entity player = PlayerFactory.createTestPlayer();
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//
-//    GameAreaDisplay gameArea = mock(GameAreaDisplay.class);
-////    GameAreaDisplay gameArea = new GameAreaDisplay("1");
-//
-////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea);
-//    doThrow(new Exception("null")).when(serviceLocator.getInventoryArea());
-//
-////    GameAreaDisplay gameArea1 = mock(GameAreaDisplay.class);
-////    GameAreaDisplay gameArea2 = mock(GameAreaDisplay.class);
-////    GameAreaDisplay gameArea3 = mock(GameAreaDisplay.class);
-////
-////    String gameAreaName1 = "one";
-////    String gameAreaName2 = "two";
-////    String gameAreaName3 = "three";
-////    gameArea1.setGameAreaName(gameAreaName1);
-////    gameArea2.setGameAreaName(gameAreaName2);
-////    gameArea3.setGameAreaName(gameAreaName3);
-////
-////    when(serviceLocator.getInventoryArea()).thenReturn(gameArea1)
-////            .thenReturn(gameArea2)
-////            .thenReturn(gameArea3);
-//
-//    inventory.toggleInventoryDisplay();
-//
-//    verify(serviceLocator.getInventoryArea()).displayInventoryMenu();
+    Entity player = PlayerFactory.createTestPlayer();
+    ServiceLocator serviceLocator = mock(ServiceLocator.class);
+
+    when(serviceLocator.getGameArea().getPlayer()).thenReturn(player);
+
+    InventoryComponent inventory = spy(InventoryComponent.class);
+    inventory.toggleInventoryDisplay();
+
+    verify(inventory).toggleInventoryDisplay();
   }
 
-//  /**
-//   * Checks whether the quickbar items are what they are expected to be when items are added to
-//   * the quickbar
-//   */
-//  @Test
-//  void getQuickBarItems() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    inventory.addQuickBarItems(testPotion);
-//
-//    assertNotEquals(expectedList, inventory.getQuickBarItems());
-//  }
+  /**
+   * Checks whether the quickbar items are what they are expected to be when items are added to
+   * the quickbar
+   */
+  @Test
+  void getQuickBarItems() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+
+    inventory.addQuickBarItems(testPotion);
+
+    assertNotEquals(expectedList, inventory.getQuickBarItems());
+  }
 
   @Test
-  void itemEquals () {
+  void itemEquals() {
     InventoryComponent inventory = new InventoryComponent();
     Entity testWeapon = WeaponFactory.createTestDagger();
     Entity testArmour = ArmourFactory.createBaseArmour();
@@ -455,53 +577,68 @@ class InventoryComponentTest {
     assertFalse(inventory.itemEquals(testArmour, testPotion));
   }
 
-//  /**
-//   * Checks that the item has correctly been added to the quickbar
-//   */
-//  @Test
-//  void addQuickBarItems() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    inventory.addQuickBarItems(testPotion);
-//    expectedList.add(testPotion);
-//
-//    assertEquals(expectedList, inventory.getQuickBarItems());
-//  }
+  /**
+   * Checks that the item has correctly been added to the quickbar
+   */
+  @Test
+  void addQuickBarItems() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testPotion = PotionFactory.createTestSpeedPotion();
+    Entity staminaPotion = PotionFactory.createStaminaPotion();
+    Entity healthPotion = PotionFactory.createHealthPotion();
+    Entity defencePotion = PotionFactory.createDefencePotion();
 
-//  /**
-//   * Tests whether the potion is at the correct place in the quickbar so that it may be used
-//   * correctly with hotkeys
-//   */
-//  @Test
-//  void getPotionIndex() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    inventory.addQuickBarItems(testSpeedPotion);
-//    int expectedIndex =  0;
-//
-//    assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
-//  }
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+    List<Entity> expectedInventory = new ArrayList<>(16);
+    for (int i = 0; i < 9; ++i) inventory.addQuickBarItems(testPotion);
+    expectedList.add(testPotion);
 
-//  @Test
-//  void removePotion() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
-//
-//    InventoryComponent testInventory6 = player.getComponent(InventoryComponent.class);
-//    List<Entity> expectedList = new ArrayList<>(3);
-//
-//    testInventory6.addQuickBarItems(testSpeedPotion);
-//
-//    testInventory6.removePotion(testInventory6.getPotionIndex(testSpeedPotion));
-//
-//    assertEquals(expectedList, testInventory6.getInventory());
-//  }
+    assertFalse(inventory.addQuickBarItems(testPotion));
+
+    assertEquals(expectedList, inventory.getQuickBarItems());
+    assertEquals(expectedInventory, inventory.getInventory());
+
+    inventory.addQuickBarItems(staminaPotion);
+
+    inventory.addQuickBarItems(healthPotion);
+
+    assertFalse(inventory.addQuickBarItems(defencePotion));
+  }
+
+  /**
+   * Tests whether the potion is at the correct place in the quickbar so that it may be used
+   * correctly with hotkeys
+   */
+  @Test
+  void getPotionIndex() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+    Entity healthPotion = PotionFactory.createHealthPotion();
+    int expectedSentinel = -1;
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    assertEquals(-1, inventory.getPotionIndex(testSpeedPotion));
+    inventory.addQuickBarItems(testSpeedPotion);
+    int expectedIndex =  0;
+
+    assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
+    assertEquals(expectedSentinel, inventory.getPotionIndex(healthPotion));
+  }
+
+  @Test
+  void removePotion() {
+    Entity player = PlayerFactory.createTestPlayer();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+
+    InventoryComponent testInventory6 = player.getComponent(InventoryComponent.class);
+    List<Entity> expectedList = new ArrayList<>(3);
+
+    testInventory6.addQuickBarItems(testSpeedPotion);
+
+    testInventory6.removePotion(testInventory6.getPotionIndex(testSpeedPotion));
+
+    assertEquals(expectedList, testInventory6.getInventory());
+  }
 
   /**
    * This test checks that when a potion is consumed that it is removed from the quickbar and
@@ -511,7 +648,9 @@ class InventoryComponentTest {
   void consumePotion() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testPotion1 = PotionFactory.createTestSpeedPotion();
+    Entity speedPotion = PotionFactory.createSpeedPotion();
     List<Entity> expectedList = new ArrayList<>(3);
+    int expectedQuantity = 8;
 
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
@@ -521,8 +660,20 @@ class InventoryComponentTest {
 
     //Tests if the potion effect is applied to the player
     inventory.consumePotion(1);
+    //Test if the function has properly ended or not
+    inventory.consumePotion(5);
+    inventory.consumePotion(1);
+
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
     assertEquals(expectedList, inventory.getQuickBarItems());
+
+    for (int i = 0; i < 9; ++i) {
+      inventory.addItem(testPotion1);
+      inventory.addQuickBarItems(speedPotion);
+    }
+
+    inventory.consumePotion(1);
+    assertEquals(expectedQuantity, inventory.getQuickBarQuantity()[inventory.getPotionIndex(speedPotion)]);
   }
 }

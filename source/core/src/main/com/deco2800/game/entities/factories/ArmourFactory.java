@@ -98,7 +98,7 @@ public class ArmourFactory {
                 texturePath = "images/Armour-assets-sprint2/slowDiamond.png";
                 break;
             case darkArmour:
-                texturePath = "images/Armour-assets-sprint2/baseArmour.png";
+                texturePath = "images/Armour-assets-sprint2/Dark_Armour.png";
                 break;
             default:
                texturePath = "images/Armour-assets-sprint2/baseArmour.png";
@@ -125,6 +125,15 @@ public class ArmourFactory {
                 config.materials);
         armour.getComponent(TextureRenderComponent.class).scaleEntity();
         armour.scaleHeight(1f);
+        return armour;
+    }
+
+    public static Entity createTestArmour() {
+        Entity armour = new Entity()
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.StaticBody))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new ItemPickupComponent(PhysicsLayer.PLAYER));
+        armour.setEntityType(EntityTypes.ARMOUR);
         return armour;
     }
 }

@@ -1,6 +1,6 @@
 package com.deco2800.game.crafting;
 
-import com.deco2800.game.entities.configs.CombatItemsConfig.WeaponConfigSetup;
+import com.deco2800.game.entities.configs.combatitemsconfig.WeaponConfigSetup;
 import com.deco2800.game.files.FileLoader;
 
 import java.util.*;
@@ -22,7 +22,7 @@ public class CraftingSystem implements Runnable{
     /**
      *List containing the users' inventory
      */
-    private static List<Materials> inventoryContents;
+    private static List<Materials> inventoryContents = new ArrayList<>();
 
     /**
      * Constructor that creates an instance of the crafting system class which creates a set of the users inventory and
@@ -33,7 +33,6 @@ public class CraftingSystem implements Runnable{
 
         builtItems = new ArrayList<>();
 
-        inventoryContents = new ArrayList<>();
         inventoryContents.add(Materials.Wood); inventoryContents.add(Materials.Steel);
 
         CraftingLogic.setPossibleBuilds(CraftingLogic.canBuild(inventoryContents));

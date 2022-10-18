@@ -46,8 +46,10 @@ public class PlayerActions extends Component {
   private Music blockSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/block.mp3"));
   private Music dodgeSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/dodge.mp3"));
   private Music fireballSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/fireball.wav"));
+  private Music bleedingSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/bleeding.wav"));
   private Music projectileSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/projectile.mp3"));
   private Music rootSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/root.mp3"));
+  private Music chargeSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/charge.mp3"));
   private Music invulnerabilitySound= Gdx.audio.newMusic(Gdx.files.internal("sounds/invulnerability.mp3"));
   private Music oraSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/ora.mp3"));
   private Music zawarudoSound= Gdx.audio.newMusic(Gdx.files.internal("sounds/zawarudo.mp3"));
@@ -224,12 +226,11 @@ public class PlayerActions extends Component {
    *  Makes the player charge. Registers call of the charge function to the skill manager component.
    */
   void charge() {
-    if(mana >= 2){
-      skillManager.startCharge(this.walkDirection.cpy());
-      entity.getEvents().trigger("decreaseStamina", -2);
+    if(mana >= 20){
+      skillManager.startCharge();
+      entity.getEvents().trigger("decreaseMana", -20);
+      chargeSound.play();
     }
-
-    playerModifier.createModifier(PlayerModifier.STAMINAREGEN, 3, true, 2000);
   }
 
   /**
@@ -280,8 +281,8 @@ public class PlayerActions extends Component {
    * Makes the player teleport. Registers call of the teleport function to the skill manager component.
    */
   void teleport() {
-    if (mana>=40) {
-      entity.getEvents().trigger("decreaseMana", -40);
+    if (mana>=20) {
+      entity.getEvents().trigger("decreaseMana", -20);
       skillManager.startTeleport();
       teleportSound.play();
     }
@@ -294,6 +295,7 @@ public class PlayerActions extends Component {
   void bleed() {
     if (mana>=10) {
       entity.getEvents().trigger("decreaseMana", -10);
+      bleedingSound.play();
       skillManager.startBleed();
     }
   }
@@ -313,8 +315,8 @@ public class PlayerActions extends Component {
    * Does an aoe attackEnemy around the player. Registers call of the aoe function to the skill manager component.
    */
   void aoe() {
-    if (mana>=2) {
-      entity.getEvents().trigger("decreaseMana", -2);
+    if (mana>=5) {
+      entity.getEvents().trigger("decreaseMana", -5);
       skillManager.aoeAttack();
     }
   }
