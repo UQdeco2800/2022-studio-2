@@ -7,11 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.Entity;
@@ -34,10 +36,13 @@ public class SkillsTreeDisplay extends UIComponent {
     private Image skillTreeImage;
     private boolean skillTreeOpen = false;
     private ArrayList<ImageButton> skillTreeIcons = new ArrayList<>();
+    private Image activeTooltip;
+    private boolean toolTipDisplaying;
 
     private PlayerSkillComponent.SkillTypes skill1Type = PlayerSkillComponent.SkillTypes.NONE;
     private PlayerSkillComponent.SkillTypes skill2Type = PlayerSkillComponent.SkillTypes.NONE;
     private PlayerSkillComponent.SkillTypes skill3Type = PlayerSkillComponent.SkillTypes.NONE;
+
 
     @Override
     public void create() {
@@ -377,12 +382,53 @@ public class SkillsTreeDisplay extends UIComponent {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     equipSkill(skillType);
+                    removeActiveTooltip();
+                }
+            });
+            button.addListener(new ClickListener() {
+                @Override
+                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    addTooltipImage(imageFilePath, xCoord, yCoord);
+                }
+
+                @Override
+                public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    removeActiveTooltip();
                 }
             });
         }
 
         stage.addActor(button);
         skillTreeIcons.add(button);
+    }
+
+    /**
+     * Adds tooltip image to skill tree icon.
+     * @param imageFilePath the name of the skill tree icon
+     * @param xCoord the x coordinates of the skill icon, taken directly from its placement on the skill tree
+     * @param yCoord the y coordinates of the skill icon, taken directly from its placement on the skill tree
+     */
+    private void addTooltipImage(String imageFilePath, float xCoord, float yCoord) {
+        if (!this.toolTipDisplaying) {
+            this.toolTipDisplaying = true;
+            this.activeTooltip = new Image(new TextureRegionDrawable(ServiceLocator.getResourceService()
+                    .getAsset("images/Skill_tree/tooltips/" + imageFilePath + "Tooltip.png", Texture.class)));
+            this.activeTooltip.setPosition(xCoord - SKILL_ICON_BUTTON_SIZE/2f , yCoord + SKILL_ICON_BUTTON_SIZE);
+            this.activeTooltip.setSize(SKILL_ICON_BUTTON_SIZE * 3, SKILL_ICON_BUTTON_SIZE * 2);
+            stage.addActor(this.activeTooltip);
+        }
+
+    }
+
+    /**
+     * Removes the active tooltip for a skill icon
+     */
+    private void removeActiveTooltip() {
+        if (this.activeTooltip != null) {
+            this.activeTooltip.remove();
+            this.activeTooltip = null;
+            this.toolTipDisplaying = false;
+        }
     }
 
     /**
