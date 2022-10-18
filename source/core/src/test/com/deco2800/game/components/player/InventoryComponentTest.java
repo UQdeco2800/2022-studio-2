@@ -1,5 +1,6 @@
 package com.deco2800.game.components.player;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.GameArea;
@@ -95,25 +96,16 @@ class InventoryComponentTest {
 
   @Test
   void registerAnimation() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-////    Entity combatAnimator = PlayerFactory.createCombatAnimator(player);
-//    Entity combatAnimator = mock(Entity.class);
-//    inventory.setCombatAnimator(combatAnimator);
-//
-////    EventHandler eventHandler = new EventHandler();
-////    when(combatAnimator.getEvents()).thenReturn(eventHandler);
-//
-//    Entity weapon = WeaponFactory.createHera();
-//    String description = weapon.getComponent(PhysicalWeaponStatsComponent.class).getDescription();
-//    String staticAnimation = description+"Static";
-//
-////    combatAnimator.getEvents().trigger(staticAnimation);
-//
-//    inventory.registerAnimation(weapon);
-//
-//    verify(combatAnimator).getEvents().trigger(staticAnimation);
-////    assertEquals(inventory.getCombatAnimator(), combatAnimator);
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    Entity combatAnimator = mock(Entity.class);
+    inventory.setCombatAnimator(combatAnimator);
+
+    Entity weapon = WeaponFactory.createHera();
+
+
+    inventory.registerAnimation(weapon);
+
   }
 
   @Test
@@ -132,37 +124,17 @@ class InventoryComponentTest {
   }
   @Test
   void cancelAnimation() {
-//    Entity player = PlayerFactory.createTestPlayer();
-//    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
-//    Entity combatAnimator = mock(Entity.class);
-////    combatAnimator = new Entity();
-//
-//    AnimationRenderComponent animator = new AnimationRenderComponent(
-//            ServiceLocator.getResourceService().getAsset(
-//                    "images/CombatItems/animations/combatItemsAnimation.atlas", TextureAtlas.class));
-//    animator.addAnimation("athena", 0.1f);
-//    combatAnimator.addComponent(animator);
-////    combatAnimator.addComponent(new AnimationRenderComponent(
-////            ServiceLocator.getResourceService().getAsset(
-////                    "images/CombatItems/animations/combatItemsAnimation.atlas", TextureAtlas.class)));
-//
-////    AnimationRenderComponent animationRenderComponent = mock(AnimationRenderComponent.class);
-////    when(animationRenderComponent.stopAnimation()).thenReturn(true);
-//
-//    inventory.setCombatAnimator(combatAnimator);
-//    inventory.cancelAnimation();
-//
-//    verify(combatAnimator).dispose();
-  }
+    Entity player = PlayerFactory.createTestPlayer();
+    InventoryComponent inventory = player.getComponent(InventoryComponent.class);
+    Entity combatAnimator = mock(Entity.class);
 
-  /*@Test
-  void disposeAnimation() {
-    ServiceLocator.registerRenderService(ServiceLocator.getRenderService());
-    RenderComponent component = spy(AnimationRenderComponent.class);
-    component.create();
-    component.dispose();
-    verify(ServiceLocator.getRenderService()).unregister(component);
-  }*/
+    AnimationRenderComponent animator = new AnimationRenderComponent(
+            ServiceLocator.getResourceService().getAsset(
+                    "images/CombatItems/animations/combatItemsAnimation.atlas", TextureAtlas.class));
+    animator.addAnimation("athena", 0.1f);
+    combatAnimator.addComponent(animator);
+
+  }
 
   @Test
   void hasItem() {
@@ -391,18 +363,17 @@ class InventoryComponentTest {
     PlayerFactory playerFactory = mock(PlayerFactory.class);
     ServiceLocator serviceLocator = mock(ServiceLocator.class);
 
-//    when(playerFactory.createCombatAnimator(entity)).thenReturn(animator);
-//    when(serviceLocator.getGameArea()).thenReturn(gameArea);
-
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     PlayerModifier pmComponent = player.getComponent(PlayerModifier.class);
 
     ArmourStatsComponent armourStats = testArmour.getComponent(ArmourStatsComponent.class);
     PhysicalWeaponStatsComponent meleeStats = testWeapon.getComponent(PhysicalWeaponStatsComponent.class);
 
+    inventory.addItem(wood);
+    assertFalse(inventory.equipItem(wood));
+    inventory.removeItem(wood);
 
     inventory.addItem(testArmour);
-
     inventory.equipItem(testArmour);
     assertTrue(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 0, false,0));
     assertEquals(expectedList, inventory.getInventory());
@@ -412,7 +383,7 @@ class InventoryComponentTest {
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, (float) (-meleeStats.getWeight() / 15), true, 0));
 
-    assertFalse(inventory.equipItem(wood));
+
     assertFalse(inventory.equipItem(notAddedWeapon));
 
     inventory.addItem(notAddedWeapon);
@@ -543,8 +514,9 @@ class InventoryComponentTest {
 
     InventoryComponent inventory = spy(InventoryComponent.class);
     inventory.toggleInventoryDisplay();
+    inventory.toggleInventoryDisplay();
 
-    verify(inventory).toggleInventoryDisplay();
+    verify(inventory, times(2)).toggleInventoryDisplay();
   }
 
   /**
