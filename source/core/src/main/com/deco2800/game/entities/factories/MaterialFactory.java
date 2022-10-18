@@ -1,7 +1,6 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.utils.Null;
 import com.deco2800.game.components.ItemPickupComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
