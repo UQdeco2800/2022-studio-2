@@ -300,9 +300,11 @@ class InventoryComponentTest {
 
     testInventory3.addItem(iron);
     testInventory3.removeItem(EntityTypes.IRON);
-    testInventory3.removeItem(EntityTypes.WOOD);
-
     assertFalse(testInventory3.hasItem(iron, testInventory3.getInventory()));
+
+    //Should do nothing
+    testInventory3.addItem(iron);
+    testInventory3.removeItem(EntityTypes.WOOD);
   }
 
   @Test
@@ -447,6 +449,9 @@ class InventoryComponentTest {
     inventory.swapItem(slowDiamond);
     assertFalse(pmComponent.checkModifier(PlayerModifier.MOVESPEED, 5, true,0));
     inventory.equipItem(testArmour);
+    
+    inventory.swapItem(slowDiamond);
+    assertFalse(pmComponent.checkModifier(PlayerModifier.MOVESPEED, (float)-5 / 10, true,0));
 
   }
 
