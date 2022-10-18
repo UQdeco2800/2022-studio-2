@@ -127,7 +127,11 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
      */
     public void playAttackSounds(Entity weaponEquipped) {
         //play physical weapon sounds
-        if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
+        if (weaponEquipped == null) {
+            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
+            attackSound.play();
+        }
+        else if (weaponEquipped.checkEntityType(EntityTypes.MELEE)
                 && weaponEquipped.getComponent(PhysicalWeaponStatsComponent.class).getDescription().equals("plunger")) {
             Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/plungerSound.mp3", Sound.class);
             attackSound.play();
@@ -140,10 +144,7 @@ public class PlayerTouchAttackComponent extends TouchAttackComponent {
             Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/combatitems/rangeWeaponSound.mp3", Sound.class);
             attackSound.play();
         }
-        else {
-            Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-            attackSound.play();
-        }
+
     }
 
     /**
