@@ -248,25 +248,31 @@ loadScripts(document, 'script');</script>
 <div class="block">Set the animator for weapons</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sortInventory(int,java.util.List,int%5B%5D)" class="member-name-link">sortInventory</a><wbr>(int&nbsp;index,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;&nbsp;list,
- int[]&nbsp;quantity)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setPotionQuantity(int,int)" class="member-name-link">setPotionQuantity</a><wbr>(int&nbsp;index,
+ int&nbsp;quantity)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sort the item quantity array once an item is removed from the inventory.</div>
+<div class="block">Set the quantity of the potion based on its index on the quick bar</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swapItem(com.deco2800.game.entities.Entity)" class="member-name-link">swapItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sortInventory(int,java.util.List,int%5B%5D)" class="member-name-link">sortInventory</a><wbr>(int&nbsp;index,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&gt;&nbsp;list,
+ int[]&nbsp;quantity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Swap the item in equipable</div>
+<div class="block">Sort the item quantity array once an item is removed from the inventory.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleInventoryDisplay()" class="member-name-link">toggleInventoryDisplay</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swapItem(com.deco2800.game.entities.Entity)" class="member-name-link">swapItem</a><wbr>(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;item)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Swap the item in equipable</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toggleInventoryDisplay()" class="member-name-link">toggleInventoryDisplay</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Displays the inventory menu if it is not opened.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#unequipItem(int)" class="member-name-link">unequipItem</a><wbr>(int&nbsp;itemSlot)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#unequipItem(int)" class="member-name-link">unequipItem</a><wbr>(int&nbsp;itemSlot)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Unequips the item in the given item slot.</div>
 </div>
 </div>
@@ -650,6 +656,18 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>inputIndex</code> - the index that is returned from user actions</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setPotionQuantity(int,int)">
+<h3>setPotionQuantity</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setPotionQuantity</span><wbr><span class="parameters">(int&nbsp;index,
+ int&nbsp;quantity)</span></div>
+<div class="block">Set the quantity of the potion based on its index on the quick bar</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>index</code> - index of the potion</dd>
 </dl>
 </section>
 </li>
