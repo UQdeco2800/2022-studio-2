@@ -385,6 +385,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Ensures enemy is not a projectile then sets entity enemy variable</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#chargeMove()" class="member-name-link">chargeMove()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Speeds up player movement for charge attack</div>
+</dd>
 <dt><a href="com/deco2800/game/components/tasks/ChaseTask.html" class="type-name-link" title="class in com.deco2800.game.components.tasks">ChaseTask</a> - Class in <a href="com/deco2800/game/components/tasks/package-summary.html">com.deco2800.game.components.tasks</a></dt>
 <dd>
 <div class="block">Chases a target entity until they get too far away or line of sight is lost</div>
@@ -2634,6 +2638,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Checks if the player is in the charge skill state</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#isChargingUp()" class="member-name-link">isChargingUp()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dd>
+<div class="block">Checks if the player is in the charge up skill state</div>
+</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#isDashing()" class="member-name-link">isDashing()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
 <div class="block">Checks if the player is in the dash skill state</div>
@@ -3692,6 +3700,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/deco2800/game/areas/ForestGameArea.html#removeProjectileOnMap(com.deco2800.game.entities.Entity)" class="member-name-link">removeProjectileOnMap(Entity)</a> - Static method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/areas/UndergroundGameArea.html#removeProjectileOnMap(com.deco2800.game.entities.Entity)" class="member-name-link">removeProjectileOnMap(Entity)</a> - Static method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/UndergroundGameArea.html" title="class in com.deco2800.game.areas">UndergroundGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/rendering/Renderer.html#render()" class="member-name-link">render()</a> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/Renderer.html" title="class in com.deco2800.game.rendering">Renderer</a></dt>
 <dd>
 <div class="block">Render everything to the render service.</div>
@@ -3929,7 +3939,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Sets the cooldown of the weapon</div>
 </dd>
-<dt><a href="com/deco2800/game/components/player/Countdown.html#setCountdownTrigger(int,java.lang.String)" class="member-name-link">setCountdownTrigger(int, String)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/Countdown.html" title="class in com.deco2800.game.components.player">Countdown</a></dt>
+<dt><a href="com/deco2800/game/components/player/Countdown.html#setCountdownTrigger(int,java.lang.String,long)" class="member-name-link">setCountdownTrigger(int, String, long)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/Countdown.html" title="class in com.deco2800.game.components.player">Countdown</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/OpenCraftingComponent.html#setCraftingStatus()" class="member-name-link">setCraftingStatus()</a> - Static method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/OpenCraftingComponent.html" title="class in com.deco2800.game.components.player">OpenCraftingComponent</a></dt>
 <dd>&nbsp;</dd>
@@ -4306,6 +4316,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Spawns an AOE attack at the player entity's coordinates.</div>
 </dd>
+<dt><a href="com/deco2800/game/areas/UndergroundGameArea.html#spawnPlayerAOE()" class="member-name-link">spawnPlayerAOE()</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/UndergroundGameArea.html" title="class in com.deco2800.game.areas">UndergroundGameArea</a></dt>
+<dd>
+<div class="block">Spawns an AOE attack at the player entity's coordinates.</div>
+</dd>
 <dt><a href="com/deco2800/game/areas/ForestGameArea.html#spawnPlayerProjectile()" class="member-name-link">spawnPlayerProjectile()</a> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>
 <div class="block">Spawns a projectile at the player entity's coordinates.</div>
@@ -4408,7 +4422,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The functional start of the block skill.</div>
 </dd>
-<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startCharge(com.badlogic.gdx.math.Vector2)" class="member-name-link">startCharge(Vector2)</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
+<dt><a href="com/deco2800/game/components/player/PlayerSkillComponent.html#startCharge()" class="member-name-link">startCharge()</a> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerSkillComponent.html" title="class in com.deco2800.game.components.player">PlayerSkillComponent</a></dt>
 <dd>
 <div class="block">The functional start of the charge.</div>
 </dd>
