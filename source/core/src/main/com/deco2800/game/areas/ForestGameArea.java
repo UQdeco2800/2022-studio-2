@@ -107,6 +107,10 @@ public class ForestGameArea extends GameArea {
     "images/countdown/3.png",
     "images/countdown/4.png",
     "images/countdown/5.png",
+    "images/countdown/6.png", "images/countdown/7.png", "images/countdown/8.png", "images/countdown/9.png",
+    "images/countdown/10.png", "images/countdown/11.png", "images/countdown/12.png", "images/countdown/13.png",
+    "images/countdown/14.png", "images/countdown/15.png", "images/countdown/16.png", "images/countdown/17.png",
+    "images/countdown/18.png", "images/countdown/19.png", "images/countdown/20.png",
     "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
     "images/CombatItems/animations/BuffBounce/mapBounce.png",
     "images/CombatItems/animations/BuffAnimations/buff.png"
@@ -612,20 +616,16 @@ public class ForestGameArea extends GameArea {
    */
   private void spawnSpeedPotion() {
     Entity speedPotion = PotionFactory.createSpeedPotion();
-      itemsOnMap.add(speedPotion);
-      spawnEntityAt(speedPotion, new GridPoint2(90, 11), true, true);
+    itemsOnMap.add(speedPotion);
+    spawnEntityAt(speedPotion, new GridPoint2(90, 11), true, true);
 
-      Entity speedPotion2 = PotionFactory.createSpeedPotion();
-      itemsOnMap.add(speedPotion2);
-      spawnEntityAt(speedPotion2, new GridPoint2(90, 9), true, true);
+    Entity speedPotion3 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion3);
+    spawnEntityAt(speedPotion3, new GridPoint2(34, 97), true, true);
 
-      Entity speedPotion3 = PotionFactory.createSpeedPotion();
-      itemsOnMap.add(speedPotion3);
-      spawnEntityAt(speedPotion3, new GridPoint2(34, 97), true, true);
-
-      Entity speedPotion4 = PotionFactory.createSpeedPotion();
-      itemsOnMap.add(speedPotion4);
-      spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
+    Entity speedPotion4 = PotionFactory.createSpeedPotion();
+    itemsOnMap.add(speedPotion4);
+    spawnEntityAt(speedPotion4, new GridPoint2(145, 152), true, true);
 
     Entity speedPotion5 = PotionFactory.createSpeedPotion();
     itemsOnMap.add(speedPotion5);
@@ -645,9 +645,6 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnHealthPotion() {
-    Entity healthPotion = PotionFactory.createHealthPotion();
-    itemsOnMap.add(healthPotion);
-    spawnEntityAt(healthPotion, new GridPoint2(93, 13), true, true);
 
     Entity healthPotion2 = PotionFactory.createHealthPotion();
     itemsOnMap.add(healthPotion2);

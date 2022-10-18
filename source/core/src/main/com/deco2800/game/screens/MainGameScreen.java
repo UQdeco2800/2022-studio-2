@@ -81,8 +81,21 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/bleed.png",
           "images/Skills/bleed_disabled.png",
           "images/Skills/charge.png",
-          "images/Skills/charge_disabled.png"
+          "images/Skills/charge_disabled.png",
+          "images/Skill_tree/tooltips/aoeTooltip.png",
+          "images/Skill_tree/tooltips/bleedTooltip.png",
+          "images/Skill_tree/tooltips/blockTooltip.png",
+          "images/Skill_tree/tooltips/chargeTooltip.png",
+          "images/Skill_tree/tooltips/dashTooltip.png",
+          "images/Skill_tree/tooltips/dodgeTooltip.png",
+          "images/Skill_tree/tooltips/fireballUltimateTooltip.png",
+          "images/Skill_tree/tooltips/invulnerabilityTooltip.png",
+          "images/Skill_tree/tooltips/wrenchProjectileTooltip.png",
+          "images/Skill_tree/tooltips/rootTooltip.png",
+          "images/Skill_tree/tooltips/teleportTooltip.png",
+          "images/Skill_tree/tooltips/ultimateTooltip.png"
   };
+
   private static final String[] dialogueImg = {
           "images/NPC/Dialogue/dialoguesboxmale2.png",
           "images/NPC/Dialogue/dialoguesboxguard2.png",
@@ -99,8 +112,11 @@ public class MainGameScreen extends ScreenAdapter {
           "images/Skills/EquippedSkillsText.png",
           "images/Skills/clearSkillsButton.png",
           "images/Skills/clearSkillsButton_down.png",
-          "images/Skills/skill-tree-icon.png"
+          "images/Skills/skill-tree-icon.png",
+          "images/Skills/skillExitButton.png",
+          "images/Skills/skillExitButtonDown.png"
   };
+
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity player;
   private final GdxGame game;

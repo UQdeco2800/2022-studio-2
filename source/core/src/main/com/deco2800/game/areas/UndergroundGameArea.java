@@ -685,10 +685,6 @@ public class UndergroundGameArea extends GameArea {
         itemsOnMap.add(staminaPotion);
         spawnEntityAt(staminaPotion, new GridPoint2(35, 39), true, true);
 
-        Entity staminaPotion3 = PotionFactory.createStaminaPotion();
-        itemsOnMap.add(staminaPotion3);
-        spawnEntityAt(staminaPotion3, new GridPoint2(17, 69), true, true);
-
         Entity staminaPotion4 = PotionFactory.createStaminaPotion();
         itemsOnMap.add(staminaPotion4);
         spawnEntityAt(staminaPotion4, new GridPoint2(54, 47), true, true);
@@ -696,10 +692,6 @@ public class UndergroundGameArea extends GameArea {
         Entity staminaPotion5 = PotionFactory.createStaminaPotion();
         itemsOnMap.add(staminaPotion5);
         spawnEntityAt(staminaPotion5, new GridPoint2(80, 48), true, true);
-
-        Entity staminaPotion6 = PotionFactory.createStaminaPotion();
-        itemsOnMap.add(staminaPotion6);
-        spawnEntityAt(staminaPotion6, new GridPoint2(84, 64), true, true);
 
         Entity staminaPotion7 = PotionFactory.createStaminaPotion();
         itemsOnMap.add(staminaPotion7);
@@ -872,6 +864,25 @@ public class UndergroundGameArea extends GameArea {
         spawnEntityAt(newProjectile,
                 new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
                 true, true);
+    }
+
+    /**
+     * Spawns an AOE attack at the player entity's coordinates.
+     */
+    public Entity spawnPlayerAOE() {
+        Entity newProjectile = ProjectileFactory.createPlayerAOE(player, 0);
+        spawnEntityAt(newProjectile,
+                new GridPoint2((int) player.getCenterPosition().x, (int) player.getCenterPosition().y),
+                true, true);
+        return newProjectile;
+    }
+
+    public static void removeProjectileOnMap(Entity entityToRemove) {
+        entityToRemove.setEnabled(false);
+        Gdx.app.postRunnable(entityToRemove::dispose);
+        if (entityToRemove.getComponent(AnimationRenderComponent.class) != null) {
+            entityToRemove.getComponent(AnimationRenderComponent.class).stopAnimation();
+        }
     }
 
     private void unloadAssets() {
