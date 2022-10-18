@@ -487,7 +487,10 @@ class InventoryComponentTest {
     inventory.unequipItem(0);
     assertEquals(refSpeed, pmComponent.getModified(PlayerModifier.MOVESPEED));
 
-    //Test case 5: unequip while inventory is full
+    //Test case 5 unequiping slot with no item
+    assertFalse(inventory.unequipItem(0));
+
+    //Test case 6: unequip while inventory is full
     Entity testSword = WeaponFactory.createSwordLvl2();
     Entity testDumbbell = WeaponFactory.createDumbbell();
     Entity testHera = WeaponFactory.createHera();
