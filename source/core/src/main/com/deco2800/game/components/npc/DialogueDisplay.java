@@ -160,10 +160,10 @@ public class DialogueDisplay extends UIComponent {
     };
     public static String[] textFriendlyCreature = {
             "FriendlyCreature: \n",
-            "Hm? Why did u come here?",
+            "Hm? Why the hell did u come here?",
             "Didn't I say never to come here again??!!!",
-            "Never mind, why don't you sing me a song and I will give you something in return, you got 15 seconds for this",
-            "Alright, here you go",
+            "Whatever... sing me a song and I will give you something good",
+            "As expected... anyway, a promise is a promise. Here, the legendary toilet paper.",
             "Now, LEAVE ME ALONE!!!",
     };
     public static String[] textFriendlyCreatureAlready = {
@@ -498,10 +498,18 @@ public class DialogueDisplay extends UIComponent {
                 dialogueContainerFriendlyCreature.remove();
                 haveTalkedFriendlyCreature = 1;
             } else if (countFriendlyCreature == 1) {
-                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
-                inventoryComponent.addItem(MaterialFactory.createToiletPaper());
-            } else if (countFriendlyCreature == 3) {
+                logger.info("FriendlyCreature1 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/FriendlyCreature/Line_1.wav"));
+                music.play();
+            } else if (countFriendlyCreature == 2) {
+                logger.info("FriendlyCreature2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/FriendlyCreature/Line_2.wav"));
+                music.play();
 
+            } else if (countFriendlyCreature == 3) {
+                logger.info("FriendlyCreature3 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/FriendlyCreature/Line_3.wav"));
+                music.play();
                 dialogueContainerFriendlyCreature.addActor(startButton);
                 startButton.addListener(new ClickListener() {
                     @Override
@@ -519,6 +527,16 @@ public class DialogueDisplay extends UIComponent {
                 });
             } else if (countFriendlyCreature == 4) {
                 dialogueContainerFriendlyCreature.removeActor(startButton);
+                logger.info("FriendlyCreature4 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/FriendlyCreature/Line_4.wav"));
+                music.play();
+                inventoryComponent = ServiceLocator.getGameArea().getPlayer().getComponent(InventoryComponent.class);
+                inventoryComponent.addItem(MaterialFactory.createToiletPaper());
+
+            } else if(countFriendlyCreature == 5) {
+                logger.info("FriendlyCreature5 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/FriendlyCreature/Line_5.wav"));
+                music.play();
             }
 
         } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5 && haveTalkedFriendlyCreature == 1) {
@@ -528,13 +546,28 @@ public class DialogueDisplay extends UIComponent {
             textAreaFriendlyCreatureAlready = new TextArea(textFriendlyCreatureAlready[countFriendlyCreatureAlready], skin, "friendlycreature");
             textAreaFriendlyCreatureAlready.setWidth(700);
             textAreaFriendlyCreatureAlready.setHeight(68);
-            textAreaFriendlyCreatureAlready.setPosition((Gdx.graphics.getWidth()/2) - (textAreaFriendlyCreatureAlready.getWidth()/2),29);
+            textAreaFriendlyCreatureAlready.setPosition((Gdx.graphics.getWidth() / 2) - (textAreaFriendlyCreatureAlready.getWidth() / 2), 29);
             dialogueContainerFriendlyCreature.addActor(textAreaFriendlyCreatureAlready);
 
-            if (countFriendlyCreatureAlready == textFriendlyCreatureAlready.length - 1) {
+        } if (countFriendlyCreatureAlready == textFriendlyCreatureAlready.length - 1) {
                 countFriendlyCreatureAlready = 0;
                 dialogueContainerFriendlyCreature.remove();
-            }
+            } else if (countFriendlyCreatureAlready == 1) {
+                logger.info("FriendlyCreature1 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/LEAVE.wav"));
+                music.play();
+            } else if (countFriendlyCreatureAlready == 2) {
+                logger.info("FriendlyCreature2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ME.wav"));
+                music.play();
+            } else if (countFriendlyCreatureAlready== 3) {
+                logger.info("FriendlyCreature3 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ALONE.wav"));
+                music.play();
+            } else if (countFriendlyCreature == 4) {
+                logger.info("FriendlyCreature4 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ALONE.wav"));
+                music.play();
 
         } else if ((PlumberFriendPosition) != null && entity.getCenterPosition().dst(GridPointToVector(PlumberFriendPosition)) < 1.5 && haveTalkedPlumberFriend == 0) {
 

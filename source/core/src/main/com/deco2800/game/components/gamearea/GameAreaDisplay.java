@@ -101,6 +101,8 @@ public class GameAreaDisplay extends UIComponent {
     private Group inventoryGroup = new Group();
     private Group itemButtonGroup = new Group();
     private Group dropdownGroup = new Group();
+
+    public Image minimapImage;
     private Group minimapGroup = new Group();
 
     private Boolean currentScreenCrafting = false;
@@ -133,13 +135,12 @@ public class GameAreaDisplay extends UIComponent {
     }
 
     public void displayMinimap() {
-        GameArea gameArea = ServiceLocator.getGameArea();
-        Image minimapImage;
-        logger.info(String.format("Displaying minimap, area is %s", gameArea.getClass().getSimpleName()));
-        if (gameArea.getClass().getSimpleName().equals(ForestGameArea.class.getSimpleName())) {
+        //GameArea gameArea = ServiceLocator.getGameArea();
+        logger.info(String.format("Displaying minimap, area is %s", gameAreaName));
+        if (gameLevel == 1) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_1_tiledmap/minimap1.png")));
-        } else if (gameArea.getClass().getSimpleName().equals(UndergroundGameArea.class.getSimpleName())) {
+        } else if (gameLevel == 2) {
             minimapImage = new Image(new Texture(Gdx.files.internal
                     ("images/level_2_tiledmap/minimap2.png")));
         } else {
@@ -148,7 +149,7 @@ public class GameAreaDisplay extends UIComponent {
         }
 
         //Note: the position of the asset is at the bottom left.
-        minimapImage.setSize(800, 977);
+        minimapImage.setSize(800, 800);
         minimapImage.setPosition(Math.round((double)Gdx.graphics.getWidth() / 2 - minimapImage.getWidth() / 2),
                 Math.round((double)Gdx.graphics.getHeight() / 2 - minimapImage.getHeight() / 2));
         minimapGroup.addActor(minimapImage);
@@ -1325,7 +1326,7 @@ public class GameAreaDisplay extends UIComponent {
     /**
      * Displays the second page of the catalogue menu and adds event handlers for buttons.
      */
-    private void displayCatTwo() {
+    public void displayCatTwo() {
         Sound catTwoSound = ServiceLocator.getResourceService().getAsset("sounds/ItemClick.wav", Sound.class);
         catTwoSound.play();
         disposeMaterials();
@@ -1478,27 +1479,27 @@ public class GameAreaDisplay extends UIComponent {
         String image = newItem.getComponent(TextureRenderComponent.class).getTexturePath();
         weapon = new Image(new Texture(Gdx.files.internal(image)));
 
-        if (Math.floor(item.damage) == 35) {
+        if (item.damage == 27) {
             weapon.setSize(60, 60);
             //trident
             weapon.setPosition(craftMenu.getX() + 650, craftMenu.getY() + 220);
-        } else if (Math.floor(item.damage) == 30) {
+        } else if (item.damage == 25) {
             //sword
             weapon.setSize(60, 60);
             weapon.setPosition(craftMenu.getX() + 675, craftMenu.getY() + 235);
-        } else if (Math.floor(item.damage) == 15) {
+        } else if (item.damage == 19.5) {
             //pipe
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 210);
-        } else if (Math.floor(item.damage) == 10) {
+        } else if (item.damage == 17) {
             //plunger
             weapon.setSize(110, 110);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 40) {
+        } else if (item.damage == 32) {
             //herathena
             weapon.setSize(100, 100);
             weapon.setPosition(craftMenu.getX() + 640, craftMenu.getY() + 200);
-        } else if (Math.floor(item.damage) == 20 || Math.floor(item.damage) == 70) {
+        } else if (item.damage == 20 || item.damage == 70) {
             //bows
             weapon.setSize(50, 50);
             weapon.setPosition(craftMenu.getX() + 665, craftMenu.getY() + 230);
@@ -1507,6 +1508,10 @@ public class GameAreaDisplay extends UIComponent {
             weapon.setPosition(craftMenu.getX() + 600, craftMenu.getY() + 150);
         }
         craftingGroup.addActor(weapon);
+    }
+
+    public int getFirstTime() {
+        return firstTime;
     }
 
     /**

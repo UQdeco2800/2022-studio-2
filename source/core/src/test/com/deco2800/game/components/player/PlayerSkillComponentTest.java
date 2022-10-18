@@ -4,9 +4,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.deco2800.game.ai.tasks.AITaskComponent;
+import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
@@ -59,6 +61,7 @@ class PlayerSkillComponentTest {
                         .addComponent(new KeyboardPlayerInputComponent())
                         .addComponent(new PlayerModifier());
 
+        ServiceLocator.registerPhysicsService(new PhysicsService());
         skillManager = new PlayerSkillComponent(player);
         skillManager.setSkillAnimator(new Entity());
 
@@ -355,7 +358,6 @@ class PlayerSkillComponentTest {
 
     @Test
     void testRoot() {
-        ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerRenderService(new RenderService());
         Entity enemy =
                 new Entity()
@@ -378,9 +380,18 @@ class PlayerSkillComponentTest {
 
     @Test
     void testStartCharge() {
-        Vector2 vec = new Vector2(1f, 1f);
+        assertFalse(skillManager.isChargingUp());
+        skillManager.startCharge();
+        assertTrue(skillManager.isChargingUp());
+        customWait(701);
+        skillManager.update();
+        assertFalse(skillManager.isChargingUp());
+    }
+
+    @Test
+    void testChargeMove() {
         assertFalse(skillManager.isCharging());
-        skillManager.startCharge(vec);
+        skillManager.chargeMove();
         assertTrue(skillManager.isCharging());
         customWait(301);
         skillManager.update();
@@ -389,9 +400,7 @@ class PlayerSkillComponentTest {
 
     @Test
     void testChargeHit() {
-        Vector2 vec = new Vector2(1f, 1f);
         ServiceLocator.registerEntityService(new EntityService());
-        ServiceLocator.registerPhysicsService(new PhysicsService());
         Entity enemy =
                 new Entity()
                         .addComponent(new CombatStatsComponent(60, 1, 1, 1))
@@ -400,12 +409,12 @@ class PlayerSkillComponentTest {
         enemy.create();
 
         skillManager.chargeHit(enemy);
-        skillManager.startCharge(vec);
+        skillManager.chargeMove();
         skillManager.chargeHit(enemy);
         assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
         skillManager.chargeHit(enemy);
         assertEquals(30, enemy.getComponent(CombatStatsComponent.class).getHealth());
-        skillManager.startCharge(vec);
+        skillManager.chargeMove();
         skillManager.chargeHit(enemy);
         assertEquals(0, enemy.getComponent(CombatStatsComponent.class).getHealth());
     }
@@ -416,64 +425,30 @@ class PlayerSkillComponentTest {
         Vector2 beforePos = player.getPosition();
         skillManager.teleportPlayer();
         Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x + 4.0f, beforePos.y + 4.0f), afterPos);
+        assertEquals(new Vector2(beforePos.x + 8.0f, beforePos.y + 8.0f), afterPos);
     }
 
     @Test
     void testTeleportPlayer2() {
-        player.getComponent(PlayerActions.class).walk(new Vector2(1,0));
+        player.getComponent(PlayerActions.class).walk(new Vector2(0,0));
         Vector2 beforePos = player.getPosition();
         skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
         Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x + 24.18f, beforePos.y + 0.11f), afterPos);
+        assertEquals(beforePos, afterPos);
     }
 
     @Test
     void testTeleportPlayer3() {
+        ServiceLocator.registerEntityService(new EntityService());
+        GameArea ga = spy(GameArea.class);
+        player.getComponent(PlayerActions.class).walk(new Vector2(1,0));
+        Vector2 beforePos = player.getPosition();
+        skillManager.teleportPlayer();
+        ga.spawnEntity(ObstacleFactory.createWall(5, 5));
         player.getComponent(PlayerActions.class).walk(new Vector2(-1,0));
-        Vector2 beforePos = player.getPosition();
         skillManager.teleportPlayer();
         Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x - 0.08f, beforePos.y + 0.11f), afterPos);
-    }
-
-    @Test
-    void testTeleportPlayer4() {
-        player.getComponent(PlayerActions.class).walk(new Vector2(0,1));
-        Vector2 beforePos = player.getPosition();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x, beforePos.y + 24.68f), afterPos);
-    }
-
-    @Test
-    void testTeleportPlayer5() {
-        player.getComponent(PlayerActions.class).walk(new Vector2(0,-1));
-        Vector2 beforePos = player.getPosition();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        skillManager.teleportPlayer();
-        Vector2 afterPos = player.getPosition();
-        assertEquals(new Vector2(beforePos.x, beforePos.y + 0.11f), afterPos);
+        assertEquals(new Vector2(beforePos.x + 6.0f, beforePos.y), afterPos);
     }
 
     @Test

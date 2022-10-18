@@ -107,6 +107,10 @@ public class ForestGameArea extends GameArea {
     "images/countdown/3.png",
     "images/countdown/4.png",
     "images/countdown/5.png",
+    "images/countdown/6.png", "images/countdown/7.png", "images/countdown/8.png", "images/countdown/9.png",
+    "images/countdown/10.png", "images/countdown/11.png", "images/countdown/12.png", "images/countdown/13.png",
+    "images/countdown/14.png", "images/countdown/15.png", "images/countdown/16.png", "images/countdown/17.png",
+    "images/countdown/18.png", "images/countdown/19.png", "images/countdown/20.png",
     "images/CombatItems/animations/PlungerBow/plungerBowProjectile.png",
     "images/CombatItems/animations/BuffBounce/mapBounce.png",
     "images/CombatItems/animations/BuffAnimations/buff.png"

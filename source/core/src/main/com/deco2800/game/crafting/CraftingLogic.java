@@ -107,25 +107,23 @@ public class CraftingLogic {
      */
     public static Entity damageToWeapon(WeaponConfig weapon){
         double dam = weapon.damage;
-        switch ((int) Math.floor(dam)){
-            case 12:
-                return WeaponFactory.createDagger();
-            case 16:
-                return WeaponFactory.createHera();
-            case 30:
-                return WeaponFactory.createSwordLvl2();
-            case 15:
-                return WeaponFactory.createPipe();
-            case 35:
-                return WeaponFactory.createTridentLvl2();
-            case 40:
-                return WeaponFactory.createHeraAthenaDag();
-            case 20:
-                return WeaponFactory.createPlungerBow();
-            case 70:
-                return WeaponFactory.createGoldenPlungerBow();
-            default:
-                return WeaponFactory.createPlunger();
+        if (dam == 20.6) {
+            return WeaponFactory.createDagger();
+        } else if (dam == 20.5) {
+            return WeaponFactory.createHera();
+        } else if (dam == 25) {
+            return WeaponFactory.createSwordLvl2();
+        } else if (dam == 19.5) {
+            return WeaponFactory.createPipe();
+        } else if (dam == 27) {
+            return WeaponFactory.createTridentLvl2();
+        } else if (dam == 32) {
+            return WeaponFactory.createHeraAthenaDag();
+        } else if (dam == 20) {
+            return WeaponFactory.createPlungerBow();
+        } else if (dam == 70) {
+            return WeaponFactory.createGoldenPlungerBow();
         }
+        return WeaponFactory.createPlunger();
     }
 }
