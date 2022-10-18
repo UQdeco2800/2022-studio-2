@@ -98,7 +98,7 @@ public class ArmourFactory {
                 texturePath = "images/Armour-assets-sprint2/slowDiamond.png";
                 break;
             case darkArmour:
-                texturePath = "images/Armour-assets-sprint2/baseArmour.png";
+                texturePath = "images/Armour-assets-sprint2/Dark_Armour.png";
                 break;
             default:
                texturePath = "images/Armour-assets-sprint2/baseArmour.png";

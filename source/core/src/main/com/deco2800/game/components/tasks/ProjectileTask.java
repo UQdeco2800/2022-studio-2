@@ -2,7 +2,6 @@ package com.deco2800.game.components.tasks;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.ai.tasks.PriorityTask;
-import com.deco2800.game.components.npc.EnemyProjectileComponent;
 import com.deco2800.game.entities.factories.EntityTypes;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -65,6 +64,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         currentTask = taskShoot;
     }
 
+    /**
+     * Get the priority of this task
+     * @return the priority of this task
+     */
     @Override
     public int getPriority() {
         if (status == Status.ACTIVE) {
@@ -89,12 +92,18 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         currentTask.update();
     }
 
-
+    /**
+     * If entity is waiting, set its task to shoot
+     */
     public void waiting() {
         setTask(taskShoot);
     }
 
 
+    /**
+     * Shoot projectile
+     * @param projectileType the type of projectile to shoot
+     */
     public void shoot(String projectileType) {
         if (projectileType.equals("poopSludge")) {
             projectile = createPoopsSludge(owner.getEntity(), target);
@@ -103,9 +112,9 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
             projectile = createDiscus(owner.getEntity(), target);
         }
         if (owner.getEntity().checkEntityType(EntityTypes.MEGAPOOP)) {
-            Entity projectile = createPoopsSludge(owner.getEntity(), target);
-            ServiceLocator.getEntityService().register(projectile);
-            projectile.setPosition(owner.getEntity().getPosition().x - 0.5f, owner.getEntity().getPosition().y - 0.5f);
+            Entity projectile1 = createPoopsSludge(owner.getEntity(), target);
+            ServiceLocator.getEntityService().register(projectile1);
+            projectile1.setPosition(owner.getEntity().getPosition().x - 0.5f, owner.getEntity().getPosition().y - 0.5f);
 
             Entity projectile2 = createPoopsSludge(owner.getEntity(), target);
             ServiceLocator.getEntityService().register(projectile2);
@@ -117,7 +126,11 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         }
         setTask(taskWait);
     }
-    
+
+    /**
+     * Set the task
+     * @param task the task to set it to
+     */
     public void setTask(Task task) {
         if (currentTask != null) {
             currentTask.stop();
@@ -158,6 +171,10 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
         return -1;
     }
 
+    /**
+     * Returns if the target is visible or not
+     * @return true if target visible, false otherwise
+     */
     private boolean isTargetVisible() {
         Vector2 from = owner.getEntity().getCenterPosition();
         Vector2 to = target.getCenterPosition();
@@ -172,6 +189,9 @@ public class ProjectileTask extends DefaultTask implements PriorityTask{
     }
 
 
+    /**
+     * Animate the projectile attack
+     */
     private void attackAnimate() {
         Vector2 enemy = owner.getEntity().getCenterPosition();
         Vector2 player = target.getCenterPosition();
