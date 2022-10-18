@@ -471,18 +471,18 @@ public class DialogueDisplay extends UIComponent {
                 dialogueContainerHumanGuard.remove();
             } else if (countHumanGuardAlready == 1) {
                 logger.info("HumanGuard1 sound displayed");
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human Guard 1.wav"));
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/LEAVE.wav"));
                 music.play();
             } else if (countHumanGuardAlready == 2) {
                 logger.info("HumanGuard2 sound displayed");
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_2.wav"));
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ME.wav"));
                 music.play();
             } else if (countHumanGuardAlready == 3) {
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_3.wav"));
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ALONE.wav"));
                 music.play();
             } else if (countHumanGuard == 4) {
                 logger.info("HumanGuard4 sound displayed");
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_4.wav"));
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ALONE.wav"));
                 music.play();
             }
         } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5  && haveTalkedFriendlyCreature == 0) {
@@ -520,9 +520,6 @@ public class DialogueDisplay extends UIComponent {
             } else if (countFriendlyCreature == 4) {
                 dialogueContainerFriendlyCreature.removeActor(startButton);
             }
-
-
-
 
         } else if ((friendlycreaturePosition) != null && entity.getCenterPosition().dst(GridPointToVector(friendlycreaturePosition)) < 1.5 && haveTalkedFriendlyCreature == 1) {
             logger.info("new text loaded");
@@ -616,18 +613,19 @@ public class DialogueDisplay extends UIComponent {
                 dialogueContainerPlumberFriend.remove();
             } else if (countPlumberFriendAlready == 1) {
                 logger.info("HumanGuard1 sound displayed");
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human Guard 1.wav"));
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/LEAVE.wav"));
                 music.play();
             } else if (countPlumberFriendAlready == 2) {
-                logger.info("HumanGuard2 sound displayed");
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_2.wav"));
+                logger.info("PlumberFriend2 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ME.wav"));
                 music.play();
             } else if (countPlumberFriendAlready == 3) {
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_3.wav"));
+                logger.info("PlumberFriend3 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ALONE.wav"));
                 music.play();
             } else if (countPlumberFriendAlready == 4) {
-                logger.info("HumanGuard4 sound displayed");
-                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/Human Guard/Human_Guard_4.wav"));
+                logger.info("PlumberFriend4 sound displayed");
+                Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Dialogue/ALONE.wav"));
                 music.play();
 
             }
