@@ -197,9 +197,10 @@ public class InventoryComponent extends Component {
      * @param quantity the quantity array of corresponding inventory
      */
     public void sortInventory(int index, List<Entity> list, int[] quantity) {
-        if (list.size() > index) {
-            for (int i = index; i < list.size(); ++i) {
-                quantity[i] = quantity[i + 1];
+        final int size = list.size();
+        if (size > index) {
+            for (int i = index; i < size; ++i) {
+                if (i != size - 1) quantity[i] = quantity[i + 1];
             }
         }
     }

@@ -483,7 +483,40 @@ class InventoryComponentTest {
     assertEquals(refSpeed, pmComponent.getModified(PlayerModifier.MOVESPEED));
 
     //Test case 5: unequip while inventory is full
-    //Currently unavailable since the total number of items existing in this game is < 16
+    Entity testSword = WeaponFactory.createSwordLvl2();
+    Entity testDumbbell = WeaponFactory.createDumbbell();
+    Entity testHera = WeaponFactory.createHera();
+    Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+    Entity testHealthPotion = PotionFactory.createTestHealthPotion();
+    Entity staminaPotion = PotionFactory.createStaminaPotion();
+    Entity gold = MaterialFactory.createGold();
+    Entity iron = MaterialFactory.createIron();
+    Entity steel = MaterialFactory.createSteel();
+    Entity wood = MaterialFactory.createWood();
+    Entity plastic = MaterialFactory.createPlastic();
+    Entity rubber = MaterialFactory.createRubber();
+    Entity platinum = MaterialFactory.createPlatinum();
+    Entity silver = MaterialFactory.createSilver();
+    Entity poop = MaterialFactory.createPoop();
+    Entity toiletPaper = MaterialFactory.createToiletPaper();
+    inventory.addItem(testSword);
+    inventory.addItem(testDumbbell);
+    inventory.addItem(testHera);
+    inventory.addItem(testSpeedPotion);
+    inventory.addItem(testHealthPotion);
+    inventory.addItem(gold);
+    inventory.addItem(iron);
+    inventory.addItem(steel);
+    inventory.addItem(wood);
+    inventory.addItem(plastic);
+    inventory.addItem(rubber);
+    inventory.addItem(platinum);
+    inventory.addItem(silver);
+    inventory.addItem(poop);
+    inventory.addItem(toiletPaper);
+    inventory.equipItem(testWeapon);
+    inventory.addItem(staminaPotion);
+    inventory.unequipItem(0);
   }
 
 
@@ -548,6 +581,8 @@ class InventoryComponentTest {
     for (int i = 0; i < 9; ++i) inventory.addQuickBarItems(testPotion);
     expectedList.add(testPotion);
 
+    assertFalse(inventory.addQuickBarItems(testPotion));
+
     assertEquals(expectedList, inventory.getQuickBarItems());
     assertEquals(expectedInventory, inventory.getInventory());
 
@@ -566,6 +601,7 @@ class InventoryComponentTest {
   void getPotionIndex() {
     Entity player = PlayerFactory.createTestPlayer();
     Entity testSpeedPotion = PotionFactory.createTestSpeedPotion();
+    Entity healthPotion = PotionFactory.createHealthPotion();
     int expectedSentinel = -1;
     InventoryComponent inventory = player.getComponent(InventoryComponent.class);
     assertEquals(-1, inventory.getPotionIndex(testSpeedPotion));
@@ -573,6 +609,7 @@ class InventoryComponentTest {
     int expectedIndex =  0;
 
     assertEquals(expectedIndex, inventory.getPotionIndex(testSpeedPotion));
+    assertEquals(expectedSentinel, inventory.getPotionIndex(healthPotion));
   }
 
   @Test
@@ -610,8 +647,10 @@ class InventoryComponentTest {
 
     //Tests if the potion effect is applied to the player
     inventory.consumePotion(1);
-    //Test if the function is properlly ended or not
+    //Test if the function has properly ended or not
     inventory.consumePotion(5);
+    inventory.consumePotion(1);
+
     assertTrue(pmComponent.
             checkModifier(PlayerModifier.MOVESPEED, 1.5f, true, 3000));
     assertEquals(expectedList, inventory.getQuickBarItems());
