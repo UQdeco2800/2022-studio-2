@@ -397,6 +397,7 @@ public class InventoryComponent extends Component {
      * Swap the item in equipable
      *
      * @param item the item to be swapped in
+     * @requires getEquipables().size() > 1 && item.checkEntityType(ARMOUR || WEAPON)
      */
     public void swapItem(Entity item) {
         int itemSlot = item.checkEntityType(EntityTypes.WEAPON) ? 0 : 1;
