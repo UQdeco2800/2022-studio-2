@@ -59,8 +59,6 @@ public class PlayerSkillComponent extends Component {
 
     Map<String, Long> skillCooldowns = new HashMap<>();
 
-    private static final long MAX_COOLDOWN = 5000;
-
     // Teleport variables
     private static final int TELEPORT_LENGTH = 8;
     private long teleportEnd; // Teleport charge end system time
@@ -71,6 +69,7 @@ public class PlayerSkillComponent extends Component {
     private boolean teleportEndEvent = false;
     private final RaycastHit hit = new RaycastHit();
     private final PhysicsEngine physics;
+    private static final String TELEPORT_NAME = "teleport";
 
     // Dashing Variables
     private static final Vector2 DASH_SPEED = new Vector2(6f, 6f);
@@ -80,6 +79,7 @@ public class PlayerSkillComponent extends Component {
     private boolean dashing = false;
     private long dashEnd; // Dash end system time
     private boolean dashEndEvent = false;
+    private static final String DASH_NAME = "dash";
 
     // Dodge Variables
     private long dodgeEnd; // Teleport charge end system time
@@ -93,6 +93,7 @@ public class PlayerSkillComponent extends Component {
     private static final long DODGE_COOLDOWN = 3000;
     private boolean dodgeEndEvent = false;
     private Vector2 dodgeDirection;
+    private static final String DODGE_NAME = "dodge";
 
     // Block Variables
     private boolean blocking;
@@ -100,6 +101,7 @@ public class PlayerSkillComponent extends Component {
     private static final long BLOCK_LENGTH = 400;
     private static final long BLOCK_COOLDOWN = 3000;
     private boolean blockEndEvent;
+    private static final String BLOCK_NAME = "block";
 
     // Root Variables
     private boolean rootApplied;
@@ -107,6 +109,7 @@ public class PlayerSkillComponent extends Component {
     private long rootEnd;
     private static final long ROOT_LENGTH = 5000;
     private boolean rootEndEvent = false;
+    private static final String ROOT_NAME = "root";
 
     // Bleed Variables
     private boolean bleedApplied;
@@ -117,6 +120,7 @@ public class PlayerSkillComponent extends Component {
     private static final long BLEED_HITS = 7;
     private static final int BLEED_DAMAGE = 5;
     private boolean bleedEndEvent = false;
+    private static final String BLEED_NAME = "bleed";
 
     // Charge variables
     private boolean enemyDead = false;
@@ -129,6 +133,7 @@ public class PlayerSkillComponent extends Component {
     private boolean chargeUp = false;
     private long chargeUpEnd;
     private static final long CHARGE_UP_LENGTH = 700;
+    private static final String CHARGE_NAME = "charge";
 
     private boolean chargingUltimate;
     private long ultimateChargeEnd;
@@ -136,18 +141,22 @@ public class PlayerSkillComponent extends Component {
     private static final long ULTIMATE_TIMESTOP_LENGTH = 6000;
     private long ultimateTimeStopEnd;
     private boolean timeStopped;
+    private static final String ULTIMATE_NAME = "ultimate";
 
     private boolean chargingUltimateFireball;
     private static final long FIREBALL_CHARGE_LENGTH = 1000;
     private long ultimateFireballChargeEnd;
+    private static final String FIREBALL_NAME = "fireball";
 
     private boolean invulnerabilitySkill;
     private static final long INVULNERABILITY_LENGTH = 2600;
     private long invulnerabilitySkillEnd;
+    private static final String INVULNERABILITY_NAME = "invulnerable";
 
     private long aoeAnimationEnd;
     private boolean aoeAnimationRunning;
     private static final long AOE_ANIMATION_LENGTH = 500;
+    private static final String AOE_NAME = "aoe";
 
     private long rootAnimationEnd;
     private boolean rootAnimationRunning;
@@ -156,6 +165,12 @@ public class PlayerSkillComponent extends Component {
     private long bleedAnimationEnd;
     private boolean bleedAnimationRunning;
     private static final long BLEED_ANIMATION_LENGTH = 500;
+
+    private static final String PROJECTILE_NAME = "projectile";
+
+    private static final String NO_ANIMATION_LISTENER = "regularAnimation";
+    private static final String ENEMY_HIT_LISTENER = "hitEnemy";
+
 
     /**
      * Initialises the player skill component, taking a player entity as the parent component.
@@ -201,14 +216,14 @@ public class PlayerSkillComponent extends Component {
         if (this.blocking && System.currentTimeMillis() > this.blockEnd) {
             this.blocking = false;
             this.blockEndEvent = true;
-            skillAnimator.getEvents().trigger("regularAnimation");
+            skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
         }
 
         // Check if the player is in a dash and waiting for the dash to end
         if (this.dashing && System.currentTimeMillis() > this.dashEnd) {
             // Only end animation if not interrupting another skill
             if (!this.teleporting && !this.blocking && !this.dodging && !this.charging) {
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
             }
             this.dashing = false;
             this.dashEndEvent = true;
@@ -218,7 +233,7 @@ public class PlayerSkillComponent extends Component {
         if (this.charging && System.currentTimeMillis() > this.chargeEnd) {
             // Only end animation if not interrupting another skill
             if (!this.teleporting && !this.blocking && !this.dodging) {
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
             }
             this.charging = false;
         }
@@ -226,7 +241,7 @@ public class PlayerSkillComponent extends Component {
         // Check if the player is waiting to charge from charging
         if (this.chargeUp && System.currentTimeMillis() > this.chargeUpEnd) {
             this.chargeUp = false;
-            skillAnimator.getEvents().trigger("regularAnimation");
+            skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
             chargeMove();
         }
 
@@ -236,14 +251,14 @@ public class PlayerSkillComponent extends Component {
             this.teleporting = false;
             this.teleportEndEvent = true;
             teleportPlayer();
-            skillAnimator.getEvents().trigger("regularAnimation");
+            skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
         }
 
         // Check if the player is waiting to finish a dodge
         if (this.dodging && System.currentTimeMillis() > this.dodgeEnd) {
             this.dodging = false;
             this.dodgeEndEvent = true;
-            skillAnimator.getEvents().trigger("regularAnimation");
+            skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
         } else if (System.currentTimeMillis() > this.dodgeSpeedBoostEnd) {
             this.dodgeSpeedBoost = false;
         }
@@ -271,7 +286,7 @@ public class PlayerSkillComponent extends Component {
 
             if (System.currentTimeMillis() > this.ultimateChargeEnd) {
                 playerEntity.getEvents().trigger("skillScreenOverlayFlash", false);
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
                 this.chargingUltimate = false;
                 ServiceLocator.getEntityService().toggleTimeStop();
                 this.timeStopped = true;
@@ -291,7 +306,7 @@ public class PlayerSkillComponent extends Component {
         if (this.chargingUltimateFireball) {
             if (System.currentTimeMillis() > this.ultimateFireballChargeEnd) {
                 this.chargingUltimateFireball = false;
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
                 if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
                     ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileSpray();
                 }
@@ -301,26 +316,26 @@ public class PlayerSkillComponent extends Component {
         if (this.invulnerabilitySkill) {
             if (System.currentTimeMillis() > this.invulnerabilitySkillEnd) {
                 this.invulnerabilitySkill = false;
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
             }
         }
 
         if (this.rootAnimationRunning) {
             if (System.currentTimeMillis() > this.rootAnimationEnd) {
                 this.rootAnimationRunning = false;
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
             }
         }
         if (this.aoeAnimationRunning) {
             if (System.currentTimeMillis() > this.aoeAnimationEnd) {
                 this.aoeAnimationRunning = false;
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
             }
         }
         if (this.bleedAnimationRunning) {
             if (System.currentTimeMillis() > this.bleedAnimationEnd) {
                 this.bleedAnimationRunning = false;
-                skillAnimator.getEvents().trigger("regularAnimation");
+                skillAnimator.getEvents().trigger(NO_ANIMATION_LISTENER);
             }
         }
     }
@@ -360,10 +375,10 @@ public class PlayerSkillComponent extends Component {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::block);
         } else if (skillName == SkillTypes.BLEED) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::bleed);
-            entity.getEvents().addListener("hitEnemy", this::hitBleed);
+            entity.getEvents().addListener(ENEMY_HIT_LISTENER, this::hitBleed);
         }  else if (skillName == SkillTypes.ROOT) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::root);
-            entity.getEvents().addListener("hitEnemy", this::hitRoot);
+            entity.getEvents().addListener(ENEMY_HIT_LISTENER, this::hitRoot);
         } else if (skillName == SkillTypes.FIREBALLULTIMATE) {
             entity.getEvents().addListener(skillEvent, playerActionsComponent::fireballUltimate);
         } else if (skillName == SkillTypes.ULTIMATE) {
@@ -618,14 +633,14 @@ public class PlayerSkillComponent extends Component {
      * Should be called when the player actions component registers invulnerability skill
      */
     public void startInvulnerabilitySkill() {
-        if (cooldownFinished("invulnerable", 10000)) {
+        if (cooldownFinished(INVULNERABILITY_NAME, 10000)) {
             this.invulnerabilitySkill = true;
             skillAnimator.getEvents().trigger("invulnerabilityAnimation");
             playerEntity.getEvents().trigger("invulnerabilityCountdown");
             long invulnerabilityStart = System.currentTimeMillis();
             this.invulnerabilitySkillEnd = invulnerabilityStart + INVULNERABILITY_LENGTH;
             setInvulnerable(INVULNERABILITY_LENGTH);
-            setSkillCooldown("invulnerable");
+            setSkillCooldown(INVULNERABILITY_NAME);
         }
     }
 
@@ -635,7 +650,7 @@ public class PlayerSkillComponent extends Component {
      * @param moveDirection the direction of the players movement at the start of the dash event.
      */
     public void startDash(Vector2 moveDirection) {
-        if (cooldownFinished("dash", 500)) {
+        if (cooldownFinished(DASH_NAME, 500)) {
             this.dashDirection = moveDirection;
             this.dashing = true;
             skillAnimator.getEvents().trigger("dashAnimation");
@@ -643,7 +658,7 @@ public class PlayerSkillComponent extends Component {
             long dashStart = System.currentTimeMillis();
             this.dashEnd = dashStart + DASH_LENGTH;
             setInvulnerable(DASH_LENGTH/2);
-            setSkillCooldown("dash");
+            setSkillCooldown(DASH_NAME);
         }
     }
 
@@ -652,13 +667,13 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers teleport event.
      */
     public void startTeleport() {
-        if (cooldownFinished("teleport", TELEPORT_COOLDOWN)) {
+        if (cooldownFinished(TELEPORT_NAME, TELEPORT_COOLDOWN)) {
             this.teleporting = true;
             skillAnimator.getEvents().trigger("teleportAnimation");
             playerEntity.getEvents().trigger("teleportCountdown");
             long teleportStart = System.currentTimeMillis();
             this.teleportEnd = teleportStart + TELEPORT_CHARGE_LENGTH;
-            setSkillCooldown("teleport");
+            setSkillCooldown(TELEPORT_NAME);
         }
     }
 
@@ -667,7 +682,7 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers dodge event.
      */
     public void startDodge(Vector2 moveDirection) {
-        if (cooldownFinished("dodge", DODGE_COOLDOWN)) {
+        if (cooldownFinished(DODGE_NAME, DODGE_COOLDOWN)) {
             this.dodgeDirection = moveDirection;
             this.dodging = true;
             skillAnimator.getEvents().trigger("dodgeAnimation");
@@ -675,7 +690,7 @@ public class PlayerSkillComponent extends Component {
             long dodgeStart = System.currentTimeMillis();
             this.dodgeEnd = dodgeStart + DODGE_LENGTH;
             setInvulnerable(DODGE_LENGTH);
-            setSkillCooldown("dodge");
+            setSkillCooldown(DODGE_NAME);
         }
     }
 
@@ -684,14 +699,14 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers block event.
      */
     public void startBlock() {
-        if (cooldownFinished("block", BLOCK_COOLDOWN)) {
+        if (cooldownFinished(BLOCK_NAME, BLOCK_COOLDOWN)) {
             this.blocking = true;
             skillAnimator.getEvents().trigger("blockAnimation");
             playerEntity.getEvents().trigger("blockCountdown");
             long blockStart = System.currentTimeMillis();
             this.blockEnd = blockStart + BLOCK_LENGTH;
             setInvulnerable(BLOCK_LENGTH);
-            setSkillCooldown("block");
+            setSkillCooldown(BLOCK_NAME);
         }
 
     }
@@ -702,14 +717,14 @@ public class PlayerSkillComponent extends Component {
      */
     public void startRoot() {
 
-        if (cooldownFinished("root", 5000)) {
+        if (cooldownFinished(ROOT_NAME, 5000)) {
             skillAnimator.getEvents().trigger("rootAnimation");
             playerEntity.getEvents().trigger("rootCountdown");
             this.rootAnimationRunning = true;
             long rootStart = System.currentTimeMillis();
             this.rootAnimationEnd = rootStart + ROOT_ANIMATION_LENGTH;
             this.rootApplied = true;
-            setSkillCooldown("root");
+            setSkillCooldown(ROOT_NAME);
         }
     }
 
@@ -718,14 +733,14 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers ultimate event.
      */
     public void startUltimate() {
-        if (cooldownFinished("timestop", 20000)) {
+        if (cooldownFinished(ULTIMATE_NAME, 20000)) {
             skillAnimator.getEvents().trigger("ultimateAnimation");
             playerEntity.getEvents().trigger("ultimateCountdown");
             chargingUltimate = true;
             long ultimateStart = System.currentTimeMillis();
             this.ultimateChargeEnd = ultimateStart + ULTIMATE_CHARGE_LENGTH;
             this.ultimateTimeStopEnd = ultimateChargeEnd + ULTIMATE_TIMESTOP_LENGTH;
-            setSkillCooldown("timestop");
+            setSkillCooldown(ULTIMATE_NAME);
         }
     }
 
@@ -734,12 +749,12 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers projectile skill event.
      */
     public void startProjectileSkill() {
-        if (cooldownFinished("projectile", 5000)) {
+        if (cooldownFinished(PROJECTILE_NAME, 5000)) {
             playerEntity.getEvents().trigger("wrenchCountdown");
             if (ServiceLocator.getGameArea().getClass() == ForestGameArea.class) {
                 ((ForestGameArea) ServiceLocator.getGameArea()).spawnPlayerProjectileCone();
             }
-            setSkillCooldown("projectile");
+            setSkillCooldown(PROJECTILE_NAME);
         }
     }
 
@@ -748,13 +763,13 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers ultimate event.
      */
     public void startFireballUltimate() {
-        if (cooldownFinished("fireball", 20000)) {
+        if (cooldownFinished(FIREBALL_NAME, 20000)) {
             chargingUltimateFireball = true;
             skillAnimator.getEvents().trigger("fireballAnimation");
             playerEntity.getEvents().trigger("fireballCountdown");
             long ultimateStart = System.currentTimeMillis();
             this.ultimateFireballChargeEnd = ultimateStart + FIREBALL_CHARGE_LENGTH;
-            setSkillCooldown("fireball");
+            setSkillCooldown(FIREBALL_NAME);
         }
     }
 
@@ -775,14 +790,14 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers bleed event.
      */
     public void startBleed() {
-        if (cooldownFinished("fireball", 5000)) {
+        if (cooldownFinished(BLEED_NAME, 5000)) {
             this.bleedApplied = true;
             playerEntity.getEvents().trigger("bleedCountdown");
             skillAnimator.getEvents().trigger("bleedAnimation");
             this.bleedAnimationRunning = true;
-            long bleedStart = System.currentTimeMillis();
-            this.bleedAnimationEnd = bleedStart + ROOT_ANIMATION_LENGTH;
-            setSkillCooldown("bleed");
+            long bleedStartTime = System.currentTimeMillis();
+            this.bleedAnimationEnd = bleedStartTime + BLEED_ANIMATION_LENGTH;
+            setSkillCooldown(BLEED_NAME);
         }
     }
 
@@ -956,7 +971,6 @@ public class PlayerSkillComponent extends Component {
             this.rootApplied = false;
             this.rootEnd = System.currentTimeMillis() + slowLength;
         } else if (target != null && !target.checkEntityType(EntityTypes.RANGED)){
-            //target.getComponent(AITaskComponent.class).dispose();
             target.getComponent(AITaskComponent.class).getPriorityTasks().remove
                     (target.getComponent(AITaskComponent.class).getPriorityTasks().size() - 1);
         }
@@ -967,12 +981,12 @@ public class PlayerSkillComponent extends Component {
      * Should be called when player actions component registers charge event.
      */
     public void startCharge() {
-        if (cooldownFinished("charge", 10000)) {//cooldown
+        if (cooldownFinished(CHARGE_NAME, 10000)) {//cooldown
             this.chargeUp = true;
             this.chargeUpEnd = System.currentTimeMillis() + CHARGE_UP_LENGTH;
             skillAnimator.getEvents().trigger("chargeAnimation");
             playerEntity.getEvents().trigger("chargeCountdown");
-            setSkillCooldown("charge");
+            setSkillCooldown(CHARGE_NAME);
         }
     }
 
@@ -1034,7 +1048,7 @@ public class PlayerSkillComponent extends Component {
      * Damages all enemies around player and knocks them back.
      */
     public void aoeAttack() {
-        if (cooldownFinished("aoe", 5000)) {
+        if (cooldownFinished(AOE_NAME, 5000)) {
             long aoeStart = System.currentTimeMillis();
             this.aoeAnimationEnd = aoeStart + AOE_ANIMATION_LENGTH;
             skillAnimator.getEvents().trigger("aoeAnimation");
@@ -1051,7 +1065,7 @@ public class PlayerSkillComponent extends Component {
             if (projectile.getComponent(AnimationRenderComponent.class) != null) {
                 projectile.getComponent(AnimationRenderComponent.class).stopAnimation();
             }
-            setSkillCooldown("aoe");
+            setSkillCooldown(AOE_NAME);
         }
     }
 }

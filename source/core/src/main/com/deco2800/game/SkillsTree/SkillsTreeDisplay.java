@@ -1,8 +1,6 @@
 package com.deco2800.game.SkillsTree;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,13 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.components.player.*;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -88,7 +84,7 @@ public class SkillsTreeDisplay extends UIComponent {
         skillTreeImage.setPosition(250,0);
         skillbarImage = new Image(new Texture("images/Skills/skillbar.png"));
         skillbarImage.setSize(350,160);
-        skillbarImage.setPosition((float) 280, -45);
+        skillbarImage.setPosition( 280, -45);
 
 
         TextureRegionDrawable exitTextureUp = new TextureRegionDrawable(ServiceLocator.getResourceService()
@@ -377,6 +373,7 @@ public class SkillsTreeDisplay extends UIComponent {
             case 10 -> addSkillTreeButton(844, 344, imageFileName, skillType, disabled);
             case 11 -> addSkillTreeButton(781, 210, imageFileName, skillType, disabled);
             case 12 -> addSkillTreeButton(850, 210, imageFileName, skillType, disabled);
+            default -> addSkillTreeButton(0, 0, imageFileName, skillType, disabled);
         }
     }
 
@@ -436,7 +433,7 @@ public class SkillsTreeDisplay extends UIComponent {
             this.activeTooltip = new Image(new TextureRegionDrawable(ServiceLocator.getResourceService()
                     .getAsset("images/Skill_tree/tooltips/" + imageFilePath + "Tooltip.png", Texture.class)));
             this.activeTooltip.setPosition(xCoord - SKILL_ICON_BUTTON_SIZE/2f , yCoord + SKILL_ICON_BUTTON_SIZE);
-            this.activeTooltip.setSize(SKILL_ICON_BUTTON_SIZE * 3, SKILL_ICON_BUTTON_SIZE * 2);
+            this.activeTooltip.setSize(SKILL_ICON_BUTTON_SIZE * 3f, SKILL_ICON_BUTTON_SIZE * 2f);
             stage.addActor(this.activeTooltip);
         }
 
@@ -488,12 +485,8 @@ public class SkillsTreeDisplay extends UIComponent {
      *          false otherwise
      */
     private boolean isDuplicateSkillEquip(PlayerSkillComponent.SkillTypes skillType) {
-        if (skillType == skill1Type || skillType == skill2Type || skillType == skill3Type) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
+        return (skillType == skill1Type || skillType == skill2Type || skillType == skill3Type);
+    }
 
 }

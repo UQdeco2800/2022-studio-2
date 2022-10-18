@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -16,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Countdown extends UIComponent {
-    //Ability activeAbility = Ability.NONE;
+
     long startTimeSkill0;
     long startTimeSkill1;
     long startTimeSkill2;
@@ -27,9 +25,7 @@ public class Countdown extends UIComponent {
     long skill2CountdownLength;
     long skill3CountdownLength;
 
-    private static final Logger logger = LoggerFactory.getLogger(Countdown.class);
-
-    private int MAX_NUMBER = 20;
+    private static final int MAX_NUMBER = 20;
     private ArrayList<String> addedCountdownListeners = new ArrayList<>();
 
     HashMap<Integer, ArrayList<Image>> numberImages;
@@ -93,7 +89,7 @@ public class Countdown extends UIComponent {
             case 0 -> skill0CountdownLength = cooldownLength;
             case 1 -> skill1CountdownLength = cooldownLength;
             case 2 -> skill2CountdownLength = cooldownLength;
-            case 3 -> skill3CountdownLength = cooldownLength;
+            default -> skill3CountdownLength = cooldownLength;
         }
     }
 
@@ -126,9 +122,7 @@ public class Countdown extends UIComponent {
      */
     @Override
     public void update() {
-        // For now just gives each ability 10 seconds
-        //if (activeAbility == Ability.NONE)
-        //    return;
+
         bar.clearChildren();
         long elapsedTime0 = TimeUtils.timeSinceMillis(startTimeSkill0);
         long elapsedTime1 = TimeUtils.timeSinceMillis(startTimeSkill1);

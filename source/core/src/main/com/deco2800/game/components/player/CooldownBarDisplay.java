@@ -46,6 +46,5 @@ public class CooldownBarDisplay extends UIComponent {
     public void dispose() {
         super.dispose();
         cooldownBar.clear();
-        //cooldownTable.clear();
     }
 }
