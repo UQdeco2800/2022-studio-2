@@ -64,7 +64,8 @@ class InventoryComponentTest {
                         "images/Potions/defence_potion.png",
                         "images/Potions/swiftness_potion.png",
                         "images/Armour-assets-sprint2/Dark_Armour.png",
-                        "images/Armour-assets-sprint2/slowDiamond.png"};
+                        "images/Armour-assets-sprint2/slowDiamond.png",
+                        "images/CombatItems/Sprint-3/craftingTeamAssetsNoWhiteSpace/goldenBowPlunger.png"};
     resourceService.loadTextures(textures);
     String[] textureAtlases = {"images/CombatItems/animations/combatItemsAnimation.atlas"};
     resourceService.loadTextureAtlases(textureAtlases);
@@ -102,10 +103,10 @@ class InventoryComponentTest {
     inventory.setCombatAnimator(combatAnimator);
 
     Entity weapon = WeaponFactory.createHera();
-
+    Entity goldPlungerBow = WeaponFactory.createGoldenPlungerBow();
 
     inventory.registerAnimation(weapon);
-
+    inventory.registerAnimation(goldPlungerBow);
   }
 
   @Test

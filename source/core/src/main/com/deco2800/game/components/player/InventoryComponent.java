@@ -411,7 +411,7 @@ public class InventoryComponent extends Component {
                 applyWeaponEffect(item, true);
                 registerAnimation(item);
                 equipables[0] = item;
-            } else if (itemSlot == 1) {
+            } else {
                 applyArmourEffect(swappedItem, false);
                 //Swap
                 applyArmourEffect(item, true);
@@ -439,7 +439,7 @@ public class InventoryComponent extends Component {
                 applyWeaponEffect(item, unequipped);
                 //CANCEL_ANIMATION
                 cancelAnimation();
-            } else if (item.checkEntityType(EntityTypes.ARMOUR)) {
+            } else {
                 applyArmourEffect(item, unequipped);
             }
             addItem(item);
@@ -573,11 +573,12 @@ public class InventoryComponent extends Component {
         //Does nothing if there is no potion on the selected slot or the quantity < 1
         if (quickBarItems.size() >= inputIndex) {
             quickBarItems.get(--inputIndex).getComponent(PotionEffectComponent.class).applyEffect(entity);
-            if (quickBarQuantity[inputIndex] == 1) {
-                removePotion(inputIndex);
-                sortInventory(inputIndex, quickBarItems, quickBarQuantity);
-            } else if (quickBarQuantity[inputIndex] > 1) {
+            if (quickBarQuantity[inputIndex] >= 1) {
                 --quickBarQuantity[inputIndex];
+                if (quickBarQuantity[inputIndex] == 0) {
+                    removePotion(inputIndex);
+                    sortInventory(inputIndex, quickBarItems, quickBarQuantity);
+                }
             }
         }
     }

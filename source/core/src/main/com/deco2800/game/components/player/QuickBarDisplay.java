@@ -41,6 +41,7 @@ public class QuickBarDisplay extends UIComponent {
     /**
      * Draw the quick bar by default UI behavior
      * @param batch Batch to render to.
+     * //Intentionally blank method
      */
     @Override
     public void draw(SpriteBatch batch) {
