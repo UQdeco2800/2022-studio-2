@@ -1,4 +1,8 @@
-# DECO2800 Studio 2 Game :)
+# DECO2800 Studio 2 Game - Sink Atlantis
+
+## `Sink Atlantis` Introduction
+
+Welcome to Atlantis Sinks! You are playing a balding plumber in an ancient Greek setting, after being pissed off of being the only hard-working plumber unclogging all the toilets you now want to pull the ultimate plug of the island to sink Atlantis. Your goal is to collect weapons, kill enemies who have wronged you, interact with NPC’s to get crafting items, make weapons into stronger weapons through crafting, move to level 2 to fight the final boss and discover the map. Head to the [Player Guide](https://github.com/UQdeco2800/2022-studio-2/wiki/Player-Guide) for information on how to play the game.
 
 ## Description
 
